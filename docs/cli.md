@@ -81,6 +81,8 @@ One long-lived subprocess per active profile communicates through UTF-8 newline-
 | `liveness` | Return `alive: true/false` for observed application liveness; optional `failure: {reason, message, scope}` reports provider, disconnection or quota failure. Control-process failure alone is operational, not proof of an application crash. |
 | `begin_stage` | Receives materialized `stage` and attempt ID before playback; respond with an object. May bracket diagnostics; must not restart the app or perform GUI/computer-use capture during timed playback. |
 
+Report application state independently of controller lifetime. A new controller must not assume capture stopped when its predecessor exited. The runner durably claims cleanup responsibility before sending `start` and when it observes running capture, so later acknowledgement/state/identity failures still receive supported stop and effective-state confirmation. Such claims are cleanup intent, not proof that capture started; the original operational-invalid attempt remains intact.
+
 Asynchronous stdout records may be:
 
 - `{"event":"product_failure","reason":"crash|provider|disconnection|limit","message":"...","scope":"..."}` with one actual reason, not the illustrated pipe-separated alternatives.
@@ -123,9 +125,13 @@ Continuous streams also retain `record: "audio_callback"` and playback metadata 
 
 The manifest carries harness revision/source hashes, rule/price versions, source hashes, profile metadata, actual state/preflight evidence, aliases, CPU/OS, calibration, wall-clock windows and failure/invalid/resume history. Local absolute paths and app diagnostics may be sensitive: inspect/redact before publication. Artifacts default to ignored `.data/`.
 
+Frozen `harness_revision`, `harness_sources` and `harness_implementation` identify the original loaded harness. Revision lookup uses that package's recognized checkout, not the operator's working directory. Non-checkout installations or unavailable Git revision report `unknown`, with package version, loaded-package path and source hashes retained. Each `session_start` records the actually loaded implementation; the manifest's `session_implementations` exposes resumed-process provenance without rewriting the frozen identity or inventing metadata for older sessions.
+
 Ledger states are `pending`, `running`, `done`, `product_failure`, `invalid`. Unsupported language is `done` with outcome `N/A` and reason, not a successful measurement or a sixth state. Work becomes durably running **before playback**. Trace flush/fsync, atomic finalization and checksum precede its terminal ledger update. Each retry receives a new attempt number; terminal history is retained.
 
 Resume finalizes surviving temporary evidence and marks unfinished attempts `invalid(interrupted)`. It preserves completed/product-failed profile outcomes, compares and corrects requested application state, performs the short output check, then replays only unfinished/operational-invalid work from its chunk start. Resumed attempts are marked because application context may differ.
+
+Before replay, resume also reads effective state for previously run-owned profiles whose source work is already terminal. It may stop surviving capture before later-wave startup or final cleanup, but never configures/starts those terminal profiles merely to reconcile them, replays their audio or rewrites their attempts/checksums. Future-wave profiles are not activated early.
 
 | Observation | Treatment |
 |---|---|
@@ -136,10 +142,14 @@ Resume finalizes surviving temporary evidence and marks unfinished attempts `inv
 | Wrong routing/input/settings, adapter-control failure, PC/harness interruption | Operational `invalid`; resumable without deleting earlier attempts |
 | Output-check no-output | Operational invalidity, not a successful translation check |
 
+Adjacent speech intervals share a watchdog baseline: `[0,90]` and `[0,30], [30,60], [60,90]` represent the same continuing speech. Positive-duration silence resets that interval; recent nonempty chatbox output still prevents timeout.
+
 ## Observed verification and limits
 
 The implementation was exercised on Windows with a real WASAPI shared-mode cable-only probe: measured correction **+112.375 ms**, normalized correlation **0.999664**. A separate one-second synthetic PCM16 playback submitted 48,000 frames across 100 callback records. Local evidence is in `.data/issue3/calibration/{cable.json,cable.npz,playback-final.json}`. These observations establish cable transport/callback evidence, not translation or physical DAC precision.
 
-The focused capture suite executed 16 passing behavior tests. The integrated repository run (`.data/check-venv/Scripts/python.exe -m pytest -q`) passed 94 tests and 29 subtests. Installed `bench.exe` run/status and intentional process termination/resume were also exercised with a controlled subprocess adapter and local UDP. Status preserved the interrupted chunk's first attempt as `invalid(interrupted)` and completed attempt 2 with `resumed=1`; earlier completed traces/checksums remained intact. Separate inspected records distinguish provider product failure, quota propagation, unsupported N/A and operational settings invalidity. These synthetic runs use a clock backend, not audio recognition.
+The focused capture and repair suites executed 32 passing behavior tests. The integrated repository run (`.data/check-venv/Scripts/python.exe -m pytest -q`) passed 110 tests and 29 subtests. Installed `bench.exe` run/status and intentional process termination/resume were also exercised with controlled subprocess adapters and local UDP. Status preserved the interrupted chunk's first attempt as `invalid(interrupted)` and completed attempt 2 with `resumed=1`; earlier completed traces/checksums remained intact. Separate inspected records distinguish provider product failure, quota propagation, unsupported N/A and operational settings invalidity. These synthetic runs use a clock backend, not audio recognition.
+
+Repair observations used an independent TCP-controlled synthetic application that outlived its controller: terminal-profile capture was stopped before the next wave, and post-start invalidity still confirmed cleanup. An installed-command run from a foreign checkout and resume through a copied non-checkout package retained frozen original identity while recording actual per-session provenance. Evidence remains under `.data/issue3/repair-r1-r4/`; all traffic was controlled loopback, with no provider or hardware use in these repair checks.
 
 **Actual translator audio-to-OSC pilot: not run.** No dedicated configured translator with demonstrated isolation from personal keyrings and ambient provider credentials was established. The existing personal PuriPuly instance was not changed or attached, and no provider calls were made. Prepared application adapters and a real translation pilot remain explicit downstream integration prerequisites; synthetic UDP traces must not be represented as that observation.

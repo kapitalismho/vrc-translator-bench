@@ -120,6 +120,20 @@ class Ledger:
             self.db.execute("INSERT INTO records(wall,t_ns,kind,detail) VALUES(?,?,?,?)",
                             (utc_now(), time.perf_counter_ns(), kind, json.dumps(detail)))
 
+    def owned_profiles(self):
+        owned = set()
+        for row in self.db.execute("SELECT kind,detail FROM records WHERE kind IN ('capture_ownership','application_state') ORDER BY id"):
+            detail = json.loads(row["detail"])
+            profile = detail.get("profile")
+            if row["kind"] == "capture_ownership":
+                if detail["owned"]:
+                    owned.add(profile)
+                else:
+                    owned.discard(profile)
+            elif detail.get("state", {}).get("running") is True:
+                owned.add(profile)
+        return owned
+
     def work(self, stage):
         return [dict(row) for row in self.db.execute("SELECT * FROM work WHERE stage=? ORDER BY id", (stage,))]
 
@@ -190,6 +204,8 @@ class Ledger:
         report = self.export(plan)
         report.update({"schema_version": 1, "plan": plan, "host": {"cpu": platform.processor(), "os": platform.platform()},
                        "clock": "perf_counter_ns", "updated_wall": utc_now(),
+                       "session_implementations": [json.loads(record["detail"]) for record in report["records"]
+                                                   if record["kind"] == "session_start"],
                        "application_observations": [json.loads(record["detail"]) for record in report["records"]
                                                     if record["kind"] in ("application_state", "profile_metadata")],
                        "wall_windows": [{"start": item["start_wall"], "end": item["end_wall"], "attempt": item["id"]} for item in report["attempts"]],

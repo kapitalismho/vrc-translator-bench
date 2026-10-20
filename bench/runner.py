@@ -8,7 +8,7 @@ from pathlib import Path
 from .adapter import Adapter, OperationalError, ProductError, redact
 from .audio import ClockPlayback, Playback
 from .osc import Sink
-from .plan import verify_audio
+from .plan import implementation_provenance, verify_audio
 from .storage import Journal, Ledger, RunLock, atomic_json, digest, utc_now
 
 
@@ -17,10 +17,15 @@ TERMINAL = {"done", "product_failure"}
 
 def speech_timeout(now_ns, dac_start_ns, offset_ns, intervals, last_output_ns):
     elapsed = (now_ns - dac_start_ns - offset_ns) / 1e9
+    continuous_start = None
+    previous_end = None
     for start, end in intervals:
-        baseline = dac_start_ns + offset_ns + round(start * 1e9)
-        if start <= elapsed <= end and now_ns - max(baseline, last_output_ns or baseline) >= 60_000_000_000:
-            return True
+        if previous_end != start:
+            continuous_start = start
+        previous_end = end
+        if start <= elapsed <= end:
+            baseline = dac_start_ns + offset_ns + round(continuous_start * 1e9)
+            return now_ns - max(baseline, last_output_ns or baseline) >= 60_000_000_000
     return False
 
 
@@ -92,16 +97,50 @@ class Runner:
     def _expected(self, profile, stage):
         return {**self.profiles[profile]["expected_state"], "direction": stage["direction"]}
 
+    def _claim_capture(self, profile, reason):
+        if profile not in self.running_profiles:
+            self.running_profiles.add(profile)
+            self.ledger.record("capture_ownership", {"profile": profile, "owned": True, "reason": reason,
+                                                      "session": self.session, "wave": self.wave})
+
+    def _observe_capture(self, profile, state):
+        if state.get("running") is True:
+            self._claim_capture(profile, "observed_running")
+
+    def _start(self, profile):
+        self._claim_capture(profile, "start_requested")
+        if self._adapter(profile).call("start").get("running") is not True:
+            raise OperationalError(f"{profile} did not confirm capture running")
+
+    def _reconcile_capture(self):
+        owned = sorted(self.ledger.owned_profiles())
+        for profile in owned:
+            if profile not in self.profiles:
+                raise OperationalError(f"Previously owned profile is absent from the frozen plan: {profile}")
+            self._claim_capture(profile, "resume_reconciliation")
+        for profile in owned:
+            state = self._adapter(profile).call("read_state")
+            self.ledger.record("capture_reconciliation", {"profile": profile, "state": redact(state),
+                                                           "session": self.session})
+            if state.get("running") is False:
+                self.running_profiles.discard(profile)
+                self.ledger.record("capture_ownership", {"profile": profile, "owned": False,
+                                                          "reason": "observed_stopped", "session": self.session})
+            elif state.get("running") is not True:
+                raise OperationalError(f"{profile} reconciliation did not report capture running state")
+
     def _state(self, profile, stage, correct=False):
         adapter = self._adapter(profile)
         expected = self._expected(profile, stage)
         state = adapter.call("read_state")
+        self._observe_capture(profile, state)
         differences = {key: value for key, value in expected.items() if state.get(key) != value}
         corrected = bool(differences) and correct
         if differences and correct:
             adapter.call("configure", requested_state=expected)
             adapter.call("set_direction", direction=stage["direction"])
             state = adapter.call("read_state")
+            self._observe_capture(profile, state)
             differences = {key: value for key, value in expected.items() if state.get(key) != value}
         self.ledger.record("application_state", {"profile": profile, "stage": stage["kind"], "state": redact(state),
                                                   "requested": expected, "corrected": corrected})
@@ -127,14 +166,12 @@ class Runner:
             raise OperationalError(f"{profile} preflight not ready: {preflight.get('reason', 'unknown')}")
         state = self._state(profile, stage, correct=True)
         if not state.get("running"):
-            if adapter.call("start").get("running") is not True:
-                raise OperationalError(f"{profile} did not confirm capture running")
+            self._start(profile)
         running = self._state(profile, stage)
         if running.get("running") is not True:
             raise OperationalError(f"{profile} effective capture is not running")
         self._identity(profile)
         self.ready.add(profile)
-        self.running_profiles.add(profile)
         return True, None
 
     def _unsupported(self, profile, direction, reason):
@@ -185,6 +222,8 @@ class Runner:
             raise OperationalError(f"{profile} effective capture is still running")
         self.running_profiles.discard(profile)
         self.ready.discard(profile)
+        self.ledger.record("capture_ownership", {"profile": profile, "owned": False,
+                                                  "reason": "confirmed_stop", "session": self.session})
 
     def _transition(self, stage):
         if self.wave == stage["wave"]:
@@ -275,9 +314,8 @@ class Runner:
             self._begin(work, stage)
             try:
                 if profile in self.crashed:
-                    self._adapter(profile).call("stop")
-                    if self._adapter(profile).call("start").get("running") is not True:
-                        raise OperationalError("Restart did not confirm running capture")
+                    self._stop(profile)
+                    self._start(profile)
                     if self._state(profile, stage, correct=True).get("running") is not True:
                         raise OperationalError("Restart effective capture is not running")
                     self._identity(profile)
@@ -412,8 +450,11 @@ class Runner:
                 if self.resume:
                     self.ledger.recover()
                 self.ledger.record("session_start", {"session": self.session, "resumed": self.resume,
-                                                      "synthetic": self.synthetic, "wall": utc_now()})
+                                                      "synthetic": self.synthetic, "wall": utc_now(),
+                                                      "implementation": implementation_provenance()})
                 self.sink = Sink(self.root, self.plan["run_id"], self.session, self.plan["profiles"])
+                if self.resume:
+                    self._reconcile_capture()
                 for index, stage in enumerate(self.plan["stages"]):
                     if stage["kind"] in ("resume_setup", "resume_check"):
                         continue
@@ -432,12 +473,15 @@ class Runner:
                     self._finish(profile, "invalid", "interrupted" if isinstance(error, KeyboardInterrupt) else str(error))
                 raise
             finally:
-                for profile, adapter in self.adapters.items():
+                for profile in sorted(set(self.adapters) | self.running_profiles):
                     try:
                         if profile in self.running_profiles:
                             self._stop(profile)
                     except (OperationalError, ProductError, OSError, ValueError) as error:
                         self.ledger.record("cleanup_failure", {"profile": profile, "error": str(error)})
+                    adapter = self.adapters.get(profile)
+                    if adapter is None:
+                        continue
                     try:
                         path, checksum = adapter.close()
                         self.ledger.record("diagnostic_artifact", {"profile": profile, "path": path, "sha256": checksum})

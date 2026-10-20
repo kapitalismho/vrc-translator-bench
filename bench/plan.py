@@ -4,14 +4,45 @@ import copy
 import json
 import re
 import subprocess
+import tomllib
 from pathlib import Path
 
+from . import __version__
 from .adapter import redact
 from .audio import wave_info
 from .storage import digest
 
 
 IDENTIFIER = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.-]{0,79}$")
+
+
+def implementation_provenance():
+    package = Path(__file__).resolve().parent
+    root = package.parent
+    identity = {"kind": "package", "revision": "unknown", "revision_reason": "not_a_harness_checkout",
+                "package_version": __version__, "package_path": str(package),
+                "sources": {source.name: digest(source) for source in sorted(package.glob("*.py"))}}
+    project = root / "pyproject.toml"
+    if not (root / ".git").exists() or not project.is_file():
+        return identity
+    try:
+        project_name = tomllib.loads(project.read_text(encoding="utf-8")).get("project", {}).get("name")
+    except (OSError, ValueError):
+        identity["revision_reason"] = "unreadable_project_identity"
+        return identity
+    if project_name != "vrc-translator-bench":
+        return identity
+    identity["kind"] = "checkout"
+    try:
+        revision = subprocess.run(["git", "rev-parse", "HEAD"], cwd=root, capture_output=True, text=True, check=False)
+    except OSError:
+        identity["revision_reason"] = "git_unavailable"
+        return identity
+    if revision.returncode == 0 and re.fullmatch(r"[0-9a-f]{40}|[0-9a-f]{64}", revision.stdout.strip()):
+        identity.update(revision=revision.stdout.strip(), revision_reason="loaded_harness_checkout")
+    else:
+        identity["revision_reason"] = "git_revision_unavailable"
+    return identity
 
 
 def load_plan(path, run_id):
@@ -116,10 +147,10 @@ def load_plan(path, run_id):
         plan["calibration"] = {"status": "absent", "offset_ns": None, "reason": "not_measured"}
     if not synthetic and plan["calibration"]["status"] != "measured":
         raise ValueError("Real runs require bench calibrate; an absent offset is not zero")
-    revision = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True, check=False)
+    implementation = implementation_provenance()
     plan.update({"run_id": run_id, "schema_version": 1, "stages": expanded,
-                 "harness_revision": revision.stdout.strip() if revision.returncode == 0 else "unknown",
-                 "harness_sources": {source.name: digest(source) for source in sorted(Path(__file__).parent.glob("*.py"))},
+                 "harness_revision": implementation["revision"], "harness_sources": implementation["sources"],
+                 "harness_implementation": implementation,
                  "input_plan_sha256": digest(path), "input_plan": str(path)})
     return plan
 
