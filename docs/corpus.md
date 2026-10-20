@@ -38,7 +38,7 @@ Recorded components are downmixed/resampled and receive constant gain with a pea
 
 Observed checks: the actual build completed; FFprobe reported 48 kHz mono PCM16 and 180 seconds; two focused tests passed. Direct emitted-sample inspection confirmed the first minute is digital silence. Background RMS was −30.404 dBFS because of the peak ceiling. An initial probe incorrectly expected exactly −30 dBFS; the observed result exposed that probe assumption, not clipping or missing audio. FFmpeg emitted inferred mono-channel-layout warnings while decoding source WAVs.
 
-No human listening was performed. Before freezing this track, listen to a small keyboard/nonverbal sample to exclude incidental speech and to the background interval to confirm the intended presentation. Creator descriptions and transcript inspection are not a substitute for that observation.
+No human listening was performed. Under the owner-delegated practical method below, actual excerpt payloads, digital gaps, original creator descriptions and AMI human transcripts were inspected. These support the intended construction, but do not independently certify absence of incidental speech or perceived background presentation.
 
 ## Chinese D3/D5 preparation
 
@@ -111,18 +111,32 @@ All Japanese speech text, captions, full references and audio remain local. `cor
 
 ```powershell
 py -3.12 -m venv .data/japanese/venv
-.data/japanese/venv/Scripts/python.exe -m pip install --cache-dir .data/japanese/pip-cache numpy==2.5.4 soundfile==0.14.0 sherpa-onnx==1.13.8 transformers==5.20.2 fugashi==1.5.2 unidic-lite==1.0.8
+.data/japanese/venv/Scripts/python.exe -m pip install --cache-dir .data/japanese/pip-cache numpy==2.5.4 soundfile==0.14.0 sherpa-onnx==1.13.8 transformers==5.20.2 fugashi==1.5.2 unidic-lite==1.0.8 pyopenjtalk-plus==0.4.1.post9 SudachiPy==0.7.0 SudachiDict-core==20261015
 .data/japanese/venv/Scripts/python.exe -m pip install --cache-dir .data/japanese/pip-cache torch==2.14.1+cpu --index-url https://download.pytorch.org/whl/cpu
 .data/japanese/venv/Scripts/python.exe tools/prepare_japanese.py acquire --with-alignment
 .data/japanese/venv/Scripts/python.exe tools/prepare_japanese.py extract Yr7rGfescvQ YvBXxjwqeTy YIIDry4AVKA
 .data/japanese/venv/Scripts/python.exe tools/prepare_japanese.py select
 .data/japanese/venv/Scripts/python.exe tools/prepare_japanese.py render
 .data/japanese/venv/Scripts/python.exe tools/prepare_japanese.py reference --threads 2
+.data/japanese/venv/Scripts/python.exe -B -X utf8 tools/prepare_japanese.py complete-alignment --aligner-python .data/chinese/venv/Scripts/python.exe --model-dir .data/chinese/models/models--Qwen--Qwen3-ForcedAligner-0.6B/snapshots/c7cbfc2048c462b0d63a45797104fc9db3ad62b7 --pronunciation-python .data/japanese/venv/Scripts/python.exe --threads 2
 .data/japanese/venv/Scripts/python.exe tools/prepare_japanese.py playback-references
 .data/japanese/venv/Scripts/python.exe tools/prepare_japanese.py heldout
 .data/japanese/venv/Scripts/python.exe tools/prepare_japanese.py check
 .data/japanese/venv/Scripts/python.exe tools/prepare_japanese.py export-metadata
 ```
+
+The exercised covering-alignment stage reuses the earlier Chinese Qwen environment/weights read-only with `-B`; all new Japanese predictions/caches stay in `.data/japanese`. Qwen uses Transformers 4.57.6, so do not install it over the Japanese Transformers 5.20.2 environment. For standalone Japanese preparation, the following separately supplied-path recipe is documented but has **not** been exercised as a second clean install:
+
+```powershell
+py -3.12 -m venv .data/japanese/aligner-venv
+.data/japanese/aligner-venv/Scripts/python.exe -m pip install --cache-dir .data/japanese/pip-cache torch==2.14.1+cpu --index-url https://download.pytorch.org/whl/cpu
+.data/japanese/aligner-venv/Scripts/python.exe -m pip install --cache-dir .data/japanese/pip-cache qwen-asr==0.0.6 transformers==4.57.6 accelerate==1.12.0 huggingface-hub==0.36.2 qwen-omni-utils==0.0.9 numpy==2.5.4 soundfile==0.14.0
+$env:HF_HOME = "$PWD/.data/japanese/hf-download-cache"; $env:HF_HUB_DISABLE_IMPLICIT_TOKEN = "1"; $env:HF_HUB_DISABLE_TELEMETRY = "1"
+.data/japanese/aligner-venv/Scripts/hf.exe download Qwen/Qwen3-ForcedAligner-0.6B model.safetensors config.json preprocessor_config.json tokenizer_config.json vocab.json merges.txt chat_template.json generation_config.json README.md --revision c7cbfc2048c462b0d63a45797104fc9db3ad62b7 --cache-dir .data/japanese/hf-download-cache --local-dir .data/japanese/models/covering-alignment
+.data/japanese/venv/Scripts/python.exe -B -X utf8 tools/prepare_japanese.py complete-alignment --aligner-python .data/japanese/aligner-venv/Scripts/python.exe --model-dir .data/japanese/models/covering-alignment --pronunciation-python .data/japanese/venv/Scripts/python.exe --threads 2
+```
+
+Then run `playback-references`, `heldout`, `check`, and `export-metadata` as above. Covering Qwen weights add 1.836 GB. Dictionary frontend packages and bundled dictionary file hashes are pinned; external dictionary overrides or unreproduced cached readings fail explicitly. The observed optional-ONNX/Nani warning remains recorded. Effective Nani-disabled behavior is explicit, not a claim of contextually correct names/readings.
 
 The pinned YODAS2 revision is `c9674490249665d658f527e2684848377108d82c`. Acquisition downloads one 1.406 GB Japanese shard, not the entire configuration. Reazon ASR weights/tokens total about 169 MB, but the acoustic aligner additionally needs a 1.272 GB Wav2Vec2 checkpoint and the speaker models have separate payloads. This is not a 169 MB total pipeline. The exercised Python was 3.12.10; FFmpeg was 8.0.1. Public dependency installation initially used the shared pip cache; it was left untouched. Corpus and model payloads are under `.data/japanese`.
 
@@ -134,10 +148,20 @@ Japanese audio keeps mixed speakers and source pauses; no long-gap compression o
 
 ReazonSpeech k2 v2 generates the actual CPU reference in contiguous 6–8-second inference windows with inference-only padding. It differs from the explicitly named evaluated ASRs; PP4's later CPU-auto choice must still be checked before freezing independence. Fugashi/UniDic defines lexical words. An independent Japanese Wav2Vec2 model performs constrained CTC acoustic-frame alignment; RNNT token timestamp points are not treated as word intervals. Punctuation is insertion-only at estimated acoustic/speaker/window boundaries and does not establish verified Japanese syntax.
 
-**The main reference has 3,166 recognized words, of which 3,133 have acoustic word intervals and 33 remain explicitly untimed because their glyphs are outside the aligner's vocabulary.** Consumers must preserve those words and their uncertainty, not invent times or count them as verified timed reference. The development reference has 427 aligned words. Full local timelines use playback-relative seconds; word IDs are chunk-local, so join with `chunk_id`. Automatic sentence-like units and estimated turns are not human annotations.
+**All 3,166 main words and 427 development words have finite acoustic timing estimates.** The main has 656 automatic sentence-like units; development has 125. The 33 formerly untimed main words were covered without changing Reazon text or previously supported intervals: 29 by raw dedicated Qwen forced alignment and four by genuine CTC alignment of dictionary pronunciations. Upstream timestamp interpolation is disabled. The four pronunciation paths have very low uncalibrated acoustic word scores (about `1.24e-5` to `5.36e-4`); name readings and overlapping/coincident raw estimates remain uncertain. Numeric completeness is not timing accuracy. Full local timelines use playback-relative seconds; join word IDs with `chunk_id`.
 
 Speaker estimates use pyannote segmentation and 3D-Speaker ERes2Net with unknown cluster count. Over-fragmentation is substantial: 44 anonymous clusters in the 710-second held-out reserve do not mean 44 people. Raw estimated overlap, fast changes, word gaps, short turns and filler counts are exploratory proxies, not confirmed Japanese pre-predicate pauses or semantic stress labels.
 
-Actual checks validated emitted formats, durations, hashes, zero separators, split disjointness, sample-exact concatenation, source/playback mappings and insertion-only lexical preservation. Fourteen Japanese unit tests passed. The interim 1,816-second bundle failed the newly unified elapsed-budget check; the final 1,800-second bundle passed after word-safe crop/remapping, without rerunning unchanged inference.
+Actual checks validated emitted formats, durations, hashes, zero separators, split disjointness, sample-exact concatenation, source/playback mappings and insertion-only lexical preservation. After independent review, isolated selection was corrected to reject either leading or trailing word intersections. All 20 final isolated clips preserve all 207 intersecting reserve words with zero boundary crossings; short/long/internally-paused coverage remains. The final timing inventory covers 42 artifacts with zero missing word or sentence bounds, and raw-model/source-hash audits preserve the acoustic basis of repaired times. Forty Japanese unit tests passed; the integrated suite passed 78 tests and 29 subtests. The earlier 1,816-second budget failure, rejected raw alignments and failed boundary cases remain in local evidence rather than being erased.
 
-No human listening or content validation was performed. Thirty minutes of suitable mixed conversation is therefore not human-confirmed, and complete word timing is not established. Japanese remains automatic/exploratory and `NOT_RELEASE_CLEARED_LOCAL_ONLY`; it cannot establish overall superiority or be redistributed on the strength of local acceptance.
+No human listening or independent transcription validation was performed. The owner-delegated source-assisted assessment below supports provisional conversational/discussion inputs while retaining concrete ASR/caption disagreements and perceptual unknowns. Japanese remains automatic/exploratory and `NOT_RELEASE_CLEARED_LOCAL_ONLY`; it cannot establish overall superiority or be redistributed on the strength of local acceptance.
+
+## Owner-delegated practical assessment
+
+After receiving ten actual WAV excerpts and timed references, the owner stated that they could not judge by listening and delegated appropriate assessment to the assistant. The [recorded method decision](https://github.com/kapitalismho/vrc-translator-bench/issues/2#issuecomment-6283330068) uses a small original-source-content, recognized-output and waveform/timeline inspection, **not human listening**. It does not waive complete timing or intact isolated utterances.
+
+`corpus/practical-assessment.json` records the 145-second sample scope, source identities, hashes, positive evidence and counterevidence. Every excerpt matched its actual parent PCM crop. Original AMI XML and AliMeeting near/far human annotations establish the sampled meeting exchanges and filler/backchannel content. Japanese supplementary captions and actual ASR outputs support instructional/discussion topics, questions, responses and handoffs, while also revealing lexical/homophone disagreements and missed short reactions. Captions were not substituted for ASR text.
+
+The Chinese backchannel sample is quiet, with measured response-window energy above adjacent gaps; later playback-chain audibility remains unobserved. Nonspeech source descriptions and signal placement support the construction, not an auditory guarantee that incidental speech is absent. No source-type label, successful alignment, waveform identity or fragmented speaker clustering proves perceptual intelligibility, no music/TTS, or error-free reference content.
+
+The Director accepts this bounded practical method for local preparation under the owner's delegation and retains those limitations. Timing/word-boundary defects are repaired and independently verified separately. Main-run readiness, public release rights and human reference accuracy are not inferred from this assessment.

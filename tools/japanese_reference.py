@@ -81,7 +81,8 @@ def punctuate(words: list[dict]) -> list[dict]:
         following = words[index + 1] if index + 1 < len(words) else None
         gap = following["start"] - word["end"] if following and following["start"] is not None and word["end"] is not None else 0
         if following is None or gap >= 0.6 or following["speaker"] != word["speaker"] or following["block"] != word["block"]:
-            sentences.append({"text": "".join(item["text"] for item in current) + "。", "start": current[0]["start"], "end": current[-1]["end"], "speaker": current[0]["speaker"], "punctuation": "automatic_acoustic_heuristic_not_syntax_verified", "word_ids": [item["id"] for item in current]})
+            timed = all(item["start"] is not None and item["end"] is not None for item in current)
+            sentences.append({"text": "".join(item["text"] for item in current) + "。", "start": min(item["start"] for item in current) if timed else None, "end": max(item["end"] for item in current) if timed else None, "speaker": current[0]["speaker"], "punctuation": "automatic_acoustic_heuristic_not_syntax_verified", "word_ids": [item["id"] for item in current]})
             current = []
     return sentences
 
@@ -238,7 +239,7 @@ class ReferenceEngine:
             "audio_duration_seconds": len(audio) / 16000,
             "asr_decoding": "modified_beam_search, max_active_paths=4",
             "models": {"asr": "reazon-research/reazonspeech-k2-v2", "alignment": "jonatasgrosman/wav2vec2-large-xlsr-53-japanese", "speakers": "pyannote-segmentation-3.0 int8 + 3D-Speaker ERes2Net embeddings, threshold=0.75, min_on=0.3s/min_off=0.5s, unknown cluster count", "word_segmentation": "fugashi + unidic-lite"},
-            "timing_method": "CTC constrained Viterbi path over independent Japanese Wav2Vec2 acoustic frames; lexical word spans are min/max aligned character occupancy. 20ms stride and convolution receptive-field centers; blanks excluded at word edges. OOV character targets use max-nonblank acoustic wildcard scores to preserve surrounding constraints; words containing OOV characters keep null times. Remaining supported words retain alignment uncertainty; no token-point interpolation.",
+            "timing_method": "Initial CTC constrained Viterbi path over independent Japanese Wav2Vec2 acoustic frames; lexical word spans are min/max aligned character occupancy. 20ms stride and convolution receptive-field centers; blanks excluded at word edges. OOV character targets use max-nonblank acoustic wildcard scores to preserve surrounding constraints; CTC-OOV words have no initial surface interval and require complete-alignment before final artifact checks/export. Supported words retain automatic alignment uncertainty; no token-point interpolation.",
             "asr_windowing": "6-8s contiguous windows, boundary at lowest 100ms RMS in last 2s, no source samples dropped; official Reazon 0.9s leading/trailing inference padding. Subtract 0.9s from diagnostic token points, which may still lie outside actual audio and are not word times. Window-edge recognition errors remain possible.",
             "speaker_label_scope": "Within this chunk only; labels do not establish cross-chunk identity. Dominant overlapping estimated turn assigned to each aligned word; multiple overlapping speakers marked ambiguous.",
             "punctuation_method": "Only insert 。 at acoustic gap >=600ms, estimated speaker change, ASR block end or final word. Recognized lexical content is never rewritten. These are exploratory acoustic sentence-like units, not verified linguistic sentence boundaries.",

@@ -367,7 +367,7 @@
     "ja": {
       "manifest": {
         "path": "corpus/japanese/local-preparation.json",
-        "sha256": "ce0957dcec155ed28f782df92fe318d9ef040605e9fb3c4a39808cf80e0af9e8"
+        "sha256": "c9788801bab2fa2d9cd7992607efb54b29d14cc962fcb377d3d5f7e4a8445f6e"
       },
       "main": {
         "path": ".data\\japanese\\playback\\ja-main.wav",
@@ -384,39 +384,39 @@
       "isolated": [
         {
           "path": ".data\\japanese\\heldout\\ja-isolated-01.wav",
+          "sha256": "15396842893206e28d7aa2cc80c6cbfa2b81d3298e2f038d9c50666a2fe11d8d",
+          "frames": 305760,
+          "duration_seconds": 6.37
+        },
+        {
+          "path": ".data\\japanese\\heldout\\ja-isolated-02.wav",
+          "sha256": "6f65f7370f1093523dfa98a203bd72fa2c434005f2972b0551843e7fcd7a3ee1",
+          "frames": 487200,
+          "duration_seconds": 10.15
+        },
+        {
+          "path": ".data\\japanese\\heldout\\ja-isolated-03.wav",
           "sha256": "880883aff9a35f0b92acd72f63b8144e5bf06ed4eca77bd8778bcd38a745cd0d",
           "frames": 106500,
           "duration_seconds": 2.21875
         },
         {
-          "path": ".data\\japanese\\heldout\\ja-isolated-02.wav",
-          "sha256": "51ac975683a2994123340c4793e359d8b3d8e12ee5e38d0cfd0093c76af2c0ab",
-          "frames": 134040,
-          "duration_seconds": 2.7925
-        },
-        {
-          "path": ".data\\japanese\\heldout\\ja-isolated-03.wav",
-          "sha256": "7d89a7656bfc896fde5edbc663fb5cfdfaec8adecb04b749e3cf025cf7af467e",
-          "frames": 171300,
-          "duration_seconds": 3.56875
-        },
-        {
           "path": ".data\\japanese\\heldout\\ja-isolated-04.wav",
-          "sha256": "a6bbc0b7acf07853e0d4322a05abfc17f69341d5f33776029b9143d8b41b667b",
-          "frames": 375420,
-          "duration_seconds": 7.82125
+          "sha256": "76633070ff55799793db707812e98682c3557b6cd3a95023b72d1618e4c45316",
+          "frames": 355170,
+          "duration_seconds": 7.399375
         },
         {
           "path": ".data\\japanese\\heldout\\ja-isolated-05.wav",
-          "sha256": "d763e2909aaa113765feda4fa55f3953b24217bd57db5c3889757fe6449d23b5",
-          "frames": 104070,
-          "duration_seconds": 2.168125
+          "sha256": "70a2f474babfdeb67a1b17817c4aee595c4a81f03c3fdc5f2ae083eb69ec911e",
+          "frames": 374610,
+          "duration_seconds": 7.804375
         },
         {
           "path": ".data\\japanese\\heldout\\ja-isolated-06.wav",
-          "sha256": "8c632f5f866ec7abba8cd76cae61fb0e8a061e63bb6b1e34cf4f34e8e9f46ef2",
-          "frames": 571440,
-          "duration_seconds": 11.905
+          "sha256": "a6bbc0b7acf07853e0d4322a05abfc17f69341d5f33776029b9143d8b41b667b",
+          "frames": 375420,
+          "duration_seconds": 7.82125
         },
         {
           "path": ".data\\japanese\\heldout\\ja-isolated-07.wav",
@@ -426,88 +426,97 @@
         },
         {
           "path": ".data\\japanese\\heldout\\ja-isolated-08.wav",
-          "sha256": "7ab73437fa846dc9cb928b8a57dfebe69e3f02e9b385b1df75d0305c676d0e23",
-          "frames": 722100,
-          "duration_seconds": 15.04375
+          "sha256": "ec7700deb08fc0200fdab6d5c58217433982054305e60858df50bf85f7188c9e",
+          "frames": 43320,
+          "duration_seconds": 0.9025
         },
         {
           "path": ".data\\japanese\\heldout\\ja-isolated-09.wav",
-          "sha256": "76633070ff55799793db707812e98682c3557b6cd3a95023b72d1618e4c45316",
-          "frames": 355170,
-          "duration_seconds": 7.399375
-        },
-        {
-          "path": ".data\\japanese\\heldout\\ja-isolated-10.wav",
-          "sha256": "15396842893206e28d7aa2cc80c6cbfa2b81d3298e2f038d9c50666a2fe11d8d",
-          "frames": 305760,
-          "duration_seconds": 6.37
-        },
-        {
-          "path": ".data\\japanese\\heldout\\ja-isolated-11.wav",
-          "sha256": "9a323b36161f6a826d4c8bfa67007a126019da10fa23bc401588fc43e610b815",
-          "frames": 34410,
-          "duration_seconds": 0.716875
-        },
-        {
-          "path": ".data\\japanese\\heldout\\ja-isolated-12.wav",
           "sha256": "ef860dac737671462df0bff34d02c580e2c120ccf3aa7b2c2fbd4df94a3c426a",
           "frames": 71670,
           "duration_seconds": 1.493125
         },
         {
+          "path": ".data\\japanese\\heldout\\ja-isolated-10.wav",
+          "sha256": "eb7caed1286ae85aaf0459099fccb553bb008ec4cca147f11578caae84f17b6f",
+          "frames": 67620,
+          "duration_seconds": 1.40875
+        },
+        {
+          "path": ".data\\japanese\\heldout\\ja-isolated-11.wav",
+          "sha256": "cd9c2db14f6f0b59c556fbcbc6fc5326c8dc1c43cc9e89bd8eb3614e3adc7029",
+          "frames": 34410,
+          "duration_seconds": 0.716875
+        },
+        {
+          "path": ".data\\japanese\\heldout\\ja-isolated-12.wav",
+          "sha256": "3117110091d4fdad024e0c1be1b376f8a7d8712ce41c4e5c0541654f595e136c",
+          "frames": 129991,
+          "duration_seconds": 2.7081458333333335
+        },
+        {
           "path": ".data\\japanese\\heldout\\ja-isolated-13.wav",
-          "sha256": "d009f2c3ab048140f0d131fe390c53fc4485ad3a402d559b61a67e3962bf309a",
-          "frames": 143760,
-          "duration_seconds": 2.995
+          "sha256": "9a323b36161f6a826d4c8bfa67007a126019da10fa23bc401588fc43e610b815",
+          "frames": 34410,
+          "duration_seconds": 0.716875
         },
         {
           "path": ".data\\japanese\\heldout\\ja-isolated-14.wav",
-          "sha256": "2c9384d05af12008d72afaa38ba20f420dc412ac60b0c09295427c09645bb7d8",
-          "frames": 76530,
-          "duration_seconds": 1.594375
-        },
-        {
-          "path": ".data\\japanese\\heldout\\ja-isolated-15.wav",
-          "sha256": "d86dec586fa0aba5caedf403a2f68e38431a3dacccc9402b88923b98f45a8f7a",
-          "frames": 42510,
-          "duration_seconds": 0.885625
-        },
-        {
-          "path": ".data\\japanese\\heldout\\ja-isolated-16.wav",
-          "sha256": "45739b23809311e487f202c6a8e69ee676f4a473dbf182a3eede55e1a650480e",
-          "frames": 34409,
-          "duration_seconds": 0.7168541666666667
-        },
-        {
-          "path": ".data\\japanese\\heldout\\ja-isolated-17.wav",
           "sha256": "b26846348fb24c19c4d4b452733379e4f8459885bd5fdc53e5f1d895b5725c48",
           "frames": 159960,
           "duration_seconds": 3.3325
         },
         {
+          "path": ".data\\japanese\\heldout\\ja-isolated-15.wav",
+          "sha256": "d763e2909aaa113765feda4fa55f3953b24217bd57db5c3889757fe6449d23b5",
+          "frames": 104070,
+          "duration_seconds": 2.168125
+        },
+        {
+          "path": ".data\\japanese\\heldout\\ja-isolated-16.wav",
+          "sha256": "883d28c267a1f9a0ce2977af70cf29e0ee45e94fc044b872fa6211a8afecd77c",
+          "frames": 221520,
+          "duration_seconds": 4.615
+        },
+        {
+          "path": ".data\\japanese\\heldout\\ja-isolated-17.wav",
+          "sha256": "ac884c1eee7eefd84bdb79783b6247f332b178395c7e3fb3089fd844ebbc2fe5",
+          "frames": 128368,
+          "duration_seconds": 2.6743333333333332
+        },
+        {
           "path": ".data\\japanese\\heldout\\ja-isolated-18.wav",
-          "sha256": "0dda655f0c70156c35a6ab2660bf3ff28b3a65433fd48696130726c8a4cdec65",
-          "frames": 188310,
-          "duration_seconds": 3.923125
+          "sha256": "c691f9b8c2fde2de70ef76c76f6127b958b42e3c1d75c9658e6d2d7a838aea3b",
+          "frames": 128371,
+          "duration_seconds": 2.6743958333333335
         },
         {
           "path": ".data\\japanese\\heldout\\ja-isolated-19.wav",
-          "sha256": "df3e20019bec896244f4951ab3954c58c2ce5b9e04c9fa68d3cce39b0eb9c452",
-          "frames": 279029,
-          "duration_seconds": 5.813104166666666
+          "sha256": "8c1f3c976791a67728678deb5826e865fa7f63252dc7e48cb352c47730541eca",
+          "frames": 57900,
+          "duration_seconds": 1.20625
         },
         {
           "path": ".data\\japanese\\heldout\\ja-isolated-20.wav",
-          "sha256": "4fb4033bd6555d57274dce2f9a5c6fbbb422d9dc143933cbb8e397238030ada6",
-          "frames": 197219,
-          "duration_seconds": 4.1087291666666665
+          "sha256": "c0eb63ad7cd2f1cf4750286c8aa40f97255a34af8d4c893efa49f0d758570932",
+          "frames": 91920,
+          "duration_seconds": 1.915
         }
       ],
-      "reference_level": "Automatic and exploratory; estimated speaker identities and acoustic word timing; unresolved alignment/eligibility remains explicit in local references",
-      "timeline_units": "Seconds relative to containing playback bundle; join word IDs with chunk_id; unaligned words may have null times",
+      "reference_level": "Automatic and exploratory; estimated speakers and genuine acoustic word intervals with uncalibrated/low-score and dictionary-reading uncertainty",
+      "timeline_units": "Seconds relative to containing playback bundle; join word IDs with chunk_id; preparation rejects missing word or sentence bounds",
       "main_timeline": {
         "path": ".data\\japanese\\playback\\ja-main-reference.json",
-        "sha256": "793208de71bcde905ddc6ff4d43b29a0fef857b55c338787271fc8756b5bf2b8"
+        "sha256": "672afdf52eeff6407db0859ca81102a63fe295c1524e1435301905f828453548"
+      },
+      "timing_completion": {
+        "local_record_path": ".data\\japanese\\alignment-repair\\completion.json",
+        "record_sha256": "3882e1ee229fdc9f471f61313541c5b8ba7c4450ff4a61d1e84fb46ab28c42e9",
+        "missing_word_bounds": 0,
+        "missing_sentence_bounds": 0,
+        "reference_asr_unchanged": true,
+        "timestamp_interpolation": false,
+        "raw_attempts_local_directory": ".data/japanese/alignment-repair"
       },
       "category_seconds_including_separators": {
         "general": 1200,

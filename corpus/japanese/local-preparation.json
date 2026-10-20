@@ -189,7 +189,7 @@
       "producer_source_start": 67.75,
       "producer_source_end": 247.75,
       "source_reference_path": ".data\\japanese\\source-references\\ja-general-01.json",
-      "source_reference_sha256": "05b94bd29cdf5e3e7afe84c2a43b8fa94d9ce59d829f550650f5e6ec92d5397d",
+      "source_reference_sha256": "28dd10f8639d7273c382c685b86033ff1503c3d26957b506b3a0615257039a8b",
       "budget_trim": {
         "side": "right",
         "trim_samples": 522,
@@ -254,7 +254,7 @@
       "producer_source_start": 250.0,
       "producer_source_end": 430.0,
       "source_reference_path": ".data\\japanese\\source-references\\ja-general-02.json",
-      "source_reference_sha256": "87f1bebc642c623a45f8b8b51342ce0fc7a380836037fee7399eca96844252a8",
+      "source_reference_sha256": "1c08fa98a67b32f02d7219b4ea4a7d54640008565b6f37a2ff71e5369bcdfe08",
       "budget_trim": {
         "side": "left",
         "trim_samples": 79905,
@@ -304,7 +304,7 @@
       "producer_source_start": 25.0,
       "producer_source_end": 265.0,
       "source_reference_path": ".data\\japanese\\source-references\\ja-general-03.json",
-      "source_reference_sha256": "f7c789283e329027b57b8116ebc8d8f121d62063699a83055d635b422a3ce155",
+      "source_reference_sha256": "3d11d73856ac81f5318f4f2aef0eaeb8f4441ca47559a015360d3da2c443359b",
       "budget_trim": {
         "side": "none",
         "trim_samples": 0,
@@ -369,7 +369,7 @@
       "producer_source_start": 285.0,
       "producer_source_end": 525.0,
       "source_reference_path": ".data\\japanese\\source-references\\ja-general-04.json",
-      "source_reference_sha256": "3188a475ce21ed1afb86979ca0a9025212c97899d6d5c96cabef8918a0e98b0e",
+      "source_reference_sha256": "eb354bdbd8c20c944378c5d3e26adb77516c40cf96f2f48eb226bfff550464e7",
       "budget_trim": {
         "side": "right",
         "trim_samples": 190773,
@@ -434,7 +434,7 @@
       "producer_source_start": 450.0,
       "producer_source_end": 630.0,
       "source_reference_path": ".data\\japanese\\source-references\\ja-general-05.json",
-      "source_reference_sha256": "cc6dfe1f3d4d84af89e96daba64dada2e9dd442fcbaded974f0bfa059db712e1",
+      "source_reference_sha256": "390e2ee077fa96b2b09b0b83ccd81396d9117723be714606087dc655183a935f",
       "budget_trim": {
         "side": "left",
         "trim_samples": 525,
@@ -499,7 +499,7 @@
       "producer_source_start": 650.0,
       "producer_source_end": 830.0,
       "source_reference_path": ".data\\japanese\\source-references\\ja-general-06.json",
-      "source_reference_sha256": "d17a14b4feb24c9da8c6d9307d5bd3a234cb96a82b814ba05543ffd5c4fc6632",
+      "source_reference_sha256": "4a51111306a67732d48043e7f34dc14ac9697bab235fee3dc210db1984e74358",
       "budget_trim": {
         "side": "left",
         "trim_samples": 304275,
@@ -565,7 +565,7 @@
       "producer_source_start": 0.0,
       "producer_source_end": 200.0,
       "source_reference_path": ".data\\japanese\\source-references\\ja-stress-01.json",
-      "source_reference_sha256": "28cba0e0a4d64416d119ecdf49519d48c1e929f3393640c86c279bdd421383e0",
+      "source_reference_sha256": "9dfbcc0dbc02e4c5c7354ffd19d056024f8fe0ebb371ac9ac62e0f18991107d3",
       "budget_trim": {
         "side": "left",
         "trim_samples": 56415,
@@ -631,7 +631,7 @@
       "producer_source_start": 220.0,
       "producer_source_end": 420.0,
       "source_reference_path": ".data\\japanese\\source-references\\ja-stress-02.json",
-      "source_reference_sha256": "8f33bb8ed0fb4d6bb3eedfda3ccf09d1460fb73a911a8b8acefb1a10521b56e1",
+      "source_reference_sha256": "1ab2602ed77fe58fd46d6283010578d3639cf1931cf31a993f7624b22ee077f4",
       "budget_trim": {
         "side": "right",
         "trim_samples": 21464,
@@ -697,7 +697,7 @@
       "producer_source_start": 440.0,
       "producer_source_end": 640.0,
       "source_reference_path": ".data\\japanese\\source-references\\ja-stress-03.json",
-      "source_reference_sha256": "2ae732b8dde651f3edd44d860e32bd7206158bfb0d35baa39045dd9d5f10fba1",
+      "source_reference_sha256": "aa69862665b64a59347257dc0ee7e7bf9ce91cd70374cffb7bb394da0e4cb521",
       "budget_trim": {
         "side": "right",
         "trim_samples": 114121,
@@ -914,6 +914,53 @@
       "revision": "cf031e020336460d15a417eba710bbc5bb43be9a",
       "license": "Apache-2.0"
     },
+    "covering_alignment": {
+      "id": "Qwen/Qwen3-ForcedAligner-0.6B",
+      "revision": "c7cbfc2048c462b0d63a45797104fc9db3ad62b7",
+      "license": "Apache-2.0",
+      "purpose": "Dedicated acoustic timestamps for unchanged Reazon surface words, not replacement ASR",
+      "timestamp_interpolation": false,
+      "weights_sha256": "47831d0e82f96b20e9034dba01a075ee06436654719f6a68289e49f1b65ce0e7"
+    },
+    "covering_pronunciation": {
+      "acoustic_model": "jonatasgrosman/wav2vec2-large-xlsr-53-japanese",
+      "revision": "cf031e020336460d15a417eba710bbc5bb43be9a",
+      "frontend": "pyopenjtalk-plus",
+      "frontend_version": "0.4.1.post9",
+      "purpose": "Genuine CTC pronunciation paths only after raw dedicated predictions are rejected; surface words unchanged",
+      "timestamp_interpolation": false,
+      "frontend_provenance": {
+        "packages": {
+          "pyopenjtalk-plus": "0.4.1.post9",
+          "SudachiPy": "0.7.0",
+          "SudachiDict-core": "20261015"
+        },
+        "options": {
+          "run_marine": false,
+          "use_vanilla": false,
+          "use_tsqyomi": false,
+          "use_sudachi_kanji_yomi": true,
+          "predict_nani": false,
+          "normalize_mode": "None",
+          "use_read_as_pron": false,
+          "revert_long_vowels": false,
+          "revert_yotsugana": false
+        },
+        "bundled_dictionary_sha256": {
+          "char.bin": "888ee94c5a8a7a26d24ab3f1b7155441351954fd51ea06b4a2f78bd742492b2f",
+          "COPYING": "59099a8c7c2acb68ef9945e9e80f352b1583c62b2023ac47d8f33bd371f5b1b6",
+          "left-id.def": "6431a8a19661101bac3fd1f827fd9a625215973a78fad22c9697a38528cc7b02",
+          "matrix.bin": "62fd16b4f64c851d5dc352ef0d5740c5fc83ddc7c203b2b0b1fc5271969a14ce",
+          "pos-id.def": "86a7a9d762d682708bb5e8ce090784269e6c5d73053442cb38eae8530231b553",
+          "rewrite.def": "881d3d541ce7a67b5f9b4492e933f14ac08489f702bbb0628780194ec38b1042",
+          "right-id.def": "6431a8a19661101bac3fd1f827fd9a625215973a78fad22c9697a38528cc7b02",
+          "sys.dic": "0328ca62355100aba6df13af56912ad88cf10246e2a286005b89cb8ce2cef652",
+          "unk.dic": "f8ce58a6b49795680d68c4f2c5801296d4d3b047b4b7708baa1610f7e2d91f1f"
+        },
+        "dictionary_override": false,
+        "nani_policy": "Explicitly disabled to reproduce the observed original environment where optional ONNX/Nani prediction was unavailable; import warning is not suppressed."
+      }
+    },
     "speakers": {
       "segmentation": "sherpa-onnx-pyannote-segmentation-3-0 int8",
       "segmentation_license": "MIT, CNRS 2022, shipped LICENSE",
@@ -929,16 +976,17 @@
   },
   "process": {
     "audio": "Crop, FFmpeg dynamic loudnorm I=-23 TP=-2 LRA=7, 48k mono PCM16, 2s interchunk gaps, no speech synthesis or long-gap compression",
-    "word_timing": "Actual CTC constrained Viterbi character occupancy grouped by fugashi/UniDic lexical words; OOV acoustic wildcard states preserve supported surrounding constraints while words containing OOV characters retain null times; never substitute token points",
+    "word_timing": "Supported CTC character-occupancy intervals retained; CTC-OOV surface words completed by raw dedicated forced alignment or vocabulary-covered dictionary-pronunciation CTC after rejected raw predictions. No word deletion, replacement ASR, interpolation, duration division or RNNT token-point interval substitutes.",
     "punctuation": "Insert punctuation only at acoustic/estimated speaker/ASR-window boundaries; no word rewriting; sentence-like units not syntactically verified",
     "captions": "Supplementary candidate selection only, never copied into references or public metadata",
-    "independence": "ReazonSpeech differs from explicitly planned evaluated ASRs, but PP4 CPU-auto ASR remains unresolved; no claim of disjoint training data"
+    "independence": "ReazonSpeech differs from explicitly planned evaluated ASRs, but PP4 CPU-auto ASR remains unresolved; dedicated Qwen forced alignment is timing only, not evaluated-ASR replacement text; no claim of disjoint training data",
+    "alignment_uncertainty": "Automatic surface/pronunciation alignment only; dictionary readings may be contextually wrong, especially names. Some paths have very low acoustic likelihood; scores are retained locally but are not calibrated accuracy. Raw units may overlap or share intervals and multiple backends may disagree; no human timing or listening claim."
   },
   "summaries": {
     "ja-general-01": {
       "word_count": 438,
-      "aligned_word_count": 432,
-      "reference_sha256": "89878f00ee9dc964a09f6a3ea4b25622748e3c36fbf071b502632a1c7327db44",
+      "aligned_word_count": 438,
+      "reference_sha256": "02e5c156703297fd8f782b44dbe887a34f462690d0477a9b3e818f0c79201406",
       "stats": {
         "estimated_speakers": 13,
         "estimated_turns": 30,
@@ -946,7 +994,7 @@
         "estimated_pairwise_overlap_seconds": 30.898,
         "overlap_basis": "Raw estimated speech-segment intersections, excluding silence inside coalesced turn spans.",
         "speaker_count_basis": "Anonymous acoustic cluster count, not verified participants; substantial over-/under-clustering remains possible.",
-        "aligned_same_speaker_word_gap_ge_300ms": 54,
+        "aligned_same_speaker_word_gap_ge_300ms": 53,
         "short_estimated_turns_le_1s": 8,
         "lexical_filler_candidates": 1,
         "confirmed_mid_sentence_pauses": null,
@@ -968,8 +1016,8 @@
     },
     "ja-general-02": {
       "word_count": 302,
-      "aligned_word_count": 301,
-      "reference_sha256": "474d62ff084160b469865269ee6ff3da7c78cf2c9297b8cecae34c56f9c365e9",
+      "aligned_word_count": 302,
+      "reference_sha256": "681b99e0bc033e6f9d1f24bdfa4be113f8571e6638804fe1f57e723bba7636c4",
       "stats": {
         "estimated_speakers": 19,
         "estimated_turns": 56,
@@ -999,8 +1047,8 @@
     },
     "ja-general-03": {
       "word_count": 523,
-      "aligned_word_count": 516,
-      "reference_sha256": "7c7ed6c3e81643aa1c1563f1a0eadb599eb07f1bf9aba03c6f473edb47c52390",
+      "aligned_word_count": 523,
+      "reference_sha256": "f2b2662dd69c4bae1e44f73911f5eb4f0d9669a86b0ffe0d31ca7555d21a0166",
       "stats": {
         "estimated_speakers": 20,
         "estimated_turns": 36,
@@ -1008,7 +1056,7 @@
         "estimated_pairwise_overlap_seconds": 14.124,
         "overlap_basis": "Raw estimated speech-segment intersections, excluding silence inside coalesced turn spans.",
         "speaker_count_basis": "Anonymous acoustic cluster count, not verified participants; substantial over-/under-clustering remains possible.",
-        "aligned_same_speaker_word_gap_ge_300ms": 65,
+        "aligned_same_speaker_word_gap_ge_300ms": 61,
         "short_estimated_turns_le_1s": 5,
         "lexical_filler_candidates": 0,
         "confirmed_mid_sentence_pauses": null,
@@ -1028,8 +1076,8 @@
     },
     "ja-general-04": {
       "word_count": 436,
-      "aligned_word_count": 427,
-      "reference_sha256": "4482e08b82e9de60c5aa2961793b9fb8ce8639c8ca134c41618219c31d42d129",
+      "aligned_word_count": 436,
+      "reference_sha256": "52c31ccde064577d796e659026b527060fdf692c60ed7630353266dc2089c32a",
       "stats": {
         "estimated_speakers": 14,
         "estimated_turns": 34,
@@ -1037,7 +1085,7 @@
         "estimated_pairwise_overlap_seconds": 2.481,
         "overlap_basis": "Raw estimated speech-segment intersections, excluding silence inside coalesced turn spans.",
         "speaker_count_basis": "Anonymous acoustic cluster count, not verified participants; substantial over-/under-clustering remains possible.",
-        "aligned_same_speaker_word_gap_ge_300ms": 61,
+        "aligned_same_speaker_word_gap_ge_300ms": 58,
         "short_estimated_turns_le_1s": 11,
         "lexical_filler_candidates": 3,
         "confirmed_mid_sentence_pauses": null,
@@ -1059,8 +1107,8 @@
     },
     "ja-general-05": {
       "word_count": 468,
-      "aligned_word_count": 467,
-      "reference_sha256": "a84fa332445f3d101b176d746009017965697652ac80d4783900d095f2d5ada0",
+      "aligned_word_count": 468,
+      "reference_sha256": "288f7cec0be99a2bdf523167eb1cb86ac2726e9d12f101253c47e936eacd674e",
       "stats": {
         "estimated_speakers": 14,
         "estimated_turns": 30,
@@ -1090,8 +1138,8 @@
     },
     "ja-general-06": {
       "word_count": 302,
-      "aligned_word_count": 300,
-      "reference_sha256": "6d86e6d3518fc54226e2b3dfd2dc381ec4acff88d09eebaf472ec3dad25bfafd",
+      "aligned_word_count": 302,
+      "reference_sha256": "758c31cfa5004856f1e269f03a4856ba6c6a6733fe39a3f5881601ab0104639f",
       "stats": {
         "estimated_speakers": 25,
         "estimated_turns": 49,
@@ -1099,7 +1147,7 @@
         "estimated_pairwise_overlap_seconds": 54.017,
         "overlap_basis": "Raw estimated speech-segment intersections, excluding silence inside coalesced turn spans.",
         "speaker_count_basis": "Anonymous acoustic cluster count, not verified participants; substantial over-/under-clustering remains possible.",
-        "aligned_same_speaker_word_gap_ge_300ms": 46,
+        "aligned_same_speaker_word_gap_ge_300ms": 45,
         "short_estimated_turns_le_1s": 15,
         "lexical_filler_candidates": 1,
         "confirmed_mid_sentence_pauses": null,
@@ -1121,8 +1169,8 @@
     },
     "ja-stress-01": {
       "word_count": 270,
-      "aligned_word_count": 268,
-      "reference_sha256": "53b97a68136077d1f7269f4ab108df984d6e59f9cd92226f07a7806ea744593d",
+      "aligned_word_count": 270,
+      "reference_sha256": "17ccc6c8f47b64e1e967e72ef8a5339bd2c8afa3f25e7db021f4bc30d2dbabaf",
       "stats": {
         "estimated_speakers": 14,
         "estimated_turns": 36,
@@ -1130,7 +1178,7 @@
         "estimated_pairwise_overlap_seconds": 3.544,
         "overlap_basis": "Raw estimated speech-segment intersections, excluding silence inside coalesced turn spans.",
         "speaker_count_basis": "Anonymous acoustic cluster count, not verified participants; substantial over-/under-clustering remains possible.",
-        "aligned_same_speaker_word_gap_ge_300ms": 30,
+        "aligned_same_speaker_word_gap_ge_300ms": 29,
         "short_estimated_turns_le_1s": 14,
         "lexical_filler_candidates": 3,
         "confirmed_mid_sentence_pauses": null,
@@ -1152,8 +1200,8 @@
     },
     "ja-stress-02": {
       "word_count": 216,
-      "aligned_word_count": 214,
-      "reference_sha256": "78c798310371dcbf86d4b320df33bcb38a253595e7821e7111755366755aaebf",
+      "aligned_word_count": 216,
+      "reference_sha256": "7190c69e106599bcae89978bf43dd8e6acd621c008575d0111b177e0c2209b03",
       "stats": {
         "estimated_speakers": 12,
         "estimated_turns": 29,
@@ -1161,7 +1209,7 @@
         "estimated_pairwise_overlap_seconds": 0.911,
         "overlap_basis": "Raw estimated speech-segment intersections, excluding silence inside coalesced turn spans.",
         "speaker_count_basis": "Anonymous acoustic cluster count, not verified participants; substantial over-/under-clustering remains possible.",
-        "aligned_same_speaker_word_gap_ge_300ms": 22,
+        "aligned_same_speaker_word_gap_ge_300ms": 20,
         "short_estimated_turns_le_1s": 9,
         "lexical_filler_candidates": 4,
         "confirmed_mid_sentence_pauses": null,
@@ -1183,8 +1231,8 @@
     },
     "ja-stress-03": {
       "word_count": 211,
-      "aligned_word_count": 208,
-      "reference_sha256": "6e2b29cc7ffb09e4afdbec97b956aacd9a1e5c313fc0289ef9de571d94427fa9",
+      "aligned_word_count": 211,
+      "reference_sha256": "2e534e0beca570799d23ab8cb3b0939b2a4dc7aa08399ef3af0ca6f4558ae958",
       "stats": {
         "estimated_speakers": 20,
         "estimated_turns": 33,
@@ -1192,7 +1240,7 @@
         "estimated_pairwise_overlap_seconds": 1.097,
         "overlap_basis": "Raw estimated speech-segment intersections, excluding silence inside coalesced turn spans.",
         "speaker_count_basis": "Anonymous acoustic cluster count, not verified participants; substantial over-/under-clustering remains possible.",
-        "aligned_same_speaker_word_gap_ge_300ms": 26,
+        "aligned_same_speaker_word_gap_ge_300ms": 25,
         "short_estimated_turns_le_1s": 11,
         "lexical_filler_candidates": 0,
         "confirmed_mid_sentence_pauses": null,
@@ -1215,7 +1263,7 @@
     "ja-dev-01": {
       "word_count": 427,
       "aligned_word_count": 427,
-      "reference_sha256": "9336f96e031e07624db8d39d3c68823d8a41dc184bafc0cdf30f50f6a1115df9",
+      "reference_sha256": "eecb6981807cb47a7940fbd22e0fb92442856e668fac86159e774964ab0e8a31",
       "stats": {
         "estimated_speakers": 19,
         "estimated_turns": 43,
@@ -1243,8 +1291,8 @@
     },
     "ja-heldout-reserve": {
       "word_count": 1277,
-      "aligned_word_count": 1271,
-      "reference_sha256": "bc31baf5cec8048fc395e646130ed3325f4d7835b02bcf30b16263e9f2ca567c",
+      "aligned_word_count": 1277,
+      "reference_sha256": "3db6ff610381d6d1709fc3d8605471b6092a2030e91f04d788e05da5ba294134",
       "stats": {
         "estimated_speakers": 44,
         "estimated_turns": 101,
@@ -1252,7 +1300,7 @@
         "estimated_pairwise_overlap_seconds": 46.187,
         "overlap_basis": "Raw estimated speech-segment intersections, excluding silence inside coalesced turn spans.",
         "speaker_count_basis": "Anonymous acoustic cluster count, not verified participants; substantial over-/under-clustering remains possible.",
-        "aligned_same_speaker_word_gap_ge_300ms": 168,
+        "aligned_same_speaker_word_gap_ge_300ms": 170,
         "short_estimated_turns_le_1s": 23,
         "lexical_filler_candidates": 8,
         "confirmed_mid_sentence_pauses": null,
@@ -1419,7 +1467,7 @@
     },
     "requested_count": 20,
     "prepared_count": 20,
-    "pool_count": 44,
+    "pool_count": 28,
     "entries": [
       {
         "id": "ja-isolated-01",
@@ -1439,10 +1487,112 @@
           ]
         },
         "source_id": "Yr7rGfescvQ",
+        "source_start": 1647.6740969848634,
+        "source_end": 1654.0440960693359,
+        "audio": {
+          "path": ".data\\japanese\\heldout\\ja-isolated-01.wav",
+          "sha256": "15396842893206e28d7aa2cc80c6cbfa2b81d3298e2f038d9c50666a2fe11d8d",
+          "duration_seconds": 6.37,
+          "sample_rate": 48000,
+          "channels": 1,
+          "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
+          "rights": {
+            "release_cleared": false,
+            "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+            "dataset_declared_license": "CC-BY-3.0",
+            "original_video_url": null,
+            "original_creator": null,
+            "video_specific_license_evidence": null,
+            "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+            "evidence_urls": [
+              "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+              "https://creativecommons.org/licenses/by/3.0/"
+            ]
+          }
+        },
+        "category_tags": [
+          "long",
+          "internally_paused"
+        ],
+        "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
+        "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-01.json",
+        "reference_sha256": "2b2c6d3ca0cac50b791ebee159668db0487d6aad6b5ee5bf3c5592d5dc5cc89e"
+      },
+      {
+        "id": "ja-isolated-02",
+        "rights": {
+          "release_cleared": false,
+          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+          "dataset_declared_license": "CC-BY-3.0",
+          "original_video_url": null,
+          "original_creator": null,
+          "video_specific_license_evidence": null,
+          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+          "evidence_urls": [
+            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+            "https://creativecommons.org/licenses/by/3.0/"
+          ]
+        },
+        "source_id": "Yr7rGfescvQ",
+        "source_start": 1908.8991259765626,
+        "source_end": 1919.0491162109374,
+        "audio": {
+          "path": ".data\\japanese\\heldout\\ja-isolated-02.wav",
+          "sha256": "6f65f7370f1093523dfa98a203bd72fa2c434005f2972b0551843e7fcd7a3ee1",
+          "duration_seconds": 10.15,
+          "sample_rate": 48000,
+          "channels": 1,
+          "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
+          "rights": {
+            "release_cleared": false,
+            "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+            "dataset_declared_license": "CC-BY-3.0",
+            "original_video_url": null,
+            "original_creator": null,
+            "video_specific_license_evidence": null,
+            "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+            "evidence_urls": [
+              "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+              "https://creativecommons.org/licenses/by/3.0/"
+            ]
+          }
+        },
+        "category_tags": [
+          "long",
+          "internally_paused"
+        ],
+        "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
+        "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-02.json",
+        "reference_sha256": "87786c3c16a0bac4d53b74da6b12c5ce973dd081b9f69d3f63ba0d64cddaf24f"
+      },
+      {
+        "id": "ja-isolated-03",
+        "rights": {
+          "release_cleared": false,
+          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+          "dataset_declared_license": "CC-BY-3.0",
+          "original_video_url": null,
+          "original_creator": null,
+          "video_specific_license_evidence": null,
+          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+          "evidence_urls": [
+            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+            "https://creativecommons.org/licenses/by/3.0/"
+          ]
+        },
+        "source_id": "Yr7rGfescvQ",
         "source_start": 1671.687219543457,
         "source_end": 1673.9059735107421,
         "audio": {
-          "path": ".data\\japanese\\heldout\\ja-isolated-01.wav",
+          "path": ".data\\japanese\\heldout\\ja-isolated-03.wav",
           "sha256": "880883aff9a35f0b92acd72f63b8144e5bf06ed4eca77bd8778bcd38a745cd0d",
           "duration_seconds": 2.21875,
           "sample_rate": 48000,
@@ -1469,109 +1619,8 @@
           "internally_paused"
         ],
         "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
-        "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-01.json",
-        "reference_sha256": "8daa850db07caf4373d601690d8ecd44b4b434d9a5386a38a83831e50dd5f425"
-      },
-      {
-        "id": "ja-isolated-02",
-        "rights": {
-          "release_cleared": false,
-          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
-          "dataset_declared_license": "CC-BY-3.0",
-          "original_video_url": null,
-          "original_creator": null,
-          "video_specific_license_evidence": null,
-          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
-          "evidence_urls": [
-            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
-            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
-            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
-            "https://creativecommons.org/licenses/by/3.0/"
-          ]
-        },
-        "source_id": "Yr7rGfescvQ",
-        "source_start": 1684.1241015625,
-        "source_end": 1686.9166088867187,
-        "audio": {
-          "path": ".data\\japanese\\heldout\\ja-isolated-02.wav",
-          "sha256": "51ac975683a2994123340c4793e359d8b3d8e12ee5e38d0cfd0093c76af2c0ab",
-          "duration_seconds": 2.7925,
-          "sample_rate": 48000,
-          "channels": 1,
-          "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
-          "rights": {
-            "release_cleared": false,
-            "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
-            "dataset_declared_license": "CC-BY-3.0",
-            "original_video_url": null,
-            "original_creator": null,
-            "video_specific_license_evidence": null,
-            "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
-            "evidence_urls": [
-              "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
-              "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
-              "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
-              "https://creativecommons.org/licenses/by/3.0/"
-            ]
-          }
-        },
-        "category_tags": [
-          "short",
-          "internally_paused"
-        ],
-        "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
-        "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-02.json",
-        "reference_sha256": "cccd88b9b3da95e9f26524b5a86a79b09d93364187194b69792852526b6052bd"
-      },
-      {
-        "id": "ja-isolated-03",
-        "rights": {
-          "release_cleared": false,
-          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
-          "dataset_declared_license": "CC-BY-3.0",
-          "original_video_url": null,
-          "original_creator": null,
-          "video_specific_license_evidence": null,
-          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
-          "evidence_urls": [
-            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
-            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
-            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
-            "https://creativecommons.org/licenses/by/3.0/"
-          ]
-        },
-        "source_id": "Yr7rGfescvQ",
-        "source_start": 1770.743486328125,
-        "source_end": 1774.3122387695312,
-        "audio": {
-          "path": ".data\\japanese\\heldout\\ja-isolated-03.wav",
-          "sha256": "7d89a7656bfc896fde5edbc663fb5cfdfaec8adecb04b749e3cf025cf7af467e",
-          "duration_seconds": 3.56875,
-          "sample_rate": 48000,
-          "channels": 1,
-          "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
-          "rights": {
-            "release_cleared": false,
-            "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
-            "dataset_declared_license": "CC-BY-3.0",
-            "original_video_url": null,
-            "original_creator": null,
-            "video_specific_license_evidence": null,
-            "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
-            "evidence_urls": [
-              "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
-              "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
-              "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
-              "https://creativecommons.org/licenses/by/3.0/"
-            ]
-          }
-        },
-        "category_tags": [
-          "internally_paused"
-        ],
-        "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
         "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-03.json",
-        "reference_sha256": "039ba6172a98339bb28104c0603f540dc9fab1b82d6e75c689c6024bc3b90c85"
+        "reference_sha256": "2860e2107d34f05ec2c1b8af3f830b1bba66dd4c3b61435f82059bc7277f1e5d"
       },
       {
         "id": "ja-isolated-04",
@@ -1591,10 +1640,112 @@
           ]
         },
         "source_id": "Yr7rGfescvQ",
+        "source_start": 1627.643472595215,
+        "source_end": 1635.0428448486327,
+        "audio": {
+          "path": ".data\\japanese\\heldout\\ja-isolated-04.wav",
+          "sha256": "76633070ff55799793db707812e98682c3557b6cd3a95023b72d1618e4c45316",
+          "duration_seconds": 7.399375,
+          "sample_rate": 48000,
+          "channels": 1,
+          "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
+          "rights": {
+            "release_cleared": false,
+            "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+            "dataset_declared_license": "CC-BY-3.0",
+            "original_video_url": null,
+            "original_creator": null,
+            "video_specific_license_evidence": null,
+            "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+            "evidence_urls": [
+              "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+              "https://creativecommons.org/licenses/by/3.0/"
+            ]
+          }
+        },
+        "category_tags": [
+          "long",
+          "internally_paused"
+        ],
+        "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
+        "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-04.json",
+        "reference_sha256": "0b33dbb4d6346ac215bf6b5230b7dcd364f1936cc69d4c4fc0f90d15de8c0634"
+      },
+      {
+        "id": "ja-isolated-05",
+        "rights": {
+          "release_cleared": false,
+          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+          "dataset_declared_license": "CC-BY-3.0",
+          "original_video_url": null,
+          "original_creator": null,
+          "video_specific_license_evidence": null,
+          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+          "evidence_urls": [
+            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+            "https://creativecommons.org/licenses/by/3.0/"
+          ]
+        },
+        "source_id": "Yr7rGfescvQ",
+        "source_start": 1747.253480834961,
+        "source_end": 1755.0578594970702,
+        "audio": {
+          "path": ".data\\japanese\\heldout\\ja-isolated-05.wav",
+          "sha256": "70a2f474babfdeb67a1b17817c4aee595c4a81f03c3fdc5f2ae083eb69ec911e",
+          "duration_seconds": 7.804375,
+          "sample_rate": 48000,
+          "channels": 1,
+          "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
+          "rights": {
+            "release_cleared": false,
+            "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+            "dataset_declared_license": "CC-BY-3.0",
+            "original_video_url": null,
+            "original_creator": null,
+            "video_specific_license_evidence": null,
+            "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+            "evidence_urls": [
+              "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+              "https://creativecommons.org/licenses/by/3.0/"
+            ]
+          }
+        },
+        "category_tags": [
+          "long",
+          "internally_paused"
+        ],
+        "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
+        "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-05.json",
+        "reference_sha256": "82bfd58d9fa22cd59a5307e444aa845069b1cc068c4b1063529cd9da2ae75838"
+      },
+      {
+        "id": "ja-isolated-06",
+        "rights": {
+          "release_cleared": false,
+          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+          "dataset_declared_license": "CC-BY-3.0",
+          "original_video_url": null,
+          "original_creator": null,
+          "video_specific_license_evidence": null,
+          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+          "evidence_urls": [
+            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+            "https://creativecommons.org/licenses/by/3.0/"
+          ]
+        },
+        "source_id": "Yr7rGfescvQ",
         "source_start": 1654.575975341797,
         "source_end": 1662.3972225952148,
         "audio": {
-          "path": ".data\\japanese\\heldout\\ja-isolated-04.wav",
+          "path": ".data\\japanese\\heldout\\ja-isolated-06.wav",
           "sha256": "a6bbc0b7acf07853e0d4322a05abfc17f69341d5f33776029b9143d8b41b667b",
           "duration_seconds": 7.82125,
           "sample_rate": 48000,
@@ -1621,110 +1772,8 @@
           "internally_paused"
         ],
         "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
-        "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-04.json",
-        "reference_sha256": "96ed725071c1714c9885cc96d9cf6d06e7d1c887b21220d35b041b09b222ad57"
-      },
-      {
-        "id": "ja-isolated-05",
-        "rights": {
-          "release_cleared": false,
-          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
-          "dataset_declared_license": "CC-BY-3.0",
-          "original_video_url": null,
-          "original_creator": null,
-          "video_specific_license_evidence": null,
-          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
-          "evidence_urls": [
-            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
-            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
-            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
-            "https://creativecommons.org/licenses/by/3.0/"
-          ]
-        },
-        "source_id": "Yr7rGfescvQ",
-        "source_start": 1830.210985107422,
-        "source_end": 1832.379102783203,
-        "audio": {
-          "path": ".data\\japanese\\heldout\\ja-isolated-05.wav",
-          "sha256": "d763e2909aaa113765feda4fa55f3953b24217bd57db5c3889757fe6449d23b5",
-          "duration_seconds": 2.168125,
-          "sample_rate": 48000,
-          "channels": 1,
-          "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
-          "rights": {
-            "release_cleared": false,
-            "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
-            "dataset_declared_license": "CC-BY-3.0",
-            "original_video_url": null,
-            "original_creator": null,
-            "video_specific_license_evidence": null,
-            "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
-            "evidence_urls": [
-              "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
-              "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
-              "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
-              "https://creativecommons.org/licenses/by/3.0/"
-            ]
-          }
-        },
-        "category_tags": [
-          "short",
-          "internally_paused"
-        ],
-        "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
-        "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-05.json",
-        "reference_sha256": "bc565b4e85008d5183441d63a59226b28f9785c2e65d53dfb6c06ca0c3203739"
-      },
-      {
-        "id": "ja-isolated-06",
-        "rights": {
-          "release_cleared": false,
-          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
-          "dataset_declared_license": "CC-BY-3.0",
-          "original_video_url": null,
-          "original_creator": null,
-          "video_specific_license_evidence": null,
-          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
-          "evidence_urls": [
-            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
-            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
-            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
-            "https://creativecommons.org/licenses/by/3.0/"
-          ]
-        },
-        "source_id": "Yr7rGfescvQ",
-        "source_start": 1601.942846221924,
-        "source_end": 1613.8478451538085,
-        "audio": {
-          "path": ".data\\japanese\\heldout\\ja-isolated-06.wav",
-          "sha256": "8c632f5f866ec7abba8cd76cae61fb0e8a061e63bb6b1e34cf4f34e8e9f46ef2",
-          "duration_seconds": 11.905,
-          "sample_rate": 48000,
-          "channels": 1,
-          "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
-          "rights": {
-            "release_cleared": false,
-            "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
-            "dataset_declared_license": "CC-BY-3.0",
-            "original_video_url": null,
-            "original_creator": null,
-            "video_specific_license_evidence": null,
-            "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
-            "evidence_urls": [
-              "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
-              "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
-              "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
-              "https://creativecommons.org/licenses/by/3.0/"
-            ]
-          }
-        },
-        "category_tags": [
-          "long",
-          "internally_paused"
-        ],
-        "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
         "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-06.json",
-        "reference_sha256": "d9fd7b1aa038df17c9d39e97c547da208e9e15216e73577e8536d854b4b07b4c"
+        "reference_sha256": "ea382fa7ed2268e022b8242880d9e547ab9c128ca28e39b6b48955191cb3559a"
       },
       {
         "id": "ja-isolated-07",
@@ -1795,165 +1844,12 @@
           ]
         },
         "source_id": "Yr7rGfescvQ",
-        "source_start": 1791.0103625488282,
-        "source_end": 1806.0541058349609,
+        "source_start": 1587.5990924072266,
+        "source_end": 1588.5015927124023,
         "audio": {
           "path": ".data\\japanese\\heldout\\ja-isolated-08.wav",
-          "sha256": "7ab73437fa846dc9cb928b8a57dfebe69e3f02e9b385b1df75d0305c676d0e23",
-          "duration_seconds": 15.04375,
-          "sample_rate": 48000,
-          "channels": 1,
-          "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
-          "rights": {
-            "release_cleared": false,
-            "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
-            "dataset_declared_license": "CC-BY-3.0",
-            "original_video_url": null,
-            "original_creator": null,
-            "video_specific_license_evidence": null,
-            "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
-            "evidence_urls": [
-              "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
-              "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
-              "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
-              "https://creativecommons.org/licenses/by/3.0/"
-            ]
-          }
-        },
-        "category_tags": [
-          "long",
-          "internally_paused"
-        ],
-        "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
-        "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-08.json",
-        "reference_sha256": "ce3a83aff3804e4f2ab42d24eaa894ea2bd6cf91b4ea3987413c80d742e23c4b"
-      },
-      {
-        "id": "ja-isolated-09",
-        "rights": {
-          "release_cleared": false,
-          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
-          "dataset_declared_license": "CC-BY-3.0",
-          "original_video_url": null,
-          "original_creator": null,
-          "video_specific_license_evidence": null,
-          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
-          "evidence_urls": [
-            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
-            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
-            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
-            "https://creativecommons.org/licenses/by/3.0/"
-          ]
-        },
-        "source_id": "Yr7rGfescvQ",
-        "source_start": 1627.643472595215,
-        "source_end": 1635.0428448486327,
-        "audio": {
-          "path": ".data\\japanese\\heldout\\ja-isolated-09.wav",
-          "sha256": "76633070ff55799793db707812e98682c3557b6cd3a95023b72d1618e4c45316",
-          "duration_seconds": 7.399375,
-          "sample_rate": 48000,
-          "channels": 1,
-          "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
-          "rights": {
-            "release_cleared": false,
-            "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
-            "dataset_declared_license": "CC-BY-3.0",
-            "original_video_url": null,
-            "original_creator": null,
-            "video_specific_license_evidence": null,
-            "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
-            "evidence_urls": [
-              "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
-              "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
-              "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
-              "https://creativecommons.org/licenses/by/3.0/"
-            ]
-          }
-        },
-        "category_tags": [
-          "long",
-          "internally_paused"
-        ],
-        "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
-        "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-09.json",
-        "reference_sha256": "177b5005314981af670ac5627a2439bcb8691b37433d959bd82d2a2ef6aafcf1"
-      },
-      {
-        "id": "ja-isolated-10",
-        "rights": {
-          "release_cleared": false,
-          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
-          "dataset_declared_license": "CC-BY-3.0",
-          "original_video_url": null,
-          "original_creator": null,
-          "video_specific_license_evidence": null,
-          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
-          "evidence_urls": [
-            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
-            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
-            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
-            "https://creativecommons.org/licenses/by/3.0/"
-          ]
-        },
-        "source_id": "Yr7rGfescvQ",
-        "source_start": 1647.6740969848634,
-        "source_end": 1654.0440960693359,
-        "audio": {
-          "path": ".data\\japanese\\heldout\\ja-isolated-10.wav",
-          "sha256": "15396842893206e28d7aa2cc80c6cbfa2b81d3298e2f038d9c50666a2fe11d8d",
-          "duration_seconds": 6.37,
-          "sample_rate": 48000,
-          "channels": 1,
-          "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
-          "rights": {
-            "release_cleared": false,
-            "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
-            "dataset_declared_license": "CC-BY-3.0",
-            "original_video_url": null,
-            "original_creator": null,
-            "video_specific_license_evidence": null,
-            "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
-            "evidence_urls": [
-              "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
-              "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
-              "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
-              "https://creativecommons.org/licenses/by/3.0/"
-            ]
-          }
-        },
-        "category_tags": [
-          "long",
-          "internally_paused"
-        ],
-        "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
-        "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-10.json",
-        "reference_sha256": "e65922a54959496d4fb1de0e578833e6e0581a62755a6574e115faa1bc7394cc"
-      },
-      {
-        "id": "ja-isolated-11",
-        "rights": {
-          "release_cleared": false,
-          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
-          "dataset_declared_license": "CC-BY-3.0",
-          "original_video_url": null,
-          "original_creator": null,
-          "video_specific_license_evidence": null,
-          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
-          "evidence_urls": [
-            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
-            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
-            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
-            "https://creativecommons.org/licenses/by/3.0/"
-          ]
-        },
-        "source_id": "Yr7rGfescvQ",
-        "source_start": 2048.2528552246094,
-        "source_end": 2048.9697399902343,
-        "audio": {
-          "path": ".data\\japanese\\heldout\\ja-isolated-11.wav",
-          "sha256": "9a323b36161f6a826d4c8bfa67007a126019da10fa23bc401588fc43e610b815",
-          "duration_seconds": 0.716875,
+          "sha256": "ec7700deb08fc0200fdab6d5c58217433982054305e60858df50bf85f7188c9e",
+          "duration_seconds": 0.9025,
           "sample_rate": 48000,
           "channels": 1,
           "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
@@ -1977,11 +1873,11 @@
           "short"
         ],
         "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
-        "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-11.json",
-        "reference_sha256": "006a4c0e28aeb568d19db09e93d568958fed51de5c3365ef82179a82fd047fd3"
+        "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-08.json",
+        "reference_sha256": "d0ea86e8f204ec43b9f43d5ca2e95bb246c2ed5d64612ee53d20bba11365e8f2"
       },
       {
-        "id": "ja-isolated-12",
+        "id": "ja-isolated-09",
         "rights": {
           "release_cleared": false,
           "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
@@ -2001,7 +1897,7 @@
         "source_start": 1867.6397265625,
         "source_end": 1869.1328564453124,
         "audio": {
-          "path": ".data\\japanese\\heldout\\ja-isolated-12.wav",
+          "path": ".data\\japanese\\heldout\\ja-isolated-09.wav",
           "sha256": "ef860dac737671462df0bff34d02c580e2c120ccf3aa7b2c2fbd4df94a3c426a",
           "duration_seconds": 1.493125,
           "sample_rate": 48000,
@@ -2027,8 +1923,158 @@
           "short"
         ],
         "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
+        "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-09.json",
+        "reference_sha256": "4af0854fb7f179f9fb165bc4feb7bd621bf77209908172b08587149aad5322b8"
+      },
+      {
+        "id": "ja-isolated-10",
+        "rights": {
+          "release_cleared": false,
+          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+          "dataset_declared_license": "CC-BY-3.0",
+          "original_video_url": null,
+          "original_creator": null,
+          "video_specific_license_evidence": null,
+          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+          "evidence_urls": [
+            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+            "https://creativecommons.org/licenses/by/3.0/"
+          ]
+        },
+        "source_id": "Yr7rGfescvQ",
+        "source_start": 1958.6466235351563,
+        "source_end": 1960.055372314453,
+        "audio": {
+          "path": ".data\\japanese\\heldout\\ja-isolated-10.wav",
+          "sha256": "eb7caed1286ae85aaf0459099fccb553bb008ec4cca147f11578caae84f17b6f",
+          "duration_seconds": 1.40875,
+          "sample_rate": 48000,
+          "channels": 1,
+          "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
+          "rights": {
+            "release_cleared": false,
+            "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+            "dataset_declared_license": "CC-BY-3.0",
+            "original_video_url": null,
+            "original_creator": null,
+            "video_specific_license_evidence": null,
+            "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+            "evidence_urls": [
+              "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+              "https://creativecommons.org/licenses/by/3.0/"
+            ]
+          }
+        },
+        "category_tags": [
+          "short"
+        ],
+        "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
+        "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-10.json",
+        "reference_sha256": "af6571019b91344de6e445b00396249b44176b988668be47c26e994830389650"
+      },
+      {
+        "id": "ja-isolated-11",
+        "rights": {
+          "release_cleared": false,
+          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+          "dataset_declared_license": "CC-BY-3.0",
+          "original_video_url": null,
+          "original_creator": null,
+          "video_specific_license_evidence": null,
+          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+          "evidence_urls": [
+            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+            "https://creativecommons.org/licenses/by/3.0/"
+          ]
+        },
+        "source_id": "Yr7rGfescvQ",
+        "source_start": 1721.2659777832032,
+        "source_end": 1721.982862548828,
+        "audio": {
+          "path": ".data\\japanese\\heldout\\ja-isolated-11.wav",
+          "sha256": "cd9c2db14f6f0b59c556fbcbc6fc5326c8dc1c43cc9e89bd8eb3614e3adc7029",
+          "duration_seconds": 0.716875,
+          "sample_rate": 48000,
+          "channels": 1,
+          "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
+          "rights": {
+            "release_cleared": false,
+            "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+            "dataset_declared_license": "CC-BY-3.0",
+            "original_video_url": null,
+            "original_creator": null,
+            "video_specific_license_evidence": null,
+            "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+            "evidence_urls": [
+              "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+              "https://creativecommons.org/licenses/by/3.0/"
+            ]
+          }
+        },
+        "category_tags": [
+          "short"
+        ],
+        "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
+        "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-11.json",
+        "reference_sha256": "9c9c1d78f0df6dee2d652c33b1b0ca0d6b58fb26c12ce33aea3dc2082e3b29af"
+      },
+      {
+        "id": "ja-isolated-12",
+        "rights": {
+          "release_cleared": false,
+          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+          "dataset_declared_license": "CC-BY-3.0",
+          "original_video_url": null,
+          "original_creator": null,
+          "video_specific_license_evidence": null,
+          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+          "evidence_urls": [
+            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+            "https://creativecommons.org/licenses/by/3.0/"
+          ]
+        },
+        "source_id": "Yr7rGfescvQ",
+        "source_start": 2081.7159594726563,
+        "source_end": 2084.4241162109374,
+        "audio": {
+          "path": ".data\\japanese\\heldout\\ja-isolated-12.wav",
+          "sha256": "3117110091d4fdad024e0c1be1b376f8a7d8712ce41c4e5c0541654f595e136c",
+          "duration_seconds": 2.7081458333333335,
+          "sample_rate": 48000,
+          "channels": 1,
+          "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
+          "rights": {
+            "release_cleared": false,
+            "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+            "dataset_declared_license": "CC-BY-3.0",
+            "original_video_url": null,
+            "original_creator": null,
+            "video_specific_license_evidence": null,
+            "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+            "evidence_urls": [
+              "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+              "https://creativecommons.org/licenses/by/3.0/"
+            ]
+          }
+        },
+        "category_tags": [
+          "short"
+        ],
+        "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
         "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-12.json",
-        "reference_sha256": "2d534e25c82fa64a32857127971df1095d6e7d61fb86fdcc0ff6e5957f4a31a2"
+        "reference_sha256": "ecb98134e1db914a4f1352e949b0410c29e8384b1d348364d3f0ed056e5079cc"
       },
       {
         "id": "ja-isolated-13",
@@ -2048,12 +2094,12 @@
           ]
         },
         "source_id": "Yr7rGfescvQ",
-        "source_start": 1570.774721069336,
-        "source_end": 1573.7697201538085,
+        "source_start": 2048.2528552246094,
+        "source_end": 2048.9697399902343,
         "audio": {
           "path": ".data\\japanese\\heldout\\ja-isolated-13.wav",
-          "sha256": "d009f2c3ab048140f0d131fe390c53fc4485ad3a402d559b61a67e3962bf309a",
-          "duration_seconds": 2.995,
+          "sha256": "9a323b36161f6a826d4c8bfa67007a126019da10fa23bc401588fc43e610b815",
+          "duration_seconds": 0.716875,
           "sample_rate": 48000,
           "channels": 1,
           "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
@@ -2078,7 +2124,7 @@
         ],
         "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
         "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-13.json",
-        "reference_sha256": "699de05ba2310069157e8a302b1120d66e86b1710a880efa772abe247b5ca2cb"
+        "reference_sha256": "7396463d478abd4d382ca3831d566fb4759c5eb61927640ef7d3a69c6f1b0a50"
       },
       {
         "id": "ja-isolated-14",
@@ -2098,160 +2144,10 @@
           ]
         },
         "source_id": "Yr7rGfescvQ",
-        "source_start": 1759.487855834961,
-        "source_end": 1761.082227783203,
-        "audio": {
-          "path": ".data\\japanese\\heldout\\ja-isolated-14.wav",
-          "sha256": "2c9384d05af12008d72afaa38ba20f420dc412ac60b0c09295427c09645bb7d8",
-          "duration_seconds": 1.594375,
-          "sample_rate": 48000,
-          "channels": 1,
-          "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
-          "rights": {
-            "release_cleared": false,
-            "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
-            "dataset_declared_license": "CC-BY-3.0",
-            "original_video_url": null,
-            "original_creator": null,
-            "video_specific_license_evidence": null,
-            "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
-            "evidence_urls": [
-              "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
-              "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
-              "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
-              "https://creativecommons.org/licenses/by/3.0/"
-            ]
-          }
-        },
-        "category_tags": [
-          "short"
-        ],
-        "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
-        "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-14.json",
-        "reference_sha256": "17e8a46b36f2cf94ca4b228f8e4e757597ef72effe45d44436228ceaa9f5794e"
-      },
-      {
-        "id": "ja-isolated-15",
-        "rights": {
-          "release_cleared": false,
-          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
-          "dataset_declared_license": "CC-BY-3.0",
-          "original_video_url": null,
-          "original_creator": null,
-          "video_specific_license_evidence": null,
-          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
-          "evidence_urls": [
-            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
-            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
-            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
-            "https://creativecommons.org/licenses/by/3.0/"
-          ]
-        },
-        "source_id": "Yr7rGfescvQ",
-        "source_start": 1898.976610107422,
-        "source_end": 1899.8622265625,
-        "audio": {
-          "path": ".data\\japanese\\heldout\\ja-isolated-15.wav",
-          "sha256": "d86dec586fa0aba5caedf403a2f68e38431a3dacccc9402b88923b98f45a8f7a",
-          "duration_seconds": 0.885625,
-          "sample_rate": 48000,
-          "channels": 1,
-          "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
-          "rights": {
-            "release_cleared": false,
-            "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
-            "dataset_declared_license": "CC-BY-3.0",
-            "original_video_url": null,
-            "original_creator": null,
-            "video_specific_license_evidence": null,
-            "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
-            "evidence_urls": [
-              "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
-              "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
-              "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
-              "https://creativecommons.org/licenses/by/3.0/"
-            ]
-          }
-        },
-        "category_tags": [
-          "short"
-        ],
-        "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
-        "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-15.json",
-        "reference_sha256": "81f23ae8c609d4c2b05d92086d6e5a7812afdca7b05b4af88f3d0178f8d3906e"
-      },
-      {
-        "id": "ja-isolated-16",
-        "rights": {
-          "release_cleared": false,
-          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
-          "dataset_declared_license": "CC-BY-3.0",
-          "original_video_url": null,
-          "original_creator": null,
-          "video_specific_license_evidence": null,
-          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
-          "evidence_urls": [
-            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
-            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
-            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
-            "https://creativecommons.org/licenses/by/3.0/"
-          ]
-        },
-        "source_id": "Yr7rGfescvQ",
-        "source_start": 1863.3366259765626,
-        "source_end": 1864.0534802246093,
-        "audio": {
-          "path": ".data\\japanese\\heldout\\ja-isolated-16.wav",
-          "sha256": "45739b23809311e487f202c6a8e69ee676f4a473dbf182a3eede55e1a650480e",
-          "duration_seconds": 0.7168541666666667,
-          "sample_rate": 48000,
-          "channels": 1,
-          "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
-          "rights": {
-            "release_cleared": false,
-            "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
-            "dataset_declared_license": "CC-BY-3.0",
-            "original_video_url": null,
-            "original_creator": null,
-            "video_specific_license_evidence": null,
-            "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
-            "evidence_urls": [
-              "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
-              "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
-              "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
-              "https://creativecommons.org/licenses/by/3.0/"
-            ]
-          }
-        },
-        "category_tags": [
-          "short"
-        ],
-        "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
-        "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-16.json",
-        "reference_sha256": "0199509ba4c196df1b3cc0d551f2ee50963a212ce48bc5ffbf084e5fa3648d5a"
-      },
-      {
-        "id": "ja-isolated-17",
-        "rights": {
-          "release_cleared": false,
-          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
-          "dataset_declared_license": "CC-BY-3.0",
-          "original_video_url": null,
-          "original_creator": null,
-          "video_specific_license_evidence": null,
-          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
-          "evidence_urls": [
-            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
-            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
-            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
-            "https://creativecommons.org/licenses/by/3.0/"
-          ]
-        },
-        "source_id": "Yr7rGfescvQ",
         "source_start": 1755.5222338867188,
         "source_end": 1758.8547344970702,
         "audio": {
-          "path": ".data\\japanese\\heldout\\ja-isolated-17.wav",
+          "path": ".data\\japanese\\heldout\\ja-isolated-14.wav",
           "sha256": "b26846348fb24c19c4d4b452733379e4f8459885bd5fdc53e5f1d895b5725c48",
           "duration_seconds": 3.3325,
           "sample_rate": 48000,
@@ -2275,8 +2171,159 @@
         },
         "category_tags": [],
         "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
+        "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-14.json",
+        "reference_sha256": "04aed70492535a8a345ee9283187e64ce2c6fa7fd019e11010602860c3cd6c2b"
+      },
+      {
+        "id": "ja-isolated-15",
+        "rights": {
+          "release_cleared": false,
+          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+          "dataset_declared_license": "CC-BY-3.0",
+          "original_video_url": null,
+          "original_creator": null,
+          "video_specific_license_evidence": null,
+          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+          "evidence_urls": [
+            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+            "https://creativecommons.org/licenses/by/3.0/"
+          ]
+        },
+        "source_id": "Yr7rGfescvQ",
+        "source_start": 1830.210985107422,
+        "source_end": 1832.379102783203,
+        "audio": {
+          "path": ".data\\japanese\\heldout\\ja-isolated-15.wav",
+          "sha256": "d763e2909aaa113765feda4fa55f3953b24217bd57db5c3889757fe6449d23b5",
+          "duration_seconds": 2.168125,
+          "sample_rate": 48000,
+          "channels": 1,
+          "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
+          "rights": {
+            "release_cleared": false,
+            "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+            "dataset_declared_license": "CC-BY-3.0",
+            "original_video_url": null,
+            "original_creator": null,
+            "video_specific_license_evidence": null,
+            "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+            "evidence_urls": [
+              "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+              "https://creativecommons.org/licenses/by/3.0/"
+            ]
+          }
+        },
+        "category_tags": [
+          "short",
+          "internally_paused"
+        ],
+        "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
+        "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-15.json",
+        "reference_sha256": "2e9d441663b653043f39d9950d2a6cb73a8331341a5b325be099ed953e47d216"
+      },
+      {
+        "id": "ja-isolated-16",
+        "rights": {
+          "release_cleared": false,
+          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+          "dataset_declared_license": "CC-BY-3.0",
+          "original_video_url": null,
+          "original_creator": null,
+          "video_specific_license_evidence": null,
+          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+          "evidence_urls": [
+            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+            "https://creativecommons.org/licenses/by/3.0/"
+          ]
+        },
+        "source_id": "Yr7rGfescvQ",
+        "source_start": 1614.4303454589844,
+        "source_end": 1619.045347290039,
+        "audio": {
+          "path": ".data\\japanese\\heldout\\ja-isolated-16.wav",
+          "sha256": "883d28c267a1f9a0ce2977af70cf29e0ee45e94fc044b872fa6211a8afecd77c",
+          "duration_seconds": 4.615,
+          "sample_rate": 48000,
+          "channels": 1,
+          "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
+          "rights": {
+            "release_cleared": false,
+            "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+            "dataset_declared_license": "CC-BY-3.0",
+            "original_video_url": null,
+            "original_creator": null,
+            "video_specific_license_evidence": null,
+            "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+            "evidence_urls": [
+              "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+              "https://creativecommons.org/licenses/by/3.0/"
+            ]
+          }
+        },
+        "category_tags": [
+          "internally_paused"
+        ],
+        "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
+        "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-16.json",
+        "reference_sha256": "1f588791209900191a85b3a0f490f653340c495660164c9931e01ba52a99a266"
+      },
+      {
+        "id": "ja-isolated-17",
+        "rights": {
+          "release_cleared": false,
+          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+          "dataset_declared_license": "CC-BY-3.0",
+          "original_video_url": null,
+          "original_creator": null,
+          "video_specific_license_evidence": null,
+          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+          "evidence_urls": [
+            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+            "https://creativecommons.org/licenses/by/3.0/"
+          ]
+        },
+        "source_id": "Yr7rGfescvQ",
+        "source_start": 2078.256608886719,
+        "source_end": 2080.9309521484374,
+        "audio": {
+          "path": ".data\\japanese\\heldout\\ja-isolated-17.wav",
+          "sha256": "ac884c1eee7eefd84bdb79783b6247f332b178395c7e3fb3089fd844ebbc2fe5",
+          "duration_seconds": 2.6743333333333332,
+          "sample_rate": 48000,
+          "channels": 1,
+          "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
+          "rights": {
+            "release_cleared": false,
+            "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+            "dataset_declared_license": "CC-BY-3.0",
+            "original_video_url": null,
+            "original_creator": null,
+            "video_specific_license_evidence": null,
+            "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+            "evidence_urls": [
+              "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+              "https://creativecommons.org/licenses/by/3.0/"
+            ]
+          }
+        },
+        "category_tags": [
+          "short"
+        ],
+        "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
         "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-17.json",
-        "reference_sha256": "3525829a3a9c3bd0f7c3a3374a0f8f63f92d86deb4ed27d53b41d47ea10f0dfa"
+        "reference_sha256": "b15e40b5e3e9eae57fe8f5a3193fcfedda35551cda4e00d0cff897230fa05656"
       },
       {
         "id": "ja-isolated-18",
@@ -2296,12 +2343,12 @@
           ]
         },
         "source_id": "Yr7rGfescvQ",
-        "source_start": 1842.1078662109376,
-        "source_end": 1846.0309887695312,
+        "source_start": 2163.492204589844,
+        "source_end": 2166.1666088867187,
         "audio": {
           "path": ".data\\japanese\\heldout\\ja-isolated-18.wav",
-          "sha256": "0dda655f0c70156c35a6ab2660bf3ff28b3a65433fd48696130726c8a4cdec65",
-          "duration_seconds": 3.923125,
+          "sha256": "c691f9b8c2fde2de70ef76c76f6127b958b42e3c1d75c9658e6d2d7a838aea3b",
+          "duration_seconds": 2.6743958333333335,
           "sample_rate": 48000,
           "channels": 1,
           "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
@@ -2322,11 +2369,11 @@
           }
         },
         "category_tags": [
-          "internally_paused"
+          "short"
         ],
         "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
         "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-18.json",
-        "reference_sha256": "18958a18a3043064a14a2c91c30dc5cfeb4fd30bce0feb92a432c2abdeed4763"
+        "reference_sha256": "6536d4fced1e2097e40c365040624b3801b22efda25092ea1ff183b9d666a66a"
       },
       {
         "id": "ja-isolated-19",
@@ -2346,12 +2393,12 @@
           ]
         },
         "source_id": "Yr7rGfescvQ",
-        "source_start": 1835.3578662109376,
-        "source_end": 1841.1709729003906,
+        "source_start": 1591.1597193908692,
+        "source_end": 1592.3659687805175,
         "audio": {
           "path": ".data\\japanese\\heldout\\ja-isolated-19.wav",
-          "sha256": "df3e20019bec896244f4951ab3954c58c2ce5b9e04c9fa68d3cce39b0eb9c452",
-          "duration_seconds": 5.813104166666666,
+          "sha256": "8c1f3c976791a67728678deb5826e865fa7f63252dc7e48cb352c47730541eca",
+          "duration_seconds": 1.20625,
           "sample_rate": 48000,
           "channels": 1,
           "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
@@ -2372,11 +2419,11 @@
           }
         },
         "category_tags": [
-          "internally_paused"
+          "short"
         ],
         "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
         "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-19.json",
-        "reference_sha256": "974565649d55bdd4355efe8158b77684509e8d45a23e2abcc41c03c606684814"
+        "reference_sha256": "6cdfd688da0a7de8d38be2016575a5a2ebd54f3ed9d6679eda1936c76ef2d738"
       },
       {
         "id": "ja-isolated-20",
@@ -2396,12 +2443,12 @@
           ]
         },
         "source_id": "Yr7rGfescvQ",
-        "source_start": 1850.2078723144532,
-        "source_end": 1854.316602783203,
+        "source_start": 2039.6803759765626,
+        "source_end": 2041.595380859375,
         "audio": {
           "path": ".data\\japanese\\heldout\\ja-isolated-20.wav",
-          "sha256": "4fb4033bd6555d57274dce2f9a5c6fbbb422d9dc143933cbb8e397238030ada6",
-          "duration_seconds": 4.1087291666666665,
+          "sha256": "c0eb63ad7cd2f1cf4750286c8aa40f97255a34af8d4c893efa49f0d758570932",
+          "duration_seconds": 1.915,
           "sample_rate": 48000,
           "channels": 1,
           "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
@@ -2421,13 +2468,15 @@
             ]
           }
         },
-        "category_tags": [],
+        "category_tags": [
+          "short"
+        ],
         "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
         "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-20.json",
-        "reference_sha256": "d7e586470b25daaa7634cc65ac446e3e80b2b926df6f0a2a3e54688faf7002a5"
+        "reference_sha256": "1876df3402b33caf3fda56a88a2554fedf9808654221ba06a98356ea7fd626b8"
       }
     ],
-    "index_sha256": "88f3b6ab914dd9374c5d65c8bbe213e6b59cd08d0c3a6a96294899fdb9543a1b"
+    "index_sha256": "512881a89732d2178d07661b65ec4edf05fa1538ab84743329210fca14b9cae4"
   },
   "eligible_conversation_seconds_confirmed": null,
   "eligibility_status": "AUTOMATIC_SOURCE_CANDIDATES_NOT_LISTENED",
@@ -2458,7 +2507,7 @@
       "local_mapping_path": ".data\\japanese\\playback\\ja-main-mapping.json",
       "mapping_sha256": "4f77fbecb72a1806fd0792508d0528c67806dc4b1e687e361be79ff7d3e83e7c",
       "local_timeline_path": ".data\\japanese\\playback\\ja-main-reference.json",
-      "timeline_sha256": "793208de71bcde905ddc6ff4d43b29a0fef857b55c338787271fc8756b5bf2b8"
+      "timeline_sha256": "672afdf52eeff6407db0859ca81102a63fe295c1524e1435301905f828453548"
     },
     "dev": {
       "rights": {
@@ -2486,7 +2535,7 @@
       "local_mapping_path": ".data\\japanese\\playback\\ja-dev-mapping.json",
       "mapping_sha256": "f7cf3a88525e73551795db19e4a997f1d4b2ea5bc2d399ab54889c3d93cb4637",
       "local_timeline_path": ".data\\japanese\\playback\\ja-dev-reference.json",
-      "timeline_sha256": "b0d7a4f9f0dfd7a25b6cfa787ac07b9bc038eca05e363aead971f7ff486f8ecf"
+      "timeline_sha256": "e3b18c44e29bbcb05c4b05f6ac209714a8b30a67830567116575d37be5e6eac0"
     }
   },
   "practical_checks": {
@@ -2505,14 +2554,14 @@
         "https://creativecommons.org/licenses/by/3.0/"
       ]
     },
-    "started_unix": 1792468682.4038804,
-    "ended_unix": 1792468683.355367,
+    "started_unix": 1792472223.71546,
+    "ended_unix": 1792472225.5657542,
     "chunks": [
       {
         "chunk_id": "ja-general-01",
         "audio_duration_seconds": 179.989125,
         "word_count": 438,
-        "aligned_word_count": 432,
+        "aligned_word_count": 438,
         "audio_checksum_matches": true,
         "word_bounds_valid": true,
         "recognized_words_preserved": true
@@ -2521,7 +2570,7 @@
         "chunk_id": "ja-general-02",
         "audio_duration_seconds": 178.3353125,
         "word_count": 302,
-        "aligned_word_count": 301,
+        "aligned_word_count": 302,
         "audio_checksum_matches": true,
         "word_bounds_valid": true,
         "recognized_words_preserved": true
@@ -2530,7 +2579,7 @@
         "chunk_id": "ja-general-03",
         "audio_duration_seconds": 240.0,
         "word_count": 523,
-        "aligned_word_count": 516,
+        "aligned_word_count": 523,
         "audio_checksum_matches": true,
         "word_bounds_valid": true,
         "recognized_words_preserved": true
@@ -2539,7 +2588,7 @@
         "chunk_id": "ja-general-04",
         "audio_duration_seconds": 236.0255625,
         "word_count": 436,
-        "aligned_word_count": 427,
+        "aligned_word_count": 436,
         "audio_checksum_matches": true,
         "word_bounds_valid": true,
         "recognized_words_preserved": true
@@ -2548,7 +2597,7 @@
         "chunk_id": "ja-general-05",
         "audio_duration_seconds": 179.9890625,
         "word_count": 468,
-        "aligned_word_count": 467,
+        "aligned_word_count": 468,
         "audio_checksum_matches": true,
         "word_bounds_valid": true,
         "recognized_words_preserved": true
@@ -2557,7 +2606,7 @@
         "chunk_id": "ja-general-06",
         "audio_duration_seconds": 173.6609375,
         "word_count": 302,
-        "aligned_word_count": 300,
+        "aligned_word_count": 302,
         "audio_checksum_matches": true,
         "word_bounds_valid": true,
         "recognized_words_preserved": true
@@ -2566,7 +2615,7 @@
         "chunk_id": "ja-stress-01",
         "audio_duration_seconds": 198.8246875,
         "word_count": 270,
-        "aligned_word_count": 268,
+        "aligned_word_count": 270,
         "audio_checksum_matches": true,
         "word_bounds_valid": true,
         "recognized_words_preserved": true
@@ -2575,7 +2624,7 @@
         "chunk_id": "ja-stress-02",
         "audio_duration_seconds": 199.55283333333333,
         "word_count": 216,
-        "aligned_word_count": 214,
+        "aligned_word_count": 216,
         "audio_checksum_matches": true,
         "word_bounds_valid": true,
         "recognized_words_preserved": true
@@ -2584,7 +2633,7 @@
         "chunk_id": "ja-stress-03",
         "audio_duration_seconds": 197.62247916666666,
         "word_count": 211,
-        "aligned_word_count": 208,
+        "aligned_word_count": 211,
         "audio_checksum_matches": true,
         "word_bounds_valid": true,
         "recognized_words_preserved": true
@@ -2602,7 +2651,7 @@
         "chunk_id": "ja-heldout-reserve",
         "audio_duration_seconds": 710.0,
         "word_count": 1277,
-        "aligned_word_count": 1271,
+        "aligned_word_count": 1277,
         "audio_checksum_matches": true,
         "word_bounds_valid": true,
         "recognized_words_preserved": true
@@ -2628,9 +2677,734 @@
     ],
     "heldout_count": 20,
     "heldout_source_disjoint": true,
+    "heldout_intersection_audit": [
+      {
+        "id": "ja-isolated-01",
+        "intersecting_source_word_count": 16,
+        "emitted_word_count": 16,
+        "boundary_crossings": 0,
+        "all_intersections_retained": true
+      },
+      {
+        "id": "ja-isolated-02",
+        "intersecting_source_word_count": 28,
+        "emitted_word_count": 28,
+        "boundary_crossings": 0,
+        "all_intersections_retained": true
+      },
+      {
+        "id": "ja-isolated-03",
+        "intersecting_source_word_count": 3,
+        "emitted_word_count": 3,
+        "boundary_crossings": 0,
+        "all_intersections_retained": true
+      },
+      {
+        "id": "ja-isolated-04",
+        "intersecting_source_word_count": 27,
+        "emitted_word_count": 27,
+        "boundary_crossings": 0,
+        "all_intersections_retained": true
+      },
+      {
+        "id": "ja-isolated-05",
+        "intersecting_source_word_count": 18,
+        "emitted_word_count": 18,
+        "boundary_crossings": 0,
+        "all_intersections_retained": true
+      },
+      {
+        "id": "ja-isolated-06",
+        "intersecting_source_word_count": 18,
+        "emitted_word_count": 18,
+        "boundary_crossings": 0,
+        "all_intersections_retained": true
+      },
+      {
+        "id": "ja-isolated-07",
+        "intersecting_source_word_count": 24,
+        "emitted_word_count": 24,
+        "boundary_crossings": 0,
+        "all_intersections_retained": true
+      },
+      {
+        "id": "ja-isolated-08",
+        "intersecting_source_word_count": 1,
+        "emitted_word_count": 1,
+        "boundary_crossings": 0,
+        "all_intersections_retained": true
+      },
+      {
+        "id": "ja-isolated-09",
+        "intersecting_source_word_count": 5,
+        "emitted_word_count": 5,
+        "boundary_crossings": 0,
+        "all_intersections_retained": true
+      },
+      {
+        "id": "ja-isolated-10",
+        "intersecting_source_word_count": 1,
+        "emitted_word_count": 1,
+        "boundary_crossings": 0,
+        "all_intersections_retained": true
+      },
+      {
+        "id": "ja-isolated-11",
+        "intersecting_source_word_count": 2,
+        "emitted_word_count": 2,
+        "boundary_crossings": 0,
+        "all_intersections_retained": true
+      },
+      {
+        "id": "ja-isolated-12",
+        "intersecting_source_word_count": 6,
+        "emitted_word_count": 6,
+        "boundary_crossings": 0,
+        "all_intersections_retained": true
+      },
+      {
+        "id": "ja-isolated-13",
+        "intersecting_source_word_count": 2,
+        "emitted_word_count": 2,
+        "boundary_crossings": 0,
+        "all_intersections_retained": true
+      },
+      {
+        "id": "ja-isolated-14",
+        "intersecting_source_word_count": 15,
+        "emitted_word_count": 15,
+        "boundary_crossings": 0,
+        "all_intersections_retained": true
+      },
+      {
+        "id": "ja-isolated-15",
+        "intersecting_source_word_count": 2,
+        "emitted_word_count": 2,
+        "boundary_crossings": 0,
+        "all_intersections_retained": true
+      },
+      {
+        "id": "ja-isolated-16",
+        "intersecting_source_word_count": 18,
+        "emitted_word_count": 18,
+        "boundary_crossings": 0,
+        "all_intersections_retained": true
+      },
+      {
+        "id": "ja-isolated-17",
+        "intersecting_source_word_count": 8,
+        "emitted_word_count": 8,
+        "boundary_crossings": 0,
+        "all_intersections_retained": true
+      },
+      {
+        "id": "ja-isolated-18",
+        "intersecting_source_word_count": 6,
+        "emitted_word_count": 6,
+        "boundary_crossings": 0,
+        "all_intersections_retained": true
+      },
+      {
+        "id": "ja-isolated-19",
+        "intersecting_source_word_count": 2,
+        "emitted_word_count": 2,
+        "boundary_crossings": 0,
+        "all_intersections_retained": true
+      },
+      {
+        "id": "ja-isolated-20",
+        "intersecting_source_word_count": 5,
+        "emitted_word_count": 5,
+        "boundary_crossings": 0,
+        "all_intersections_retained": true
+      }
+    ],
+    "timing_inventory": [
+      {
+        "asset": "ja-general-01",
+        "words_count": 438,
+        "missing_words_bounds": 0,
+        "sentences_count": 51,
+        "missing_sentences_bounds": 0
+      },
+      {
+        "asset": "producer/ja-general-01",
+        "words_count": 438,
+        "missing_words_bounds": 0,
+        "sentences_count": 51,
+        "missing_sentences_bounds": 0
+      },
+      {
+        "asset": "ja-general-02",
+        "words_count": 302,
+        "missing_words_bounds": 0,
+        "sentences_count": 78,
+        "missing_sentences_bounds": 0
+      },
+      {
+        "asset": "producer/ja-general-02",
+        "words_count": 302,
+        "missing_words_bounds": 0,
+        "sentences_count": 78,
+        "missing_sentences_bounds": 0
+      },
+      {
+        "asset": "ja-general-03",
+        "words_count": 523,
+        "missing_words_bounds": 0,
+        "sentences_count": 87,
+        "missing_sentences_bounds": 0
+      },
+      {
+        "asset": "producer/ja-general-03",
+        "words_count": 523,
+        "missing_words_bounds": 0,
+        "sentences_count": 87,
+        "missing_sentences_bounds": 0
+      },
+      {
+        "asset": "ja-general-04",
+        "words_count": 436,
+        "missing_words_bounds": 0,
+        "sentences_count": 89,
+        "missing_sentences_bounds": 0
+      },
+      {
+        "asset": "producer/ja-general-04",
+        "words_count": 452,
+        "missing_words_bounds": 0,
+        "sentences_count": 92,
+        "missing_sentences_bounds": 0
+      },
+      {
+        "asset": "ja-general-05",
+        "words_count": 468,
+        "missing_words_bounds": 0,
+        "sentences_count": 63,
+        "missing_sentences_bounds": 0
+      },
+      {
+        "asset": "producer/ja-general-05",
+        "words_count": 468,
+        "missing_words_bounds": 0,
+        "sentences_count": 63,
+        "missing_sentences_bounds": 0
+      },
+      {
+        "asset": "ja-general-06",
+        "words_count": 302,
+        "missing_words_bounds": 0,
+        "sentences_count": 63,
+        "missing_sentences_bounds": 0
+      },
+      {
+        "asset": "producer/ja-general-06",
+        "words_count": 313,
+        "missing_words_bounds": 0,
+        "sentences_count": 68,
+        "missing_sentences_bounds": 0
+      },
+      {
+        "asset": "ja-stress-01",
+        "words_count": 270,
+        "missing_words_bounds": 0,
+        "sentences_count": 69,
+        "missing_sentences_bounds": 0
+      },
+      {
+        "asset": "producer/ja-stress-01",
+        "words_count": 270,
+        "missing_words_bounds": 0,
+        "sentences_count": 69,
+        "missing_sentences_bounds": 0
+      },
+      {
+        "asset": "ja-stress-02",
+        "words_count": 216,
+        "missing_words_bounds": 0,
+        "sentences_count": 81,
+        "missing_sentences_bounds": 0
+      },
+      {
+        "asset": "producer/ja-stress-02",
+        "words_count": 216,
+        "missing_words_bounds": 0,
+        "sentences_count": 81,
+        "missing_sentences_bounds": 0
+      },
+      {
+        "asset": "ja-stress-03",
+        "words_count": 211,
+        "missing_words_bounds": 0,
+        "sentences_count": 75,
+        "missing_sentences_bounds": 0
+      },
+      {
+        "asset": "producer/ja-stress-03",
+        "words_count": 216,
+        "missing_words_bounds": 0,
+        "sentences_count": 78,
+        "missing_sentences_bounds": 0
+      },
+      {
+        "asset": "ja-dev-01",
+        "words_count": 427,
+        "missing_words_bounds": 0,
+        "sentences_count": 125,
+        "missing_sentences_bounds": 0
+      },
+      {
+        "asset": "ja-heldout-reserve",
+        "words_count": 1277,
+        "missing_words_bounds": 0,
+        "sentences_count": 238,
+        "missing_sentences_bounds": 0
+      },
+      {
+        "asset": "playback/main",
+        "words_count": 3166,
+        "missing_words_bounds": 0,
+        "sentences_count": 656,
+        "missing_sentences_bounds": 0
+      },
+      {
+        "asset": "playback/dev",
+        "words_count": 427,
+        "missing_words_bounds": 0,
+        "sentences_count": 125,
+        "missing_sentences_bounds": 0
+      },
+      {
+        "asset": "heldout/ja-isolated-01",
+        "words_count": 16,
+        "missing_words_bounds": 0,
+        "sentences_count": 2,
+        "missing_sentences_bounds": 0
+      },
+      {
+        "asset": "heldout/ja-isolated-02",
+        "words_count": 28,
+        "missing_words_bounds": 0,
+        "sentences_count": 5,
+        "missing_sentences_bounds": 0
+      },
+      {
+        "asset": "heldout/ja-isolated-03",
+        "words_count": 3,
+        "missing_words_bounds": 0,
+        "sentences_count": 2,
+        "missing_sentences_bounds": 0
+      },
+      {
+        "asset": "heldout/ja-isolated-04",
+        "words_count": 27,
+        "missing_words_bounds": 0,
+        "sentences_count": 2,
+        "missing_sentences_bounds": 0
+      },
+      {
+        "asset": "heldout/ja-isolated-05",
+        "words_count": 18,
+        "missing_words_bounds": 0,
+        "sentences_count": 1,
+        "missing_sentences_bounds": 0
+      },
+      {
+        "asset": "heldout/ja-isolated-06",
+        "words_count": 18,
+        "missing_words_bounds": 0,
+        "sentences_count": 3,
+        "missing_sentences_bounds": 0
+      },
+      {
+        "asset": "heldout/ja-isolated-07",
+        "words_count": 24,
+        "missing_words_bounds": 0,
+        "sentences_count": 2,
+        "missing_sentences_bounds": 0
+      },
+      {
+        "asset": "heldout/ja-isolated-08",
+        "words_count": 1,
+        "missing_words_bounds": 0,
+        "sentences_count": 1,
+        "missing_sentences_bounds": 0
+      },
+      {
+        "asset": "heldout/ja-isolated-09",
+        "words_count": 5,
+        "missing_words_bounds": 0,
+        "sentences_count": 1,
+        "missing_sentences_bounds": 0
+      },
+      {
+        "asset": "heldout/ja-isolated-10",
+        "words_count": 1,
+        "missing_words_bounds": 0,
+        "sentences_count": 1,
+        "missing_sentences_bounds": 0
+      },
+      {
+        "asset": "heldout/ja-isolated-11",
+        "words_count": 2,
+        "missing_words_bounds": 0,
+        "sentences_count": 1,
+        "missing_sentences_bounds": 0
+      },
+      {
+        "asset": "heldout/ja-isolated-12",
+        "words_count": 6,
+        "missing_words_bounds": 0,
+        "sentences_count": 1,
+        "missing_sentences_bounds": 0
+      },
+      {
+        "asset": "heldout/ja-isolated-13",
+        "words_count": 2,
+        "missing_words_bounds": 0,
+        "sentences_count": 1,
+        "missing_sentences_bounds": 0
+      },
+      {
+        "asset": "heldout/ja-isolated-14",
+        "words_count": 15,
+        "missing_words_bounds": 0,
+        "sentences_count": 1,
+        "missing_sentences_bounds": 0
+      },
+      {
+        "asset": "heldout/ja-isolated-15",
+        "words_count": 2,
+        "missing_words_bounds": 0,
+        "sentences_count": 1,
+        "missing_sentences_bounds": 0
+      },
+      {
+        "asset": "heldout/ja-isolated-16",
+        "words_count": 18,
+        "missing_words_bounds": 0,
+        "sentences_count": 1,
+        "missing_sentences_bounds": 0
+      },
+      {
+        "asset": "heldout/ja-isolated-17",
+        "words_count": 8,
+        "missing_words_bounds": 0,
+        "sentences_count": 1,
+        "missing_sentences_bounds": 0
+      },
+      {
+        "asset": "heldout/ja-isolated-18",
+        "words_count": 6,
+        "missing_words_bounds": 0,
+        "sentences_count": 1,
+        "missing_sentences_bounds": 0
+      },
+      {
+        "asset": "heldout/ja-isolated-19",
+        "words_count": 2,
+        "missing_words_bounds": 0,
+        "sentences_count": 1,
+        "missing_sentences_bounds": 0
+      },
+      {
+        "asset": "heldout/ja-isolated-20",
+        "words_count": 5,
+        "missing_words_bounds": 0,
+        "sentences_count": 1,
+        "missing_sentences_bounds": 0
+      }
+    ],
     "listening_performed": false,
     "limits": [
       "Checks establish data consistency, not human reference accuracy, semantic stress labels, actual conversation suitability, or release eligibility."
+    ],
+    "failed_candidate_lexical_preservation": [
+      {
+        "asset": "ja-general-01",
+        "lexical_word_count": 438,
+        "asr_block_count": 26,
+        "previously_supported_intervals_unchanged": 432
+      },
+      {
+        "asset": "producer/ja-general-01",
+        "lexical_word_count": 438,
+        "asr_block_count": 26,
+        "previously_supported_intervals_unchanged": 432
+      },
+      {
+        "asset": "ja-general-02",
+        "lexical_word_count": 302,
+        "asr_block_count": 26,
+        "previously_supported_intervals_unchanged": 301
+      },
+      {
+        "asset": "producer/ja-general-02",
+        "lexical_word_count": 302,
+        "asr_block_count": 26,
+        "previously_supported_intervals_unchanged": 301
+      },
+      {
+        "asset": "ja-general-03",
+        "lexical_word_count": 523,
+        "asr_block_count": 35,
+        "previously_supported_intervals_unchanged": 516
+      },
+      {
+        "asset": "producer/ja-general-03",
+        "lexical_word_count": 523,
+        "asr_block_count": 35,
+        "previously_supported_intervals_unchanged": 516
+      },
+      {
+        "asset": "ja-general-04",
+        "lexical_word_count": 436,
+        "asr_block_count": 34,
+        "previously_supported_intervals_unchanged": 427
+      },
+      {
+        "asset": "producer/ja-general-04",
+        "lexical_word_count": 452,
+        "asr_block_count": 35,
+        "previously_supported_intervals_unchanged": 443
+      },
+      {
+        "asset": "ja-general-05",
+        "lexical_word_count": 468,
+        "asr_block_count": 26,
+        "previously_supported_intervals_unchanged": 467
+      },
+      {
+        "asset": "producer/ja-general-05",
+        "lexical_word_count": 468,
+        "asr_block_count": 26,
+        "previously_supported_intervals_unchanged": 467
+      },
+      {
+        "asset": "ja-general-06",
+        "lexical_word_count": 302,
+        "asr_block_count": 27,
+        "previously_supported_intervals_unchanged": 300
+      },
+      {
+        "asset": "producer/ja-general-06",
+        "lexical_word_count": 313,
+        "asr_block_count": 27,
+        "previously_supported_intervals_unchanged": 311
+      },
+      {
+        "asset": "ja-stress-01",
+        "lexical_word_count": 270,
+        "asr_block_count": 29,
+        "previously_supported_intervals_unchanged": 268
+      },
+      {
+        "asset": "producer/ja-stress-01",
+        "lexical_word_count": 270,
+        "asr_block_count": 29,
+        "previously_supported_intervals_unchanged": 268
+      },
+      {
+        "asset": "ja-stress-02",
+        "lexical_word_count": 216,
+        "asr_block_count": 30,
+        "previously_supported_intervals_unchanged": 214
+      },
+      {
+        "asset": "producer/ja-stress-02",
+        "lexical_word_count": 216,
+        "asr_block_count": 30,
+        "previously_supported_intervals_unchanged": 214
+      },
+      {
+        "asset": "ja-stress-03",
+        "lexical_word_count": 211,
+        "asr_block_count": 29,
+        "previously_supported_intervals_unchanged": 208
+      },
+      {
+        "asset": "producer/ja-stress-03",
+        "lexical_word_count": 216,
+        "asr_block_count": 29,
+        "previously_supported_intervals_unchanged": 213
+      },
+      {
+        "asset": "ja-heldout-reserve",
+        "lexical_word_count": 1277,
+        "asr_block_count": 101,
+        "previously_supported_intervals_unchanged": 1271
+      }
+    ],
+    "covering_alignment_audit": [
+      {
+        "asset": "ja-general-01",
+        "dedicated_surface_words": 4,
+        "pronunciation_ctc_words": 2,
+        "prediction_files_checked": 5,
+        "source_hash_matches": true,
+        "raw_prediction_mapping_matches": true
+      },
+      {
+        "asset": "producer/ja-general-01",
+        "dedicated_surface_words": 4,
+        "pronunciation_ctc_words": 2,
+        "prediction_files_checked": 5,
+        "source_hash_matches": true,
+        "raw_prediction_mapping_matches": true
+      },
+      {
+        "asset": "ja-general-02",
+        "dedicated_surface_words": 1,
+        "pronunciation_ctc_words": 0,
+        "prediction_files_checked": 1,
+        "source_hash_matches": true,
+        "raw_prediction_mapping_matches": true
+      },
+      {
+        "asset": "producer/ja-general-02",
+        "dedicated_surface_words": 1,
+        "pronunciation_ctc_words": 0,
+        "prediction_files_checked": 1,
+        "source_hash_matches": true,
+        "raw_prediction_mapping_matches": true
+      },
+      {
+        "asset": "ja-general-03",
+        "dedicated_surface_words": 7,
+        "pronunciation_ctc_words": 0,
+        "prediction_files_checked": 7,
+        "source_hash_matches": true,
+        "raw_prediction_mapping_matches": true
+      },
+      {
+        "asset": "producer/ja-general-03",
+        "dedicated_surface_words": 7,
+        "pronunciation_ctc_words": 0,
+        "prediction_files_checked": 7,
+        "source_hash_matches": true,
+        "raw_prediction_mapping_matches": true
+      },
+      {
+        "asset": "ja-general-04",
+        "dedicated_surface_words": 8,
+        "pronunciation_ctc_words": 1,
+        "prediction_files_checked": 8,
+        "source_hash_matches": true,
+        "raw_prediction_mapping_matches": true
+      },
+      {
+        "asset": "producer/ja-general-04",
+        "dedicated_surface_words": 8,
+        "pronunciation_ctc_words": 1,
+        "prediction_files_checked": 8,
+        "source_hash_matches": true,
+        "raw_prediction_mapping_matches": true
+      },
+      {
+        "asset": "ja-general-05",
+        "dedicated_surface_words": 1,
+        "pronunciation_ctc_words": 0,
+        "prediction_files_checked": 1,
+        "source_hash_matches": true,
+        "raw_prediction_mapping_matches": true
+      },
+      {
+        "asset": "producer/ja-general-05",
+        "dedicated_surface_words": 1,
+        "pronunciation_ctc_words": 0,
+        "prediction_files_checked": 1,
+        "source_hash_matches": true,
+        "raw_prediction_mapping_matches": true
+      },
+      {
+        "asset": "ja-general-06",
+        "dedicated_surface_words": 1,
+        "pronunciation_ctc_words": 1,
+        "prediction_files_checked": 2,
+        "source_hash_matches": true,
+        "raw_prediction_mapping_matches": true
+      },
+      {
+        "asset": "producer/ja-general-06",
+        "dedicated_surface_words": 1,
+        "pronunciation_ctc_words": 1,
+        "prediction_files_checked": 2,
+        "source_hash_matches": true,
+        "raw_prediction_mapping_matches": true
+      },
+      {
+        "asset": "ja-stress-01",
+        "dedicated_surface_words": 2,
+        "pronunciation_ctc_words": 0,
+        "prediction_files_checked": 2,
+        "source_hash_matches": true,
+        "raw_prediction_mapping_matches": true
+      },
+      {
+        "asset": "producer/ja-stress-01",
+        "dedicated_surface_words": 2,
+        "pronunciation_ctc_words": 0,
+        "prediction_files_checked": 2,
+        "source_hash_matches": true,
+        "raw_prediction_mapping_matches": true
+      },
+      {
+        "asset": "ja-stress-02",
+        "dedicated_surface_words": 2,
+        "pronunciation_ctc_words": 0,
+        "prediction_files_checked": 2,
+        "source_hash_matches": true,
+        "raw_prediction_mapping_matches": true
+      },
+      {
+        "asset": "producer/ja-stress-02",
+        "dedicated_surface_words": 2,
+        "pronunciation_ctc_words": 0,
+        "prediction_files_checked": 2,
+        "source_hash_matches": true,
+        "raw_prediction_mapping_matches": true
+      },
+      {
+        "asset": "ja-stress-03",
+        "dedicated_surface_words": 3,
+        "pronunciation_ctc_words": 0,
+        "prediction_files_checked": 3,
+        "source_hash_matches": true,
+        "raw_prediction_mapping_matches": true
+      },
+      {
+        "asset": "producer/ja-stress-03",
+        "dedicated_surface_words": 3,
+        "pronunciation_ctc_words": 0,
+        "prediction_files_checked": 3,
+        "source_hash_matches": true,
+        "raw_prediction_mapping_matches": true
+      },
+      {
+        "asset": "ja-dev-01",
+        "dedicated_surface_words": 0,
+        "pronunciation_ctc_words": 0,
+        "prediction_files_checked": 0,
+        "source_hash_matches": true,
+        "raw_prediction_mapping_matches": true
+      },
+      {
+        "asset": "ja-heldout-reserve",
+        "dedicated_surface_words": 6,
+        "pronunciation_ctc_words": 0,
+        "prediction_files_checked": 3,
+        "source_hash_matches": true,
+        "raw_prediction_mapping_matches": true
+      }
     ]
+  },
+  "alignment_completion": {
+    "local_record_path": ".data\\japanese\\alignment-repair\\completion.json",
+    "record_sha256": "3882e1ee229fdc9f471f61313541c5b8ba7c4450ff4a61d1e84fb46ab28c42e9",
+    "missing_word_bounds": 0,
+    "missing_sentence_bounds": 0,
+    "reference_asr_unchanged": true,
+    "timestamp_interpolation": false,
+    "raw_attempts_local_directory": ".data/japanese/alignment-repair"
   }
 }

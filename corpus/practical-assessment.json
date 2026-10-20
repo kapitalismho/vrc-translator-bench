@@ -1,0 +1,34 @@
+{
+  "method": "Small original-source-content, actual recognized-output and waveform/timeline inspection; no human listening",
+  "authority": "After receiving ten actual WAV excerpts and timed references, the owner stated they could not judge by listening and explicitly delegated appropriate assessment to the assistant. The Director selected this bounded automated/source-assisted practical method without claiming human observation or waiving timing/utterance correctness.",
+  "sample_scope": {"excerpts": 10, "total_seconds": 145, "english": 2, "chinese": 2, "japanese": 2, "silence_keyboard_nonverbal_background": 4, "local_index": ".data/listening-check/index.json", "local_timed_display": ".data/listening-check/REFERENCE.txt"},
+  "actual_checks": [
+    "All ten excerpt hashes matched the local index. Each PCM16 mono48kHz payload exactly matched its stated parent-audio crop; all seven distinct parent hashes matched.",
+    "The silence excerpt was exact zero; the other nine had nonzero energy. No excerpt reached full-scale PCM rails. This does not rule out distortion below the rails.",
+    "Original AMI XML words and other-speaker context were inspected for the two actual English excerpts. Interactive meeting discussion, disfluencies, restarts and fillers are present in the original human reference, not introduced by transformations.",
+    "Original AliMeeting near/far TextGrid intervals were inspected for the two actual Chinese excerpts. One contains everyday family/school discussion with responding participants; the stress excerpt contains four human-annotated backchannels with measured energy above neighboring gaps.",
+    "Japanese supplementary captions were compared with actual Reazon outputs over the sampled source intervals and one bounded second-session context. Questions, responses, participant handoffs and instructional/event discussion are supported. Caption-ASR disagreements are retained, not repaired by copying captions.",
+    "Original keyboard/coin/snap creator descriptions and actual source placement were inspected. Nonverbal sample digital gaps were exact zero. Original AMI human annotations establish two conversational participants in the full background minute."
+  ],
+  "specific_limits_and_counterevidence": [
+    "No listening occurred; perceptual intelligibility, acoustic pause authenticity, source music/TTS absence and incidental speech absence are not certified.",
+    "English and Chinese are recorded meetings/discussions, not uniformly spontaneous casual chat. One-target headset output is intentional.",
+    "Chinese sampled stress backchannels are quiet: excerpt RMS -51.694dBFS, with four response-window energies about -42.333 to -46.167dBFS versus nearby gaps about -58.079 to -65.223dBFS. They are not zero-valued audio; audibility through the later playback chain remains unobserved.",
+    "Japanese source evidence supports provisional instructional/conversational input, but substantial expert explanation/promotion is present. The sampled general excerpt is a handoff/announcement, not proof of sustained conversational exchange across every minute.",
+    "Concrete Japanese reference risks include a caption-ASR lexical disagreement, a repeated horticultural homophone/terminology disagreement, and captioned short reactions absent from corresponding ASR blocks. Neither supplementary captions nor successful forced alignment certify ASR text as correct.",
+    "Japanese speaker estimates substantially over-fragment; anonymous clusters are not verified people. Stress cases remain estimated proxies.",
+    "The background sample is attenuated meeting speech, not measured distant-room babble. Creator descriptions and signal energy do not independently prove that every noise source lacks incidental speech."
+  ],
+  "director_decision": "Accept the bounded source-assisted practical assessment for local preparation under the owner's delegated method. Retain the observed source-type support, explicit reference disagreements and all perceptual unknowns. Do not elevate this to human listening, transcription accuracy, exhaustive source eligibility or release clearance. Original timing/word-boundary findings require separate repair and verification.",
+  "snapshot_pins": {
+    "sample_index_sha256": "fe46ed24bf852866d1cef5dd45860b597a8fb7c474e9abe9e5abea2986273039",
+    "timed_display_sha256": "d3bc62dd7054d93e28c8c46ef28c83b2a7babca3678502b6cc42914538b904c3",
+    "japanese_caption_file_sha256": "f790b8fdcac8d70c9a71bba08e5686c010f05560ee77fbbd1b8165fd78c2d418",
+    "japanese_sampled_general_audio_sha256": "8ed9a1599fc17f988181b80b9e17fb903d6ab62ba048477d0b5c11afbf27b488",
+    "japanese_sampled_stress_audio_sha256": "aa7223b74227379ae813cefff4807e56edfc33c4d6f846effcaab7515d0cb899",
+    "japanese_conversation_excerpt_sha256": "43465308726c0b99d20baeedbda36ac7b85ede70e53d3a813e9f5c8855424089",
+    "japanese_stress_excerpt_sha256": "3afbfbdce27b8cbbd2f4cad4f74aafedccc025bb376835af009d73db076b401e"
+  },
+  "applicability": "Source-content evidence survives timing-only repair when source identities, sampled waveform bytes and recognized lexical content remain unchanged. Reconnect repaired outputs to these samples before final acceptance. These short inspection excerpts are not the benchmark isolated utterances.",
+  "publication": "This report contains no Japanese derived speech text. All Japanese sample WAVs, timed text and full assessment content stay in ignored .data. Video-specific rights remain unresolved."
+}

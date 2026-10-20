@@ -1,0 +1,37 @@
+{
+  "method": "Actual excerpt and parent hashes plus original fields of assessed producer ASR blocks/lexical words compared against retained baseline",
+  "excerpt_hashes_unchanged": 10,
+  "parent_file_hashes_unchanged": 7,
+  "producer_reference_comparisons": [
+    {
+      "reference": "ja-general-01.json",
+      "assessed_before_sha256": "05b94bd29cdf5e3e7afe84c2a43b8fa94d9ce59d829f550650f5e6ec92d5397d",
+      "repaired_sha256": "28dd10f8639d7273c382c685b86033ff1503c3d26957b506b3a0615257039a8b",
+      "original_asr_block_fields_unchanged": true,
+      "same_lexical_words": true,
+      "same_source_audio": true,
+      "new_covering_alignment_notes_allowed": true
+    },
+    {
+      "reference": "ja-stress-01.json",
+      "assessed_before_sha256": "28cba0e0a4d64416d119ecdf49519d48c1e929f3393640c86c279bdd421383e0",
+      "repaired_sha256": "9dfbcc0dbc02e4c5c7354ffd19d056024f8fe0ebb371ac9ac62e0f18991107d3",
+      "original_asr_block_fields_unchanged": true,
+      "same_lexical_words": true,
+      "same_source_audio": true,
+      "new_covering_alignment_notes_allowed": true
+    },
+    {
+      "reference": "ja-general-03.json",
+      "assessed_before_sha256": "f7c789283e329027b57b8116ebc8d8f121d62063699a83055d635b422a3ce155",
+      "repaired_sha256": "3d11d73856ac81f5318f4f2aef0eaeb8f4441ca47559a015360d3da2c443359b",
+      "original_asr_block_fields_unchanged": true,
+      "same_lexical_words": true,
+      "same_source_audio": true,
+      "new_covering_alignment_notes_allowed": true
+    }
+  ],
+  "main_audio_sha256": "33d854011e85b9279a83ff670a1f821f59647fc4ac0011ac8d195bd904b833cf",
+  "probe_correction": "Whole block-object equality initially failed because repair adds covering_alignment notes. Comparison of all original block fields and all lexical text passed; added repair notes are not a lexical change.",
+  "limits": "Timing-only repair updates reference hashes; original content and waveform findings remain applicable. No new listening or reference-accuracy claim."
+}

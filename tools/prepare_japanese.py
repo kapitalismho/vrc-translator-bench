@@ -236,6 +236,40 @@ def reference(only: set[str] | None, limit: float | None, threads: int) -> None:
         print(json.dumps({"reference": str(destination.relative_to(ROOT)), "words": len(result["words"]), "aligned_words": sum(word["start"] is not None for word in result["words"]), "stats": result["stats"], "runtime": result["runtime"]}), flush=True)
 
 
+def complete_alignment(aligner_python: Path, pronunciation_python: Path, model_dir: Path, threads: int) -> None:
+    report_path = LOCAL / "alignment-repair" / "report.json"
+    previous_mtime = report_path.stat().st_mtime_ns if report_path.exists() else None
+    command = [str(aligner_python), "-B", "-X", "utf8", str(ROOT / "tools" / "japanese_alignment.py"), "--model-dir", str(model_dir), "--threads", str(threads)]
+    result = subprocess.run(command, cwd=ROOT)
+    if result.returncode:
+        if not report_path.exists() or report_path.stat().st_mtime_ns == previous_mtime or not load(report_path).get("failures"):
+            raise subprocess.CalledProcessError(result.returncode, command)
+        print("Raw dedicated predictions rejected and retained; completing only unresolved words with genuine pronunciation CTC.", flush=True)
+    subprocess.run([str(pronunciation_python), "-B", "-X", "utf8", str(ROOT / "tools" / "japanese_pronunciation.py"), "--threads", str(threads)], cwd=ROOT, check=True)
+    from japanese_alignment import prediction_unit_index
+    prediction_records = {}
+    inventory = []
+    for chunk in load(LOCAL / "selection.json")["chunks"]:
+        paths = [LOCAL / "references" / f"{chunk['id']}.json"]
+        producer = LOCAL / "source-references" / f"{chunk['id']}.json"
+        if producer.exists():
+            paths.append(producer)
+        for path in paths:
+            ref = load(path)
+            for word in ref["words"]:
+                if word.get("timing_status") in {"dedicated_forced_aligner_raw_surface_word", "ctc_forced_aligned_dictionary_pronunciation"}:
+                    evidence_path = word["alignment_prediction_path"]
+                    if evidence_path not in prediction_records:
+                        prediction_records[evidence_path] = load(ROOT / evidence_path)
+                    word["alignment_prediction_index"] = prediction_unit_index(ref, word, prediction_records[evidence_path])
+            inventory.append(timing_inventory(str(path.relative_to(ROOT)), ref, ref["audio_duration_seconds"]))
+            ref["timing_method"] = "Initial Japanese Wav2Vec2 CTC constrained-Viterbi character occupancy supplies supported lexical-word spans; those intervals remain unchanged. Initial CTC-OOV words use genuine raw dedicated surface-word predictions or, after rejected raw predictions, vocabulary-covered dictionary-pronunciation CTC character occupancy as recorded per word. No replacement ASR, word deletion, interpolation, duration division or token-point interval substitution. Dictionary pronunciations, especially names, and all automatic acoustic estimates remain uncertain; no human validation."
+            save(path, ref)
+    completion = {"failed_candidate": "d39f6e8692e213c3521fc6b40a9e252fe4293c4f", "reference_asr_unchanged": True, "timestamp_interpolation": False, "timing_inventory": inventory, "unresolved_missing_word_bounds": 0, "unresolved_missing_sentence_bounds": 0, "dedicated_report": str(report_path.relative_to(ROOT)), "pronunciation_report": ".data/japanese/alignment-repair/pronunciation-report.json", "rejected_attempt_history": ".data/japanese/alignment-repair/attempts", "listening_performed": False, "release_cleared": False}
+    save(LOCAL / "alignment-repair" / "completion.json", completion)
+    print(json.dumps({"complete_alignment_inventory_assets": len(inventory), "missing_word_bounds": 0, "missing_sentence_bounds": 0}), flush=True)
+
+
 def apply_elapsed_budget() -> None:
     from japanese_budget import RATE, choose_trim_plan, crop_units
     from japanese_reference import acoustic_stats, merge_speaker_turns, punctuate
@@ -297,18 +331,23 @@ def playback_references() -> None:
     for chunk in selection["chunks"]:
         path = LOCAL / "references" / f"{chunk['id']}.json"
         ref = load(path)
+        if chunk.get("source_reference_path"):
+            producer_sha256 = digest(ROOT / chunk["source_reference_path"])
+            chunk["source_reference_sha256"] = producer_sha256
+            ref["source_reference_sha256"] = producer_sha256
         if "diarization_segments" not in ref:
             ref["diarization_segments"] = ref["turns"]
         ref["turns"] = merge_speaker_turns(ref["diarization_segments"])
         ref["turn_definition"] = "Consecutive same-label diarization segments coalesced across their preserved pauses; a new turn follows an estimated speaker-label change. Overlapping estimated speakers remain visible."
         ref["stats"] = acoustic_stats(ref["words"], ref["turns"], ref["diarization_segments"])
         save(path, ref)
+    save(LOCAL / "selection.json", selection)
     for split in ("main", "dev"):
         chunks = [chunk for chunk in selection["chunks"] if chunk["split"] == split]
         audio_path = LOCAL / "playback" / f"ja-{split}.wav"
         mapping = {"rights": RIGHTS, "directions": ["D4", "D6"], "gap_seconds": 2, "mapping": assemble(chunks, audio_path), "audio_sha256": digest(audio_path), "elapsed_budget": selection["elapsed_budget"]}
         save(LOCAL / "playback" / f"ja-{split}-mapping.json", mapping)
-        combined = {"rights": RIGHTS, "directions": ["D4", "D6"], "reference_level": "automatic_exploratory", "listening_performed": False, "speaker_uncertainty": "Anonymous estimated clusters can substantially split/merge real voices; labels are chunk-local, not verified identities.", "word_timing_uncertainty": "CTC acoustic path intervals with uncalibrated character support scores; unsupported glyph words retain null times; not human verified.", "audio_sha256": mapping["audio_sha256"], "mapping": mapping["mapping"], "words": [], "sentences": [], "turns": []}
+        combined = {"rights": RIGHTS, "directions": ["D4", "D6"], "reference_level": "automatic_exploratory", "listening_performed": False, "speaker_uncertainty": "Anonymous estimated clusters can substantially split/merge real voices; labels are chunk-local, not verified identities.", "word_timing_uncertainty": "Supported CTC acoustic intervals plus raw dedicated surface-word/pronunciation forced alignment for CTC-OOV words; automatic, not human verified; no interpolated timing.", "audio_sha256": mapping["audio_sha256"], "mapping": mapping["mapping"], "words": [], "sentences": [], "turns": []}
         for cut in mapping["mapping"]:
             reference_path = LOCAL / "references" / f"{cut['chunk_id']}.json"
             ref = load(reference_path)
@@ -326,7 +365,7 @@ def playback_references() -> None:
 
 def isolated_candidates(ref: dict) -> list[dict]:
     candidates = []
-    untimed_blocks = {word["block"] for word in ref["words"] if word["start"] is None}
+    untimed_blocks = {word["block"] for word in ref["words"] if word["start"] is None or word["end"] is None}
     for segment in ref["diarization_segments"]:
         start = max(0.0, segment["start"] - 0.08)
         end = min(ref["audio_duration_seconds"], segment["end"] + 0.08)
@@ -336,7 +375,10 @@ def isolated_candidates(ref: dict) -> list[dict]:
             continue
         if any(block["id"] in untimed_blocks and block["start"] < end and block["end"] > start for block in ref["blocks"]):
             continue
-        word_ids = [index for index, word in enumerate(ref["words"]) if word["start"] is not None and word["start"] >= start and word["end"] <= end]
+        intersecting = [(index, word) for index, word in enumerate(ref["words"]) if word["start"] is not None and word["start"] < end and word["end"] > start]
+        if any(word["start"] < start or word["end"] > end for _, word in intersecting):
+            continue
+        word_ids = [index for index, _ in intersecting]
         words = [ref["words"][index] for index in word_ids]
         if not words or any(word["speaker_ambiguous"] or word["speaker"] != segment["speaker"] for word in words):
             continue
@@ -372,7 +414,19 @@ def heldout() -> None:
                 continue
             chosen.append(candidate)
             count -= 1
+    if len(chosen) != 20:
+        raise ValueError(f"Need20 complete-word isolated utterances; selected {len(chosen)} from {len(pool)} candidates")
+    if any(not any(category in candidate["tags"] for candidate in chosen) for category in ("short", "long", "internally_paused")):
+        raise ValueError("Isolated selection must retain short, long and internally-paused coverage")
     entries = []
+    baseline = LOCAL / "alignment-repair" / "baseline" / "heldout"
+    old_index = LOCAL / "heldout" / "index.json"
+    if old_index.exists() and not (baseline / "index.json").exists():
+        baseline.mkdir(parents=True, exist_ok=True)
+        for old in load(old_index)["entries"]:
+            shutil.copyfile(ROOT / old["audio"]["path"], baseline / f"{old['id']}.wav")
+            shutil.copyfile(LOCAL / "heldout" / f"{old['id']}.json", baseline / f"{old['id']}.json")
+        shutil.copyfile(old_index, baseline / "index.json")
     source = source_path(reserve["source_id"])
     for index, candidate in enumerate(chosen):
         clip_id = f"ja-isolated-{index + 1:02}"
@@ -431,6 +485,8 @@ def public_metadata(selection: dict, summaries: dict) -> dict:
         "models": {
             "asr": {"id": "reazon-research/reazonspeech-k2-v2", "revision": ASR_REVISION, "license": "Apache-2.0", "precision": "int8_encoder_joiner_fp32_decoder"},
             "alignment": {"id": "jonatasgrosman/wav2vec2-large-xlsr-53-japanese", "revision": ALIGN_REVISION, "license": "Apache-2.0"},
+            "covering_alignment": {"id": "Qwen/Qwen3-ForcedAligner-0.6B", "revision": "c7cbfc2048c462b0d63a45797104fc9db3ad62b7", "license": "Apache-2.0", "purpose": "Dedicated acoustic timestamps for unchanged Reazon surface words, not replacement ASR", "timestamp_interpolation": False},
+            "covering_pronunciation": {"acoustic_model": "jonatasgrosman/wav2vec2-large-xlsr-53-japanese", "revision": ALIGN_REVISION, "frontend": "pyopenjtalk-plus", "frontend_version": "0.4.1.post9", "purpose": "Genuine CTC pronunciation paths only after raw dedicated predictions are rejected; surface words unchanged", "timestamp_interpolation": False},
             "speakers": {
                 "segmentation": "sherpa-onnx-pyannote-segmentation-3-0 int8",
                 "segmentation_license": "MIT, CNRS 2022, shipped LICENSE",
@@ -442,13 +498,13 @@ def public_metadata(selection: dict, summaries: dict) -> dict:
             },
             "device": "cpu",
         },
-        "process": {"audio": "Crop, FFmpeg dynamic loudnorm I=-23 TP=-2 LRA=7, 48k mono PCM16, 2s interchunk gaps, no speech synthesis or long-gap compression", "word_timing": "Actual CTC constrained Viterbi character occupancy grouped by fugashi/UniDic lexical words; OOV acoustic wildcard states preserve supported surrounding constraints while words containing OOV characters retain null times; never substitute token points", "punctuation": "Insert punctuation only at acoustic/estimated speaker/ASR-window boundaries; no word rewriting; sentence-like units not syntactically verified", "captions": "Supplementary candidate selection only, never copied into references or public metadata", "independence": "ReazonSpeech differs from explicitly planned evaluated ASRs, but PP4 CPU-auto ASR remains unresolved; no claim of disjoint training data"},
+        "process": {"audio": "Crop, FFmpeg dynamic loudnorm I=-23 TP=-2 LRA=7, 48k mono PCM16, 2s interchunk gaps, no speech synthesis or long-gap compression", "word_timing": "Supported CTC character-occupancy intervals retained; CTC-OOV surface words completed by raw dedicated forced alignment or vocabulary-covered dictionary-pronunciation CTC after rejected raw predictions. No word deletion, replacement ASR, interpolation, duration division or RNNT token-point interval substitutes.", "punctuation": "Insert punctuation only at acoustic/estimated speaker/ASR-window boundaries; no word rewriting; sentence-like units not syntactically verified", "captions": "Supplementary candidate selection only, never copied into references or public metadata", "independence": "ReazonSpeech differs from explicitly planned evaluated ASRs, but PP4 CPU-auto ASR remains unresolved; dedicated Qwen forced alignment is timing only, not evaluated-ASR replacement text; no claim of disjoint training data"},
         "summaries": summaries, "blockers": selection["blockers"],
     }
 
 
 def assert_metadata_only(value: object) -> None:
-    forbidden = {"text", "transcript", "words", "sentences", "turns", "blocks", "diarization_segments", "asr_tokens", "asr_token_points", "alignment_model_greedy_diagnostic"}
+    forbidden = {"text", "transcript", "words", "sentences", "turns", "blocks", "diarization_segments", "asr_tokens", "asr_token_points", "alignment_model_greedy_diagnostic", "word_text", "surface_words", "surface_word", "pronunciation_words", "pronunciation", "raw_predictions", "observations"}
     if isinstance(value, dict):
         if forbidden.intersection(value):
             raise ValueError("Refusing to export derived Japanese speech/timeline content")
@@ -500,11 +556,123 @@ def export_metadata() -> None:
             "local_timeline_path": str(timeline_path.relative_to(ROOT)), "timeline_sha256": digest(timeline_path),
         }
     checks_path = LOCAL / "checks.json"
-    if checks_path.exists():
-        value["practical_checks"] = load(checks_path)
+    if not checks_path.exists():
+        raise ValueError("Run complete Japanese artifact checks before exporting metadata")
+    checks = load(checks_path)
+    if not checks.get("timing_inventory") or any(item["missing_words_bounds"] or item["missing_sentences_bounds"] for item in checks["timing_inventory"]):
+        raise ValueError("Complete word/sentence timing inventory is required for metadata export")
+    if len(checks.get("heldout_intersection_audit", [])) != 20:
+        raise ValueError("Full isolated-word intersection audit is required for metadata export")
+    value["practical_checks"] = checks
+    completion_path = LOCAL / "alignment-repair" / "completion.json"
+    if completion_path.exists():
+        completion = load(completion_path)
+        value["alignment_completion"] = {"local_record_path": str(completion_path.relative_to(ROOT)), "record_sha256": digest(completion_path), "missing_word_bounds": completion["unresolved_missing_word_bounds"], "missing_sentence_bounds": completion["unresolved_missing_sentence_bounds"], "reference_asr_unchanged": True, "timestamp_interpolation": False, "raw_attempts_local_directory": ".data/japanese/alignment-repair"}
+        dedicated = load(ROOT / completion["dedicated_report"])
+        value["models"]["covering_alignment"]["weights_sha256"] = dedicated["model_weights_sha256"]
+        pronunciation = load(ROOT / completion["pronunciation_report"])
+        value["models"]["covering_pronunciation"]["frontend_version"] = pronunciation["frontend_version"]
+        value["models"]["covering_pronunciation"]["frontend_provenance"] = pronunciation["frontend_provenance"]
+        value["process"]["alignment_uncertainty"] = "Automatic surface/pronunciation alignment only; dictionary readings may be contextually wrong, especially names. Some paths have very low acoustic likelihood; scores are retained locally but are not calibrated accuracy. Raw units may overlap or share intervals and multiple backends may disagree; no human timing or listening claim."
     assert_metadata_only(value)
     save(ROOT / "corpus" / "japanese" / "local-preparation.json", value)
     print(json.dumps({"metadata": "corpus/japanese/local-preparation.json", "derived_speech_exported": False, "release_cleared": False}), flush=True)
+
+
+def timing_inventory(label: str, reference: dict, duration: float) -> dict:
+    import math
+    counts = {"asset": label}
+    for kind in ("words", "sentences"):
+        records = reference[kind]
+        missing = sum(item["start"] is None or item["end"] is None or not math.isfinite(item["start"]) or not math.isfinite(item["end"]) for item in records)
+        counts[f"{kind}_count"] = len(records)
+        counts[f"missing_{kind}_bounds"] = missing
+        if missing:
+            raise ValueError(f"Final reference missing/nonfinite {kind} bounds: {label}: {missing}")
+        if any(not 0 <= item["start"] < item["end"] <= duration + 1 / 48000 for item in records):
+            raise ValueError(f"Final reference {kind} interval outside audio: {label}")
+    return counts
+
+
+def audit_isolated_reference(entry: dict, artifact: dict, reserve: dict) -> dict:
+    start = entry["source_start"] - reserve["source_start"]
+    end = entry["source_end"] - reserve["source_start"]
+    intersecting = [(index, word) for index, word in enumerate(reserve["words"]) if word["start"] is not None and word["start"] < end and word["end"] > start]
+    crossing = [index for index, word in intersecting if word["start"] < start - 1e-9 or word["end"] > end + 1e-9]
+    if crossing:
+        raise ValueError(f"Isolated crop crosses aligned word boundaries: {entry['id']}: {crossing}")
+    expected_ids = [index for index, _ in intersecting]
+    if [word["origin_word_id"] for word in artifact["words"]] != expected_ids:
+        raise ValueError(f"Isolated reference omits or adds intersecting source words: {entry['id']}")
+    speakers = {word["speaker"] for _, word in intersecting}
+    if len(speakers) != 1 or "unknown" in speakers:
+        raise ValueError("Isolated reference lacks a single estimated speaker")
+    speaker = next(iter(speakers))
+    if any(segment["speaker"] != speaker and segment["start"] < end and segment["end"] > start for segment in reserve["diarization_segments"]):
+        raise ValueError("Isolated reference contains estimated other-speaker intrusion")
+    untimed = {word["block"] for word in reserve["words"] if word["start"] is None or word["end"] is None}
+    if any(block["id"] in untimed and block["start"] < end and block["end"] > start for block in reserve["blocks"]):
+        raise ValueError("Isolated reference intersects an untimed ASR block")
+    for (_, source), word in zip(intersecting, artifact["words"]):
+        if word["text"] != source["text"]:
+            raise ValueError("Isolated reference changed source lexical text")
+        for key in ("start", "end"):
+            absolute = reserve["source_start"] + source[key]
+            if abs(word[f"source_{key}"] - absolute) > 1e-8 or abs(word[key] - (absolute - entry["source_start"])) > 1e-8:
+                raise ValueError("Isolated word source/playback mapping mismatch")
+    return {"id": entry["id"], "intersecting_source_word_count": len(intersecting), "emitted_word_count": len(artifact["words"]), "boundary_crossings": 0, "all_intersections_retained": True}
+
+
+def audit_baseline_lexical(reference: dict, baseline: dict) -> dict:
+    if [word["text"] for word in reference["words"]] != [word["text"] for word in baseline["words"]]:
+        raise ValueError("Repair changed failed-candidate Reazon lexical units")
+    if [(block["id"], block["text"]) for block in reference["blocks"]] != [(block["id"], block["text"]) for block in baseline["blocks"]]:
+        raise ValueError("Repair changed failed-candidate Reazon ASR blocks")
+    retained = 0
+    for current, previous in zip(reference["words"], baseline["words"]):
+        if previous["start"] is not None and previous["end"] is not None:
+            if (current["start"], current["end"]) != (previous["start"], previous["end"]):
+                raise ValueError("Repair changed previously supported acoustic intervals")
+            retained += 1
+    return {"lexical_word_count": len(reference["words"]), "asr_block_count": len(reference["blocks"]), "previously_supported_intervals_unchanged": retained}
+
+
+def audit_covering_alignment(reference: dict, source_sha256: str, evidence_loader=load) -> dict:
+    if __package__:
+        from .japanese_alignment import prediction_unit_index, raw_word_predictions
+    else:
+        from japanese_alignment import prediction_unit_index, raw_word_predictions
+    evidence = {}
+    counts = {"dedicated_surface_words": 0, "pronunciation_ctc_words": 0}
+    for word in reference["words"]:
+        status = word.get("timing_status")
+        if status not in {"dedicated_forced_aligner_raw_surface_word", "ctc_forced_aligned_dictionary_pronunciation"}:
+            continue
+        path = word["alignment_prediction_path"]
+        if path not in evidence:
+            evidence[path] = evidence_loader(ROOT / path)
+        record = evidence[path]
+        recorded_source = record.get("source_audio_sha256", record.get("source_sha256"))
+        if recorded_source != source_sha256 or record["model"] != word["alignment_model"] or record["revision"] != word["alignment_model_revision"]:
+            raise ValueError("Covering alignment source/model provenance mismatch")
+        duration = (record["source_end_sample_16k"] - record["source_start_sample_16k"]) / 16000
+        if abs(record["acoustic_input_samples"] / 16000 - duration) > 1 / 16000 or record["timestamp_interpolation"]:
+            raise ValueError("Covering alignment acoustic sample interval mismatch")
+        if status == "dedicated_forced_aligner_raw_surface_word":
+            if not record["accepted"]:
+                raise ValueError("Rejected raw prediction used as final timing")
+            predictions = raw_word_predictions(record["raw_predictions"], record["surface_words"], duration, set())
+            counts["dedicated_surface_words"] += 1
+        else:
+            if len(record["ctc_pronunciation_character_frames"]) != len("".join(record["pronunciation_words"])):
+                raise ValueError("Pronunciation alignment lacks complete acoustic character occupancy")
+            predictions = record["predictions"]
+            counts["pronunciation_ctc_words"] += 1
+        offset = record["source_start_sample_16k"] / 16000 - reference["source_start"]
+        prediction = predictions[prediction_unit_index(reference, word, record)]
+        if prediction["text"] != word["text"] or abs(word["start"] - (offset + prediction["start"])) > 1 / 16000 or abs(word["end"] - (offset + prediction["end"])) > 1 / 16000:
+            raise ValueError(f"Repaired word timing does not match its genuine acoustic prediction: source={reference.get('source_id')} word_id={word.get('id')} evidence={path}")
+    return {**counts, "prediction_files_checked": len(evidence), "source_hash_matches": True, "raw_prediction_mapping_matches": True}
 
 
 def check_artifacts() -> None:
@@ -513,6 +681,10 @@ def check_artifacts() -> None:
     started = time.time()
     selection = load(LOCAL / "selection.json")
     checks = []
+    inventory = []
+    baseline_checks = []
+    alignment_checks = []
+    source_hashes = {}
     for index, chunk in enumerate(selection["chunks"]):
         for other in selection["chunks"][index + 1:]:
             if chunk["source_id"] == other["source_id"] and chunk["source_start"] < other["source_end"] and chunk["source_end"] > other["source_start"]:
@@ -524,11 +696,22 @@ def check_artifacts() -> None:
         if digest(path) != chunk["audio"]["sha256"]:
             raise ValueError(f"Audio checksum mismatch: {chunk['id']}")
         ref = load(LOCAL / "references" / f"{chunk['id']}.json")
+        if ref["source_id"] not in source_hashes:
+            source_hashes[ref["source_id"]] = digest(source_path(ref["source_id"]))
+        alignment_checks.append({"asset": chunk["id"], **audit_covering_alignment(ref, source_hashes[ref["source_id"]])})
+        baseline_path = LOCAL / "alignment-repair" / "baseline" / "references" / f"{chunk['id']}.json"
+        if baseline_path.exists():
+            baseline_checks.append({"asset": chunk["id"], **audit_baseline_lexical(ref, load(baseline_path))})
         if ref["audio_sha256"] != chunk["audio"]["sha256"]:
             raise ValueError("References belong to different audio")
-        for word in ref["words"]:
-            if word["start"] is not None and not 0 <= word["start"] < word["end"] <= info.duration:
-                raise ValueError("Word interval outside audio")
+        inventory.append(timing_inventory(chunk["id"], ref, info.duration))
+        if chunk.get("source_reference_path"):
+            producer = load(ROOT / chunk["source_reference_path"])
+            inventory.append(timing_inventory(f"producer/{chunk['id']}", producer, producer["audio_duration_seconds"]))
+            alignment_checks.append({"asset": f"producer/{chunk['id']}", **audit_covering_alignment(producer, source_hashes[ref["source_id"]])})
+            producer_baseline = LOCAL / "alignment-repair" / "baseline" / "source-references" / f"{chunk['id']}.json"
+            if producer_baseline.exists():
+                baseline_checks.append({"asset": f"producer/{chunk['id']}", **audit_baseline_lexical(producer, load(producer_baseline))})
         for block in ref["blocks"]:
             recognized = "".join(word["text"] for word in ref["words"] if word["block"] == block["id"])
             if recognized != "".join(block["text"].split()):
@@ -559,6 +742,7 @@ def check_artifacts() -> None:
         combined = load(LOCAL / "playback" / f"ja-{split}-reference.json")
         if combined["audio_sha256"] != mapping["audio_sha256"]:
             raise ValueError("Playback references target different audio")
+        inventory.append(timing_inventory(f"playback/{split}", combined, len(audio) / rate))
         for entry in mapping["mapping"]:
             local_ref = load(LOCAL / "references" / f"{entry['chunk_id']}.json")
             for kind in ("words", "sentences", "turns"):
@@ -583,18 +767,25 @@ def check_artifacts() -> None:
                     raise ValueError(f"{category} source budget must be exactly {seconds}s")
         bundles.append({"split": split, "duration_seconds": len(audio) / rate, "sha256": mapping["audio_sha256"], "exact_sample_assembly": True, "source_to_playback_units_checked": True, "zero_gap_seconds": 2})
     heldout_index = load(LOCAL / "heldout" / "index.json")
+    reserve_chunk = next(chunk for chunk in selection["chunks"] if chunk["split"] == "heldout_reserve")
+    reserve = load(LOCAL / "references" / f"{reserve_chunk['id']}.json")
+    heldout_audit = []
     for entry in heldout_index["entries"]:
         artifact = load(LOCAL / "heldout" / f"{entry['id']}.json")
         if digest(ROOT / entry["audio"]["path"]) != entry["audio"]["sha256"]:
             raise ValueError("Heldout checksum mismatch")
         if any(word["start"] < 0 or word["end"] > entry["audio"]["duration_seconds"] + 1 / 48000 for word in artifact["words"]):
             raise ValueError("Heldout word outside clip")
+        inventory.append(timing_inventory(f"heldout/{entry['id']}", artifact, entry["audio"]["duration_seconds"]))
+        heldout_audit.append(audit_isolated_reference(entry, artifact, reserve))
         for chunk in selection["chunks"]:
             if chunk["split"] != "heldout_reserve" and chunk["source_id"] == entry["source_id"] and chunk["source_start"] < entry["source_end"] and chunk["source_end"] > entry["source_start"]:
                 raise ValueError("Heldout leaked into main or dev")
     environment = subprocess.run([str(LOCAL / "venv" / "Scripts" / "python.exe"), "-m", "pip", "freeze"], check=True, capture_output=True, text=True).stdout.splitlines()
     save(LOCAL / "environment.json", {"python": subprocess.run([str(LOCAL / "venv" / "Scripts" / "python.exe"), "--version"], check=True, capture_output=True, text=True).stdout.strip(), "packages": environment})
-    result = {"rights": RIGHTS, "started_unix": started, "ended_unix": time.time(), "chunks": checks, "bundles": bundles, "heldout_count": heldout_index["prepared_count"], "heldout_source_disjoint": True, "listening_performed": False, "limits": ["Checks establish data consistency, not human reference accuracy, semantic stress labels, actual conversation suitability, or release eligibility."]}
+    result = {"rights": RIGHTS, "started_unix": started, "ended_unix": time.time(), "chunks": checks, "bundles": bundles, "heldout_count": heldout_index["prepared_count"], "heldout_source_disjoint": True, "heldout_intersection_audit": heldout_audit, "timing_inventory": inventory, "listening_performed": False, "limits": ["Checks establish data consistency, not human reference accuracy, semantic stress labels, actual conversation suitability, or release eligibility."]}
+    result["failed_candidate_lexical_preservation"] = baseline_checks
+    result["covering_alignment_audit"] = alignment_checks
     save(LOCAL / "checks.json", result)
     print(json.dumps(result), flush=True)
 
@@ -613,6 +804,12 @@ def main() -> None:
     ref_parser.add_argument("--only", nargs="+")
     ref_parser.add_argument("--limit", type=float)
     ref_parser.add_argument("--threads", type=int, default=2)
+    complete_parser = sub.add_parser("complete-alignment", description="Complete initial CTC-OOV times without replacement ASR. Default: reuse the existing Chinese Qwen environment/weights read-only. Fresh setup: create a Python3.12 CPU env under .data/japanese, install torch==2.14.1+cpu, qwen-asr==0.0.6 (transformers==4.57.6, accelerate==1.12.0), and download Qwen/Qwen3-ForcedAligner-0.6B at revision c7cbfc2048c462b0d63a45797104fc9db3ad62b7 into .data/japanese/models/covering-alignment; supply both overrides below. No runtime model/network downloads.")
+    complete_parser.add_argument("--aligner-python", type=Path, default=ROOT / ".data" / "chinese" / "venv" / "Scripts" / "python.exe", help="CPU Qwen environment Python; fresh example .data/japanese/aligner-venv/Scripts/python.exe. qwen-asr==0.0.6 and its pinned dependencies are required.")
+    complete_parser.add_argument("--pronunciation-python", type=Path, default=LOCAL / "venv" / "Scripts" / "python.exe", help="Japanese Reazon/CTC env with pyopenjtalk-plus==0.4.1.post9, SudachiPy==0.7.0, SudachiDict-core==20261015. Bundled dictionary only; unset OPEN_JTALK_DICT_DIR overrides. Nani prediction is explicitly disabled to reproduce the original optional-ONNX-unavailable behavior.")
+    from japanese_alignment import DEFAULT_MODEL
+    complete_parser.add_argument("--model-dir", type=Path, default=DEFAULT_MODEL, help="Existing local pinned dedicated-aligner snapshot. Fresh example .data/japanese/models/covering-alignment; acquire with hf download Qwen/Qwen3-ForcedAligner-0.6B --revision c7cbfc2048c462b0d63a45797104fc9db3ad62b7 --local-dir .data/japanese/models/covering-alignment. This is only the dedicated model, never a full YODAS config.")
+    complete_parser.add_argument("--threads", type=int, default=2)
     sub.add_parser("playback-references")
     sub.add_parser("heldout")
     sub.add_parser("export-metadata")
@@ -634,6 +831,10 @@ def main() -> None:
         if args.threads < 1:
             parser.error("--threads must be positive")
         reference(set(args.only) if args.only else None, args.limit, args.threads)
+    elif args.command == "complete-alignment":
+        if args.threads < 1:
+            parser.error("--threads must be positive")
+        complete_alignment(args.aligner_python.resolve(), args.pronunciation_python.resolve(), args.model_dir.resolve(), args.threads)
     elif args.command == "playback-references":
         playback_references()
     elif args.command == "heldout":

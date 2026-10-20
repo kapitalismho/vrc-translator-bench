@@ -16,7 +16,9 @@ The owner [replaced the Hugging Face publication criterion with local preparatio
 
 Each main budget is 20 minutes general plus 10 minutes separately selected stress **including recorded separator accounting**, not 30 minutes of uninterrupted speaking. A three-minute nonspeech/background track, the exact five-minute D1 repeat prefix and pre-result common-clip shortlists are also identified. Main-run protocol freeze and final common-excerpt selection belong to issue #8.
 
-English and Chinese use human lexical references with automatic timing. Japanese is **automatic and exploratory**, with estimated speakers, provisional conversation eligibility and unresolved original-video rights. Its current main reference retains 33 untimed words out of 3,166 rather than fabricating times. Japanese full text/timelines remain local. No human listening or independent transcription-validation study is claimed; numerical waveform and transformed-timeline checks are documented.
+English and Chinese use human lexical references with automatic timing. Japanese is **automatic and exploratory**, with estimated speakers, provisional conversation eligibility and unresolved original-video rights. Its 3,166 main words now have acoustic timing estimates, including low-confidence covering alignment for formerly unsupported words; numeric completeness is not accuracy. Japanese full text/timelines remain local. No human listening or independent transcription-validation study is claimed.
+
+The owner delegated practical assessment rather than providing a listening judgment. [The sample record](corpus/practical-assessment.json) combines original human annotations/supplementary captions, actual recognized content and waveform checks, including Japanese reference disagreements and perceptual limits. It is not a human-listening result.
 
 ## Run
 

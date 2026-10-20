@@ -19,6 +19,7 @@ This repository began without committed implementation. Its current boundary is 
 | `tools/prepare_japanese.py` | Pinned YODAS2 acquisition, selection/rendering, local orchestration, heldout clips, checks and public-safe metadata export |
 | `tools/japanese_reference.py` | Actual independent automatic ASR, acoustic alignment, estimated speakers and insertion-only punctuation |
 | `tools/japanese_budget.py` | Word/voice-safe source trimming and remapping to exact elapsed budgets |
+| `tools/japanese_alignment.py`, `tools/japanese_pronunciation.py` | Covering raw dedicated-model and dictionary-pronunciation CTC timing for retained unsupported words; source/hash/prediction audits |
 | `tools/prepare_nonspeech.py` | Recorded keyboard/nonverbal assets, separate background conversation and two scoring intervals |
 | `tools/index_corpus.py`, `tools/check_corpus.py` | Six-direction reuse index, actual file/hash/frame checks and D1 repeat identity |
 | `corpus/` | Permitted selection, reference, provenance, license and checksum records; no audio |
@@ -34,13 +35,15 @@ Language-specific preparation remains explicit because the sources have material
 - Corpus metadata is checksummed as file bytes. `.gitattributes` disables Git newline conversion under `corpus/`, preserving the measured bytes in commits and fresh checkouts. Regenerating metadata requires rebuilding the root index; do not normalize or reformat hashed references independently.
 - English reference coordinates are **integer 48 kHz samples**. Chinese and Japanese reference coordinates are **seconds**. Use each group's `timeline_units`; never infer units from a generic `start` field.
 - English DA units, Chinese punctuation-completed units and Japanese automatic sentence-like units retain their different evidence levels. Do not present them as uniformly human-verified sentences.
-- Japanese word IDs are local to a chunk. Join with `(chunk_id, word_id)`. Untimed/OOV words remain present with null times; estimated speaker labels are not person identities. Downstream metrics must expose unsupported timings rather than silently discard words or assign invented deadlines.
+- Japanese word IDs are local to a chunk. Join with `(chunk_id, word_id)`. Final preparation rejects missing/nonfinite word or sentence bounds, while low acoustic scores, overlapping model estimates and dictionary-reading uncertainty remain explicit. Numeric timing completeness does not establish accuracy; estimated speaker labels are not person identities.
 - Original session identities, selected-speaker scoring and unscored earlier context stay in language manifests. Session clustering cannot treat chopped clips or target-language reuse as independent recordings.
 - General and deliberate stress populations remain separate. Common shortlists precede results; the full comparison freeze is not performed by this preparation code.
 
 ## Verification boundary
 
 Deterministic tests cover mapping/word boundaries, pause preservation, lexical preservation, CTC paths, overlap, isolated boundaries, safe metadata export and clean-checkout smoke gating. Real preparation commands produced the local waveforms. Source-aligned PCM comparisons and emitted-frame/hash checks support the transformation claims, not independent transcription correctness or listening-based eligibility.
+
+The owner-delegated practical method is recorded in `corpus/practical-assessment.json` and the linked issue decision. It adds bounded inspection of original source content, actual ASR/caption disagreements and ten emitted excerpts; it does not claim human listening or replace timing/utterance correctness checks.
 
 No private account, live translation service, microphone capture, VRChat process or OSC destination is used by routine corpus checks. Public dependency installation may use the normal pip cache; corpus/model payloads remain in `.data/`. Do not delete shared caches as cleanup.
 
