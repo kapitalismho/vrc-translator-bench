@@ -8,7 +8,7 @@ from pathlib import Path
 
 import pytest
 
-from bench.metrics import derive
+from bench.metrics import assemble_segments, derive, timing
 from bench.metrics_stats import aggregate
 from test_metrics import dump, packet, sample
 
@@ -31,7 +31,9 @@ def turn(sentence, value, **changes):
 
 
 def segment(sentence, identity):
-    return {**sentence, "id": identity, "shared_id": None, "reference": [{"sentence_id": sentence["id"]}], "quality_score": None}
+    reference_eligible = sentence["status"] in ("done", "product_failure") and sentence.get("outcome") != "N/A"
+    return {**sentence, "id": identity, "shared_id": None, "reference_eligible": reference_eligible, "eligible": reference_eligible,
+            "reference": [{"sentence_id": sentence["id"]}], "quality_score": None}
 
 
 def output(identity, assigned, linked=(), **raw):
@@ -198,3 +200,90 @@ def test_cli_composes_population_and_turn_report_from_this_checkout(tmp_path):
     assert casual["turn_lul_p50"]["session_values"] == [{"session_id": "original-session", "value": pytest.approx(-1.1)}]
     assert view(result, "stress")["measurable_turns"] == 0
     assert result["output_population"]["unaligned_output_rate"]["denominator"] == 3
+
+
+@pytest.mark.parametrize("merged_config", ["APP", "OTHER"])
+@pytest.mark.parametrize("left_status", ["done", "product_failure"])
+def test_merged_quality_allocation_keeps_paired_source_timing_but_not_scores(merged_config, left_status):
+    sentences, outputs = [], []
+    for config, attempt, status in (("APP", 1, left_status), ("OTHER", 2, "done")):
+        members = []
+        for name, start, end in (("a", 0, 31), ("b", 32, 63)):
+            row = source(f"{attempt}:{name}", attempt_id=attempt, config=config, status=status,
+                         reference_id=name, scored=True, chunk_id="clip", speaker="speaker", text=name,
+                         uncertainty="controlled synthetic reference", reference_level="synthetic",
+                         start=start, end=end, start_ns=start * 1_000_000_000, end_ns=end * 1_000_000_000,
+                         duration_bin="above_5s", turn_id=f"{attempt}:turn", deadline_ns=78_000_000_000)
+            members.append(row)
+            sentences.append(row)
+        links = [[row["id"] for row in members]] if config == merged_config else [[row["id"]] for row in members]
+        for index, identities in enumerate(links):
+            identity = f"{config}:{index}"
+            outputs.append({**output(identity, "", identities, config=config, attempt=attempt, t_ns=(64 if config == "APP" else 61) * 1_000_000_000),
+                            "group_id": identity, "relation": "new", "content_changed": True,
+                            "text": "controlled merged translation" if config == merged_config else "controlled separate translation"})
+    for row in sentences:
+        timing(row, outputs, 80_000_000_000)
+    segments = assemble_segments(sentences, [], outputs, {})
+    merged_segments = [row for row in segments if row["config"] == merged_config]
+    assert len(merged_segments) == 2
+    assert all(row["reference_eligible"] and not row["eligible"] for row in merged_segments)
+    assert all(row["quality_eligibility_reason"] == "unresolved_merged_output_allocation" for row in merged_segments)
+    assert all(row["cross_segment_output_ids"] == [f"{merged_config}:0"] for row in merged_segments)
+    assert all(row["source_linked_output_ids"] == [f"{merged_config}:0"] for row in merged_segments)
+    assert sum(len(row["final_output"]) for row in merged_segments) == 1
+    for row in segments:
+        row["quality_score"] = {"major_error": row["config"] == merged_config, "provenance": ["Synthetic stale score to exercise quality eligibility gate"]}
+    result = aggregate(report(sentences, segments=segments, outputs=outputs), {"iterations": 20})
+    pair = result["paired"][0]
+    assert len(pair["shared_segments"]) == 2
+    comparisons = pair["comparisons"]["all_shared"]
+    for name, expected in (("delivery_difference", 0), ("fol_difference", 3), ("lul_difference", 3)):
+        assert comparisons[name]["value"] == expected
+        assert comparisons[name]["observations"] == 2
+        assert comparisons[name]["session_values"] == [{"session_id": "original-a", "value": expected}]
+    assert comparisons["major_error_difference"]["value"] is None
+    assert comparisons["major_error_difference"]["observations"] == 0
+    supplemental = pair["comparisons"]["common_success_only_supplemental"]
+    assert supplemental["delivery_difference"]["observations"] == (2 if left_status == "done" else 0)
+    gated = view(result, config=merged_config)["major_error_segment_rate"]
+    assert gated["eligible_segments"] == 0 and gated["scored_segments"] == 0
+    assert gated["value"] is None
+    other = view(result, config="OTHER" if merged_config == "APP" else "APP")["major_error_segment_rate"]
+    assert other["eligible_segments"] == 2 and other["scored_segments"] == 2
+
+
+@pytest.mark.parametrize("status,outcome,reference_eligible", [
+    ("done", "done", True), ("product_failure", "failed", True),
+    ("invalid", "invalid", False), ("done", "N/A", False)])
+def test_paired_reference_eligibility_preserves_terminal_failure_policy(status, outcome, reference_eligible):
+    left = source("left", status=status, outcome=outcome, eligible=reference_eligible)
+    right = source("right", attempt_id=2, config="OTHER")
+    segments = [segment(left, "left-q"), segment(right, "right-q")]
+    for index, row in enumerate(segments):
+        row.update(shared_id="shared", quality_score={"major_error": index == 0, "provenance": ["synthetic score"]})
+    result = aggregate(report([left, right], segments=segments), {"iterations": 20})
+    if not reference_eligible:
+        assert result["paired"] == []
+        return
+    comparisons = result["paired"][0]["comparisons"]
+    assert comparisons["all_shared"]["delivery_difference"]["value"] == 0
+    assert comparisons["all_shared"]["major_error_difference"]["value"] == 1
+    assert comparisons["common_success_only_supplemental"]["delivery_difference"]["observations"] == (1 if status == "done" else 0)
+
+
+def test_paired_unknown_source_timing_stays_unmeasurable_without_dropping_quality_pair():
+    left = source("left", eligible=False, eligibility_reason="ambiguous_containing_turn",
+                  delivery_status="N/A", fol={"value": None}, lul={"value": None})
+    right = source("right", attempt_id=2, config="OTHER")
+    segments = [segment(left, "left-q"), segment(right, "right-q")]
+    for index, row in enumerate(segments):
+        row.update(shared_id="shared", quality_score={"major_error": index == 0, "provenance": ["synthetic score"]})
+    assert all(row["reference_eligible"] for row in segments)
+    result = aggregate(report([left, right], segments=segments), {"iterations": 20})
+    assert result["paired"][0]["shared_segments"] == ["shared"]
+    comparisons = result["paired"][0]["comparisons"]["all_shared"]
+    for name in ("delivery_difference", "fol_difference", "lul_difference"):
+        assert comparisons[name]["value"] is None
+        assert comparisons[name]["observations"] == 0
+    assert comparisons["major_error_difference"]["value"] == 1

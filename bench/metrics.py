@@ -18,7 +18,7 @@ DEFINITIONS = {
     "delivery": "sentences with known corresponding output by deadline / eligible reference sentences; unknown correspondence retained in denominator and separately counted",
     "unaligned": "translation outputs without linked reference sentences / all nonempty interpreted chatbox/input translation outputs, including known-unrelated, resends and late/orphan output; unknown and known-unrelated statuses remain distinct",
     "isolated": "all output in [utterance start, utterance end + 10 seconds], inclusive, no language alignment",
-    "quality": "about 30 seconds at reference sentence ends; TWO previous reference turns as unscored context",
+    "quality": "about 30 seconds at reference sentence ends; TWO previous reference turns as unscored context; a merged output crossing segment cuts has one display placement and all source-linked segments are scoring N/A until allocation is supported",
     "uncertainty": "session-clustered percentile 95% bootstrap; excludes reference, alignment and judge bias",
     "policies": "product failure included; operational-invalid and unsupported N/A retained but excluded from headline measurement denominators; first eligible attempt primary; repeats separate; no overall score",
 }
@@ -118,10 +118,11 @@ def assemble_segments(sentences, turns, outputs, scores):
             context = [turn for turn in earlier_turns if turn["text"].strip()][-2:]
             source_context = [turn for turn in first.get("earlier_source_turns", []) if turn["text"].strip()][-(2 - len(context)):] if len(context) < 2 else []
             identity = f"{first['attempt_id']}:{first['chunk_id']}:quality-{len(segments) + 1}"
+            reference_eligible = first["status"] in ("done", "product_failure") and first.get("outcome") != "N/A"
             segments.append({"id": identity, "shared_id": f"{first['audio_sha256']}:{first['direction']}:{first['chunk_id']}:{first['start']}:{last['end']}",
                              "attempt_id": first["attempt_id"], "config": first["config"], "direction": first["direction"], "clock_session": first["clock_session"],
                              "session_id": first["session_id"], "category": first["category"], "casual": True if all(item["casual"] is True for item in pending) else None if any(item["casual"] is None for item in pending) else False,
-                             "kind": first["kind"], "status": first["status"], "eligible": first["status"] in ("done", "product_failure") and first.get("outcome") != "N/A", "timing_eligible": all(item["eligible"] for item in pending),
+                             "kind": first["kind"], "status": first["status"], "eligible": reference_eligible, "reference_eligible": reference_eligible, "timing_eligible": all(item["eligible"] for item in pending),
                              "resumed": first["resumed"], "start": first["start"], "end": last["end"], "start_ns": first["start_ns"], "end_ns": last["end_ns"],
                              "reference": [{"sentence_id": item["id"], "speaker": item["speaker"], "text": item["text"], "uncertainty": item["uncertainty"],
                                             "reference_level": item["reference_level"], "partial": item.get("partial", False), "timing_eligibility_reason": item.get("eligibility_reason")} for item in pending],
@@ -136,6 +137,13 @@ def assemble_segments(sentences, turns, outputs, scores):
         capture_attempt = output.get("capture_attempt_id", output["raw"].get("attempt"))
         output["capture_kind"], output["capture_attempt_id"] = capture_kind, capture_attempt
         candidates = [segment for segment in segments if any(row["sentence_id"] in aligned for row in segment["reference"])]
+        output["source_quality_segment_ids"] = [segment["id"] for segment in candidates]
+        for linked_segment in candidates:
+            linked_segment.setdefault("source_linked_output_ids", []).append(output["id"])
+            if len(candidates) > 1:
+                linked_segment.setdefault("cross_segment_output_ids", []).append(output["id"])
+                linked_segment["eligible"] = False
+                linked_segment["quality_eligibility_reason"] = "unresolved_merged_output_allocation"
         if not candidates:
             candidates = [segment for segment in segments if segment["clock_session"] == output["raw"].get("clock_session")
                           and segment["config"] == output["raw"].get("config") and segment["direction"] == output["raw"].get("direction")
@@ -151,7 +159,7 @@ def assemble_segments(sentences, turns, outputs, scores):
                 segment = {"id": identity, "shared_id": None, "config": output["raw"].get("config"), "direction": output["raw"].get("direction"),
                            "clock_session": output["raw"].get("clock_session"), "session_id": None, "category": "unknown", "casual": False,
                            "kind": capture_kind, "attempt_id": capture_attempt,
-                           "eligible": False, "reason": "No captured source timeline in this clock/config", "reference": [], "context": [], "output_ids": [],
+                           "eligible": False, "reference_eligible": False, "reason": "No captured source timeline in this clock/config", "reference": [], "context": [], "output_ids": [],
                            "unaligned_output_ids": [], "quality_score": None, "start_ns": None, "end_ns": None}
                 segments.append(segment)
         segment["output_ids"].append(output["id"])
@@ -161,13 +169,17 @@ def assemble_segments(sentences, turns, outputs, scores):
     by_id = {output["id"]: output for output in outputs}
     group_locations = defaultdict(set)
     for output in outputs:
-        group_locations[output["group_id"]].add(output["quality_segment_id"])
+        group_locations[output["group_id"]].update(output["source_quality_segment_ids"] or [output["quality_segment_id"]])
     for segment in segments:
+        segment.setdefault("source_linked_output_ids", [])
+        segment.setdefault("cross_segment_output_ids", [])
+        segment.setdefault("quality_eligibility_reason", None)
         selected = [by_id[identity] for identity in segment["output_ids"]]
         final = final_outputs(selected)
         segment["final_output"] = [{"output_id": row["id"], "text": row["text"], "relation": row["relation"]} for row in final]
-        segment["cross_segment_group_ids"] = sorted({row["group_id"] for row in selected if len(group_locations[row["group_id"]]) > 1})
-        segment["reconstruction_status"] = "unknown_observed_order_only" if segment["cross_segment_group_ids"] or any(row["relation"] == "unknown" for row in selected) else "estimated_under_versioned_rules"
+        related = [by_id[identity] for identity in dict.fromkeys(segment["output_ids"] + segment["source_linked_output_ids"])]
+        segment["cross_segment_group_ids"] = sorted({row["group_id"] for row in related if len(group_locations[row["group_id"]]) > 1})
+        segment["reconstruction_status"] = "N/A_unresolved_merged_output_allocation" if segment["cross_segment_output_ids"] else "unknown_observed_order_only" if segment["cross_segment_group_ids"] or any(row["relation"] == "unknown" for row in selected) else "estimated_under_versioned_rules"
     return segments
 
 
@@ -239,6 +251,18 @@ def derive(manifest_path, spec_path, output_path=None, cache_path=None, allow_do
     for score in spec.get("quality_scores", {}).values():
         if not score.get("provenance"):
             raise ValueError("Quality scores require provenance")
+    excluded_by_reason = defaultdict(list)
+    for segment in segments:
+        if not segment["eligible"]:
+            reasons = [segment.get("quality_eligibility_reason"), segment.get("reason")]
+            if segment.get("status") and segment["status"] not in ("done", "product_failure"):
+                reasons.append(f"attempt_status:{segment['status']}")
+            for reason in dict.fromkeys(reason for reason in reasons if reason):
+                excluded_by_reason[reason].append(segment["id"])
+            if not any(reasons):
+                excluded_by_reason["ineligible_segment"].append(segment["id"])
+    supplied_scores = [segment for segment in segments if segment.get("quality_score") is not None
+                       and isinstance(segment["quality_score"].get("major_error"), bool)]
     report = {"schema_version": 1, "version": VERSION, "created_utc": utc_now(), "measurement_date": manifest.get("updated_wall"),
               "specification_version": spec["version"], "run": manifest["run"], "synthetic": manifest["plan"].get("synthetic", False),
               "definitions": DEFINITIONS, "provenance": provenance, "alignment_provenance": aligner.provenance,
@@ -254,6 +278,15 @@ def derive(manifest_path, spec_path, output_path=None, cache_path=None, allow_do
     report["alignment_cache"] = {"schema_version": 1, "version": VERSION, "provenance": aligner.provenance,
                                  "links": {row["id"]: {**row["alignment"], "binding": cache_binding(row, sentences)} for row in outputs}}
     report.update(aggregate(report, spec.get("bootstrap", {})))
+    report["quality_score_coverage"] = {
+        "population": "All report quality segments; each aggregate separately declares its eligible/scored population",
+        "total_segments": len(segments), "eligible_segments": sum(segment["eligible"] for segment in segments),
+        "excluded_segments": sum(not segment["eligible"] for segment in segments),
+        "supplied_major_error_scores": len(supplied_scores),
+        "scored_eligible_segments": sum(segment["eligible"] for segment in supplied_scores),
+        "excluded_major_error_scores": sum(not segment["eligible"] for segment in supplied_scores),
+        "excluded_by_reason": dict(excluded_by_reason),
+    }
     if output_path:
         Path(output_path).parent.mkdir(parents=True, exist_ok=True)
         atomic_json(Path(output_path), report)

@@ -424,6 +424,9 @@ def test_unaligned_page_stays_nearest_instead_of_inheriting_parent_source_segmen
     assert report["quality_segments"][1]["unaligned_output_ids"] == ["clock:2"]
     assert report["quality_segments"][0]["cross_segment_group_ids"] == ["clock:1"]
     assert report["quality_segments"][0]["reconstruction_status"] == "unknown_observed_order_only"
+    assert report["outputs"][1]["source_quality_segment_ids"] == []
+    assert [segment["source_linked_output_ids"] for segment in report["quality_segments"]] == [["clock:1"], []]
+    assert all(segment["eligible"] and segment["cross_segment_output_ids"] == [] for segment in report["quality_segments"])
 
 
 def test_page_revisions_replace_explicit_parent_slots_and_keep_other_pages():
@@ -525,6 +528,9 @@ def test_aligned_pages_follow_their_source_segments_not_first_group_segment(tmp_
     assert [row["output_ids"] for row in report["quality_segments"]] == [["clock:1"], ["clock:2"]]
     assert [row["final_output"][0]["text"] for row in report["quality_segments"]] == ["page A", "page B"]
     assert all(row["cross_segment_group_ids"] == ["clock:1"] and row["reconstruction_status"] == "unknown_observed_order_only" for row in report["quality_segments"])
+    assert [row["source_linked_output_ids"] for row in report["quality_segments"]] == [["clock:1"], ["clock:2"]]
+    assert all(row["eligible"] and row["reference_eligible"] and row["cross_segment_output_ids"] == [] for row in report["quality_segments"])
+    assert [row["source_quality_segment_ids"] for row in report["outputs"]] == [[report["quality_segments"][0]["id"]], [report["quality_segments"][1]["id"]]]
 
 
 @pytest.mark.parametrize("test_kind", ["output_check", "isolated", "nonspeech"])
@@ -542,6 +548,7 @@ def test_reference_free_test_output_cannot_enter_continuous_quality(tmp_path, te
     assert continuous["output_ids"] == ["clock:2"]
     assert continuous["unaligned_output_ids"] == []
     assert orphan["output_ids"] == ["clock:1"] and orphan["kind"] == test_kind
+    assert not orphan["reference_eligible"]
     assert report["outputs"][0]["alignment"]["candidate_ids"] == []
     assert report["sentences"][1]["delivery_status"] == "no_output_before_deadline"
     assert report["aggregates"][0]["unaligned_output_rate"]["denominator"] == 1
@@ -572,3 +579,77 @@ def test_inspected_correspondence_preserves_negative_fol_with_reference_uncertai
     assert report["sentences"][0]["delivery_status"] == "delivered"
     assert report["sentences"][0]["fol"]["value"] == pytest.approx(-0.3)
     assert "reference-onset uncertainty" in report["sentences"][0]["uncertainty"]
+
+
+@pytest.mark.parametrize("attempt_status", ["done", "invalid"])
+def test_one_confirmed_merge_crossing_quality_cut_is_linked_everywhere_but_scored_nowhere(tmp_path, attempt_status):
+    event = packet(1, 74.1, "translation of A and B")
+    manifest, spec = sample(tmp_path, [event])
+    reference = json.loads((tmp_path / "reference.json").read_text())
+    reference["sentences"][0]["end"] = 31
+    reference["sentences"][1].update({"start": 32, "end": 63})
+    reference["turns"][0]["end"] = 63
+    dump(tmp_path / "reference.json", reference)
+    data = json.loads(manifest.read_text())
+    data["attempts"][0].update({"state": attempt_status, "reason": "interrupted" if attempt_status == "invalid" else None, "end_ns": 110_000_000_000})
+    dump(manifest, data)
+    specification = json.loads(spec.read_text())
+    specification["quality_scores"] = {
+        "1:clip:quality-1": {"major_error": False, "provenance": ["Synthetic supplied score for testing exclusion; not a judge run"]},
+        "1:clip:quality-2": {"major_error": True, "provenance": ["Synthetic supplied score for testing exclusion; not a judge run"]}}
+    dump(spec, specification)
+    cache = link(tmp_path, manifest, spec, {"clock:1": ["1:clip/s1", "1:clip/s2"]})
+    report = derive(manifest, spec, cache_path=cache)
+    segments = report["quality_segments"]
+    segment_ids = [segment["id"] for segment in segments]
+    assert len(report["outputs"]) == 1 and report["outputs"][0]["raw"] == event
+    assert report["outputs"][0]["source_quality_segment_ids"] == segment_ids
+    assert report["outputs"][0]["quality_segment_id"] == segment_ids[1]
+    assert [segment["output_ids"] for segment in segments] == [[], ["clock:1"]]
+    assert sum(len(segment["final_output"]) for segment in segments) == 1
+    assert all(segment["source_linked_output_ids"] == ["clock:1"] and segment["cross_segment_output_ids"] == ["clock:1"] for segment in segments)
+    assert all(segment["cross_segment_group_ids"] == ["clock:1"] for segment in segments)
+    assert all(not segment["eligible"] and segment["quality_eligibility_reason"] == "unresolved_merged_output_allocation"
+               and segment["reconstruction_status"] == "N/A_unresolved_merged_output_allocation" for segment in segments)
+    assert all(segment["status"] == attempt_status for segment in segments)
+    assert all(segment["reference_eligible"] == (attempt_status == "done") for segment in segments)
+    assert all(segment["quality_score"] == specification["quality_scores"][segment["id"]] for segment in segments)
+    coverage = report["quality_score_coverage"]
+    assert coverage["total_segments"] == coverage["excluded_segments"] == coverage["supplied_major_error_scores"] == coverage["excluded_major_error_scores"] == 2
+    assert coverage["eligible_segments"] == coverage["scored_eligible_segments"] == 0
+    assert coverage["excluded_by_reason"]["unresolved_merged_output_allocation"] == segment_ids
+    rate = report["aggregates"][0]["major_error_segment_rate"]
+    assert rate["value"] is None and rate["eligible_segments"] == rate["scored_segments"] == 0
+    assert report["output_population"]["observed_translation_outputs"] == 1
+    if attempt_status == "done":
+        assert all(sentence["delivery_status"] == "delivered" for sentence in report["sentences"])
+        assert [sentence["fol"]["value"] for sentence in report["sentences"]] == [64.0, 32.0]
+        assert [sentence["lul"]["value"] for sentence in report["sentences"]] == [33.0, 1.0]
+        assert report["aggregates"][0]["delivery"]["value"] == 1
+    else:
+        assert report["attempts"][0]["reason"] == "interrupted"
+        assert all(sentence["delivery_status"] == "N/A" and sentence["fol"]["reason"] == "operational_invalid" for sentence in report["sentences"])
+        assert coverage["excluded_by_reason"]["attempt_status:invalid"] == segment_ids
+
+
+def test_confirmed_multi_sentence_merge_inside_one_quality_segment_remains_scorable(tmp_path):
+    manifest, spec = sample(tmp_path, [packet(1, 15, "one translation of both short sentences")])
+    specification = json.loads(spec.read_text())
+    score = {"major_error": True, "provenance": ["Synthetic supplied score for testing a valid denominator; not a judge run"]}
+    specification["quality_scores"] = {"1:clip:quality-1": score}
+    dump(spec, specification)
+    cache = link(tmp_path, manifest, spec, {"clock:1": ["1:clip/s1", "1:clip/s2"]})
+    report = derive(manifest, spec, cache_path=cache)
+    segment = report["quality_segments"][0]
+    assert len(report["quality_segments"]) == 1
+    assert report["outputs"][0]["source_quality_segment_ids"] == [segment["id"]]
+    assert segment["source_linked_output_ids"] == segment["output_ids"] == ["clock:1"]
+    assert segment["eligible"] and segment["reference_eligible"] and segment["quality_eligibility_reason"] is None
+    assert segment["cross_segment_output_ids"] == segment["cross_segment_group_ids"] == []
+    assert segment["reconstruction_status"] == "estimated_under_versioned_rules"
+    assert segment["quality_score"] == score
+    assert all(sentence["delivery_status"] == "delivered" for sentence in report["sentences"])
+    rate = report["aggregates"][0]["major_error_segment_rate"]
+    assert rate["value"] == rate["eligible_segments"] == rate["scored_segments"] == 1
+    assert report["quality_score_coverage"]["eligible_segments"] == report["quality_score_coverage"]["scored_eligible_segments"] == 1
+    assert report["quality_score_coverage"]["excluded_by_reason"] == {}

@@ -168,7 +168,7 @@ def aggregate(report, options):
     paired = []
     indexed = defaultdict(dict)
     for row in report["quality_segments"]:
-        if row.get("shared_id") and row.get("eligible") and row.get("kind") == "chunk":
+        if row.get("shared_id") and row["reference_eligible"] and row.get("kind") == "chunk":
             indexed[(row["direction"], row["category"], row["config"])][row["shared_id"]] = row
     for direction, category in sorted({(key[0], key[1]) for key in indexed}):
         configs = sorted(key[2] for key in indexed if key[:2] == (direction, category))
@@ -183,7 +183,7 @@ def aggregate(report, options):
                 v1, v2 = rate(s1, "delivery_status", {"delivered"}), rate(s2, "delivery_status", {"delivered"})
                 points.append({"session_id": one["session_id"], "shared_id": identity, "delivery_difference": v1 - v2 if v1 is not None and v2 is not None else None,
                                "common_success": one["status"] == two["status"] == "done",
-                               "major_error_difference": int(one["quality_score"]["major_error"]) - int(two["quality_score"]["major_error"]) if one.get("quality_score") and two.get("quality_score") and isinstance(one["quality_score"].get("major_error"), bool) and isinstance(two["quality_score"].get("major_error"), bool) else None})
+                               "major_error_difference": int(one["quality_score"]["major_error"]) - int(two["quality_score"]["major_error"]) if one["eligible"] and two["eligible"] and one.get("quality_score") and two.get("quality_score") and isinstance(one["quality_score"].get("major_error"), bool) and isinstance(two["quality_score"].get("major_error"), bool) else None})
                 for name in ("fol", "lul"):
                     left_value = quantile([row[name]["value"] for row in eligible(s1) if row[name]["value"] is not None], 0.5)
                     right_value = quantile([row[name]["value"] for row in eligible(s2) if row[name]["value"] is not None], 0.5)
