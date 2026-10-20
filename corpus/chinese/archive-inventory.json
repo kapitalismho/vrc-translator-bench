@@ -1,0 +1,298 @@
+{
+  "entries": [
+    {
+      "name": "Eval_Ali",
+      "bytes": 0
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_far",
+      "bytes": 0
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_far/audio_dir",
+      "bytes": 0
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_far/audio_dir/R8001_M8004_MS801.wav",
+      "bytes": 402905680
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_far/audio_dir/R8003_M8001_MS801.wav",
+      "bytes": 529408080
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_far/audio_dir/R8007_M8010_MS803.wav",
+      "bytes": 475218496
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_far/audio_dir/R8007_M8011_MS806.wav",
+      "bytes": 476555856
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_far/audio_dir/R8008_M8013_MS807.wav",
+      "bytes": 573304528
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_far/audio_dir/R8009_M8018_MS809.wav",
+      "bytes": 423592272
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_far/audio_dir/R8009_M8019_MS810.wav",
+      "bytes": 505325136
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_far/audio_dir/R8009_M8020_MS810.wav",
+      "bytes": 489073632
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_far/textgrid_dir",
+      "bytes": 0
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_far/textgrid_dir/R8001_M8004.TextGrid",
+      "bytes": 76496
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_far/textgrid_dir/R8003_M8001.TextGrid",
+      "bytes": 80400
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_far/textgrid_dir/R8007_M8010.TextGrid",
+      "bytes": 129859
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_far/textgrid_dir/R8007_M8011.TextGrid",
+      "bytes": 89858
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_far/textgrid_dir/R8008_M8013.TextGrid",
+      "bytes": 79663
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_far/textgrid_dir/R8009_M8018.TextGrid",
+      "bytes": 72975
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_far/textgrid_dir/R8009_M8019.TextGrid",
+      "bytes": 93517
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_far/textgrid_dir/R8009_M8020.TextGrid",
+      "bytes": 88614
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near",
+      "bytes": 0
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/audio_dir",
+      "bytes": 0
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/audio_dir/R8001_M8004_N_SPK8013.wav",
+      "bytes": 49658284
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/audio_dir/R8001_M8004_N_SPK8014.wav",
+      "bytes": 49658284
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/audio_dir/R8001_M8004_N_SPK8015.wav",
+      "bytes": 49658284
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/audio_dir/R8001_M8004_N_SPK8016.wav",
+      "bytes": 49658284
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/audio_dir/R8003_M8001_N_SPK8001.wav",
+      "bytes": 66166444
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/audio_dir/R8003_M8001_N_SPK8002.wav",
+      "bytes": 66166444
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/audio_dir/R8003_M8001_N_SPK8003.wav",
+      "bytes": 66166444
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/audio_dir/R8003_M8001_N_SPK8004.wav",
+      "bytes": 66166444
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/audio_dir/R8007_M8010_N_SPK8050.wav",
+      "bytes": 59455180
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/audio_dir/R8007_M8010_N_SPK8054.wav",
+      "bytes": 59455180
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/audio_dir/R8007_M8010_N_SPK8055.wav",
+      "bytes": 59455180
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/audio_dir/R8007_M8010_N_SPK8056.wav",
+      "bytes": 59455180
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/audio_dir/R8007_M8011_N_SPK8066.wav",
+      "bytes": 59616684
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/audio_dir/R8007_M8011_N_SPK8067.wav",
+      "bytes": 59616684
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/audio_dir/R8007_M8011_N_SPK8068.wav",
+      "bytes": 59616684
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/audio_dir/R8007_M8011_N_SPK8069.wav",
+      "bytes": 59616684
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/audio_dir/R8008_M8013_N_SPK8047.wav",
+      "bytes": 71663100
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/audio_dir/R8008_M8013_N_SPK8048.wav",
+      "bytes": 71663100
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/audio_dir/R8008_M8013_N_SPK8049.wav",
+      "bytes": 71663100
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/audio_dir/R8009_M8018_N_SPK8021.wav",
+      "bytes": 52945124
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/audio_dir/R8009_M8018_N_SPK8022.wav",
+      "bytes": 52944726
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/audio_dir/R8009_M8019_N_SPK8023.wav",
+      "bytes": 63168044
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/audio_dir/R8009_M8019_N_SPK8024.wav",
+      "bytes": 63162868
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/audio_dir/R8009_M8020_N_SPK8025.wav",
+      "bytes": 61132076
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/audio_dir/R8009_M8020_N_SPK8026.wav",
+      "bytes": 61131936
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/textgrid_dir",
+      "bytes": 0
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/textgrid_dir/R8001_M8004_N_SPK8013.TextGrid",
+      "bytes": 32493
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/textgrid_dir/R8001_M8004_N_SPK8014.TextGrid",
+      "bytes": 15446
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/textgrid_dir/R8001_M8004_N_SPK8015.TextGrid",
+      "bytes": 17902
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/textgrid_dir/R8001_M8004_N_SPK8016.TextGrid",
+      "bytes": 10960
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/textgrid_dir/R8003_M8001_N_SPK8001.TextGrid",
+      "bytes": 12323
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/textgrid_dir/R8003_M8001_N_SPK8002.TextGrid",
+      "bytes": 20001
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/textgrid_dir/R8003_M8001_N_SPK8003.TextGrid",
+      "bytes": 22952
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/textgrid_dir/R8003_M8001_N_SPK8004.TextGrid",
+      "bytes": 25419
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/textgrid_dir/R8007_M8010_N_SPK8050.TextGrid",
+      "bytes": 30087
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/textgrid_dir/R8007_M8010_N_SPK8054.TextGrid",
+      "bytes": 36203
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/textgrid_dir/R8007_M8010_N_SPK8055.TextGrid",
+      "bytes": 30115
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/textgrid_dir/R8007_M8010_N_SPK8056.TextGrid",
+      "bytes": 33759
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/textgrid_dir/R8007_M8011_N_SPK8066.TextGrid",
+      "bytes": 24918
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/textgrid_dir/R8007_M8011_N_SPK8067.TextGrid",
+      "bytes": 18894
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/textgrid_dir/R8007_M8011_N_SPK8068.TextGrid",
+      "bytes": 26824
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/textgrid_dir/R8007_M8011_N_SPK8069.TextGrid",
+      "bytes": 19527
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/textgrid_dir/R8008_M8013_N_SPK8047.TextGrid",
+      "bytes": 27753
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/textgrid_dir/R8008_M8013_N_SPK8048.TextGrid",
+      "bytes": 27532
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/textgrid_dir/R8008_M8013_N_SPK8049.TextGrid",
+      "bytes": 24603
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/textgrid_dir/R8009_M8018_N_SPK8021.TextGrid",
+      "bytes": 42355
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/textgrid_dir/R8009_M8018_N_SPK8022.TextGrid",
+      "bytes": 30715
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/textgrid_dir/R8009_M8019_N_SPK8023.TextGrid",
+      "bytes": 49652
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/textgrid_dir/R8009_M8019_N_SPK8024.TextGrid",
+      "bytes": 43961
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/textgrid_dir/R8009_M8020_N_SPK8025.TextGrid",
+      "bytes": 49908
+    },
+    {
+      "name": "Eval_Ali/Eval_Ali_near/textgrid_dir/R8009_M8020_N_SPK8026.TextGrid",
+      "bytes": 38801
+    }
+  ],
+  "embedded_notices": [],
+  "notice_search": "Case-insensitive license/copying/notice/readme/citation filenames across entire original archive."
+}

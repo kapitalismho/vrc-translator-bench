@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "clip_id": "isolated-06",
+  "timebase": "integer frames at 48000 Hz; intervals half-open; zero-width punctuation retained",
+  "frames": 6240,
+  "reference_level": "human transcript/manual dialogue acts; automatically forced-aligned source word times; not independently verified",
+  "source_to_playback": [
+    {
+      "source_start": 30911520,
+      "source_end": 30917760,
+      "playback_start": 0,
+      "playback_end": 6240
+    }
+  ],
+  "removed": [],
+  "padding": [],
+  "words_and_events": [
+    {
+      "id": "TS3007a.D.words240",
+      "speaker": "D",
+      "timing_valid": true,
+      "source_start": 30911520,
+      "source_end": 30917760,
+      "text": "'Kay",
+      "kind": "w",
+      "punctuation": false,
+      "truncated": false,
+      "sound_type": null,
+      "dialogue_act": "TS3007a.D.dialog-act.vkaraisk.65",
+      "playback_parts": [
+        [
+          0,
+          6240
+        ]
+      ],
+      "playback_start": 0,
+      "playback_end": 6240,
+      "scored": true,
+      "fully_retained": true,
+      "reference_role": "target"
+    },
+    {
+      "id": "TS3007a.D.words241",
+      "speaker": "D",
+      "timing_valid": true,
+      "source_start": 30917760,
+      "source_end": 30917760,
+      "text": ",",
+      "kind": "w",
+      "punctuation": true,
+      "truncated": false,
+      "sound_type": null,
+      "dialogue_act": "TS3007a.D.dialog-act.vkaraisk.65",
+      "playback_parts": [
+        [
+          6240,
+          6240
+        ]
+      ],
+      "playback_start": 6240,
+      "playback_end": 6240,
+      "scored": false,
+      "fully_retained": true,
+      "reference_role": "target"
+    }
+  ],
+  "sentences": [
+    {
+      "id": "TS3007a.D.dialog-act.vkaraisk.65",
+      "speaker": "D",
+      "type": "ami_da_2",
+      "word_ids": [
+        "TS3007a.D.words240",
+        "TS3007a.D.words241"
+      ],
+      "source_start": 30911520,
+      "source_end": 30917760,
+      "playback_parts": [
+        [
+          0,
+          6240
+        ]
+      ],
+      "playback_start": 0,
+      "playback_end": 6240,
+      "retained_word_ids": [
+        "TS3007a.D.words240",
+        "TS3007a.D.words241"
+      ],
+      "text": "'Kay ,",
+      "partial": false,
+      "scored": true,
+      "unit": "manual_dialogue_act_not_grammatical_sentence"
+    }
+  ],
+  "turns": [
+    {
+      "id": "isolated-06.turn0",
+      "speaker": "D",
+      "playback_start": 0,
+      "playback_end": 6240,
+      "word_ids": [
+        "TS3007a.D.words240"
+      ],
+      "text": "'Kay"
+    }
+  ],
+  "topics": [
+    {
+      "id": "TS3007a.topic.palmer.7",
+      "types": [
+        "default-topics.xml#id(top.212)"
+      ],
+      "other_description": null,
+      "source_start": 15430560,
+      "source_end": 46590432,
+      "playback_parts": [
+        [
+          0,
+          6240
+        ]
+      ]
+    }
+  ],
+  "stress_candidates": []
+}

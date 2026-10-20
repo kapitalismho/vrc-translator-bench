@@ -1,0 +1,33 @@
+{
+  "status": "candidate shortlist selected before benchmark results; final common excerpt freeze remains with Director",
+  "seed": 20261020,
+  "clips": [
+    {
+      "clip_id": "general-01",
+      "audio_sha256": "d3b16a0f73d0aa666aacbd49c14efb1c8dc700b2d6c967186ca2f99dc28f4f12",
+      "session": "ES2014d",
+      "speaker": "A",
+      "category": "general",
+      "timeline_path": "corpus/english/timelines/general-01.json",
+      "reason": "general including genuine labelled chitchat"
+    },
+    {
+      "clip_id": "stress-01",
+      "audio_sha256": "1c5faa699756ff63ed982835f345324e32f59982bcbe16cabe2cde2556e2ac8f",
+      "session": "TS3003d",
+      "speaker": "A",
+      "category": "stress",
+      "timeline_path": "corpus/english/timelines/stress-01.json",
+      "reason": "separately selected stress; inspect uncertainty before presentation"
+    },
+    {
+      "clip_id": "stress-02",
+      "audio_sha256": "1eaf75c4ef88e169c71032798510c2a0cccaca61f0067634d7658fef4ffb4f81",
+      "session": "TS3003b",
+      "speaker": "B",
+      "category": "stress",
+      "timeline_path": "corpus/english/timelines/stress-02.json",
+      "reason": "separately selected stress; inspect uncertainty before presentation"
+    }
+  ]
+}

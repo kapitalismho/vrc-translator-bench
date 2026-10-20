@@ -1,0 +1,190 @@
+{
+  "schema_version": 1,
+  "clip_id": "isolated-05",
+  "timebase": "integer frames at 48000 Hz; intervals half-open; zero-width punctuation retained",
+  "frames": 27360,
+  "reference_level": "human transcript/manual dialogue acts; automatically forced-aligned source word times; not independently verified",
+  "source_to_playback": [
+    {
+      "source_start": 9765600,
+      "source_end": 9792960,
+      "playback_start": 0,
+      "playback_end": 27360
+    }
+  ],
+  "removed": [],
+  "padding": [],
+  "words_and_events": [
+    {
+      "id": "TS3007a.A.words424",
+      "speaker": "A",
+      "timing_valid": true,
+      "source_start": 9765600,
+      "source_end": 9765600,
+      "text": ".",
+      "kind": "w",
+      "punctuation": true,
+      "truncated": false,
+      "sound_type": null,
+      "dialogue_act": "TS3007a.A.dialog-act.vkaraisk.56",
+      "playback_parts": [
+        [
+          0,
+          0
+        ]
+      ],
+      "playback_start": 0,
+      "playback_end": 0,
+      "scored": false,
+      "fully_retained": true,
+      "reference_role": "target"
+    },
+    {
+      "id": "TS3007a.A.words425",
+      "speaker": "A",
+      "timing_valid": true,
+      "source_start": 9765600,
+      "source_end": 9781440,
+      "text": "So",
+      "kind": "w",
+      "punctuation": false,
+      "truncated": false,
+      "sound_type": null,
+      "dialogue_act": "TS3007a.A.dialog-act.vkaraisk.57",
+      "playback_parts": [
+        [
+          0,
+          15840
+        ]
+      ],
+      "playback_start": 0,
+      "playback_end": 15840,
+      "scored": true,
+      "fully_retained": true,
+      "reference_role": "target"
+    },
+    {
+      "id": "TS3007a.A.words426",
+      "speaker": "A",
+      "timing_valid": true,
+      "source_start": 9781440,
+      "source_end": 9792960,
+      "text": "uh",
+      "kind": "w",
+      "punctuation": false,
+      "truncated": false,
+      "sound_type": null,
+      "dialogue_act": "TS3007a.A.dialog-act.vkaraisk.57",
+      "playback_parts": [
+        [
+          15840,
+          27360
+        ]
+      ],
+      "playback_start": 15840,
+      "playback_end": 27360,
+      "scored": true,
+      "fully_retained": true,
+      "reference_role": "target"
+    }
+  ],
+  "sentences": [
+    {
+      "id": "TS3007a.A.dialog-act.vkaraisk.56",
+      "speaker": "A",
+      "type": "ami_da_4",
+      "word_ids": [
+        "TS3007a.A.words419",
+        "TS3007a.A.words420",
+        "TS3007a.A.words421",
+        "TS3007a.A.words422",
+        "TS3007a.A.words423",
+        "TS3007a.A.words424"
+      ],
+      "source_start": 9683520,
+      "source_end": 9765600,
+      "playback_parts": [],
+      "playback_start": 0,
+      "playback_end": 0,
+      "retained_word_ids": [
+        "TS3007a.A.words424"
+      ],
+      "text": ".",
+      "partial": true,
+      "scored": true,
+      "unit": "manual_dialogue_act_not_grammatical_sentence"
+    },
+    {
+      "id": "TS3007a.A.dialog-act.vkaraisk.57",
+      "speaker": "A",
+      "type": "ami_da_2",
+      "word_ids": [
+        "TS3007a.A.words425",
+        "TS3007a.A.words426"
+      ],
+      "source_start": 9765600,
+      "source_end": 9792960,
+      "playback_parts": [
+        [
+          0,
+          27360
+        ]
+      ],
+      "playback_start": 0,
+      "playback_end": 27360,
+      "retained_word_ids": [
+        "TS3007a.A.words425",
+        "TS3007a.A.words426"
+      ],
+      "text": "So uh",
+      "partial": false,
+      "scored": true,
+      "unit": "manual_dialogue_act_not_grammatical_sentence"
+    }
+  ],
+  "turns": [
+    {
+      "id": "isolated-05.turn0",
+      "speaker": "A",
+      "playback_start": 0,
+      "playback_end": 27360,
+      "word_ids": [
+        "TS3007a.A.words425",
+        "TS3007a.A.words426"
+      ],
+      "text": "So uh"
+    }
+  ],
+  "topics": [
+    {
+      "id": "TS3007a.topic.palmer.5",
+      "types": [
+        "default-topics.xml#id(top.21)"
+      ],
+      "other_description": null,
+      "source_start": 7911360,
+      "source_end": 11851680,
+      "playback_parts": [
+        [
+          0,
+          27360
+        ]
+      ]
+    }
+  ],
+  "stress_candidates": [
+    {
+      "type": "trailing_filler",
+      "source_start": 9765600,
+      "source_end": 9792960,
+      "dialogue_act": "TS3007a.A.dialog-act.vkaraisk.57",
+      "confidence": "lexical_heuristic_not_listened",
+      "playback_parts": [
+        [
+          0,
+          27360
+        ]
+      ]
+    }
+  ]
+}

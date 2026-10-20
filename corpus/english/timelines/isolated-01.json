@@ -1,0 +1,341 @@
+{
+  "schema_version": 1,
+  "clip_id": "isolated-01",
+  "timebase": "integer frames at 48000 Hz; intervals half-open; zero-width punctuation retained",
+  "frames": 39840,
+  "reference_level": "human transcript/manual dialogue acts; automatically forced-aligned source word times; not independently verified",
+  "source_to_playback": [
+    {
+      "source_start": 26519040,
+      "source_end": 26558880,
+      "playback_start": 0,
+      "playback_end": 39840
+    }
+  ],
+  "removed": [],
+  "padding": [],
+  "words_and_events": [
+    {
+      "id": "TS3007a.A.words1186",
+      "speaker": "A",
+      "timing_valid": true,
+      "source_start": 26492160,
+      "source_end": 26559840,
+      "text": "uh",
+      "kind": "w",
+      "punctuation": false,
+      "truncated": false,
+      "sound_type": null,
+      "dialogue_act": "TS3007a.A.dialog-act.vkaraisk.154",
+      "playback_parts": [
+        [
+          0,
+          39840
+        ]
+      ],
+      "playback_start": 0,
+      "playback_end": 39840,
+      "scored": false,
+      "fully_retained": false,
+      "reference_role": "context_only_headset_bleed_not_guaranteed_audible"
+    },
+    {
+      "id": "TS3007a.D.words164",
+      "speaker": "D",
+      "timing_valid": true,
+      "source_start": 26519040,
+      "source_end": 26519040,
+      "text": ".",
+      "kind": "w",
+      "punctuation": true,
+      "truncated": false,
+      "sound_type": null,
+      "dialogue_act": "TS3007a.D.dialog-act.vkaraisk.44",
+      "playback_parts": [
+        [
+          0,
+          0
+        ]
+      ],
+      "playback_start": 0,
+      "playback_end": 0,
+      "scored": false,
+      "fully_retained": true,
+      "reference_role": "target"
+    },
+    {
+      "id": "TS3007a.D.words165",
+      "speaker": "D",
+      "timing_valid": true,
+      "source_start": 26519040,
+      "source_end": 26521920,
+      "text": "We",
+      "kind": "w",
+      "punctuation": false,
+      "truncated": false,
+      "sound_type": null,
+      "dialogue_act": "TS3007a.D.dialog-act.vkaraisk.45",
+      "playback_parts": [
+        [
+          0,
+          2880
+        ]
+      ],
+      "playback_start": 0,
+      "playback_end": 2880,
+      "scored": true,
+      "fully_retained": true,
+      "reference_role": "target"
+    },
+    {
+      "id": "TS3007a.D.words166",
+      "speaker": "D",
+      "timing_valid": true,
+      "source_start": 26521920,
+      "source_end": 26527680,
+      "text": "have",
+      "kind": "w",
+      "punctuation": false,
+      "truncated": false,
+      "sound_type": null,
+      "dialogue_act": "TS3007a.D.dialog-act.vkaraisk.45",
+      "playback_parts": [
+        [
+          2880,
+          8640
+        ]
+      ],
+      "playback_start": 2880,
+      "playback_end": 8640,
+      "scored": true,
+      "fully_retained": true,
+      "reference_role": "target"
+    },
+    {
+      "id": "TS3007a.D.words167",
+      "speaker": "D",
+      "timing_valid": true,
+      "source_start": 26527680,
+      "source_end": 26532480,
+      "text": "to",
+      "kind": "w",
+      "punctuation": false,
+      "truncated": false,
+      "sound_type": null,
+      "dialogue_act": "TS3007a.D.dialog-act.vkaraisk.45",
+      "playback_parts": [
+        [
+          8640,
+          13440
+        ]
+      ],
+      "playback_start": 8640,
+      "playback_end": 13440,
+      "scored": true,
+      "fully_retained": true,
+      "reference_role": "target"
+    },
+    {
+      "id": "TS3007a.D.words168",
+      "speaker": "D",
+      "timing_valid": true,
+      "source_start": 26532480,
+      "source_end": 26546400,
+      "text": "speed",
+      "kind": "w",
+      "punctuation": false,
+      "truncated": false,
+      "sound_type": null,
+      "dialogue_act": "TS3007a.D.dialog-act.vkaraisk.45",
+      "playback_parts": [
+        [
+          13440,
+          27360
+        ]
+      ],
+      "playback_start": 13440,
+      "playback_end": 27360,
+      "scored": true,
+      "fully_retained": true,
+      "reference_role": "target"
+    },
+    {
+      "id": "TS3007a.D.words169",
+      "speaker": "D",
+      "timing_valid": true,
+      "source_start": 26546400,
+      "source_end": 26558880,
+      "text": "up",
+      "kind": "w",
+      "punctuation": false,
+      "truncated": false,
+      "sound_type": null,
+      "dialogue_act": "TS3007a.D.dialog-act.vkaraisk.45",
+      "playback_parts": [
+        [
+          27360,
+          39840
+        ]
+      ],
+      "playback_start": 27360,
+      "playback_end": 39840,
+      "scored": true,
+      "fully_retained": true,
+      "reference_role": "target"
+    },
+    {
+      "id": "TS3007a.D.words170",
+      "speaker": "D",
+      "timing_valid": true,
+      "source_start": 26558880,
+      "source_end": 26558880,
+      "text": ".",
+      "kind": "w",
+      "punctuation": true,
+      "truncated": false,
+      "sound_type": null,
+      "dialogue_act": "TS3007a.D.dialog-act.vkaraisk.45",
+      "playback_parts": [
+        [
+          39840,
+          39840
+        ]
+      ],
+      "playback_start": 39840,
+      "playback_end": 39840,
+      "scored": false,
+      "fully_retained": true,
+      "reference_role": "target"
+    }
+  ],
+  "sentences": [
+    {
+      "id": "TS3007a.A.dialog-act.vkaraisk.154",
+      "speaker": "A",
+      "type": "ami_da_2",
+      "word_ids": [
+        "TS3007a.A.words1184",
+        "TS3007a.A.words1185",
+        "TS3007a.A.words1186",
+        "TS3007a.A.words1187"
+      ],
+      "source_start": 26472000,
+      "source_end": 26559840,
+      "playback_parts": [
+        [
+          0,
+          39840
+        ]
+      ],
+      "playback_start": 0,
+      "playback_end": 39840,
+      "retained_word_ids": [
+        "TS3007a.A.words1186"
+      ],
+      "text": "uh",
+      "partial": true,
+      "scored": false,
+      "unit": "manual_dialogue_act_not_grammatical_sentence"
+    },
+    {
+      "id": "TS3007a.D.dialog-act.vkaraisk.44",
+      "speaker": "D",
+      "type": "ami_da_12",
+      "word_ids": [
+        "TS3007a.D.words163",
+        "TS3007a.D.words164"
+      ],
+      "source_start": 26471040,
+      "source_end": 26519040,
+      "playback_parts": [],
+      "playback_start": 0,
+      "playback_end": 0,
+      "retained_word_ids": [
+        "TS3007a.D.words164"
+      ],
+      "text": ".",
+      "partial": true,
+      "scored": true,
+      "unit": "manual_dialogue_act_not_grammatical_sentence"
+    },
+    {
+      "id": "TS3007a.D.dialog-act.vkaraisk.45",
+      "speaker": "D",
+      "type": "ami_da_6",
+      "word_ids": [
+        "TS3007a.D.words165",
+        "TS3007a.D.words166",
+        "TS3007a.D.words167",
+        "TS3007a.D.words168",
+        "TS3007a.D.words169",
+        "TS3007a.D.words170"
+      ],
+      "source_start": 26519040,
+      "source_end": 26558880,
+      "playback_parts": [
+        [
+          0,
+          39840
+        ]
+      ],
+      "playback_start": 0,
+      "playback_end": 39840,
+      "retained_word_ids": [
+        "TS3007a.D.words165",
+        "TS3007a.D.words166",
+        "TS3007a.D.words167",
+        "TS3007a.D.words168",
+        "TS3007a.D.words169",
+        "TS3007a.D.words170"
+      ],
+      "text": "We have to speed up .",
+      "partial": false,
+      "scored": true,
+      "unit": "manual_dialogue_act_not_grammatical_sentence"
+    }
+  ],
+  "turns": [
+    {
+      "id": "isolated-01.turn0",
+      "speaker": "A",
+      "playback_start": 0,
+      "playback_end": 39840,
+      "word_ids": [
+        "TS3007a.A.words1186"
+      ],
+      "text": "uh"
+    },
+    {
+      "id": "isolated-01.turn1",
+      "speaker": "D",
+      "playback_start": 0,
+      "playback_end": 39840,
+      "word_ids": [
+        "TS3007a.D.words165",
+        "TS3007a.D.words166",
+        "TS3007a.D.words167",
+        "TS3007a.D.words168",
+        "TS3007a.D.words169"
+      ],
+      "text": "We have to speed up"
+    }
+  ],
+  "topics": [
+    {
+      "id": "TS3007a.topic.palmer.7",
+      "types": [
+        "default-topics.xml#id(top.212)"
+      ],
+      "other_description": null,
+      "source_start": 15430560,
+      "source_end": 46590432,
+      "playback_parts": [
+        [
+          0,
+          39840
+        ]
+      ]
+    }
+  ],
+  "stress_candidates": []
+}

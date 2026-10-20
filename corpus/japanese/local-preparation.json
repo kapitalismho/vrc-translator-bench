@@ -1,0 +1,2636 @@
+{
+  "schema_version": 1,
+  "language": "ja",
+  "directions": [
+    "D4",
+    "D6"
+  ],
+  "rights": {
+    "release_cleared": false,
+    "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+    "dataset_declared_license": "CC-BY-3.0",
+    "original_video_url": null,
+    "original_creator": null,
+    "video_specific_license_evidence": null,
+    "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+    "evidence_urls": [
+      "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+      "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+      "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+      "https://creativecommons.org/licenses/by/3.0/"
+    ]
+  },
+  "state": "LOCAL_CANDIDATES_NOT_FROZEN",
+  "publication": "NO_AUDIO_OR_DERIVED_SPEECH_PUBLICATION",
+  "reference_level": "automatic_exploratory",
+  "source_dataset": "espnet/yodas2",
+  "source_revision": "c9674490249665d658f527e2684848377108d82c",
+  "released_artifact_location": null,
+  "same_audio_direction_pair": [
+    "D4",
+    "D6"
+  ],
+  "local_acceptance_scope": "Local audio/reference/checksum/rights-and-unresolved-record preparation only. This is not release clearance; no Hugging Face or Git publication of derived speech.",
+  "dataset_attribution": {
+    "title": "YODAS: Youtube-Oriented Dataset for Audio and Speech / YODAS2 long-form packaging",
+    "publisher": "ESPnet",
+    "authors": [
+      "Xinjian Li",
+      "Shinnosuke Takamichi",
+      "Takaaki Saeki",
+      "William Chen",
+      "Sayaka Shiota",
+      "Shinji Watanabe"
+    ],
+    "citation": "ASRU 2023, pp. 1-8",
+    "paper_url": "https://arxiv.org/abs/2406.00899",
+    "license_url": "https://creativecommons.org/licenses/by/3.0/",
+    "warning": "Dataset attribution is not selected-video attribution or release clearance."
+  },
+  "curation_adjustments": [
+    {
+      "source_id": "Yr7rGfescvQ",
+      "old_source_interval": [
+        35.71,
+        215.71
+      ],
+      "replacement_source_interval": [
+        67.75,
+        247.75
+      ],
+      "reason": "Exclude an introductory region with sparse speech captions and sparse ASR recovery. Actual 30s Reazon probes from the old start produced only 10-16 characters; supplementary captions identify sustained discussion after 67.75s. This is pre-freeze source curation, not tuning on app benchmark outputs; no listening claimed."
+    }
+  ],
+  "seed": 20261020,
+  "selection_rules": {
+    "candidate_pool": "Pinned ja000 shard 00000000; first/middle caption samples inspected from all 73 records, with additional selected-record excerpts; only three selected conversational/response candidates extracted for preparation.",
+    "general": "Casual chat prioritized before work/discussion. Zero verified casual-chat windows in inspected shard. Provisional bonsai work/discussion pool: five 180s windows from Yr7rGfescvQ and three 240s windows from YvBXxjwqeTy. Fixed-seed sampling selects four and two respectively, then shuffles; no app results used.",
+    "eligibility": "Japanese-language real speech, multiple acoustic speakers and conversational interaction. Acoustic/ASR evidence only; no listening was available. Suitability is NOT established by dataset language tag or captions alone.",
+    "stress": "Predeclared three 200s exercise-response candidate windows, separate from general. Count acoustic pauses, short responses, speaker changes and overlap estimates; do not assert human stress labels or equal semantic counts.",
+    "isolation": "No main/dev/reserve source-time overlap. Heldout extraction must further reject estimated overlap/other-speaker intrusion; isolation remains automatic, not human verified."
+  },
+  "general_candidate_pool": [
+    {
+      "source_id": "Yr7rGfescvQ",
+      "source_start": 67.75,
+      "source_end": 247.75
+    },
+    {
+      "source_id": "Yr7rGfescvQ",
+      "source_start": 250.0,
+      "source_end": 430.0
+    },
+    {
+      "source_id": "Yr7rGfescvQ",
+      "source_start": 450.0,
+      "source_end": 630.0
+    },
+    {
+      "source_id": "Yr7rGfescvQ",
+      "source_start": 650.0,
+      "source_end": 830.0
+    },
+    {
+      "source_id": "Yr7rGfescvQ",
+      "source_start": 850.0,
+      "source_end": 1030.0
+    },
+    {
+      "source_id": "YvBXxjwqeTy",
+      "source_start": 25.0,
+      "source_end": 265.0
+    },
+    {
+      "source_id": "YvBXxjwqeTy",
+      "source_start": 285.0,
+      "source_end": 525.0
+    },
+    {
+      "source_id": "YvBXxjwqeTy",
+      "source_start": 545.0,
+      "source_end": 785.0
+    }
+  ],
+  "general_candidate_seconds": 1200,
+  "stress_candidate_seconds": 600,
+  "general_elapsed_seconds": 1200,
+  "stress_elapsed_seconds": 600,
+  "general_source_seconds": 1188.0,
+  "stress_source_seconds": 596.0,
+  "elapsed_budget": {
+    "state": "applied",
+    "main": 1800,
+    "general": 1200,
+    "stress": 600,
+    "general_source_seconds": 1188,
+    "stress_source_seconds": 596,
+    "general_assigned_gap_seconds": 12,
+    "stress_assigned_gap_seconds": 4,
+    "accounting": "Five internal general gaps plus general-to-stress gap assigned to general; two internal stress gaps assigned to stress. Source audio totals1784s plus16s separators.",
+    "word_boundary_basis": "Estimated acoustic silence plus aligned-word/untimed-block exclusion, not human listening.",
+    "producer_references": ".data/japanese/source-references"
+  },
+  "development_candidate_seconds": 300,
+  "casual_chat_seconds_confirmed": 0,
+  "caption_tag_casual_chat_fraction_of_general_candidates": 0.0,
+  "actual_casual_chat_fraction": null,
+  "listening_performed": false,
+  "chunks": [
+    {
+      "rights": {
+        "release_cleared": false,
+        "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+        "dataset_declared_license": "CC-BY-3.0",
+        "original_video_url": null,
+        "original_creator": null,
+        "video_specific_license_evidence": null,
+        "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+        "evidence_urls": [
+          "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+          "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+          "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+          "https://creativecommons.org/licenses/by/3.0/"
+        ]
+      },
+      "id": "ja-general-01",
+      "split": "main",
+      "category": "general",
+      "topic": "bonsai_work_discussion",
+      "input_tags": [
+        "mixed_speaker_candidate",
+        "instructional_discussion"
+      ],
+      "source_id": "Yr7rGfescvQ",
+      "source_start": 67.75,
+      "source_end": 247.739125,
+      "audio": {
+        "path": ".data\\japanese\\chunks\\ja-general-01.wav",
+        "sha256": "8ed9a1599fc17f988181b80b9e17fb903d6ab62ba048477d0b5c11afbf27b488",
+        "duration_seconds": 179.989125,
+        "sample_rate": 48000,
+        "channels": 1,
+        "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
+        "rights": {
+          "release_cleared": false,
+          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+          "dataset_declared_license": "CC-BY-3.0",
+          "original_video_url": null,
+          "original_creator": null,
+          "video_specific_license_evidence": null,
+          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+          "evidence_urls": [
+            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+            "https://creativecommons.org/licenses/by/3.0/"
+          ]
+        }
+      },
+      "producer_source_start": 67.75,
+      "producer_source_end": 247.75,
+      "source_reference_path": ".data\\japanese\\source-references\\ja-general-01.json",
+      "source_reference_sha256": "05b94bd29cdf5e3e7afe84c2a43b8fa94d9ce59d829f550650f5e6ec92d5397d",
+      "budget_trim": {
+        "side": "right",
+        "trim_samples": 522,
+        "trim_seconds": 0.010875,
+        "start_sample": 0,
+        "end_sample": 8639478,
+        "duration_samples": 8639478,
+        "sample_rate": 48000,
+        "boundary_basis": "outside aligned words, estimated voice segments and untimed ASR blocks with 20ms guard; unchanged endpoints permitted"
+      }
+    },
+    {
+      "rights": {
+        "release_cleared": false,
+        "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+        "dataset_declared_license": "CC-BY-3.0",
+        "original_video_url": null,
+        "original_creator": null,
+        "video_specific_license_evidence": null,
+        "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+        "evidence_urls": [
+          "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+          "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+          "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+          "https://creativecommons.org/licenses/by/3.0/"
+        ]
+      },
+      "id": "ja-general-02",
+      "split": "main",
+      "category": "general",
+      "topic": "bonsai_work_discussion",
+      "input_tags": [
+        "mixed_speaker_candidate",
+        "instructional_discussion"
+      ],
+      "source_id": "Yr7rGfescvQ",
+      "source_start": 251.6646875,
+      "source_end": 430.0,
+      "audio": {
+        "path": ".data\\japanese\\chunks\\ja-general-02.wav",
+        "sha256": "6e8940975c93f1b105a31e3467233dbd8a65b3734452a550449085090fda3cd7",
+        "duration_seconds": 178.3353125,
+        "sample_rate": 48000,
+        "channels": 1,
+        "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
+        "rights": {
+          "release_cleared": false,
+          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+          "dataset_declared_license": "CC-BY-3.0",
+          "original_video_url": null,
+          "original_creator": null,
+          "video_specific_license_evidence": null,
+          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+          "evidence_urls": [
+            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+            "https://creativecommons.org/licenses/by/3.0/"
+          ]
+        }
+      },
+      "producer_source_start": 250.0,
+      "producer_source_end": 430.0,
+      "source_reference_path": ".data\\japanese\\source-references\\ja-general-02.json",
+      "source_reference_sha256": "87f1bebc642c623a45f8b8b51342ce0fc7a380836037fee7399eca96844252a8",
+      "budget_trim": {
+        "side": "left",
+        "trim_samples": 79905,
+        "trim_seconds": 1.6646875,
+        "start_sample": 79905,
+        "end_sample": 8640000,
+        "duration_samples": 8560095,
+        "sample_rate": 48000,
+        "boundary_basis": "outside aligned words, estimated voice segments and untimed ASR blocks with 20ms guard; unchanged endpoints permitted"
+      }
+    },
+    {
+      "rights": {
+        "release_cleared": false,
+        "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+        "dataset_declared_license": "CC-BY-3.0",
+        "original_video_url": null,
+        "original_creator": null,
+        "video_specific_license_evidence": null,
+        "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+        "evidence_urls": [
+          "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+          "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+          "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+          "https://creativecommons.org/licenses/by/3.0/"
+        ]
+      },
+      "id": "ja-general-03",
+      "split": "main",
+      "category": "general",
+      "topic": "bonsai_work_discussion",
+      "input_tags": [
+        "mixed_speaker_candidate",
+        "instructional_discussion"
+      ],
+      "source_id": "YvBXxjwqeTy",
+      "source_start": 25.0,
+      "source_end": 265.0,
+      "audio": {
+        "path": ".data\\japanese\\chunks\\ja-general-03.wav",
+        "sha256": "5f32a303f89c174550ddd642e5e366a8f4989e609cf87308513991265baab8f1",
+        "duration_seconds": 240.0,
+        "sample_rate": 48000,
+        "channels": 1,
+        "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16"
+      },
+      "producer_source_start": 25.0,
+      "producer_source_end": 265.0,
+      "source_reference_path": ".data\\japanese\\source-references\\ja-general-03.json",
+      "source_reference_sha256": "f7c789283e329027b57b8116ebc8d8f121d62063699a83055d635b422a3ce155",
+      "budget_trim": {
+        "side": "none",
+        "trim_samples": 0,
+        "trim_seconds": 0.0,
+        "start_sample": 0,
+        "end_sample": 11520000,
+        "duration_samples": 11520000,
+        "sample_rate": 48000,
+        "boundary_basis": "outside aligned words, estimated voice segments and untimed ASR blocks with 20ms guard; unchanged endpoints permitted"
+      }
+    },
+    {
+      "rights": {
+        "release_cleared": false,
+        "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+        "dataset_declared_license": "CC-BY-3.0",
+        "original_video_url": null,
+        "original_creator": null,
+        "video_specific_license_evidence": null,
+        "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+        "evidence_urls": [
+          "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+          "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+          "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+          "https://creativecommons.org/licenses/by/3.0/"
+        ]
+      },
+      "id": "ja-general-04",
+      "split": "main",
+      "category": "general",
+      "topic": "bonsai_work_discussion",
+      "input_tags": [
+        "mixed_speaker_candidate",
+        "instructional_discussion"
+      ],
+      "source_id": "YvBXxjwqeTy",
+      "source_start": 285.0,
+      "source_end": 521.0255625,
+      "audio": {
+        "path": ".data\\japanese\\chunks\\ja-general-04.wav",
+        "sha256": "883e276256395b4b7253f4d7e6d5a67798a5b9b04956d7736d5b0691580f19d7",
+        "duration_seconds": 236.0255625,
+        "sample_rate": 48000,
+        "channels": 1,
+        "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
+        "rights": {
+          "release_cleared": false,
+          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+          "dataset_declared_license": "CC-BY-3.0",
+          "original_video_url": null,
+          "original_creator": null,
+          "video_specific_license_evidence": null,
+          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+          "evidence_urls": [
+            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+            "https://creativecommons.org/licenses/by/3.0/"
+          ]
+        }
+      },
+      "producer_source_start": 285.0,
+      "producer_source_end": 525.0,
+      "source_reference_path": ".data\\japanese\\source-references\\ja-general-04.json",
+      "source_reference_sha256": "3188a475ce21ed1afb86979ca0a9025212c97899d6d5c96cabef8918a0e98b0e",
+      "budget_trim": {
+        "side": "right",
+        "trim_samples": 190773,
+        "trim_seconds": 3.9744375,
+        "start_sample": 0,
+        "end_sample": 11329227,
+        "duration_samples": 11329227,
+        "sample_rate": 48000,
+        "boundary_basis": "outside aligned words, estimated voice segments and untimed ASR blocks with 20ms guard; unchanged endpoints permitted"
+      }
+    },
+    {
+      "rights": {
+        "release_cleared": false,
+        "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+        "dataset_declared_license": "CC-BY-3.0",
+        "original_video_url": null,
+        "original_creator": null,
+        "video_specific_license_evidence": null,
+        "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+        "evidence_urls": [
+          "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+          "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+          "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+          "https://creativecommons.org/licenses/by/3.0/"
+        ]
+      },
+      "id": "ja-general-05",
+      "split": "main",
+      "category": "general",
+      "topic": "bonsai_work_discussion",
+      "input_tags": [
+        "mixed_speaker_candidate",
+        "instructional_discussion"
+      ],
+      "source_id": "Yr7rGfescvQ",
+      "source_start": 450.0109375,
+      "source_end": 630.0,
+      "audio": {
+        "path": ".data\\japanese\\chunks\\ja-general-05.wav",
+        "sha256": "e5c9f43fcfad30b61bc3094aafdee7270c3c61a23714d06eddbba843caf57a2b",
+        "duration_seconds": 179.9890625,
+        "sample_rate": 48000,
+        "channels": 1,
+        "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
+        "rights": {
+          "release_cleared": false,
+          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+          "dataset_declared_license": "CC-BY-3.0",
+          "original_video_url": null,
+          "original_creator": null,
+          "video_specific_license_evidence": null,
+          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+          "evidence_urls": [
+            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+            "https://creativecommons.org/licenses/by/3.0/"
+          ]
+        }
+      },
+      "producer_source_start": 450.0,
+      "producer_source_end": 630.0,
+      "source_reference_path": ".data\\japanese\\source-references\\ja-general-05.json",
+      "source_reference_sha256": "cc6dfe1f3d4d84af89e96daba64dada2e9dd442fcbaded974f0bfa059db712e1",
+      "budget_trim": {
+        "side": "left",
+        "trim_samples": 525,
+        "trim_seconds": 0.0109375,
+        "start_sample": 525,
+        "end_sample": 8640000,
+        "duration_samples": 8639475,
+        "sample_rate": 48000,
+        "boundary_basis": "outside aligned words, estimated voice segments and untimed ASR blocks with 20ms guard; unchanged endpoints permitted"
+      }
+    },
+    {
+      "rights": {
+        "release_cleared": false,
+        "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+        "dataset_declared_license": "CC-BY-3.0",
+        "original_video_url": null,
+        "original_creator": null,
+        "video_specific_license_evidence": null,
+        "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+        "evidence_urls": [
+          "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+          "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+          "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+          "https://creativecommons.org/licenses/by/3.0/"
+        ]
+      },
+      "id": "ja-general-06",
+      "split": "main",
+      "category": "general",
+      "topic": "bonsai_work_discussion",
+      "input_tags": [
+        "mixed_speaker_candidate",
+        "instructional_discussion"
+      ],
+      "source_id": "Yr7rGfescvQ",
+      "source_start": 656.3390625,
+      "source_end": 830.0,
+      "audio": {
+        "path": ".data\\japanese\\chunks\\ja-general-06.wav",
+        "sha256": "c1f09d72af955b246a3fd1b935d586dc8965d7fb6879eafd709d83eca98d69a6",
+        "duration_seconds": 173.6609375,
+        "sample_rate": 48000,
+        "channels": 1,
+        "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
+        "rights": {
+          "release_cleared": false,
+          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+          "dataset_declared_license": "CC-BY-3.0",
+          "original_video_url": null,
+          "original_creator": null,
+          "video_specific_license_evidence": null,
+          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+          "evidence_urls": [
+            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+            "https://creativecommons.org/licenses/by/3.0/"
+          ]
+        }
+      },
+      "producer_source_start": 650.0,
+      "producer_source_end": 830.0,
+      "source_reference_path": ".data\\japanese\\source-references\\ja-general-06.json",
+      "source_reference_sha256": "d17a14b4feb24c9da8c6d9307d5bd3a234cb96a82b814ba05543ffd5c4fc6632",
+      "budget_trim": {
+        "side": "left",
+        "trim_samples": 304275,
+        "trim_seconds": 6.3390625,
+        "start_sample": 304275,
+        "end_sample": 8640000,
+        "duration_samples": 8335725,
+        "sample_rate": 48000,
+        "boundary_basis": "outside aligned words, estimated voice segments and untimed ASR blocks with 20ms guard; unchanged endpoints permitted"
+      }
+    },
+    {
+      "rights": {
+        "release_cleared": false,
+        "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+        "dataset_declared_license": "CC-BY-3.0",
+        "original_video_url": null,
+        "original_creator": null,
+        "video_specific_license_evidence": null,
+        "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+        "evidence_urls": [
+          "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+          "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+          "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+          "https://creativecommons.org/licenses/by/3.0/"
+        ]
+      },
+      "id": "ja-stress-01",
+      "split": "main",
+      "category": "stress",
+      "topic": "exercise_instruction_responses",
+      "input_tags": [
+        "mixed_speaker_candidate",
+        "fast_response_candidate",
+        "backchannel_candidate"
+      ],
+      "source_id": "YIIDry4AVKA",
+      "source_start": 1.1753125,
+      "source_end": 200.0,
+      "audio": {
+        "path": ".data\\japanese\\chunks\\ja-stress-01.wav",
+        "sha256": "aa7223b74227379ae813cefff4807e56edfc33c4d6f846effcaab7515d0cb899",
+        "duration_seconds": 198.8246875,
+        "sample_rate": 48000,
+        "channels": 1,
+        "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
+        "rights": {
+          "release_cleared": false,
+          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+          "dataset_declared_license": "CC-BY-3.0",
+          "original_video_url": null,
+          "original_creator": null,
+          "video_specific_license_evidence": null,
+          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+          "evidence_urls": [
+            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+            "https://creativecommons.org/licenses/by/3.0/"
+          ]
+        }
+      },
+      "producer_source_start": 0.0,
+      "producer_source_end": 200.0,
+      "source_reference_path": ".data\\japanese\\source-references\\ja-stress-01.json",
+      "source_reference_sha256": "28cba0e0a4d64416d119ecdf49519d48c1e929f3393640c86c279bdd421383e0",
+      "budget_trim": {
+        "side": "left",
+        "trim_samples": 56415,
+        "trim_seconds": 1.1753125,
+        "start_sample": 56415,
+        "end_sample": 9600000,
+        "duration_samples": 9543585,
+        "sample_rate": 48000,
+        "boundary_basis": "outside aligned words, estimated voice segments and untimed ASR blocks with 20ms guard; unchanged endpoints permitted"
+      }
+    },
+    {
+      "rights": {
+        "release_cleared": false,
+        "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+        "dataset_declared_license": "CC-BY-3.0",
+        "original_video_url": null,
+        "original_creator": null,
+        "video_specific_license_evidence": null,
+        "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+        "evidence_urls": [
+          "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+          "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+          "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+          "https://creativecommons.org/licenses/by/3.0/"
+        ]
+      },
+      "id": "ja-stress-02",
+      "split": "main",
+      "category": "stress",
+      "topic": "exercise_instruction_responses",
+      "input_tags": [
+        "mixed_speaker_candidate",
+        "fast_response_candidate",
+        "backchannel_candidate"
+      ],
+      "source_id": "YIIDry4AVKA",
+      "source_start": 220.0,
+      "source_end": 419.5528333333333,
+      "audio": {
+        "path": ".data\\japanese\\chunks\\ja-stress-02.wav",
+        "sha256": "454bd0abf4b1a65a7b981e077e607946af0368af07f8b827334c88dd4adfdb00",
+        "duration_seconds": 199.55283333333333,
+        "sample_rate": 48000,
+        "channels": 1,
+        "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
+        "rights": {
+          "release_cleared": false,
+          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+          "dataset_declared_license": "CC-BY-3.0",
+          "original_video_url": null,
+          "original_creator": null,
+          "video_specific_license_evidence": null,
+          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+          "evidence_urls": [
+            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+            "https://creativecommons.org/licenses/by/3.0/"
+          ]
+        }
+      },
+      "producer_source_start": 220.0,
+      "producer_source_end": 420.0,
+      "source_reference_path": ".data\\japanese\\source-references\\ja-stress-02.json",
+      "source_reference_sha256": "8f33bb8ed0fb4d6bb3eedfda3ccf09d1460fb73a911a8b8acefb1a10521b56e1",
+      "budget_trim": {
+        "side": "right",
+        "trim_samples": 21464,
+        "trim_seconds": 0.44716666666666666,
+        "start_sample": 0,
+        "end_sample": 9578536,
+        "duration_samples": 9578536,
+        "sample_rate": 48000,
+        "boundary_basis": "outside aligned words, estimated voice segments and untimed ASR blocks with 20ms guard; unchanged endpoints permitted"
+      }
+    },
+    {
+      "rights": {
+        "release_cleared": false,
+        "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+        "dataset_declared_license": "CC-BY-3.0",
+        "original_video_url": null,
+        "original_creator": null,
+        "video_specific_license_evidence": null,
+        "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+        "evidence_urls": [
+          "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+          "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+          "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+          "https://creativecommons.org/licenses/by/3.0/"
+        ]
+      },
+      "id": "ja-stress-03",
+      "split": "main",
+      "category": "stress",
+      "topic": "exercise_instruction_responses",
+      "input_tags": [
+        "mixed_speaker_candidate",
+        "fast_response_candidate",
+        "backchannel_candidate"
+      ],
+      "source_id": "YIIDry4AVKA",
+      "source_start": 440.0,
+      "source_end": 637.6224791666666,
+      "audio": {
+        "path": ".data\\japanese\\chunks\\ja-stress-03.wav",
+        "sha256": "7cf939c299a298836e266488eb8433af977b52bb70a65915df29b42105e8bafb",
+        "duration_seconds": 197.62247916666666,
+        "sample_rate": 48000,
+        "channels": 1,
+        "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
+        "rights": {
+          "release_cleared": false,
+          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+          "dataset_declared_license": "CC-BY-3.0",
+          "original_video_url": null,
+          "original_creator": null,
+          "video_specific_license_evidence": null,
+          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+          "evidence_urls": [
+            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+            "https://creativecommons.org/licenses/by/3.0/"
+          ]
+        }
+      },
+      "producer_source_start": 440.0,
+      "producer_source_end": 640.0,
+      "source_reference_path": ".data\\japanese\\source-references\\ja-stress-03.json",
+      "source_reference_sha256": "2ae732b8dde651f3edd44d860e32bd7206158bfb0d35baa39045dd9d5f10fba1",
+      "budget_trim": {
+        "side": "right",
+        "trim_samples": 114121,
+        "trim_seconds": 2.3775208333333335,
+        "start_sample": 0,
+        "end_sample": 9485879,
+        "duration_samples": 9485879,
+        "sample_rate": 48000,
+        "boundary_basis": "outside aligned words, estimated voice segments and untimed ASR blocks with 20ms guard; unchanged endpoints permitted"
+      }
+    },
+    {
+      "rights": {
+        "release_cleared": false,
+        "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+        "dataset_declared_license": "CC-BY-3.0",
+        "original_video_url": null,
+        "original_creator": null,
+        "video_specific_license_evidence": null,
+        "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+        "evidence_urls": [
+          "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+          "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+          "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+          "https://creativecommons.org/licenses/by/3.0/"
+        ]
+      },
+      "id": "ja-dev-01",
+      "split": "dev",
+      "category": "development",
+      "topic": "bonsai_work_discussion",
+      "input_tags": [
+        "mixed_speaker_candidate"
+      ],
+      "source_id": "Yr7rGfescvQ",
+      "source_start": 1200.0,
+      "source_end": 1500.0,
+      "audio": {
+        "path": ".data\\japanese\\chunks\\ja-dev-01.wav",
+        "sha256": "2fc330e26be8b4e6e424cd34f4615e88ca584b44c2141c72eb503db59a3a7f87",
+        "duration_seconds": 300.0,
+        "sample_rate": 48000,
+        "channels": 1,
+        "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16"
+      }
+    },
+    {
+      "rights": {
+        "release_cleared": false,
+        "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+        "dataset_declared_license": "CC-BY-3.0",
+        "original_video_url": null,
+        "original_creator": null,
+        "video_specific_license_evidence": null,
+        "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+        "evidence_urls": [
+          "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+          "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+          "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+          "https://creativecommons.org/licenses/by/3.0/"
+        ]
+      },
+      "id": "ja-heldout-reserve",
+      "split": "heldout_reserve",
+      "category": "isolated_candidate_pool",
+      "topic": "bonsai_work_discussion",
+      "input_tags": [
+        "mixed_speaker_candidate"
+      ],
+      "source_id": "Yr7rGfescvQ",
+      "source_start": 1550.0,
+      "source_end": 2260.0,
+      "audio": {
+        "path": ".data\\japanese\\chunks\\ja-heldout-reserve.wav",
+        "sha256": "55f1f5c95a0f4c9260566acda2440ca8b0878d6085152be158bd70730be75685",
+        "duration_seconds": 710.0,
+        "sample_rate": 48000,
+        "channels": 1,
+        "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16"
+      }
+    }
+  ],
+  "common_clip_shortlist": [
+    {
+      "chunk_id": "ja-general-01",
+      "chunk_start": 30,
+      "chunk_end": 60
+    },
+    {
+      "chunk_id": "ja-stress-01",
+      "chunk_start": 20,
+      "chunk_end": 50
+    }
+  ],
+  "local_artifact_pointers": {
+    "selection": ".data/japanese/selection.json",
+    "references": ".data/japanese/references",
+    "playback": ".data/japanese/playback",
+    "main_audio": ".data/japanese/playback/ja-main.wav",
+    "dev_audio": ".data/japanese/playback/ja-dev.wav",
+    "main_timeline": ".data/japanese/playback/ja-main-reference.json",
+    "dev_timeline": ".data/japanese/playback/ja-dev-reference.json",
+    "heldout": ".data/japanese/heldout/index.json",
+    "runtime_checks": ".data/japanese/checks.json"
+  },
+  "sources": [
+    {
+      "pseudo_session_id": "YIIDry4AVKA",
+      "original_video_url": null,
+      "original_creator": null,
+      "video_specific_license_evidence": null,
+      "dataset_audio_url": "https://huggingface.co/datasets/espnet/yodas2/resolve/c9674490249665d658f527e2684848377108d82c/data/ja000/audio/00000000.tar.gz",
+      "dataset_caption_url": "https://huggingface.co/datasets/espnet/yodas2/resolve/c9674490249665d658f527e2684848377108d82c/data/ja000/text/00000000.json",
+      "rights": {
+        "release_cleared": false,
+        "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+        "dataset_declared_license": "CC-BY-3.0",
+        "original_video_url": null,
+        "original_creator": null,
+        "video_specific_license_evidence": null,
+        "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+        "evidence_urls": [
+          "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+          "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+          "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+          "https://creativecommons.org/licenses/by/3.0/"
+        ]
+      },
+      "local_source_path": ".data\\japanese\\sources\\YIIDry4AVKA.wav",
+      "source_sha256": "0a06ee15612435ae1f5ed3a3b34b4abebe4706fa19f2c4c2a133c01959c03a8b",
+      "source_duration_seconds": 702.52625,
+      "source_sample_rate": 24000,
+      "source_channels": 1
+    },
+    {
+      "pseudo_session_id": "Yr7rGfescvQ",
+      "original_video_url": null,
+      "original_creator": null,
+      "video_specific_license_evidence": null,
+      "dataset_audio_url": "https://huggingface.co/datasets/espnet/yodas2/resolve/c9674490249665d658f527e2684848377108d82c/data/ja000/audio/00000000.tar.gz",
+      "dataset_caption_url": "https://huggingface.co/datasets/espnet/yodas2/resolve/c9674490249665d658f527e2684848377108d82c/data/ja000/text/00000000.json",
+      "rights": {
+        "release_cleared": false,
+        "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+        "dataset_declared_license": "CC-BY-3.0",
+        "original_video_url": null,
+        "original_creator": null,
+        "video_specific_license_evidence": null,
+        "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+        "evidence_urls": [
+          "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+          "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+          "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+          "https://creativecommons.org/licenses/by/3.0/"
+        ]
+      },
+      "local_source_path": ".data\\japanese\\sources\\Yr7rGfescvQ.wav",
+      "source_sha256": "c233bd6c7d706fb567d47a90520fe1550d5296778c0bbbd0a5fb922fbe827619",
+      "source_duration_seconds": 2269.908,
+      "source_sample_rate": 24000,
+      "source_channels": 1
+    },
+    {
+      "pseudo_session_id": "YvBXxjwqeTy",
+      "original_video_url": null,
+      "original_creator": null,
+      "video_specific_license_evidence": null,
+      "dataset_audio_url": "https://huggingface.co/datasets/espnet/yodas2/resolve/c9674490249665d658f527e2684848377108d82c/data/ja000/audio/00000000.tar.gz",
+      "dataset_caption_url": "https://huggingface.co/datasets/espnet/yodas2/resolve/c9674490249665d658f527e2684848377108d82c/data/ja000/text/00000000.json",
+      "rights": {
+        "release_cleared": false,
+        "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+        "dataset_declared_license": "CC-BY-3.0",
+        "original_video_url": null,
+        "original_creator": null,
+        "video_specific_license_evidence": null,
+        "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+        "evidence_urls": [
+          "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+          "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+          "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+          "https://creativecommons.org/licenses/by/3.0/"
+        ]
+      },
+      "local_source_path": ".data\\japanese\\sources\\YvBXxjwqeTy.wav",
+      "source_sha256": "e8c2ee2b365c9e3138327aa159a8e6a9d6d75b4d623c22352114971584146ce9",
+      "source_duration_seconds": 944.2924166666667,
+      "source_sample_rate": 24000,
+      "source_channels": 1
+    }
+  ],
+  "reference_execution": {
+    "decoder": "modified_beam_search",
+    "max_active_paths": 4,
+    "inference_padding_seconds_each_end": 0.9,
+    "asr_window_seconds": [
+      6,
+      8
+    ],
+    "device": "cpu",
+    "default_threads": 2,
+    "captions_used_as_reference": false,
+    "word_intervals_from_rnnt_token_points": false
+  },
+  "models": {
+    "asr": {
+      "id": "reazon-research/reazonspeech-k2-v2",
+      "revision": "291488c8151be24d7da4bf7af26e533fad96e407",
+      "license": "Apache-2.0",
+      "precision": "int8_encoder_joiner_fp32_decoder"
+    },
+    "alignment": {
+      "id": "jonatasgrosman/wav2vec2-large-xlsr-53-japanese",
+      "revision": "cf031e020336460d15a417eba710bbc5bb43be9a",
+      "license": "Apache-2.0"
+    },
+    "speakers": {
+      "segmentation": "sherpa-onnx-pyannote-segmentation-3-0 int8",
+      "segmentation_license": "MIT, CNRS 2022, shipped LICENSE",
+      "embedding": "3dspeaker_speech_eres2net_base_sv_zh-cn_3dspeaker_16k.onnx",
+      "embedding_terms": "upstream 3D-Speaker Apache-2.0; exported file asset-specific evidence not independently established",
+      "clustering_threshold": 0.75,
+      "num_clusters": "estimated",
+      "min_duration_on": 0.3,
+      "min_duration_off": 0.5,
+      "uncertainty": "Labels can merge different speakers or split one voice. Counts and overlap are automatic estimates, not participant identities."
+    },
+    "device": "cpu"
+  },
+  "process": {
+    "audio": "Crop, FFmpeg dynamic loudnorm I=-23 TP=-2 LRA=7, 48k mono PCM16, 2s interchunk gaps, no speech synthesis or long-gap compression",
+    "word_timing": "Actual CTC constrained Viterbi character occupancy grouped by fugashi/UniDic lexical words; OOV acoustic wildcard states preserve supported surrounding constraints while words containing OOV characters retain null times; never substitute token points",
+    "punctuation": "Insert punctuation only at acoustic/estimated speaker/ASR-window boundaries; no word rewriting; sentence-like units not syntactically verified",
+    "captions": "Supplementary candidate selection only, never copied into references or public metadata",
+    "independence": "ReazonSpeech differs from explicitly planned evaluated ASRs, but PP4 CPU-auto ASR remains unresolved; no claim of disjoint training data"
+  },
+  "summaries": {
+    "ja-general-01": {
+      "word_count": 438,
+      "aligned_word_count": 432,
+      "reference_sha256": "89878f00ee9dc964a09f6a3ea4b25622748e3c36fbf071b502632a1c7327db44",
+      "stats": {
+        "estimated_speakers": 13,
+        "estimated_turns": 30,
+        "estimated_fast_speaker_changes_le_300ms": 3,
+        "estimated_pairwise_overlap_seconds": 30.898,
+        "overlap_basis": "Raw estimated speech-segment intersections, excluding silence inside coalesced turn spans.",
+        "speaker_count_basis": "Anonymous acoustic cluster count, not verified participants; substantial over-/under-clustering remains possible.",
+        "aligned_same_speaker_word_gap_ge_300ms": 54,
+        "short_estimated_turns_le_1s": 8,
+        "lexical_filler_candidates": 1,
+        "confirmed_mid_sentence_pauses": null,
+        "confirmed_pre_predicate_pauses": null,
+        "confirmed_backchannels": null,
+        "confirmed_trailing_fillers": null,
+        "confirmed_continuing_across_sentences": null,
+        "interpretation": "Acoustic/lexical proxies only, not human stress labels. CTC blank gaps can include silence or uncertain alignment; pairwise overlap is model-estimated, not verified."
+      },
+      "runtime": {
+        "started_unix": 1792467378.8629656,
+        "ended_unix": 1792467427.0793874,
+        "elapsed_seconds": 48.216,
+        "diarization_seconds": 13.666,
+        "device": "cpu",
+        "measured_source_audio_seconds": 180.0,
+        "inference_reused_after_crop": true
+      }
+    },
+    "ja-general-02": {
+      "word_count": 302,
+      "aligned_word_count": 301,
+      "reference_sha256": "474d62ff084160b469865269ee6ff3da7c78cf2c9297b8cecae34c56f9c365e9",
+      "stats": {
+        "estimated_speakers": 19,
+        "estimated_turns": 56,
+        "estimated_fast_speaker_changes_le_300ms": 16,
+        "estimated_pairwise_overlap_seconds": 45.546,
+        "overlap_basis": "Raw estimated speech-segment intersections, excluding silence inside coalesced turn spans.",
+        "speaker_count_basis": "Anonymous acoustic cluster count, not verified participants; substantial over-/under-clustering remains possible.",
+        "aligned_same_speaker_word_gap_ge_300ms": 52,
+        "short_estimated_turns_le_1s": 13,
+        "lexical_filler_candidates": 0,
+        "confirmed_mid_sentence_pauses": null,
+        "confirmed_pre_predicate_pauses": null,
+        "confirmed_backchannels": null,
+        "confirmed_trailing_fillers": null,
+        "confirmed_continuing_across_sentences": null,
+        "interpretation": "Acoustic/lexical proxies only, not human stress labels. CTC blank gaps can include silence or uncertain alignment; pairwise overlap is model-estimated, not verified."
+      },
+      "runtime": {
+        "started_unix": 1792467427.0974262,
+        "ended_unix": 1792467475.0388346,
+        "elapsed_seconds": 47.941,
+        "diarization_seconds": 12.839,
+        "device": "cpu",
+        "measured_source_audio_seconds": 180.0,
+        "inference_reused_after_crop": true
+      }
+    },
+    "ja-general-03": {
+      "word_count": 523,
+      "aligned_word_count": 516,
+      "reference_sha256": "7c7ed6c3e81643aa1c1563f1a0eadb599eb07f1bf9aba03c6f473edb47c52390",
+      "stats": {
+        "estimated_speakers": 20,
+        "estimated_turns": 36,
+        "estimated_fast_speaker_changes_le_300ms": 11,
+        "estimated_pairwise_overlap_seconds": 14.124,
+        "overlap_basis": "Raw estimated speech-segment intersections, excluding silence inside coalesced turn spans.",
+        "speaker_count_basis": "Anonymous acoustic cluster count, not verified participants; substantial over-/under-clustering remains possible.",
+        "aligned_same_speaker_word_gap_ge_300ms": 65,
+        "short_estimated_turns_le_1s": 5,
+        "lexical_filler_candidates": 0,
+        "confirmed_mid_sentence_pauses": null,
+        "confirmed_pre_predicate_pauses": null,
+        "confirmed_backchannels": null,
+        "confirmed_trailing_fillers": null,
+        "confirmed_continuing_across_sentences": null,
+        "interpretation": "Acoustic/lexical proxies only, not human stress labels. CTC blank gaps can include silence or uncertain alignment; pairwise overlap is model-estimated, not verified."
+      },
+      "runtime": {
+        "started_unix": 1792467475.0543537,
+        "ended_unix": 1792467539.2555096,
+        "elapsed_seconds": 64.201,
+        "diarization_seconds": 18.735,
+        "device": "cpu"
+      }
+    },
+    "ja-general-04": {
+      "word_count": 436,
+      "aligned_word_count": 427,
+      "reference_sha256": "4482e08b82e9de60c5aa2961793b9fb8ce8639c8ca134c41618219c31d42d129",
+      "stats": {
+        "estimated_speakers": 14,
+        "estimated_turns": 34,
+        "estimated_fast_speaker_changes_le_300ms": 11,
+        "estimated_pairwise_overlap_seconds": 2.481,
+        "overlap_basis": "Raw estimated speech-segment intersections, excluding silence inside coalesced turn spans.",
+        "speaker_count_basis": "Anonymous acoustic cluster count, not verified participants; substantial over-/under-clustering remains possible.",
+        "aligned_same_speaker_word_gap_ge_300ms": 61,
+        "short_estimated_turns_le_1s": 11,
+        "lexical_filler_candidates": 3,
+        "confirmed_mid_sentence_pauses": null,
+        "confirmed_pre_predicate_pauses": null,
+        "confirmed_backchannels": null,
+        "confirmed_trailing_fillers": null,
+        "confirmed_continuing_across_sentences": null,
+        "interpretation": "Acoustic/lexical proxies only, not human stress labels. CTC blank gaps can include silence or uncertain alignment; pairwise overlap is model-estimated, not verified."
+      },
+      "runtime": {
+        "started_unix": 1792467539.2750216,
+        "ended_unix": 1792467602.4985006,
+        "elapsed_seconds": 63.223,
+        "diarization_seconds": 17.976,
+        "device": "cpu",
+        "measured_source_audio_seconds": 240.0,
+        "inference_reused_after_crop": true
+      }
+    },
+    "ja-general-05": {
+      "word_count": 468,
+      "aligned_word_count": 467,
+      "reference_sha256": "a84fa332445f3d101b176d746009017965697652ac80d4783900d095f2d5ada0",
+      "stats": {
+        "estimated_speakers": 14,
+        "estimated_turns": 30,
+        "estimated_fast_speaker_changes_le_300ms": 7,
+        "estimated_pairwise_overlap_seconds": 14.546,
+        "overlap_basis": "Raw estimated speech-segment intersections, excluding silence inside coalesced turn spans.",
+        "speaker_count_basis": "Anonymous acoustic cluster count, not verified participants; substantial over-/under-clustering remains possible.",
+        "aligned_same_speaker_word_gap_ge_300ms": 57,
+        "short_estimated_turns_le_1s": 8,
+        "lexical_filler_candidates": 0,
+        "confirmed_mid_sentence_pauses": null,
+        "confirmed_pre_predicate_pauses": null,
+        "confirmed_backchannels": null,
+        "confirmed_trailing_fillers": null,
+        "confirmed_continuing_across_sentences": null,
+        "interpretation": "Acoustic/lexical proxies only, not human stress labels. CTC blank gaps can include silence or uncertain alignment; pairwise overlap is model-estimated, not verified."
+      },
+      "runtime": {
+        "started_unix": 1792467602.5155852,
+        "ended_unix": 1792467651.9338303,
+        "elapsed_seconds": 49.418,
+        "diarization_seconds": 15.62,
+        "device": "cpu",
+        "measured_source_audio_seconds": 180.0,
+        "inference_reused_after_crop": true
+      }
+    },
+    "ja-general-06": {
+      "word_count": 302,
+      "aligned_word_count": 300,
+      "reference_sha256": "6d86e6d3518fc54226e2b3dfd2dc381ec4acff88d09eebaf472ec3dad25bfafd",
+      "stats": {
+        "estimated_speakers": 25,
+        "estimated_turns": 49,
+        "estimated_fast_speaker_changes_le_300ms": 14,
+        "estimated_pairwise_overlap_seconds": 54.017,
+        "overlap_basis": "Raw estimated speech-segment intersections, excluding silence inside coalesced turn spans.",
+        "speaker_count_basis": "Anonymous acoustic cluster count, not verified participants; substantial over-/under-clustering remains possible.",
+        "aligned_same_speaker_word_gap_ge_300ms": 46,
+        "short_estimated_turns_le_1s": 15,
+        "lexical_filler_candidates": 1,
+        "confirmed_mid_sentence_pauses": null,
+        "confirmed_pre_predicate_pauses": null,
+        "confirmed_backchannels": null,
+        "confirmed_trailing_fillers": null,
+        "confirmed_continuing_across_sentences": null,
+        "interpretation": "Acoustic/lexical proxies only, not human stress labels. CTC blank gaps can include silence or uncertain alignment; pairwise overlap is model-estimated, not verified."
+      },
+      "runtime": {
+        "started_unix": 1792467651.9493582,
+        "ended_unix": 1792467696.4722834,
+        "elapsed_seconds": 44.523,
+        "diarization_seconds": 10.374,
+        "device": "cpu",
+        "measured_source_audio_seconds": 180.0,
+        "inference_reused_after_crop": true
+      }
+    },
+    "ja-stress-01": {
+      "word_count": 270,
+      "aligned_word_count": 268,
+      "reference_sha256": "53b97a68136077d1f7269f4ab108df984d6e59f9cd92226f07a7806ea744593d",
+      "stats": {
+        "estimated_speakers": 14,
+        "estimated_turns": 36,
+        "estimated_fast_speaker_changes_le_300ms": 9,
+        "estimated_pairwise_overlap_seconds": 3.544,
+        "overlap_basis": "Raw estimated speech-segment intersections, excluding silence inside coalesced turn spans.",
+        "speaker_count_basis": "Anonymous acoustic cluster count, not verified participants; substantial over-/under-clustering remains possible.",
+        "aligned_same_speaker_word_gap_ge_300ms": 30,
+        "short_estimated_turns_le_1s": 14,
+        "lexical_filler_candidates": 3,
+        "confirmed_mid_sentence_pauses": null,
+        "confirmed_pre_predicate_pauses": null,
+        "confirmed_backchannels": null,
+        "confirmed_trailing_fillers": null,
+        "confirmed_continuing_across_sentences": null,
+        "interpretation": "Acoustic/lexical proxies only, not human stress labels. CTC blank gaps can include silence or uncertain alignment; pairwise overlap is model-estimated, not verified."
+      },
+      "runtime": {
+        "started_unix": 1792467696.4868026,
+        "ended_unix": 1792467743.8625917,
+        "elapsed_seconds": 47.376,
+        "diarization_seconds": 9.161,
+        "device": "cpu",
+        "measured_source_audio_seconds": 200.0,
+        "inference_reused_after_crop": true
+      }
+    },
+    "ja-stress-02": {
+      "word_count": 216,
+      "aligned_word_count": 214,
+      "reference_sha256": "78c798310371dcbf86d4b320df33bcb38a253595e7821e7111755366755aaebf",
+      "stats": {
+        "estimated_speakers": 12,
+        "estimated_turns": 29,
+        "estimated_fast_speaker_changes_le_300ms": 4,
+        "estimated_pairwise_overlap_seconds": 0.911,
+        "overlap_basis": "Raw estimated speech-segment intersections, excluding silence inside coalesced turn spans.",
+        "speaker_count_basis": "Anonymous acoustic cluster count, not verified participants; substantial over-/under-clustering remains possible.",
+        "aligned_same_speaker_word_gap_ge_300ms": 22,
+        "short_estimated_turns_le_1s": 9,
+        "lexical_filler_candidates": 4,
+        "confirmed_mid_sentence_pauses": null,
+        "confirmed_pre_predicate_pauses": null,
+        "confirmed_backchannels": null,
+        "confirmed_trailing_fillers": null,
+        "confirmed_continuing_across_sentences": null,
+        "interpretation": "Acoustic/lexical proxies only, not human stress labels. CTC blank gaps can include silence or uncertain alignment; pairwise overlap is model-estimated, not verified."
+      },
+      "runtime": {
+        "started_unix": 1792467743.8781128,
+        "ended_unix": 1792467790.5522606,
+        "elapsed_seconds": 46.674,
+        "diarization_seconds": 8.773,
+        "device": "cpu",
+        "measured_source_audio_seconds": 200.0,
+        "inference_reused_after_crop": true
+      }
+    },
+    "ja-stress-03": {
+      "word_count": 211,
+      "aligned_word_count": 208,
+      "reference_sha256": "6e2b29cc7ffb09e4afdbec97b956aacd9a1e5c313fc0289ef9de571d94427fa9",
+      "stats": {
+        "estimated_speakers": 20,
+        "estimated_turns": 33,
+        "estimated_fast_speaker_changes_le_300ms": 6,
+        "estimated_pairwise_overlap_seconds": 1.097,
+        "overlap_basis": "Raw estimated speech-segment intersections, excluding silence inside coalesced turn spans.",
+        "speaker_count_basis": "Anonymous acoustic cluster count, not verified participants; substantial over-/under-clustering remains possible.",
+        "aligned_same_speaker_word_gap_ge_300ms": 26,
+        "short_estimated_turns_le_1s": 11,
+        "lexical_filler_candidates": 0,
+        "confirmed_mid_sentence_pauses": null,
+        "confirmed_pre_predicate_pauses": null,
+        "confirmed_backchannels": null,
+        "confirmed_trailing_fillers": null,
+        "confirmed_continuing_across_sentences": null,
+        "interpretation": "Acoustic/lexical proxies only, not human stress labels. CTC blank gaps can include silence or uncertain alignment; pairwise overlap is model-estimated, not verified."
+      },
+      "runtime": {
+        "started_unix": 1792467790.5673387,
+        "ended_unix": 1792467836.4892454,
+        "elapsed_seconds": 45.922,
+        "diarization_seconds": 7.981,
+        "device": "cpu",
+        "measured_source_audio_seconds": 200.0,
+        "inference_reused_after_crop": true
+      }
+    },
+    "ja-dev-01": {
+      "word_count": 427,
+      "aligned_word_count": 427,
+      "reference_sha256": "9336f96e031e07624db8d39d3c68823d8a41dc184bafc0cdf30f50f6a1115df9",
+      "stats": {
+        "estimated_speakers": 19,
+        "estimated_turns": 43,
+        "estimated_fast_speaker_changes_le_300ms": 14,
+        "estimated_pairwise_overlap_seconds": 3.932,
+        "overlap_basis": "Raw estimated speech-segment intersections, excluding silence inside coalesced turn spans.",
+        "speaker_count_basis": "Anonymous acoustic cluster count, not verified participants; substantial over-/under-clustering remains possible.",
+        "aligned_same_speaker_word_gap_ge_300ms": 68,
+        "short_estimated_turns_le_1s": 13,
+        "lexical_filler_candidates": 4,
+        "confirmed_mid_sentence_pauses": null,
+        "confirmed_pre_predicate_pauses": null,
+        "confirmed_backchannels": null,
+        "confirmed_trailing_fillers": null,
+        "confirmed_continuing_across_sentences": null,
+        "interpretation": "Acoustic/lexical proxies only, not human stress labels. CTC blank gaps can include silence or uncertain alignment; pairwise overlap is model-estimated, not verified."
+      },
+      "runtime": {
+        "started_unix": 1792467836.503264,
+        "ended_unix": 1792467904.932343,
+        "elapsed_seconds": 68.429,
+        "diarization_seconds": 12.471,
+        "device": "cpu"
+      }
+    },
+    "ja-heldout-reserve": {
+      "word_count": 1277,
+      "aligned_word_count": 1271,
+      "reference_sha256": "bc31baf5cec8048fc395e646130ed3325f4d7835b02bcf30b16263e9f2ca567c",
+      "stats": {
+        "estimated_speakers": 44,
+        "estimated_turns": 101,
+        "estimated_fast_speaker_changes_le_300ms": 31,
+        "estimated_pairwise_overlap_seconds": 46.187,
+        "overlap_basis": "Raw estimated speech-segment intersections, excluding silence inside coalesced turn spans.",
+        "speaker_count_basis": "Anonymous acoustic cluster count, not verified participants; substantial over-/under-clustering remains possible.",
+        "aligned_same_speaker_word_gap_ge_300ms": 168,
+        "short_estimated_turns_le_1s": 23,
+        "lexical_filler_candidates": 8,
+        "confirmed_mid_sentence_pauses": null,
+        "confirmed_pre_predicate_pauses": null,
+        "confirmed_backchannels": null,
+        "confirmed_trailing_fillers": null,
+        "confirmed_continuing_across_sentences": null,
+        "interpretation": "Acoustic/lexical proxies only, not human stress labels. CTC blank gaps can include silence or uncertain alignment; pairwise overlap is model-estimated, not verified."
+      },
+      "runtime": {
+        "started_unix": 1792467904.9518657,
+        "ended_unix": 1792468077.2040715,
+        "elapsed_seconds": 172.252,
+        "diarization_seconds": 38.107,
+        "device": "cpu"
+      }
+    }
+  },
+  "blockers": [
+    "Original-video attribution/rights unresolved: no Japanese release.",
+    "No listening/content inspection tool: mixed-speaker estimates do not prove 30m suitable Japanese conversation.",
+    "PP4 actual ASR not resolved; reference independence must be checked before freeze."
+  ],
+  "acquisition": {
+    "rights": {
+      "release_cleared": false,
+      "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+      "dataset_declared_license": "CC-BY-3.0",
+      "original_video_url": null,
+      "original_creator": null,
+      "video_specific_license_evidence": null,
+      "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets."
+    },
+    "downloads": [
+      {
+        "url": "https://huggingface.co/datasets/espnet/yodas2/resolve/c9674490249665d658f527e2684848377108d82c/data/ja000/audio/00000000.tar.gz",
+        "path": ".data\\japanese\\source.tar.gz",
+        "sha256": "f557b807d448d4ef5383174076892f41b457eaebeff540b5e5b8ee6605ed79f5",
+        "bytes": 1406425120,
+        "elapsed_seconds": 72.151
+      },
+      {
+        "url": "https://huggingface.co/datasets/espnet/yodas2/resolve/c9674490249665d658f527e2684848377108d82c/data/ja000/text/00000000.json",
+        "path": ".data\\japanese\\captions.json",
+        "sha256": "f790b8fdcac8d70c9a71bba08e5686c010f05560ee77fbbd1b8165fd78c2d418",
+        "bytes": 423572,
+        "elapsed_seconds": 0.362
+      },
+      {
+        "url": "https://huggingface.co/datasets/espnet/yodas2/resolve/c9674490249665d658f527e2684848377108d82c/data/ja000/duration/00000000.txt",
+        "path": ".data\\japanese\\durations.txt",
+        "sha256": "d197e4d49a875b8f498dfa33cef2c21ec160bdc09304765f2c9373b46c6657da",
+        "bytes": 1381,
+        "elapsed_seconds": 0.306
+      },
+      {
+        "url": "https://huggingface.co/reazon-research/reazonspeech-k2-v2/resolve/291488c8151be24d7da4bf7af26e533fad96e407/encoder-epoch-99-avg-1.int8.onnx",
+        "path": ".data\\japanese\\models\\reazon\\encoder-epoch-99-avg-1.int8.onnx",
+        "sha256": "2c7bd08a8a99f9ddd0d9e458456577b1f6279214e51426f114f9eced44c54e1d",
+        "bytes": 154670139,
+        "elapsed_seconds": 22.987
+      },
+      {
+        "url": "https://huggingface.co/reazon-research/reazonspeech-k2-v2/resolve/291488c8151be24d7da4bf7af26e533fad96e407/decoder-epoch-99-avg-1.onnx",
+        "path": ".data\\japanese\\models\\reazon\\decoder-epoch-99-avg-1.onnx",
+        "sha256": "58b18211ae06265466bfa17172dab574df94f76c8bcb61a3640c28ba860e4124",
+        "bytes": 11767836,
+        "elapsed_seconds": 6.325
+      },
+      {
+        "url": "https://huggingface.co/reazon-research/reazonspeech-k2-v2/resolve/291488c8151be24d7da4bf7af26e533fad96e407/joiner-epoch-99-avg-1.int8.onnx",
+        "path": ".data\\japanese\\models\\reazon\\joiner-epoch-99-avg-1.int8.onnx",
+        "sha256": "49cc7ea1d3d35a40a27442db5e89996da64bf0e683a903dce76e99e57a12e4de",
+        "bytes": 2696970,
+        "elapsed_seconds": 2.532
+      },
+      {
+        "url": "https://huggingface.co/reazon-research/reazonspeech-k2-v2/resolve/291488c8151be24d7da4bf7af26e533fad96e407/tokens.txt",
+        "path": ".data\\japanese\\models\\reazon\\tokens.txt",
+        "sha256": "2c3ac659818a48a0c04010e0593bbc4d7c8a24a054340b01131499c05fd52def",
+        "bytes": 45754,
+        "elapsed_seconds": 1.043
+      },
+      {
+        "url": "https://huggingface.co/reazon-research/reazonspeech-k2-v2/resolve/291488c8151be24d7da4bf7af26e533fad96e407/README.md",
+        "path": ".data\\japanese\\models\\reazon\\README.md",
+        "sha256": "7debad4c9430f3310ad6d119fce385787c1c19f3ebc0cabe685a48dbe72a4de0",
+        "bytes": 1188,
+        "elapsed_seconds": 0.285
+      },
+      {
+        "url": "https://github.com/k2-fsa/sherpa-onnx/releases/download/speaker-segmentation-models/sherpa-onnx-pyannote-segmentation-3-0.tar.bz2",
+        "path": ".data\\japanese\\models\\segmentation.tar.bz2",
+        "sha256": "24615ee884c897d9d2ba09bb4d30da6bb1b15e685065962db5b02e76e4996488",
+        "bytes": 6958444,
+        "elapsed_seconds": 12.991
+      },
+      {
+        "url": "https://github.com/k2-fsa/sherpa-onnx/releases/download/speaker-recongition-models/3dspeaker_speech_eres2net_base_sv_zh-cn_3dspeaker_16k.onnx",
+        "path": ".data\\japanese\\models\\embedding.onnx",
+        "sha256": "1a331345f04805badbb495c775a6ddffcdd1a732567d5ec8b3d5749e3c7a5e4b",
+        "bytes": 39593761,
+        "elapsed_seconds": 16.379
+      },
+      {
+        "url": "https://huggingface.co/jonatasgrosman/wav2vec2-large-xlsr-53-japanese/resolve/cf031e020336460d15a417eba710bbc5bb43be9a/pytorch_model.bin",
+        "path": ".data\\japanese\\models\\alignment\\pytorch_model.bin",
+        "sha256": "4f6821dcd79770fcd4c11487c4ee5c040b3a7e1863425224014ba5ea8fbc1b67",
+        "bytes": 1271531927,
+        "elapsed_seconds": 64.178
+      },
+      {
+        "url": "https://huggingface.co/jonatasgrosman/wav2vec2-large-xlsr-53-japanese/resolve/cf031e020336460d15a417eba710bbc5bb43be9a/config.json",
+        "path": ".data\\japanese\\models\\alignment\\config.json",
+        "sha256": "552b8c8c85c54a761899eb94b5eb3d58166e769df8e26cf515ab9da695772cd7",
+        "bytes": 1567,
+        "elapsed_seconds": 0.269
+      },
+      {
+        "url": "https://huggingface.co/jonatasgrosman/wav2vec2-large-xlsr-53-japanese/resolve/cf031e020336460d15a417eba710bbc5bb43be9a/preprocessor_config.json",
+        "path": ".data\\japanese\\models\\alignment\\preprocessor_config.json",
+        "sha256": "c403ce09975b90dff0dd8302c42d422e9de1f166cd7772df23490069893cb0cf",
+        "bytes": 158,
+        "elapsed_seconds": 0.276
+      },
+      {
+        "url": "https://huggingface.co/jonatasgrosman/wav2vec2-large-xlsr-53-japanese/resolve/cf031e020336460d15a417eba710bbc5bb43be9a/special_tokens_map.json",
+        "path": ".data\\japanese\\models\\alignment\\special_tokens_map.json",
+        "sha256": "bb7068de1150661a10b55f9e4b12a0e77af8bf91f5e45e1b58afaf1d0e17f675",
+        "bytes": 85,
+        "elapsed_seconds": 0.295
+      },
+      {
+        "url": "https://huggingface.co/jonatasgrosman/wav2vec2-large-xlsr-53-japanese/resolve/cf031e020336460d15a417eba710bbc5bb43be9a/vocab.json",
+        "path": ".data\\japanese\\models\\alignment\\vocab.json",
+        "sha256": "9ffedf9c2da2617b01c4227a4db875d2dfd4e8c31fb9a13182d03c3280679ffe",
+        "bytes": 29298,
+        "elapsed_seconds": 0.28
+      },
+      {
+        "url": "https://huggingface.co/jonatasgrosman/wav2vec2-large-xlsr-53-japanese/resolve/cf031e020336460d15a417eba710bbc5bb43be9a/README.md",
+        "path": ".data\\japanese\\models\\alignment\\README.md",
+        "sha256": "5b903915e4edb98bf7a5a7f6be42792458272c73cbff07f5c2f8f33765f8f070",
+        "bytes": 8634,
+        "elapsed_seconds": 0.301
+      }
+    ]
+  },
+  "heldout": {
+    "rights": {
+      "release_cleared": false,
+      "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+      "dataset_declared_license": "CC-BY-3.0",
+      "original_video_url": null,
+      "original_creator": null,
+      "video_specific_license_evidence": null,
+      "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+      "evidence_urls": [
+        "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+        "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+        "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+        "https://creativecommons.org/licenses/by/3.0/"
+      ]
+    },
+    "requested_count": 20,
+    "prepared_count": 20,
+    "pool_count": 44,
+    "entries": [
+      {
+        "id": "ja-isolated-01",
+        "rights": {
+          "release_cleared": false,
+          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+          "dataset_declared_license": "CC-BY-3.0",
+          "original_video_url": null,
+          "original_creator": null,
+          "video_specific_license_evidence": null,
+          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+          "evidence_urls": [
+            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+            "https://creativecommons.org/licenses/by/3.0/"
+          ]
+        },
+        "source_id": "Yr7rGfescvQ",
+        "source_start": 1671.687219543457,
+        "source_end": 1673.9059735107421,
+        "audio": {
+          "path": ".data\\japanese\\heldout\\ja-isolated-01.wav",
+          "sha256": "880883aff9a35f0b92acd72f63b8144e5bf06ed4eca77bd8778bcd38a745cd0d",
+          "duration_seconds": 2.21875,
+          "sample_rate": 48000,
+          "channels": 1,
+          "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
+          "rights": {
+            "release_cleared": false,
+            "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+            "dataset_declared_license": "CC-BY-3.0",
+            "original_video_url": null,
+            "original_creator": null,
+            "video_specific_license_evidence": null,
+            "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+            "evidence_urls": [
+              "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+              "https://creativecommons.org/licenses/by/3.0/"
+            ]
+          }
+        },
+        "category_tags": [
+          "short",
+          "internally_paused"
+        ],
+        "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
+        "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-01.json",
+        "reference_sha256": "8daa850db07caf4373d601690d8ecd44b4b434d9a5386a38a83831e50dd5f425"
+      },
+      {
+        "id": "ja-isolated-02",
+        "rights": {
+          "release_cleared": false,
+          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+          "dataset_declared_license": "CC-BY-3.0",
+          "original_video_url": null,
+          "original_creator": null,
+          "video_specific_license_evidence": null,
+          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+          "evidence_urls": [
+            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+            "https://creativecommons.org/licenses/by/3.0/"
+          ]
+        },
+        "source_id": "Yr7rGfescvQ",
+        "source_start": 1684.1241015625,
+        "source_end": 1686.9166088867187,
+        "audio": {
+          "path": ".data\\japanese\\heldout\\ja-isolated-02.wav",
+          "sha256": "51ac975683a2994123340c4793e359d8b3d8e12ee5e38d0cfd0093c76af2c0ab",
+          "duration_seconds": 2.7925,
+          "sample_rate": 48000,
+          "channels": 1,
+          "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
+          "rights": {
+            "release_cleared": false,
+            "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+            "dataset_declared_license": "CC-BY-3.0",
+            "original_video_url": null,
+            "original_creator": null,
+            "video_specific_license_evidence": null,
+            "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+            "evidence_urls": [
+              "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+              "https://creativecommons.org/licenses/by/3.0/"
+            ]
+          }
+        },
+        "category_tags": [
+          "short",
+          "internally_paused"
+        ],
+        "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
+        "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-02.json",
+        "reference_sha256": "cccd88b9b3da95e9f26524b5a86a79b09d93364187194b69792852526b6052bd"
+      },
+      {
+        "id": "ja-isolated-03",
+        "rights": {
+          "release_cleared": false,
+          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+          "dataset_declared_license": "CC-BY-3.0",
+          "original_video_url": null,
+          "original_creator": null,
+          "video_specific_license_evidence": null,
+          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+          "evidence_urls": [
+            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+            "https://creativecommons.org/licenses/by/3.0/"
+          ]
+        },
+        "source_id": "Yr7rGfescvQ",
+        "source_start": 1770.743486328125,
+        "source_end": 1774.3122387695312,
+        "audio": {
+          "path": ".data\\japanese\\heldout\\ja-isolated-03.wav",
+          "sha256": "7d89a7656bfc896fde5edbc663fb5cfdfaec8adecb04b749e3cf025cf7af467e",
+          "duration_seconds": 3.56875,
+          "sample_rate": 48000,
+          "channels": 1,
+          "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
+          "rights": {
+            "release_cleared": false,
+            "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+            "dataset_declared_license": "CC-BY-3.0",
+            "original_video_url": null,
+            "original_creator": null,
+            "video_specific_license_evidence": null,
+            "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+            "evidence_urls": [
+              "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+              "https://creativecommons.org/licenses/by/3.0/"
+            ]
+          }
+        },
+        "category_tags": [
+          "internally_paused"
+        ],
+        "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
+        "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-03.json",
+        "reference_sha256": "039ba6172a98339bb28104c0603f540dc9fab1b82d6e75c689c6024bc3b90c85"
+      },
+      {
+        "id": "ja-isolated-04",
+        "rights": {
+          "release_cleared": false,
+          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+          "dataset_declared_license": "CC-BY-3.0",
+          "original_video_url": null,
+          "original_creator": null,
+          "video_specific_license_evidence": null,
+          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+          "evidence_urls": [
+            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+            "https://creativecommons.org/licenses/by/3.0/"
+          ]
+        },
+        "source_id": "Yr7rGfescvQ",
+        "source_start": 1654.575975341797,
+        "source_end": 1662.3972225952148,
+        "audio": {
+          "path": ".data\\japanese\\heldout\\ja-isolated-04.wav",
+          "sha256": "a6bbc0b7acf07853e0d4322a05abfc17f69341d5f33776029b9143d8b41b667b",
+          "duration_seconds": 7.82125,
+          "sample_rate": 48000,
+          "channels": 1,
+          "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
+          "rights": {
+            "release_cleared": false,
+            "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+            "dataset_declared_license": "CC-BY-3.0",
+            "original_video_url": null,
+            "original_creator": null,
+            "video_specific_license_evidence": null,
+            "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+            "evidence_urls": [
+              "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+              "https://creativecommons.org/licenses/by/3.0/"
+            ]
+          }
+        },
+        "category_tags": [
+          "long",
+          "internally_paused"
+        ],
+        "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
+        "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-04.json",
+        "reference_sha256": "96ed725071c1714c9885cc96d9cf6d06e7d1c887b21220d35b041b09b222ad57"
+      },
+      {
+        "id": "ja-isolated-05",
+        "rights": {
+          "release_cleared": false,
+          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+          "dataset_declared_license": "CC-BY-3.0",
+          "original_video_url": null,
+          "original_creator": null,
+          "video_specific_license_evidence": null,
+          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+          "evidence_urls": [
+            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+            "https://creativecommons.org/licenses/by/3.0/"
+          ]
+        },
+        "source_id": "Yr7rGfescvQ",
+        "source_start": 1830.210985107422,
+        "source_end": 1832.379102783203,
+        "audio": {
+          "path": ".data\\japanese\\heldout\\ja-isolated-05.wav",
+          "sha256": "d763e2909aaa113765feda4fa55f3953b24217bd57db5c3889757fe6449d23b5",
+          "duration_seconds": 2.168125,
+          "sample_rate": 48000,
+          "channels": 1,
+          "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
+          "rights": {
+            "release_cleared": false,
+            "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+            "dataset_declared_license": "CC-BY-3.0",
+            "original_video_url": null,
+            "original_creator": null,
+            "video_specific_license_evidence": null,
+            "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+            "evidence_urls": [
+              "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+              "https://creativecommons.org/licenses/by/3.0/"
+            ]
+          }
+        },
+        "category_tags": [
+          "short",
+          "internally_paused"
+        ],
+        "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
+        "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-05.json",
+        "reference_sha256": "bc565b4e85008d5183441d63a59226b28f9785c2e65d53dfb6c06ca0c3203739"
+      },
+      {
+        "id": "ja-isolated-06",
+        "rights": {
+          "release_cleared": false,
+          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+          "dataset_declared_license": "CC-BY-3.0",
+          "original_video_url": null,
+          "original_creator": null,
+          "video_specific_license_evidence": null,
+          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+          "evidence_urls": [
+            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+            "https://creativecommons.org/licenses/by/3.0/"
+          ]
+        },
+        "source_id": "Yr7rGfescvQ",
+        "source_start": 1601.942846221924,
+        "source_end": 1613.8478451538085,
+        "audio": {
+          "path": ".data\\japanese\\heldout\\ja-isolated-06.wav",
+          "sha256": "8c632f5f866ec7abba8cd76cae61fb0e8a061e63bb6b1e34cf4f34e8e9f46ef2",
+          "duration_seconds": 11.905,
+          "sample_rate": 48000,
+          "channels": 1,
+          "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
+          "rights": {
+            "release_cleared": false,
+            "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+            "dataset_declared_license": "CC-BY-3.0",
+            "original_video_url": null,
+            "original_creator": null,
+            "video_specific_license_evidence": null,
+            "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+            "evidence_urls": [
+              "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+              "https://creativecommons.org/licenses/by/3.0/"
+            ]
+          }
+        },
+        "category_tags": [
+          "long",
+          "internally_paused"
+        ],
+        "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
+        "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-06.json",
+        "reference_sha256": "d9fd7b1aa038df17c9d39e97c547da208e9e15216e73577e8536d854b4b07b4c"
+      },
+      {
+        "id": "ja-isolated-07",
+        "rights": {
+          "release_cleared": false,
+          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+          "dataset_declared_license": "CC-BY-3.0",
+          "original_video_url": null,
+          "original_creator": null,
+          "video_specific_license_evidence": null,
+          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+          "evidence_urls": [
+            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+            "https://creativecommons.org/licenses/by/3.0/"
+          ]
+        },
+        "source_id": "Yr7rGfescvQ",
+        "source_start": 1619.4253482055665,
+        "source_end": 1626.9090939331054,
+        "audio": {
+          "path": ".data\\japanese\\heldout\\ja-isolated-07.wav",
+          "sha256": "e48f70ea2b9ad35aa75f99e2a2d279f7d766030a0ade0d2705e2fc3d37cc2f5a",
+          "duration_seconds": 7.48375,
+          "sample_rate": 48000,
+          "channels": 1,
+          "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
+          "rights": {
+            "release_cleared": false,
+            "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+            "dataset_declared_license": "CC-BY-3.0",
+            "original_video_url": null,
+            "original_creator": null,
+            "video_specific_license_evidence": null,
+            "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+            "evidence_urls": [
+              "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+              "https://creativecommons.org/licenses/by/3.0/"
+            ]
+          }
+        },
+        "category_tags": [
+          "long",
+          "internally_paused"
+        ],
+        "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
+        "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-07.json",
+        "reference_sha256": "e169806b66ed254eb29f2d04cf18b7bf46feeafc7e6a5c8ab78161d3b85d936c"
+      },
+      {
+        "id": "ja-isolated-08",
+        "rights": {
+          "release_cleared": false,
+          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+          "dataset_declared_license": "CC-BY-3.0",
+          "original_video_url": null,
+          "original_creator": null,
+          "video_specific_license_evidence": null,
+          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+          "evidence_urls": [
+            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+            "https://creativecommons.org/licenses/by/3.0/"
+          ]
+        },
+        "source_id": "Yr7rGfescvQ",
+        "source_start": 1791.0103625488282,
+        "source_end": 1806.0541058349609,
+        "audio": {
+          "path": ".data\\japanese\\heldout\\ja-isolated-08.wav",
+          "sha256": "7ab73437fa846dc9cb928b8a57dfebe69e3f02e9b385b1df75d0305c676d0e23",
+          "duration_seconds": 15.04375,
+          "sample_rate": 48000,
+          "channels": 1,
+          "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
+          "rights": {
+            "release_cleared": false,
+            "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+            "dataset_declared_license": "CC-BY-3.0",
+            "original_video_url": null,
+            "original_creator": null,
+            "video_specific_license_evidence": null,
+            "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+            "evidence_urls": [
+              "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+              "https://creativecommons.org/licenses/by/3.0/"
+            ]
+          }
+        },
+        "category_tags": [
+          "long",
+          "internally_paused"
+        ],
+        "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
+        "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-08.json",
+        "reference_sha256": "ce3a83aff3804e4f2ab42d24eaa894ea2bd6cf91b4ea3987413c80d742e23c4b"
+      },
+      {
+        "id": "ja-isolated-09",
+        "rights": {
+          "release_cleared": false,
+          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+          "dataset_declared_license": "CC-BY-3.0",
+          "original_video_url": null,
+          "original_creator": null,
+          "video_specific_license_evidence": null,
+          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+          "evidence_urls": [
+            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+            "https://creativecommons.org/licenses/by/3.0/"
+          ]
+        },
+        "source_id": "Yr7rGfescvQ",
+        "source_start": 1627.643472595215,
+        "source_end": 1635.0428448486327,
+        "audio": {
+          "path": ".data\\japanese\\heldout\\ja-isolated-09.wav",
+          "sha256": "76633070ff55799793db707812e98682c3557b6cd3a95023b72d1618e4c45316",
+          "duration_seconds": 7.399375,
+          "sample_rate": 48000,
+          "channels": 1,
+          "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
+          "rights": {
+            "release_cleared": false,
+            "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+            "dataset_declared_license": "CC-BY-3.0",
+            "original_video_url": null,
+            "original_creator": null,
+            "video_specific_license_evidence": null,
+            "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+            "evidence_urls": [
+              "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+              "https://creativecommons.org/licenses/by/3.0/"
+            ]
+          }
+        },
+        "category_tags": [
+          "long",
+          "internally_paused"
+        ],
+        "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
+        "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-09.json",
+        "reference_sha256": "177b5005314981af670ac5627a2439bcb8691b37433d959bd82d2a2ef6aafcf1"
+      },
+      {
+        "id": "ja-isolated-10",
+        "rights": {
+          "release_cleared": false,
+          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+          "dataset_declared_license": "CC-BY-3.0",
+          "original_video_url": null,
+          "original_creator": null,
+          "video_specific_license_evidence": null,
+          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+          "evidence_urls": [
+            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+            "https://creativecommons.org/licenses/by/3.0/"
+          ]
+        },
+        "source_id": "Yr7rGfescvQ",
+        "source_start": 1647.6740969848634,
+        "source_end": 1654.0440960693359,
+        "audio": {
+          "path": ".data\\japanese\\heldout\\ja-isolated-10.wav",
+          "sha256": "15396842893206e28d7aa2cc80c6cbfa2b81d3298e2f038d9c50666a2fe11d8d",
+          "duration_seconds": 6.37,
+          "sample_rate": 48000,
+          "channels": 1,
+          "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
+          "rights": {
+            "release_cleared": false,
+            "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+            "dataset_declared_license": "CC-BY-3.0",
+            "original_video_url": null,
+            "original_creator": null,
+            "video_specific_license_evidence": null,
+            "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+            "evidence_urls": [
+              "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+              "https://creativecommons.org/licenses/by/3.0/"
+            ]
+          }
+        },
+        "category_tags": [
+          "long",
+          "internally_paused"
+        ],
+        "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
+        "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-10.json",
+        "reference_sha256": "e65922a54959496d4fb1de0e578833e6e0581a62755a6574e115faa1bc7394cc"
+      },
+      {
+        "id": "ja-isolated-11",
+        "rights": {
+          "release_cleared": false,
+          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+          "dataset_declared_license": "CC-BY-3.0",
+          "original_video_url": null,
+          "original_creator": null,
+          "video_specific_license_evidence": null,
+          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+          "evidence_urls": [
+            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+            "https://creativecommons.org/licenses/by/3.0/"
+          ]
+        },
+        "source_id": "Yr7rGfescvQ",
+        "source_start": 2048.2528552246094,
+        "source_end": 2048.9697399902343,
+        "audio": {
+          "path": ".data\\japanese\\heldout\\ja-isolated-11.wav",
+          "sha256": "9a323b36161f6a826d4c8bfa67007a126019da10fa23bc401588fc43e610b815",
+          "duration_seconds": 0.716875,
+          "sample_rate": 48000,
+          "channels": 1,
+          "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
+          "rights": {
+            "release_cleared": false,
+            "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+            "dataset_declared_license": "CC-BY-3.0",
+            "original_video_url": null,
+            "original_creator": null,
+            "video_specific_license_evidence": null,
+            "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+            "evidence_urls": [
+              "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+              "https://creativecommons.org/licenses/by/3.0/"
+            ]
+          }
+        },
+        "category_tags": [
+          "short"
+        ],
+        "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
+        "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-11.json",
+        "reference_sha256": "006a4c0e28aeb568d19db09e93d568958fed51de5c3365ef82179a82fd047fd3"
+      },
+      {
+        "id": "ja-isolated-12",
+        "rights": {
+          "release_cleared": false,
+          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+          "dataset_declared_license": "CC-BY-3.0",
+          "original_video_url": null,
+          "original_creator": null,
+          "video_specific_license_evidence": null,
+          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+          "evidence_urls": [
+            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+            "https://creativecommons.org/licenses/by/3.0/"
+          ]
+        },
+        "source_id": "Yr7rGfescvQ",
+        "source_start": 1867.6397265625,
+        "source_end": 1869.1328564453124,
+        "audio": {
+          "path": ".data\\japanese\\heldout\\ja-isolated-12.wav",
+          "sha256": "ef860dac737671462df0bff34d02c580e2c120ccf3aa7b2c2fbd4df94a3c426a",
+          "duration_seconds": 1.493125,
+          "sample_rate": 48000,
+          "channels": 1,
+          "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
+          "rights": {
+            "release_cleared": false,
+            "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+            "dataset_declared_license": "CC-BY-3.0",
+            "original_video_url": null,
+            "original_creator": null,
+            "video_specific_license_evidence": null,
+            "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+            "evidence_urls": [
+              "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+              "https://creativecommons.org/licenses/by/3.0/"
+            ]
+          }
+        },
+        "category_tags": [
+          "short"
+        ],
+        "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
+        "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-12.json",
+        "reference_sha256": "2d534e25c82fa64a32857127971df1095d6e7d61fb86fdcc0ff6e5957f4a31a2"
+      },
+      {
+        "id": "ja-isolated-13",
+        "rights": {
+          "release_cleared": false,
+          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+          "dataset_declared_license": "CC-BY-3.0",
+          "original_video_url": null,
+          "original_creator": null,
+          "video_specific_license_evidence": null,
+          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+          "evidence_urls": [
+            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+            "https://creativecommons.org/licenses/by/3.0/"
+          ]
+        },
+        "source_id": "Yr7rGfescvQ",
+        "source_start": 1570.774721069336,
+        "source_end": 1573.7697201538085,
+        "audio": {
+          "path": ".data\\japanese\\heldout\\ja-isolated-13.wav",
+          "sha256": "d009f2c3ab048140f0d131fe390c53fc4485ad3a402d559b61a67e3962bf309a",
+          "duration_seconds": 2.995,
+          "sample_rate": 48000,
+          "channels": 1,
+          "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
+          "rights": {
+            "release_cleared": false,
+            "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+            "dataset_declared_license": "CC-BY-3.0",
+            "original_video_url": null,
+            "original_creator": null,
+            "video_specific_license_evidence": null,
+            "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+            "evidence_urls": [
+              "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+              "https://creativecommons.org/licenses/by/3.0/"
+            ]
+          }
+        },
+        "category_tags": [
+          "short"
+        ],
+        "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
+        "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-13.json",
+        "reference_sha256": "699de05ba2310069157e8a302b1120d66e86b1710a880efa772abe247b5ca2cb"
+      },
+      {
+        "id": "ja-isolated-14",
+        "rights": {
+          "release_cleared": false,
+          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+          "dataset_declared_license": "CC-BY-3.0",
+          "original_video_url": null,
+          "original_creator": null,
+          "video_specific_license_evidence": null,
+          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+          "evidence_urls": [
+            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+            "https://creativecommons.org/licenses/by/3.0/"
+          ]
+        },
+        "source_id": "Yr7rGfescvQ",
+        "source_start": 1759.487855834961,
+        "source_end": 1761.082227783203,
+        "audio": {
+          "path": ".data\\japanese\\heldout\\ja-isolated-14.wav",
+          "sha256": "2c9384d05af12008d72afaa38ba20f420dc412ac60b0c09295427c09645bb7d8",
+          "duration_seconds": 1.594375,
+          "sample_rate": 48000,
+          "channels": 1,
+          "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
+          "rights": {
+            "release_cleared": false,
+            "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+            "dataset_declared_license": "CC-BY-3.0",
+            "original_video_url": null,
+            "original_creator": null,
+            "video_specific_license_evidence": null,
+            "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+            "evidence_urls": [
+              "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+              "https://creativecommons.org/licenses/by/3.0/"
+            ]
+          }
+        },
+        "category_tags": [
+          "short"
+        ],
+        "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
+        "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-14.json",
+        "reference_sha256": "17e8a46b36f2cf94ca4b228f8e4e757597ef72effe45d44436228ceaa9f5794e"
+      },
+      {
+        "id": "ja-isolated-15",
+        "rights": {
+          "release_cleared": false,
+          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+          "dataset_declared_license": "CC-BY-3.0",
+          "original_video_url": null,
+          "original_creator": null,
+          "video_specific_license_evidence": null,
+          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+          "evidence_urls": [
+            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+            "https://creativecommons.org/licenses/by/3.0/"
+          ]
+        },
+        "source_id": "Yr7rGfescvQ",
+        "source_start": 1898.976610107422,
+        "source_end": 1899.8622265625,
+        "audio": {
+          "path": ".data\\japanese\\heldout\\ja-isolated-15.wav",
+          "sha256": "d86dec586fa0aba5caedf403a2f68e38431a3dacccc9402b88923b98f45a8f7a",
+          "duration_seconds": 0.885625,
+          "sample_rate": 48000,
+          "channels": 1,
+          "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
+          "rights": {
+            "release_cleared": false,
+            "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+            "dataset_declared_license": "CC-BY-3.0",
+            "original_video_url": null,
+            "original_creator": null,
+            "video_specific_license_evidence": null,
+            "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+            "evidence_urls": [
+              "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+              "https://creativecommons.org/licenses/by/3.0/"
+            ]
+          }
+        },
+        "category_tags": [
+          "short"
+        ],
+        "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
+        "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-15.json",
+        "reference_sha256": "81f23ae8c609d4c2b05d92086d6e5a7812afdca7b05b4af88f3d0178f8d3906e"
+      },
+      {
+        "id": "ja-isolated-16",
+        "rights": {
+          "release_cleared": false,
+          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+          "dataset_declared_license": "CC-BY-3.0",
+          "original_video_url": null,
+          "original_creator": null,
+          "video_specific_license_evidence": null,
+          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+          "evidence_urls": [
+            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+            "https://creativecommons.org/licenses/by/3.0/"
+          ]
+        },
+        "source_id": "Yr7rGfescvQ",
+        "source_start": 1863.3366259765626,
+        "source_end": 1864.0534802246093,
+        "audio": {
+          "path": ".data\\japanese\\heldout\\ja-isolated-16.wav",
+          "sha256": "45739b23809311e487f202c6a8e69ee676f4a473dbf182a3eede55e1a650480e",
+          "duration_seconds": 0.7168541666666667,
+          "sample_rate": 48000,
+          "channels": 1,
+          "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
+          "rights": {
+            "release_cleared": false,
+            "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+            "dataset_declared_license": "CC-BY-3.0",
+            "original_video_url": null,
+            "original_creator": null,
+            "video_specific_license_evidence": null,
+            "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+            "evidence_urls": [
+              "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+              "https://creativecommons.org/licenses/by/3.0/"
+            ]
+          }
+        },
+        "category_tags": [
+          "short"
+        ],
+        "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
+        "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-16.json",
+        "reference_sha256": "0199509ba4c196df1b3cc0d551f2ee50963a212ce48bc5ffbf084e5fa3648d5a"
+      },
+      {
+        "id": "ja-isolated-17",
+        "rights": {
+          "release_cleared": false,
+          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+          "dataset_declared_license": "CC-BY-3.0",
+          "original_video_url": null,
+          "original_creator": null,
+          "video_specific_license_evidence": null,
+          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+          "evidence_urls": [
+            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+            "https://creativecommons.org/licenses/by/3.0/"
+          ]
+        },
+        "source_id": "Yr7rGfescvQ",
+        "source_start": 1755.5222338867188,
+        "source_end": 1758.8547344970702,
+        "audio": {
+          "path": ".data\\japanese\\heldout\\ja-isolated-17.wav",
+          "sha256": "b26846348fb24c19c4d4b452733379e4f8459885bd5fdc53e5f1d895b5725c48",
+          "duration_seconds": 3.3325,
+          "sample_rate": 48000,
+          "channels": 1,
+          "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
+          "rights": {
+            "release_cleared": false,
+            "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+            "dataset_declared_license": "CC-BY-3.0",
+            "original_video_url": null,
+            "original_creator": null,
+            "video_specific_license_evidence": null,
+            "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+            "evidence_urls": [
+              "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+              "https://creativecommons.org/licenses/by/3.0/"
+            ]
+          }
+        },
+        "category_tags": [],
+        "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
+        "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-17.json",
+        "reference_sha256": "3525829a3a9c3bd0f7c3a3374a0f8f63f92d86deb4ed27d53b41d47ea10f0dfa"
+      },
+      {
+        "id": "ja-isolated-18",
+        "rights": {
+          "release_cleared": false,
+          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+          "dataset_declared_license": "CC-BY-3.0",
+          "original_video_url": null,
+          "original_creator": null,
+          "video_specific_license_evidence": null,
+          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+          "evidence_urls": [
+            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+            "https://creativecommons.org/licenses/by/3.0/"
+          ]
+        },
+        "source_id": "Yr7rGfescvQ",
+        "source_start": 1842.1078662109376,
+        "source_end": 1846.0309887695312,
+        "audio": {
+          "path": ".data\\japanese\\heldout\\ja-isolated-18.wav",
+          "sha256": "0dda655f0c70156c35a6ab2660bf3ff28b3a65433fd48696130726c8a4cdec65",
+          "duration_seconds": 3.923125,
+          "sample_rate": 48000,
+          "channels": 1,
+          "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
+          "rights": {
+            "release_cleared": false,
+            "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+            "dataset_declared_license": "CC-BY-3.0",
+            "original_video_url": null,
+            "original_creator": null,
+            "video_specific_license_evidence": null,
+            "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+            "evidence_urls": [
+              "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+              "https://creativecommons.org/licenses/by/3.0/"
+            ]
+          }
+        },
+        "category_tags": [
+          "internally_paused"
+        ],
+        "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
+        "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-18.json",
+        "reference_sha256": "18958a18a3043064a14a2c91c30dc5cfeb4fd30bce0feb92a432c2abdeed4763"
+      },
+      {
+        "id": "ja-isolated-19",
+        "rights": {
+          "release_cleared": false,
+          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+          "dataset_declared_license": "CC-BY-3.0",
+          "original_video_url": null,
+          "original_creator": null,
+          "video_specific_license_evidence": null,
+          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+          "evidence_urls": [
+            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+            "https://creativecommons.org/licenses/by/3.0/"
+          ]
+        },
+        "source_id": "Yr7rGfescvQ",
+        "source_start": 1835.3578662109376,
+        "source_end": 1841.1709729003906,
+        "audio": {
+          "path": ".data\\japanese\\heldout\\ja-isolated-19.wav",
+          "sha256": "df3e20019bec896244f4951ab3954c58c2ce5b9e04c9fa68d3cce39b0eb9c452",
+          "duration_seconds": 5.813104166666666,
+          "sample_rate": 48000,
+          "channels": 1,
+          "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
+          "rights": {
+            "release_cleared": false,
+            "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+            "dataset_declared_license": "CC-BY-3.0",
+            "original_video_url": null,
+            "original_creator": null,
+            "video_specific_license_evidence": null,
+            "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+            "evidence_urls": [
+              "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+              "https://creativecommons.org/licenses/by/3.0/"
+            ]
+          }
+        },
+        "category_tags": [
+          "internally_paused"
+        ],
+        "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
+        "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-19.json",
+        "reference_sha256": "974565649d55bdd4355efe8158b77684509e8d45a23e2abcc41c03c606684814"
+      },
+      {
+        "id": "ja-isolated-20",
+        "rights": {
+          "release_cleared": false,
+          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+          "dataset_declared_license": "CC-BY-3.0",
+          "original_video_url": null,
+          "original_creator": null,
+          "video_specific_license_evidence": null,
+          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+          "evidence_urls": [
+            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+            "https://creativecommons.org/licenses/by/3.0/"
+          ]
+        },
+        "source_id": "Yr7rGfescvQ",
+        "source_start": 1850.2078723144532,
+        "source_end": 1854.316602783203,
+        "audio": {
+          "path": ".data\\japanese\\heldout\\ja-isolated-20.wav",
+          "sha256": "4fb4033bd6555d57274dce2f9a5c6fbbb422d9dc143933cbb8e397238030ada6",
+          "duration_seconds": 4.1087291666666665,
+          "sample_rate": 48000,
+          "channels": 1,
+          "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
+          "rights": {
+            "release_cleared": false,
+            "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+            "dataset_declared_license": "CC-BY-3.0",
+            "original_video_url": null,
+            "original_creator": null,
+            "video_specific_license_evidence": null,
+            "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+            "evidence_urls": [
+              "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+              "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+              "https://creativecommons.org/licenses/by/3.0/"
+            ]
+          }
+        },
+        "category_tags": [],
+        "isolation": "automatic_single_estimated_speaker_no_estimated_intrusion_not_listened",
+        "local_reference_path": ".data\\japanese\\heldout\\ja-isolated-20.json",
+        "reference_sha256": "d7e586470b25daaa7634cc65ac446e3e80b2b926df6f0a2a3e54688faf7002a5"
+      }
+    ],
+    "index_sha256": "88f3b6ab914dd9374c5d65c8bbe213e6b59cd08d0c3a6a96294899fdb9543a1b"
+  },
+  "eligible_conversation_seconds_confirmed": null,
+  "eligibility_status": "AUTOMATIC_SOURCE_CANDIDATES_NOT_LISTENED",
+  "playback_assets": {
+    "main": {
+      "rights": {
+        "release_cleared": false,
+        "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+        "dataset_declared_license": "CC-BY-3.0",
+        "original_video_url": null,
+        "original_creator": null,
+        "video_specific_license_evidence": null,
+        "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+        "evidence_urls": [
+          "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+          "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+          "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+          "https://creativecommons.org/licenses/by/3.0/"
+        ]
+      },
+      "directions": [
+        "D4",
+        "D6"
+      ],
+      "local_audio_path": ".data\\japanese\\playback\\ja-main.wav",
+      "audio_sha256": "33d854011e85b9279a83ff670a1f821f59647fc4ac0011ac8d195bd904b833cf",
+      "duration_seconds": 1800.0,
+      "local_mapping_path": ".data\\japanese\\playback\\ja-main-mapping.json",
+      "mapping_sha256": "4f77fbecb72a1806fd0792508d0528c67806dc4b1e687e361be79ff7d3e83e7c",
+      "local_timeline_path": ".data\\japanese\\playback\\ja-main-reference.json",
+      "timeline_sha256": "793208de71bcde905ddc6ff4d43b29a0fef857b55c338787271fc8756b5bf2b8"
+    },
+    "dev": {
+      "rights": {
+        "release_cleared": false,
+        "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+        "dataset_declared_license": "CC-BY-3.0",
+        "original_video_url": null,
+        "original_creator": null,
+        "video_specific_license_evidence": null,
+        "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+        "evidence_urls": [
+          "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+          "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+          "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+          "https://creativecommons.org/licenses/by/3.0/"
+        ]
+      },
+      "directions": [
+        "D4",
+        "D6"
+      ],
+      "local_audio_path": ".data\\japanese\\playback\\ja-dev.wav",
+      "audio_sha256": "946b2434b4f5968e90be58fb42547e605ba421a5ad6b9301a8b5076189069a91",
+      "duration_seconds": 300.0,
+      "local_mapping_path": ".data\\japanese\\playback\\ja-dev-mapping.json",
+      "mapping_sha256": "f7cf3a88525e73551795db19e4a997f1d4b2ea5bc2d399ab54889c3d93cb4637",
+      "local_timeline_path": ".data\\japanese\\playback\\ja-dev-reference.json",
+      "timeline_sha256": "b0d7a4f9f0dfd7a25b6cfa787ac07b9bc038eca05e363aead971f7ff486f8ecf"
+    }
+  },
+  "practical_checks": {
+    "rights": {
+      "release_cleared": false,
+      "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+      "dataset_declared_license": "CC-BY-3.0",
+      "original_video_url": null,
+      "original_creator": null,
+      "video_specific_license_evidence": null,
+      "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+      "evidence_urls": [
+        "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+        "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+        "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+        "https://creativecommons.org/licenses/by/3.0/"
+      ]
+    },
+    "started_unix": 1792468682.4038804,
+    "ended_unix": 1792468683.355367,
+    "chunks": [
+      {
+        "chunk_id": "ja-general-01",
+        "audio_duration_seconds": 179.989125,
+        "word_count": 438,
+        "aligned_word_count": 432,
+        "audio_checksum_matches": true,
+        "word_bounds_valid": true,
+        "recognized_words_preserved": true
+      },
+      {
+        "chunk_id": "ja-general-02",
+        "audio_duration_seconds": 178.3353125,
+        "word_count": 302,
+        "aligned_word_count": 301,
+        "audio_checksum_matches": true,
+        "word_bounds_valid": true,
+        "recognized_words_preserved": true
+      },
+      {
+        "chunk_id": "ja-general-03",
+        "audio_duration_seconds": 240.0,
+        "word_count": 523,
+        "aligned_word_count": 516,
+        "audio_checksum_matches": true,
+        "word_bounds_valid": true,
+        "recognized_words_preserved": true
+      },
+      {
+        "chunk_id": "ja-general-04",
+        "audio_duration_seconds": 236.0255625,
+        "word_count": 436,
+        "aligned_word_count": 427,
+        "audio_checksum_matches": true,
+        "word_bounds_valid": true,
+        "recognized_words_preserved": true
+      },
+      {
+        "chunk_id": "ja-general-05",
+        "audio_duration_seconds": 179.9890625,
+        "word_count": 468,
+        "aligned_word_count": 467,
+        "audio_checksum_matches": true,
+        "word_bounds_valid": true,
+        "recognized_words_preserved": true
+      },
+      {
+        "chunk_id": "ja-general-06",
+        "audio_duration_seconds": 173.6609375,
+        "word_count": 302,
+        "aligned_word_count": 300,
+        "audio_checksum_matches": true,
+        "word_bounds_valid": true,
+        "recognized_words_preserved": true
+      },
+      {
+        "chunk_id": "ja-stress-01",
+        "audio_duration_seconds": 198.8246875,
+        "word_count": 270,
+        "aligned_word_count": 268,
+        "audio_checksum_matches": true,
+        "word_bounds_valid": true,
+        "recognized_words_preserved": true
+      },
+      {
+        "chunk_id": "ja-stress-02",
+        "audio_duration_seconds": 199.55283333333333,
+        "word_count": 216,
+        "aligned_word_count": 214,
+        "audio_checksum_matches": true,
+        "word_bounds_valid": true,
+        "recognized_words_preserved": true
+      },
+      {
+        "chunk_id": "ja-stress-03",
+        "audio_duration_seconds": 197.62247916666666,
+        "word_count": 211,
+        "aligned_word_count": 208,
+        "audio_checksum_matches": true,
+        "word_bounds_valid": true,
+        "recognized_words_preserved": true
+      },
+      {
+        "chunk_id": "ja-dev-01",
+        "audio_duration_seconds": 300.0,
+        "word_count": 427,
+        "aligned_word_count": 427,
+        "audio_checksum_matches": true,
+        "word_bounds_valid": true,
+        "recognized_words_preserved": true
+      },
+      {
+        "chunk_id": "ja-heldout-reserve",
+        "audio_duration_seconds": 710.0,
+        "word_count": 1277,
+        "aligned_word_count": 1271,
+        "audio_checksum_matches": true,
+        "word_bounds_valid": true,
+        "recognized_words_preserved": true
+      }
+    ],
+    "bundles": [
+      {
+        "split": "main",
+        "duration_seconds": 1800.0,
+        "sha256": "33d854011e85b9279a83ff670a1f821f59647fc4ac0011ac8d195bd904b833cf",
+        "exact_sample_assembly": true,
+        "source_to_playback_units_checked": true,
+        "zero_gap_seconds": 2
+      },
+      {
+        "split": "dev",
+        "duration_seconds": 300.0,
+        "sha256": "946b2434b4f5968e90be58fb42547e605ba421a5ad6b9301a8b5076189069a91",
+        "exact_sample_assembly": true,
+        "source_to_playback_units_checked": true,
+        "zero_gap_seconds": 2
+      }
+    ],
+    "heldout_count": 20,
+    "heldout_source_disjoint": true,
+    "listening_performed": false,
+    "limits": [
+      "Checks establish data consistency, not human reference accuracy, semantic stress labels, actual conversation suitability, or release eligibility."
+    ]
+  }
+}

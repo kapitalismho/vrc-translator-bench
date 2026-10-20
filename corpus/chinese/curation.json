@@ -1,0 +1,17 @@
+{
+  "source": "Official AliMeeting Eval (SLR119), original archive, not a third-party mirror",
+  "seed": 20261020,
+  "curation_basis": "Read all headset opening human transcript segments, identify session topics, reserve two complete original sessions, then fixed-seed general selection. No application result inspected.",
+  "casual_definition": "Verified unprompted casual chat, not merely everyday subject matter in a recorded discussion. No Eval session can be certified unprompted from the supplied corpus documentation and transcripts, so the conservative verified-casual proportion is zero. Everyday-topic discussion is prioritized among the available meeting material.",
+  "reference_limits": "Human lexical transcripts and speaker labels. Existing punctuation is preserved; a terminal full stop is added only where absent. Word times and internal pauses are automatic forced-alignment estimates, not independently listening-confirmed. A human listening spot-check remains necessary before benchmark freeze.",
+  "sessions": {
+    "R8003_M8001": {"role": "main", "topic": "Parents discussing Teachers' Day gifts and children", "casual_chat": false, "tags": ["everyday-topic", "family-school", "discussion", "casual-priority-fill"]},
+    "R8007_M8011": {"role": "main", "topic": "Short-video apps, personal shopping and social use", "casual_chat": false, "tags": ["everyday-topic", "shopping", "organized-discussion", "casual-priority-fill"]},
+    "R8001_M8004": {"role": "main", "topic": "New mobile-phone product and target customers", "casual_chat": false, "tags": ["work", "product-planning", "meeting"]},
+    "R8007_M8010": {"role": "main", "topic": "Office relocation, rent and commuting", "casual_chat": false, "tags": ["work", "commuting", "meeting"]},
+    "R8008_M8013": {"role": "main", "topic": "Catering business development and recruitment", "casual_chat": false, "tags": ["work", "business", "meeting"]},
+    "R8009_M8018": {"role": "main", "topic": "New supermarket staff social-insurance arrangements", "casual_chat": false, "tags": ["work", "staffing", "two-person-discussion"]},
+    "R8009_M8019": {"role": "dev", "topic": "International-student exchange event planning", "casual_chat": false, "tags": ["work", "event-planning", "reserved-development"]},
+    "R8009_M8020": {"role": "heldout", "topic": "Website staff event and venue arrangements", "casual_chat": false, "tags": ["work", "event-planning", "reserved-isolated-responses"]}
+  }
+}

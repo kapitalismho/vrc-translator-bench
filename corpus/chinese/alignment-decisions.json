@@ -1,0 +1,25 @@
+{
+  "human_reference": "Official original Eval near TextGrids, paired by full headset stem; generic c1 tier identity replaced only by the source filename's explicit SPK identity.",
+  "initial_model_rejected": {
+    "id": "jonatasgrosman/wav2vec2-large-xlsr-53-chinese-zh-cn",
+    "revision": "99ccb2737be22b8bb50dcfcc39ad4d567fb90cfd",
+    "observed_candidate_segment_count": 532,
+    "observed_candidate_speech_seconds": 1345.67,
+    "vocabulary_missing_characters_segment_counts": {"呃": 26, "颈": 1, "毯": 1, "刮": 1},
+    "result": "Rejected and its initial preparation process cancelled. No unknown-token duration spreading, transcript deletion or substitute words accepted."
+  },
+  "selected_model": {
+    "id": "Qwen/Qwen3-ForcedAligner-0.6B",
+    "revision": "c7cbfc2048c462b0d63a45797104fc9db3ad62b7",
+    "official_example": "https://github.com/QwenLM/Qwen3-ASR/blob/7c6daf77a2421100f5fb066495372c00129d39ff/examples/example_qwen3_forced_aligner.py",
+    "api": "Qwen3ForcedAligner.align, supplied human transcript, language Chinese, CPU float32",
+    "unit_policy": "Every original lexical character is a requested timestamp unit; whitespace is added only in the aligner's input view so Latin abbreviations also receive model predictions rather than duration division. Original lexical text and punctuation are retained separately.",
+    "interpolation_policy": "The upstream aligner processor's fix_timestamp repair is disabled on this local instance. Raw model timestamp predictions are used. Reversed/nonfinite/out-of-range predictions fail preparation; no interpolation or sentence-duration spreading is permitted.",
+    "word_policy": "jieba 0.42.1 with HMM disabled groups the unchanged original characters. Word extent is the extent of their raw character predictions, not equal subdivision.",
+    "uncertainty": "Automatic timing only. Raw zero-length/overlapping estimates are not manually corrected or portrayed as human timing. Inter-character gaps are model-estimated candidates, not listening-confirmed pauses."
+  },
+  "rejected_primary_prediction_policy": "Invalid reversed/out-of-clip Qwen predictions are retained as failure evidence. Only those segments receive a second, genuine monotone CTC forced alignment against the exact original lexical characters, choosing a pinned model whose vocabulary covers every character. Chinese fillers use wbbbbb/wav2vec2-large-chinese-zh-cn at b654b5f3df69725df32808de454a1b865c829e4c; Latin-capable segments may use jonatasgrosman at the pinned revision above. Missing or randomly initialized weights are rejected. There is no interpolation, substitute transcript, lexical deletion, or sentence-duration spreading.",
+  "punctuation_policy": "Retain every original punctuation mark. Append a terminal Chinese full stop only to a source segment lacking terminal punctuation, without changing lexical characters. Such restored boundaries are rule-based and uncertain, not human-reannotated sentence judgments.",
+  "turn_policy": "Source human speaker-label changes in onset-ordered intervals; simultaneous labels retain overlapping playback fragments. No automatic diarization is substituted.",
+  "general_stress_separation": "General uses fixed-seed eligible candidate selection. Stress uses a separate deterministic ranking of text-pattern candidates (short acknowledgements, final particles/fillers, multiple terminal-punctuation marks); forced-aligned internal gaps are counted separately with automatic-reference uncertainty. Neither is a representative overall-ranking mixture."
+}

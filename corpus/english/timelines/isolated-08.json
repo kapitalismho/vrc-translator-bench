@@ -1,0 +1,730 @@
+{
+  "schema_version": 1,
+  "clip_id": "isolated-08",
+  "timebase": "integer frames at 48000 Hz; intervals half-open; zero-width punctuation retained",
+  "frames": 404640,
+  "reference_level": "human transcript/manual dialogue acts; automatically forced-aligned source word times; not independently verified",
+  "source_to_playback": [
+    {
+      "source_start": 15828480,
+      "source_end": 16233120,
+      "playback_start": 0,
+      "playback_end": 404640
+    }
+  ],
+  "removed": [],
+  "padding": [],
+  "words_and_events": [
+    {
+      "id": "TS3007a.A.words784",
+      "speaker": "A",
+      "timing_valid": true,
+      "source_start": 15828480,
+      "source_end": 15842880,
+      "text": "At",
+      "kind": "w",
+      "punctuation": false,
+      "truncated": false,
+      "sound_type": null,
+      "dialogue_act": "TS3007a.A.dialog-act.vkaraisk.91",
+      "playback_parts": [
+        [
+          0,
+          14400
+        ]
+      ],
+      "playback_start": 0,
+      "playback_end": 14400,
+      "scored": true,
+      "fully_retained": true,
+      "reference_role": "target"
+    },
+    {
+      "id": "TS3007a.C.words17",
+      "speaker": "C",
+      "timing_valid": true,
+      "source_start": 15806976,
+      "source_end": 15865776,
+      "text": "",
+      "kind": "vocalsound",
+      "punctuation": false,
+      "truncated": false,
+      "sound_type": "laugh",
+      "playback_parts": [
+        [
+          0,
+          37296
+        ]
+      ],
+      "playback_start": 0,
+      "playback_end": 37296,
+      "scored": false,
+      "fully_retained": false,
+      "reference_role": "context_only_headset_bleed_not_guaranteed_audible"
+    },
+    {
+      "id": "TS3007a.A.words785",
+      "speaker": "A",
+      "timing_valid": true,
+      "source_start": 15842880,
+      "source_end": 15861600,
+      "text": "uh",
+      "kind": "w",
+      "punctuation": false,
+      "truncated": false,
+      "sound_type": null,
+      "dialogue_act": "TS3007a.A.dialog-act.vkaraisk.91",
+      "playback_parts": [
+        [
+          14400,
+          33120
+        ]
+      ],
+      "playback_start": 14400,
+      "playback_end": 33120,
+      "scored": true,
+      "fully_retained": true,
+      "reference_role": "target"
+    },
+    {
+      "id": "TS3007a.A.words786",
+      "speaker": "A",
+      "timing_valid": true,
+      "source_start": 15861600,
+      "source_end": 15879360,
+      "text": "the",
+      "kind": "w",
+      "punctuation": false,
+      "truncated": false,
+      "sound_type": null,
+      "dialogue_act": "TS3007a.A.dialog-act.vkaraisk.91",
+      "playback_parts": [
+        [
+          33120,
+          50880
+        ]
+      ],
+      "playback_start": 33120,
+      "playback_end": 50880,
+      "scored": true,
+      "fully_retained": true,
+      "reference_role": "target"
+    },
+    {
+      "id": "TS3007a.A.words787",
+      "speaker": "A",
+      "timing_valid": true,
+      "source_start": 15879360,
+      "source_end": 15891840,
+      "text": "white",
+      "kind": "w",
+      "punctuation": false,
+      "truncated": false,
+      "sound_type": null,
+      "dialogue_act": "TS3007a.A.dialog-act.vkaraisk.91",
+      "playback_parts": [
+        [
+          50880,
+          63360
+        ]
+      ],
+      "playback_start": 50880,
+      "playback_end": 63360,
+      "scored": true,
+      "fully_retained": true,
+      "reference_role": "target"
+    },
+    {
+      "id": "TS3007a.A.words788",
+      "speaker": "A",
+      "timing_valid": true,
+      "source_start": 15891840,
+      "source_end": 15903840,
+      "text": "board",
+      "kind": "w",
+      "punctuation": false,
+      "truncated": false,
+      "sound_type": null,
+      "dialogue_act": "TS3007a.A.dialog-act.vkaraisk.91",
+      "playback_parts": [
+        [
+          63360,
+          75360
+        ]
+      ],
+      "playback_start": 63360,
+      "playback_end": 75360,
+      "scored": true,
+      "fully_retained": true,
+      "reference_role": "target"
+    },
+    {
+      "id": "TS3007a.A.words789",
+      "speaker": "A",
+      "timing_valid": true,
+      "source_start": 15903840,
+      "source_end": 15912480,
+      "text": "on",
+      "kind": "w",
+      "punctuation": false,
+      "truncated": false,
+      "sound_type": null,
+      "dialogue_act": "TS3007a.A.dialog-act.vkaraisk.91",
+      "playback_parts": [
+        [
+          75360,
+          84000
+        ]
+      ],
+      "playback_start": 75360,
+      "playback_end": 84000,
+      "scored": true,
+      "fully_retained": true,
+      "reference_role": "target"
+    },
+    {
+      "id": "TS3007a.A.words790",
+      "speaker": "A",
+      "timing_valid": true,
+      "source_start": 15912480,
+      "source_end": 15915360,
+      "text": "the",
+      "kind": "w",
+      "punctuation": false,
+      "truncated": false,
+      "sound_type": null,
+      "dialogue_act": "TS3007a.A.dialog-act.vkaraisk.91",
+      "playback_parts": [
+        [
+          84000,
+          86880
+        ]
+      ],
+      "playback_start": 84000,
+      "playback_end": 86880,
+      "scored": true,
+      "fully_retained": true,
+      "reference_role": "target"
+    },
+    {
+      "id": "TS3007a.A.words791",
+      "speaker": "A",
+      "timing_valid": true,
+      "source_start": 15915360,
+      "source_end": 15992640,
+      "text": "left",
+      "kind": "w",
+      "punctuation": false,
+      "truncated": false,
+      "sound_type": null,
+      "dialogue_act": "TS3007a.A.dialog-act.vkaraisk.91",
+      "playback_parts": [
+        [
+          86880,
+          164160
+        ]
+      ],
+      "playback_start": 86880,
+      "playback_end": 164160,
+      "scored": true,
+      "fully_retained": true,
+      "reference_role": "target"
+    },
+    {
+      "id": "TS3007a.A.words792",
+      "speaker": "A",
+      "timing_valid": true,
+      "source_start": 15992640,
+      "source_end": 15992640,
+      "text": ".",
+      "kind": "w",
+      "punctuation": true,
+      "truncated": false,
+      "sound_type": null,
+      "dialogue_act": "TS3007a.A.dialog-act.vkaraisk.91",
+      "playback_parts": [
+        [
+          164160,
+          164160
+        ]
+      ],
+      "playback_start": 164160,
+      "playback_end": 164160,
+      "scored": false,
+      "fully_retained": true,
+      "reference_role": "target"
+    },
+    {
+      "id": "TS3007a.A.words793",
+      "speaker": "A",
+      "timing_valid": true,
+      "source_start": 15992640,
+      "source_end": 16016640,
+      "text": "Every",
+      "kind": "w",
+      "punctuation": false,
+      "truncated": false,
+      "sound_type": null,
+      "dialogue_act": "TS3007a.A.dialog-act.vkaraisk.91",
+      "playback_parts": [
+        [
+          164160,
+          188160
+        ]
+      ],
+      "playback_start": 164160,
+      "playback_end": 188160,
+      "scored": true,
+      "fully_retained": true,
+      "reference_role": "target"
+    },
+    {
+      "id": "TS3007a.A.words794",
+      "speaker": "A",
+      "timing_valid": true,
+      "source_start": 16016640,
+      "source_end": 16038720,
+      "text": "uh",
+      "kind": "w",
+      "punctuation": false,
+      "truncated": false,
+      "sound_type": null,
+      "dialogue_act": "TS3007a.A.dialog-act.vkaraisk.91",
+      "playback_parts": [
+        [
+          188160,
+          210240
+        ]
+      ],
+      "playback_start": 188160,
+      "playback_end": 210240,
+      "scored": true,
+      "fully_retained": true,
+      "reference_role": "target"
+    },
+    {
+      "id": "TS3007a.A.words795",
+      "speaker": "A",
+      "timing_valid": true,
+      "source_start": 16038720,
+      "source_end": 16048800,
+      "text": "every",
+      "kind": "w",
+      "punctuation": false,
+      "truncated": false,
+      "sound_type": null,
+      "dialogue_act": "TS3007a.A.dialog-act.vkaraisk.91",
+      "playback_parts": [
+        [
+          210240,
+          220320
+        ]
+      ],
+      "playback_start": 210240,
+      "playback_end": 220320,
+      "scored": true,
+      "fully_retained": true,
+      "reference_role": "target"
+    },
+    {
+      "id": "TS3007a.A.words796",
+      "speaker": "A",
+      "timing_valid": true,
+      "source_start": 16048800,
+      "source_end": 16057440,
+      "text": "one",
+      "kind": "w",
+      "punctuation": false,
+      "truncated": false,
+      "sound_type": null,
+      "dialogue_act": "TS3007a.A.dialog-act.vkaraisk.91",
+      "playback_parts": [
+        [
+          220320,
+          228960
+        ]
+      ],
+      "playback_start": 220320,
+      "playback_end": 228960,
+      "scored": true,
+      "fully_retained": true,
+      "reference_role": "target"
+    },
+    {
+      "id": "TS3007a.A.words797",
+      "speaker": "A",
+      "timing_valid": true,
+      "source_start": 16057440,
+      "source_end": 16063200,
+      "text": "of",
+      "kind": "w",
+      "punctuation": false,
+      "truncated": false,
+      "sound_type": null,
+      "dialogue_act": "TS3007a.A.dialog-act.vkaraisk.91",
+      "playback_parts": [
+        [
+          228960,
+          234720
+        ]
+      ],
+      "playback_start": 228960,
+      "playback_end": 234720,
+      "scored": true,
+      "fully_retained": true,
+      "reference_role": "target"
+    },
+    {
+      "id": "TS3007a.A.words798",
+      "speaker": "A",
+      "timing_valid": true,
+      "source_start": 16063200,
+      "source_end": 16074720,
+      "text": "us",
+      "kind": "w",
+      "punctuation": false,
+      "truncated": false,
+      "sound_type": null,
+      "dialogue_act": "TS3007a.A.dialog-act.vkaraisk.91",
+      "playback_parts": [
+        [
+          234720,
+          246240
+        ]
+      ],
+      "playback_start": 234720,
+      "playback_end": 246240,
+      "scored": true,
+      "fully_retained": true,
+      "reference_role": "target"
+    },
+    {
+      "id": "TS3007a.A.words799",
+      "speaker": "A",
+      "timing_valid": true,
+      "source_start": 16074720,
+      "source_end": 16106400,
+      "text": "uh",
+      "kind": "w",
+      "punctuation": false,
+      "truncated": false,
+      "sound_type": null,
+      "dialogue_act": "TS3007a.A.dialog-act.vkaraisk.91",
+      "playback_parts": [
+        [
+          246240,
+          277920
+        ]
+      ],
+      "playback_start": 246240,
+      "playback_end": 277920,
+      "scored": true,
+      "fully_retained": true,
+      "reference_role": "target"
+    },
+    {
+      "id": "TS3007a.A.words800",
+      "speaker": "A",
+      "timing_valid": true,
+      "source_start": 16106400,
+      "source_end": 16118880,
+      "text": "must",
+      "kind": "w",
+      "punctuation": false,
+      "truncated": false,
+      "sound_type": null,
+      "dialogue_act": "TS3007a.A.dialog-act.vkaraisk.91",
+      "playback_parts": [
+        [
+          277920,
+          290400
+        ]
+      ],
+      "playback_start": 277920,
+      "playback_end": 290400,
+      "scored": true,
+      "fully_retained": true,
+      "reference_role": "target"
+    },
+    {
+      "id": "TS3007a.A.words801",
+      "speaker": "A",
+      "timing_valid": true,
+      "source_start": 16118880,
+      "source_end": 16128480,
+      "text": "draw",
+      "kind": "w",
+      "punctuation": false,
+      "truncated": false,
+      "sound_type": null,
+      "dialogue_act": "TS3007a.A.dialog-act.vkaraisk.91",
+      "playback_parts": [
+        [
+          290400,
+          300000
+        ]
+      ],
+      "playback_start": 290400,
+      "playback_end": 300000,
+      "scored": true,
+      "fully_retained": true,
+      "reference_role": "target"
+    },
+    {
+      "id": "TS3007a.A.words802",
+      "speaker": "A",
+      "timing_valid": true,
+      "source_start": 16128480,
+      "source_end": 16138560,
+      "text": "our",
+      "kind": "w",
+      "punctuation": false,
+      "truncated": false,
+      "sound_type": null,
+      "dialogue_act": "TS3007a.A.dialog-act.vkaraisk.91",
+      "playback_parts": [
+        [
+          300000,
+          310080
+        ]
+      ],
+      "playback_start": 300000,
+      "playback_end": 310080,
+      "scored": true,
+      "fully_retained": true,
+      "reference_role": "target"
+    },
+    {
+      "id": "TS3007a.A.words803",
+      "speaker": "A",
+      "timing_valid": true,
+      "source_start": 16138560,
+      "source_end": 16160160,
+      "text": "favourite",
+      "kind": "w",
+      "punctuation": false,
+      "truncated": false,
+      "sound_type": null,
+      "dialogue_act": "TS3007a.A.dialog-act.vkaraisk.91",
+      "playback_parts": [
+        [
+          310080,
+          331680
+        ]
+      ],
+      "playback_start": 310080,
+      "playback_end": 331680,
+      "scored": true,
+      "fully_retained": true,
+      "reference_role": "target"
+    },
+    {
+      "id": "TS3007a.A.words804",
+      "speaker": "A",
+      "timing_valid": true,
+      "source_start": 16160160,
+      "source_end": 16233120,
+      "text": "animal",
+      "kind": "w",
+      "punctuation": false,
+      "truncated": false,
+      "sound_type": null,
+      "dialogue_act": "TS3007a.A.dialog-act.vkaraisk.91",
+      "playback_parts": [
+        [
+          331680,
+          404640
+        ]
+      ],
+      "playback_start": 331680,
+      "playback_end": 404640,
+      "scored": true,
+      "fully_retained": true,
+      "reference_role": "target"
+    },
+    {
+      "id": "TS3007a.A.words805",
+      "speaker": "A",
+      "timing_valid": true,
+      "source_start": 16233120,
+      "source_end": 16233120,
+      "text": ",",
+      "kind": "w",
+      "punctuation": true,
+      "truncated": false,
+      "sound_type": null,
+      "dialogue_act": "TS3007a.A.dialog-act.vkaraisk.91",
+      "playback_parts": [
+        [
+          404640,
+          404640
+        ]
+      ],
+      "playback_start": 404640,
+      "playback_end": 404640,
+      "scored": false,
+      "fully_retained": true,
+      "reference_role": "target"
+    },
+    {
+      "id": "TS3007a.A.words806",
+      "speaker": "A",
+      "timing_valid": true,
+      "source_start": 16233120,
+      "source_end": 16233120,
+      "text": "",
+      "kind": "vocalsound",
+      "punctuation": false,
+      "truncated": false,
+      "sound_type": "other",
+      "dialogue_act": "TS3007a.A.dialog-act.vkaraisk.92",
+      "playback_parts": [
+        [
+          404640,
+          404640
+        ]
+      ],
+      "playback_start": 404640,
+      "playback_end": 404640,
+      "scored": false,
+      "fully_retained": true,
+      "reference_role": "target"
+    }
+  ],
+  "sentences": [
+    {
+      "id": "TS3007a.A.dialog-act.vkaraisk.91",
+      "speaker": "A",
+      "type": "ami_da_6",
+      "word_ids": [
+        "TS3007a.A.words783",
+        "TS3007a.A.words784",
+        "TS3007a.A.words785",
+        "TS3007a.A.words786",
+        "TS3007a.A.words787",
+        "TS3007a.A.words788",
+        "TS3007a.A.words789",
+        "TS3007a.A.words790",
+        "TS3007a.A.words791",
+        "TS3007a.A.words792",
+        "TS3007a.A.words793",
+        "TS3007a.A.words794",
+        "TS3007a.A.words795",
+        "TS3007a.A.words796",
+        "TS3007a.A.words797",
+        "TS3007a.A.words798",
+        "TS3007a.A.words799",
+        "TS3007a.A.words800",
+        "TS3007a.A.words801",
+        "TS3007a.A.words802",
+        "TS3007a.A.words803",
+        "TS3007a.A.words804",
+        "TS3007a.A.words805"
+      ],
+      "source_start": 15828480,
+      "source_end": 16233120,
+      "playback_parts": [
+        [
+          0,
+          404640
+        ]
+      ],
+      "playback_start": 0,
+      "playback_end": 404640,
+      "retained_word_ids": [
+        "TS3007a.A.words784",
+        "TS3007a.A.words785",
+        "TS3007a.A.words786",
+        "TS3007a.A.words787",
+        "TS3007a.A.words788",
+        "TS3007a.A.words789",
+        "TS3007a.A.words790",
+        "TS3007a.A.words791",
+        "TS3007a.A.words792",
+        "TS3007a.A.words793",
+        "TS3007a.A.words794",
+        "TS3007a.A.words795",
+        "TS3007a.A.words796",
+        "TS3007a.A.words797",
+        "TS3007a.A.words798",
+        "TS3007a.A.words799",
+        "TS3007a.A.words800",
+        "TS3007a.A.words801",
+        "TS3007a.A.words802",
+        "TS3007a.A.words803",
+        "TS3007a.A.words804",
+        "TS3007a.A.words805"
+      ],
+      "text": "At uh the white board on the left . Every uh every one of us uh must draw our favourite animal ,",
+      "partial": false,
+      "scored": true,
+      "unit": "manual_dialogue_act_not_grammatical_sentence"
+    }
+  ],
+  "turns": [
+    {
+      "id": "isolated-08.turn0",
+      "speaker": "A",
+      "playback_start": 0,
+      "playback_end": 404640,
+      "word_ids": [
+        "TS3007a.A.words784",
+        "TS3007a.A.words785",
+        "TS3007a.A.words786",
+        "TS3007a.A.words787",
+        "TS3007a.A.words788",
+        "TS3007a.A.words789",
+        "TS3007a.A.words790",
+        "TS3007a.A.words791",
+        "TS3007a.A.words793",
+        "TS3007a.A.words794",
+        "TS3007a.A.words795",
+        "TS3007a.A.words796",
+        "TS3007a.A.words797",
+        "TS3007a.A.words798",
+        "TS3007a.A.words799",
+        "TS3007a.A.words800",
+        "TS3007a.A.words801",
+        "TS3007a.A.words802",
+        "TS3007a.A.words803",
+        "TS3007a.A.words804"
+      ],
+      "text": "At uh the white board on the left Every uh every one of us uh must draw our favourite animal"
+    }
+  ],
+  "topics": [
+    {
+      "id": "TS3007a.topic.palmer.7",
+      "types": [
+        "default-topics.xml#id(top.212)"
+      ],
+      "other_description": null,
+      "source_start": 15430560,
+      "source_end": 46590432,
+      "playback_parts": [
+        [
+          0,
+          404640
+        ]
+      ]
+    }
+  ],
+  "stress_candidates": [
+    {
+      "type": "cross_sentence_continuation",
+      "source_start": 15992640,
+      "source_end": 15992640,
+      "word_ids": [
+        "TS3007a.A.words791",
+        "TS3007a.A.words793"
+      ],
+      "confidence": "punctuation_timing_heuristic_not_listened",
+      "playback_parts": [
+        [
+          164160,
+          164160
+        ]
+      ]
+    }
+  ]
+}

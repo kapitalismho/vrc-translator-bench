@@ -1,0 +1,2344 @@
+{
+  "schema_version": 1,
+  "status": "prepared_local_not_published",
+  "sample_rate": 48000,
+  "channels": 1,
+  "seed": 20261020,
+  "partition": "AMI official scenario-only SC (unseen evaluation)",
+  "selection_sha256": "ccfd1e3c280ac4c5d4a700bd739f0c1c4bb1c10a2cf5a1bdb2f2b92052753d61",
+  "direction_reuse": {
+    "D1": "main",
+    "D2": "main"
+  },
+  "bundles": [
+    {
+      "id": "main",
+      "directions": [
+        "D1",
+        "D2"
+      ],
+      "frames": 86400000,
+      "audio_path": ".data/english/audio/main.wav",
+      "audio_sha256": "48f2f9f48b24fee5895415db198951f099bd259652367f696f503f83f0fb61f7",
+      "timeline_path": "corpus/english/timelines/main.json",
+      "timeline_sha256": "af6b2d9b4d3e8af76066dd1c9d34d9c990e7005a53e4a7efd21365670eca9796",
+      "clips": [
+        {
+          "clip_id": "general-01",
+          "playback_start": 0,
+          "playback_end": 14304000,
+          "timeline_path": "corpus/english/timelines/general-01.json"
+        },
+        {
+          "clip_id": "general-02",
+          "playback_start": 14400000,
+          "playback_end": 28704000,
+          "timeline_path": "corpus/english/timelines/general-02.json"
+        },
+        {
+          "clip_id": "general-03",
+          "playback_start": 28800000,
+          "playback_end": 43104000,
+          "timeline_path": "corpus/english/timelines/general-03.json"
+        },
+        {
+          "clip_id": "general-04",
+          "playback_start": 43200000,
+          "playback_end": 57504000,
+          "timeline_path": "corpus/english/timelines/general-04.json"
+        },
+        {
+          "clip_id": "stress-01",
+          "playback_start": 57600000,
+          "playback_end": 71952000,
+          "timeline_path": "corpus/english/timelines/stress-01.json"
+        },
+        {
+          "clip_id": "stress-02",
+          "playback_start": 72048000,
+          "playback_end": 86400000,
+          "timeline_path": "corpus/english/timelines/stress-02.json"
+        }
+      ]
+    },
+    {
+      "id": "development",
+      "directions": [
+        "D1",
+        "D2"
+      ],
+      "frames": 14400000,
+      "audio_path": ".data/english/audio/development.wav",
+      "audio_sha256": "ae3fee2e18ee325111dc97f4716843ea7123e62b05257146c70c0f917b95348f",
+      "timeline_path": "corpus/english/timelines/development.json",
+      "timeline_sha256": "d54433b018cdaa3b5dd2fd4912220167bdac7f6b05c0c7e957ea84d648b0066b",
+      "clips": [
+        {
+          "clip_id": "development-01",
+          "playback_start": 0,
+          "playback_end": 7152000,
+          "timeline_path": "corpus/english/timelines/development-01.json"
+        },
+        {
+          "clip_id": "development-02",
+          "playback_start": 7248000,
+          "playback_end": 14400000,
+          "timeline_path": "corpus/english/timelines/development-02.json"
+        }
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "session": "ES2014d",
+      "speaker": "A",
+      "channel": 0,
+      "global_speaker": "MEE053",
+      "source_start": 110941920,
+      "source_end": 127862208,
+      "frames": 14304000,
+      "mapping": [
+        {
+          "source_start": 110941920,
+          "source_end": 115846080,
+          "playback_start": 0,
+          "playback_end": 4904160
+        },
+        {
+          "source_start": 116188320,
+          "source_end": 116380800,
+          "playback_start": 4904160,
+          "playback_end": 5096640
+        },
+        {
+          "source_start": 116987520,
+          "source_end": 119556672,
+          "playback_start": 5096640,
+          "playback_end": 7665792
+        },
+        {
+          "source_start": 119979360,
+          "source_end": 121410240,
+          "playback_start": 7665792,
+          "playback_end": 9096672
+        },
+        {
+          "source_start": 122351520,
+          "source_end": 126946560,
+          "playback_start": 9096672,
+          "playback_end": 13691712
+        },
+        {
+          "source_start": 127249920,
+          "source_end": 127862208,
+          "playback_start": 13691712,
+          "playback_end": 14304000
+        }
+      ],
+      "padding_frames": 0,
+      "removed": [
+        {
+          "source_start": 115846080,
+          "source_end": 116188320,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 116380800,
+          "source_end": 116987520,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 119556672,
+          "source_end": 119979360,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 121410240,
+          "source_end": 122351520,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 126946560,
+          "source_end": 127249920,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        }
+      ],
+      "source_url": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/ES2014d/audio/ES2014d.Headset-0.wav",
+      "id": "general-01",
+      "category": "general",
+      "directions": [
+        "D1",
+        "D2"
+      ],
+      "input_mode": "selected_headset",
+      "stress_candidate_counts": {
+        "internal_pause": 3,
+        "cross_sentence_continuation": 22,
+        "trailing_filler": 9,
+        "backchannel": 3
+      },
+      "casual_chat_playback_frames": 4305552,
+      "audio_path": ".data/english/audio/general-01.wav",
+      "audio_sha256": "d3b16a0f73d0aa666aacbd49c14efb1c8dc700b2d6c967186ca2f99dc28f4f12",
+      "timeline_path": "corpus/english/timelines/general-01.json",
+      "timeline_sha256": "c7c286e9a298a8a11b4f29d60c86330d37236ba8531ff884b6f91d01572f344a",
+      "source_path": ".data/english/downloads/ES2014d/ES2014d.Headset-0.wav",
+      "source_sha256": "aebe37d6b95009827c91a84f2b3245edb36a0ca501bec6d665173694b9e23f3f",
+      "normalization": {
+        "source_peak_pcm16": 31594,
+        "gain_linear": 0.7342299017824602,
+        "target_peak_dbfs": -3
+      },
+      "scored_words": 509,
+      "license": "CC-BY-4.0",
+      "attribution": "AMI Project — AMI Meeting Corpus",
+      "reference_level": "human transcript/manual dialogue acts; automatically forced-aligned source word times; not independently verified"
+    },
+    {
+      "session": "IS1009c",
+      "speaker": "B",
+      "channel": 1,
+      "global_speaker": "FIO087",
+      "source_start": 16101600,
+      "source_end": 30336960,
+      "frames": 14304000,
+      "mapping": [
+        {
+          "source_start": 16101600,
+          "source_end": 30336960,
+          "playback_start": 0,
+          "playback_end": 14235360
+        }
+      ],
+      "padding_frames": 68640,
+      "removed": [],
+      "source_url": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/IS1009c/audio/IS1009c.Headset-1.wav",
+      "id": "general-02",
+      "category": "general",
+      "directions": [
+        "D1",
+        "D2"
+      ],
+      "input_mode": "selected_headset",
+      "stress_candidate_counts": {
+        "cross_sentence_continuation": 16
+      },
+      "casual_chat_playback_frames": 0,
+      "audio_path": ".data/english/audio/general-02.wav",
+      "audio_sha256": "431287d689bdbbf3e6609e762043da4b546db6a222549dd5923a2ffe4f73cd92",
+      "timeline_path": "corpus/english/timelines/general-02.json",
+      "timeline_sha256": "7366512f0a864c4b14b31b09b43815982d107377b4004d7cccc473bd8ad4de38",
+      "source_path": ".data/english/downloads/IS1009c/IS1009c.Headset-1.wav",
+      "source_sha256": "f95638c9089e04f1c523887d18a18a612cc74ffe7805fba0ad9fecaa55ebd62d",
+      "normalization": {
+        "source_peak_pcm16": 32768,
+        "gain_linear": 0.7079241795933547,
+        "target_peak_dbfs": -3
+      },
+      "scored_words": 693,
+      "license": "CC-BY-4.0",
+      "attribution": "AMI Project — AMI Meeting Corpus",
+      "reference_level": "human transcript/manual dialogue acts; automatically forced-aligned source word times; not independently verified"
+    },
+    {
+      "session": "IS1009b",
+      "speaker": "C",
+      "channel": 2,
+      "global_speaker": "FIO084",
+      "source_start": 10456800,
+      "source_end": 39900000,
+      "frames": 14304000,
+      "mapping": [
+        {
+          "source_start": 10456800,
+          "source_end": 10555680,
+          "playback_start": 0,
+          "playback_end": 98880
+        },
+        {
+          "source_start": 11096160,
+          "source_end": 11256960,
+          "playback_start": 98880,
+          "playback_end": 259680
+        },
+        {
+          "source_start": 12640320,
+          "source_end": 12817920,
+          "playback_start": 259680,
+          "playback_end": 437280
+        },
+        {
+          "source_start": 13242000,
+          "source_end": 13427760,
+          "playback_start": 437280,
+          "playback_end": 623040
+        },
+        {
+          "source_start": 17280000,
+          "source_end": 17432640,
+          "playback_start": 623040,
+          "playback_end": 775680
+        },
+        {
+          "source_start": 17898720,
+          "source_end": 18381120,
+          "playback_start": 775680,
+          "playback_end": 1258080
+        },
+        {
+          "source_start": 19325760,
+          "source_end": 19480320,
+          "playback_start": 1258080,
+          "playback_end": 1412640
+        },
+        {
+          "source_start": 23815872,
+          "source_end": 23976000,
+          "playback_start": 1412640,
+          "playback_end": 1572768
+        },
+        {
+          "source_start": 26643840,
+          "source_end": 26799360,
+          "playback_start": 1572768,
+          "playback_end": 1728288
+        },
+        {
+          "source_start": 27345120,
+          "source_end": 39900000,
+          "playback_start": 1728288,
+          "playback_end": 14283168
+        }
+      ],
+      "padding_frames": 20832,
+      "removed": [
+        {
+          "source_start": 10555680,
+          "source_end": 11096160,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 11256960,
+          "source_end": 12640320,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 12817920,
+          "source_end": 13242000,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 13427760,
+          "source_end": 17280000,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 17432640,
+          "source_end": 17898720,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 18381120,
+          "source_end": 19325760,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 19480320,
+          "source_end": 23815872,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 23976000,
+          "source_end": 26643840,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 26799360,
+          "source_end": 27345120,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        }
+      ],
+      "source_url": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/IS1009b/audio/IS1009b.Headset-2.wav",
+      "id": "general-03",
+      "category": "general",
+      "directions": [
+        "D1",
+        "D2"
+      ],
+      "input_mode": "selected_headset",
+      "stress_candidate_counts": {
+        "cross_sentence_continuation": 10,
+        "backchannel": 7,
+        "trailing_filler": 3
+      },
+      "casual_chat_playback_frames": 0,
+      "audio_path": ".data/english/audio/general-03.wav",
+      "audio_sha256": "ca455f07195c9d9092a98b8d06b6a8194b46e105ffbc3256191537f843694bb6",
+      "timeline_path": "corpus/english/timelines/general-03.json",
+      "timeline_sha256": "af5b4014b1953346f8d9860204e2d4193ca1d9f29d5cf7c49fe4f49a129907f2",
+      "source_path": ".data/english/downloads/IS1009b/IS1009b.Headset-2.wav",
+      "source_sha256": "a301ab3be81e249563e96518debd9bd3180ca33afbc39791622c6455a9cb7050",
+      "normalization": {
+        "source_peak_pcm16": 32768,
+        "gain_linear": 0.7079241795933547,
+        "target_peak_dbfs": -3
+      },
+      "scored_words": 716,
+      "license": "CC-BY-4.0",
+      "attribution": "AMI Project — AMI Meeting Corpus",
+      "reference_level": "human transcript/manual dialogue acts; automatically forced-aligned source word times; not independently verified"
+    },
+    {
+      "session": "TS3003a",
+      "speaker": "D",
+      "channel": 3,
+      "global_speaker": "MTD012ME",
+      "source_start": 31726560,
+      "source_end": 66161568,
+      "frames": 14304000,
+      "mapping": [
+        {
+          "source_start": 31726560,
+          "source_end": 31824000,
+          "playback_start": 0,
+          "playback_end": 97440
+        },
+        {
+          "source_start": 32710080,
+          "source_end": 32963424,
+          "playback_start": 97440,
+          "playback_end": 350784
+        },
+        {
+          "source_start": 33746880,
+          "source_end": 35392320,
+          "playback_start": 350784,
+          "playback_end": 1996224
+        },
+        {
+          "source_start": 37518720,
+          "source_end": 42883680,
+          "playback_start": 1996224,
+          "playback_end": 7361184
+        },
+        {
+          "source_start": 46417440,
+          "source_end": 46996800,
+          "playback_start": 7361184,
+          "playback_end": 7940544
+        },
+        {
+          "source_start": 49926720,
+          "source_end": 50569536,
+          "playback_start": 7940544,
+          "playback_end": 8583360
+        },
+        {
+          "source_start": 52189920,
+          "source_end": 52354080,
+          "playback_start": 8583360,
+          "playback_end": 8747520
+        },
+        {
+          "source_start": 52651968,
+          "source_end": 53015040,
+          "playback_start": 8747520,
+          "playback_end": 9110592
+        },
+        {
+          "source_start": 53287920,
+          "source_end": 53492112,
+          "playback_start": 9110592,
+          "playback_end": 9314784
+        },
+        {
+          "source_start": 57622560,
+          "source_end": 58775520,
+          "playback_start": 9314784,
+          "playback_end": 10467744
+        },
+        {
+          "source_start": 59261760,
+          "source_end": 60165888,
+          "playback_start": 10467744,
+          "playback_end": 11371872
+        },
+        {
+          "source_start": 60766080,
+          "source_end": 61724160,
+          "playback_start": 11371872,
+          "playback_end": 12329952
+        },
+        {
+          "source_start": 62716320,
+          "source_end": 62880960,
+          "playback_start": 12329952,
+          "playback_end": 12494592
+        },
+        {
+          "source_start": 63132480,
+          "source_end": 63287040,
+          "playback_start": 12494592,
+          "playback_end": 12649152
+        },
+        {
+          "source_start": 63969600,
+          "source_end": 64694880,
+          "playback_start": 12649152,
+          "playback_end": 13374432
+        },
+        {
+          "source_start": 65232000,
+          "source_end": 66161568,
+          "playback_start": 13374432,
+          "playback_end": 14304000
+        }
+      ],
+      "padding_frames": 0,
+      "removed": [
+        {
+          "source_start": 31824000,
+          "source_end": 32710080,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 32963424,
+          "source_end": 33746880,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 35392320,
+          "source_end": 37518720,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 42883680,
+          "source_end": 46417440,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 46996800,
+          "source_end": 49926720,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 50569536,
+          "source_end": 52189920,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 52354080,
+          "source_end": 52651968,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 53015040,
+          "source_end": 53287920,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 53492112,
+          "source_end": 57622560,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 58775520,
+          "source_end": 59261760,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 60165888,
+          "source_end": 60766080,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 61724160,
+          "source_end": 62716320,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 62880960,
+          "source_end": 63132480,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 63287040,
+          "source_end": 63969600,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 64694880,
+          "source_end": 65232000,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        }
+      ],
+      "source_url": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/TS3003a/audio/TS3003a.Headset-3.wav",
+      "id": "general-04",
+      "category": "general",
+      "directions": [
+        "D1",
+        "D2"
+      ],
+      "input_mode": "selected_headset",
+      "stress_candidate_counts": {
+        "cross_sentence_continuation": 8,
+        "trailing_filler": 4,
+        "backchannel": 2
+      },
+      "casual_chat_playback_frames": 0,
+      "audio_path": ".data/english/audio/general-04.wav",
+      "audio_sha256": "c35f16dc7043794fad58ce652273ce591bc530181f3e26bb1e010a422ba6cc99",
+      "timeline_path": "corpus/english/timelines/general-04.json",
+      "timeline_sha256": "6da9aff6e8144ca83cb5c999c7dba5c5ae60fdf4802a8502cf625e4ea30a5887",
+      "source_path": ".data/english/downloads/TS3003a/TS3003a.Headset-3.wav",
+      "source_sha256": "7055b7dda7ac2d5a5a336e7b5d7e7009277df21774d2a0633dd9772b08eaaacc",
+      "normalization": {
+        "source_peak_pcm16": 14847,
+        "gain_linear": 1.5624206585111502,
+        "target_peak_dbfs": -3
+      },
+      "scored_words": 235,
+      "license": "CC-BY-4.0",
+      "attribution": "AMI Project — AMI Meeting Corpus",
+      "reference_level": "human transcript/manual dialogue acts; automatically forced-aligned source word times; not independently verified"
+    },
+    {
+      "session": "TS3003d",
+      "speaker": "A",
+      "channel": 0,
+      "global_speaker": "MTD009PM",
+      "source_start": 14704800,
+      "source_end": 31782720,
+      "frames": 14352000,
+      "mapping": [
+        {
+          "source_start": 14704800,
+          "source_end": 15140160,
+          "playback_start": 0,
+          "playback_end": 435360
+        },
+        {
+          "source_start": 15994080,
+          "source_end": 16452960,
+          "playback_start": 435360,
+          "playback_end": 894240
+        },
+        {
+          "source_start": 16954560,
+          "source_end": 17643840,
+          "playback_start": 894240,
+          "playback_end": 1583520
+        },
+        {
+          "source_start": 17976480,
+          "source_end": 18628800,
+          "playback_start": 1583520,
+          "playback_end": 2235840
+        },
+        {
+          "source_start": 18961920,
+          "source_end": 28698240,
+          "playback_start": 2235840,
+          "playback_end": 11972160
+        },
+        {
+          "source_start": 29419200,
+          "source_end": 31782720,
+          "playback_start": 11972160,
+          "playback_end": 14335680
+        }
+      ],
+      "padding_frames": 16320,
+      "removed": [
+        {
+          "source_start": 15140160,
+          "source_end": 15994080,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 16452960,
+          "source_end": 16954560,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 17643840,
+          "source_end": 17976480,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 18628800,
+          "source_end": 18961920,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 28698240,
+          "source_end": 29419200,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        }
+      ],
+      "source_url": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/TS3003d/audio/TS3003d.Headset-0.wav",
+      "id": "stress-01",
+      "category": "stress",
+      "directions": [
+        "D1",
+        "D2"
+      ],
+      "input_mode": "selected_headset",
+      "stress_candidate_counts": {
+        "cross_sentence_continuation": 39,
+        "internal_pause": 4,
+        "backchannel": 6,
+        "trailing_filler": 3
+      },
+      "casual_chat_playback_frames": 0,
+      "audio_path": ".data/english/audio/stress-01.wav",
+      "audio_sha256": "1c5faa699756ff63ed982835f345324e32f59982bcbe16cabe2cde2556e2ac8f",
+      "timeline_path": "corpus/english/timelines/stress-01.json",
+      "timeline_sha256": "e52134bc5b11abb1600820334f0075cf69cc353e2c93a1a578a3eb2d8c234179",
+      "source_path": ".data/english/downloads/TS3003d/TS3003d.Headset-0.wav",
+      "source_sha256": "b8ba489d252dc6f7e70d1c281083bd086dde190a1468a33ecf092ccf01738502",
+      "normalization": {
+        "source_peak_pcm16": 12503,
+        "gain_linear": 1.8553354808378029,
+        "target_peak_dbfs": -3
+      },
+      "scored_words": 429,
+      "license": "CC-BY-4.0",
+      "attribution": "AMI Project — AMI Meeting Corpus",
+      "reference_level": "human transcript/manual dialogue acts; automatically forced-aligned source word times; not independently verified"
+    },
+    {
+      "session": "TS3003b",
+      "speaker": "B",
+      "channel": 1,
+      "global_speaker": "MTD011UID",
+      "source_start": 38126880,
+      "source_end": 91599984,
+      "frames": 14352000,
+      "mapping": [
+        {
+          "source_start": 38126880,
+          "source_end": 40040640,
+          "playback_start": 0,
+          "playback_end": 1913760
+        },
+        {
+          "source_start": 40368480,
+          "source_end": 43367520,
+          "playback_start": 1913760,
+          "playback_end": 4912800
+        },
+        {
+          "source_start": 50486784,
+          "source_end": 50723904,
+          "playback_start": 4912800,
+          "playback_end": 5149920
+        },
+        {
+          "source_start": 51230400,
+          "source_end": 51392160,
+          "playback_start": 5149920,
+          "playback_end": 5311680
+        },
+        {
+          "source_start": 51686400,
+          "source_end": 51841440,
+          "playback_start": 5311680,
+          "playback_end": 5466720
+        },
+        {
+          "source_start": 54227328,
+          "source_end": 54422640,
+          "playback_start": 5466720,
+          "playback_end": 5662032
+        },
+        {
+          "source_start": 56413632,
+          "source_end": 56664384,
+          "playback_start": 5662032,
+          "playback_end": 5912784
+        },
+        {
+          "source_start": 56988960,
+          "source_end": 57141600,
+          "playback_start": 5912784,
+          "playback_end": 6065424
+        },
+        {
+          "source_start": 58210080,
+          "source_end": 58373280,
+          "playback_start": 6065424,
+          "playback_end": 6228624
+        },
+        {
+          "source_start": 58971360,
+          "source_end": 59133120,
+          "playback_start": 6228624,
+          "playback_end": 6390384
+        },
+        {
+          "source_start": 59697600,
+          "source_end": 59861760,
+          "playback_start": 6390384,
+          "playback_end": 6554544
+        },
+        {
+          "source_start": 61059360,
+          "source_end": 61231200,
+          "playback_start": 6554544,
+          "playback_end": 6726384
+        },
+        {
+          "source_start": 62744784,
+          "source_end": 62927472,
+          "playback_start": 6726384,
+          "playback_end": 6909072
+        },
+        {
+          "source_start": 64282080,
+          "source_end": 64435680,
+          "playback_start": 6909072,
+          "playback_end": 7062672
+        },
+        {
+          "source_start": 64802880,
+          "source_end": 64963680,
+          "playback_start": 7062672,
+          "playback_end": 7223472
+        },
+        {
+          "source_start": 65796960,
+          "source_end": 65958720,
+          "playback_start": 7223472,
+          "playback_end": 7385232
+        },
+        {
+          "source_start": 68309280,
+          "source_end": 69033456,
+          "playback_start": 7385232,
+          "playback_end": 8109408
+        },
+        {
+          "source_start": 69961440,
+          "source_end": 70600320,
+          "playback_start": 8109408,
+          "playback_end": 8748288
+        },
+        {
+          "source_start": 72208800,
+          "source_end": 72732000,
+          "playback_start": 8748288,
+          "playback_end": 9271488
+        },
+        {
+          "source_start": 73296960,
+          "source_end": 73447200,
+          "playback_start": 9271488,
+          "playback_end": 9421728
+        },
+        {
+          "source_start": 74035680,
+          "source_end": 74580000,
+          "playback_start": 9421728,
+          "playback_end": 9966048
+        },
+        {
+          "source_start": 74928480,
+          "source_end": 76885920,
+          "playback_start": 9966048,
+          "playback_end": 11923488
+        },
+        {
+          "source_start": 78015840,
+          "source_end": 78180000,
+          "playback_start": 11923488,
+          "playback_end": 12087648
+        },
+        {
+          "source_start": 78455040,
+          "source_end": 78608640,
+          "playback_start": 12087648,
+          "playback_end": 12241248
+        },
+        {
+          "source_start": 79190880,
+          "source_end": 79350240,
+          "playback_start": 12241248,
+          "playback_end": 12400608
+        },
+        {
+          "source_start": 80385600,
+          "source_end": 80558400,
+          "playback_start": 12400608,
+          "playback_end": 12573408
+        },
+        {
+          "source_start": 82302720,
+          "source_end": 82457760,
+          "playback_start": 12573408,
+          "playback_end": 12728448
+        },
+        {
+          "source_start": 83367696,
+          "source_end": 83546304,
+          "playback_start": 12728448,
+          "playback_end": 12907056
+        },
+        {
+          "source_start": 85096800,
+          "source_end": 85491360,
+          "playback_start": 12907056,
+          "playback_end": 13301616
+        },
+        {
+          "source_start": 85804320,
+          "source_end": 85956000,
+          "playback_start": 13301616,
+          "playback_end": 13453296
+        },
+        {
+          "source_start": 86415360,
+          "source_end": 86568000,
+          "playback_start": 13453296,
+          "playback_end": 13605936
+        },
+        {
+          "source_start": 87979680,
+          "source_end": 88138080,
+          "playback_start": 13605936,
+          "playback_end": 13764336
+        },
+        {
+          "source_start": 88646880,
+          "source_end": 88815840,
+          "playback_start": 13764336,
+          "playback_end": 13933296
+        },
+        {
+          "source_start": 89760000,
+          "source_end": 89918400,
+          "playback_start": 13933296,
+          "playback_end": 14091696
+        },
+        {
+          "source_start": 90934080,
+          "source_end": 91154880,
+          "playback_start": 14091696,
+          "playback_end": 14312496
+        },
+        {
+          "source_start": 91560480,
+          "source_end": 91599984,
+          "playback_start": 14312496,
+          "playback_end": 14352000
+        }
+      ],
+      "padding_frames": 0,
+      "removed": [
+        {
+          "source_start": 40040640,
+          "source_end": 40368480,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 43367520,
+          "source_end": 50486784,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 50723904,
+          "source_end": 51230400,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 51392160,
+          "source_end": 51686400,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 51841440,
+          "source_end": 54227328,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 54422640,
+          "source_end": 56413632,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 56664384,
+          "source_end": 56988960,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 57141600,
+          "source_end": 58210080,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 58373280,
+          "source_end": 58971360,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 59133120,
+          "source_end": 59697600,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 59861760,
+          "source_end": 61059360,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 61231200,
+          "source_end": 62744784,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 62927472,
+          "source_end": 64282080,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 64435680,
+          "source_end": 64802880,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 64963680,
+          "source_end": 65796960,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 65958720,
+          "source_end": 68309280,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 69033456,
+          "source_end": 69961440,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 70600320,
+          "source_end": 72208800,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 72732000,
+          "source_end": 73296960,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 73447200,
+          "source_end": 74035680,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 74580000,
+          "source_end": 74928480,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 76885920,
+          "source_end": 78015840,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 78180000,
+          "source_end": 78455040,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 78608640,
+          "source_end": 79190880,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 79350240,
+          "source_end": 80385600,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 80558400,
+          "source_end": 82302720,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 82457760,
+          "source_end": 83367696,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 83546304,
+          "source_end": 85096800,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 85491360,
+          "source_end": 85804320,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 85956000,
+          "source_end": 86415360,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 86568000,
+          "source_end": 87979680,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 88138080,
+          "source_end": 88646880,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 88815840,
+          "source_end": 89760000,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 89918400,
+          "source_end": 90934080,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 91154880,
+          "source_end": 91560480,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        }
+      ],
+      "source_url": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/TS3003b/audio/TS3003b.Headset-1.wav",
+      "id": "stress-02",
+      "category": "stress",
+      "directions": [
+        "D1",
+        "D2"
+      ],
+      "input_mode": "selected_headset",
+      "stress_candidate_counts": {
+        "cross_sentence_continuation": 17,
+        "internal_pause": 3,
+        "trailing_filler": 22,
+        "backchannel": 28
+      },
+      "casual_chat_playback_frames": 0,
+      "audio_path": ".data/english/audio/stress-02.wav",
+      "audio_sha256": "1eaf75c4ef88e169c71032798510c2a0cccaca61f0067634d7658fef4ffb4f81",
+      "timeline_path": "corpus/english/timelines/stress-02.json",
+      "timeline_sha256": "1b634d3486884cc0916c82b5c592b24d7bd9931b48f9e39d5511e19b5344e0e0",
+      "source_path": ".data/english/downloads/TS3003b/TS3003b.Headset-1.wav",
+      "source_sha256": "7b765872cb866b8b63842c1bf89e086145c84dc3dd1b952fe88c383f06e67fd6",
+      "normalization": {
+        "source_peak_pcm16": 7287,
+        "gain_linear": 3.1833758085515367,
+        "target_peak_dbfs": -3
+      },
+      "scored_words": 250,
+      "license": "CC-BY-4.0",
+      "attribution": "AMI Project — AMI Meeting Corpus",
+      "reference_level": "human transcript/manual dialogue acts; automatically forced-aligned source word times; not independently verified"
+    },
+    {
+      "session": "ES2014a",
+      "speaker": "C",
+      "channel": 2,
+      "global_speaker": "FEE055",
+      "source_start": 13846560,
+      "source_end": 38672160,
+      "frames": 7152000,
+      "mapping": [
+        {
+          "source_start": 13846560,
+          "source_end": 18118512,
+          "playback_start": 0,
+          "playback_end": 4271952
+        },
+        {
+          "source_start": 18541248,
+          "source_end": 18806544,
+          "playback_start": 4271952,
+          "playback_end": 4537248
+        },
+        {
+          "source_start": 19593984,
+          "source_end": 20120400,
+          "playback_start": 4537248,
+          "playback_end": 5063664
+        },
+        {
+          "source_start": 20390160,
+          "source_end": 21078432,
+          "playback_start": 5063664,
+          "playback_end": 5751936
+        },
+        {
+          "source_start": 23748000,
+          "source_end": 24003168,
+          "playback_start": 5751936,
+          "playback_end": 6007104
+        },
+        {
+          "source_start": 25245888,
+          "source_end": 25525440,
+          "playback_start": 6007104,
+          "playback_end": 6286656
+        },
+        {
+          "source_start": 26862528,
+          "source_end": 27021120,
+          "playback_start": 6286656,
+          "playback_end": 6445248
+        },
+        {
+          "source_start": 37975680,
+          "source_end": 38672160,
+          "playback_start": 6445248,
+          "playback_end": 7141728
+        }
+      ],
+      "padding_frames": 10272,
+      "removed": [
+        {
+          "source_start": 18118512,
+          "source_end": 18541248,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 18806544,
+          "source_end": 19593984,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 20120400,
+          "source_end": 20390160,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 21078432,
+          "source_end": 23748000,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 24003168,
+          "source_end": 25245888,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 25525440,
+          "source_end": 26862528,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 27021120,
+          "source_end": 37975680,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        }
+      ],
+      "source_url": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/ES2014a/audio/ES2014a.Headset-2.wav",
+      "id": "development-01",
+      "category": "development",
+      "directions": [
+        "D1",
+        "D2"
+      ],
+      "input_mode": "selected_headset",
+      "stress_candidate_counts": {
+        "cross_sentence_continuation": 8,
+        "internal_pause": 2,
+        "backchannel": 1,
+        "trailing_filler": 1
+      },
+      "casual_chat_playback_frames": 0,
+      "audio_path": ".data/english/audio/development-01.wav",
+      "audio_sha256": "2cd64a1a493bf3794f02b58a5d78404128b9e6ab087ca82854b653601d9ef97e",
+      "timeline_path": "corpus/english/timelines/development-01.json",
+      "timeline_sha256": "933bc6bc01f17f0cb1e1c727feed72b0e8bfa3fd8ee11943c11b5b4330f6a191",
+      "source_path": ".data/english/downloads/ES2014a/ES2014a.Headset-2.wav",
+      "source_sha256": "6cbaa642843c6d29977340515d0813f94ca20631a1db75172aaca02d071ac93a",
+      "normalization": {
+        "source_peak_pcm16": 26641,
+        "gain_linear": 0.8707353146246405,
+        "target_peak_dbfs": -3
+      },
+      "scored_words": 139,
+      "license": "CC-BY-4.0",
+      "attribution": "AMI Project — AMI Meeting Corpus",
+      "reference_level": "human transcript/manual dialogue acts; automatically forced-aligned source word times; not independently verified"
+    },
+    {
+      "session": "ES2014b",
+      "speaker": "D",
+      "channel": 3,
+      "global_speaker": "MEE056",
+      "source_start": 91602240,
+      "source_end": 102670560,
+      "frames": 7152000,
+      "mapping": [
+        {
+          "source_start": 91602240,
+          "source_end": 93567840,
+          "playback_start": 0,
+          "playback_end": 1965600
+        },
+        {
+          "source_start": 94290240,
+          "source_end": 95314080,
+          "playback_start": 1965600,
+          "playback_end": 2989440
+        },
+        {
+          "source_start": 95578560,
+          "source_end": 96470400,
+          "playback_start": 2989440,
+          "playback_end": 3881280
+        },
+        {
+          "source_start": 97848000,
+          "source_end": 99576480,
+          "playback_start": 3881280,
+          "playback_end": 5609760
+        },
+        {
+          "source_start": 100477440,
+          "source_end": 100807200,
+          "playback_start": 5609760,
+          "playback_end": 5939520
+        },
+        {
+          "source_start": 101458080,
+          "source_end": 102670560,
+          "playback_start": 5939520,
+          "playback_end": 7152000
+        }
+      ],
+      "padding_frames": 0,
+      "removed": [
+        {
+          "source_start": 93567840,
+          "source_end": 94290240,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 95314080,
+          "source_end": 95578560,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 96470400,
+          "source_end": 97848000,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 99576480,
+          "source_end": 100477440,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        },
+        {
+          "source_start": 100807200,
+          "source_end": 101458080,
+          "reason": "long_target_gap_occupied_by_other_speakers"
+        }
+      ],
+      "source_url": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/ES2014b/audio/ES2014b.Headset-3.wav",
+      "id": "development-02",
+      "category": "development",
+      "directions": [
+        "D1",
+        "D2"
+      ],
+      "input_mode": "selected_headset",
+      "stress_candidate_counts": {
+        "cross_sentence_continuation": 4,
+        "trailing_filler": 3,
+        "backchannel": 16
+      },
+      "casual_chat_playback_frames": 0,
+      "audio_path": ".data/english/audio/development-02.wav",
+      "audio_sha256": "1b6496847bc8f34c057450894426336e8125de9e6c663d7c7424e41b1f908b0c",
+      "timeline_path": "corpus/english/timelines/development-02.json",
+      "timeline_sha256": "ab22f7133212926e2f34ea2078845e6dbc804e191d4b663da48dbc19baf47a9f",
+      "source_path": ".data/english/downloads/ES2014b/ES2014b.Headset-3.wav",
+      "source_sha256": "687962f332c7ec5895892ce891cee5c5b35be36c29e49bf11654fb9f06ebd8ff",
+      "normalization": {
+        "source_peak_pcm16": 3243,
+        "gain_linear": 7.1530248279109,
+        "target_peak_dbfs": -3
+      },
+      "scored_words": 158,
+      "license": "CC-BY-4.0",
+      "attribution": "AMI Project — AMI Meeting Corpus",
+      "reference_level": "human transcript/manual dialogue acts; automatically forced-aligned source word times; not independently verified"
+    },
+    {
+      "id": "isolated-01",
+      "category": "isolated",
+      "selection_bucket": "short",
+      "directions": [
+        "D1"
+      ],
+      "session": "TS3007a",
+      "input_mode": "selected_headset",
+      "speaker": "D",
+      "channel": 3,
+      "global_speaker": "MTD028ME",
+      "dialogue_act": "TS3007a.D.dialog-act.vkaraisk.45",
+      "source_start": 26519040,
+      "source_end": 26558880,
+      "frames": 39840,
+      "padding_frames": 0,
+      "removed": [],
+      "mapping": [
+        {
+          "source_start": 26519040,
+          "source_end": 26558880,
+          "playback_start": 0,
+          "playback_end": 39840
+        }
+      ],
+      "source_url": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/TS3007a/audio/TS3007a.Headset-3.wav",
+      "audio_path": ".data/english/audio/isolated-01.wav",
+      "audio_sha256": "f6dadcc18acaa2adeca7315b4128fb9221d1200297c71e7a93d183e22009267e",
+      "timeline_path": "corpus/english/timelines/isolated-01.json",
+      "timeline_sha256": "c1d189d3ce4b299f299e3d6daee45575948ba63000cfdee121430fffb801d4f4",
+      "source_path": ".data/english/downloads/TS3007a/TS3007a.Headset-3.wav",
+      "source_sha256": "36d874f2423857c5673723d3eade35679ffc9b6618ba3bc2c3b2ccdfdcb50b49",
+      "normalization": {
+        "source_peak_pcm16": 3092,
+        "gain_linear": 7.502347838588308,
+        "target_peak_dbfs": -3
+      },
+      "scored_words": 5,
+      "stress_candidate_counts": {},
+      "license": "CC-BY-4.0",
+      "attribution": "AMI Project — AMI Meeting Corpus",
+      "reference_level": "human transcript/manual dialogue acts; automatically forced-aligned source word times; not independently verified"
+    },
+    {
+      "id": "isolated-02",
+      "category": "isolated",
+      "selection_bucket": "short",
+      "directions": [
+        "D1"
+      ],
+      "session": "TS3007a",
+      "input_mode": "selected_headset",
+      "speaker": "D",
+      "channel": 3,
+      "global_speaker": "MTD028ME",
+      "dialogue_act": "TS3007a.D.dialog-act.vkaraisk.188",
+      "source_start": 70541760,
+      "source_end": 70550400,
+      "frames": 8640,
+      "padding_frames": 0,
+      "removed": [],
+      "mapping": [
+        {
+          "source_start": 70541760,
+          "source_end": 70550400,
+          "playback_start": 0,
+          "playback_end": 8640
+        }
+      ],
+      "source_url": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/TS3007a/audio/TS3007a.Headset-3.wav",
+      "audio_path": ".data/english/audio/isolated-02.wav",
+      "audio_sha256": "02cfa2b93b6cde9f48a86203b85a5c72de6b77767770d07c6760fd5dc9ab3688",
+      "timeline_path": "corpus/english/timelines/isolated-02.json",
+      "timeline_sha256": "50a9ecf1af5e99578092813f5ede2564d8e74651a6c3a203aa4753b4624051c5",
+      "source_path": ".data/english/downloads/TS3007a/TS3007a.Headset-3.wav",
+      "source_sha256": "36d874f2423857c5673723d3eade35679ffc9b6618ba3bc2c3b2ccdfdcb50b49",
+      "normalization": {
+        "source_peak_pcm16": 3476,
+        "gain_linear": 6.67354991856014,
+        "target_peak_dbfs": -3
+      },
+      "scored_words": 1,
+      "stress_candidate_counts": {},
+      "license": "CC-BY-4.0",
+      "attribution": "AMI Project — AMI Meeting Corpus",
+      "reference_level": "human transcript/manual dialogue acts; automatically forced-aligned source word times; not independently verified"
+    },
+    {
+      "id": "isolated-03",
+      "category": "isolated",
+      "selection_bucket": "short",
+      "directions": [
+        "D1"
+      ],
+      "session": "TS3007a",
+      "input_mode": "selected_headset",
+      "speaker": "D",
+      "channel": 3,
+      "global_speaker": "MTD028ME",
+      "dialogue_act": "TS3007a.D.dialog-act.vkaraisk.132",
+      "source_start": 55200960,
+      "source_end": 55212480,
+      "frames": 11520,
+      "padding_frames": 0,
+      "removed": [],
+      "mapping": [
+        {
+          "source_start": 55200960,
+          "source_end": 55212480,
+          "playback_start": 0,
+          "playback_end": 11520
+        }
+      ],
+      "source_url": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/TS3007a/audio/TS3007a.Headset-3.wav",
+      "audio_path": ".data/english/audio/isolated-03.wav",
+      "audio_sha256": "5cb7d876e38afd30981928d2fd4571129bc97b28b9d9aa8ed2ac9a6b10727f92",
+      "timeline_path": "corpus/english/timelines/isolated-03.json",
+      "timeline_sha256": "56d6893c21750313b05f2c041eb22e8bdfe8d44278216c838cb679510786c578",
+      "source_path": ".data/english/downloads/TS3007a/TS3007a.Headset-3.wav",
+      "source_sha256": "36d874f2423857c5673723d3eade35679ffc9b6618ba3bc2c3b2ccdfdcb50b49",
+      "normalization": {
+        "source_peak_pcm16": 2158,
+        "gain_linear": 10.749425170025509,
+        "target_peak_dbfs": -3
+      },
+      "scored_words": 1,
+      "stress_candidate_counts": {},
+      "license": "CC-BY-4.0",
+      "attribution": "AMI Project — AMI Meeting Corpus",
+      "reference_level": "human transcript/manual dialogue acts; automatically forced-aligned source word times; not independently verified"
+    },
+    {
+      "id": "isolated-04",
+      "category": "isolated",
+      "selection_bucket": "short",
+      "directions": [
+        "D1"
+      ],
+      "session": "TS3007a",
+      "input_mode": "selected_headset",
+      "speaker": "A",
+      "channel": 0,
+      "global_speaker": "MTD025PM",
+      "dialogue_act": "TS3007a.A.dialog-act.vkaraisk.280",
+      "source_start": 58295520,
+      "source_end": 58374720,
+      "frames": 79200,
+      "padding_frames": 0,
+      "removed": [],
+      "mapping": [
+        {
+          "source_start": 58295520,
+          "source_end": 58374720,
+          "playback_start": 0,
+          "playback_end": 79200
+        }
+      ],
+      "source_url": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/TS3007a/audio/TS3007a.Headset-0.wav",
+      "audio_path": ".data/english/audio/isolated-04.wav",
+      "audio_sha256": "52de3d0f4cf98d213d1e6f696ac64d4154157d390dd8e1f18196c7f8c9632280",
+      "timeline_path": "corpus/english/timelines/isolated-04.json",
+      "timeline_sha256": "6b820b3426d724b515a5de535a5e88be84b59ec8892a8379d4a01a4e9c5e4914",
+      "source_path": ".data/english/downloads/TS3007a/TS3007a.Headset-0.wav",
+      "source_sha256": "4b47d34a1ab7e1b32d8d1569e2e5a032603fcbe8660964ce2380d0666c656ed5",
+      "normalization": {
+        "source_peak_pcm16": 1719,
+        "gain_linear": 13.49462450082318,
+        "target_peak_dbfs": -3
+      },
+      "scored_words": 2,
+      "stress_candidate_counts": {
+        "cross_sentence_continuation": 1,
+        "backchannel": 1
+      },
+      "license": "CC-BY-4.0",
+      "attribution": "AMI Project — AMI Meeting Corpus",
+      "reference_level": "human transcript/manual dialogue acts; automatically forced-aligned source word times; not independently verified"
+    },
+    {
+      "id": "isolated-05",
+      "category": "isolated",
+      "selection_bucket": "short",
+      "directions": [
+        "D1"
+      ],
+      "session": "TS3007a",
+      "input_mode": "selected_headset",
+      "speaker": "A",
+      "channel": 0,
+      "global_speaker": "MTD025PM",
+      "dialogue_act": "TS3007a.A.dialog-act.vkaraisk.57",
+      "source_start": 9765600,
+      "source_end": 9792960,
+      "frames": 27360,
+      "padding_frames": 0,
+      "removed": [],
+      "mapping": [
+        {
+          "source_start": 9765600,
+          "source_end": 9792960,
+          "playback_start": 0,
+          "playback_end": 27360
+        }
+      ],
+      "source_url": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/TS3007a/audio/TS3007a.Headset-0.wav",
+      "audio_path": ".data/english/audio/isolated-05.wav",
+      "audio_sha256": "0e5afcc13e5069db7723aca0f95aef82da2095b63caa77b8febc0e508fce051e",
+      "timeline_path": "corpus/english/timelines/isolated-05.json",
+      "timeline_sha256": "881a94da219def2460ab44d1bd9521666c99b657635d937b598f383f45c616b2",
+      "source_path": ".data/english/downloads/TS3007a/TS3007a.Headset-0.wav",
+      "source_sha256": "4b47d34a1ab7e1b32d8d1569e2e5a032603fcbe8660964ce2380d0666c656ed5",
+      "normalization": {
+        "source_peak_pcm16": 2757,
+        "gain_linear": 8.413949770371799,
+        "target_peak_dbfs": -3
+      },
+      "scored_words": 2,
+      "stress_candidate_counts": {
+        "trailing_filler": 1
+      },
+      "license": "CC-BY-4.0",
+      "attribution": "AMI Project — AMI Meeting Corpus",
+      "reference_level": "human transcript/manual dialogue acts; automatically forced-aligned source word times; not independently verified"
+    },
+    {
+      "id": "isolated-06",
+      "category": "isolated",
+      "selection_bucket": "short",
+      "directions": [
+        "D1"
+      ],
+      "session": "TS3007a",
+      "input_mode": "selected_headset",
+      "speaker": "D",
+      "channel": 3,
+      "global_speaker": "MTD028ME",
+      "dialogue_act": "TS3007a.D.dialog-act.vkaraisk.65",
+      "source_start": 30911520,
+      "source_end": 30917760,
+      "frames": 6240,
+      "padding_frames": 0,
+      "removed": [],
+      "mapping": [
+        {
+          "source_start": 30911520,
+          "source_end": 30917760,
+          "playback_start": 0,
+          "playback_end": 6240
+        }
+      ],
+      "source_url": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/TS3007a/audio/TS3007a.Headset-3.wav",
+      "audio_path": ".data/english/audio/isolated-06.wav",
+      "audio_sha256": "9384fbd11d5856d6ba0f3bd5598aadcdcd5ade2252c1c6df343369764f7e40ef",
+      "timeline_path": "corpus/english/timelines/isolated-06.json",
+      "timeline_sha256": "4902cfff663b9587d588daf2ccebca51de388b51c7eb5ebd7182697b861753e8",
+      "source_path": ".data/english/downloads/TS3007a/TS3007a.Headset-3.wav",
+      "source_sha256": "36d874f2423857c5673723d3eade35679ffc9b6618ba3bc2c3b2ccdfdcb50b49",
+      "normalization": {
+        "source_peak_pcm16": 2370,
+        "gain_linear": 9.787873213888206,
+        "target_peak_dbfs": -3
+      },
+      "scored_words": 1,
+      "stress_candidate_counts": {},
+      "license": "CC-BY-4.0",
+      "attribution": "AMI Project — AMI Meeting Corpus",
+      "reference_level": "human transcript/manual dialogue acts; automatically forced-aligned source word times; not independently verified"
+    },
+    {
+      "id": "isolated-07",
+      "category": "isolated",
+      "selection_bucket": "short",
+      "directions": [
+        "D1"
+      ],
+      "session": "TS3007a",
+      "input_mode": "selected_headset",
+      "speaker": "D",
+      "channel": 3,
+      "global_speaker": "MTD028ME",
+      "dialogue_act": "TS3007a.D.dialog-act.vkaraisk.106",
+      "source_start": 42935040,
+      "source_end": 42944640,
+      "frames": 9600,
+      "padding_frames": 0,
+      "removed": [],
+      "mapping": [
+        {
+          "source_start": 42935040,
+          "source_end": 42944640,
+          "playback_start": 0,
+          "playback_end": 9600
+        }
+      ],
+      "source_url": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/TS3007a/audio/TS3007a.Headset-3.wav",
+      "audio_path": ".data/english/audio/isolated-07.wav",
+      "audio_sha256": "1100dbf9d93b2b9d19ec0bb3c5c5ea67412913e2eff3742c235bb26f3eabb51a",
+      "timeline_path": "corpus/english/timelines/isolated-07.json",
+      "timeline_sha256": "baab83fd440246145466ddd71eb5bc07091811d71890b405c977723673ee7211",
+      "source_path": ".data/english/downloads/TS3007a/TS3007a.Headset-3.wav",
+      "source_sha256": "36d874f2423857c5673723d3eade35679ffc9b6618ba3bc2c3b2ccdfdcb50b49",
+      "normalization": {
+        "source_peak_pcm16": 1362,
+        "gain_linear": 17.03176175984952,
+        "target_peak_dbfs": -3
+      },
+      "scored_words": 1,
+      "stress_candidate_counts": {},
+      "license": "CC-BY-4.0",
+      "attribution": "AMI Project — AMI Meeting Corpus",
+      "reference_level": "human transcript/manual dialogue acts; automatically forced-aligned source word times; not independently verified"
+    },
+    {
+      "id": "isolated-08",
+      "category": "isolated",
+      "selection_bucket": "long",
+      "directions": [
+        "D1"
+      ],
+      "session": "TS3007a",
+      "input_mode": "selected_headset",
+      "speaker": "A",
+      "channel": 0,
+      "global_speaker": "MTD025PM",
+      "dialogue_act": "TS3007a.A.dialog-act.vkaraisk.91",
+      "source_start": 15828480,
+      "source_end": 16233120,
+      "frames": 404640,
+      "padding_frames": 0,
+      "removed": [],
+      "mapping": [
+        {
+          "source_start": 15828480,
+          "source_end": 16233120,
+          "playback_start": 0,
+          "playback_end": 404640
+        }
+      ],
+      "source_url": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/TS3007a/audio/TS3007a.Headset-0.wav",
+      "audio_path": ".data/english/audio/isolated-08.wav",
+      "audio_sha256": "5c1eb63f08fb4f1ddfab30edf3e550fc2fa552483ea04001fd1966ce982b0622",
+      "timeline_path": "corpus/english/timelines/isolated-08.json",
+      "timeline_sha256": "36a4b57fe416e6188d142eb90ac6b6bd88c9d481b063aa28c5eaac2dabd4886c",
+      "source_path": ".data/english/downloads/TS3007a/TS3007a.Headset-0.wav",
+      "source_sha256": "4b47d34a1ab7e1b32d8d1569e2e5a032603fcbe8660964ce2380d0666c656ed5",
+      "normalization": {
+        "source_peak_pcm16": 8339,
+        "gain_linear": 2.781779531948081,
+        "target_peak_dbfs": -3
+      },
+      "scored_words": 20,
+      "stress_candidate_counts": {
+        "cross_sentence_continuation": 1
+      },
+      "license": "CC-BY-4.0",
+      "attribution": "AMI Project — AMI Meeting Corpus",
+      "reference_level": "human transcript/manual dialogue acts; automatically forced-aligned source word times; not independently verified"
+    },
+    {
+      "id": "isolated-09",
+      "category": "isolated",
+      "selection_bucket": "long",
+      "directions": [
+        "D1"
+      ],
+      "session": "TS3007a",
+      "input_mode": "selected_headset",
+      "speaker": "A",
+      "channel": 0,
+      "global_speaker": "MTD025PM",
+      "dialogue_act": "TS3007a.A.dialog-act.vkaraisk.237",
+      "source_start": 47387040,
+      "source_end": 48017760,
+      "frames": 630720,
+      "padding_frames": 0,
+      "removed": [],
+      "mapping": [
+        {
+          "source_start": 47387040,
+          "source_end": 48017760,
+          "playback_start": 0,
+          "playback_end": 630720
+        }
+      ],
+      "source_url": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/TS3007a/audio/TS3007a.Headset-0.wav",
+      "audio_path": ".data/english/audio/isolated-09.wav",
+      "audio_sha256": "8ebccc7f6fd459d4fbe9303bc81f7beac13ab9b7ca9eb6f23b3ee0bb418b2af0",
+      "timeline_path": "corpus/english/timelines/isolated-09.json",
+      "timeline_sha256": "129cb3158153876be3845dc8c535ffa5eb43dee78ff740e5ae5182ec50000d15",
+      "source_path": ".data/english/downloads/TS3007a/TS3007a.Headset-0.wav",
+      "source_sha256": "4b47d34a1ab7e1b32d8d1569e2e5a032603fcbe8660964ce2380d0666c656ed5",
+      "normalization": {
+        "source_peak_pcm16": 4934,
+        "gain_linear": 4.70151185993414,
+        "target_peak_dbfs": -3
+      },
+      "scored_words": 35,
+      "stress_candidate_counts": {},
+      "license": "CC-BY-4.0",
+      "attribution": "AMI Project — AMI Meeting Corpus",
+      "reference_level": "human transcript/manual dialogue acts; automatically forced-aligned source word times; not independently verified"
+    },
+    {
+      "id": "isolated-10",
+      "category": "isolated",
+      "selection_bucket": "long",
+      "directions": [
+        "D1"
+      ],
+      "session": "TS3007a",
+      "input_mode": "selected_headset",
+      "speaker": "D",
+      "channel": 3,
+      "global_speaker": "MTD028ME",
+      "dialogue_act": "TS3007a.D.dialog-act.vkaraisk.145",
+      "source_start": 57666240,
+      "source_end": 58056000,
+      "frames": 389760,
+      "padding_frames": 0,
+      "removed": [],
+      "mapping": [
+        {
+          "source_start": 57666240,
+          "source_end": 58056000,
+          "playback_start": 0,
+          "playback_end": 389760
+        }
+      ],
+      "source_url": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/TS3007a/audio/TS3007a.Headset-3.wav",
+      "audio_path": ".data/english/audio/isolated-10.wav",
+      "audio_sha256": "7f857f23c00cbc2f92720a5aa9c817dfea2e367ca738f7b79eadc4fa9a1f9fbf",
+      "timeline_path": "corpus/english/timelines/isolated-10.json",
+      "timeline_sha256": "8a27eadb89802580db24ecf675e0664312d568b059afe03e17c18495ccb89be9",
+      "source_path": ".data/english/downloads/TS3007a/TS3007a.Headset-3.wav",
+      "source_sha256": "36d874f2423857c5673723d3eade35679ffc9b6618ba3bc2c3b2ccdfdcb50b49",
+      "normalization": {
+        "source_peak_pcm16": 3057,
+        "gain_linear": 7.588243217832859,
+        "target_peak_dbfs": -3
+      },
+      "scored_words": 23,
+      "stress_candidate_counts": {},
+      "license": "CC-BY-4.0",
+      "attribution": "AMI Project — AMI Meeting Corpus",
+      "reference_level": "human transcript/manual dialogue acts; automatically forced-aligned source word times; not independently verified"
+    },
+    {
+      "id": "isolated-11",
+      "category": "isolated",
+      "selection_bucket": "long",
+      "directions": [
+        "D1"
+      ],
+      "session": "TS3007a",
+      "input_mode": "selected_headset",
+      "speaker": "A",
+      "channel": 0,
+      "global_speaker": "MTD025PM",
+      "dialogue_act": "TS3007a.A.dialog-act.vkaraisk.78",
+      "source_start": 13296480,
+      "source_end": 13707840,
+      "frames": 411360,
+      "padding_frames": 0,
+      "removed": [],
+      "mapping": [
+        {
+          "source_start": 13296480,
+          "source_end": 13707840,
+          "playback_start": 0,
+          "playback_end": 411360
+        }
+      ],
+      "source_url": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/TS3007a/audio/TS3007a.Headset-0.wav",
+      "audio_path": ".data/english/audio/isolated-11.wav",
+      "audio_sha256": "125026b2106950c022db5abf1c07e9b8d0e1a3adb2c7be6c1712f84fd01ba49b",
+      "timeline_path": "corpus/english/timelines/isolated-11.json",
+      "timeline_sha256": "4948338887ef6beb0ee048d44f7fadeed9718f530d7613a544a021b8df999426",
+      "source_path": ".data/english/downloads/TS3007a/TS3007a.Headset-0.wav",
+      "source_sha256": "4b47d34a1ab7e1b32d8d1569e2e5a032603fcbe8660964ce2380d0666c656ed5",
+      "normalization": {
+        "source_peak_pcm16": 6964,
+        "gain_linear": 3.331025203462816,
+        "target_peak_dbfs": -3
+      },
+      "scored_words": 29,
+      "stress_candidate_counts": {
+        "cross_sentence_continuation": 1
+      },
+      "license": "CC-BY-4.0",
+      "attribution": "AMI Project — AMI Meeting Corpus",
+      "reference_level": "human transcript/manual dialogue acts; automatically forced-aligned source word times; not independently verified"
+    },
+    {
+      "id": "isolated-12",
+      "category": "isolated",
+      "selection_bucket": "long",
+      "directions": [
+        "D1"
+      ],
+      "session": "TS3007a",
+      "input_mode": "selected_headset",
+      "speaker": "A",
+      "channel": 0,
+      "global_speaker": "MTD025PM",
+      "dialogue_act": "TS3007a.A.dialog-act.vkaraisk.65",
+      "source_start": 11259840,
+      "source_end": 11744640,
+      "frames": 484800,
+      "padding_frames": 0,
+      "removed": [],
+      "mapping": [
+        {
+          "source_start": 11259840,
+          "source_end": 11744640,
+          "playback_start": 0,
+          "playback_end": 484800
+        }
+      ],
+      "source_url": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/TS3007a/audio/TS3007a.Headset-0.wav",
+      "audio_path": ".data/english/audio/isolated-12.wav",
+      "audio_sha256": "ab00c84b9aea13d677b427a5f8db8f2aee2a1f327117eed0a31fda62a0aefa9a",
+      "timeline_path": "corpus/english/timelines/isolated-12.json",
+      "timeline_sha256": "837c0d713d836a20a5633d647f4cda91404f526e362640c67a608a8a1529b907",
+      "source_path": ".data/english/downloads/TS3007a/TS3007a.Headset-0.wav",
+      "source_sha256": "4b47d34a1ab7e1b32d8d1569e2e5a032603fcbe8660964ce2380d0666c656ed5",
+      "normalization": {
+        "source_peak_pcm16": 4820,
+        "gain_linear": 4.812709443343371,
+        "target_peak_dbfs": -3
+      },
+      "scored_words": 19,
+      "stress_candidate_counts": {},
+      "license": "CC-BY-4.0",
+      "attribution": "AMI Project — AMI Meeting Corpus",
+      "reference_level": "human transcript/manual dialogue acts; automatically forced-aligned source word times; not independently verified"
+    },
+    {
+      "id": "isolated-13",
+      "category": "isolated",
+      "selection_bucket": "long",
+      "directions": [
+        "D1"
+      ],
+      "session": "TS3007a",
+      "input_mode": "selected_headset",
+      "speaker": "D",
+      "channel": 3,
+      "global_speaker": "MTD028ME",
+      "dialogue_act": "TS3007a.D.dialog-act.vkaraisk.156",
+      "source_start": 60431040,
+      "source_end": 60849120,
+      "frames": 418080,
+      "padding_frames": 0,
+      "removed": [],
+      "mapping": [
+        {
+          "source_start": 60431040,
+          "source_end": 60849120,
+          "playback_start": 0,
+          "playback_end": 418080
+        }
+      ],
+      "source_url": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/TS3007a/audio/TS3007a.Headset-3.wav",
+      "audio_path": ".data/english/audio/isolated-13.wav",
+      "audio_sha256": "27da5517754257a762b36d2972fde4fbafb0953faa064754b964287798d43a19",
+      "timeline_path": "corpus/english/timelines/isolated-13.json",
+      "timeline_sha256": "1adf89d0b96eabe6d24259552fc3fe9baef27de60d7d72aee066b94c899ae913",
+      "source_path": ".data/english/downloads/TS3007a/TS3007a.Headset-3.wav",
+      "source_sha256": "36d874f2423857c5673723d3eade35679ffc9b6618ba3bc2c3b2ccdfdcb50b49",
+      "normalization": {
+        "source_peak_pcm16": 6771,
+        "gain_linear": 3.425972458560781,
+        "target_peak_dbfs": -3
+      },
+      "scored_words": 12,
+      "stress_candidate_counts": {
+        "internal_pause": 1
+      },
+      "license": "CC-BY-4.0",
+      "attribution": "AMI Project — AMI Meeting Corpus",
+      "reference_level": "human transcript/manual dialogue acts; automatically forced-aligned source word times; not independently verified"
+    },
+    {
+      "id": "isolated-14",
+      "category": "isolated",
+      "selection_bucket": "internally_paused",
+      "directions": [
+        "D1"
+      ],
+      "session": "TS3007a",
+      "input_mode": "selected_headset",
+      "speaker": "A",
+      "channel": 0,
+      "global_speaker": "MTD025PM",
+      "dialogue_act": "TS3007a.A.dialog-act.vkaraisk.80",
+      "source_start": 13940160,
+      "source_end": 14300160,
+      "frames": 360000,
+      "padding_frames": 0,
+      "removed": [],
+      "mapping": [
+        {
+          "source_start": 13940160,
+          "source_end": 14300160,
+          "playback_start": 0,
+          "playback_end": 360000
+        }
+      ],
+      "source_url": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/TS3007a/audio/TS3007a.Headset-0.wav",
+      "audio_path": ".data/english/audio/isolated-14.wav",
+      "audio_sha256": "86fa9cebc416f9e1f4eab555593ebfcd36078c28b11f6aa0feef3fac14a3f304",
+      "timeline_path": "corpus/english/timelines/isolated-14.json",
+      "timeline_sha256": "cbcb9bf8f01fddc6e1ace5d5043129f9863216926a7dd8172fcbc7d495bb8e64",
+      "source_path": ".data/english/downloads/TS3007a/TS3007a.Headset-0.wav",
+      "source_sha256": "4b47d34a1ab7e1b32d8d1569e2e5a032603fcbe8660964ce2380d0666c656ed5",
+      "normalization": {
+        "source_peak_pcm16": 5007,
+        "gain_linear": 4.632965751331146,
+        "target_peak_dbfs": -3
+      },
+      "scored_words": 19,
+      "stress_candidate_counts": {
+        "internal_pause": 1
+      },
+      "license": "CC-BY-4.0",
+      "attribution": "AMI Project — AMI Meeting Corpus",
+      "reference_level": "human transcript/manual dialogue acts; automatically forced-aligned source word times; not independently verified"
+    },
+    {
+      "id": "isolated-15",
+      "category": "isolated",
+      "selection_bucket": "internally_paused",
+      "directions": [
+        "D1"
+      ],
+      "session": "TS3007a",
+      "input_mode": "selected_headset",
+      "speaker": "A",
+      "channel": 0,
+      "global_speaker": "MTD025PM",
+      "dialogue_act": "TS3007a.A.dialog-act.vkaraisk.246",
+      "source_start": 49942080,
+      "source_end": 50040000,
+      "frames": 97920,
+      "padding_frames": 0,
+      "removed": [],
+      "mapping": [
+        {
+          "source_start": 49942080,
+          "source_end": 50040000,
+          "playback_start": 0,
+          "playback_end": 97920
+        }
+      ],
+      "source_url": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/TS3007a/audio/TS3007a.Headset-0.wav",
+      "audio_path": ".data/english/audio/isolated-15.wav",
+      "audio_sha256": "f0acff951bb6626bd16326bf2be5b0f9919dbcb254f38a45791b817e1521c106",
+      "timeline_path": "corpus/english/timelines/isolated-15.json",
+      "timeline_sha256": "9ca54e21a92b250f03b430d317d766ac1dd8c2c06fb18b844a501cd0e06f41cb",
+      "source_path": ".data/english/downloads/TS3007a/TS3007a.Headset-0.wav",
+      "source_sha256": "4b47d34a1ab7e1b32d8d1569e2e5a032603fcbe8660964ce2380d0666c656ed5",
+      "normalization": {
+        "source_peak_pcm16": 3840,
+        "gain_linear": 6.0409529991966275,
+        "target_peak_dbfs": -3
+      },
+      "scored_words": 2,
+      "stress_candidate_counts": {
+        "internal_pause": 1
+      },
+      "license": "CC-BY-4.0",
+      "attribution": "AMI Project — AMI Meeting Corpus",
+      "reference_level": "human transcript/manual dialogue acts; automatically forced-aligned source word times; not independently verified"
+    },
+    {
+      "id": "isolated-16",
+      "category": "isolated",
+      "selection_bucket": "internally_paused",
+      "directions": [
+        "D1"
+      ],
+      "session": "TS3007a",
+      "input_mode": "selected_headset",
+      "speaker": "B",
+      "channel": 1,
+      "global_speaker": "MTD027ID",
+      "dialogue_act": "TS3007a.B.dialog-act.vkaraisk.18",
+      "source_start": 26178720,
+      "source_end": 26347680,
+      "frames": 168960,
+      "padding_frames": 0,
+      "removed": [],
+      "mapping": [
+        {
+          "source_start": 26178720,
+          "source_end": 26347680,
+          "playback_start": 0,
+          "playback_end": 168960
+        }
+      ],
+      "source_url": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/TS3007a/audio/TS3007a.Headset-1.wav",
+      "audio_path": ".data/english/audio/isolated-16.wav",
+      "audio_sha256": "ada31b9ed21dd08234ec60e1c2220e0af9236805ddcdf63e7503f27f78884951",
+      "timeline_path": "corpus/english/timelines/isolated-16.json",
+      "timeline_sha256": "1479ecac78d30e8854f6a5a8b90b0b0150a3f5d12ebd9a12e0032e2d1049114c",
+      "source_path": ".data/english/downloads/TS3007a/TS3007a.Headset-1.wav",
+      "source_sha256": "67a71caa34eb1c1d0fb9e86dffddd0b36d6ffb4a2ede89f84fe8c0c76a5c4644",
+      "normalization": {
+        "source_peak_pcm16": 2933,
+        "gain_linear": 7.909055409790334,
+        "target_peak_dbfs": -3
+      },
+      "scored_words": 6,
+      "stress_candidate_counts": {
+        "internal_pause": 1
+      },
+      "license": "CC-BY-4.0",
+      "attribution": "AMI Project — AMI Meeting Corpus",
+      "reference_level": "human transcript/manual dialogue acts; automatically forced-aligned source word times; not independently verified"
+    },
+    {
+      "id": "isolated-17",
+      "category": "isolated",
+      "selection_bucket": "internally_paused",
+      "directions": [
+        "D1"
+      ],
+      "session": "TS3007a",
+      "input_mode": "selected_headset",
+      "speaker": "D",
+      "channel": 3,
+      "global_speaker": "MTD028ME",
+      "dialogue_act": "TS3007a.D.dialog-act.vkaraisk.53",
+      "source_start": 28447680,
+      "source_end": 28618080,
+      "frames": 170400,
+      "padding_frames": 0,
+      "removed": [],
+      "mapping": [
+        {
+          "source_start": 28447680,
+          "source_end": 28618080,
+          "playback_start": 0,
+          "playback_end": 170400
+        }
+      ],
+      "source_url": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/TS3007a/audio/TS3007a.Headset-3.wav",
+      "audio_path": ".data/english/audio/isolated-17.wav",
+      "audio_sha256": "5c1e7e72f37c9a5cdffa8b5aa3682297f9204ec83f4e6fe0ce1502e68ec364fd",
+      "timeline_path": "corpus/english/timelines/isolated-17.json",
+      "timeline_sha256": "36c9e4624a0d202bff63caa4aa7e257c4d3e4a24fdd084c2a8ee8f38a2ae173a",
+      "source_path": ".data/english/downloads/TS3007a/TS3007a.Headset-3.wav",
+      "source_sha256": "36d874f2423857c5673723d3eade35679ffc9b6618ba3bc2c3b2ccdfdcb50b49",
+      "normalization": {
+        "source_peak_pcm16": 3644,
+        "gain_linear": 6.365878023302702,
+        "target_peak_dbfs": -3
+      },
+      "scored_words": 4,
+      "stress_candidate_counts": {
+        "internal_pause": 1
+      },
+      "license": "CC-BY-4.0",
+      "attribution": "AMI Project — AMI Meeting Corpus",
+      "reference_level": "human transcript/manual dialogue acts; automatically forced-aligned source word times; not independently verified"
+    },
+    {
+      "id": "isolated-18",
+      "category": "isolated",
+      "selection_bucket": "internally_paused",
+      "directions": [
+        "D1"
+      ],
+      "session": "TS3007a",
+      "input_mode": "selected_headset",
+      "speaker": "D",
+      "channel": 3,
+      "global_speaker": "MTD028ME",
+      "dialogue_act": "TS3007a.D.dialog-act.vkaraisk.149",
+      "source_start": 58860480,
+      "source_end": 59108160,
+      "frames": 247680,
+      "padding_frames": 0,
+      "removed": [],
+      "mapping": [
+        {
+          "source_start": 58860480,
+          "source_end": 59108160,
+          "playback_start": 0,
+          "playback_end": 247680
+        }
+      ],
+      "source_url": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/TS3007a/audio/TS3007a.Headset-3.wav",
+      "audio_path": ".data/english/audio/isolated-18.wav",
+      "audio_sha256": "eae2365878a6b4bd52a4db94d4196afa11f23b15d015133dc8d1e905c01eae9d",
+      "timeline_path": "corpus/english/timelines/isolated-18.json",
+      "timeline_sha256": "55d7fffe73e76faf63e712682456115e2d01a23996ee57753757a8b2bd7d7394",
+      "source_path": ".data/english/downloads/TS3007a/TS3007a.Headset-3.wav",
+      "source_sha256": "36d874f2423857c5673723d3eade35679ffc9b6618ba3bc2c3b2ccdfdcb50b49",
+      "normalization": {
+        "source_peak_pcm16": 3007,
+        "gain_linear": 7.714419526742617,
+        "target_peak_dbfs": -3
+      },
+      "scored_words": 10,
+      "stress_candidate_counts": {
+        "internal_pause": 1
+      },
+      "license": "CC-BY-4.0",
+      "attribution": "AMI Project — AMI Meeting Corpus",
+      "reference_level": "human transcript/manual dialogue acts; automatically forced-aligned source word times; not independently verified"
+    },
+    {
+      "id": "isolated-19",
+      "category": "isolated",
+      "selection_bucket": "internally_paused",
+      "directions": [
+        "D1"
+      ],
+      "session": "TS3007a",
+      "input_mode": "selected_headset",
+      "speaker": "A",
+      "channel": 0,
+      "global_speaker": "MTD025PM",
+      "dialogue_act": "TS3007a.A.dialog-act.vkaraisk.238",
+      "source_start": 48046560,
+      "source_end": 48440640,
+      "frames": 394080,
+      "padding_frames": 0,
+      "removed": [],
+      "mapping": [
+        {
+          "source_start": 48046560,
+          "source_end": 48440640,
+          "playback_start": 0,
+          "playback_end": 394080
+        }
+      ],
+      "source_url": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/TS3007a/audio/TS3007a.Headset-0.wav",
+      "audio_path": ".data/english/audio/isolated-19.wav",
+      "audio_sha256": "55bc341a6224089e6fd9678fea4702e52a8047b96b77c8cd960371f6b19f203e",
+      "timeline_path": "corpus/english/timelines/isolated-19.json",
+      "timeline_sha256": "729b975c603f734f855a7a9df7c687087ba8c641a448a0cd39e9b7d1fe9216be",
+      "source_path": ".data/english/downloads/TS3007a/TS3007a.Headset-0.wav",
+      "source_sha256": "4b47d34a1ab7e1b32d8d1569e2e5a032603fcbe8660964ce2380d0666c656ed5",
+      "normalization": {
+        "source_peak_pcm16": 7653,
+        "gain_linear": 3.031132825939507,
+        "target_peak_dbfs": -3
+      },
+      "scored_words": 16,
+      "stress_candidate_counts": {
+        "internal_pause": 1
+      },
+      "license": "CC-BY-4.0",
+      "attribution": "AMI Project — AMI Meeting Corpus",
+      "reference_level": "human transcript/manual dialogue acts; automatically forced-aligned source word times; not independently verified"
+    },
+    {
+      "id": "isolated-20",
+      "category": "isolated",
+      "selection_bucket": "internally_paused",
+      "directions": [
+        "D1"
+      ],
+      "session": "TS3007a",
+      "input_mode": "selected_headset",
+      "speaker": "C",
+      "channel": 2,
+      "global_speaker": "MTD026UID",
+      "dialogue_act": "TS3007a.C.dialog-act.vkaraisk.54",
+      "source_start": 44955840,
+      "source_end": 45062400,
+      "frames": 106560,
+      "padding_frames": 0,
+      "removed": [],
+      "mapping": [
+        {
+          "source_start": 44955840,
+          "source_end": 45062400,
+          "playback_start": 0,
+          "playback_end": 106560
+        }
+      ],
+      "source_url": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/TS3007a/audio/TS3007a.Headset-2.wav",
+      "audio_path": ".data/english/audio/isolated-20.wav",
+      "audio_sha256": "cb7b48a8c164136bfb630d7a51c38cc569472721a75dbccc238d7b4fbbde7567",
+      "timeline_path": "corpus/english/timelines/isolated-20.json",
+      "timeline_sha256": "05af3e8e84525e02fd7434c0e9cd1e8b8b55a2883c7659f076c41c4a18ee76b0",
+      "source_path": ".data/english/downloads/TS3007a/TS3007a.Headset-2.wav",
+      "source_sha256": "cadc6b8838dd0b9fbe5562f4342d9381934ec756cf9dac234388bf9c4eb36dde",
+      "normalization": {
+        "source_peak_pcm16": 1672,
+        "gain_linear": 13.873959041217134,
+        "target_peak_dbfs": -3
+      },
+      "scored_words": 4,
+      "stress_candidate_counts": {
+        "internal_pause": 1
+      },
+      "license": "CC-BY-4.0",
+      "attribution": "AMI Project — AMI Meeting Corpus",
+      "reference_level": "human transcript/manual dialogue acts; automatically forced-aligned source word times; not independently verified"
+    }
+  ],
+  "repeat": {
+    "audio_path": ".data/english/audio/repeat.wav",
+    "audio_sha256": "94d46a1558fd5c664e97234f09a30db29a92870232d2670a0ee2cae1c2f6bc0c",
+    "frames": 14400000,
+    "timeline_path": "corpus/english/timelines/repeat.json",
+    "timeline_sha256": "5a8fba3827ab1a2ebcad25973d37074e7edeaaa21e1ef379410f897e05713d3f",
+    "main_frames": [
+      0,
+      14400000
+    ],
+    "directions": [
+      "D1"
+    ]
+  },
+  "duration_accounting": {
+    "main_total_seconds": 1800,
+    "main_chunk_seconds": 1790,
+    "main_separator_seconds": 10,
+    "general_chunk_seconds": 1192,
+    "general_assigned_separator_seconds": 8,
+    "general_total_seconds": 1200,
+    "stress_chunk_seconds": 598,
+    "stress_assigned_separator_seconds": 2,
+    "stress_total_seconds": 600,
+    "development_chunk_seconds": 298,
+    "development_separator_seconds": 2,
+    "development_total_seconds": 300,
+    "isolated_count": 20,
+    "isolated_total_seconds": 93.07,
+    "padding_within_main_chunks_seconds": 2.204
+  },
+  "casual_chat": {
+    "method": "Only original top.14 source intervals; surrounding chunk is not relabelled casual",
+    "main_playback_seconds": 89.699,
+    "main_proportion": 0.049832777777777774,
+    "eligible_session": "ES2014d",
+    "all_sessions_are_meetings": true
+  },
+  "reference_limits": [
+    "Human orthographic transcripts/manual dialogue acts; word times are automatic corpus forced alignment.",
+    "Stress pauses/continuations/fillers are explicitly uncertain timing/lexical candidates; not independent listening validation.",
+    "Other-speaker context references describe retained source time but may be inaudible on target headset. Only target lexical words are scored.",
+    "Heldout means distinct source sessions, not distinct global participants or globally independent conversations.",
+    "No listening or GUI presentation claimed by this program. Native source WAV is 16 kHz; 48 kHz output is upsampled.",
+    "Final common-clip freeze and complete six-direction/release manifest belong to Director."
+  ],
+  "license": {
+    "identifier": "CC-BY-4.0",
+    "attribution": "AMI Project — AMI Meeting Corpus",
+    "corpus_url": "https://groups.inf.ed.ac.uk/ami/corpus/",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "source_terms_url": "https://groups.inf.ed.ac.uk/ami/corpus/license.shtml",
+    "included_license": "corpus/english/AMI-LICENCE.txt",
+    "license_sha256": "d52fd9c7c19eec9f0bec3107554c10937203e261259d73b01637a61501fec7f7",
+    "annotations": {
+      "url": "https://groups.inf.ed.ac.uk/ami/AMICorpusAnnotations/ami_public_manual_1.6.2.zip",
+      "sha256": "b56e5babb2496b8795deeeda7e71178d7fbc9963f94276cf2a3f4b56ebbc9f9d",
+      "filename": "ami_public_manual_1.6.2.zip",
+      "internal_readme_release": "1.7, 16 June 2014"
+    },
+    "modifications": "Selected participant headset excerpts; long gaps occupied by other speakers compressed by deleting middle audio; source resampled from 16 kHz to 48 kHz mono; constant peak normalization; digital silence padding and separators; reference times recomputed from retained sample mappings. No endorsement implied."
+  }
+}

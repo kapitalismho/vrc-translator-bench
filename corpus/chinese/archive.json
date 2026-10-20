@@ -1,0 +1,9 @@
+{
+  "url": "https://speech-lab-share-data.oss-cn-shanghai.aliyuncs.com/AliMeeting/openlr/Eval_Ali.tar.gz",
+  "bytes": 3673718355,
+  "sha256": "dc47343b2474b5ebcf458927e878155f6ddeb59c85e685b3645c32a1f9578d92",
+  "sha256_authority": "Locally computed; upstream publishes no SHA-256 at catalog.",
+  "catalog": "https://www.openslr.org/119/",
+  "license": "CC-BY-SA-4.0",
+  "split": "Eval"
+}

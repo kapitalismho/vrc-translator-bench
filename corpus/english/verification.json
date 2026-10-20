@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "checked_audio_and_timeline_pairs": 31,
+  "checks": [
+    "SHA-256",
+    "48 kHz mono PCM16",
+    "exact sample budgets",
+    "all timeline boundaries in range",
+    "word source-to-playback mapping",
+    "target-only complete lexical scoring",
+    "retained intervals not stretched",
+    "exact 5m repeat prefix",
+    "exact zero-valued 2s separators"
+  ],
+  "limits": "Does not establish transcription correctness, listening intelligibility, acoustic pause authenticity, or GUI presentation quality."
+}

@@ -1,0 +1,169 @@
+{
+  "schema_version": 1,
+  "clip_id": "isolated-15",
+  "timebase": "integer frames at 48000 Hz; intervals half-open; zero-width punctuation retained",
+  "frames": 97920,
+  "reference_level": "human transcript/manual dialogue acts; automatically forced-aligned source word times; not independently verified",
+  "source_to_playback": [
+    {
+      "source_start": 49942080,
+      "source_end": 50040000,
+      "playback_start": 0,
+      "playback_end": 97920
+    }
+  ],
+  "removed": [],
+  "padding": [],
+  "words_and_events": [
+    {
+      "id": "TS3007a.A.words1721",
+      "speaker": "A",
+      "timing_valid": true,
+      "source_start": 49942080,
+      "source_end": 49974240,
+      "text": "Um",
+      "kind": "w",
+      "punctuation": false,
+      "truncated": false,
+      "sound_type": null,
+      "dialogue_act": "TS3007a.A.dialog-act.vkaraisk.246",
+      "playback_parts": [
+        [
+          0,
+          32160
+        ]
+      ],
+      "playback_start": 0,
+      "playback_end": 32160,
+      "scored": true,
+      "fully_retained": true,
+      "reference_role": "target"
+    },
+    {
+      "id": "TS3007a.A.words1722",
+      "speaker": "A",
+      "timing_valid": true,
+      "source_start": 49974240,
+      "source_end": 49976064,
+      "text": "",
+      "kind": "disfmarker",
+      "punctuation": false,
+      "truncated": false,
+      "sound_type": null,
+      "dialogue_act": "TS3007a.A.dialog-act.vkaraisk.246",
+      "playback_parts": [
+        [
+          32160,
+          33984
+        ]
+      ],
+      "playback_start": 32160,
+      "playback_end": 33984,
+      "scored": false,
+      "fully_retained": true,
+      "reference_role": "target"
+    },
+    {
+      "id": "TS3007a.A.words1723",
+      "speaker": "A",
+      "timing_valid": true,
+      "source_start": 50028000,
+      "source_end": 50040000,
+      "text": "So",
+      "kind": "w",
+      "punctuation": false,
+      "truncated": false,
+      "sound_type": null,
+      "dialogue_act": "TS3007a.A.dialog-act.vkaraisk.246",
+      "playback_parts": [
+        [
+          85920,
+          97920
+        ]
+      ],
+      "playback_start": 85920,
+      "playback_end": 97920,
+      "scored": true,
+      "fully_retained": true,
+      "reference_role": "target"
+    }
+  ],
+  "sentences": [
+    {
+      "id": "TS3007a.A.dialog-act.vkaraisk.246",
+      "speaker": "A",
+      "type": "ami_da_2",
+      "word_ids": [
+        "TS3007a.A.words1721",
+        "TS3007a.A.words1722",
+        "TS3007a.A.words1723"
+      ],
+      "source_start": 49942080,
+      "source_end": 50040000,
+      "playback_parts": [
+        [
+          0,
+          97920
+        ]
+      ],
+      "playback_start": 0,
+      "playback_end": 97920,
+      "retained_word_ids": [
+        "TS3007a.A.words1721",
+        "TS3007a.A.words1723"
+      ],
+      "text": "Um So",
+      "partial": false,
+      "scored": true,
+      "unit": "manual_dialogue_act_not_grammatical_sentence"
+    }
+  ],
+  "turns": [
+    {
+      "id": "isolated-15.turn0",
+      "speaker": "A",
+      "playback_start": 0,
+      "playback_end": 97920,
+      "word_ids": [
+        "TS3007a.A.words1721",
+        "TS3007a.A.words1723"
+      ],
+      "text": "Um So"
+    }
+  ],
+  "topics": [
+    {
+      "id": "TS3007a.topic.palmer.9",
+      "types": [
+        "default-topics.xml#id(top.28)"
+      ],
+      "other_description": null,
+      "source_start": 49942080,
+      "source_end": 63963648,
+      "playback_parts": [
+        [
+          0,
+          97920
+        ]
+      ]
+    }
+  ],
+  "stress_candidates": [
+    {
+      "type": "internal_pause",
+      "source_start": 49974240,
+      "source_end": 50028000,
+      "word_ids": [
+        "TS3007a.A.words1721",
+        "TS3007a.A.words1723"
+      ],
+      "confidence": "alignment_candidate_not_listened",
+      "playback_parts": [
+        [
+          32160,
+          85920
+        ]
+      ]
+    }
+  ]
+}

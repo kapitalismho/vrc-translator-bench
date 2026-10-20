@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "seed": 20261020,
+  "recorded_before_selection": true,
+  "partition": "AMI official scenario-only SC (unseen evaluation)",
+  "partition_url": "https://groups.inf.ed.ac.uk/ami/corpus/datasets.shtml",
+  "partition_rule": "meetings.xml: type=scenario and visibility=unseen; verify against ES2004, ES2014, IS1009, TS3003, TS3007, a-d",
+  "casual_chat_priority": "Prioritize actual top.14 chitchat intervals before meeting/work fill. This partition consists of scenario design-team meetings, but ES2014d contains one sparse labelled chitchat interval, 2550.541–2640.240 seconds. Do not relabel surrounding meeting speech as casual chat.",
+  "eligibility": "Manual words plus dialogue acts for all four participants, finite word times, verified participant-to-headset map; chunks contain at least 80 target lexical words, every scored word has a source manual dialogue-act assignment, no target word cut at either edge, and no invalid nonword timestamp region crossed. Exclude whole sessions with unbounded events or invalid lexical times; do not repair source annotations by guessing.",
+  "selection": "Seeded shuffle of eligible sessions and dialogue-act starts. Four general chunks rotate A/B/C/D; two separately ranked stress chunks rotate A/B. Two development chunks rotate C/D and use sessions absent from main. Isolated utterances use sessions absent from main and development. Director independently owns nonspeech background material.",
+  "sample_rate": 48000,
+  "channels": 1,
+  "normalization": "One constant gain per rendered chunk to -3 dBFS peak, PCM signed 16-bit; no dynamics/time stretching.",
+  "compression": "Between consecutive target lexical/vocal events, gaps longer than 8 seconds containing at least 1 second of other-speaker word activity are reduced to 3 seconds by retaining the first and last 1.5 seconds. Target gaps without other-speaker words and all target gaps <=8 seconds remain unchanged.",
+  "edge_rule": "Start at a dialogue-act boundary with up to 0.25 seconds preroll, avoiding crossing any target event. If the exact transformed budget would bisect a target event, stop at that event's start and explicitly pad at most two seconds with digital silence. Padding is not speech and is separately mapped.",
+  "isolated": "20 complete target dialogue acts from held-out TS3007a evaluation material: seven short <=2s, six long >=8s, seven internally paused >=0.3s candidates; selection buckets may overlap acoustically but selected source dialogue acts are distinct. Exact first-to-last lexical boundaries, no added guards. Not synthetic or reconstructed utterances.",
+  "repeat_budget": "First 298-second general chunk plus its following 2-second separator, exactly a 300-second prefix of main.",
+  "main_budget": {"general_chunk_seconds": [298, 298, 298, 298], "stress_chunk_seconds": [299, 299], "interchunk_seconds": 2, "total_seconds": 1800, "general_seconds_including_four_following_separators": 1200, "stress_seconds_including_internal_separator": 600},
+  "development_budget": {"chunk_seconds": [149, 149], "interchunk_seconds": 2, "total_seconds": 300},
+  "stress_criteria": {
+    "internal_pause": "Consecutive target lexical words within one dialogue act, >=0.300 seconds gap, no intervening corpus terminal punctuation (.?!); time-derived candidate, not independent acoustic or syntactic validation.",
+    "cross_sentence_continuation": "Corpus terminal punctuation followed by the same speaker's next lexical word within 0.300 seconds; heuristic for continuing speech, not a semantic sentence judgment.",
+    "trailing_filler": "Final lexical token of a dialogue act belongs to {uh, um, er, erm, hmm, mm}; lexical heuristic, uncertain pragmatic role.",
+    "backchannel": "AMI dialogue act type ami_da_1 (Backchannel), not inferred from a token dictionary."
+  },
+  "stress_ranking": "Count eligible observed target events; select separately from general after excluding its sessions. No equal-count quota and no manufactured stress speech.",
+  "reference": "AMI human orthographic transcript; corpus-provided word alignment times (not independently verified); reference sentence units are original AMI dialogue acts, turns are chronological speaker-label changes with overlap retained.",
+  "publication": "LOCAL DATA ONLY. No upload. Audio and downloads are excluded from Git. Retain AMI CC BY 4.0 attribution and modification notice."
+}

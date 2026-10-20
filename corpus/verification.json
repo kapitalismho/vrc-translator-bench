@@ -1,0 +1,28 @@
+{
+  "scope": "Issue #2 local preparation under the approved publication amendment; not a public dataset or main-run freeze",
+  "authority": "https://github.com/kapitalismho/vrc-translator-bench/issues/2#issuecomment-6282606626",
+  "checks": [
+    {"command": ".data/check-venv/Scripts/python.exe -m tools.index_corpus", "result": "passed", "observations": "Six directions, three shared source groups, 68 actual audio assets, 5400 unique main-source elapsed seconds, exact 1800-second main and 300-second development budgets, 60 isolated clips, 180-second nonspeech and exact 300-second D1 repeat prefix."},
+    {"command": ".data/check-venv/Scripts/python.exe -m tools.check_corpus", "result": "passed", "observations": "Actual manifest/reference/audio SHA-256, PCM16 mono 48kHz formats and full payload/frame counts, source-group direction sharing, category budgets, nonspeech manifest hash and repeat identity."},
+    {"command": ".data/check-venv/Scripts/python.exe -m pytest -q", "result": "51 passed, 1 skipped in 4.11s", "limit": "The integration environment initially lacked jieba; the lexical segmentation test skipped. This was not counted as a pass."},
+    {"command": ".data/check-venv/Scripts/python.exe -m pytest tests/test_chinese_preparation.py::test_punctuation_and_word_segmentation_preserve_human_lexical_text -q", "result": "1 passed in 0.34s", "observations": "Executed the previously skipped test after installing jieba. The test extra now declares jieba==0.42.1. All 52 collected tests have executed successfully across these runs; this is not a claim of one 52-pass run."},
+    {"command": ".data/check-venv/Scripts/prepare-english.exe check", "result": "passed", "observations": "Installed package entrypoint checked 31 actual English audio/timeline pairs, exact repeat and separator samples, complete target lexical/manual-DA coverage and playback mappings."},
+    {"command": ".data/chinese/venv/Scripts/python.exe -X utf8 tools/prepare_chinese.py align --threads 4 && .data/chinese/venv/Scripts/python.exe -X utf8 tools/prepare_chinese.py build", "result": "passed", "observations": "Real cached alignment/report persistence and full Chinese output regeneration completed; 1800-second main, 300-second dev and 20 isolated clips."},
+    {"command": "py tools/prepare_nonspeech.py; ffprobe of emitted WAV; emitted-sample inspection", "result": "passed", "observations": "Actual 180-second PCM16 mono 48kHz output; first 60 seconds exact digital silence; keyboard energy nonzero; background RMS -30.404dBFS with peak <=0.5. The first probe wrongly expected exactly -30dBFS, then was corrected to check the documented RMS ceiling with peak precedence."},
+    {"command": "Throwaway in-memory mutations of the actual corpus index", "result": "rejected as intended", "observations": "Changing D2 to the Chinese source group raised Direction/source reuse mismatch; replacing the English audio hash raised SHA-256 mismatch. No actual corpus files were mutated."}
+  ],
+  "language_evidence": {
+    "english": "corpus/english/execution-report.json and corpus/english/verification.json: three actual post-compression PCM windows matched original decoded source bytes exactly; 19 focused tests passed.",
+    "chinese": "corpus/chinese/preparation-report.json: original archive acquired, primary alignment failures retained and acoustically repaired, six real source/playback waveform windows correlated above0.98, prepared/unprepared/corrupt/incomplete smoke gating exercised; 17 tests passed.",
+    "japanese": "corpus/japanese/local-preparation.json points to local runtime checks and reference hashes. Actual CPU ASR/CTC/speaker estimation completed, final exact1800/300-second checks and 14 Japanese tests passed. Full private execution report is .data/japanese/execution-report.json; no derived Japanese speech is published here.",
+    "nonspeech": "corpus/nonspeech/manifest.json retains four exact source records, local checksums, transforms, two scoring intervals and listening limits. Two focused regression tests passed."
+  },
+  "unresolved_observations": [
+    "No human listening or independent transcription validation performed. Waveform identity and timestamp transformation do not establish linguistic accuracy or conversational suitability.",
+    "Japanese main includes33 recognized words without word intervals because the aligner vocabulary lacks their glyphs. They remain null and visible; no complete word-timing claim.",
+    "Japanese anonymous speaker estimates are substantially over-fragmented; automatic stress and mixed-conversation classifications are exploratory, not human-confirmed.",
+    "Original-video attribution/rights remain unresolved; Japanese derived speech/audio/timelines remain local-only. No HF dataset exists.",
+    "PP4's later actual ASR must be checked against the Japanese reference model before freezing reference independence.",
+    "General casual-chat coverage is limited and explicitly recorded; general/stress must remain separate in later ranking."
+  ]
+}

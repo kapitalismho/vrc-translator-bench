@@ -1,0 +1,46 @@
+{
+  "asset_family": "AliMeeting Eval participant-headset derivatives for D3/D5",
+  "creator_provider": "Alibaba Group",
+  "title": "AliMeeting / M2MeT",
+  "original_source": "https://www.openslr.org/119/",
+  "original_archive": "https://speech-lab-share-data.oss-cn-shanghai.aliyuncs.com/AliMeeting/openlr/Eval_Ali.tar.gz",
+  "source_license": "CC-BY-SA-4.0",
+  "derived_audio_transcripts_and_timelines_license": "CC-BY-SA-4.0",
+  "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "legal_code": "https://creativecommons.org/licenses/by-sa/4.0/legalcode.en",
+  "embedded_notice_inspection": "All 73 original Eval archive entries enumerated. No filenames matching license, copying, notice, readme or citation. Catalog attribution and license retained as governing supplied notices.",
+  "attribution_text": "AliMeeting, provided by Alibaba Group; Yu et al., M2MeT: The ICASSP 2022 Multi-Channel Multi-Party Meeting Transcription Challenge, ICASSP 2022. Source: https://www.openslr.org/119/. Licensed CC BY-SA 4.0. Adapted for VRC Translator Bench: selected participant headsets, cuts and three-second other-speaker-gap compression, resampling to 48 kHz mono, loudness normalization, two-second separators, punctuation preservation/restoration and automatic forced-aligned playback-relative reference timelines. Changes are documented per asset.",
+  "copyright_notice": "No additional copyright notice found in the inspected archive filenames; preserve any supplied source notices if later discovered.",
+  "release_authority": "Local preparation authorized by owner. No Hugging Face upload or other dataset redistribution authorized in this task.",
+  "sharealike": "If shared later, adapted Chinese audio/transcripts/timelines remain CC BY-SA 4.0, with attribution, source/license links, change indications and no added restrictions. Repository MIT code license does not relicense Chinese data.",
+  "video_note": "CC BY-SA 4.0 treats sound-recording synchronization with moving images as adaptation. Future comparison-video publication must retain applicable attribution and ShareAlike terms.",
+  "rights_limit": "Creative Commons does not grant blanket privacy/publicity/personality rights. This record is not permission to publish unresolved third-party assets.",
+  "citations_bibtex": [
+    "@inproceedings{Yu2022M2MeT, title={M2{M}e{T}: The {ICASSP} 2022 Multi-Channel Multi-Party Meeting Transcription Challenge}, author={Yu, Fan and Zhang, Shiliang and Fu, Yihui and Xie, Lei and Zheng, Siqi and Du, Zhihao and Huang, Weilong and Guo, Pengcheng and Yan, Zhijie and Ma, Bin and Xu, Xin and Bu, Hui}, booktitle={Proc. ICASSP}, year={2022}, organization={IEEE}}",
+    "@inproceedings{Yu2022Summary, title={Summary On The {ICASSP} 2022 Multi-Channel Multi-Party Meeting Transcription Grand Challenge}, author={Yu, Fan and Zhang, Shiliang and Guo, Pengcheng and Fu, Yihui and Du, Zhihao and Zheng, Siqi and Huang, Weilong and Xie, Lei and Tan, Zheng-Hua and Wang, DeLiang and Qian, Yanmin and Lee, Kong Aik and Yan, Zhijie and Ma, Bin and Xu, Xin and Bu, Hui}, booktitle={Proc. ICASSP}, year={2022}, organization={IEEE}}"
+  ],
+  "alignment_model": {
+    "id": "Qwen/Qwen3-ForcedAligner-0.6B",
+    "revision": "c7cbfc2048c462b0d63a45797104fc9db3ad62b7",
+    "url": "https://huggingface.co/Qwen/Qwen3-ForcedAligner-0.6B",
+    "license": "Apache-2.0",
+    "use": "Timing only, not replacement transcription. Raw timestamp predictions; upstream timestamp interpolation disabled. Human lexical transcript unchanged.",
+    "reference_uncertainty": "Estimated boundaries, not human timing verification. Model-predicted zero-length or overlapping spans remain uncertain; invalid out-of-range/reversed spans fail preparation rather than being filled."
+  },
+  "ctc_alignment_repair_models": [
+    {
+      "id": "wbbbbb/wav2vec2-large-chinese-zh-cn",
+      "revision": "b654b5f3df69725df32808de454a1b865c829e4c",
+      "url": "https://huggingface.co/wbbbbb/wav2vec2-large-chinese-zh-cn",
+      "license": "Apache-2.0",
+      "use": "Vocabulary-covered monotone CTC forced alignment of unchanged human text only when raw primary predictions are rejected."
+    },
+    {
+      "id": "jonatasgrosman/wav2vec2-large-xlsr-53-chinese-zh-cn",
+      "revision": "99ccb2737be22b8bb50dcfcc39ad4d567fb90cfd",
+      "url": "https://huggingface.co/jonatasgrosman/wav2vec2-large-xlsr-53-chinese-zh-cn",
+      "license": "Apache-2.0",
+      "use": "Same CTC repair only for segments whose full lexical vocabulary is covered, including Latin letters. Never used for unsupported fillers."
+    }
+  ]
+}

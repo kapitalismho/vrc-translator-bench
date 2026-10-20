@@ -1,0 +1,4050 @@
+{
+  "seed": 20261020,
+  "curation": {
+    "source": "Official AliMeeting Eval (SLR119), original archive, not a third-party mirror",
+    "seed": 20261020,
+    "curation_basis": "Read all headset opening human transcript segments, identify session topics, reserve two complete original sessions, then fixed-seed general selection. No application result inspected.",
+    "casual_definition": "Verified unprompted casual chat, not merely everyday subject matter in a recorded discussion. No Eval session can be certified unprompted from the supplied corpus documentation and transcripts, so the conservative verified-casual proportion is zero. Everyday-topic discussion is prioritized among the available meeting material.",
+    "reference_limits": "Human lexical transcripts and speaker labels. Existing punctuation is preserved; a terminal full stop is added only where absent. Word times and internal pauses are automatic forced-alignment estimates, not independently listening-confirmed. A human listening spot-check remains necessary before benchmark freeze.",
+    "sessions": {
+      "R8003_M8001": {
+        "role": "main",
+        "topic": "Parents discussing Teachers' Day gifts and children",
+        "casual_chat": false,
+        "tags": [
+          "everyday-topic",
+          "family-school",
+          "discussion",
+          "casual-priority-fill"
+        ]
+      },
+      "R8007_M8011": {
+        "role": "main",
+        "topic": "Short-video apps, personal shopping and social use",
+        "casual_chat": false,
+        "tags": [
+          "everyday-topic",
+          "shopping",
+          "organized-discussion",
+          "casual-priority-fill"
+        ]
+      },
+      "R8001_M8004": {
+        "role": "main",
+        "topic": "New mobile-phone product and target customers",
+        "casual_chat": false,
+        "tags": [
+          "work",
+          "product-planning",
+          "meeting"
+        ]
+      },
+      "R8007_M8010": {
+        "role": "main",
+        "topic": "Office relocation, rent and commuting",
+        "casual_chat": false,
+        "tags": [
+          "work",
+          "commuting",
+          "meeting"
+        ]
+      },
+      "R8008_M8013": {
+        "role": "main",
+        "topic": "Catering business development and recruitment",
+        "casual_chat": false,
+        "tags": [
+          "work",
+          "business",
+          "meeting"
+        ]
+      },
+      "R8009_M8018": {
+        "role": "main",
+        "topic": "New supermarket staff social-insurance arrangements",
+        "casual_chat": false,
+        "tags": [
+          "work",
+          "staffing",
+          "two-person-discussion"
+        ]
+      },
+      "R8009_M8019": {
+        "role": "dev",
+        "topic": "International-student exchange event planning",
+        "casual_chat": false,
+        "tags": [
+          "work",
+          "event-planning",
+          "reserved-development"
+        ]
+      },
+      "R8009_M8020": {
+        "role": "heldout",
+        "topic": "Website staff event and venue arrangements",
+        "casual_chat": false,
+        "tags": [
+          "work",
+          "event-planning",
+          "reserved-isolated-responses"
+        ]
+      }
+    }
+  },
+  "chunks": [
+    {
+      "id": "R8003_M8001_N_SPK8003",
+      "session": "R8003_M8001",
+      "speaker": "SPK8003",
+      "split": "Eval",
+      "audio": ".data/chinese/source/Eval_Ali/Eval_Ali_near/audio_dir/R8003_M8001_N_SPK8003.wav",
+      "textgrid": ".data/chinese/source/Eval_Ali/Eval_Ali_near/textgrid_dir/R8003_M8001_N_SPK8003.TextGrid",
+      "context_textgrid": ".data/chinese/source/Eval_Ali/Eval_Ali_far/textgrid_dir/R8003_M8001.TextGrid",
+      "channel_zero_based": 0,
+      "input_mode": "selected-participant-headset",
+      "duration": 198,
+      "sample_rate": 16000,
+      "sha256": "973e9bdc36167fb9254c3cb3d68b8948988ccc0302e5395893423df942268fa0",
+      "textgrid_sha256": "7b8730d227914e32edbb793cd2b004aa87437261d314f6132663210f89214588",
+      "context_textgrid_sha256": "a015bbcc642596ad8e40de7578208510e920832d15320aa109a0e9e3256d7235",
+      "archive_member": "Eval_Ali/Eval_Ali_near/audio_dir/R8003_M8001_N_SPK8003.wav",
+      "source_url": "https://speech-lab-share-data.oss-cn-shanghai.aliyuncs.com/AliMeeting/openlr/Eval_Ali.tar.gz",
+      "license": "CC-BY-SA-4.0",
+      "source_start": 1379.8,
+      "source_end": 1716.56,
+      "mapping": [
+        {
+          "source_start": 1379.8,
+          "source_end": 1402.0,
+          "playback_start": 0.0,
+          "playback_end": 22.200000000000045
+        },
+        {
+          "source_start": 1406.5,
+          "source_end": 1410.64,
+          "playback_start": 22.200000000000045,
+          "playback_end": 26.340000000000146
+        },
+        {
+          "source_start": 1422.4,
+          "source_end": 1428.55,
+          "playback_start": 26.340000000000146,
+          "playback_end": 32.49000000000001
+        },
+        {
+          "source_start": 1449.28,
+          "source_end": 1496.12,
+          "playback_start": 32.49000000000001,
+          "playback_end": 79.32999999999993
+        },
+        {
+          "source_start": 1502.8,
+          "source_end": 1506.14,
+          "playback_start": 79.32999999999993,
+          "playback_end": 82.67000000000007
+        },
+        {
+          "source_start": 1509.26,
+          "source_end": 1512.58,
+          "playback_start": 82.67000000000007,
+          "playback_end": 85.99000000000001
+        },
+        {
+          "source_start": 1517.46,
+          "source_end": 1524.87,
+          "playback_start": 85.99000000000001,
+          "playback_end": 93.39999999999986
+        },
+        {
+          "source_start": 1532.37,
+          "source_end": 1540.88,
+          "playback_start": 93.39999999999986,
+          "playback_end": 101.91000000000008
+        },
+        {
+          "source_start": 1563.55,
+          "source_end": 1569.5,
+          "playback_start": 101.91000000000008,
+          "playback_end": 107.86000000000013
+        },
+        {
+          "source_start": 1570.42,
+          "source_end": 1573.72,
+          "playback_start": 107.86000000000013,
+          "playback_end": 111.16000000000008
+        },
+        {
+          "source_start": 1589.4,
+          "source_end": 1592.76,
+          "playback_start": 111.16000000000008,
+          "playback_end": 114.51999999999998
+        },
+        {
+          "source_start": 1611.28,
+          "source_end": 1615.67,
+          "playback_start": 114.51999999999998,
+          "playback_end": 118.91000000000008
+        },
+        {
+          "source_start": 1632.68,
+          "source_end": 1636.12,
+          "playback_start": 118.91000000000008,
+          "playback_end": 122.34999999999991
+        },
+        {
+          "source_start": 1636.31,
+          "source_end": 1645.95,
+          "playback_start": 122.34999999999991,
+          "playback_end": 131.99
+        },
+        {
+          "source_start": 1650.55,
+          "source_end": 1716.56,
+          "playback_start": 131.99,
+          "playback_end": 198.0
+        }
+      ],
+      "removed_gaps": [
+        {
+          "start": 1402.0,
+          "end": 1406.5,
+          "other_occupied_span": [
+            1400.5,
+            1408.0
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 1410.64,
+          "end": 1422.4,
+          "other_occupied_span": [
+            1409.14,
+            1423.9
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 1428.55,
+          "end": 1449.28,
+          "other_occupied_span": [
+            1427.05,
+            1450.78
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 1496.12,
+          "end": 1502.8,
+          "other_occupied_span": [
+            1494.62,
+            1504.3
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 1506.14,
+          "end": 1509.26,
+          "other_occupied_span": [
+            1504.64,
+            1510.76
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 1512.58,
+          "end": 1517.46,
+          "other_occupied_span": [
+            1511.08,
+            1518.96
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 1524.87,
+          "end": 1532.37,
+          "other_occupied_span": [
+            1523.37,
+            1533.87
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 1540.88,
+          "end": 1563.55,
+          "other_occupied_span": [
+            1539.38,
+            1565.05
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 1569.5,
+          "end": 1570.42,
+          "other_occupied_span": [
+            1568.0,
+            1571.92
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 1573.72,
+          "end": 1589.4,
+          "other_occupied_span": [
+            1572.22,
+            1590.9
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 1592.76,
+          "end": 1611.28,
+          "other_occupied_span": [
+            1591.26,
+            1612.78
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 1615.67,
+          "end": 1632.68,
+          "other_occupied_span": [
+            1614.17,
+            1634.18
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 1636.12,
+          "end": 1636.31,
+          "other_occupied_span": [
+            1634.62,
+            1637.81
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 1645.95,
+          "end": 1650.55,
+          "other_occupied_span": [
+            1644.45,
+            1652.05
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        }
+      ],
+      "stress_features": {
+        "backchannel": 12,
+        "trailing_filler": 18,
+        "multiple_sentences": 0
+      },
+      "chunk_id": "zh-general-01",
+      "category": "general",
+      "topic": "Parents discussing Teachers' Day gifts and children",
+      "casual_chat": false,
+      "tags": [
+        "everyday-topic",
+        "family-school",
+        "discussion",
+        "casual-priority-fill"
+      ],
+      "selection": "fixed-seed-eligible-pool"
+    },
+    {
+      "id": "R8007_M8011_N_SPK8066",
+      "session": "R8007_M8011",
+      "speaker": "SPK8066",
+      "split": "Eval",
+      "audio": ".data/chinese/source/Eval_Ali/Eval_Ali_near/audio_dir/R8007_M8011_N_SPK8066.wav",
+      "textgrid": ".data/chinese/source/Eval_Ali/Eval_Ali_near/textgrid_dir/R8007_M8011_N_SPK8066.TextGrid",
+      "context_textgrid": ".data/chinese/source/Eval_Ali/Eval_Ali_far/textgrid_dir/R8007_M8011.TextGrid",
+      "channel_zero_based": 0,
+      "input_mode": "selected-participant-headset",
+      "duration": 198,
+      "sample_rate": 16000,
+      "sha256": "2e31e76fa71dcc6f1f2fa337cbc34076cb406990a9556369cc9a79db1b47f020",
+      "textgrid_sha256": "3b38511cb2fa49bb4e95b5be68d4274faf8cb04b042468fc8f0efaa822ab2198",
+      "context_textgrid_sha256": "4baea9f7b9ef4182c4fceeb3a10d0ea966359b214fa04ae54434fab084b8c316",
+      "archive_member": "Eval_Ali/Eval_Ali_near/audio_dir/R8007_M8011_N_SPK8066.wav",
+      "source_url": "https://speech-lab-share-data.oss-cn-shanghai.aliyuncs.com/AliMeeting/openlr/Eval_Ali.tar.gz",
+      "license": "CC-BY-SA-4.0",
+      "source_start": 1.23,
+      "source_end": 300.6000000000001,
+      "mapping": [
+        {
+          "source_start": 1.23,
+          "source_end": 36.3,
+          "playback_start": 0.0,
+          "playback_end": 35.07
+        },
+        {
+          "source_start": 43.81,
+          "source_end": 50.57,
+          "playback_start": 35.07,
+          "playback_end": 41.83
+        },
+        {
+          "source_start": 73.27,
+          "source_end": 82.97,
+          "playback_start": 41.83,
+          "playback_end": 51.53
+        },
+        {
+          "source_start": 87.12,
+          "source_end": 92.66,
+          "playback_start": 51.53,
+          "playback_end": 57.06999999999999
+        },
+        {
+          "source_start": 97.27,
+          "source_end": 106.54,
+          "playback_start": 57.06999999999999,
+          "playback_end": 66.34
+        },
+        {
+          "source_start": 112.92,
+          "source_end": 117.3,
+          "playback_start": 66.34,
+          "playback_end": 70.72
+        },
+        {
+          "source_start": 118.04,
+          "source_end": 125.56,
+          "playback_start": 70.72,
+          "playback_end": 78.24
+        },
+        {
+          "source_start": 126.39,
+          "source_end": 132.06,
+          "playback_start": 78.24,
+          "playback_end": 83.91
+        },
+        {
+          "source_start": 138.27,
+          "source_end": 141.54,
+          "playback_start": 83.91,
+          "playback_end": 87.17999999999998
+        },
+        {
+          "source_start": 144.06,
+          "source_end": 148.14,
+          "playback_start": 87.17999999999998,
+          "playback_end": 91.25999999999996
+        },
+        {
+          "source_start": 148.37,
+          "source_end": 174.42,
+          "playback_start": 91.25999999999996,
+          "playback_end": 117.30999999999995
+        },
+        {
+          "source_start": 179.19,
+          "source_end": 183.16,
+          "playback_start": 117.30999999999995,
+          "playback_end": 121.27999999999994
+        },
+        {
+          "source_start": 183.79,
+          "source_end": 187.81,
+          "playback_start": 121.27999999999994,
+          "playback_end": 125.29999999999995
+        },
+        {
+          "source_start": 189.29,
+          "source_end": 193.65,
+          "playback_start": 125.29999999999995,
+          "playback_end": 129.65999999999997
+        },
+        {
+          "source_start": 193.96,
+          "source_end": 204.55,
+          "playback_start": 129.65999999999997,
+          "playback_end": 140.24999999999997
+        },
+        {
+          "source_start": 208.9,
+          "source_end": 215.89,
+          "playback_start": 140.24999999999997,
+          "playback_end": 147.23999999999995
+        },
+        {
+          "source_start": 229.33,
+          "source_end": 232.61,
+          "playback_start": 147.23999999999995,
+          "playback_end": 150.51999999999995
+        },
+        {
+          "source_start": 234.75,
+          "source_end": 238.13,
+          "playback_start": 150.51999999999995,
+          "playback_end": 153.89999999999995
+        },
+        {
+          "source_start": 247.69,
+          "source_end": 255.8,
+          "playback_start": 153.89999999999995,
+          "playback_end": 162.00999999999996
+        },
+        {
+          "source_start": 257.69,
+          "source_end": 281.91,
+          "playback_start": 162.00999999999996,
+          "playback_end": 186.23
+        },
+        {
+          "source_start": 282.61,
+          "source_end": 289.34,
+          "playback_start": 186.23,
+          "playback_end": 192.95999999999995
+        },
+        {
+          "source_start": 295.56,
+          "source_end": 300.6000000000001,
+          "playback_start": 192.95999999999995,
+          "playback_end": 198.00000000000003
+        }
+      ],
+      "removed_gaps": [
+        {
+          "start": 36.3,
+          "end": 43.81,
+          "other_occupied_span": [
+            34.8,
+            45.31
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 50.57,
+          "end": 73.27,
+          "other_occupied_span": [
+            49.07,
+            74.77
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 82.97,
+          "end": 87.12,
+          "other_occupied_span": [
+            81.47,
+            88.62
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 92.66,
+          "end": 97.27,
+          "other_occupied_span": [
+            91.16,
+            98.77
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 106.54,
+          "end": 112.92,
+          "other_occupied_span": [
+            105.04,
+            114.42
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 117.3,
+          "end": 118.04,
+          "other_occupied_span": [
+            115.8,
+            119.54
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 125.56,
+          "end": 126.39,
+          "other_occupied_span": [
+            124.06,
+            127.89
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 132.06,
+          "end": 138.27,
+          "other_occupied_span": [
+            130.56,
+            139.77
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 141.54,
+          "end": 144.06,
+          "other_occupied_span": [
+            140.04,
+            145.56
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 148.14,
+          "end": 148.37,
+          "other_occupied_span": [
+            146.64,
+            149.87
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 174.42,
+          "end": 179.19,
+          "other_occupied_span": [
+            172.92,
+            180.69
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 183.16,
+          "end": 183.79,
+          "other_occupied_span": [
+            181.66,
+            185.29
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 187.81,
+          "end": 189.29,
+          "other_occupied_span": [
+            186.31,
+            190.79
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 193.65,
+          "end": 193.96,
+          "other_occupied_span": [
+            192.15,
+            195.46
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 204.55,
+          "end": 208.9,
+          "other_occupied_span": [
+            203.05,
+            210.4
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 215.89,
+          "end": 229.33,
+          "other_occupied_span": [
+            214.39,
+            230.83
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 232.61,
+          "end": 234.75,
+          "other_occupied_span": [
+            231.11,
+            236.25
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 238.13,
+          "end": 247.69,
+          "other_occupied_span": [
+            236.63,
+            249.19
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 255.8,
+          "end": 257.69,
+          "other_occupied_span": [
+            254.3,
+            259.19
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 281.91,
+          "end": 282.61,
+          "other_occupied_span": [
+            280.41,
+            284.11
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 289.34,
+          "end": 295.56,
+          "other_occupied_span": [
+            287.84,
+            297.06
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        }
+      ],
+      "stress_features": {
+        "backchannel": 7,
+        "trailing_filler": 1,
+        "multiple_sentences": 0
+      },
+      "chunk_id": "zh-general-02",
+      "category": "general",
+      "topic": "Short-video apps, personal shopping and social use",
+      "casual_chat": false,
+      "tags": [
+        "everyday-topic",
+        "shopping",
+        "organized-discussion",
+        "casual-priority-fill"
+      ],
+      "selection": "fixed-seed-eligible-pool"
+    },
+    {
+      "id": "R8001_M8004_N_SPK8014",
+      "session": "R8001_M8004",
+      "speaker": "SPK8014",
+      "split": "Eval",
+      "audio": ".data/chinese/source/Eval_Ali/Eval_Ali_near/audio_dir/R8001_M8004_N_SPK8014.wav",
+      "textgrid": ".data/chinese/source/Eval_Ali/Eval_Ali_near/textgrid_dir/R8001_M8004_N_SPK8014.TextGrid",
+      "context_textgrid": ".data/chinese/source/Eval_Ali/Eval_Ali_far/textgrid_dir/R8001_M8004.TextGrid",
+      "channel_zero_based": 0,
+      "input_mode": "selected-participant-headset",
+      "duration": 198,
+      "sample_rate": 16000,
+      "sha256": "779591983f618f404a2e9bea90ff29a21de522e6086a3f687bde80b5dd8c8d63",
+      "textgrid_sha256": "43541588ec038e2af457b788a2ef38221c23d001ace76ec7d53866be617671ac",
+      "context_textgrid_sha256": "e5fe941174fe4140bb5923b7caf2cbdd68d8d2a86086e4f00c68afc90d09dbad",
+      "archive_member": "Eval_Ali/Eval_Ali_near/audio_dir/R8001_M8004_N_SPK8014.wav",
+      "source_url": "https://speech-lab-share-data.oss-cn-shanghai.aliyuncs.com/AliMeeting/openlr/Eval_Ali.tar.gz",
+      "license": "CC-BY-SA-4.0",
+      "source_start": 1197.62,
+      "source_end": 1515.4399999999996,
+      "mapping": [
+        {
+          "source_start": 1197.62,
+          "source_end": 1212.63,
+          "playback_start": 0.0,
+          "playback_end": 15.010000000000218
+        },
+        {
+          "source_start": 1216.18,
+          "source_end": 1227.99,
+          "playback_start": 15.010000000000218,
+          "playback_end": 26.820000000000164
+        },
+        {
+          "source_start": 1232.1,
+          "source_end": 1251.99,
+          "playback_start": 26.820000000000164,
+          "playback_end": 46.710000000000264
+        },
+        {
+          "source_start": 1255.21,
+          "source_end": 1270.93,
+          "playback_start": 46.710000000000264,
+          "playback_end": 62.43000000000029
+        },
+        {
+          "source_start": 1271.79,
+          "source_end": 1292.95,
+          "playback_start": 62.43000000000029,
+          "playback_end": 83.59000000000037
+        },
+        {
+          "source_start": 1300.26,
+          "source_end": 1316.0,
+          "playback_start": 83.59000000000037,
+          "playback_end": 99.33000000000038
+        },
+        {
+          "source_start": 1319.07,
+          "source_end": 1322.3,
+          "playback_start": 99.33000000000038,
+          "playback_end": 102.5600000000004
+        },
+        {
+          "source_start": 1326.4,
+          "source_end": 1348.56,
+          "playback_start": 102.5600000000004,
+          "playback_end": 124.72000000000025
+        },
+        {
+          "source_start": 1348.75,
+          "source_end": 1352.08,
+          "playback_start": 124.72000000000025,
+          "playback_end": 128.05000000000018
+        },
+        {
+          "source_start": 1361.23,
+          "source_end": 1374.24,
+          "playback_start": 128.05000000000018,
+          "playback_end": 141.06000000000017
+        },
+        {
+          "source_start": 1427.36,
+          "source_end": 1455.35,
+          "playback_start": 141.06000000000017,
+          "playback_end": 169.05000000000018
+        },
+        {
+          "source_start": 1461.74,
+          "source_end": 1473.89,
+          "playback_start": 169.05000000000018,
+          "playback_end": 181.20000000000027
+        },
+        {
+          "source_start": 1479.33,
+          "source_end": 1483.71,
+          "playback_start": 181.20000000000027,
+          "playback_end": 185.58000000000038
+        },
+        {
+          "source_start": 1503.02,
+          "source_end": 1515.4399999999996,
+          "playback_start": 185.58000000000038,
+          "playback_end": 198.0
+        }
+      ],
+      "removed_gaps": [
+        {
+          "start": 1212.63,
+          "end": 1216.18,
+          "other_occupied_span": [
+            1211.13,
+            1217.68
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 1227.99,
+          "end": 1232.1,
+          "other_occupied_span": [
+            1226.49,
+            1233.6
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 1251.99,
+          "end": 1255.21,
+          "other_occupied_span": [
+            1250.49,
+            1256.71
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 1270.93,
+          "end": 1271.79,
+          "other_occupied_span": [
+            1269.43,
+            1273.29
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 1292.95,
+          "end": 1300.26,
+          "other_occupied_span": [
+            1291.45,
+            1301.76
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 1316.0,
+          "end": 1319.07,
+          "other_occupied_span": [
+            1314.5,
+            1320.57
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 1322.3,
+          "end": 1326.4,
+          "other_occupied_span": [
+            1320.8,
+            1327.9
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 1348.56,
+          "end": 1348.75,
+          "other_occupied_span": [
+            1347.06,
+            1350.25
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 1352.08,
+          "end": 1361.23,
+          "other_occupied_span": [
+            1350.58,
+            1362.73
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 1374.24,
+          "end": 1427.36,
+          "other_occupied_span": [
+            1372.74,
+            1428.86
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 1455.35,
+          "end": 1461.74,
+          "other_occupied_span": [
+            1453.85,
+            1463.24
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 1473.89,
+          "end": 1479.33,
+          "other_occupied_span": [
+            1472.39,
+            1480.83
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 1483.71,
+          "end": 1503.02,
+          "other_occupied_span": [
+            1482.21,
+            1504.52
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        }
+      ],
+      "stress_features": {
+        "backchannel": 7,
+        "trailing_filler": 8,
+        "multiple_sentences": 5
+      },
+      "chunk_id": "zh-general-03",
+      "category": "general",
+      "topic": "New mobile-phone product and target customers",
+      "casual_chat": false,
+      "tags": [
+        "work",
+        "product-planning",
+        "meeting"
+      ],
+      "selection": "fixed-seed-eligible-pool"
+    },
+    {
+      "id": "R8007_M8010_N_SPK8056",
+      "session": "R8007_M8010",
+      "speaker": "SPK8056",
+      "split": "Eval",
+      "audio": ".data/chinese/source/Eval_Ali/Eval_Ali_near/audio_dir/R8007_M8010_N_SPK8056.wav",
+      "textgrid": ".data/chinese/source/Eval_Ali/Eval_Ali_near/textgrid_dir/R8007_M8010_N_SPK8056.TextGrid",
+      "context_textgrid": ".data/chinese/source/Eval_Ali/Eval_Ali_far/textgrid_dir/R8007_M8010.TextGrid",
+      "channel_zero_based": 0,
+      "input_mode": "selected-participant-headset",
+      "duration": 198,
+      "sample_rate": 16000,
+      "sha256": "029fccd75793f75f6cb3170202a21cd1355e269b1a64006960db0458f6d8cad2",
+      "textgrid_sha256": "ad52a293bdd4bef425de29acaf48a3934a7cb6eb93d7125063333a8878b37a99",
+      "context_textgrid_sha256": "0ab9ae505fd81a283e645ce9896610c57e34e747e5551144f98f0cbac0604e44",
+      "archive_member": "Eval_Ali/Eval_Ali_near/audio_dir/R8007_M8010_N_SPK8056.wav",
+      "source_url": "https://speech-lab-share-data.oss-cn-shanghai.aliyuncs.com/AliMeeting/openlr/Eval_Ali.tar.gz",
+      "license": "CC-BY-SA-4.0",
+      "source_start": 150.37,
+      "source_end": 369.3600000000001,
+      "mapping": [
+        {
+          "source_start": 150.37,
+          "source_end": 164.26,
+          "playback_start": 0.0,
+          "playback_end": 13.889999999999986
+        },
+        {
+          "source_start": 164.83,
+          "source_end": 185.47,
+          "playback_start": 13.889999999999986,
+          "playback_end": 34.52999999999997
+        },
+        {
+          "source_start": 190.11,
+          "source_end": 193.51,
+          "playback_start": 34.52999999999997,
+          "playback_end": 37.92999999999995
+        },
+        {
+          "source_start": 197.0,
+          "source_end": 205.51,
+          "playback_start": 37.92999999999995,
+          "playback_end": 46.43999999999994
+        },
+        {
+          "source_start": 207.75,
+          "source_end": 220.59,
+          "playback_start": 46.43999999999994,
+          "playback_end": 59.279999999999944
+        },
+        {
+          "source_start": 220.91,
+          "source_end": 234.35,
+          "playback_start": 59.279999999999944,
+          "playback_end": 72.71999999999994
+        },
+        {
+          "source_start": 234.5,
+          "source_end": 272.32,
+          "playback_start": 72.71999999999994,
+          "playback_end": 110.53999999999994
+        },
+        {
+          "source_start": 272.46,
+          "source_end": 278.63,
+          "playback_start": 110.53999999999994,
+          "playback_end": 116.70999999999995
+        },
+        {
+          "source_start": 279.44,
+          "source_end": 297.24,
+          "playback_start": 116.70999999999995,
+          "playback_end": 134.50999999999996
+        },
+        {
+          "source_start": 298.31,
+          "source_end": 301.64,
+          "playback_start": 134.50999999999996,
+          "playback_end": 137.83999999999995
+        },
+        {
+          "source_start": 305.51,
+          "source_end": 308.83,
+          "playback_start": 137.83999999999995,
+          "playback_end": 141.15999999999994
+        },
+        {
+          "source_start": 309.99,
+          "source_end": 320.95,
+          "playback_start": 141.15999999999994,
+          "playback_end": 152.11999999999992
+        },
+        {
+          "source_start": 322.14,
+          "source_end": 363.03,
+          "playback_start": 152.11999999999992,
+          "playback_end": 193.0099999999999
+        },
+        {
+          "source_start": 364.37,
+          "source_end": 369.3600000000001,
+          "playback_start": 193.0099999999999,
+          "playback_end": 198.00000000000003
+        }
+      ],
+      "removed_gaps": [
+        {
+          "start": 164.26,
+          "end": 164.83,
+          "other_occupied_span": [
+            162.76,
+            166.33
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 185.47,
+          "end": 190.11,
+          "other_occupied_span": [
+            183.97,
+            191.61
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 193.51,
+          "end": 197.0,
+          "other_occupied_span": [
+            192.01,
+            198.5
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 205.51,
+          "end": 207.75,
+          "other_occupied_span": [
+            204.01,
+            209.25
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 220.59,
+          "end": 220.91,
+          "other_occupied_span": [
+            219.09,
+            222.41
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 234.35,
+          "end": 234.5,
+          "other_occupied_span": [
+            232.85,
+            236.0
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 272.32,
+          "end": 272.46,
+          "other_occupied_span": [
+            270.82,
+            273.96
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 278.63,
+          "end": 279.44,
+          "other_occupied_span": [
+            277.13,
+            280.94
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 297.24,
+          "end": 298.31,
+          "other_occupied_span": [
+            295.74,
+            299.81
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 301.64,
+          "end": 305.51,
+          "other_occupied_span": [
+            300.14,
+            307.01
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 308.83,
+          "end": 309.99,
+          "other_occupied_span": [
+            307.33,
+            311.49
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 320.95,
+          "end": 322.14,
+          "other_occupied_span": [
+            319.45,
+            323.64
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 363.03,
+          "end": 364.37,
+          "other_occupied_span": [
+            361.53,
+            365.87
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        }
+      ],
+      "stress_features": {
+        "backchannel": 16,
+        "trailing_filler": 21,
+        "multiple_sentences": 0
+      },
+      "chunk_id": "zh-general-04",
+      "category": "general",
+      "topic": "Office relocation, rent and commuting",
+      "casual_chat": false,
+      "tags": [
+        "work",
+        "commuting",
+        "meeting"
+      ],
+      "selection": "fixed-seed-eligible-pool"
+    },
+    {
+      "id": "R8008_M8013_N_SPK8047",
+      "session": "R8008_M8013",
+      "speaker": "SPK8047",
+      "split": "Eval",
+      "audio": ".data/chinese/source/Eval_Ali/Eval_Ali_near/audio_dir/R8008_M8013_N_SPK8047.wav",
+      "textgrid": ".data/chinese/source/Eval_Ali/Eval_Ali_near/textgrid_dir/R8008_M8013_N_SPK8047.TextGrid",
+      "context_textgrid": ".data/chinese/source/Eval_Ali/Eval_Ali_far/textgrid_dir/R8008_M8013.TextGrid",
+      "channel_zero_based": 0,
+      "input_mode": "selected-participant-headset",
+      "duration": 198,
+      "sample_rate": 16000,
+      "sha256": "9ac386157aaaf079b6961c4b5f28e790f2cd3032b7daa1359d5dd6ea849d442c",
+      "textgrid_sha256": "61b5e1a982fb623094abbf2b663c892e6c29302aa89cb60b07a04ebc475a6db7",
+      "context_textgrid_sha256": "b0f938c81b95728bd38f7aec655f6804ca4dcc3182bb0facb8d05a9a84293869",
+      "archive_member": "Eval_Ali/Eval_Ali_near/audio_dir/R8008_M8013_N_SPK8047.wav",
+      "source_url": "https://speech-lab-share-data.oss-cn-shanghai.aliyuncs.com/AliMeeting/openlr/Eval_Ali.tar.gz",
+      "license": "CC-BY-SA-4.0",
+      "source_start": 803.23,
+      "source_end": 1092.43,
+      "mapping": [
+        {
+          "source_start": 803.23,
+          "source_end": 810.3,
+          "playback_start": 0.0,
+          "playback_end": 7.069999999999936
+        },
+        {
+          "source_start": 814.55,
+          "source_end": 819.6,
+          "playback_start": 7.069999999999936,
+          "playback_end": 12.120000000000005
+        },
+        {
+          "source_start": 825.65,
+          "source_end": 874.13,
+          "playback_start": 12.120000000000005,
+          "playback_end": 60.60000000000002
+        },
+        {
+          "source_start": 876.67,
+          "source_end": 881.39,
+          "playback_start": 60.60000000000002,
+          "playback_end": 65.32000000000005
+        },
+        {
+          "source_start": 889.34,
+          "source_end": 894.0,
+          "playback_start": 65.32000000000005,
+          "playback_end": 69.98000000000002
+        },
+        {
+          "source_start": 910.26,
+          "source_end": 914.49,
+          "playback_start": 69.98000000000002,
+          "playback_end": 74.21000000000004
+        },
+        {
+          "source_start": 919.86,
+          "source_end": 933.63,
+          "playback_start": 74.21000000000004,
+          "playback_end": 87.98000000000002
+        },
+        {
+          "source_start": 934.0,
+          "source_end": 941.57,
+          "playback_start": 87.98000000000002,
+          "playback_end": 95.55000000000007
+        },
+        {
+          "source_start": 942.12,
+          "source_end": 956.22,
+          "playback_start": 95.55000000000007,
+          "playback_end": 109.65000000000009
+        },
+        {
+          "source_start": 959.28,
+          "source_end": 965.21,
+          "playback_start": 109.65000000000009,
+          "playback_end": 115.58000000000015
+        },
+        {
+          "source_start": 967.18,
+          "source_end": 971.15,
+          "playback_start": 115.58000000000015,
+          "playback_end": 119.55000000000018
+        },
+        {
+          "source_start": 977.86,
+          "source_end": 994.8,
+          "playback_start": 119.55000000000018,
+          "playback_end": 136.49000000000012
+        },
+        {
+          "source_start": 1009.1,
+          "source_end": 1025.1599999999999,
+          "playback_start": 136.49000000000012,
+          "playback_end": 152.54999999999995
+        },
+        {
+          "source_start": 1029.29,
+          "source_end": 1039.96,
+          "playback_start": 152.54999999999995,
+          "playback_end": 163.22000000000003
+        },
+        {
+          "source_start": 1040.22,
+          "source_end": 1043.71,
+          "playback_start": 163.22000000000003,
+          "playback_end": 166.71000000000004
+        },
+        {
+          "source_start": 1058.24,
+          "source_end": 1076.7,
+          "playback_start": 166.71000000000004,
+          "playback_end": 185.17000000000007
+        },
+        {
+          "source_start": 1079.46,
+          "source_end": 1088.56,
+          "playback_start": 185.17000000000007,
+          "playback_end": 194.26999999999998
+        },
+        {
+          "source_start": 1088.7,
+          "source_end": 1092.43,
+          "playback_start": 194.26999999999998,
+          "playback_end": 198.0
+        }
+      ],
+      "removed_gaps": [
+        {
+          "start": 810.3,
+          "end": 814.55,
+          "other_occupied_span": [
+            808.8,
+            816.05
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 819.6,
+          "end": 825.65,
+          "other_occupied_span": [
+            818.1,
+            827.15
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 874.13,
+          "end": 876.67,
+          "other_occupied_span": [
+            872.63,
+            878.17
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 881.39,
+          "end": 889.34,
+          "other_occupied_span": [
+            879.89,
+            890.84
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 894.0,
+          "end": 910.26,
+          "other_occupied_span": [
+            892.5,
+            911.76
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 914.49,
+          "end": 919.86,
+          "other_occupied_span": [
+            912.99,
+            921.36
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 933.63,
+          "end": 934.0,
+          "other_occupied_span": [
+            932.13,
+            935.5
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 941.57,
+          "end": 942.12,
+          "other_occupied_span": [
+            940.07,
+            943.62
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 956.22,
+          "end": 959.28,
+          "other_occupied_span": [
+            954.72,
+            960.78
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 965.21,
+          "end": 967.18,
+          "other_occupied_span": [
+            963.71,
+            968.68
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 971.15,
+          "end": 977.86,
+          "other_occupied_span": [
+            969.65,
+            979.36
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 994.8,
+          "end": 1009.1,
+          "other_occupied_span": [
+            993.3,
+            1010.6
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 1025.1599999999999,
+          "end": 1029.29,
+          "other_occupied_span": [
+            1023.66,
+            1030.79
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 1039.96,
+          "end": 1040.22,
+          "other_occupied_span": [
+            1038.46,
+            1041.72
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 1043.71,
+          "end": 1058.24,
+          "other_occupied_span": [
+            1042.21,
+            1059.74
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 1076.7,
+          "end": 1079.46,
+          "other_occupied_span": [
+            1075.2,
+            1080.96
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 1088.56,
+          "end": 1088.7,
+          "other_occupied_span": [
+            1087.06,
+            1090.2
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        }
+      ],
+      "stress_features": {
+        "backchannel": 10,
+        "trailing_filler": 4,
+        "multiple_sentences": 0
+      },
+      "chunk_id": "zh-general-05",
+      "category": "general",
+      "topic": "Catering business development and recruitment",
+      "casual_chat": false,
+      "tags": [
+        "work",
+        "business",
+        "meeting"
+      ],
+      "selection": "fixed-seed-eligible-pool"
+    },
+    {
+      "id": "R8009_M8018_N_SPK8022",
+      "session": "R8009_M8018",
+      "speaker": "SPK8022",
+      "split": "Eval",
+      "audio": ".data/chinese/source/Eval_Ali/Eval_Ali_near/audio_dir/R8009_M8018_N_SPK8022.wav",
+      "textgrid": ".data/chinese/source/Eval_Ali/Eval_Ali_near/textgrid_dir/R8009_M8018_N_SPK8022.TextGrid",
+      "context_textgrid": ".data/chinese/source/Eval_Ali/Eval_Ali_far/textgrid_dir/R8009_M8018.TextGrid",
+      "channel_zero_based": 0,
+      "input_mode": "selected-participant-headset",
+      "duration": 198,
+      "sample_rate": 16000,
+      "sha256": "57b7ef444269160b01649f24838b3dc22ea5ba92c4c1861544e2d025be177c8a",
+      "textgrid_sha256": "9ba45e7251b828c485854bf38fb2e789be8ebe5d9cdb70bfb0afffdf0ca1ddc5",
+      "context_textgrid_sha256": "be91df9d87f0f988ade6d1b2fdba82f4533a4e994fb22f8935f27b4bd7d0300e",
+      "archive_member": "Eval_Ali/Eval_Ali_near/audio_dir/R8009_M8018_N_SPK8022.wav",
+      "source_url": "https://speech-lab-share-data.oss-cn-shanghai.aliyuncs.com/AliMeeting/openlr/Eval_Ali.tar.gz",
+      "license": "CC-BY-SA-4.0",
+      "source_start": 179.1,
+      "source_end": 457.06999999999994,
+      "mapping": [
+        {
+          "source_start": 179.1,
+          "source_end": 181.36,
+          "playback_start": 0.0,
+          "playback_end": 2.2600000000000193
+        },
+        {
+          "source_start": 185.19,
+          "source_end": 214.05,
+          "playback_start": 2.2600000000000193,
+          "playback_end": 31.120000000000033
+        },
+        {
+          "source_start": 214.94,
+          "source_end": 220.13,
+          "playback_start": 31.120000000000033,
+          "playback_end": 36.31000000000003
+        },
+        {
+          "source_start": 220.89,
+          "source_end": 255.49,
+          "playback_start": 36.31000000000003,
+          "playback_end": 70.91000000000005
+        },
+        {
+          "source_start": 267.6,
+          "source_end": 282.23,
+          "playback_start": 70.91000000000005,
+          "playback_end": 85.54000000000005
+        },
+        {
+          "source_start": 283.55,
+          "source_end": 286.9,
+          "playback_start": 85.54000000000005,
+          "playback_end": 88.89000000000001
+        },
+        {
+          "source_start": 296.73,
+          "source_end": 313.09,
+          "playback_start": 88.89000000000001,
+          "playback_end": 105.24999999999997
+        },
+        {
+          "source_start": 344.61,
+          "source_end": 347.92,
+          "playback_start": 105.24999999999997,
+          "playback_end": 108.55999999999997
+        },
+        {
+          "source_start": 349.68,
+          "source_end": 365.47,
+          "playback_start": 108.55999999999997,
+          "playback_end": 124.35
+        },
+        {
+          "source_start": 371.64,
+          "source_end": 387.37,
+          "playback_start": 124.35,
+          "playback_end": 140.08
+        },
+        {
+          "source_start": 389.43,
+          "source_end": 392.8,
+          "playback_start": 140.08,
+          "playback_end": 143.45000000000002
+        },
+        {
+          "source_start": 397.18,
+          "source_end": 410.05,
+          "playback_start": 143.45000000000002,
+          "playback_end": 156.32000000000002
+        },
+        {
+          "source_start": 412.7,
+          "source_end": 426.45,
+          "playback_start": 156.32000000000002,
+          "playback_end": 170.07000000000002
+        },
+        {
+          "source_start": 429.14,
+          "source_end": 457.06999999999994,
+          "playback_start": 170.07000000000002,
+          "playback_end": 197.99999999999997
+        }
+      ],
+      "removed_gaps": [
+        {
+          "start": 181.36,
+          "end": 185.19,
+          "other_occupied_span": [
+            179.86,
+            186.69
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 214.05,
+          "end": 214.94,
+          "other_occupied_span": [
+            212.55,
+            216.44
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 220.13,
+          "end": 220.89,
+          "other_occupied_span": [
+            218.63,
+            222.39
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 255.49,
+          "end": 267.6,
+          "other_occupied_span": [
+            253.99,
+            269.1
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 282.23,
+          "end": 283.55,
+          "other_occupied_span": [
+            280.73,
+            285.05
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 286.9,
+          "end": 296.73,
+          "other_occupied_span": [
+            285.4,
+            298.23
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 313.09,
+          "end": 344.61,
+          "other_occupied_span": [
+            311.59,
+            346.11
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 347.92,
+          "end": 349.68,
+          "other_occupied_span": [
+            346.42,
+            351.18
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 365.47,
+          "end": 371.64,
+          "other_occupied_span": [
+            363.97,
+            373.14
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 387.37,
+          "end": 389.43,
+          "other_occupied_span": [
+            385.87,
+            390.93
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 392.8,
+          "end": 397.18,
+          "other_occupied_span": [
+            391.3,
+            398.68
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 410.05,
+          "end": 412.7,
+          "other_occupied_span": [
+            408.55,
+            414.2
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 426.45,
+          "end": 429.14,
+          "other_occupied_span": [
+            424.95,
+            430.64
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        }
+      ],
+      "stress_features": {
+        "backchannel": 10,
+        "trailing_filler": 17,
+        "multiple_sentences": 6
+      },
+      "chunk_id": "zh-general-06",
+      "category": "general",
+      "topic": "New supermarket staff social-insurance arrangements",
+      "casual_chat": false,
+      "tags": [
+        "work",
+        "staffing",
+        "two-person-discussion"
+      ],
+      "selection": "fixed-seed-eligible-pool"
+    },
+    {
+      "id": "R8007_M8010_N_SPK8050",
+      "session": "R8007_M8010",
+      "speaker": "SPK8050",
+      "split": "Eval",
+      "audio": ".data/chinese/source/Eval_Ali/Eval_Ali_near/audio_dir/R8007_M8010_N_SPK8050.wav",
+      "textgrid": ".data/chinese/source/Eval_Ali/Eval_Ali_near/textgrid_dir/R8007_M8010_N_SPK8050.TextGrid",
+      "context_textgrid": ".data/chinese/source/Eval_Ali/Eval_Ali_far/textgrid_dir/R8007_M8010.TextGrid",
+      "channel_zero_based": 0,
+      "input_mode": "selected-participant-headset",
+      "duration": 198,
+      "sample_rate": 16000,
+      "sha256": "400d99fb613429d860b987da40b76b7507e0c0dc4739865dbd9dff15e88136bb",
+      "textgrid_sha256": "f0da34f87630bc9a6b6a28b3746e4003ea54eeefa7229398b6e47cee90e52460",
+      "context_textgrid_sha256": "0ab9ae505fd81a283e645ce9896610c57e34e747e5551144f98f0cbac0604e44",
+      "archive_member": "Eval_Ali/Eval_Ali_near/audio_dir/R8007_M8010_N_SPK8050.wav",
+      "source_url": "https://speech-lab-share-data.oss-cn-shanghai.aliyuncs.com/AliMeeting/openlr/Eval_Ali.tar.gz",
+      "license": "CC-BY-SA-4.0",
+      "source_start": 396.8,
+      "source_end": 698.21,
+      "mapping": [
+        {
+          "source_start": 396.8,
+          "source_end": 404.52,
+          "playback_start": 0.0,
+          "playback_end": 7.71999999999997
+        },
+        {
+          "source_start": 404.73,
+          "source_end": 407.88,
+          "playback_start": 7.71999999999997,
+          "playback_end": 10.869999999999948
+        },
+        {
+          "source_start": 409.14,
+          "source_end": 414.57,
+          "playback_start": 10.869999999999948,
+          "playback_end": 16.299999999999955
+        },
+        {
+          "source_start": 416.29,
+          "source_end": 420.2,
+          "playback_start": 16.299999999999955,
+          "playback_end": 20.209999999999923
+        },
+        {
+          "source_start": 421.19,
+          "source_end": 438.75,
+          "playback_start": 20.209999999999923,
+          "playback_end": 37.769999999999925
+        },
+        {
+          "source_start": 444.95,
+          "source_end": 449.47,
+          "playback_start": 37.769999999999925,
+          "playback_end": 42.289999999999964
+        },
+        {
+          "source_start": 450.21,
+          "source_end": 453.62,
+          "playback_start": 42.289999999999964,
+          "playback_end": 45.69999999999999
+        },
+        {
+          "source_start": 458.74,
+          "source_end": 462.08,
+          "playback_start": 45.69999999999999,
+          "playback_end": 49.039999999999964
+        },
+        {
+          "source_start": 464.73,
+          "source_end": 475.99,
+          "playback_start": 49.039999999999964,
+          "playback_end": 60.299999999999955
+        },
+        {
+          "source_start": 481.87,
+          "source_end": 485.33,
+          "playback_start": 60.299999999999955,
+          "playback_end": 63.759999999999934
+        },
+        {
+          "source_start": 489.89,
+          "source_end": 497.9,
+          "playback_start": 63.759999999999934,
+          "playback_end": 71.76999999999992
+        },
+        {
+          "source_start": 502.12,
+          "source_end": 506.85,
+          "playback_start": 71.76999999999992,
+          "playback_end": 76.49999999999994
+        },
+        {
+          "source_start": 510.16,
+          "source_end": 520.85,
+          "playback_start": 76.49999999999994,
+          "playback_end": 87.18999999999994
+        },
+        {
+          "source_start": 526.71,
+          "source_end": 537.03,
+          "playback_start": 87.18999999999994,
+          "playback_end": 97.50999999999988
+        },
+        {
+          "source_start": 537.09,
+          "source_end": 541.73,
+          "playback_start": 97.50999999999988,
+          "playback_end": 102.14999999999986
+        },
+        {
+          "source_start": 542.43,
+          "source_end": 546.53,
+          "playback_start": 102.14999999999986,
+          "playback_end": 106.24999999999989
+        },
+        {
+          "source_start": 550.34,
+          "source_end": 557.1,
+          "playback_start": 106.24999999999989,
+          "playback_end": 113.00999999999988
+        },
+        {
+          "source_start": 557.64,
+          "source_end": 564.68,
+          "playback_start": 113.00999999999988,
+          "playback_end": 120.04999999999984
+        },
+        {
+          "source_start": 568.95,
+          "source_end": 573.84,
+          "playback_start": 120.04999999999984,
+          "playback_end": 124.93999999999983
+        },
+        {
+          "source_start": 579.8,
+          "source_end": 584.44,
+          "playback_start": 124.93999999999983,
+          "playback_end": 129.57999999999993
+        },
+        {
+          "source_start": 588.54,
+          "source_end": 591.84,
+          "playback_start": 129.57999999999993,
+          "playback_end": 132.88
+        },
+        {
+          "source_start": 593.65,
+          "source_end": 599.28,
+          "playback_start": 132.88,
+          "playback_end": 138.51
+        },
+        {
+          "source_start": 602.91,
+          "source_end": 607.41,
+          "playback_start": 138.51,
+          "playback_end": 143.01
+        },
+        {
+          "source_start": 613.35,
+          "source_end": 622.84,
+          "playback_start": 143.01,
+          "playback_end": 152.5
+        },
+        {
+          "source_start": 626.95,
+          "source_end": 639.47,
+          "playback_start": 152.5,
+          "playback_end": 165.01999999999998
+        },
+        {
+          "source_start": 641.75,
+          "source_end": 649.88,
+          "playback_start": 165.01999999999998,
+          "playback_end": 173.14999999999998
+        },
+        {
+          "source_start": 653.2,
+          "source_end": 662.17,
+          "playback_start": 173.14999999999998,
+          "playback_end": 182.1199999999999
+        },
+        {
+          "source_start": 665.73,
+          "source_end": 669.32,
+          "playback_start": 182.1199999999999,
+          "playback_end": 185.70999999999992
+        },
+        {
+          "source_start": 670.99,
+          "source_end": 676.86,
+          "playback_start": 185.70999999999992,
+          "playback_end": 191.57999999999993
+        },
+        {
+          "source_start": 684.47,
+          "source_end": 687.72,
+          "playback_start": 191.57999999999993,
+          "playback_end": 194.82999999999993
+        },
+        {
+          "source_start": 695.04,
+          "source_end": 698.21,
+          "playback_start": 194.82999999999993,
+          "playback_end": 198.0
+        }
+      ],
+      "removed_gaps": [
+        {
+          "start": 404.52,
+          "end": 404.73,
+          "other_occupied_span": [
+            403.02,
+            406.23
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 407.88,
+          "end": 409.14,
+          "other_occupied_span": [
+            406.38,
+            410.64
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 414.57,
+          "end": 416.29,
+          "other_occupied_span": [
+            413.07,
+            417.79
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 420.2,
+          "end": 421.19,
+          "other_occupied_span": [
+            418.7,
+            422.69
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 438.75,
+          "end": 444.95,
+          "other_occupied_span": [
+            437.25,
+            446.45
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 449.47,
+          "end": 450.21,
+          "other_occupied_span": [
+            447.97,
+            451.71
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 453.62,
+          "end": 458.74,
+          "other_occupied_span": [
+            452.12,
+            460.24
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 462.08,
+          "end": 464.73,
+          "other_occupied_span": [
+            460.58,
+            466.23
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 475.99,
+          "end": 481.87,
+          "other_occupied_span": [
+            474.49,
+            483.37
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 485.33,
+          "end": 489.89,
+          "other_occupied_span": [
+            483.83,
+            491.39
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 497.9,
+          "end": 502.12,
+          "other_occupied_span": [
+            496.4,
+            503.62
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 506.85,
+          "end": 510.16,
+          "other_occupied_span": [
+            505.35,
+            511.66
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 520.85,
+          "end": 526.71,
+          "other_occupied_span": [
+            519.35,
+            528.21
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 537.03,
+          "end": 537.09,
+          "other_occupied_span": [
+            535.53,
+            538.59
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 541.73,
+          "end": 542.43,
+          "other_occupied_span": [
+            540.23,
+            543.93
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 546.53,
+          "end": 550.34,
+          "other_occupied_span": [
+            545.03,
+            551.84
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 557.1,
+          "end": 557.64,
+          "other_occupied_span": [
+            555.6,
+            559.14
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 564.68,
+          "end": 568.95,
+          "other_occupied_span": [
+            563.18,
+            570.45
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 573.84,
+          "end": 579.8,
+          "other_occupied_span": [
+            572.34,
+            581.3
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 584.44,
+          "end": 588.54,
+          "other_occupied_span": [
+            582.94,
+            590.04
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 591.84,
+          "end": 593.65,
+          "other_occupied_span": [
+            590.34,
+            595.15
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 599.28,
+          "end": 602.91,
+          "other_occupied_span": [
+            597.78,
+            604.41
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 607.41,
+          "end": 613.35,
+          "other_occupied_span": [
+            605.91,
+            614.85
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 622.84,
+          "end": 626.95,
+          "other_occupied_span": [
+            621.34,
+            628.45
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 639.47,
+          "end": 641.75,
+          "other_occupied_span": [
+            637.97,
+            643.25
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 649.88,
+          "end": 653.2,
+          "other_occupied_span": [
+            648.38,
+            654.7
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 662.17,
+          "end": 665.73,
+          "other_occupied_span": [
+            660.67,
+            667.23
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 669.32,
+          "end": 670.99,
+          "other_occupied_span": [
+            667.82,
+            672.49
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 676.86,
+          "end": 684.47,
+          "other_occupied_span": [
+            675.36,
+            685.97
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 687.72,
+          "end": 695.04,
+          "other_occupied_span": [
+            686.22,
+            696.54
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        }
+      ],
+      "stress_features": {
+        "backchannel": 28,
+        "trailing_filler": 28,
+        "multiple_sentences": 2
+      },
+      "chunk_id": "zh-stress-01",
+      "category": "stress",
+      "topic": "Office relocation, rent and commuting",
+      "casual_chat": false,
+      "tags": [
+        "work",
+        "commuting",
+        "meeting"
+      ],
+      "selection": "deliberate-text-pattern-stress"
+    },
+    {
+      "id": "R8001_M8004_N_SPK8015",
+      "session": "R8001_M8004",
+      "speaker": "SPK8015",
+      "split": "Eval",
+      "audio": ".data/chinese/source/Eval_Ali/Eval_Ali_near/audio_dir/R8001_M8004_N_SPK8015.wav",
+      "textgrid": ".data/chinese/source/Eval_Ali/Eval_Ali_near/textgrid_dir/R8001_M8004_N_SPK8015.TextGrid",
+      "context_textgrid": ".data/chinese/source/Eval_Ali/Eval_Ali_far/textgrid_dir/R8001_M8004.TextGrid",
+      "channel_zero_based": 0,
+      "input_mode": "selected-participant-headset",
+      "duration": 198,
+      "sample_rate": 16000,
+      "sha256": "f0db8515421effab55ffc3ecfa9938d7ef2cd730a3c4a39a891ad6bebbfdeb31",
+      "textgrid_sha256": "81e359c595f69128f3123f66c052dc9e988014ab954845f6f88c76cb9d713fdc",
+      "context_textgrid_sha256": "e5fe941174fe4140bb5923b7caf2cbdd68d8d2a86086e4f00c68afc90d09dbad",
+      "archive_member": "Eval_Ali/Eval_Ali_near/audio_dir/R8001_M8004_N_SPK8015.wav",
+      "source_url": "https://speech-lab-share-data.oss-cn-shanghai.aliyuncs.com/AliMeeting/openlr/Eval_Ali.tar.gz",
+      "license": "CC-BY-SA-4.0",
+      "source_start": 730.2,
+      "source_end": 1117.2300000000002,
+      "mapping": [
+        {
+          "source_start": 730.2,
+          "source_end": 757.65,
+          "playback_start": 0.0,
+          "playback_end": 27.449999999999932
+        },
+        {
+          "source_start": 764.85,
+          "source_end": 768.2,
+          "playback_start": 27.449999999999932,
+          "playback_end": 30.799999999999955
+        },
+        {
+          "source_start": 776.95,
+          "source_end": 780.33,
+          "playback_start": 30.799999999999955,
+          "playback_end": 34.17999999999995
+        },
+        {
+          "source_start": 781.14,
+          "source_end": 785.3,
+          "playback_start": 34.17999999999995,
+          "playback_end": 38.33999999999992
+        },
+        {
+          "source_start": 796.19,
+          "source_end": 813.91,
+          "playback_start": 38.33999999999992,
+          "playback_end": 56.05999999999983
+        },
+        {
+          "source_start": 814.38,
+          "source_end": 821.17,
+          "playback_start": 56.05999999999983,
+          "playback_end": 62.849999999999795
+        },
+        {
+          "source_start": 836.84,
+          "source_end": 840.49,
+          "playback_start": 62.849999999999795,
+          "playback_end": 66.49999999999977
+        },
+        {
+          "source_start": 844.77,
+          "source_end": 848.1,
+          "playback_start": 66.49999999999977,
+          "playback_end": 69.82999999999981
+        },
+        {
+          "source_start": 859.87,
+          "source_end": 863.16,
+          "playback_start": 69.82999999999981,
+          "playback_end": 73.11999999999978
+        },
+        {
+          "source_start": 863.43,
+          "source_end": 878.0,
+          "playback_start": 73.11999999999978,
+          "playback_end": 87.68999999999983
+        },
+        {
+          "source_start": 880.84,
+          "source_end": 884.17,
+          "playback_start": 87.68999999999983,
+          "playback_end": 91.01999999999975
+        },
+        {
+          "source_start": 885.54,
+          "source_end": 897.93,
+          "playback_start": 91.01999999999975,
+          "playback_end": 103.40999999999974
+        },
+        {
+          "source_start": 898.61,
+          "source_end": 901.91,
+          "playback_start": 103.40999999999974,
+          "playback_end": 106.7099999999997
+        },
+        {
+          "source_start": 911.07,
+          "source_end": 915.91,
+          "playback_start": 106.7099999999997,
+          "playback_end": 111.54999999999961
+        },
+        {
+          "source_start": 927.7,
+          "source_end": 931.86,
+          "playback_start": 111.54999999999961,
+          "playback_end": 115.70999999999958
+        },
+        {
+          "source_start": 944.59,
+          "source_end": 954.21,
+          "playback_start": 115.70999999999958,
+          "playback_end": 125.32999999999959
+        },
+        {
+          "source_start": 959.48,
+          "source_end": 963.45,
+          "playback_start": 125.32999999999959,
+          "playback_end": 129.2999999999996
+        },
+        {
+          "source_start": 972.86,
+          "source_end": 992.86,
+          "playback_start": 129.2999999999996,
+          "playback_end": 149.2999999999996
+        },
+        {
+          "source_start": 996.39,
+          "source_end": 1012.68,
+          "playback_start": 149.2999999999996,
+          "playback_end": 165.58999999999958
+        },
+        {
+          "source_start": 1016.36,
+          "source_end": 1025.23,
+          "playback_start": 165.58999999999958,
+          "playback_end": 174.45999999999958
+        },
+        {
+          "source_start": 1030.05,
+          "source_end": 1033.42,
+          "playback_start": 174.45999999999958,
+          "playback_end": 177.8299999999997
+        },
+        {
+          "source_start": 1036.77,
+          "source_end": 1041.94,
+          "playback_start": 177.8299999999997,
+          "playback_end": 182.99999999999977
+        },
+        {
+          "source_start": 1050.64,
+          "source_end": 1053.91,
+          "playback_start": 182.99999999999977,
+          "playback_end": 186.26999999999975
+        },
+        {
+          "source_start": 1105.5,
+          "source_end": 1117.2300000000002,
+          "playback_start": 186.26999999999975,
+          "playback_end": 198.0
+        }
+      ],
+      "removed_gaps": [
+        {
+          "start": 757.65,
+          "end": 764.85,
+          "other_occupied_span": [
+            756.15,
+            766.35
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 768.2,
+          "end": 776.95,
+          "other_occupied_span": [
+            766.7,
+            778.45
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 780.33,
+          "end": 781.14,
+          "other_occupied_span": [
+            778.83,
+            782.64
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 785.3,
+          "end": 796.19,
+          "other_occupied_span": [
+            783.8,
+            797.69
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 813.91,
+          "end": 814.38,
+          "other_occupied_span": [
+            812.41,
+            815.88
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 821.17,
+          "end": 836.84,
+          "other_occupied_span": [
+            819.67,
+            838.34
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 840.49,
+          "end": 844.77,
+          "other_occupied_span": [
+            838.99,
+            846.27
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 848.1,
+          "end": 859.87,
+          "other_occupied_span": [
+            846.6,
+            861.37
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 863.16,
+          "end": 863.43,
+          "other_occupied_span": [
+            861.66,
+            864.93
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 878.0,
+          "end": 880.84,
+          "other_occupied_span": [
+            876.5,
+            882.34
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 884.17,
+          "end": 885.54,
+          "other_occupied_span": [
+            882.67,
+            887.04
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 897.93,
+          "end": 898.61,
+          "other_occupied_span": [
+            896.43,
+            900.11
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 901.91,
+          "end": 911.07,
+          "other_occupied_span": [
+            900.41,
+            912.57
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 915.91,
+          "end": 927.7,
+          "other_occupied_span": [
+            914.41,
+            929.2
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 931.86,
+          "end": 944.59,
+          "other_occupied_span": [
+            930.36,
+            946.09
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 954.21,
+          "end": 959.48,
+          "other_occupied_span": [
+            952.71,
+            960.98
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 963.45,
+          "end": 972.86,
+          "other_occupied_span": [
+            961.95,
+            974.36
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 992.86,
+          "end": 996.39,
+          "other_occupied_span": [
+            991.36,
+            997.89
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 1012.68,
+          "end": 1016.36,
+          "other_occupied_span": [
+            1011.18,
+            1017.86
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 1025.23,
+          "end": 1030.05,
+          "other_occupied_span": [
+            1023.73,
+            1031.55
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 1033.42,
+          "end": 1036.77,
+          "other_occupied_span": [
+            1031.92,
+            1038.27
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 1041.94,
+          "end": 1050.64,
+          "other_occupied_span": [
+            1040.44,
+            1052.14
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 1053.91,
+          "end": 1105.5,
+          "other_occupied_span": [
+            1052.41,
+            1107.0
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        }
+      ],
+      "stress_features": {
+        "backchannel": 24,
+        "trailing_filler": 28,
+        "multiple_sentences": 3
+      },
+      "chunk_id": "zh-stress-02",
+      "category": "stress",
+      "topic": "New mobile-phone product and target customers",
+      "casual_chat": false,
+      "tags": [
+        "work",
+        "product-planning",
+        "meeting"
+      ],
+      "selection": "deliberate-text-pattern-stress"
+    },
+    {
+      "id": "R8003_M8001_N_SPK8004",
+      "session": "R8003_M8001",
+      "speaker": "SPK8004",
+      "split": "Eval",
+      "audio": ".data/chinese/source/Eval_Ali/Eval_Ali_near/audio_dir/R8003_M8001_N_SPK8004.wav",
+      "textgrid": ".data/chinese/source/Eval_Ali/Eval_Ali_near/textgrid_dir/R8003_M8001_N_SPK8004.TextGrid",
+      "context_textgrid": ".data/chinese/source/Eval_Ali/Eval_Ali_far/textgrid_dir/R8003_M8001.TextGrid",
+      "channel_zero_based": 0,
+      "input_mode": "selected-participant-headset",
+      "duration": 200,
+      "sample_rate": 16000,
+      "sha256": "1e3762b3017bf836cb937dc773cdb7da1223994211a01d0c11385675ef8657ba",
+      "textgrid_sha256": "285fb2bf26701a74c2601d4b9e864356f5685412739b2b5eaa12a73a6610ad07",
+      "context_textgrid_sha256": "a015bbcc642596ad8e40de7578208510e920832d15320aa109a0e9e3256d7235",
+      "archive_member": "Eval_Ali/Eval_Ali_near/audio_dir/R8003_M8001_N_SPK8004.wav",
+      "source_url": "https://speech-lab-share-data.oss-cn-shanghai.aliyuncs.com/AliMeeting/openlr/Eval_Ali.tar.gz",
+      "license": "CC-BY-SA-4.0",
+      "source_start": 731.98,
+      "source_end": 1069.92,
+      "mapping": [
+        {
+          "source_start": 731.98,
+          "source_end": 734.0,
+          "playback_start": 0.0,
+          "playback_end": 2.019999999999982
+        },
+        {
+          "source_start": 735.87,
+          "source_end": 740.54,
+          "playback_start": 2.019999999999982,
+          "playback_end": 6.689999999999941
+        },
+        {
+          "source_start": 745.31,
+          "source_end": 751.16,
+          "playback_start": 6.689999999999941,
+          "playback_end": 12.539999999999964
+        },
+        {
+          "source_start": 756.55,
+          "source_end": 760.32,
+          "playback_start": 12.539999999999964,
+          "playback_end": 16.31000000000006
+        },
+        {
+          "source_start": 779.19,
+          "source_end": 783.93,
+          "playback_start": 16.31000000000006,
+          "playback_end": 21.049999999999955
+        },
+        {
+          "source_start": 787.23,
+          "source_end": 790.83,
+          "playback_start": 21.049999999999955,
+          "playback_end": 24.649999999999977
+        },
+        {
+          "source_start": 792.47,
+          "source_end": 808.25,
+          "playback_start": 24.649999999999977,
+          "playback_end": 40.42999999999995
+        },
+        {
+          "source_start": 820.32,
+          "source_end": 823.84,
+          "playback_start": 40.42999999999995,
+          "playback_end": 43.94999999999993
+        },
+        {
+          "source_start": 835.24,
+          "source_end": 838.49,
+          "playback_start": 43.94999999999993,
+          "playback_end": 47.19999999999993
+        },
+        {
+          "source_start": 838.8,
+          "source_end": 874.13,
+          "playback_start": 47.19999999999993,
+          "playback_end": 82.52999999999997
+        },
+        {
+          "source_start": 876.9,
+          "source_end": 895.8,
+          "playback_start": 82.52999999999997,
+          "playback_end": 101.42999999999995
+        },
+        {
+          "source_start": 898.66,
+          "source_end": 902.19,
+          "playback_start": 101.42999999999995,
+          "playback_end": 104.96000000000004
+        },
+        {
+          "source_start": 906.07,
+          "source_end": 913.0,
+          "playback_start": 104.96000000000004,
+          "playback_end": 111.88999999999999
+        },
+        {
+          "source_start": 918.19,
+          "source_end": 921.87,
+          "playback_start": 111.88999999999999,
+          "playback_end": 115.56999999999994
+        },
+        {
+          "source_start": 923.21,
+          "source_end": 926.76,
+          "playback_start": 115.56999999999994,
+          "playback_end": 119.11999999999989
+        },
+        {
+          "source_start": 950.95,
+          "source_end": 956.14,
+          "playback_start": 119.11999999999989,
+          "playback_end": 124.30999999999983
+        },
+        {
+          "source_start": 958.17,
+          "source_end": 968.12,
+          "playback_start": 124.30999999999983,
+          "playback_end": 134.25999999999988
+        },
+        {
+          "source_start": 972.51,
+          "source_end": 975.77,
+          "playback_start": 134.25999999999988,
+          "playback_end": 137.51999999999987
+        },
+        {
+          "source_start": 977.47,
+          "source_end": 981.04,
+          "playback_start": 137.51999999999987,
+          "playback_end": 141.0899999999998
+        },
+        {
+          "source_start": 984.66,
+          "source_end": 989.63,
+          "playback_start": 141.0899999999998,
+          "playback_end": 146.05999999999983
+        },
+        {
+          "source_start": 998.51,
+          "source_end": 1002.06,
+          "playback_start": 146.05999999999983,
+          "playback_end": 149.6099999999998
+        },
+        {
+          "source_start": 1002.56,
+          "source_end": 1006.16,
+          "playback_start": 149.6099999999998,
+          "playback_end": 153.2099999999998
+        },
+        {
+          "source_start": 1016.29,
+          "source_end": 1019.78,
+          "playback_start": 153.2099999999998,
+          "playback_end": 156.69999999999982
+        },
+        {
+          "source_start": 1021.44,
+          "source_end": 1025.23,
+          "playback_start": 156.69999999999982,
+          "playback_end": 160.48999999999978
+        },
+        {
+          "source_start": 1028.84,
+          "source_end": 1035.91,
+          "playback_start": 160.48999999999978,
+          "playback_end": 167.55999999999995
+        },
+        {
+          "source_start": 1036.47,
+          "source_end": 1039.83,
+          "playback_start": 167.55999999999995,
+          "playback_end": 170.91999999999985
+        },
+        {
+          "source_start": 1040.84,
+          "source_end": 1069.92,
+          "playback_start": 170.91999999999985,
+          "playback_end": 200.0
+        }
+      ],
+      "removed_gaps": [
+        {
+          "start": 734.0,
+          "end": 735.87,
+          "other_occupied_span": [
+            732.5,
+            737.37
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 740.54,
+          "end": 745.31,
+          "other_occupied_span": [
+            739.04,
+            746.81
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 751.16,
+          "end": 756.55,
+          "other_occupied_span": [
+            749.66,
+            758.05
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 760.32,
+          "end": 779.19,
+          "other_occupied_span": [
+            758.82,
+            780.69
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 783.93,
+          "end": 787.23,
+          "other_occupied_span": [
+            782.43,
+            788.73
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 790.83,
+          "end": 792.47,
+          "other_occupied_span": [
+            789.33,
+            793.97
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 808.25,
+          "end": 820.32,
+          "other_occupied_span": [
+            806.75,
+            821.82
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 823.84,
+          "end": 835.24,
+          "other_occupied_span": [
+            822.34,
+            836.74
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 838.49,
+          "end": 838.8,
+          "other_occupied_span": [
+            836.99,
+            840.3
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 874.13,
+          "end": 876.9,
+          "other_occupied_span": [
+            872.63,
+            878.4
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 895.8,
+          "end": 898.66,
+          "other_occupied_span": [
+            894.3,
+            900.16
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 902.19,
+          "end": 906.07,
+          "other_occupied_span": [
+            900.69,
+            907.57
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 913.0,
+          "end": 918.19,
+          "other_occupied_span": [
+            911.5,
+            919.69
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 921.87,
+          "end": 923.21,
+          "other_occupied_span": [
+            920.37,
+            924.71
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 926.76,
+          "end": 950.95,
+          "other_occupied_span": [
+            925.26,
+            952.45
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 956.14,
+          "end": 958.17,
+          "other_occupied_span": [
+            954.64,
+            959.67
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 968.12,
+          "end": 972.51,
+          "other_occupied_span": [
+            966.62,
+            974.01
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 975.77,
+          "end": 977.47,
+          "other_occupied_span": [
+            974.27,
+            978.97
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 981.04,
+          "end": 984.66,
+          "other_occupied_span": [
+            979.54,
+            986.16
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 989.63,
+          "end": 998.51,
+          "other_occupied_span": [
+            988.13,
+            1000.01
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 1002.06,
+          "end": 1002.56,
+          "other_occupied_span": [
+            1000.56,
+            1004.06
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 1006.16,
+          "end": 1016.29,
+          "other_occupied_span": [
+            1004.66,
+            1017.79
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 1019.78,
+          "end": 1021.44,
+          "other_occupied_span": [
+            1018.28,
+            1022.94
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 1025.23,
+          "end": 1028.84,
+          "other_occupied_span": [
+            1023.73,
+            1030.34
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 1035.91,
+          "end": 1036.47,
+          "other_occupied_span": [
+            1034.41,
+            1037.97
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 1039.83,
+          "end": 1040.84,
+          "other_occupied_span": [
+            1038.33,
+            1042.34
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        }
+      ],
+      "stress_features": {
+        "backchannel": 36,
+        "trailing_filler": 25,
+        "multiple_sentences": 2
+      },
+      "chunk_id": "zh-stress-03",
+      "category": "stress",
+      "topic": "Parents discussing Teachers' Day gifts and children",
+      "casual_chat": false,
+      "tags": [
+        "everyday-topic",
+        "family-school",
+        "discussion",
+        "casual-priority-fill"
+      ],
+      "selection": "deliberate-text-pattern-stress"
+    },
+    {
+      "id": "R8009_M8019_N_SPK8023",
+      "session": "R8009_M8019",
+      "speaker": "SPK8023",
+      "split": "Eval",
+      "audio": ".data/chinese/source/Eval_Ali/Eval_Ali_near/audio_dir/R8009_M8019_N_SPK8023.wav",
+      "textgrid": ".data/chinese/source/Eval_Ali/Eval_Ali_near/textgrid_dir/R8009_M8019_N_SPK8023.TextGrid",
+      "context_textgrid": ".data/chinese/source/Eval_Ali/Eval_Ali_far/textgrid_dir/R8009_M8019.TextGrid",
+      "channel_zero_based": 0,
+      "input_mode": "selected-participant-headset",
+      "duration": 149,
+      "sample_rate": 16000,
+      "sha256": "a92fd36ba707bff0fa4beb3d8bb9a04acdcc8c213125468e436784d2c8e62d8c",
+      "textgrid_sha256": "b33c5830f7a7761c16fa02c94398f8c13288d1e00f6f38f3b8526170b11edaaa",
+      "context_textgrid_sha256": "dd85bfb2b920ac064b61e1fb8a09ab378a9e10422b48d23cd3030e2f02271b7c",
+      "archive_member": "Eval_Ali/Eval_Ali_near/audio_dir/R8009_M8019_N_SPK8023.wav",
+      "source_url": "https://speech-lab-share-data.oss-cn-shanghai.aliyuncs.com/AliMeeting/openlr/Eval_Ali.tar.gz",
+      "license": "CC-BY-SA-4.0",
+      "source_start": 209.69,
+      "source_end": 409.04999999999995,
+      "mapping": [
+        {
+          "source_start": 209.69,
+          "source_end": 222.56,
+          "playback_start": 0.0,
+          "playback_end": 12.870000000000005
+        },
+        {
+          "source_start": 236.96,
+          "source_end": 252.73,
+          "playback_start": 12.870000000000005,
+          "playback_end": 28.639999999999986
+        },
+        {
+          "source_start": 258.67,
+          "source_end": 281.82,
+          "playback_start": 28.639999999999986,
+          "playback_end": 51.789999999999964
+        },
+        {
+          "source_start": 291.24,
+          "source_end": 311.47,
+          "playback_start": 51.789999999999964,
+          "playback_end": 72.01999999999998
+        },
+        {
+          "source_start": 326.52,
+          "source_end": 401.6,
+          "playback_start": 72.01999999999998,
+          "playback_end": 147.10000000000002
+        },
+        {
+          "source_start": 407.15,
+          "source_end": 409.04999999999995,
+          "playback_start": 147.10000000000002,
+          "playback_end": 149.0
+        }
+      ],
+      "removed_gaps": [
+        {
+          "start": 222.56,
+          "end": 236.96,
+          "other_occupied_span": [
+            221.06,
+            238.46
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 252.73,
+          "end": 258.67,
+          "other_occupied_span": [
+            251.23,
+            260.17
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 281.82,
+          "end": 291.24,
+          "other_occupied_span": [
+            280.32,
+            292.74
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 311.47,
+          "end": 326.52,
+          "other_occupied_span": [
+            309.97,
+            328.02
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 401.6,
+          "end": 407.15,
+          "other_occupied_span": [
+            400.1,
+            408.65
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        }
+      ],
+      "stress_features": {
+        "backchannel": 0,
+        "trailing_filler": 6,
+        "multiple_sentences": 0
+      },
+      "chunk_id": "zh-dev-01",
+      "category": "dev",
+      "topic": "International-student exchange event planning",
+      "casual_chat": false,
+      "tags": [
+        "work",
+        "event-planning",
+        "reserved-development"
+      ],
+      "selection": "fixed-seed-eligible-pool"
+    },
+    {
+      "id": "R8009_M8019_N_SPK8024",
+      "session": "R8009_M8019",
+      "speaker": "SPK8024",
+      "split": "Eval",
+      "audio": ".data/chinese/source/Eval_Ali/Eval_Ali_near/audio_dir/R8009_M8019_N_SPK8024.wav",
+      "textgrid": ".data/chinese/source/Eval_Ali/Eval_Ali_near/textgrid_dir/R8009_M8019_N_SPK8024.TextGrid",
+      "context_textgrid": ".data/chinese/source/Eval_Ali/Eval_Ali_far/textgrid_dir/R8009_M8019.TextGrid",
+      "channel_zero_based": 0,
+      "input_mode": "selected-participant-headset",
+      "duration": 149,
+      "sample_rate": 16000,
+      "sha256": "64f167e37f34a358fcaf3c4616984eacf89750612b1de5b97d68bc0e23d11fea",
+      "textgrid_sha256": "a332f5506b6bcb5d3f74f75b3c1681c453fb815d6d54108ad5ad29cfd2fdae68",
+      "context_textgrid_sha256": "dd85bfb2b920ac064b61e1fb8a09ab378a9e10422b48d23cd3030e2f02271b7c",
+      "archive_member": "Eval_Ali/Eval_Ali_near/audio_dir/R8009_M8019_N_SPK8024.wav",
+      "source_url": "https://speech-lab-share-data.oss-cn-shanghai.aliyuncs.com/AliMeeting/openlr/Eval_Ali.tar.gz",
+      "license": "CC-BY-SA-4.0",
+      "source_start": 841.13,
+      "source_end": 1112.36,
+      "mapping": [
+        {
+          "source_start": 841.13,
+          "source_end": 867.8,
+          "playback_start": 0.0,
+          "playback_end": 26.66999999999996
+        },
+        {
+          "source_start": 902.88,
+          "source_end": 906.34,
+          "playback_start": 26.66999999999996,
+          "playback_end": 30.129999999999995
+        },
+        {
+          "source_start": 910.28,
+          "source_end": 929.31,
+          "playback_start": 30.129999999999995,
+          "playback_end": 49.15999999999997
+        },
+        {
+          "source_start": 941.61,
+          "source_end": 962.76,
+          "playback_start": 49.15999999999997,
+          "playback_end": 70.30999999999995
+        },
+        {
+          "source_start": 975.5,
+          "source_end": 996.96,
+          "playback_start": 70.30999999999995,
+          "playback_end": 91.76999999999998
+        },
+        {
+          "source_start": 1010.73,
+          "source_end": 1027.2,
+          "playback_start": 91.76999999999998,
+          "playback_end": 108.24000000000001
+        },
+        {
+          "source_start": 1053.86,
+          "source_end": 1083.74,
+          "playback_start": 108.24000000000001,
+          "playback_end": 138.12000000000012
+        },
+        {
+          "source_start": 1101.48,
+          "source_end": 1112.36,
+          "playback_start": 138.12000000000012,
+          "playback_end": 149.0
+        }
+      ],
+      "removed_gaps": [
+        {
+          "start": 867.8,
+          "end": 902.88,
+          "other_occupied_span": [
+            866.3,
+            904.38
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 906.34,
+          "end": 910.28,
+          "other_occupied_span": [
+            904.84,
+            911.78
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 929.31,
+          "end": 941.61,
+          "other_occupied_span": [
+            927.81,
+            943.11
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 962.76,
+          "end": 975.5,
+          "other_occupied_span": [
+            961.26,
+            977.0
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 996.96,
+          "end": 1010.73,
+          "other_occupied_span": [
+            995.46,
+            1012.23
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 1027.2,
+          "end": 1053.86,
+          "other_occupied_span": [
+            1025.7,
+            1055.36
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        },
+        {
+          "start": 1083.74,
+          "end": 1101.48,
+          "other_occupied_span": [
+            1082.24,
+            1102.98
+          ],
+          "reason": "Target silent; other-speaker span reduced to 3s; target-silent shoulders retained."
+        }
+      ],
+      "stress_features": {
+        "backchannel": 1,
+        "trailing_filler": 1,
+        "multiple_sentences": 1
+      },
+      "chunk_id": "zh-dev-02",
+      "category": "dev",
+      "topic": "International-student exchange event planning",
+      "casual_chat": false,
+      "tags": [
+        "work",
+        "event-planning",
+        "reserved-development"
+      ],
+      "selection": "fixed-seed-eligible-pool"
+    }
+  ],
+  "heldout_candidates": [
+    {
+      "track_id": "R8009_M8020_N_SPK8025",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8025:SPK8025:29",
+        "speaker": "SPK8025",
+        "start": 124.41,
+        "end": 124.82,
+        "text": "嗯。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8025",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8025:SPK8025:43",
+        "speaker": "SPK8025",
+        "start": 205.91,
+        "end": 206.66,
+        "text": "两个人。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8025",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8025:SPK8025:119",
+        "speaker": "SPK8025",
+        "start": 533.18,
+        "end": 536.02,
+        "text": "就是一百五十块钱每个人嘛，不论男女。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8025",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8025:SPK8025:76",
+        "speaker": "SPK8025",
+        "start": 380.19,
+        "end": 383.27,
+        "text": "就是说，我刚刚说的，听到你说的那个里面。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8025",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8025:SPK8025:296",
+        "speaker": "SPK8025",
+        "start": 1135.9,
+        "end": 1137.35,
+        "text": "那种状态，对不对。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8025",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8025:SPK8025:223",
+        "speaker": "SPK8025",
+        "start": 894.93,
+        "end": 897.14,
+        "text": "太长了，肯定不利于我们的一个。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8025",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8025:SPK8025:81",
+        "speaker": "SPK8025",
+        "start": 391.5,
+        "end": 393.56,
+        "text": "嗯，也可以啊，男士女士都可以。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8025",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8025:SPK8025:344",
+        "speaker": "SPK8025",
+        "start": 1344.67,
+        "end": 1347.91,
+        "text": "男性保护女性，或者男性教女性的一些。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8025",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8025:SPK8025:104",
+        "speaker": "SPK8025",
+        "start": 460.8,
+        "end": 462.53,
+        "text": "费用的呢？相关费用。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8025",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8025:SPK8025:238",
+        "speaker": "SPK8025",
+        "start": 935.79,
+        "end": 936.35,
+        "text": "是吧？"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8025",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8025:SPK8025:111",
+        "speaker": "SPK8025",
+        "start": 504.44,
+        "end": 506.12,
+        "text": "来这个获得这个。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8025",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8025:SPK8025:379",
+        "speaker": "SPK8025",
+        "start": 1557.18,
+        "end": 1560.17,
+        "text": "对啊，这不是，我的我的那个意思就是说。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8025",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8025:SPK8025:331",
+        "speaker": "SPK8025",
+        "start": 1312.02,
+        "end": 1318.61,
+        "text": "男性能够保护女性，就是男性，变得像一个王子，一个英雄一样能够去保护他的这个。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8025",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8025:SPK8025:255",
+        "speaker": "SPK8025",
+        "start": 983.58,
+        "end": 986.81,
+        "text": "我们可，我们这边可以给他们提供一些心理测试。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8025",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8025:SPK8025:135",
+        "speaker": "SPK8025",
+        "start": 573.99,
+        "end": 574.76,
+        "text": "点心。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8025",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8025:SPK8025:22",
+        "speaker": "SPK8025",
+        "start": 104.48,
+        "end": 106.19,
+        "text": "小森林嘛，小型森林。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8025",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8025:SPK8025:209",
+        "speaker": "SPK8025",
+        "start": 849.15,
+        "end": 849.68,
+        "text": "你。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8025",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8025:SPK8025:256",
+        "speaker": "SPK8025",
+        "start": 987.39,
+        "end": 988.1,
+        "text": "题目。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8025",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8025:SPK8025:428",
+        "speaker": "SPK8025",
+        "start": 1725.76,
+        "end": 1727.15,
+        "text": "就是兴趣爱好啊。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8025",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8025:SPK8025:390",
+        "speaker": "SPK8025",
+        "start": 1582.54,
+        "end": 1583.18,
+        "text": "哪怕。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8025",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8025:SPK8025:124",
+        "speaker": "SPK8025",
+        "start": 547.05,
+        "end": 548.42,
+        "text": "给他匹配的。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8025",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8025:SPK8025:51",
+        "speaker": "SPK8025",
+        "start": 231.51,
+        "end": 232.28,
+        "text": "可以可以。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8025",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8025:SPK8025:251",
+        "speaker": "SPK8025",
+        "start": 973.59,
+        "end": 976.95,
+        "text": "它都是比较一个静态的，了解对方的一个过程。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8025",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8025:SPK8025:481",
+        "speaker": "SPK8025",
+        "start": 1836.62,
+        "end": 1838.76,
+        "text": "然后他们的报名费用的话，是。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8025",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8025:SPK8025:31",
+        "speaker": "SPK8025",
+        "start": 157.1,
+        "end": 157.44,
+        "text": "嗯。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8025",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8025:SPK8025:145",
+        "speaker": "SPK8025",
+        "start": 601.6,
+        "end": 602.74,
+        "text": "以及这个。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8025",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8025:SPK8025:117",
+        "speaker": "SPK8025",
+        "start": 530.16,
+        "end": 532.08,
+        "text": "就是，就是这样一个状态哈。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8025",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8025:SPK8025:195",
+        "speaker": "SPK8025",
+        "start": 802.5,
+        "end": 805.25,
+        "text": "互相了解的，我觉得都是ok的，对吧。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8025",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8025:SPK8025:264",
+        "speaker": "SPK8025",
+        "start": 1027.0,
+        "end": 1027.48,
+        "text": "嗯。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8025",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8025:SPK8025:59",
+        "speaker": "SPK8025",
+        "start": 271.38,
+        "end": 273.67,
+        "text": "双流区，江家艺苑那边。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8025",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8025:SPK8025:170",
+        "speaker": "SPK8025",
+        "start": 682.32,
+        "end": 683.07,
+        "text": "就。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8025",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8025:SPK8025:419",
+        "speaker": "SPK8025",
+        "start": 1703.58,
+        "end": 1705.6,
+        "text": "就说总结来说，就是。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8025",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8025:SPK8025:318",
+        "speaker": "SPK8025",
+        "start": 1270.08,
+        "end": 1272.65,
+        "text": "啊，你说的这个倒是触动我了，就是。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8025",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8025:SPK8025:300",
+        "speaker": "SPK8025",
+        "start": 1163.73,
+        "end": 1164.83,
+        "text": "亲密互动你。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8025",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8025:SPK8025:293",
+        "speaker": "SPK8025",
+        "start": 1130.28,
+        "end": 1131.74,
+        "text": "唉，真的是希望。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8026",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8026:SPK8026:256",
+        "speaker": "SPK8026",
+        "start": 1234.15,
+        "end": 1235.54,
+        "text": "然后另一边就。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8026",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8026:SPK8026:18",
+        "speaker": "SPK8026",
+        "start": 58.11,
+        "end": 63.04,
+        "text": "我觉得杜甫草草堂就不错呀，杜甫草堂也挺大的，然后晚上。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8026",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8026:SPK8026:220",
+        "speaker": "SPK8026",
+        "start": 1069.8,
+        "end": 1071.86,
+        "text": "唉，我们这样嘛，不是，我刚刚说。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8026",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8026:SPK8026:105",
+        "speaker": "SPK8026",
+        "start": 473.44,
+        "end": 476.02,
+        "text": "我开始是定的，四个。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8026",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8026:SPK8026:49",
+        "speaker": "SPK8026",
+        "start": 209.43,
+        "end": 210.17,
+        "text": "可以。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8026",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8026:SPK8026:168",
+        "speaker": "SPK8026",
+        "start": 820.54,
+        "end": 822.41,
+        "text": "他们自己准备的一些小礼品。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8026",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8026:SPK8026:19",
+        "speaker": "SPK8026",
+        "start": 63.04,
+        "end": 65.29,
+        "text": "休息的人也特别的多。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8026",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8026:SPK8026:139",
+        "speaker": "SPK8026",
+        "start": 717.45,
+        "end": 719.6,
+        "text": "自己选择的异性有一些了解。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8026",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8026:SPK8026:78",
+        "speaker": "SPK8026",
+        "start": 340.81,
+        "end": 342.2,
+        "text": "五点到。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8026",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8026:SPK8026:290",
+        "speaker": "SPK8026",
+        "start": 1407.33,
+        "end": 1412.87,
+        "text": "嗯，送一些小礼送，我们也可以送，最最终牵手成功，我们可以送。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8026",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8026:SPK8026:244",
+        "speaker": "SPK8026",
+        "start": 1177.1,
+        "end": 1177.9,
+        "text": "啊。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8026",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8026:SPK8026:35",
+        "speaker": "SPK8026",
+        "start": 148.68,
+        "end": 153.13,
+        "text": "就刚开始报名的话，我们收取的费用是两百个人。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8026",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8026:SPK8026:297",
+        "speaker": "SPK8026",
+        "start": 1430.46,
+        "end": 1434.55,
+        "text": "扩展一下力度了，然后就说，送机票去三亚。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8026",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8026:SPK8026:235",
+        "speaker": "SPK8026",
+        "start": 1137.96,
+        "end": 1138.52,
+        "text": "对。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8026",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8026:SPK8026:268",
+        "speaker": "SPK8026",
+        "start": 1310.58,
+        "end": 1312.12,
+        "text": "嗯，保护嘛。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8026",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8026:SPK8026:124",
+        "speaker": "SPK8026",
+        "start": 640.93,
+        "end": 645.62,
+        "text": "然后我觉得可以戴面具，因为现在的人都比较。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8026",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8026:SPK8026:230",
+        "speaker": "SPK8026",
+        "start": 1101.38,
+        "end": 1105.19,
+        "text": "不限场次，我的意思是他可以来四次。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8026",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8026:SPK8026:5",
+        "speaker": "SPK8026",
+        "start": 21.12,
+        "end": 21.71,
+        "text": "好的。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8026",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8026:SPK8026:43",
+        "speaker": "SPK8026",
+        "start": 185.76,
+        "end": 187.6,
+        "text": "海报的话。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8026",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8026:SPK8026:267",
+        "speaker": "SPK8026",
+        "start": 1302.63,
+        "end": 1303.43,
+        "text": "啊，您说。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8026",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8026:SPK8026:307",
+        "speaker": "SPK8026",
+        "start": 1459.43,
+        "end": 1462.17,
+        "text": "因为会员制，这就算你一次牵手成功了。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8026",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8026:SPK8026:365",
+        "speaker": "SPK8026",
+        "start": 1904.52,
+        "end": 1906.52,
+        "text": "然后，您注意查收一下。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8026",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8026:SPK8026:53",
+        "speaker": "SPK8026",
+        "start": 227.68,
+        "end": 229.96,
+        "text": "确定一下，您最终。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8026",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8026:SPK8026:271",
+        "speaker": "SPK8026",
+        "start": 1323.43,
+        "end": 1324.39,
+        "text": "然后只是是说。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8026",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8026:SPK8026:121",
+        "speaker": "SPK8026",
+        "start": 626.97,
+        "end": 634.01,
+        "text": "有半个小时的才艺表演，有一些嘉宾如果愿意的话，可以进行一个才艺表演，也可以吸吸引。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8026",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8026:SPK8026:61",
+        "speaker": "SPK8026",
+        "start": 253.32,
+        "end": 254.27,
+        "text": "这样。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8026",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8026:SPK8026:154",
+        "speaker": "SPK8026",
+        "start": 776.15,
+        "end": 780.38,
+        "text": "提供饮料，这样，因为白天会口渴嘛，提供饮料，但是。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8026",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8026:SPK8026:126",
+        "speaker": "SPK8026",
+        "start": 649.1,
+        "end": 651.74,
+        "text": "可以先戴面具，就没有那么。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8026",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8026:SPK8026:175",
+        "speaker": "SPK8026",
+        "start": 848.94,
+        "end": 853.43,
+        "text": "呃，可能是需要白天，晚上的话，我觉得会有一定的风险性。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8026",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8026:SPK8026:40",
+        "speaker": "SPK8026",
+        "start": 169.04,
+        "end": 174.47,
+        "text": "那我们开幕式的话就定一个草地吗？是双流的那边一个草地，是吗？"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8026",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8026:SPK8026:20",
+        "speaker": "SPK8026",
+        "start": 65.29,
+        "end": 69.02,
+        "text": "这个地方的活跃空间也比较大。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8026",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8026:SPK8026:255",
+        "speaker": "SPK8026",
+        "start": 1230.73,
+        "end": 1234.15,
+        "text": "呃，一个场所，但一边是共同区域。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8026",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8026:SPK8026:249",
+        "speaker": "SPK8026",
+        "start": 1191.42,
+        "end": 1192.22,
+        "text": "共同。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8026",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8026:SPK8026:47",
+        "speaker": "SPK8026",
+        "start": 195.59,
+        "end": 197.9,
+        "text": "比较浪漫的照片。"
+      }
+    },
+    {
+      "track_id": "R8009_M8020_N_SPK8026",
+      "segment": {
+        "id": "R8009_M8020_N_SPK8026:SPK8026:248",
+        "speaker": "SPK8026",
+        "start": 1186.53,
+        "end": 1191.08,
+        "text": "游泳的地方，然后第二个就男性，还有个三就是共共。"
+      }
+    }
+  ],
+  "eligibility": [
+    "Official Eval participant headset only; complete human utterances at boundaries.",
+    "2-5min transformed chunks; target annotated speech at least 15%.",
+    "Session-disjoint main/development/isolated; no main source interval reused.",
+    "General prioritizes curation-tagged casual sessions; fixed Python random seed.",
+    "Stress separate, ranked by annotated backchannels/trailing fillers/multi-sentence speech.",
+    "No result-dependent clip choice."
+  ],
+  "directions": [
+    "D3",
+    "D5"
+  ],
+  "same_audio": true
+}

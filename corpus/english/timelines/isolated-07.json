@@ -1,0 +1,163 @@
+{
+  "schema_version": 1,
+  "clip_id": "isolated-07",
+  "timebase": "integer frames at 48000 Hz; intervals half-open; zero-width punctuation retained",
+  "frames": 9600,
+  "reference_level": "human transcript/manual dialogue acts; automatically forced-aligned source word times; not independently verified",
+  "source_to_playback": [
+    {
+      "source_start": 42935040,
+      "source_end": 42944640,
+      "playback_start": 0,
+      "playback_end": 9600
+    }
+  ],
+  "removed": [],
+  "padding": [],
+  "words_and_events": [
+    {
+      "id": "TS3007a.D.words414",
+      "speaker": "D",
+      "timing_valid": true,
+      "source_start": 42935040,
+      "source_end": 42935040,
+      "text": ",",
+      "kind": "w",
+      "punctuation": true,
+      "truncated": false,
+      "sound_type": null,
+      "dialogue_act": "TS3007a.D.dialog-act.vkaraisk.105",
+      "playback_parts": [
+        [
+          0,
+          0
+        ]
+      ],
+      "playback_start": 0,
+      "playback_end": 0,
+      "scored": false,
+      "fully_retained": true,
+      "reference_role": "target"
+    },
+    {
+      "id": "TS3007a.D.words415",
+      "speaker": "D",
+      "timing_valid": true,
+      "source_start": 42935040,
+      "source_end": 42944640,
+      "text": "and",
+      "kind": "w",
+      "punctuation": false,
+      "truncated": false,
+      "sound_type": null,
+      "dialogue_act": "TS3007a.D.dialog-act.vkaraisk.106",
+      "playback_parts": [
+        [
+          0,
+          9600
+        ]
+      ],
+      "playback_start": 0,
+      "playback_end": 9600,
+      "scored": true,
+      "fully_retained": true,
+      "reference_role": "target"
+    }
+  ],
+  "sentences": [
+    {
+      "id": "TS3007a.D.dialog-act.vkaraisk.105",
+      "speaker": "D",
+      "type": "ami_da_9",
+      "word_ids": [
+        "TS3007a.D.words396",
+        "TS3007a.D.words397",
+        "TS3007a.D.words398",
+        "TS3007a.D.words399",
+        "TS3007a.D.words400",
+        "TS3007a.D.words401",
+        "TS3007a.D.words402",
+        "TS3007a.D.words403",
+        "TS3007a.D.words404",
+        "TS3007a.D.words405",
+        "TS3007a.D.words406",
+        "TS3007a.D.words407",
+        "TS3007a.D.words408",
+        "TS3007a.D.words409",
+        "TS3007a.D.words410",
+        "TS3007a.D.words411",
+        "TS3007a.D.words412",
+        "TS3007a.D.words413",
+        "TS3007a.D.words414"
+      ],
+      "source_start": 42651360,
+      "source_end": 42935040,
+      "playback_parts": [],
+      "playback_start": 0,
+      "playback_end": 0,
+      "retained_word_ids": [
+        "TS3007a.D.words414"
+      ],
+      "text": ",",
+      "partial": true,
+      "scored": true,
+      "unit": "manual_dialogue_act_not_grammatical_sentence"
+    },
+    {
+      "id": "TS3007a.D.dialog-act.vkaraisk.106",
+      "speaker": "D",
+      "type": "ami_da_3",
+      "word_ids": [
+        "TS3007a.D.words415",
+        "TS3007a.D.words416"
+      ],
+      "source_start": 42935040,
+      "source_end": 42944640,
+      "playback_parts": [
+        [
+          0,
+          9600
+        ]
+      ],
+      "playback_start": 0,
+      "playback_end": 9600,
+      "retained_word_ids": [
+        "TS3007a.D.words415"
+      ],
+      "text": "and",
+      "partial": false,
+      "scored": true,
+      "unit": "manual_dialogue_act_not_grammatical_sentence"
+    }
+  ],
+  "turns": [
+    {
+      "id": "isolated-07.turn0",
+      "speaker": "D",
+      "playback_start": 0,
+      "playback_end": 9600,
+      "word_ids": [
+        "TS3007a.D.words415"
+      ],
+      "text": "and"
+    }
+  ],
+  "topics": [
+    {
+      "id": "TS3007a.topic.palmer.7",
+      "types": [
+        "default-topics.xml#id(top.212)"
+      ],
+      "other_description": null,
+      "source_start": 15430560,
+      "source_end": 46590432,
+      "playback_parts": [
+        [
+          0,
+          9600
+        ]
+      ]
+    }
+  ],
+  "stress_candidates": []
+}

@@ -1,0 +1,79 @@
+{
+  "result": "Real original AliMeeting Eval local playback and reference preparation completed for Chinese D3/D5; no publication performed or required under the owner's revised issue #2 completion scope.",
+  "manifest": "corpus/chinese/manifest.json",
+  "implemented_surfaces": ["tools/prepare_chinese.py", "tests/test_chinese_preparation.py", "tests/test_chinese_real.py", "corpus/chinese/* metadata", ".data/chinese/* local-only acquisition/models/alignment/audio/venv"],
+  "setup_powershell": [
+    "py -3.12 -m venv .data/chinese/venv",
+    "$env:PIP_CACHE_DIR = \"$PWD/.data/chinese/cache/pip\"",
+    ".data/chinese/venv/Scripts/python.exe -m pip install torch==2.14.1 --index-url https://download.pytorch.org/whl/cpu",
+    ".data/chinese/venv/Scripts/python.exe -m pip install qwen-asr==0.0.6 jieba==0.42.1 numpy==2.5.4 pytest==9.1.1"
+  ],
+  "reproduce": [
+    ".data/chinese/venv/Scripts/python.exe -X utf8 tools/prepare_chinese.py acquire",
+    ".data/chinese/venv/Scripts/python.exe -X utf8 tools/prepare_chinese.py select",
+    ".data/chinese/venv/Scripts/python.exe -X utf8 tools/prepare_chinese.py align --threads 4",
+    ".data/chinese/venv/Scripts/python.exe -X utf8 tools/prepare_chinese.py build"
+  ],
+  "dependency_note": "ffmpeg 8.0.1 is on PATH. Dedicated Python 3.12.10 environment; CPU torch 2.14.1+cpu, transformers 4.57.6, qwen-asr 0.0.6, numpy 2.5.4, jieba 0.42.1. All corpus/model artifacts are under .data/chinese. No paid service used.",
+  "actual_totals": {
+    "official_archive_bytes": 3673718355,
+    "official_archive_sha256": "dc47343b2474b5ebcf458927e878155f6ddeb59c85e685b3645c32a1f9578d92",
+    "official_archive_entries_inspected": 73,
+    "embedded_notice_filename_matches": 0,
+    "extracted_headset_files": 25,
+    "original_eval_sessions": 8,
+    "main_seconds": 1800,
+    "general_seconds_including_following_separators": 1200,
+    "stress_seconds_including_internal_separators": 600,
+    "main_chunk_audio_seconds_excluding_separators": 1784,
+    "main_interchunk_silence_seconds": 16,
+    "main_original_source_span_seconds": 2766.49,
+    "main_other_speaker_gap_seconds_removed": 982.49,
+    "main_human_annotated_scored_target_speech_seconds": 966.41,
+    "main_chunks": 9,
+    "main_original_sessions": 6,
+    "main_rotating_target_speakers": 9,
+    "main_words": 2899,
+    "main_sentences": 380,
+    "main_speaker_change_turns": 916,
+    "dev_seconds": 300,
+    "dev_chunks": 2,
+    "dev_words": 599,
+    "dev_session": "R8009_M8019",
+    "isolated_D3_utterances": 20,
+    "isolated_D3_seconds": 40.97,
+    "isolated_session": "R8009_M8020",
+    "isolated_tag_counts_nonexclusive": {"short": 12, "long": 1, "internally_paused_alignment_estimated": 3},
+    "verified_unprompted_casual_general_proportion": 0.0,
+    "everyday_topic_general_chunks": 2,
+    "stress_text_pattern_candidate_counts_nonexclusive": {"backchannel": 88, "trailing_particle_or_filler": 81, "multiple_sentences_in_human_segment": 7},
+    "stress_model_estimated_internal_gaps_ge_300ms": 46
+  },
+  "asset_checksums": {
+    ".data/chinese/audio/zh-main.wav": "4f869813efa8b820fbdc2e7e01ebe6406acfd206286a44d88c0ccc18907818ae",
+    ".data/chinese/audio/zh-dev.wav": "360258012c6c9b0a1e525973608f7edf54b4ea89ecfd0735b02670953eb3a140",
+    "other_assets": "Per-chunk, isolated, source WAV and source TextGrid checksums are in manifest.json and inventory.json."
+  },
+  "verification_rationale": "A correct-duration WAV and internally consistent generated JSON could still contain the wrong headset or wrong cuts. Alongside mapping/lexical-preservation/frame/separator invariants, six real 250ms output windows were compared against independent ffmpeg crops from their exact source headset and source-to-playback map. This closes the concrete wrong-audio/wrong-cut gap without a transcription study.",
+  "checks_exercised": [
+    {"command": ".data/chinese/venv/Scripts/python.exe -m pytest tests/test_chinese_preparation.py tests/test_chinese_real.py -q", "outcome": "14 passed in 1.19s, no skips", "scope": "10 deterministic regression tests and 4 actual-material smoke tests. Exact 48kHz mono PCM frames, exact two-second interchunk zeros, emitted/source checksums, immutable human lexical text in the first three transformed clips, all their word/sentence mappings, six real mapped-headset waveform windows with correlation greater than 0.98, rotating speakers, session-disjoint main/dev/20 isolated utterances."},
+    {"command": "tools/prepare_chinese.py acquire", "outcome": "Original 3.42GiB Eval archive downloaded in 76.35s, SHA-256 computed, all archive entries enumerated, original near WAVs/TextGrids and far context TextGrids extracted. No third-party mirror used."},
+    {"command": "tools/prepare_chinese.py align --threads 4, first dedicated-aligner attempt", "outcome": "532 real human segments exercised; 520 raw primary alignments accepted, 12 out-of-range/reversed predictions rejected and retained as evidence. Run exited nonzero instead of filling times."},
+    {"command": "tools/prepare_chinese.py align --threads 4 && tools/prepare_chinese.py build, repaired attempt", "outcome": "All 12 rejected segments genuinely CTC-aligned: 11 with filler-capable wbbbbb and one Latin-bearing segment with jonatasgrosman. No uninitialized/mismatched model parameters accepted. No unresolved alignment failures. Full 1800s main, 300s dev and 20 isolated utterances built. Combined repair/build command completed in 180.54s."},
+    {"command": "Cached tools/prepare_chinese.py align + build + original 14 Chinese tests", "outcome": "Director-reported observation: cached alignment and build completed, and all 14 tests passed in 1.15s. Cached-report evidence persistence branch is therefore exercised; this replaces the earlier unobserved-branch limitation.", "observer": "Director"},
+    {"command": ".data/chinese/venv/Scripts/python.exe -m pytest tests/test_chinese_preparation.py tests/test_chinese_real.py -q, after local-smoke gate repair", "outcome": "17 passed in 2.80s, no outer skips. The four actual prepared-data smoke tests ran with unchanged assertions. Three new isolated staging regressions passed: tracked manifest plus absent ignored .data collects and skips all four real-data smoke tests with the explicit missing-main-WAV reason; a present corrupt main WAV fails rather than skips; a present main WAV with missing source inventory also fails rather than skips. Staging copied only the preparation module, real-data test module and tracked manifest into pytest temporary directories; no real local audio was deleted, moved or replaced."}
+  ],
+  "evidence_reuse_limit": "Director exercised cached alignment plus build and reported 14 tests passing in 1.15s, including cached-report persistence. After the bounded integration repair, the worker observed 17 tests passing in 2.80s: unchanged real-data assertions ran against prepared local audio, while isolated temporary checkouts demonstrated four clear skips without ignored audio and preserved failures for corrupt/incomplete prepared state. The gate depends only on actual local main WAV file availability, never tracked manifest availability. Director retains final integrated acceptance.",
+  "limitations_and_unresolved_records": [
+    "Verified unprompted casual proportion is conservatively zero: AliMeeting Eval is recorded discussion/meeting material. Everyday family/school and shopping topics were prioritized and tagged; they are not falsely labeled spontaneous casual chat.",
+    "Human lexical text and speaker labels are retained. Word timings are automatic estimates, not human timing verification. Main references explicitly retain 20 zero-length word estimates and 49 overlapping-adjacent-word estimates rather than inventing durations or silently deleting words.",
+    "Internal-pause counts and isolated internally-paused tags are alignment-estimated candidates, not listening-confirmed pauses. Backchannel/filler counts are disclosed text-pattern candidate counts; sentence-final particles can be pragmatically ambiguous.",
+    "Punctuation restoration appends only a terminal full stop when absent in a human source segment; these segment-based boundaries are uncertain and not a new human linguistic annotation.",
+    "No human listening/transcription-validation study was performed. The actual-material smoke uses waveform, mapping and transcript inspections, not fabricated listening claims. A short listening spot-check before benchmark freeze remains a useful Director/owner observation.",
+    "CC BY-SA 4.0 applies to adapted Chinese audio/transcripts/timelines, with attribution/change notices. Privacy/publicity/personality rights are not blanket-granted. Future publication/video adaptation still needs the applicable attribution and ShareAlike compliance; publication is not required for this revised local-preparation completion."
+  ],
+  "common_clip_shortlist": ["zh-general-01", "zh-general-02", "zh-stress-03"],
+  "shortlist_status": "Chosen before application results; no application results inspected.",
+  "proposed_director_documentation": "Document the Windows setup/reproduction commands above; point D3 and D5 at the identical .data/chinese/audio/zh-main.wav and shared manifest. Disclose 20m general plus 10m separately selected stress including separators, 5m reserved dev, 20 heldout D3 clips, fixed seed 20261020, conservative zero verified-casual proportion, human lexical/automatic timing reference level and listed uncertainty. Preserve Chinese CC BY-SA 4.0 rather than repository MIT. HF publication is not a revised completion requirement. No shared README/config/Git edits were made by this worker.",
+  "director_integration_checks": ["Run the final integrated test suite once after sibling changes land.", "Review the short actual Chinese examples and uncertainty fields before freeze; do not describe them as manually re-timed or listened-to by this worker.", "Integrate maintained docs and commit/push under Director authority; audio/models/downloads stay untracked in .data."]
+}

@@ -1,0 +1,132 @@
+{
+  "model": "Qwen/Qwen3-ForcedAligner-0.6B",
+  "revision": "c7cbfc2048c462b0d63a45797104fc9db3ad62b7",
+  "requested": 532,
+  "newly_aligned_primary": 0,
+  "primary_failures": [
+    {
+      "id": "R8007_M8011_N_SPK8066:SPK8066:22",
+      "text": "对。",
+      "reason": "Invalid raw model timing for 对: 0.0-0.32; refusing interpolation."
+    },
+    {
+      "id": "R8007_M8011_N_SPK8066:SPK8066:33",
+      "text": "好。",
+      "reason": "Invalid raw model timing for 好: 0.0-0.56; refusing interpolation."
+    },
+    {
+      "id": "R8007_M8010_N_SPK8056:SPK8056:60",
+      "text": "呃呃，好好。",
+      "reason": "Invalid raw model timing for 呃: 0.96-0.16; refusing interpolation."
+    },
+    {
+      "id": "R8008_M8013_N_SPK8047:SPK8047:75",
+      "text": "然后就实现市场发展目标，他们还得组织并策划各类市场营销活动方案，因为现在肯定都跟市场接轨了嘛，就有很多活动需要他们来策划一下。",
+      "reason": "Invalid raw model timing for 下: 13.28-13.52; refusing interpolation."
+    },
+    {
+      "id": "R8008_M8013_N_SPK8047:SPK8047:86",
+      "text": "两千。",
+      "reason": "Invalid raw model timing for 千: 0.24-0.56; refusing interpolation."
+    },
+    {
+      "id": "R8008_M8013_N_SPK8047:SPK8047:95",
+      "text": "他们那个，我觉得营销部经理和市场部经理最好是大学学的是那种营销专业，对市场营销嘛。",
+      "reason": "Invalid raw model timing for 嘛: 11.2-11.6; refusing interpolation."
+    },
+    {
+      "id": "R8009_M8018_N_SPK8022:SPK8022:75",
+      "text": "嗯基本工资是我们是要必须付的。",
+      "reason": "Invalid raw model timing for 要: 1.6-1.28; refusing interpolation."
+    },
+    {
+      "id": "R8007_M8010_N_SPK8050:SPK8050:93",
+      "text": "吸烟室能能整啥的，嗯啊啊。",
+      "reason": "Invalid raw model timing for 啊: 4.08-3.84; refusing interpolation."
+    },
+    {
+      "id": "R8007_M8010_N_SPK8050:SPK8050:110",
+      "text": "刷漆，嗯白色的，呃乳乳胶漆，刷刷白色就行。",
+      "reason": "Invalid raw model timing for 行: 5.36-5.6; refusing interpolation."
+    },
+    {
+      "id": "R8001_M8004_N_SPK8015:SPK8015:64",
+      "text": "都带logo。对对对对。",
+      "reason": "Invalid raw model timing for g: 1.28-0.48; refusing interpolation."
+    },
+    {
+      "id": "R8001_M8004_N_SPK8015:SPK8015:73",
+      "text": "对。",
+      "reason": "Invalid raw model timing for 对: 0.0-0.56; refusing interpolation."
+    },
+    {
+      "id": "R8009_M8020_N_SPK8025:SPK8025:419",
+      "text": "就说总结来说，就是。",
+      "reason": "Invalid raw model timing for 说: 0.64-0.4; refusing interpolation."
+    }
+  ],
+  "ctc_repairs": [
+    {
+      "id": "R8007_M8011_N_SPK8066:SPK8066:22",
+      "model": "wbbbbb/wav2vec2-large-chinese-zh-cn",
+      "revision": "b654b5f3df69725df32808de454a1b865c829e4c"
+    },
+    {
+      "id": "R8007_M8011_N_SPK8066:SPK8066:33",
+      "model": "wbbbbb/wav2vec2-large-chinese-zh-cn",
+      "revision": "b654b5f3df69725df32808de454a1b865c829e4c"
+    },
+    {
+      "id": "R8007_M8010_N_SPK8056:SPK8056:60",
+      "model": "wbbbbb/wav2vec2-large-chinese-zh-cn",
+      "revision": "b654b5f3df69725df32808de454a1b865c829e4c"
+    },
+    {
+      "id": "R8008_M8013_N_SPK8047:SPK8047:75",
+      "model": "wbbbbb/wav2vec2-large-chinese-zh-cn",
+      "revision": "b654b5f3df69725df32808de454a1b865c829e4c"
+    },
+    {
+      "id": "R8008_M8013_N_SPK8047:SPK8047:86",
+      "model": "wbbbbb/wav2vec2-large-chinese-zh-cn",
+      "revision": "b654b5f3df69725df32808de454a1b865c829e4c"
+    },
+    {
+      "id": "R8008_M8013_N_SPK8047:SPK8047:95",
+      "model": "wbbbbb/wav2vec2-large-chinese-zh-cn",
+      "revision": "b654b5f3df69725df32808de454a1b865c829e4c"
+    },
+    {
+      "id": "R8009_M8018_N_SPK8022:SPK8022:75",
+      "model": "wbbbbb/wav2vec2-large-chinese-zh-cn",
+      "revision": "b654b5f3df69725df32808de454a1b865c829e4c"
+    },
+    {
+      "id": "R8007_M8010_N_SPK8050:SPK8050:93",
+      "model": "wbbbbb/wav2vec2-large-chinese-zh-cn",
+      "revision": "b654b5f3df69725df32808de454a1b865c829e4c"
+    },
+    {
+      "id": "R8007_M8010_N_SPK8050:SPK8050:110",
+      "model": "wbbbbb/wav2vec2-large-chinese-zh-cn",
+      "revision": "b654b5f3df69725df32808de454a1b865c829e4c"
+    },
+    {
+      "id": "R8001_M8004_N_SPK8015:SPK8015:64",
+      "model": "jonatasgrosman/wav2vec2-large-xlsr-53-chinese-zh-cn",
+      "revision": "99ccb2737be22b8bb50dcfcc39ad4d567fb90cfd"
+    },
+    {
+      "id": "R8001_M8004_N_SPK8015:SPK8015:73",
+      "model": "wbbbbb/wav2vec2-large-chinese-zh-cn",
+      "revision": "b654b5f3df69725df32808de454a1b865c829e4c"
+    },
+    {
+      "id": "R8009_M8020_N_SPK8025:SPK8025:419",
+      "model": "wbbbbb/wav2vec2-large-chinese-zh-cn",
+      "revision": "b654b5f3df69725df32808de454a1b865c829e4c"
+    }
+  ],
+  "failures": [],
+  "timestamp_repair": "Disabled upstream fix_timestamp: invalid predictions receive genuine vocabulary-covered CTC alignment, never interpolation."
+}

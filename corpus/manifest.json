@@ -1,0 +1,564 @@
+{
+  "schema_version": 1,
+  "local_revision": "issue-2-local-v1",
+  "status": "local_preparation_not_public_dataset_or_main_run_freeze",
+  "authority": "https://github.com/kapitalismho/vrc-translator-bench/issues/2#issuecomment-6282606626",
+  "publication": {
+    "hugging_face_repository": null,
+    "hugging_face_revision": null,
+    "authorized": false,
+    "scope": "Owner replaced HF publication criterion with local artifacts and rights/unresolved records; no public retrievability claimed"
+  },
+  "directions": [
+    {
+      "id": "D1",
+      "source_group": "en",
+      "target_language": "ja"
+    },
+    {
+      "id": "D2",
+      "source_group": "en",
+      "target_language": "zh"
+    },
+    {
+      "id": "D3",
+      "source_group": "zh",
+      "target_language": "ko"
+    },
+    {
+      "id": "D4",
+      "source_group": "ja",
+      "target_language": "ko"
+    },
+    {
+      "id": "D5",
+      "source_group": "zh",
+      "target_language": "ja"
+    },
+    {
+      "id": "D6",
+      "source_group": "ja",
+      "target_language": "en"
+    }
+  ],
+  "source_groups": {
+    "en": {
+      "manifest": {
+        "path": "corpus/english/manifest.json",
+        "sha256": "69be711d981ac95e8a1594a2439dd315384972eb92a12e5644de7d4027fdd76c"
+      },
+      "main": {
+        "path": ".data/english/audio/main.wav",
+        "sha256": "48f2f9f48b24fee5895415db198951f099bd259652367f696f503f83f0fb61f7",
+        "frames": 86400000,
+        "duration_seconds": 1800.0
+      },
+      "development": {
+        "path": ".data/english/audio/development.wav",
+        "sha256": "ae3fee2e18ee325111dc97f4716843ea7123e62b05257146c70c0f917b95348f",
+        "frames": 14400000,
+        "duration_seconds": 300.0
+      },
+      "isolated": [
+        {
+          "path": ".data/english/audio/isolated-01.wav",
+          "sha256": "f6dadcc18acaa2adeca7315b4128fb9221d1200297c71e7a93d183e22009267e",
+          "frames": 39840,
+          "duration_seconds": 0.83
+        },
+        {
+          "path": ".data/english/audio/isolated-02.wav",
+          "sha256": "02cfa2b93b6cde9f48a86203b85a5c72de6b77767770d07c6760fd5dc9ab3688",
+          "frames": 8640,
+          "duration_seconds": 0.18
+        },
+        {
+          "path": ".data/english/audio/isolated-03.wav",
+          "sha256": "5cb7d876e38afd30981928d2fd4571129bc97b28b9d9aa8ed2ac9a6b10727f92",
+          "frames": 11520,
+          "duration_seconds": 0.24
+        },
+        {
+          "path": ".data/english/audio/isolated-04.wav",
+          "sha256": "52de3d0f4cf98d213d1e6f696ac64d4154157d390dd8e1f18196c7f8c9632280",
+          "frames": 79200,
+          "duration_seconds": 1.65
+        },
+        {
+          "path": ".data/english/audio/isolated-05.wav",
+          "sha256": "0e5afcc13e5069db7723aca0f95aef82da2095b63caa77b8febc0e508fce051e",
+          "frames": 27360,
+          "duration_seconds": 0.57
+        },
+        {
+          "path": ".data/english/audio/isolated-06.wav",
+          "sha256": "9384fbd11d5856d6ba0f3bd5598aadcdcd5ade2252c1c6df343369764f7e40ef",
+          "frames": 6240,
+          "duration_seconds": 0.13
+        },
+        {
+          "path": ".data/english/audio/isolated-07.wav",
+          "sha256": "1100dbf9d93b2b9d19ec0bb3c5c5ea67412913e2eff3742c235bb26f3eabb51a",
+          "frames": 9600,
+          "duration_seconds": 0.2
+        },
+        {
+          "path": ".data/english/audio/isolated-08.wav",
+          "sha256": "5c1eb63f08fb4f1ddfab30edf3e550fc2fa552483ea04001fd1966ce982b0622",
+          "frames": 404640,
+          "duration_seconds": 8.43
+        },
+        {
+          "path": ".data/english/audio/isolated-09.wav",
+          "sha256": "8ebccc7f6fd459d4fbe9303bc81f7beac13ab9b7ca9eb6f23b3ee0bb418b2af0",
+          "frames": 630720,
+          "duration_seconds": 13.14
+        },
+        {
+          "path": ".data/english/audio/isolated-10.wav",
+          "sha256": "7f857f23c00cbc2f92720a5aa9c817dfea2e367ca738f7b79eadc4fa9a1f9fbf",
+          "frames": 389760,
+          "duration_seconds": 8.12
+        },
+        {
+          "path": ".data/english/audio/isolated-11.wav",
+          "sha256": "125026b2106950c022db5abf1c07e9b8d0e1a3adb2c7be6c1712f84fd01ba49b",
+          "frames": 411360,
+          "duration_seconds": 8.57
+        },
+        {
+          "path": ".data/english/audio/isolated-12.wav",
+          "sha256": "ab00c84b9aea13d677b427a5f8db8f2aee2a1f327117eed0a31fda62a0aefa9a",
+          "frames": 484800,
+          "duration_seconds": 10.1
+        },
+        {
+          "path": ".data/english/audio/isolated-13.wav",
+          "sha256": "27da5517754257a762b36d2972fde4fbafb0953faa064754b964287798d43a19",
+          "frames": 418080,
+          "duration_seconds": 8.71
+        },
+        {
+          "path": ".data/english/audio/isolated-14.wav",
+          "sha256": "86fa9cebc416f9e1f4eab555593ebfcd36078c28b11f6aa0feef3fac14a3f304",
+          "frames": 360000,
+          "duration_seconds": 7.5
+        },
+        {
+          "path": ".data/english/audio/isolated-15.wav",
+          "sha256": "f0acff951bb6626bd16326bf2be5b0f9919dbcb254f38a45791b817e1521c106",
+          "frames": 97920,
+          "duration_seconds": 2.04
+        },
+        {
+          "path": ".data/english/audio/isolated-16.wav",
+          "sha256": "ada31b9ed21dd08234ec60e1c2220e0af9236805ddcdf63e7503f27f78884951",
+          "frames": 168960,
+          "duration_seconds": 3.52
+        },
+        {
+          "path": ".data/english/audio/isolated-17.wav",
+          "sha256": "5c1e7e72f37c9a5cdffa8b5aa3682297f9204ec83f4e6fe0ce1502e68ec364fd",
+          "frames": 170400,
+          "duration_seconds": 3.55
+        },
+        {
+          "path": ".data/english/audio/isolated-18.wav",
+          "sha256": "eae2365878a6b4bd52a4db94d4196afa11f23b15d015133dc8d1e905c01eae9d",
+          "frames": 247680,
+          "duration_seconds": 5.16
+        },
+        {
+          "path": ".data/english/audio/isolated-19.wav",
+          "sha256": "55bc341a6224089e6fd9678fea4702e52a8047b96b77c8cd960371f6b19f203e",
+          "frames": 394080,
+          "duration_seconds": 8.21
+        },
+        {
+          "path": ".data/english/audio/isolated-20.wav",
+          "sha256": "cb7b48a8c164136bfb630d7a51c38cc569472721a75dbccc238d7b4fbbde7567",
+          "frames": 106560,
+          "duration_seconds": 2.22
+        }
+      ],
+      "reference_level": "Human transcript/manual dialogue acts; automatic corpus word alignment",
+      "timeline_units": "Integer samples at 48000 Hz, including source coordinates",
+      "main_timeline": {
+        "path": "corpus/english/timelines/main.json",
+        "sha256": "af6b2d9b4d3e8af76066dd1c9d34d9c990e7005a53e4a7efd21365670eca9796"
+      },
+      "category_seconds_including_separators": {
+        "general": 1200,
+        "stress": 600
+      },
+      "common_shortlist": "corpus/english/common-shortlist.json",
+      "casual_chat": {
+        "method": "Only original top.14 source intervals; surrounding chunk is not relabelled casual",
+        "main_playback_seconds": 89.699,
+        "main_proportion": 0.049832777777777774,
+        "eligible_session": "ES2014d",
+        "all_sessions_are_meetings": true
+      },
+      "original_sessions_and_channels": "corpus/english/manifest.json#/assets",
+      "license": "CC-BY-4.0"
+    },
+    "zh": {
+      "manifest": {
+        "path": "corpus/chinese/manifest.json",
+        "sha256": "1413b6c066af7afeecc71fd1f63025c7f7a52246d6a542528dca15fde1cd736e"
+      },
+      "main": {
+        "path": ".data/chinese/audio/zh-main.wav",
+        "sha256": "4f869813efa8b820fbdc2e7e01ebe6406acfd206286a44d88c0ccc18907818ae",
+        "frames": 86400000,
+        "duration_seconds": 1800.0
+      },
+      "development": {
+        "path": ".data/chinese/audio/zh-dev.wav",
+        "sha256": "360258012c6c9b0a1e525973608f7edf54b4ea89ecfd0735b02670953eb3a140",
+        "frames": 14400000,
+        "duration_seconds": 300.0
+      },
+      "isolated": [
+        {
+          "path": ".data/chinese/audio/zh-isolated-01.wav",
+          "sha256": "029838b147386278155f6cae5ef3779d4baf7dcafe2e33e9034d037ed393f58f",
+          "frames": 29280,
+          "duration_seconds": 0.61
+        },
+        {
+          "path": ".data/chinese/audio/zh-isolated-02.wav",
+          "sha256": "04397962603514b0c32ffb8d23beb8c3bdd1499b52038d6d6e9c3c1c36ce6267",
+          "frames": 321120,
+          "duration_seconds": 6.69
+        },
+        {
+          "path": ".data/chinese/audio/zh-isolated-03.wav",
+          "sha256": "5c79123924c7221837488648e580806f814ce94f7db1db0601ee49374b66040d",
+          "frames": 157440,
+          "duration_seconds": 3.28
+        },
+        {
+          "path": ".data/chinese/audio/zh-isolated-04.wav",
+          "sha256": "ae743849d015b2dad69a445026ff2cb9ea95d7c31207dd279422f59ee625b35c",
+          "frames": 36000,
+          "duration_seconds": 0.75
+        },
+        {
+          "path": ".data/chinese/audio/zh-isolated-05.wav",
+          "sha256": "e964c981d6e8201fd41655307558dcdb91cef56f8bcf22bce0a9d1e28cd908fa",
+          "frames": 136320,
+          "duration_seconds": 2.84
+        },
+        {
+          "path": ".data/chinese/audio/zh-isolated-06.wav",
+          "sha256": "b610e1e351e5f9573e909be37ee2319e999886813b7e28bbacc4350e2a6b1e23",
+          "frames": 74400,
+          "duration_seconds": 1.55
+        },
+        {
+          "path": ".data/chinese/audio/zh-isolated-07.wav",
+          "sha256": "2546f55658f0edda528bf10ccea625e2f2b44c4a971dfd5e14d179ff25aa7943",
+          "frames": 115680,
+          "duration_seconds": 2.41
+        },
+        {
+          "path": ".data/chinese/audio/zh-isolated-08.wav",
+          "sha256": "c728777c1cf343c3ae70915002c1c60a4c2db62e661f5d93e9acd2f76b43d8b1",
+          "frames": 108480,
+          "duration_seconds": 2.26
+        },
+        {
+          "path": ".data/chinese/audio/zh-isolated-09.wav",
+          "sha256": "435e6668b9ba395e3726d80ec0e71cd26e2553971b1046daf7e01496b9e56ce6",
+          "frames": 155520,
+          "duration_seconds": 3.24
+        },
+        {
+          "path": ".data/chinese/audio/zh-isolated-10.wav",
+          "sha256": "334cc7b0ec7d38c6ea6a5f6302e1dee7aba46caf8469200dabb95a7ae1cbab90",
+          "frames": 92640,
+          "duration_seconds": 1.93
+        },
+        {
+          "path": ".data/chinese/audio/zh-isolated-11.wav",
+          "sha256": "05106fcd0f2ab3326b99548025b722f66e33894fa1e0be728c3098c629c58df0",
+          "frames": 36480,
+          "duration_seconds": 0.76
+        },
+        {
+          "path": ".data/chinese/audio/zh-isolated-12.wav",
+          "sha256": "161ee93fa8d48f2f862478f0be98d296503dbccca77f737b76af8a0ac53642bc",
+          "frames": 85440,
+          "duration_seconds": 1.78
+        },
+        {
+          "path": ".data/chinese/audio/zh-isolated-13.wav",
+          "sha256": "5f51272eb3c532cee2d2f92efe4f91fe7aa32ac5b5e9349063161f0454ba0476",
+          "frames": 148320,
+          "duration_seconds": 3.09
+        },
+        {
+          "path": ".data/chinese/audio/zh-isolated-14.wav",
+          "sha256": "978c1f3e2dcd01a9ed8f7d6ff8879336c6600b06d0d5c322e60451e2d17836dc",
+          "frames": 159840,
+          "duration_seconds": 3.33
+        },
+        {
+          "path": ".data/chinese/audio/zh-isolated-15.wav",
+          "sha256": "3309b3ac268f339c821347a38dd354efb6bdfd310fd304b6ecfcf70587f68a37",
+          "frames": 46560,
+          "duration_seconds": 0.97
+        },
+        {
+          "path": ".data/chinese/audio/zh-isolated-16.wav",
+          "sha256": "fa9adc9751d9923c12731ecd6d98d4023376ae03fa1f29727c3c21f669749b04",
+          "frames": 86880,
+          "duration_seconds": 1.81
+        },
+        {
+          "path": ".data/chinese/audio/zh-isolated-17.wav",
+          "sha256": "0e4bff08737ed50ca25d3202b1540634c046a2b117c3c136e3bb1d90ba77e8e0",
+          "frames": 35040,
+          "duration_seconds": 0.73
+        },
+        {
+          "path": ".data/chinese/audio/zh-isolated-18.wav",
+          "sha256": "83e61d74fcafce551a4834e1e0cae850791676fb1eff7930110149f2b7e6de4e",
+          "frames": 38880,
+          "duration_seconds": 0.81
+        },
+        {
+          "path": ".data/chinese/audio/zh-isolated-19.wav",
+          "sha256": "b2c833cac8b857b4fa91a3fe269179132bfc205b4852a39f4ead736c3cbb7c0e",
+          "frames": 66720,
+          "duration_seconds": 1.39
+        },
+        {
+          "path": ".data/chinese/audio/zh-isolated-20.wav",
+          "sha256": "495a48660c6dd6f32de5c649b0eae071cc40d510e5a01216c6fc9a62201b2b56",
+          "frames": 35520,
+          "duration_seconds": 0.74
+        }
+      ],
+      "reference_level": "Human lexical transcript/speaker labels; automatic forced word alignment and punctuation completion",
+      "timeline_units": "Seconds relative to containing playback bundle; source seconds retained",
+      "main_timeline": {
+        "path": "corpus/chinese/manifest.json",
+        "sha256": "1413b6c066af7afeecc71fd1f63025c7f7a52246d6a542528dca15fde1cd736e"
+      },
+      "main_timeline_pointer": "/bundles/main/chunks",
+      "category_seconds_including_separators": {
+        "general": 1200,
+        "stress": 600
+      },
+      "common_shortlist": [
+        "zh-general-01",
+        "zh-general-02",
+        "zh-stress-03"
+      ],
+      "casual_chat": {
+        "verified_general_fraction": 0.0,
+        "basis": "Conservative verified-unprompted definition; prompted everyday discussion is not certified casual"
+      },
+      "original_sessions_and_channels": "corpus/chinese/manifest.json#/bundles/main/chunks",
+      "license": "CC-BY-SA-4.0"
+    },
+    "ja": {
+      "manifest": {
+        "path": "corpus/japanese/local-preparation.json",
+        "sha256": "ce0957dcec155ed28f782df92fe318d9ef040605e9fb3c4a39808cf80e0af9e8"
+      },
+      "main": {
+        "path": ".data\\japanese\\playback\\ja-main.wav",
+        "sha256": "33d854011e85b9279a83ff670a1f821f59647fc4ac0011ac8d195bd904b833cf",
+        "frames": 86400000,
+        "duration_seconds": 1800.0
+      },
+      "development": {
+        "path": ".data\\japanese\\playback\\ja-dev.wav",
+        "sha256": "946b2434b4f5968e90be58fb42547e605ba421a5ad6b9301a8b5076189069a91",
+        "frames": 14400000,
+        "duration_seconds": 300.0
+      },
+      "isolated": [
+        {
+          "path": ".data\\japanese\\heldout\\ja-isolated-01.wav",
+          "sha256": "880883aff9a35f0b92acd72f63b8144e5bf06ed4eca77bd8778bcd38a745cd0d",
+          "frames": 106500,
+          "duration_seconds": 2.21875
+        },
+        {
+          "path": ".data\\japanese\\heldout\\ja-isolated-02.wav",
+          "sha256": "51ac975683a2994123340c4793e359d8b3d8e12ee5e38d0cfd0093c76af2c0ab",
+          "frames": 134040,
+          "duration_seconds": 2.7925
+        },
+        {
+          "path": ".data\\japanese\\heldout\\ja-isolated-03.wav",
+          "sha256": "7d89a7656bfc896fde5edbc663fb5cfdfaec8adecb04b749e3cf025cf7af467e",
+          "frames": 171300,
+          "duration_seconds": 3.56875
+        },
+        {
+          "path": ".data\\japanese\\heldout\\ja-isolated-04.wav",
+          "sha256": "a6bbc0b7acf07853e0d4322a05abfc17f69341d5f33776029b9143d8b41b667b",
+          "frames": 375420,
+          "duration_seconds": 7.82125
+        },
+        {
+          "path": ".data\\japanese\\heldout\\ja-isolated-05.wav",
+          "sha256": "d763e2909aaa113765feda4fa55f3953b24217bd57db5c3889757fe6449d23b5",
+          "frames": 104070,
+          "duration_seconds": 2.168125
+        },
+        {
+          "path": ".data\\japanese\\heldout\\ja-isolated-06.wav",
+          "sha256": "8c632f5f866ec7abba8cd76cae61fb0e8a061e63bb6b1e34cf4f34e8e9f46ef2",
+          "frames": 571440,
+          "duration_seconds": 11.905
+        },
+        {
+          "path": ".data\\japanese\\heldout\\ja-isolated-07.wav",
+          "sha256": "e48f70ea2b9ad35aa75f99e2a2d279f7d766030a0ade0d2705e2fc3d37cc2f5a",
+          "frames": 359220,
+          "duration_seconds": 7.48375
+        },
+        {
+          "path": ".data\\japanese\\heldout\\ja-isolated-08.wav",
+          "sha256": "7ab73437fa846dc9cb928b8a57dfebe69e3f02e9b385b1df75d0305c676d0e23",
+          "frames": 722100,
+          "duration_seconds": 15.04375
+        },
+        {
+          "path": ".data\\japanese\\heldout\\ja-isolated-09.wav",
+          "sha256": "76633070ff55799793db707812e98682c3557b6cd3a95023b72d1618e4c45316",
+          "frames": 355170,
+          "duration_seconds": 7.399375
+        },
+        {
+          "path": ".data\\japanese\\heldout\\ja-isolated-10.wav",
+          "sha256": "15396842893206e28d7aa2cc80c6cbfa2b81d3298e2f038d9c50666a2fe11d8d",
+          "frames": 305760,
+          "duration_seconds": 6.37
+        },
+        {
+          "path": ".data\\japanese\\heldout\\ja-isolated-11.wav",
+          "sha256": "9a323b36161f6a826d4c8bfa67007a126019da10fa23bc401588fc43e610b815",
+          "frames": 34410,
+          "duration_seconds": 0.716875
+        },
+        {
+          "path": ".data\\japanese\\heldout\\ja-isolated-12.wav",
+          "sha256": "ef860dac737671462df0bff34d02c580e2c120ccf3aa7b2c2fbd4df94a3c426a",
+          "frames": 71670,
+          "duration_seconds": 1.493125
+        },
+        {
+          "path": ".data\\japanese\\heldout\\ja-isolated-13.wav",
+          "sha256": "d009f2c3ab048140f0d131fe390c53fc4485ad3a402d559b61a67e3962bf309a",
+          "frames": 143760,
+          "duration_seconds": 2.995
+        },
+        {
+          "path": ".data\\japanese\\heldout\\ja-isolated-14.wav",
+          "sha256": "2c9384d05af12008d72afaa38ba20f420dc412ac60b0c09295427c09645bb7d8",
+          "frames": 76530,
+          "duration_seconds": 1.594375
+        },
+        {
+          "path": ".data\\japanese\\heldout\\ja-isolated-15.wav",
+          "sha256": "d86dec586fa0aba5caedf403a2f68e38431a3dacccc9402b88923b98f45a8f7a",
+          "frames": 42510,
+          "duration_seconds": 0.885625
+        },
+        {
+          "path": ".data\\japanese\\heldout\\ja-isolated-16.wav",
+          "sha256": "45739b23809311e487f202c6a8e69ee676f4a473dbf182a3eede55e1a650480e",
+          "frames": 34409,
+          "duration_seconds": 0.7168541666666667
+        },
+        {
+          "path": ".data\\japanese\\heldout\\ja-isolated-17.wav",
+          "sha256": "b26846348fb24c19c4d4b452733379e4f8459885bd5fdc53e5f1d895b5725c48",
+          "frames": 159960,
+          "duration_seconds": 3.3325
+        },
+        {
+          "path": ".data\\japanese\\heldout\\ja-isolated-18.wav",
+          "sha256": "0dda655f0c70156c35a6ab2660bf3ff28b3a65433fd48696130726c8a4cdec65",
+          "frames": 188310,
+          "duration_seconds": 3.923125
+        },
+        {
+          "path": ".data\\japanese\\heldout\\ja-isolated-19.wav",
+          "sha256": "df3e20019bec896244f4951ab3954c58c2ce5b9e04c9fa68d3cce39b0eb9c452",
+          "frames": 279029,
+          "duration_seconds": 5.813104166666666
+        },
+        {
+          "path": ".data\\japanese\\heldout\\ja-isolated-20.wav",
+          "sha256": "4fb4033bd6555d57274dce2f9a5c6fbbb422d9dc143933cbb8e397238030ada6",
+          "frames": 197219,
+          "duration_seconds": 4.1087291666666665
+        }
+      ],
+      "reference_level": "Automatic and exploratory; estimated speaker identities and acoustic word timing; unresolved alignment/eligibility remains explicit in local references",
+      "timeline_units": "Seconds relative to containing playback bundle; join word IDs with chunk_id; unaligned words may have null times",
+      "main_timeline": {
+        "path": ".data\\japanese\\playback\\ja-main-reference.json",
+        "sha256": "793208de71bcde905ddc6ff4d43b29a0fef857b55c338787271fc8756b5bf2b8"
+      },
+      "category_seconds_including_separators": {
+        "general": 1200,
+        "stress": 600
+      },
+      "common_shortlist": [
+        {
+          "chunk_id": "ja-general-01",
+          "chunk_start": 30,
+          "chunk_end": 60
+        },
+        {
+          "chunk_id": "ja-stress-01",
+          "chunk_start": 20,
+          "chunk_end": 50
+        }
+      ],
+      "casual_chat": {
+        "actual_fraction": null,
+        "caption_tag_fraction": 0.0,
+        "basis": "Caption-assisted candidate classification; not human-confirmed eligibility"
+      },
+      "original_sessions_and_channels": "corpus/japanese/local-preparation.json#/chunks",
+      "license": "Dataset-declared CC-BY-3.0; original-video attribution/permission unresolved; NOT release cleared",
+      "publication": "Full Japanese speech text, references and audio are local only"
+    }
+  },
+  "supplementary": {
+    "D1_repeat": {
+      "path": ".data/english/audio/repeat.wav",
+      "sha256": "94d46a1558fd5c664e97234f09a30db29a92870232d2670a0ee2cae1c2f6bc0c",
+      "frames": 14400000,
+      "duration_seconds": 300.0
+    },
+    "nonspeech": {
+      "path": ".data/nonspeech/nonspeech.wav",
+      "sha256": "30ec4d85eb94484523718f8d9518a287297166bef1da932fc11b3cc6957d6649",
+      "frames": 8640000,
+      "duration_seconds": 180.0
+    },
+    "nonspeech_manifest": {
+      "path": "corpus/nonspeech/manifest.json",
+      "sha256": "c890dcc929198503d84d537676991d5d8f76d9b96322060f9bc7200eea194166"
+    }
+  },
+  "interpretation": [
+    "Shared target-language directions are not independent source evidence.",
+    "General and deliberately selected stress are separate populations; do not combine into representative ranking.",
+    "Category budgets include disclosed interchunk silence; they are not speaking-time denominators.",
+    "Normalization policy and timing uncertainty are source-specific and documented, not a claim of equal recording conditions.",
+    "No human listening, independent transcription-validation study or main application comparison is claimed.",
+    "Common shortlists precede results; the integrated main-run freeze belongs to issue #8."
+  ]
+}

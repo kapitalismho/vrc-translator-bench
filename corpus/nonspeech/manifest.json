@@ -1,0 +1,149 @@
+{
+  "schema_version": 1,
+  "id": "nonspeech-v1",
+  "status": "local_prepared_not_listened_or_released",
+  "audio": {
+    "path": ".data/nonspeech/nonspeech.wav",
+    "sha256": "30ec4d85eb94484523718f8d9518a287297166bef1da932fc11b3cc6957d6649",
+    "sample_rate": 48000,
+    "channels": 1,
+    "sample_count": 8640000,
+    "duration_seconds": 180.0
+  },
+  "scoring_intervals": [
+    {
+      "label": "silence_keyboard_nonverbal",
+      "start_sample": 0,
+      "end_sample": 5760000
+    },
+    {
+      "label": "background_human_conversation",
+      "start_sample": 5760000,
+      "end_sample": 8640000
+    }
+  ],
+  "composition": {
+    "digital_silence_seconds": 83.75675,
+    "keyboard_seconds": 30,
+    "nonverbal_seconds": 6.24325,
+    "background_conversation_seconds": 60
+  },
+  "source_to_playback": [
+    {
+      "source_id": "keyboard",
+      "playback_start_sample": 2880000,
+      "playback_end_sample": 4320000,
+      "source_start_seconds": 10,
+      "source_end_seconds": 40.0,
+      "gain_linear": 0.37823838635756774,
+      "transformation": "crop, mono downmix, 48kHz resampling, constant gain, placement; no speech synthesis or time stretching"
+    },
+    {
+      "source_id": "coin",
+      "playback_start_sample": 4320000,
+      "playback_end_sample": 4475481,
+      "source_start_seconds": 0,
+      "source_end_seconds": 3.2391875,
+      "gain_linear": 0.44154379641190084,
+      "transformation": "crop, mono downmix, 48kHz resampling, constant gain, placement; no speech synthesis or time stretching"
+    },
+    {
+      "source_id": "snap",
+      "playback_start_sample": 4800000,
+      "playback_end_sample": 4944195,
+      "source_start_seconds": 0,
+      "source_end_seconds": 3.0040625,
+      "gain_linear": 0.500015259254738,
+      "transformation": "crop, mono downmix, 48kHz resampling, constant gain, placement; no speech synthesis or time stretching"
+    },
+    {
+      "source_id": "background",
+      "playback_start_sample": 5760000,
+      "playback_end_sample": 8640000,
+      "source_start_seconds": 120,
+      "source_end_seconds": 180.0,
+      "gain_linear": 5.970845481049563,
+      "transformation": "crop, mono downmix, 48kHz resampling, constant gain, placement; no speech synthesis or time stretching"
+    }
+  ],
+  "sources": [
+    {
+      "id": "keyboard",
+      "filename": "keyboard.mp3",
+      "url": "https://cdn.freesound.org/previews/380/380135_3249786-hq.mp3",
+      "expected_sha256": "060cbad136d2b64525c0483d374b5133792f668449bed3f939c083020be6ec65",
+      "title": "Computer Keyboard - typing sounds.wav",
+      "creator": "yottasounds",
+      "source_page": "https://freesound.org/people/yottasounds/sounds/380135/",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "representation": "Freesound HQ MP3 rendition, not original WAV; real recorded keyboard",
+      "local_path": ".data/nonspeech/sources/keyboard.mp3",
+      "sha256": "060cbad136d2b64525c0483d374b5133792f668449bed3f939c083020be6ec65"
+    },
+    {
+      "id": "coin",
+      "filename": "noise-sound-bible-0017.wav",
+      "url": "https://huggingface.co/datasets/FluidInference/musan/resolve/3edcfdf89b56dbe6a395ff29f9c29489e03d1321/noise/sound-bible/noise-sound-bible-0017.wav",
+      "expected_sha256": "1dda7a8cf3a52004921fa7cce6bc06b400f9e85116adfaa9692b746dab47455b",
+      "title": "Coin Drop",
+      "creator": "Willem Hunt",
+      "source_page": "https://soundbible.com/2081-Coin-Drop.html",
+      "license": "Public Domain",
+      "license_url": "https://huggingface.co/datasets/FluidInference/musan/resolve/3edcfdf89b56dbe6a395ff29f9c29489e03d1321/noise/sound-bible/LICENSE",
+      "representation": "MUSAN SoundBible recording via pinned mirror",
+      "local_path": ".data/nonspeech/sources/noise-sound-bible-0017.wav",
+      "sha256": "1dda7a8cf3a52004921fa7cce6bc06b400f9e85116adfaa9692b746dab47455b"
+    },
+    {
+      "id": "snap",
+      "filename": "noise-sound-bible-0029.wav",
+      "url": "https://huggingface.co/datasets/FluidInference/musan/resolve/3edcfdf89b56dbe6a395ff29f9c29489e03d1321/noise/sound-bible/noise-sound-bible-0029.wav",
+      "expected_sha256": "277b7127e277f4965a3069ce309354ad2c2322e3b6dc6d3cae443f988de22d38",
+      "title": "Finger Snapping",
+      "creator": "Maddie Fix",
+      "source_page": "https://soundbible.com/1978-Finger-Snapping.html",
+      "license": "Public Domain",
+      "license_url": "https://huggingface.co/datasets/FluidInference/musan/resolve/3edcfdf89b56dbe6a395ff29f9c29489e03d1321/noise/sound-bible/LICENSE",
+      "representation": "MUSAN SoundBible recording via pinned mirror",
+      "local_path": ".data/nonspeech/sources/noise-sound-bible-0029.wav",
+      "sha256": "277b7127e277f4965a3069ce309354ad2c2322e3b6dc6d3cae443f988de22d38"
+    },
+    {
+      "id": "background",
+      "filename": "ES2003a.Mix-Headset.wav",
+      "url": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/ES2003a/audio/ES2003a.Mix-Headset.wav",
+      "title": "AMI ES2003a mixed headset conversation",
+      "creator": "AMI Project — AMI Meeting Corpus",
+      "source_page": "https://groups.inf.ed.ac.uk/ami/corpus/",
+      "license": "CC-BY-4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "terms_evidence": "https://groups.inf.ed.ac.uk/ami/corpus/license.shtml",
+      "session_id": "ES2003a",
+      "split": "AMI scenario-only official development",
+      "input_mode": "mixed_headset_background_conversation",
+      "representation": "Official mixed headset WAV; not a target-speaker scored input",
+      "local_path": ".data/nonspeech/sources/ES2003a.Mix-Headset.wav",
+      "sha256": "41cf861afafc20e70061c6cc82b2cb1c620d630be6d13361da928f04fc00beea"
+    }
+  ],
+  "attribution": "MUSAN: David Snyder, Guoguo Chen and Daniel Povey (2015); retain individual SoundBible terms. AMI Project; yottasounds. No endorsement implied. Source licenses retain their warranty disclaimers.",
+  "background_evidence": {
+    "annotation_archive": "ami_public_manual_1.6.2.zip",
+    "source_interval_seconds": [
+      120,
+      180
+    ],
+    "fully_contained_lexical_word_counts": {
+      "B": 55,
+      "C": 17
+    },
+    "basis": "AMI human transcript with automatic word alignment; two speakers in the selected minute; no independent listening confirmation"
+  },
+  "verification_limits": [
+    "No human listening performed. Confirm absence of incidental speech in keyboard/nonverbal intervals before freeze.",
+    "Background is attenuated recorded meeting conversation, not a physical-room recording of distant speakers.",
+    "No Hugging Face publication; owner authorized local data preparation only.",
+    "MUSAN small assets came from a pinned mirror, not a byte comparison against the full official archive."
+  ]
+}

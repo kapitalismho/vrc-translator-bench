@@ -1,0 +1,59 @@
+{
+  "status": "English local preparation complete; integration and listening/presentation review remain with Director",
+  "date": "2026-10-20",
+  "manifest_sha256": "69be711d981ac95e8a1594a2439dd315384972eb92a12e5644de7d4027fdd76c",
+  "selection_sha256": "ccfd1e3c280ac4c5d4a700bd739f0c1c4bb1c10a2cf5a1bdb2f2b92052753d61",
+  "runtime": {"python_command": "py -3.14", "ffmpeg": "8.0.1-full_build-www.gyan.dev", "minimum_declared_python": "3.11; not independently exercised on 3.11 in this session"},
+  "actual_commands": [
+    "py -3.14 tools/prepare_english.py plan",
+    "py -3.14 tools/prepare_english.py prepare",
+    "py -3.14 tools/prepare_english.py check",
+    "py -3.14 -m pytest tests/test_english_timeline.py -q"
+  ],
+  "outcomes": {
+    "cli_exit": 0,
+    "artifact_check": "31 audio/timeline pairs passed SHA-256, 48 kHz mono PCM16, exact frame budgets, in-range word/DA/turn boundaries, word mapping, complete target-only lexical eligibility, complete manual dialogue-act coverage for scored words, unchanged retained-time durations, exact repeat prefix and exact two-second zero separators",
+    "pytest": {"passed": 19, "failed": 0, "skipped": 0},
+    "scored_words": {"general": 2153, "stress": 679, "development": 297, "isolated": 212},
+    "scored_words_without_manual_dialogue_act": 0,
+    "main_seconds": 1800,
+    "general_seconds": {"chunks": 1192, "assigned_separators": 8, "total": 1200},
+    "stress_seconds": {"chunks": 598, "assigned_separators": 2, "total": 600},
+    "development_seconds": {"chunks": 298, "separator": 2, "total": 300},
+    "repeat_seconds": 300,
+    "main_chunk_padding_seconds": 2.204,
+    "isolated": {"count": 20, "total_seconds": 93.07, "selection_buckets": {"short_le_2_seconds": 7, "long_ge_8_seconds": 6, "internally_paused_candidates_ge_0_3_seconds": 7}, "source_session": "TS3007a", "channels": [0, 1, 2, 3]},
+    "casual_chat": {"label": "original AMI top.14 only", "source_session": "ES2014d", "source_seconds": [2550.541, 2640.24], "retained_playback_seconds": 89.699, "main_proportion": 0.049832777777777774},
+    "stress_candidate_counts": {
+      "general": {"internal_pause": 3, "cross_sentence_continuation": 56, "trailing_filler": 16, "backchannel": 12},
+      "stress": {"internal_pause": 7, "cross_sentence_continuation": 56, "trailing_filler": 25, "backchannel": 34},
+      "development": {"internal_pause": 2, "cross_sentence_continuation": 12, "trailing_filler": 4, "backchannel": 17}
+    },
+    "selected_original_headset_files": 12,
+    "cached_download_bytes": 870695823,
+    "rendered_audio_bytes": 439784084,
+    "cache_note": "The isolated local download cache also retains two acquired but no-longer-selected candidate headset files. All final selected sources are explicitly listed and hashed in manifest.json. No audio entered Git."
+  },
+  "actual_pcm_source_comparisons": {
+    "method": "Decoded the original source using ffmpeg resampling, cut 4800 source-aligned output frames inside the named target word after an actual compression boundary, applied the recorded constant gain, and compared against the actual rendered WAV at the mapped playback frames. All three comparisons matched PCM16 bytes exactly. Evidence remains applicable to final artifacts by matching source/audio SHA-256 identities.",
+    "observations": [
+      {"clip_id": "general-01", "source_word_id": "ES2014d.A.words3039", "text": "Um", "source_word_seconds": [2422.09, 2423.1], "playback_word_seconds": [103.67, 104.68], "compared_frames": 4800, "result": "exact PCM16 match"},
+      {"clip_id": "general-03", "source_word_id": "IS1009b.C.words36", "text": "Yeah", "source_word_seconds": [232.67, 233.02], "playback_word_seconds": [3.56, 3.91], "compared_frames": 4800, "result": "exact PCM16 match"},
+      {"clip_id": "stress-02", "source_word_id": "TS3003b.B.words614", "text": "N", "source_word_seconds": [842.51, 842.92], "playback_word_seconds": [41.37, 41.78], "compared_frames": 4800, "result": "exact PCM16 match"}
+    ]
+  },
+  "preserved_diagnosis": [
+    "The initial plan command failed with KeyError: streams because blanket invalid-event exclusion removed heldout TS3007a. Actual annotation inspection found an inverted laugh interval, not an invalid lexical transcript. The implementation now retains raw invalid-event evidence, rejects source windows crossing bounded invalid regions, and excludes sessions with unbounded or invalid lexical events. No source annotation is guessed or repaired.",
+    "Inspection of an earlier rendered candidate found three target words (ES2014a.D.words336–338, I don't know) without source manual dialogue-act assignment. Eligibility was tightened to require an original manual DA for every scored word; deterministic selection was rerun before any benchmark results. No transcript words were rewritten, no artificial DA was invented, and final scored-word DA coverage is complete.",
+    "A regression was added for overlapping target-word boundaries and another for touching words, so protecting overlapping words does not make an entire continuous utterance indivisible. Final selection/audio and tests were regenerated/executed after the correction."
+  ],
+  "limits": [
+    "No human listening, acoustic authenticity confirmation of each pause, independent transcription validation, GUI playback or presentation review is claimed. These were not possible to observe through the available text/file tools. Actual PCM identity and timeline mapping were observed instead.",
+    "Pause/continuation/filler counts are explicitly timing or lexical candidates, not confirmed perceptual stress labels. Backchannels use the original manual AMI ontology. Counts can overlap and were not balanced.",
+    "All source sessions are scenario meetings. Only the sparse original top.14 interval is counted as casual chat; surrounding meeting/work speech is not relabelled.",
+    "Human transcripts/manual DAs use original automatically forced-aligned word times. Output 48 kHz is upsampled from released 16 kHz headset audio.",
+    "Other-speaker context is metadata for retained source time and may be inaudible in target headsets. Only selected participant lexical words are scored.",
+    "Heldout is by source session, not global speaker identity; different AMI meeting phases can contain the same participants.",
+    "Owner-authorized local-only preparation is satisfied; no Hugging Face publication was attempted or treated as a blocker. Nonspeech and other-language assets remain outside this worker's ownership."
+  ]
+}
