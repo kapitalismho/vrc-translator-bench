@@ -1,6 +1,6 @@
 # Architecture
 
-This repository implements local corpus preparation for issue #2 and reusable Windows audio-to-OSC capture infrastructure for issue #3. Application-specific profile preparation, scoring, billing and public presentation remain separate outcomes. The capture runner does not imply a completed real-translator pilot.
+This repository implements local corpus preparation for issue #2, reusable Windows audio-to-OSC capture infrastructure for issue #3, and the derived measurement/report-data layer for issue #5. Application-specific profile preparation, quality judging, billing and public presentation remain separate outcomes. Capture and metric routines do not imply a completed real-translator pilot or comparison.
 
 ## Data flow
 
@@ -12,6 +12,8 @@ This repository implements local corpus preparation for issue #2 and reusable Wi
 6. `bench` materializes a requested run plan, starts profile-owned adapter subprocesses and keeps an ordered UDP sink active across real-time playback and observation tails.
 7. Per-profile SQLite attempts and atomic JSONL finalization retain completed, product-failed and interrupted work. Resume compares effective application state and performs an output check before replaying unfinished work.
 8. Raw OSC streams, callback/DAC timing, measured cable correction and separate diagnostics supply downstream metrics. Source grouping/alignment is not inferred by the capture runner.
+9. `bench metrics` reads immutable capture artifacts and explicit reference/rule inputs, normalizes source coordinates, and derives separately identified output relationships and source correspondence.
+10. Sentence/turn measurements, isolated responses, quality segments and diagnostics feed report-data summaries. Session clustering preserves original recording identity; external quality scores and internal application diagnostics retain separate provenance.
 
 ## Owned surfaces
 
@@ -32,6 +34,11 @@ This repository implements local corpus preparation for issue #2 and reusable Wi
 | `bench/osc.py` | Ordered raw UDP/OSC capture across chunks and observation tails |
 | `bench/adapter.py` | Long-lived subprocess JSON control boundary; application-specific implementations belong to issue #4 |
 | `docs/cli.md` | Runner CLI, plan, adapter, raw timing and persistence contracts |
+| `bench/metrics_inputs.py` | Native corpus normalization, capture identity/checksums and cable-corrected source-clock mapping |
+| `bench/metrics_alignment.py` | Versioned output interpretation, input-bound alignment cache and optional pinned SimAlign |
+| `bench/metrics.py` | Timing/delivery, isolated windows, quality-segment assembly and report orchestration |
+| `bench/metrics_diagnostics.py`, `bench/metrics_stats.py` | Evidence-gated diagnostics and original-session statistical summaries |
+| `docs/metrics.md` | Working calculation definitions, report-data contract and verification limits |
 | `.data/` | Local source/audio/models/environments and unresolved Japanese derived content; never staged for Git |
 
 Language-specific preparation remains explicit because the sources have materially different annotations and rights. There is no generic corpus-provider framework. Heavy model dependencies are isolated from the lightweight integration/test environment.
@@ -51,6 +58,10 @@ Language-specific preparation remains explicit because the sources have material
 - An event's current chunk is capture context, not source alignment. Continuous streams retain late events after attempt finalization, with earlier playback provenance. Downstream consumers must not interpret a finalized per-attempt trace as the entire future observation window.
 - Typing is retained but never translation output. Product failure, operational invalidity and unsupported N/A remain distinct; resume preserves terminal history and marks replayed attempts.
 - Adapters own actual application readiness, effective state and startup isolation. A control acknowledgement or synthetic UDP output is not evidence of a configured real translator. No ordinary chunk-boundary application restart is introduced.
+- Metrics never overwrite raw capture or native references. Unaligned outputs remain in quality inputs; missing, late, operationally invalid and unsupported evidence are distinct.
+- App-dependent revisions/final reconstruction and source CER require applicable evidence. A current capture chunk, typing signal or text similarity alone is not source/finality proof.
+- Reference ambiguity reduces the metric claim: partial units and ambiguous containing turns retain explicit reasons and population accounting. Quality context is two preceding reference turns, not scored source.
+- Metric reports inherit source-content restrictions, including local-only Japanese speech. Public presentation and main-run freeze are downstream responsibilities.
 
 ## Verification boundary
 

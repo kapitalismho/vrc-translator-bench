@@ -1,6 +1,6 @@
 # VRC Translator Bench
 
-Local speech-corpus preparation and resumable Windows audio-to-OSC capture for the community translation benchmark in [issue #1](https://github.com/kapitalismho/vrc-translator-bench/issues/1). The repository implements the local corpus work in [issue #2](https://github.com/kapitalismho/vrc-translator-bench/issues/2) and capture infrastructure in [issue #3](https://github.com/kapitalismho/vrc-translator-bench/issues/3), not application-profile preparation, scoring or comparison results.
+Local speech-corpus preparation, resumable Windows audio-to-OSC capture, and derived measurements for the community translation benchmark in [issue #1](https://github.com/kapitalismho/vrc-translator-bench/issues/1). The repository implements the local corpus work in [issue #2](https://github.com/kapitalismho/vrc-translator-bench/issues/2), capture infrastructure in [issue #3](https://github.com/kapitalismho/vrc-translator-bench/issues/3), and the calculation/report-data layer in [issue #5](https://github.com/kapitalismho/vrc-translator-bench/issues/5). This is not a completed application comparison or quality-judging system.
 
 The owner [replaced the Hugging Face publication criterion with local preparation](https://github.com/kapitalismho/vrc-translator-bench/issues/2#issuecomment-6282606626). No public audio dataset has been published. Audio, model weights and downloads remain in ignored `.data/`; Git contains preparation code and permitted metadata.
 
@@ -55,11 +55,22 @@ Follow the [runner CLI, plan and adapter contract](docs/cli.md) to prepare the p
 
 Windows cable calibration/playback was observed. A real translator pilot was **not run**: an isolated configured translator was unavailable. Synthetic process/OSC checks do not establish real application translation. Application-specific preparation belongs to issue #4; do not attach this runner to a personal app instance or run VRChat.
 
+## Derive measurements
+
+```powershell
+python -m bench.cli metrics --manifest .data/runs/pilot/manifest.json --spec metrics-spec.json --output .data/reports/pilot.json
+```
+
+The [metric definitions and report-data contract](docs/metrics.md) describe reference normalization, versioned application rules, cross-language alignment, timing/delivery, quality segments, diagnostics and session-clustered summaries. Optional model alignment uses `.[metrics]`; inspected, input-bound alignment caches support offline calculations. Raw capture is never rewritten. Missing correspondence, late output, failure, reference uncertainty and unsupported measurements remain visible.
+
+Actual distinct-application translation traces and observed interpretation rules remain a #4 integration prerequisite. Synthetic boundary checks and retained PuriPuly manual-text OSC observations do not establish audio-to-translated-OSC accuracy. Derived reports can contain speech and local provenance: keep them local until their content and rights are cleared.
+
 ## Contracts and rights
 
 - [Architecture and artifact boundaries](docs/architecture.md)
 - [Curation, reproduction and observed verification](docs/corpus.md)
 - [Capture CLI, persistence, adapter and timing contracts](docs/cli.md)
+- [Derived measurement definitions and report-data contract](docs/metrics.md)
 - [Six-direction local index](corpus/manifest.json)
 - [English references](corpus/english/manifest.json), [Chinese references](corpus/chinese/manifest.json), [Japanese public-safe metadata](corpus/japanese/local-preparation.json), [nonspeech attribution](corpus/nonspeech/manifest.json)
 

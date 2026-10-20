@@ -112,6 +112,8 @@ Raw `/chatbox/input` and `/chatbox/typing` events carry `t_ns`, `run`, `wave`, `
 
 The sink stays open across chunks and observation tails. A delayed earlier-chunk output received during the next chunk carries the **current capture context**, not an asserted source alignment. `source_candidate_provenance` retains actual earlier playback identities/times. The continuous stream remains authoritative after individual attempt traces finalize; historical traces are not rewritten. [Issue #5](https://github.com/kapitalismho/vrc-translator-bench/issues/5) owns separate estimated grouping/alignment, observation deadlines and unaligned/late-output treatment.
 
+Use `bench metrics --manifest RUN/manifest.json --spec metrics-spec.json --output report.json` to derive measurements without changing captured observations. See [metric definitions and report-data inputs](metrics.md). The metrics specification supplies versioned per-app interpretation rules and explicit prepared-reference paths; capture context alone does not establish source correspondence.
+
 ## Persistence and failure semantics
 
 A run directory contains:

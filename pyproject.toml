@@ -12,6 +12,7 @@ dependencies = []
 [project.optional-dependencies]
 audio = ["sounddevice>=0.5", "numpy>=1.26"]
 test = ["pytest>=8", "numpy>=1.26", "soundfile>=0.12", "jieba==0.42.1"]
+alignment = ["simalign==0.4", "transformers==4.44.2", "huggingface-hub==0.24.7", "torch>=2.2,<3", "numpy>=1.26,<3"]
 
 [project.scripts]
 prepare-english = "tools.prepare_english:main"

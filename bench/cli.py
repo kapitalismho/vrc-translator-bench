@@ -34,12 +34,24 @@ def parser():
     playback.add_argument("audio", type=Path)
     playback.add_argument("--output-device")
     playback.add_argument("--output", type=Path, default=Path(".data/calibration/playback.json"))
+    metrics = commands.add_parser("metrics")
+    metrics.add_argument("--manifest", type=Path, required=True)
+    metrics.add_argument("--spec", type=Path, required=True)
+    metrics.add_argument("--output", type=Path, required=True)
+    metrics.add_argument("--alignment-cache", type=Path)
+    metrics.add_argument("--allow-model-download", action="store_true")
     return root
 
 
 def main(argv=None):
     args = parser().parse_args(argv)
     try:
+        if args.command == "metrics":
+            from .metrics import derive
+            result = derive(args.manifest, args.spec, args.output, args.alignment_cache, args.allow_model_download)
+            print(json.dumps({"report": str(args.output), "version": result["version"], "sentences": len(result["sentences"]),
+                              "outputs": len(result["outputs"]), "quality_segments": len(result["quality_segments"])}, indent=2))
+            return 0
         if args.command == "calibrate":
             result = calibrate(args.output, args.output_device, args.input_device)
             print(json.dumps({"status": result["status"], "offset_ns": result["offset_ns"], "artifact": str(args.output)}, indent=2))
