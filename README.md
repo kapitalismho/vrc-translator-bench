@@ -1,6 +1,6 @@
 # VRC Translator Bench
 
-Local speech-corpus preparation for the community translation benchmark in [issue #1](https://github.com/kapitalismho/vrc-translator-bench/issues/1). This repository currently implements [issue #2](https://github.com/kapitalismho/vrc-translator-bench/issues/2), not the application runner, scoring system or comparison results.
+Local speech-corpus preparation and resumable Windows audio-to-OSC capture for the community translation benchmark in [issue #1](https://github.com/kapitalismho/vrc-translator-bench/issues/1). The repository implements the local corpus work in [issue #2](https://github.com/kapitalismho/vrc-translator-bench/issues/2) and capture infrastructure in [issue #3](https://github.com/kapitalismho/vrc-translator-bench/issues/3), not application-profile preparation, scoring or comparison results.
 
 The owner [replaced the Hugging Face publication criterion with local preparation](https://github.com/kapitalismho/vrc-translator-bench/issues/2#issuecomment-6282606626). No public audio dataset has been published. Audio, model weights and downloads remain in ignored `.data/`; Git contains preparation code and permitted metadata.
 
@@ -39,10 +39,27 @@ Follow [corpus preparation](docs/corpus.md) for source acquisition, optional mod
 
 The index builder refuses missing or checksum-mismatched audio; it does not fill missing material. The checker verifies actual local waveform hashes/frames, direction sharing, duration budgets, reference hashes and the repeat prefix. It does not certify linguistic correctness or rights. On a clean clone, explicit Chinese real-material smoke tests skip until local audio exists; deterministic tests remain available.
 
+## Capture runs
+
+The `bench` CLI provides real-time WASAPI shared-mode cable playback, measured cable correction, ordered OSC capture, per-profile attempt history, resume and operator status:
+
+```powershell
+python -m pip install -e ".[audio]"
+bench calibrate --output .data/calibration/cable.json
+bench run --plan plan.json --run-id pilot
+bench status pilot
+bench run --resume pilot
+```
+
+Follow the [runner CLI, plan and adapter contract](docs/cli.md) to prepare the plan and application adapter. Artifacts default to ignored `.data/runs`. Completed and product-failed work survives resume; interrupted work retains invalid evidence and gets a new marked attempt.
+
+Windows cable calibration/playback was observed. A real translator pilot was **not run**: an isolated configured translator was unavailable. Synthetic process/OSC checks do not establish real application translation. Application-specific preparation belongs to issue #4; do not attach this runner to a personal app instance or run VRChat.
+
 ## Contracts and rights
 
 - [Architecture and artifact boundaries](docs/architecture.md)
 - [Curation, reproduction and observed verification](docs/corpus.md)
+- [Capture CLI, persistence, adapter and timing contracts](docs/cli.md)
 - [Six-direction local index](corpus/manifest.json)
 - [English references](corpus/english/manifest.json), [Chinese references](corpus/chinese/manifest.json), [Japanese public-safe metadata](corpus/japanese/local-preparation.json), [nonspeech attribution](corpus/nonspeech/manifest.json)
 

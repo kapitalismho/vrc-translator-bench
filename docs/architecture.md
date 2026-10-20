@@ -1,6 +1,6 @@
 # Architecture
 
-This repository began without committed implementation. Its current boundary is local corpus preparation for issue #2. No application runner, OSC capture, scoring, billing or public presentation implementation is implied.
+This repository implements local corpus preparation for issue #2 and reusable Windows audio-to-OSC capture infrastructure for issue #3. Application-specific profile preparation, scoring, billing and public presentation remain separate outcomes. The capture runner does not imply a completed real-translator pilot.
 
 ## Data flow
 
@@ -9,6 +9,9 @@ This repository began without committed implementation. Its current boundary is 
 3. Rendering produces normalized 48 kHz mono PCM16 waveforms. Reference generation/transformations retain source-to-playback mappings and explicit uncertainty.
 4. Per-language manifests identify actual local audio and references with hashes and licenses. Japanese full speech text and timelines stay local because video-specific release rights are unresolved.
 5. `tools/index_corpus.py` produces `corpus/manifest.json` from those actual artifacts. `tools/check_corpus.py` checks the index against local files. The index is an integration view, not a second annotation source.
+6. `bench` materializes a requested run plan, starts profile-owned adapter subprocesses and keeps an ordered UDP sink active across real-time playback and observation tails.
+7. Per-profile SQLite attempts and atomic JSONL finalization retain completed, product-failed and interrupted work. Resume compares effective application state and performs an output check before replaying unfinished work.
+8. Raw OSC streams, callback/DAC timing, measured cable correction and separate diagnostics supply downstream metrics. Source grouping/alignment is not inferred by the capture runner.
 
 ## Owned surfaces
 
@@ -23,6 +26,12 @@ This repository began without committed implementation. Its current boundary is 
 | `tools/prepare_nonspeech.py` | Recorded keyboard/nonverbal assets, separate background conversation and two scoring intervals |
 | `tools/index_corpus.py`, `tools/check_corpus.py` | Six-direction reuse index, actual file/hash/frame checks and D1 repeat identity |
 | `corpus/` | Permitted selection, reference, provenance, license and checksum records; no audio |
+| `bench/cli.py`, `bench/plan.py` | Operator commands and frozen run/profile/stage inputs |
+| `bench/runner.py`, `bench/storage.py` | Stage orchestration, per-profile durable attempts, failure handling, resume, manifest and status |
+| `bench/audio.py` | Shared-mode WASAPI playback, callback/DAC clock mapping and bounded measured cable correction |
+| `bench/osc.py` | Ordered raw UDP/OSC capture across chunks and observation tails |
+| `bench/adapter.py` | Long-lived subprocess JSON control boundary; application-specific implementations belong to issue #4 |
+| `docs/cli.md` | Runner CLI, plan, adapter, raw timing and persistence contracts |
 | `.data/` | Local source/audio/models/environments and unresolved Japanese derived content; never staged for Git |
 
 Language-specific preparation remains explicit because the sources have materially different annotations and rights. There is no generic corpus-provider framework. Heavy model dependencies are isolated from the lightweight integration/test environment.
@@ -38,6 +47,10 @@ Language-specific preparation remains explicit because the sources have material
 - Japanese word IDs are local to a chunk. Join with `(chunk_id, word_id)`. Final preparation rejects missing/nonfinite word or sentence bounds, while low acoustic scores, overlapping model estimates and dictionary-reading uncertainty remain explicit. Numeric timing completeness does not establish accuracy; estimated speaker labels are not person identities.
 - Original session identities, selected-speaker scoring and unscored earlier context stay in language manifests. Session clustering cannot treat chopped clips or target-language reuse as independent recordings.
 - General and deliberate stress populations remain separate. Common shortlists precede results; the full comparison freeze is not performed by this preparation code.
+- Capture uses `perf_counter_ns` within an explicit clock session; UTC windows serve provider-usage attribution, not latency. Positive cable correction adds capture-path delay to source playback time.
+- An event's current chunk is capture context, not source alignment. Continuous streams retain late events after attempt finalization, with earlier playback provenance. Downstream consumers must not interpret a finalized per-attempt trace as the entire future observation window.
+- Typing is retained but never translation output. Product failure, operational invalidity and unsupported N/A remain distinct; resume preserves terminal history and marks replayed attempts.
+- Adapters own actual application readiness, effective state and startup isolation. A control acknowledgement or synthetic UDP output is not evidence of a configured real translator. No ordinary chunk-boundary application restart is introduced.
 
 ## Verification boundary
 
@@ -46,6 +59,8 @@ Deterministic tests cover mapping/word boundaries, pause preservation, lexical p
 The owner-delegated practical method is recorded in `corpus/practical-assessment.json` and the linked issue decision. It adds bounded inspection of original source content, actual ASR/caption disagreements and ten emitted excerpts; it does not claim human listening or replace timing/utterance correctness checks.
 
 No private account, live translation service, microphone capture, VRChat process or OSC destination is used by routine corpus checks. Public dependency installation may use the normal pip cache; corpus/model payloads remain in `.data/`. Do not delete shared caches as cleanup.
+
+Capture behavior checks use isolated controlled adapters, synthetic WAVs and loopback UDP. Actual Windows shared-mode cable calibration and playback were observed separately. No isolated configured translator was available for the real audio-to-OSC pilot; that observation remains explicitly not run. See `docs/cli.md` for the evidence boundary and operator contract. Application-specific settings and minimal OSCQuery/mute dependencies remain with profile preparation, not speculative runner behavior.
 
 ## Release boundary
 
