@@ -61,6 +61,7 @@ def timeline(spec, base):
               "path": str(path), "sha256": fingerprint(path), "reference_level": spec.get("reference_level", data.get("reference_level", "unknown") if isinstance(data, dict) else "unknown")}
     offset = number(spec.get("offset_seconds", 0), "offset_seconds")
     for container in containers:
+        context_by_id = {row["id"]: row for row in container.get("context", [])}
         for kind in ("turns", "sentences"):
             for index, row in enumerate(container.get(kind, [])):
                 chunk = row.get("clip_id", row.get("chunk_id", container.get("clip_id", container.get("chunk_id", container.get("id", spec.get("chunk_id", "clip"))))))
@@ -87,11 +88,19 @@ def timeline(spec, base):
                     topics = container.get("topics", [])
                     casual = any(any("top.14" in tag for tag in topic.get("types", []))
                                  and any(a / scale <= start + offset and end + offset <= b / scale for a, b in topic.get("playback_parts", [])) for topic in topics)
+                text_provenance = "native_reference_text"
                 if kind == "turns" and not row.get("text"):
-                    row_words = [word for word in words if word.get("clip_id", word.get("chunk_id", chunk)) == chunk and word.get("speaker") == row.get("speaker")
-                                 and number(word.get("playback_start", word.get("start")), "word start") / scale >= start + offset
-                                 and number(word.get("playback_end", word.get("end")), "word end") / scale <= end + offset]
-                    text = " ".join(word.get("text", "") for word in row_words)
+                    segment_ids = row.get("source_segment_ids", [])
+                    context_segments = [context_by_id[identity] for identity in segment_ids if identity in context_by_id]
+                    if segment_ids and len(context_segments) == len(segment_ids) and all(item.get("text", "").strip() for item in context_segments):
+                        text = " ".join(item["text"] for item in context_segments)
+                        text_provenance = "native_context_joined_by_source_segment_ids"
+                    else:
+                        row_words = [word for word in words if word.get("clip_id", word.get("chunk_id", chunk)) == chunk and word.get("speaker") == row.get("speaker")
+                                     and number(word.get("playback_start", word.get("start")), "word start") / scale >= start + offset
+                                     and number(word.get("playback_end", word.get("end")), "word end") / scale <= end + offset]
+                        text = " ".join(word.get("text", "") for word in row_words)
+                        text_provenance = "contained_reference_words" if text.strip() else "unavailable"
                 else:
                     text = row.get("text", "")
                 earlier = []
@@ -111,6 +120,7 @@ def timeline(spec, base):
                                      "chunk_id": chunk, "session_id": session, "start": start, "end": end,
                                      "timebase": "playback seconds", "native_coordinate_units": units, "offset_seconds": offset,
                                      "speaker": row.get("speaker"), "text": text, "scored": scored,
+                                     "text_provenance": text_provenance,
                                      "partial": row.get("partial", False), "category": info.get("category", "unknown"),
                                      "earlier_source_turns": earlier[-2:],
                                      "casual": casual, "source_group": info.get("source_group", "unknown"),

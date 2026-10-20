@@ -18,7 +18,7 @@ def tokens(text):
 
 
 def interpret(events, rules):
-    outputs, previous = [], {}
+    outputs, nontranslation, previous = [], [], {}
     for event in events:
         if event["address"] != "/chatbox/input" or not event.get("args") or not isinstance(event["args"][0], str) or not event["args"][0].strip():
             continue
@@ -38,12 +38,18 @@ def interpret(events, rules):
             else:
                 text = match.group("translation")
                 source = match.groupdict().get("source")
+        if not text.strip():
+            nontranslation.append({"id": f"{event.get('clock_session', 'unknown')}:{event['recv_seq']}", "raw": event,
+                                   "text": text, "source_text": source, "extraction": extraction,
+                                   "reason": "empty_extracted_translation", "rules_version": rule.get("version"),
+                                   "rule_sha256": hashlib.sha256(json.dumps(rule, sort_keys=True, ensure_ascii=False).encode()).hexdigest()})
+            continue
         key = (event.get("clock_session"), event.get("config"), event.get("direction"))
         prior = previous.get(key)
         identity = f"{event.get('clock_session', 'unknown')}:{event['recv_seq']}"
         duplicate = prior is not None and prior["text"] == text
         explicit = rule.get("relationships", {}).get(identity)
-        relation = "resend" if duplicate and rule.get("supports", {}).get("resend") else "new" if style == "append" else "unknown"
+        relation = "new" if style == "append" else "unknown"
         parent = prior["id"] if prior else None
         group = identity
         if explicit:
@@ -56,8 +62,6 @@ def interpret(events, rules):
                 if linked is None or linked["raw"].get("clock_session") != event.get("clock_session") or linked["raw"].get("config") != event.get("config"):
                     raise ValueError("Grouping parent must be earlier output in the same config and clock")
                 group = linked["group_id"]
-        elif relation == "resend" and prior:
-            group = prior["group_id"]
         changed = False if relation == "resend" else None if relation == "unknown" else True
         output = {"id": identity, "raw": event, "text": text, "source_text": source,
                   "extraction": extraction, "relation": relation, "parent_id": parent,
@@ -68,7 +72,7 @@ def interpret(events, rules):
                                      "uncertainty": rule.get("uncertainty", "unknown" if style == "unknown" else "estimated from explicit rules")}}
         outputs.append(output)
         previous[key] = output
-    return outputs
+    return outputs, nontranslation
 
 
 def cache_binding(output, sentences):
@@ -93,7 +97,7 @@ class Alignment:
         self.aligner = None
         self.error = None
         self.links = {}
-        self.provenance = {"backend": self.backend, "confidence": "No calibrated semantic confidence"}
+        self.provenance = {"backend": self.backend, "confidence": "No calibrated semantic confidence", "correspondence_policy": "adjudicated_bound_cache_only"}
         path = Path(cache_path) if cache_path is not None else resolve(base, self.settings["cache"]) if self.settings.get("cache") else None
         if path is not None:
             data = load_json(path)
@@ -142,6 +146,11 @@ class Alignment:
             ids = entry.get("sentence_ids", [])
             if (entry["status"] == "aligned") != bool(ids):
                 raise ValueError("Aligned cache entries require sentence_ids, other statuses prohibit them")
+            adjudication = entry.get("adjudication") or {}
+            if ids and (not isinstance(adjudication, dict) or adjudication.get("decision") != "confirmed"
+                        or not isinstance(adjudication.get("method"), str) or not adjudication["method"].strip()
+                        or not isinstance(adjudication.get("evidence"), list) or not adjudication["evidence"]):
+                raise ValueError(f"Aligned cache entry requires explicit adjudication: {identity}")
             valid = {row["id"]: row for row in all_sentences}
             for source_id in ids:
                 if source_id not in valid:
@@ -168,21 +177,42 @@ class Alignment:
         if not source or not target or max(lengths) > 500:
             return {"status": "unknown", "sentence_ids": [], "method": "simalign", "reason": "Empty tokens or model context would truncate; no silent truncation", "candidate_ids": [row["id"] for row in candidates]}
         links = sorted(self.aligner.get_word_aligns(source, target)["itermax"])
-        ids = sorted({owners[left] for left, right in links})
-        return {"status": "aligned" if ids else "unknown", "sentence_ids": ids, "method": "simalign",
+        references = {row["id"]: row for row in candidates}
+        proposals, rejected = set(), []
+        for left, right in links:
+            identity = owners[left]
+            if references[identity]["start_ns"] > output["raw"]["t_ns"]:
+                rejected.append({"sentence_id": identity, "token_link": [left, right], "reason": "future_source_support"})
+            elif not re.search(r"[^\W_]", source[left], re.UNICODE) or not re.search(r"[^\W_]", target[right], re.UNICODE):
+                rejected.append({"sentence_id": identity, "token_link": [left, right], "reason": "punctuation_only_support"})
+            else:
+                proposals.add(identity)
+        viable = sorted({owner for index, owner in enumerate(owners) if references[owner]["start_ns"] <= output["raw"]["t_ns"]
+                         and re.search(r"[^\W_]", source[index], re.UNICODE)})
+        return {"status": "unknown", "sentence_ids": [], "method": "simalign", "proposal_status": "requires_adjudication",
+                "proposed_sentence_ids": sorted(proposals), "rejected_support": rejected,
+                "competing_candidate_ids": viable if len(viable) > 1 else [],
+                "ambiguity_reason": "no_eligible_lexical_support" if not proposals else "multiple_eligible_source_candidates" if len(viable) > 1 else "uncalibrated_lexical_proposal",
                 "token_links": links, "source_tokens": source, "source_owners": owners, "target_tokens": target,
-                "confidence": None, "reason": "Uncalibrated lexical alignment; not semantic correctness", "candidate_ids": [row["id"] for row in candidates]}
+                "candidate_evidence": [{"sentence_id": row["id"], "start_ns": row["start_ns"], "end_ns": row["end_ns"],
+                                        "temporal_status": "future_source" if row["start_ns"] > output["raw"]["t_ns"] else "source_started"} for row in candidates],
+                "confidence": None, "reason": "Model proposals require inspected bound-cache adjudication before source correspondence or delivery credit",
+                "candidate_ids": [row["id"] for row in candidates]}
 
 
 def final_outputs(outputs):
     final = []
     positions = {}
     for output in outputs:
+        parent_position = positions.get(output.get("parent_id"))
         if output["relation"] == "resend":
+            if parent_position is not None:
+                positions[output["id"]] = parent_position
             continue
-        if output["relation"] == "revision" and output["group_id"] in positions:
-            final[positions[output["group_id"]]] = output
+        if output["relation"] == "revision" and parent_position is not None:
+            final[parent_position] = output
+            positions[output["id"]] = parent_position
         else:
-            positions[output["group_id"]] = len(final)
+            positions[output["id"]] = len(final)
             final.append(output)
     return final

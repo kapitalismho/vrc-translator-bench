@@ -32,7 +32,7 @@ Prepared reference units do not always have a unique containing turn. Retain can
 
 Raw OSC observations remain unchanged. Derived grouping and source alignment are estimates stored separately, with rule/model provenance and uncertainty. OSC does not provide universal translation, revision, page or final IDs. An unsupported final-text reconstruction, revision count, erased-character count, endpoint boundary, or source CER must remain N/A rather than become a heuristic presented as fact.
 
-SimAlign-family alignment is the working cross-language method, not a guarantee of correspondence. Preserve source sentence/turn/original-session identity and reference uncertainty. Cached or inspected links must identify their method and inputs; controlled fixture links do not validate a model. Isolated-response results are a separate test, not continuous-dialogue latency. Retain identifiable late carryover and attach externally supplied quality scores without treating unscored output as correct.
+SimAlign-family alignment is the working cross-language proposal method, not proof of correspondence. Its maximum matching also produces links for unrelated text. Model proposals therefore retain token links and candidate identities but stay `unknown` for delivery until inspected, input-bound correspondence evidence supports a source assignment. This prevents forced token matches from becoming falsely delivered sentences. Isolated-response results use window association instead and remain a separate test.
 
 Quality inputs contain target-speaker reference text, unscored earlier-turn context, interpreted final output in display order, and temporally assigned unaligned output. Japanese references remain automatic/exploratory; Japanese CER is automatic-reference guidance, not verified recognition accuracy. Japanese speech-derived report content inherits the local-only release restriction.
 
@@ -85,13 +85,17 @@ A global paging/revision style does not assert that every successive message bel
 
 Alignment caches have `schema_version: 1`, `version`, `provenance`, and `links` keyed by output ID. Each link records `status` (`aligned`, `unknown`, `unrelated`), `sentence_ids`, a reason and available token links/confidence. Only aligned entries carry source IDs. IDs for normalized sentences are scoped by attempt and native clip/unit identity; generated IDs remain marked as generated. A required `binding` hashes raw output, interpreted text/relationship/full rule identity, and same-config/clock source IDs, text, times and directions. Use `bench.metrics_alignment.cache_binding(output, sentences)` when preparing inspected links. Stale evidence fails rather than silently transferring to changed inputs. Source links may cross captured chunk/attempt/direction boundaries, but never configuration or clock session.
 
+An `aligned` cache entry additionally requires `adjudication: {"decision": "confirmed", "method": "...", "evidence": ["..."]}`. Record the actual method and evidence, for example assistant inspection of the exact bilingual pair or synthetic fixture ground truth; never claim human validation that did not occur. Keep the original proposal/token evidence and binding when recording a decision. A prior automatically aligned report without adjudication is rejected, not silently promoted to inspected evidence.
+
 ### Optional model runtime
 
-Install `.[metrics]` in a separate environment. The implemented method uses SimAlign 0.4, multilingual BERT `google-bert/bert-base-multilingual-cased` at revision `3f076fdb1ab68d5b2880cb87a0886f315b8146f8`, layer 8, word-level `itermax`, CPU inference, and the versioned Unicode-word/CJK-character tokenizer. `alignment.model_path` can name that local Hugging Face snapshot directory; `alignment.model_revision` must match. Reports retain model-file hashes and runtime versions.
+Install `.[alignment]` in a separate environment (`python -m pip install -e ".[alignment]"`). The implemented method uses SimAlign 0.4, multilingual BERT `google-bert/bert-base-multilingual-cased` at revision `3f076fdb1ab68d5b2880cb87a0886f315b8146f8`, layer 8, word-level `itermax`, CPU inference, and the versioned Unicode-word/CJK-character tokenizer. `alignment.model_path` can name that local Hugging Face snapshot directory; `alignment.model_revision` must match. Reports retain model-file hashes and runtime versions.
 
-This method is an estimate, not semantic validation. A real native-library probe produced a questionable `like` → `は` token link. Successful model execution and a pinned revision do not prove source correspondence; inspect representative matches before the main-run freeze.
+This method is an estimate, not semantic validation. A real native-library probe produced a questionable `like` → `は` token link; independent review also observed unrelated or competing source sentences receiving links. The model now generates explicit lexical proposals rather than definitive delivery credit. Retain `proposed_sentence_ids`, token links, rejected support and ambiguity reasons; do not treat a useful proposal as a confirmed source match.
 
-Automatic source candidates use a disclosed same-clock window: from five seconds before source onset through the containing-turn deadline (or sentence end when unknown) plus 120 seconds. Output outside the window remains unknown. Inputs exceeding 500 model wordpieces remain unknown instead of being silently truncated. This window and tokenization are working method choices to record in the main-run freeze, not validated accuracy thresholds.
+Inspect proposals against the retained source/output evidence, record the correspondence decision and provenance in the exported bound cache, then rerun with `--alignment-cache`. Confirmed cache links supply sentence timing/delivery; unresolved entries retain null latency and remain in delivery coverage. This is an executable proposal-and-adjudication workflow, not an automatic semantic-accuracy claim or a new calibration-study gate.
+
+Same-clock candidate search retains late-output possibilities through the containing-turn deadline (or sentence end when unknown) plus 120 seconds. Punctuation-only and future-source support do not establish a model proposal. Inputs exceeding 500 model wordpieces remain unknown instead of being silently truncated. These working method choices must be recorded at the main-run freeze.
 
 ## Report-data contract
 
@@ -103,7 +107,8 @@ The output is one JSON object, `schema_version: 1`, calculation `version: "issue
 | `definitions`, `limitations` | Applied formulas, population policy and unsupported claims |
 | `provenance`, `alignment_provenance`, `application_observations`, `harness` | Checksummed input paths, actual model/runtime details, application metadata and capture implementation identity |
 | `attempts` | Retained status, first-attempt history, failure reasons and resume provenance |
-| `outputs` | Untouched `raw` observation plus derived text/source text, relationship/parent/group, rule evidence, content-change certainty, alignment and quality-segment identity |
+| `outputs` | Nonempty interpreted translation outputs only, with untouched `raw`, derived text/source text, relationship/parent/group, rule evidence, content-change certainty, source proposals/confirmed links and quality-segment identity |
+| `nontranslation_observations` | Source-only observations retain raw payload and extraction evidence without entering translation, delivery or unaligned-output denominators |
 | `sentences`, `turns` | Original/generated identity, source session/speaker/category, native reference evidence, uncertainty, candidate turns, timing, delivery and late/unknown output identities |
 | `quality_segments` | Approximately 30-second reference units, two unscored earlier turns, final display-order output, unaligned output and externally supplied quality score |
 | `isolated` | Separate utterance-window response timing, no-output/timeout, carryover and quality; not continuous-dialogue latency |
@@ -119,7 +124,11 @@ Product-failed attempts remain in the measurement population when reference/timi
 
 Unaligned-rate denominators include all observed translation outputs in the declared global or source population, including resends, late and orphan output. Outputs known to be unrelated also lack a linked source; `alignment_status_counts` keeps them distinct from unresolved correspondence. Known-unrelated output does not turn a sentence's no-output result into unknown. Source-population denominators can be smaller than the global denominator; never omit that distinction.
 
+Subgroup output attribution uses confirmed linked source identities, otherwise the assigned quality-segment population; raw attempt identity alone never assigns every output to every category. `unaligned_output_rate.population_attribution` exposes selection-basis counts, ambiguous/excluded output IDs and unassigned capture IDs. `output_population` retains global unassigned and ambiguous-population IDs. Output spanning populations can be nonexclusive: do not sum subgroup denominators into the global denominator. A reference-free output-check, nonspeech or isolated observation remains in its own test population rather than entering continuous quality text by nearest-time fallback.
+
 First-attempt product-failure rates exclude operational-invalid and unsupported first attempts from their product-failure denominator but preserve all first-attempt status counts. Missing quality scores are unscored, not zero-error judgments. Reports expose session-level values; fewer than two original sessions yields no bootstrap interval. Paired comparisons match shared reference segments rather than treating each target language as a new recording.
+
+`turn_lul_p50` and `turn_lul_p90` are separate from sentence `lul_p50`/`lul_p90`. They use original-session clusters and expose `reference_turns`, `eligible_turns`, `measurable_turns`, `turn_denominator_coverage`, `turn_lul_unavailable_reasons`, session values and interval reasons. The same turn summaries accompany repeat and resumed-sensitivity views; sentence LUL is not substituted for turn LUL.
 
 ### Diagnostic evidence
 
@@ -127,21 +136,36 @@ Identifiable boundary evidence may carry `source_boundary_ns`, `sentence_end_ns`
 
 Source CER is Levenshtein distance divided by reference Unicode code points, without punctuation/whitespace normalization. It requires an app-exposed source field and source correspondence; Japanese remains automatic-reference guidance. Supported erased-character measurement uses previous Unicode code-point length minus longest-common-subsequence length. Splitting/merging counts alone imply no quality preference.
 
+Split source messages need explicit coverage before CER assembly: `evidence[output_id].source_coverage` is an array of `{sentence_id, start, end}` half-open Unicode code-point spans in reference text, accompanied by outer evidence provenance. Count reference characters once. A single complete exposed-source message retains ordinary CER; multiple messages with absent, overlapping or gapped coverage yield N/A instead of duplicated deletion penalties. Translation append style alone does not establish source-fragment assembly.
+
+Explicit source spans must be integer, in bounds and attached to that output's linked reference; combined coverage must be complete, nonoverlapping and in source order. Merged references concatenate exact reference strings in source order without inserted separators. If any source-bearing component has unresolved reconstruction, attempt CER is N/A; supported character/edit counts and unresolved evidence remain visible rather than silently producing a selected partial CER.
+
 Internal PuriPuly records may contain `speech_end_ns`, `endpoint_ns`, `asr_start_ns`, `asr_end_ns`, `queued_ns`, `generation_start_ns`, `first_token_ns`, `generation_end_ns`, and `output_ns`. Missing pairs remain N/A. These do not replace OSC receipt latency.
 
 ## Hand-worked boundaries and observed checks
 
 With DAC origin 10.0 seconds and cable correction +0.1 seconds, source origin is 10.1 seconds. A sentence at playback [0,2] has source bounds [10.1,12.1]. If its containing turn ends at playback 4, the deadline is 29.1. Related content-changing outputs at 11 and 12 give FOL **0.9 seconds** and LUL **−0.1 seconds**. Output exactly at 29.1 is on time; 29.100000001 is late. Missing output has null latency. Unresolved output remains in the quality input rather than proving delivery or disappearing.
 
-Executed checks on the implementation candidate:
+Initial candidate checks (before independent-review repairs):
 
 - Focused behavior suite: 24 tests passed, no skips. Covers exact/late deadlines, negative LUL, unknown/no-output separation, failed/resumed attempts, grouping, unaligned quality assignment, isolated carryover, diagnostics, aggregation and stale-cache rejection.
 - Repository integration: 130 tests and 29 subtests passed; four existing Chinese real-audio tests skipped because this worktree lacks their `.data/chinese/audio/zh-main.wav`. Shared local corpus metadata was used by the focused checks; no missing audio was fabricated.
 - CLI with an actual prepared English reference and explicitly synthetic OSC/playback/cached correspondence produced FOL 0.4 seconds, LUL 0.16 seconds, one delivered sentence and a null one-session interval.
 - Actual Japanese local timeline normalization retained 656 sentences, 333 turns and three original sessions. Strict turn evidence marked 181 units ambiguous rather than inventing deadlines. No Japanese speech text was published.
 - Retained PuriPuly 2.8.2 manual-text UDP probes produced four output records and two orphan quality segments. The known page link was retained, an earlier standalone prefix was not erased, and repeated text after restart was not called a resend. All correspondence remained unknown because these probes have no source playback. Typing false preceded the last observed page and was not used as a finality marker.
-- Real pinned CPU SimAlign through the actual CLI produced FOL 1.5 seconds and LUL −0.5 seconds on a tiny synthetic bilingual fixture. A late output and a different-clock orphan were retained; global unaligned rate was 1/3. This verifies execution/provenance/arithmetic, not alignment accuracy or real translation.
+- The initial real CPU SimAlign CLI produced FOL 1.5 seconds and LUL −0.5 seconds on a tiny synthetic fixture. **That automatic source-credit behavior was rejected in independent review:** an unrelated/competing-input probe showed forced links. The execution observation remains historical evidence, not validation of the repaired correspondence policy; model-only output now requires adjudication before latency credit.
 
 Development checks found and repaired an orphan-only quality-assignment crash and an explicit relative cache-path resolution error; focused regression checks retain these boundaries. Local observations and controlled inputs are under `.data/issue5-worker-final/`, `.data/issue5-director/`, and `.data/issue5-alignment/`; those local paths are not published datasets.
+
+Integrated repair checks:
+
+- Repository suite: **187 tests and 29 subtests passed; four unchanged local-audio checks skipped** for the same missing worktree audio. Core metric checks include native Chinese context recovery; statistics and CER repairs have separate behavior coverage.
+- Actual pinned offline model CLI processed positive, unrelated, competing, future-source and punctuation-only cases: all five outputs stayed unknown without adjudication. Useful proposals remained; future/punctuation support was rejected as source authority. The unrelated example still produced lexical links, demonstrating why they are not delivery proof.
+- An explicit inspected cache confirmed only the positive synthetic bilingual pair: FOL 1.5 seconds, LUL −0.5 seconds; six other reference sentences remained unknown. A legacy automatically aligned cache without adjudication exited 2. Fifteen recorded observations covered raw/proposal preservation and the negative/positive boundaries.
+- The installed `bench.exe metrics` command replayed the confirmed cache successfully: seven reference sentences, five outputs and five quality segments. The corrected `pip install -e ".[alignment]"` instruction completed successfully in the owned alignment environment.
+- Controlled category/casual CLI output kept general, stress and casual denominators distinct, retained delayed source attribution, and exposed turn LUL separately from sentence LUL. Original-session values and null unavailable measurements remained visible.
+- Controlled split-source CLI cases produced CER 0/11 for explicitly covered exact fragments, 2/11 for fragments with real character errors, and N/A with a reason for unproved fragment/snapshot assembly. No duplicate full-reference denominator remained.
+
+Independent-review repairs also covered explicit-parent page revisions, aligned pages crossing quality boundaries, repeated equal-text utterances, source-only extraction, empty native Chinese context, and separation of reference-free output checks from continuous scoring. Repair observations are retained locally under `.data/issue5-core-repair/` and `.data/issue5-diagnostic-repair/`; they are controlled verification, not application comparison results.
 
 **Remaining empirical prerequisite:** #4 has not supplied different applications' actual microphone-to-translated-OSC examples and observed interpretation rules. The available PuriPuly manual-text probe does not satisfy that criterion. Synthetic append/revision/pagination fixtures exercise calculations but cannot establish real-app readiness or translation timing. Issue #5 must not be closed as fully empirically verified on that basis. No human listening, independent semantic-accuracy study, live provider call or public result publication is claimed.

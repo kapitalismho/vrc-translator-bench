@@ -61,7 +61,7 @@ Windows cable calibration/playback was observed. A real translator pilot was **n
 python -m bench.cli metrics --manifest .data/runs/pilot/manifest.json --spec metrics-spec.json --output .data/reports/pilot.json
 ```
 
-The [metric definitions and report-data contract](docs/metrics.md) describe reference normalization, versioned application rules, cross-language alignment, timing/delivery, quality segments, diagnostics and session-clustered summaries. Optional model alignment uses `.[metrics]`; inspected, input-bound alignment caches support offline calculations. Raw capture is never rewritten. Missing correspondence, late output, failure, reference uncertainty and unsupported measurements remain visible.
+The [metric definitions and report-data contract](docs/metrics.md) describe reference normalization, versioned application rules, cross-language alignment, timing/delivery, quality segments, diagnostics and session-clustered summaries. Optional model alignment uses `.[alignment]`; inspected, input-bound alignment caches support offline calculations. Raw capture is never rewritten. Missing correspondence, late output, failure, reference uncertainty and unsupported measurements remain visible.
 
 Actual distinct-application translation traces and observed interpretation rules remain a #4 integration prerequisite. Synthetic boundary checks and retained PuriPuly manual-text OSC observations do not establish audio-to-translated-OSC accuracy. Derived reports can contain speech and local provenance: keep them local until their content and rights are cleared.
 

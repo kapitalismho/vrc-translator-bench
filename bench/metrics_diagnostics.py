@@ -37,6 +37,113 @@ def union_duration(intervals):
     return total
 
 
+def source_cer(refs, outputs, evidence):
+    references = {row["id"]: row for row in refs}
+    reference_order = {row["id"]: i for i, row in enumerate(sorted(refs, key=lambda row: (row["start"], row["id"])))}
+    observations = []
+    owners = {}
+    for output in final_outputs(outputs):
+        if output["source_text"] is None:
+            continue
+        sentence_ids = set(output["alignment"]["sentence_ids"])
+        if not sentence_ids.intersection(references):
+            continue
+        supplied = evidence.get(output["id"], {})
+        record = {"output_id": output["id"], "source_text": output["source_text"],
+                  "sentence_ids": sorted(sentence_ids), "source_coverage": supplied.get("source_coverage"),
+                  "diagnostic_evidence": supplied, "interpretation": output["interpretation"]}
+        observations.append(record)
+        for sentence_id in sentence_ids:
+            owners.setdefault(sentence_id, []).append(len(observations) - 1)
+    pending = set(range(len(observations)))
+    reconstructions = []
+    while pending:
+        todo = [min(pending)]
+        component = set()
+        sentence_ids = set()
+        while todo:
+            index = todo.pop()
+            if index in component:
+                continue
+            component.add(index)
+            pending.discard(index)
+            for sentence_id in observations[index]["sentence_ids"]:
+                if sentence_id in sentence_ids:
+                    continue
+                sentence_ids.add(sentence_id)
+                todo.extend(owner for owner in owners[sentence_id] if owner not in component)
+        records = [observations[index] for index in sorted(component)]
+        reason = None
+        spans = []
+        if not sentence_ids.issubset(references):
+            reason = "Source message also covers reference sentences outside this attempt's scored population"
+        else:
+            for record in records:
+                coverage = record["source_coverage"]
+                if coverage is None and len(records) == 1:
+                    coverage = [{"sentence_id": sentence_id, "start": 0, "end": len(references[sentence_id]["text"])}
+                                for sentence_id in sorted(sentence_ids, key=reference_order.get)]
+                if not isinstance(coverage, list) or not coverage:
+                    reason = ("Multiple source messages share reference coverage; explicit source_coverage is required to distinguish fragments from snapshots"
+                              if coverage is None else "source_coverage must be a nonempty list of reference sentence ranges")
+                    break
+                if record["source_coverage"] is not None and not record["diagnostic_evidence"].get("provenance"):
+                    raise ValueError("Diagnostic evidence requires provenance")
+                local = []
+                for span in coverage:
+                    if not isinstance(span, dict):
+                        reason = "source_coverage entries must be reference sentence ranges"
+                        break
+                    sentence_id, start, end = span.get("sentence_id"), span.get("start"), span.get("end")
+                    if (sentence_id not in record["sentence_ids"] or sentence_id not in references
+                            or type(start) is not int or type(end) is not int
+                            or not 0 <= start < end <= len(references[sentence_id]["text"])):
+                        reason = "source_coverage requires linked sentence IDs and integer half-open Unicode ranges within reference bounds"
+                        break
+                    local.append((reference_order[sentence_id], start, end, record["output_id"]))
+                if reason:
+                    break
+                if local != sorted(local):
+                    reason = "Source message coverage must follow reference sentence and character order"
+                    break
+                spans.extend(local)
+        ordered_ids = []
+        if not reason:
+            positions = {reference_order[sentence_id]: 0 for sentence_id in sentence_ids}
+            for sentence_index, start, end, output_id in sorted(spans):
+                if start != positions[sentence_index]:
+                    reason = "Source coverage has a gap or overlap; each reference character must be covered exactly once"
+                    break
+                positions[sentence_index] = end
+                if not ordered_ids or ordered_ids[-1] != output_id:
+                    if output_id in ordered_ids:
+                        reason = "Interleaved merged source coverage cannot be reconstructed without within-source-text offsets"
+                        break
+                    ordered_ids.append(output_id)
+            if not reason and any(positions[reference_order[sentence_id]] != len(references[sentence_id]["text"]) for sentence_id in sentence_ids):
+                reason = "Source coverage is incomplete; full reference coverage is required"
+        reconstruction = {"output_ids": [record["output_id"] for record in records],
+                          "sentence_ids": sorted(sentence_ids, key=lambda value: reference_order.get(value, len(reference_order))),
+                          "observations": records, "status": "N/A" if reason else "available", "reason": reason}
+        if not reason:
+            by_id = {record["output_id"]: record for record in records}
+            reference = "".join(references[sentence_id]["text"] for sentence_id in reconstruction["sentence_ids"])
+            source = "".join(by_id[output_id]["source_text"] for output_id in ordered_ids)
+            reconstruction.update({"reconstruction_output_ids": ordered_ids, "source_text": source,
+                                   "edits": edit_distance(reference, source), "reference_characters": len(reference)})
+        reconstructions.append(reconstruction)
+    unresolved = [row for row in reconstructions if row["status"] == "N/A"]
+    denominator = sum(row.get("reference_characters", 0) for row in reconstructions)
+    edits = sum(row.get("edits", 0) for row in reconstructions)
+    return metric(edits / denominator if denominator and not unresolved else None,
+                  "Source reconstruction unresolved: " + "; ".join(dict.fromkeys(row["reason"] for row in unresolved)) if unresolved
+                  else None if denominator else "App source text and determinable source correspondence required",
+                  "edits/reference_character", denominator=None if unresolved else denominator, evidence=reconstructions,
+                  supported_reference_characters=denominator, supported_edits=edits,
+                  normalization="none; Unicode code points including whitespace and punctuation",
+                  guidance="Japanese automatic-reference CER is guidance, not validated accuracy")
+
+
 def diagnostics(attempts, sentences, outputs, spec):
     evidence = spec.get("evidence", {})
     by_id = {row["id"]: row for row in outputs}
@@ -86,13 +193,6 @@ def diagnostics(attempts, sentences, outputs, spec):
                                                                                "Exploratory; estimated speaker evidence required" if "speaker_crossing" not in boundary and "source_speakers" not in boundary else None, "boolean"),
                                    "japanese_pre_predicate_cut": metric(source < boundary["predicate_end_ns"] if source is not None and boundary.get("predicate_end_ns") is not None else None,
                                                                         None if source is not None and boundary.get("predicate_end_ns") is not None else "Predicate-position evidence absent; exploratory", "boolean")})
-        cer_rows = []
-        for output in final_outputs(selected):
-            source_ids = set(output["alignment"]["sentence_ids"]) & ids
-            reference = "".join(ref["text"] for ref in sorted(refs, key=lambda row: row["start"]) if ref["id"] in source_ids)
-            if output["source_text"] is not None and reference:
-                cer_rows.append({"output_id": output["id"], "edits": edit_distance(reference, output["source_text"]), "reference_characters": len(reference)})
-        denominator = sum(row["reference_characters"] for row in cer_rows)
         order = [min((ref["start"] for ref in refs if ref["id"] in row["alignment"]["sentence_ids"]), default=0) for row in independent]
         accumulation = []
         for start, end in attempt["stage_data"].get("speech_intervals", []):
@@ -113,8 +213,7 @@ def diagnostics(attempts, sentences, outputs, spec):
                      "revisions": metric(sum(row["revision_supported"] for row in revisions) if any(row["interpretation"]["supports"].get("revision") for row in selected) else None,
                                          None if any(row["interpretation"]["supports"].get("revision") for row in selected) else "App rules do not support revision inference", "updates"),
                      "erasure": revisions or metric(reason="No supported revision pairs", unit="characters"),
-                     "source_cer": metric(sum(row["edits"] for row in cer_rows) / denominator if denominator else None, None if denominator else "App source text and determinable source correspondence required", "edits/reference_character",
-                                          denominator=denominator, evidence=cer_rows, normalization="none; Unicode code points including whitespace and punctuation", guidance="Japanese automatic-reference CER is guidance, not validated accuracy"),
+                     "source_cer": source_cer(refs, selected, evidence),
                      "endpoint_cut_tradeoff": boundaries or metric(reason="Identifiable source boundaries and app endpoint/cut signals absent", unit="boundary_records"),
                      "boundary_loss_duplication": metric(reason="Requires explicit identifiable source-unit evidence; no lexical loss inferred from split/merge counts", unit="source_units") if not boundaries else boundaries,
                      "japanese_explorations": metric(reason="Requires supplied speaker/predicate boundary evidence; automatic references exploratory", unit="boundary_records") if not boundaries else boundaries,

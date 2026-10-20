@@ -61,13 +61,15 @@ def sample(root, events=None, kind="chunk", native=None):
 def link(root, manifest, spec, entries):
     _, specification, attempts, events, _ = ingest(manifest, spec)
     sentences, _ = prepare_sentences(attempts)
-    outputs = interpret(events, specification["rules"])
+    outputs, _ = interpret(events, specification["rules"])
     cache = {"schema_version": 1, "version": "hand-inspected-synthetic-v1", "provenance": ["Synthetic test correspondence, not model alignment"], "links": {}}
     for output in outputs:
         if output["id"] in entries:
             ids = entries[output["id"]]
             cache["links"][output["id"]] = {"status": "aligned" if ids else "unrelated", "sentence_ids": ids,
-                                            "binding": cache_binding(output, sentences), "reason": "Explicit synthetic correspondence"}
+                                            "binding": cache_binding(output, sentences), "reason": "Explicit synthetic correspondence",
+                                            "adjudication": {"decision": "confirmed", "method": "synthetic fixture ground truth",
+                                                             "evidence": ["The test defines the source/output correspondence explicitly; not human or model validation"]} if ids else None}
     return dump(root / "cache.json", cache)
 
 
@@ -115,14 +117,15 @@ def test_orphan_output_without_captured_attempt_never_gets_playback_link(tmp_pat
 
 def test_no_typing_final_marker_and_explicit_styles_not_prefix_heuristics():
     events = [packet(1, 1, "short"), packet(2, 2, "short longer"), packet(3, 3, "", address="/chatbox/typing", args=[False])]
-    page = interpret(events, {"APP": STYLES["pagination"]})
+    page, _ = interpret(events, {"APP": STYLES["pagination"]})
     assert [row["relation"] for row in page] == ["new", "pagination"]
     assert len(final_outputs(page)) == 2
-    revision = interpret(events, {"APP": STYLES["revision"]})
+    revision, _ = interpret(events, {"APP": STYLES["revision"]})
     assert [row["text"] for row in final_outputs(revision)] == ["short longer"]
     unknown_rule = {**STYLES["pagination"], "relationships": {}}
-    assert [row["relation"] for row in interpret(events, {"APP": unknown_rule})] == ["unknown", "unknown"]
-    resumed = interpret([events[0], packet(1, 4, "short", clock_session="next")], {"APP": STYLES["append"]})
+    unknown, _ = interpret(events, {"APP": unknown_rule})
+    assert [row["relation"] for row in unknown] == ["unknown", "unknown"]
+    resumed, _ = interpret([events[0], packet(1, 4, "short", clock_session="next")], {"APP": STYLES["append"]})
     assert not resumed[-1]["duplicate_observed"]
 
 
@@ -421,3 +424,151 @@ def test_unaligned_page_stays_nearest_instead_of_inheriting_parent_source_segmen
     assert report["quality_segments"][1]["unaligned_output_ids"] == ["clock:2"]
     assert report["quality_segments"][0]["cross_segment_group_ids"] == ["clock:1"]
     assert report["quality_segments"][0]["reconstruction_status"] == "unknown_observed_order_only"
+
+
+def test_page_revisions_replace_explicit_parent_slots_and_keep_other_pages():
+    rule = {**STYLES["pagination"], "relationships": {
+        "clock:1": {"relation": "new"},
+        "clock:2": {"relation": "pagination", "parent_id": "clock:1"},
+        "clock:3": {"relation": "revision", "parent_id": "clock:1"},
+        "clock:4": {"relation": "revision", "parent_id": "clock:3"},
+        "clock:5": {"relation": "revision", "parent_id": "clock:2"},
+        "clock:6": {"relation": "resend", "parent_id": "clock:4"},
+        "clock:7": {"relation": "revision", "parent_id": "clock:6"}}}
+    events = [packet(index, index, text) for index, text in enumerate(("page A", "page B", "corrected A", "A again", "corrected B", "A again", "final A"), 1)]
+    outputs, nontranslation = interpret(events, {"APP": rule})
+    assert nontranslation == []
+    assert [(row["id"], row["text"]) for row in final_outputs(outputs)] == [("clock:7", "final A"), ("clock:5", "corrected B")]
+
+
+def test_resend_capability_does_not_identify_equal_text_utterances():
+    rule = {**STYLES["append"], "supports": {"resend": True},
+            "relationships": {"clock:3": {"relation": "resend", "parent_id": "clock:2"}}}
+    outputs, _ = interpret([packet(1, 11, "yes"), packet(2, 20, "yes"), packet(3, 21, "yes")], {"APP": rule})
+    assert [row["relation"] for row in outputs] == ["new", "new", "resend"]
+    assert [row["content_changed"] for row in outputs] == [True, True, False]
+    assert [row["duplicate_observed"] for row in outputs] == [False, True, True]
+    assert [row["id"] for row in final_outputs(outputs)] == ["clock:1", "clock:2"]
+
+
+@pytest.mark.parametrize("translation", ["", "   "])
+def test_source_only_extraction_is_retained_outside_translation_population(tmp_path, translation):
+    event = packet(1, 13, f"Hello world|{translation}")
+    manifest, spec = sample(tmp_path, [event])
+    specification = json.loads(spec.read_text())
+    specification["rules"]["APP"] = {**STYLES["append"], "text_pattern": r"(?P<source>[^|]+)\|(?P<translation>.*)"}
+    dump(spec, specification)
+    report = derive(manifest, spec)
+    assert report["outputs"] == []
+    assert report["nontranslation_observations"][0]["raw"] == event
+    assert report["nontranslation_observations"][0]["source_text"] == "Hello world"
+    assert report["nontranslation_observations"][0]["reason"] == "empty_extracted_translation"
+    assert report["output_population"]["observed_translation_outputs"] == 0
+    assert all(row["delivery_status"] == "no_output_before_deadline" for row in report["sentences"])
+    assert all(row["output_ids"] == [] for row in report["quality_segments"])
+
+
+def test_model_proposal_cache_needs_explicit_inspection_and_keeps_proposal_history(tmp_path):
+    manifest, spec = sample(tmp_path, [packet(1, 13)])
+    report = derive(manifest, spec)
+    entry = report["alignment_cache"]["links"]["clock:1"]
+    entry.update({"method": "simalign", "proposal_status": "requires_adjudication", "proposed_sentence_ids": ["1:clip/s1"],
+                  "token_links": [[0, 0]], "source_tokens": ["Hello"], "source_owners": ["1:clip/s1"], "target_tokens": ["翻訳"],
+                  "rejected_support": [], "reason": "Synthetic proposal-policy fixture; not actual model execution"})
+    cache = dump(tmp_path / "proposal-cache.json", report["alignment_cache"])
+    provisional = derive(manifest, spec, cache_path=cache)
+    assert provisional["sentences"][0]["delivery_status"] == "unknown_correspondence"
+    assert provisional["sentences"][0]["fol"]["value"] is None
+    entry.update({"status": "aligned", "sentence_ids": ["1:clip/s1"]})
+    dump(cache, report["alignment_cache"])
+    with pytest.raises(ValueError, match="requires explicit adjudication"):
+        derive(manifest, spec, cache_path=cache)
+    entry["adjudication"] = {"decision": "confirmed", "method": "bounded synthetic fixture inspection",
+                             "evidence": ["This fixture explicitly assigns packet 1 to sentence s1; it does not validate the model"]}
+    dump(cache, report["alignment_cache"])
+    confirmed = derive(manifest, spec, cache_path=cache)
+    assert confirmed["sentences"][0]["delivery_status"] == "delivered"
+    assert confirmed["sentences"][0]["fol"]["value"] == pytest.approx(2.9)
+    assert confirmed["outputs"][0]["alignment"]["token_links"] == [[0, 0]]
+    assert confirmed["outputs"][0]["alignment"]["proposal_status"] == "requires_adjudication"
+    assert confirmed["outputs"][0]["alignment"]["adjudication"] == entry["adjudication"]
+
+
+def test_native_chinese_non_target_turns_supply_nonempty_joined_quality_context(tmp_path):
+    refs = timeline({"path": str(ROOT / "corpus/chinese/manifest.json"), "pointer": "/bundles/main/chunks",
+                     "units": "seconds", "source_group": "zh"}, tmp_path)
+    non_target = [row for row in refs["turns"] if not row["scored"]]
+    assert non_target
+    assert all(row["text"].strip() and row["text_provenance"] == "native_context_joined_by_source_segment_ids" for row in non_target)
+    manifest, spec = sample(tmp_path)
+    attempts = ingest(manifest, spec)[2]
+    attempts[0]["reference"] = refs
+    sentences, turns = prepare_sentences(attempts)
+    segments = assemble_segments(sentences, turns, [], {})
+    assert segments
+    assert all(row["text"].strip() for segment in segments for row in segment["context"])
+    assert any(row.get("speaker") != segment["reference"][0]["speaker"] for segment in segments for row in segment["context"])
+
+
+def test_aligned_pages_follow_their_source_segments_not_first_group_segment(tmp_path):
+    manifest, spec = sample(tmp_path, [packet(1, 20, "page A"), packet(2, 70, "page B")])
+    reference = json.loads((tmp_path / "reference.json").read_text())
+    reference["sentences"][0]["end"] = 31
+    reference["sentences"][1].update({"start": 32, "end": 63})
+    reference["turns"][0]["end"] = 63
+    dump(tmp_path / "reference.json", reference)
+    specification = json.loads(spec.read_text())
+    specification["rules"]["APP"] = STYLES["pagination"]
+    dump(spec, specification)
+    cache = link(tmp_path, manifest, spec, {"clock:1": ["1:clip/s1"], "clock:2": ["1:clip/s2"]})
+    report = derive(manifest, spec, cache_path=cache)
+    assert [row["output_ids"] for row in report["quality_segments"]] == [["clock:1"], ["clock:2"]]
+    assert [row["final_output"][0]["text"] for row in report["quality_segments"]] == ["page A", "page B"]
+    assert all(row["cross_segment_group_ids"] == ["clock:1"] and row["reconstruction_status"] == "unknown_observed_order_only" for row in report["quality_segments"])
+
+
+@pytest.mark.parametrize("test_kind", ["output_check", "isolated", "nonspeech"])
+def test_reference_free_test_output_cannot_enter_continuous_quality(tmp_path, test_kind):
+    manifest, spec = sample(tmp_path, [packet(1, 5, "other-test", attempt=2), packet(2, 11, "continuous")])
+    data = json.loads(manifest.read_text())
+    data["plan"]["stages"].append({**data["plan"]["stages"][0], "kind": test_kind})
+    data["work"].append({"id": 2, "stage": 1, "profile": "APP", "kind": test_kind, "state": "done", "outcome": "done"})
+    data["attempts"].append({**data["attempts"][0], "id": 2, "work_id": 2})
+    dump(manifest, data)
+    cache = link(tmp_path, manifest, spec, {"clock:2": ["1:clip/s1"]})
+    report = derive(manifest, spec, cache_path=cache)
+    continuous = next(row for row in report["quality_segments"] if not row["id"].startswith("orphan:"))
+    orphan = next(row for row in report["quality_segments"] if row["id"].startswith("orphan:"))
+    assert continuous["output_ids"] == ["clock:2"]
+    assert continuous["unaligned_output_ids"] == []
+    assert orphan["output_ids"] == ["clock:1"] and orphan["kind"] == test_kind
+    assert report["outputs"][0]["alignment"]["candidate_ids"] == []
+    assert report["sentences"][1]["delivery_status"] == "no_output_before_deadline"
+    assert report["aggregates"][0]["unaligned_output_rate"]["denominator"] == 1
+
+
+def test_confirmed_delayed_translation_can_override_capture_test_population(tmp_path):
+    manifest, spec = sample(tmp_path, [packet(1, 13, "delayed continuous", attempt=2, direction="D2")])
+    data = json.loads(manifest.read_text())
+    data["plan"]["stages"].append({**data["plan"]["stages"][0], "kind": "output_check", "direction": "D2"})
+    data["work"].append({"id": 2, "stage": 1, "profile": "APP", "kind": "output_check", "state": "done", "outcome": "done"})
+    data["attempts"].append({**data["attempts"][0], "id": 2, "work_id": 2})
+    dump(manifest, data)
+    cache = link(tmp_path, manifest, spec, {"clock:1": ["1:clip/s1"]})
+    report = derive(manifest, spec, cache_path=cache)
+    assert report["outputs"][0]["capture_kind"] == "output_check"
+    assert report["sentences"][0]["delivery_status"] == "delivered"
+    assert report["outputs"][0]["quality_segment_id"] == report["quality_segments"][0]["id"]
+    assert report["quality_segments"][0]["kind"] == "chunk"
+
+
+def test_inspected_correspondence_preserves_negative_fol_with_reference_uncertainty(tmp_path):
+    manifest, spec = sample(tmp_path, [packet(1, 9.8)])
+    specification = json.loads(spec.read_text())
+    specification["references"]["0"]["uncertainty"] = "Synthetic reference-onset uncertainty; not a timing-accuracy claim"
+    dump(spec, specification)
+    cache = link(tmp_path, manifest, spec, {"clock:1": ["1:clip/s1"]})
+    report = derive(manifest, spec, cache_path=cache)
+    assert report["sentences"][0]["delivery_status"] == "delivered"
+    assert report["sentences"][0]["fol"]["value"] == pytest.approx(-0.3)
+    assert "reference-onset uncertainty" in report["sentences"][0]["uncertainty"]

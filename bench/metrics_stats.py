@@ -69,6 +69,34 @@ def summary(rows, iterations, seed):
     return results
 
 
+def turn_summary(rows, iterations, seed):
+    values = eligible(rows)
+    measured = [row for row in values if row["lul"]["value"] is not None]
+    result = {"reference_turns": len(rows), "eligible_turns": len(values), "measurable_turns": len(measured),
+              "turn_denominator_coverage": dict(Counter(row.get("eligibility_reason") or ("eligible" if row["eligible"] else "unscored") for row in rows)),
+              "turn_lul_unavailable_reasons": dict(Counter(row["lul"].get("reason") or "Unspecified" for row in values if row["lul"]["value"] is None))}
+    for probability in (0.5, 0.9):
+        result[f"turn_lul_p{int(probability * 100)}"] = clustered(rows, lambda sample, p=probability: quantile([row["lul"]["value"] for row in eligible(sample) if row["lul"]["value"] is not None], p), iterations, seed, "seconds")
+    return result
+
+
+def output_attribution(report):
+    sources = {row["id"]: row for row in report["sentences"]}
+    segments = {row["id"]: row for row in report["quality_segments"]}
+    attribution = {}
+    for output in report["outputs"]:
+        raw = output["raw"]
+        linked = [sources[identity] for identity in output["alignment"]["sentence_ids"] if identity in sources
+                  and sources[identity]["config"] == raw.get("config") and sources[identity]["clock_session"] == raw.get("clock_session")]
+        segment = segments.get(output.get("quality_segment_id"))
+        assigned = segment if segment and segment.get("kind") and not segment["id"].startswith("orphan:") and not output["alignment"]["sentence_ids"] and segment.get("config") == raw.get("config") and segment.get("clock_session") == raw.get("clock_session") else None
+        populations = {(row["config"], row["direction"], row["category"], row["casual"], row["kind"]) for row in linked}
+        mixed_casual = assigned and any(sources.get(row["sentence_id"], {}).get("casual") is True for row in assigned["reference"]) and assigned["casual"] is not True
+        attribution[output["id"]] = {"linked": linked, "assigned": assigned, "ambiguous": len(populations) > 1 or bool(assigned and (mixed_casual or assigned["casual"] is None or assigned["category"] == "unknown")),
+                                     "unassigned": not linked and assigned is None}
+    return attribution
+
+
 def aggregate(report, options):
     iterations, seed = options.get("iterations", 2000), options.get("seed", 20261020)
     if not isinstance(iterations, int) or iterations < 1:
@@ -81,6 +109,15 @@ def aggregate(report, options):
             primary_numbers[key] = min(primary_numbers.get(key, row["attempt_number"]), row["attempt_number"])
     primary = [row for row in sentences if row["kind"] == "chunk" and row["attempt_number"] == primary_numbers.get((row["run"], row["config"], row["direction"], row["audio_sha256"], row["reference_id"], row["kind"]), row["attempt_number"])]
     grouped = defaultdict(list)
+    turns = report.get("turns", [])
+    primary_attempts = {row["attempt_id"] for row in primary}
+    grouped_turns = defaultdict(list)
+    for turn in turns:
+        if turn["kind"] == "chunk" and turn["attempt_id"] in primary_attempts:
+            grouped_turns[(turn["config"], turn["direction"], turn["category"], "category")].append(turn)
+            if turn["casual"] is True:
+                grouped_turns[(turn["config"], turn["direction"], turn["category"], "casual_only")].append(turn)
+    attribution = output_attribution(report)
     for row in primary:
         grouped[(row["config"], row["direction"], row["category"], "category")].append(row)
         if row["casual"] is True:
@@ -88,14 +125,35 @@ def aggregate(report, options):
     aggregates = []
     for key, rows in sorted(grouped.items()):
         config, direction, category, view = key
-        result = {"config": config, "direction": direction, "category": category, "view": view, **summary(rows, iterations, seed)}
+        result = {"config": config, "direction": direction, "category": category, "view": view,
+                  **summary(rows, iterations, seed), **turn_summary(grouped_turns[key], iterations, seed)}
         attempt_ids = {row["attempt_id"] for row in rows}
         source_ids = {item["id"] for item in rows}
-        selected_outputs = [row for row in report["outputs"] if row["raw"].get("config") == config
-                            and (row["raw"].get("direction") == direction and row["raw"].get("attempt") in attempt_ids or source_ids.intersection(row["alignment"]["sentence_ids"]))]
+        segments = [row for row in report["quality_segments"] if row.get("attempt_id") in attempt_ids and row.get("kind") == "chunk"
+                    and row["config"] == config and row["direction"] == direction and row["category"] == category and (view != "casual_only" or row["casual"] is True)]
+        segment_ids = {row["id"] for row in segments}
+        selected_outputs = []
+        selection_counts = Counter()
+        for output in report["outputs"]:
+            population = attribution[output["id"]]
+            linked = population["linked"]
+            if source_ids.intersection(row["id"] for row in linked):
+                selected_outputs.append(output)
+                selection_counts["linked_source"] += 1
+            elif not output["alignment"]["sentence_ids"] and population["assigned"] and population["assigned"]["id"] in segment_ids:
+                selected_outputs.append(output)
+                selection_counts["assigned_quality_segment"] += 1
         result["unaligned_output_rate"] = metric(sum(not row["alignment"]["sentence_ids"] for row in selected_outputs) / len(selected_outputs) if selected_outputs else None,
                                                 None if selected_outputs else "No observed translation output in this capture/source population", "fraction_of_observed_translation_outputs", denominator=len(selected_outputs))
-        segments = [row for row in report["quality_segments"] if row.get("attempt_id") in attempt_ids and row["category"] == category and (view != "casual_only" or row["casual"] is True)]
+        result["unaligned_output_rate"]["population_attribution"] = {
+            "selection_basis_counts": dict(selection_counts),
+            "ambiguous_output_ids": [row["id"] for row in selected_outputs if attribution[row["id"]]["ambiguous"]],
+            "excluded_ambiguous_output_ids": [identity for identity, population in attribution.items() if population["ambiguous"] and population["assigned"]
+                                             and population["assigned"]["id"] not in segment_ids
+                                             and source_ids.intersection(row["sentence_id"] for row in population["assigned"]["reference"])],
+            "unassigned_capture_output_ids": [row["id"] for row in report["outputs"] if attribution[row["id"]]["unassigned"]
+                                            and row["raw"].get("config") == config and row["raw"].get("attempt") in attempt_ids],
+            "policy": "Linked source identity takes precedence; otherwise assigned quality-segment population. Unassigned outputs remain global, not copied into category/casual views. Mixed or cross-population attribution is not exclusive."}
         scored = [row for row in segments if row["eligible"] and row.get("quality_score") is not None and isinstance(row["quality_score"].get("major_error"), bool)]
         result["major_error_segment_rate"] = clustered(scored, lambda sample: sum(row["quality_score"]["major_error"] for row in sample) / len(sample) if sample else None, iterations, seed, "fraction_of_scored_segments")
         result["major_error_segment_rate"]["eligible_segments"] = sum(row["eligible"] for row in segments)
@@ -138,24 +196,33 @@ def aggregate(report, options):
     for row in sentences:
         if row["kind"] == "repeat":
             repeat_groups[(row["config"], row["direction"], row["run"], row["attempt_id"])].append(row)
-    repeats = [{"config": key[0], "direction": key[1], "run": key[2], "attempt_id": key[3], **summary(rows, iterations, seed)} for key, rows in repeat_groups.items()]
+    repeats = [{"config": key[0], "direction": key[1], "run": key[2], "attempt_id": key[3], **summary(rows, iterations, seed),
+                **turn_summary([turn for turn in turns if turn["kind"] == "repeat" and (turn["config"], turn["direction"], turn["run"], turn["attempt_id"]) == key], iterations, seed)} for key, rows in repeat_groups.items()]
     repeat_variation = []
     for config, direction in sorted({(row["config"], row["direction"]) for row in repeats}):
         observed = [row for row in repeats if row["config"] == config and row["direction"] == direction]
         reference_ids = {row["reference_id"] for row in sentences if row["config"] == config and row["direction"] == direction and row["kind"] == "repeat"}
         baseline = [row for row in primary if row["config"] == config and row["direction"] == direction and row["reference_id"] in reference_ids]
-        repeat_variation.append({"config": config, "direction": direction, "baseline_shared_subset": summary(baseline, iterations, seed),
+        baseline_turn_ids = {row["turn_id"] for row in baseline if row.get("turn_id")}
+        repeat_variation.append({"config": config, "direction": direction, "baseline_shared_subset": {
+                                    **summary(baseline, iterations, seed), **turn_summary([turn for turn in turns if turn["id"] in baseline_turn_ids], iterations, seed)},
                                  "repeat_attempts": [{"run": row["run"], "attempt_id": row["attempt_id"], "delivery": row["delivery"]["value"],
-                                                      "fol_p50": row["fol_p50"]["value"], "lul_p50": row["lul_p50"]["value"]} for row in observed],
+                                                      "fol_p50": row["fol_p50"]["value"], "lul_p50": row["lul_p50"]["value"],
+                                                      "turn_lul_p50": row["turn_lul_p50"]["value"], "turn_lul_p90": row["turn_lul_p90"]["value"],
+                                                      "eligible_turns": row["eligible_turns"], "measurable_turns": row["measurable_turns"]} for row in observed],
                                  "delivery_range": [min(row["delivery"]["value"] for row in observed if row["delivery"]["value"] is not None),
                                                     max(row["delivery"]["value"] for row in observed if row["delivery"]["value"] is not None)] if any(row["delivery"]["value"] is not None for row in observed) else None,
                                  "independence": "Repeated original audio is observed run variation, not additional independent recordings"})
     sensitivity = [{"config": key[0], "direction": key[1], "category": key[2], "view": key[3],
-                    "with_resumed": summary(rows, iterations, seed), "without_resumed": summary([row for row in rows if not row["resumed"]], iterations, seed)} for key, rows in grouped.items()]
+                    "with_resumed": {**summary(rows, iterations, seed), **turn_summary(grouped_turns[key], iterations, seed)},
+                    "without_resumed": {**summary([row for row in rows if not row["resumed"]], iterations, seed),
+                                        **turn_summary([turn for turn in grouped_turns[key] if not turn["resumed"]], iterations, seed)}} for key, rows in grouped.items()]
     output_count = len(report["outputs"])
     return {"aggregates": aggregates, "paired": paired, "repeats": repeats, "repeat_variation": repeat_variation, "resume_sensitivity": sensitivity,
             "output_population": {"observed_translation_outputs": output_count,
                                   "alignment_status_counts": dict(Counter(row["alignment"]["status"] for row in report["outputs"])),
+                                  "unassigned_output_ids": [identity for identity, population in attribution.items() if population["unassigned"]],
+                                  "ambiguous_population_output_ids": [identity for identity, population in attribution.items() if population["ambiguous"]],
                                   "unaligned_output_rate": metric(sum(not row["alignment"]["sentence_ids"] for row in report["outputs"]) / output_count if output_count else None,
                                                                   None if output_count else "No translation output", "fraction_of_observed_translation_outputs", denominator=output_count),
-                                  "orphans": sum(row["quality_segment_id"].startswith("orphan:") for row in report["outputs"])} }
+                                  "orphans": sum(row.get("quality_segment_id", "").startswith("orphan:") for row in report["outputs"])} }

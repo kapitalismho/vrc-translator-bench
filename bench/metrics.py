@@ -11,6 +11,7 @@ from .storage import atomic_json, utc_now
 
 DEFINITIONS = {
     "version": VERSION, "source_clock": "callback-mapped DAC plus positive cable correction; perf_counter_ns within clock_session",
+    "alignment": "SimAlign lexical proposals are provisional; only explicit inspected bound-cache adjudication establishes source correspondence",
     "output_clock": "OSC receipt, not app internal events", "deadline": "containing turn end + 15 seconds, inclusive",
     "fol": "first related output <= deadline minus sentence start", "sentence_lul": "last related content change <= deadline minus sentence end",
     "turn_lul": "last related content change <= turn end + 15 seconds minus turn end",
@@ -112,9 +113,10 @@ def assemble_segments(sentences, turns, outputs, scores):
             if row["end"] - pending[0]["start"] < 30 and index + 1 < len(rows):
                 continue
             first, last = pending[0], pending[-1]
-            context = sorted([turn for turn in turns if turn["attempt_id"] == first["attempt_id"] and turn["session_id"] == first["session_id"]
-                              and turn["end"] <= first["start"]], key=lambda turn: (turn["end"], turn["start"]))[-2:]
-            source_context = first.get("earlier_source_turns", [])[-(2 - len(context)):] if len(context) < 2 else []
+            earlier_turns = sorted([turn for turn in turns if turn["attempt_id"] == first["attempt_id"] and turn["session_id"] == first["session_id"]
+                                    and turn["end"] <= first["start"]], key=lambda turn: (turn["end"], turn["start"]))
+            context = [turn for turn in earlier_turns if turn["text"].strip()][-2:]
+            source_context = [turn for turn in first.get("earlier_source_turns", []) if turn["text"].strip()][-(2 - len(context)):] if len(context) < 2 else []
             identity = f"{first['attempt_id']}:{first['chunk_id']}:quality-{len(segments) + 1}"
             segments.append({"id": identity, "shared_id": f"{first['audio_sha256']}:{first['direction']}:{first['chunk_id']}:{first['start']}:{last['end']}",
                              "attempt_id": first["attempt_id"], "config": first["config"], "direction": first["direction"], "clock_session": first["clock_session"],
@@ -124,30 +126,34 @@ def assemble_segments(sentences, turns, outputs, scores):
                              "reference": [{"sentence_id": item["id"], "speaker": item["speaker"], "text": item["text"], "uncertainty": item["uncertainty"],
                                             "reference_level": item["reference_level"], "partial": item.get("partial", False), "timing_eligibility_reason": item.get("eligibility_reason")} for item in pending],
                              "context": [*source_context, *[{"turn_id": turn["id"], "speaker": turn["speaker"], "text": turn["text"], "scored": False} for turn in context]],
+                             "unavailable_context_turn_ids": [turn["id"] for turn in earlier_turns[-2:] if not turn["text"].strip()],
                              "output_ids": [], "unaligned_output_ids": [], "quality_score": scores.get(identity), "attempt_number": first["attempt_number"]})
             pending = []
-    group_segments = {}
+    reference_populations = {row["attempt_id"]: row["kind"] for row in sentences}
     for output in outputs:
         aligned = set(output["alignment"]["sentence_ids"])
+        capture_kind = output.get("capture_kind", reference_populations.get(output["raw"].get("attempt"), "unassigned"))
+        capture_attempt = output.get("capture_attempt_id", output["raw"].get("attempt"))
+        output["capture_kind"], output["capture_attempt_id"] = capture_kind, capture_attempt
         candidates = [segment for segment in segments if any(row["sentence_id"] in aligned for row in segment["reference"])]
-        if aligned and output["group_id"] in group_segments:
-            candidates = [group_segments[output["group_id"]]]
         if not candidates:
             candidates = [segment for segment in segments if segment["clock_session"] == output["raw"].get("clock_session")
-                          and segment["config"] == output["raw"].get("config") and segment["start_ns"] is not None and segment["end_ns"] is not None]
+                          and segment["config"] == output["raw"].get("config") and segment["direction"] == output["raw"].get("direction")
+                          and segment["kind"] == capture_kind and (capture_kind in ("chunk", "repeat") or segment.get("attempt_id") == capture_attempt)
+                          and segment["start_ns"] is not None and segment["end_ns"] is not None]
         if candidates:
             timestamp = output["raw"]["t_ns"]
             segment = min(candidates, key=lambda item: (max(item["start_ns"] - timestamp, 0, timestamp - item["end_ns"]), item["start_ns"])) if all(item["start_ns"] is not None and item["end_ns"] is not None for item in candidates) else candidates[0]
         else:
-            identity = f"orphan:{output['raw'].get('clock_session')}:{output['raw'].get('config')}"
+            identity = f"orphan:{output['raw'].get('clock_session')}:{output['raw'].get('config')}:{capture_kind}:{capture_attempt}"
             segment = next((item for item in segments if item["id"] == identity), None)
             if segment is None:
                 segment = {"id": identity, "shared_id": None, "config": output["raw"].get("config"), "direction": output["raw"].get("direction"),
                            "clock_session": output["raw"].get("clock_session"), "session_id": None, "category": "unknown", "casual": False,
+                           "kind": capture_kind, "attempt_id": capture_attempt,
                            "eligible": False, "reason": "No captured source timeline in this clock/config", "reference": [], "context": [], "output_ids": [],
                            "unaligned_output_ids": [], "quality_score": None, "start_ns": None, "end_ns": None}
                 segments.append(segment)
-        group_segments[output["group_id"]] = segment
         segment["output_ids"].append(output["id"])
         if not aligned:
             segment["unaligned_output_ids"].append(output["id"])
@@ -204,14 +210,20 @@ def derive(manifest_path, spec_path, output_path=None, cache_path=None, allow_do
     from .metrics_stats import aggregate
     manifest, spec, attempts, events, provenance = ingest(manifest_path, spec_path)
     sentences, turns = prepare_sentences(attempts)
-    outputs = interpret(events, spec.get("rules", {}))
+    outputs, nontranslation = interpret(events, spec.get("rules", {}))
+    attempts_by_id = {(row["id"], row["config"]): row for row in attempts}
+    for collection in (outputs, nontranslation):
+        for observation in collection:
+            attempt = attempts_by_id.get((observation["raw"].get("attempt"), observation["raw"].get("config")))
+            observation["capture_kind"] = attempt["kind"] if attempt else "unassigned"
+            observation["capture_attempt_id"] = attempt["id"] if attempt else None
     aligner = Alignment(spec, Path(spec_path).parent, cache_path, allow_download)
     covered = coverage(manifest, attempts, events)
     for attempt in attempts:
         attempt["covered_until_ns"] = covered[attempt["clock_session"]]
     for output in outputs:
         raw = output["raw"]
-        candidates = [row for row in sentences if row["scored"] and row["kind"] not in ("isolated", "nonspeech") and row["config"] == raw.get("config")
+        candidates = [row for row in sentences if row["scored"] and row["kind"] in ("chunk", "repeat") and row["kind"] == output["capture_kind"] and row["config"] == raw.get("config")
                       and row["clock_session"] == raw.get("clock_session") and row["start_ns"] is not None
                       and row["start_ns"] - 5_000_000_000 <= raw["t_ns"] <= (row["deadline_ns"] or row["end_ns"]) + 120_000_000_000]
         output["alignment"] = aligner.align(output, candidates, sentences)
@@ -233,10 +245,11 @@ def derive(manifest_path, spec_path, output_path=None, cache_path=None, allow_do
               "application_observations": manifest.get("application_observations", []), "harness": {key: manifest["plan"].get(key) for key in ("harness_revision", "harness_sources", "frozen_rule_revision")},
               "attempts": [{key: value for key, value in attempt.items() if key not in ("reference", "callbacks")} for attempt in attempts],
               "outputs": outputs, "sentences": sentences, "turns": turns, "quality_segments": segments,
+              "nontranslation_observations": nontranslation,
               "isolated": isolated_results(attempts, outputs),
               "diagnostics": diagnostics(attempts, sentences, outputs, spec),
               "limitations": ["No actual app readiness inferred; empirical interpretation requires issue #4 evidence",
-                              "OSC last update is not semantic completion", "Automatic alignment is uncalibrated and can be wrong", "No paid services are called",
+                              "OSC last update is not semantic completion", "Automatic lexical proposals are uncalibrated; full-run source correspondence requires adjudicated evidence", "No paid services are called",
                               "Prepared reference uncertainty, local-only assets and rights restrictions survive derived reports"]}
     report["alignment_cache"] = {"schema_version": 1, "version": VERSION, "provenance": aligner.provenance,
                                  "links": {row["id"]: {**row["alignment"], "binding": cache_binding(row, sentences)} for row in outputs}}
