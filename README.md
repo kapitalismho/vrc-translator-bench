@@ -59,7 +59,7 @@ Windows cable calibration/playback and actual GUI-operated microphone-to-transla
 
 ## Application profiles
 
-[Profile preparation](docs/profiles.md) accounts for all 14 planned profiles, exact model/access caveats, observed GUI state and reserved OSC ports. The active plan uses ten sequential competitor waves; the owner deferred all four PuriPuly profiles. Bounded readiness requires actual audio/OSC evidence, not source availability or saved credentials. The [catalogue](profiles/catalog.json) records each current ready/blocked finding and its limits.
+[Profile preparation](docs/profiles.md) accounts for all 14 planned profiles, exact model/access caveats, observed GUI state and reserved OSC ports. The owner withdrew the unreported sequential replacement; the original W1–W4 concurrent-within-wave plan is restored. All four PuriPuly profiles remain owner-deferred, and restoration does not certify wave readiness or authorize execution. Bounded readiness requires actual audio/OSC evidence, not source availability or saved credentials. The [catalogue](profiles/catalog.json) records current ready/blocked findings and the [withdrawal record](profiles/evidence/issue45/sequential-wave-decision.json) preserves the authority correction.
 
 ```powershell
 python -m tools.prepare_profile_checks

@@ -206,19 +206,19 @@ Do not run the start line until access is authorized; it can perform paid infere
 
 ## Ports, no-VRChat scope and waves
 
-| Profile | Active wave | Chatbox destination | Application control |
+| Profile | Restored planned wave | Chatbox destination | Application control |
 | --- | --- | --- | --- |
-| VRCT1 | S05 | `127.0.0.1:19111` UDP | Actual GUI plus manual-observation runner bridge |
-| VRCT2 | S06 | `127.0.0.1:19112` UDP | Actual GUI required; own pilot pending |
-| VRCT3 | S07 | `127.0.0.1:19113` UDP | Actual GUI required; own pilot pending |
-| VRCS1 | S02 | `127.0.0.1:19121` UDP | Actual GUI plus manual-observation runner bridge |
-| VRCS2 | S01 | `127.0.0.1:19122` UDP | Actual GUI plus manual-observation runner bridge |
+| VRCT1 | W2 | `127.0.0.1:19111` UDP | Actual GUI plus manual-observation runner bridge |
+| VRCT2 | W3 | `127.0.0.1:19112` UDP | Actual GUI required; own pilot pending |
+| VRCT3 | W1 | `127.0.0.1:19113` UDP | Actual GUI required; own pilot pending |
+| VRCS1 | W4 | `127.0.0.1:19121` UDP | Actual GUI plus manual-observation runner bridge |
+| VRCS2 | W2 | `127.0.0.1:19122` UDP | Actual GUI plus manual-observation runner bridge |
 
 Destinations were observed for VRCT1/VRCS1/VRCS2; the others remain assigned preparation targets. Both senders use OS-assigned UDP source ports; do not invent fixed source ports. VRCT's OSC receive/OSCQuery ports and VRCS desktop HTTP port are dynamic, unlike the historical standalone-control examples above. VRCT's optional WebSocket was disabled in the inspected GUI. Keep external consumers disconnected and never run multiple configurations of one app concurrently. [T1, T12, S7, S11]
 
 VRCT `VRC_MIC_MUTE_SYNC=false` bypasses mute-driven capture gating. Its ordinary OSC helper can advertise OSCQuery without establishing a dependency on VRChat. VRCS must disable mute synchronization to avoid its unknown-mute-state gate. The actual named pilots produced translated UDP without VRChat or supplied OSCQuery/mute signals. This does not establish that every untested mode has the same dependency. [T12, S11]
 
-The active arrangement is sequential single-profile waves, not the historical four-wave proposal. It removes simultaneous app/assigned-port/local-workload conflicts but does not isolate cumulative generic Google, account or provider quotas. PuriPuly is owner-deferred; simultaneous shared-engine pair observations were lost, not silently treated as equivalent measurements.
+The owner withdrew the unreported sequential replacement. Original W1–W4 concurrent-within-wave membership is restored, not certified ready. Preserve the intended simultaneous shared-engine comparisons; individual historical pilots do not supply them. PuriPuly execution remains owner-deferred. Report concrete app, cleanup, attribution and account/project-isolation blockers rather than silently serializing the comparison; any consequential design change requires owner agreement.
 
 ## Actual OSC observations and source-derived interpretation
 
