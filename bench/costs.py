@@ -393,7 +393,7 @@ def profile_report(profile, components):
             "missing_services": missing, "inventory_issues": issues,
             "window_ids": selected[0]["coverage"]["window_ids"] if same_coverage else None,
             "cost": sum((row["cost"] for row in selected), Decimal(0)) if complete else None,
-            "known_numeric_subtotal": sum((row["cost"] for row in selected if row["cost"] is not None), Decimal(0)) if any(row["cost"] is not None for row in selected) else None,
+            "known_numeric_subtotal": sum((row["known_subtotal"] for row in selected if row["known_subtotal"] is not None), Decimal(0)) if any(row["known_subtotal"] is not None for row in selected) else None,
             "reason": "Missing required services: " + ", ".join(missing) if missing else
                       "; ".join(issues) if issues else None if complete else "Missing, partial, subscription or unequal-coverage component prevents complete numeric total"}
 
@@ -463,7 +463,7 @@ def derive(spec_path, output_path):
             attributable = row["isolation_verified"] and bool(row["isolation_evidence"]) and bool(row["scope_evidence"]) and all(row["scope"].get(key) for key in ("run", "wave")) and not row.get("exclusion")
             coarse.append({"record_id": row["id"], "scope": row["scope"], "candidate_scopes": row["attribution"]["scopes"],
                            "granularity": row["granularity"], "cost": row["cost"] if attributable and row["currency"] == "USD" else None,
-                           "known_export_amount": row["cost"], "mixed_workload_possible": not row["isolation_verified"],
+                           "known_export_amount": row["cost"], "currency": row["currency"], "mixed_workload_possible": not row["isolation_verified"],
                            "reason": "Known export bucket/wave only; not a chunk amount" if attributable else "Coarse scope/isolation/overlap unresolved"})
     profile_reports = [profile_report(profile, reports) for profile in sorted({row["profile"] for row in reports})]
     unmatched = sum(not row["attribution"]["candidates"] for row in records)

@@ -1,4 +1,4 @@
-"""Behavioral protections for accepted checkpoint findings F1-F7."""
+"""Behavioral protections for accepted checkpoint findings F1-F9."""
 from __future__ import annotations
 
 import copy
@@ -329,3 +329,53 @@ def test_f4_combined_service_evidence_requires_an_explanation_not_a_flag(tmp_pat
     spec["windows"][0]["profile"] = "GENERIC"
     with pytest.raises(ValueError, match="explanation"):
         report(tmp_path, spec)
+
+
+@pytest.mark.parametrize("asr_complete", [True, False])
+def test_f8_profile_retains_partial_actual_subtotals_without_normalizing(tmp_path, asr_complete):
+    spec = specification()
+    spec["components"][0]["coverage"]["complete"] = False
+    spec["components"][1]["coverage"]["complete"] = asr_complete
+    result = report(tmp_path, spec)
+    translation, asr = result["components"]
+    assert translation["known_subtotal"] == pytest.approx(.005)
+    assert translation["cost"] is None
+    assert asr["known_subtotal"] == pytest.approx(.001)
+    assert asr["cost"] == (.001 if asr_complete else None)
+    profile = result["profiles"][0]
+    assert profile["known_numeric_subtotal"] == pytest.approx(.006)
+    assert profile["cost"] is None
+    denominator = result["denominators"][0]
+    assert denominator["cost"] is None
+    assert denominator["per_replayed_conversation_hour"] is None
+    assert denominator["per_1000_reference_sentences"] is None
+
+
+@pytest.mark.parametrize("known_zero", [False, True])
+def test_f8_profile_distinguishes_unknown_from_evidenced_zero(tmp_path, known_zero):
+    spec = provider_spec(tmp_path, [row(cost="0" if known_zero else None)])
+    spec["components"][0]["coverage"]["complete"] = False
+    result = report(tmp_path, spec)
+    assert result["components"][0]["known_subtotal"] == (0 if known_zero else None)
+    assert result["profiles"][0]["known_numeric_subtotal"] == (0 if known_zero else None)
+    assert result["profiles"][0]["cost"] is None
+
+
+@pytest.mark.parametrize("currency", ["CNY", "USD", None])
+@pytest.mark.parametrize("isolation", [True, False])
+def test_f9_coarse_export_retains_native_currency_without_conversion(tmp_path, currency, isolation):
+    spec = provider_spec(tmp_path, [row()], provider="qwen", granularity="hour", isolation=isolation)
+    source = spec["sources"][0]
+    source["currency"] = currency
+    source["scope"] = {"run": "synthetic-pilot", "wave": "synthetic-wave"}
+    source["scope_evidence"] = "Synthetic bucket belongs to this wave"
+    result = report(tmp_path, spec)
+    coarse = result["coarse_costs"][0]
+    assert coarse["known_export_amount"] == pytest.approx(.003)
+    assert coarse["currency"] == currency
+    assert coarse["cost"] == (.003 if currency == "USD" and isolation else None)
+    assert coarse["mixed_workload_possible"] is not isolation
+    assert result["components"][0]["cost"] is None
+    assert result["components"][0]["known_subtotal"] is None
+    assert result["profiles"][0]["cost"] is None
+    assert result["profiles"][0]["known_numeric_subtotal"] is None
