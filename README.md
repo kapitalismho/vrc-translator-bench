@@ -1,6 +1,6 @@
 # VRC Translator Bench
 
-Local speech-corpus preparation, resumable Windows audio-to-OSC capture, application-profile preparation and derived measurements for the community translation benchmark in [issue #1](https://github.com/kapitalismho/vrc-translator-bench/issues/1). The repository contains local corpus work ([#2](https://github.com/kapitalismho/vrc-translator-bench/issues/2)), capture infrastructure ([#3](https://github.com/kapitalismho/vrc-translator-bench/issues/3)), profile findings and bounded actual-GUI development pilots ([#4](https://github.com/kapitalismho/vrc-translator-bench/issues/4)), and the calculation/report-data layer ([#5](https://github.com/kapitalismho/vrc-translator-bench/issues/5)), not completed quality judging or comparison results.
+Local speech-corpus preparation, resumable Windows audio-to-OSC capture, application-profile preparation, derived measurements and blinded automatic quality scoring for the community translation benchmark in [issue #1](https://github.com/kapitalismho/vrc-translator-bench/issues/1). The repository implements local corpus work ([#2](https://github.com/kapitalismho/vrc-translator-bench/issues/2)), capture infrastructure ([#3](https://github.com/kapitalismho/vrc-translator-bench/issues/3)), profile findings and bounded actual-GUI development pilots ([#4](https://github.com/kapitalismho/vrc-translator-bench/issues/4)), calculation/report data ([#5](https://github.com/kapitalismho/vrc-translator-bench/issues/5)), and scoring infrastructure ([#6](https://github.com/kapitalismho/vrc-translator-bench/issues/6)), not a completed comparison or human-verified quality ranking.
 
 The owner [replaced the Hugging Face publication criterion with local preparation](https://github.com/kapitalismho/vrc-translator-bench/issues/2#issuecomment-6282606626). No public audio dataset has been published. Audio, model weights and downloads remain in ignored `.data/`; Git contains preparation code and permitted metadata.
 
@@ -79,6 +79,17 @@ The [metric definitions and report-data contract](docs/metrics.md) describe refe
 
 Actual VRCT, VRCS and VRCLT translation streams now supply distinct-application integration inputs. Per-run interpretation and inspected correspondence remain evidence-bound: rolling context, cumulative updates, truncation and unknown relationships must not become invented final-output reconstruction or quality scores. Synthetic checks and PuriPuly manual-text probes remain separate. Derived reports can contain speech and local provenance; publish only inspected, rights-cleared derivatives with their original hashes.
 
+## Score translation quality
+
+```powershell
+python -m bench.cli quality prepare --report .data/reports/pilot.json --root .data/quality/pilot
+python -m bench.cli quality status --root .data/quality/pilot
+python -m bench.cli quality score --root .data/quality/pilot --transport-spec judge.json --measurements-ended --limit 6
+python -m bench.cli quality report --root .data/quality/pilot --output .data/quality/pilot/report.json --review-output .data/quality/pilot/korean-review.json
+```
+
+Follow the [quality setup, prompts, resume, MetricX and review-packet contract](docs/quality.md) to configure the selected Sign in with ChatGPT route. The durable queue preserves raw responses, actual model identity, failures and unresolved calls; missing scores never become successful zero-error judgments. Optional `.[metricx]` supplies the selected supplementary local QE model runtime. Finish timed measurements before either scorer runs. Automatic scores and prepared Korean review packets are not human semantic verification.
+
 ## Contracts and rights
 
 - [Architecture and artifact boundaries](docs/architecture.md)
@@ -86,6 +97,7 @@ Actual VRCT, VRCS and VRCLT translation streams now supply distinct-application 
 - [Capture CLI, persistence, adapter and timing contracts](docs/cli.md)
 - [Derived measurement definitions and report-data contract](docs/metrics.md)
 - [Profile controls, readiness findings, waves and evidence limits](docs/profiles.md)
+- [Blinded quality scoring, provenance and Korean reference review](docs/quality.md)
 - [Six-direction local index](corpus/manifest.json)
 - [English references](corpus/english/manifest.json), [Chinese references](corpus/chinese/manifest.json), [Japanese public-safe metadata](corpus/japanese/local-preparation.json), [nonspeech attribution](corpus/nonspeech/manifest.json)
 

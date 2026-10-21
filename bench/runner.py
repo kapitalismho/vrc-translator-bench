@@ -5,6 +5,7 @@ import time
 import uuid
 from pathlib import Path
 
+from .activity import exclusive_activity
 from .adapter import Adapter, OperationalError, ProductError, redact
 from .audio import ClockPlayback, Playback
 from .osc import Sink
@@ -444,6 +445,13 @@ class Runner:
             self.player = None
 
     def run(self):
+        try:
+            with exclusive_activity():
+                return self._run()
+        finally:
+            self.ledger.close()
+
+    def _run(self):
         with RunLock(self.root):
             try:
                 self.ledger.seed(self.plan["stages"])
@@ -492,4 +500,3 @@ class Runner:
                     self.ledger.record("stream_artifact", {"path": path, "sha256": checksum})
                 self.ledger.record("session_end", {"session": self.session, "wall": utc_now()})
                 self.ledger.manifest(self.plan)
-                self.ledger.close()

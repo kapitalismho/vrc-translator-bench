@@ -19,6 +19,8 @@ bench run --resume pilot
 
 `run` and `status` accept `--root`, default `.data/runs`. A new run requires `--plan`; `--run-id` is optional. Resume uses the stored plan and does not replace it. `--audio-backend clock` is restricted to plans explicitly marked `synthetic: true`; synthetic audio/OSC does not establish real translation behavior.
 
+Capture and quality scoring share a per-user OS activity lock across worktrees and run roots. A competing managed operation exits before capture starts. The lock releases on process exit; resume remains available after the competing operation finishes. This conservatively prevents all managed capture/scoring overlap, including PP2 judging contention. See [quality measurement exclusion](quality.md#measurement-exclusion) for unmanaged-process limits.
+
 `status` prints JSON with progress counts, pending stages, attempt history, failure/invalid reasons, checksums and artifact locations. Remaining seconds are explicitly **estimated** and exclude setup, restart and retries. Exit codes:
 
 | Code | Meaning |
@@ -159,6 +161,8 @@ Raw `/chatbox/input` and `/chatbox/typing` events carry `t_ns`, `run`, `wave`, `
 The sink stays open across chunks and observation tails. A delayed earlier-chunk output received during the next chunk carries the **current capture context**, not an asserted source alignment. `source_candidate_provenance` retains actual earlier playback identities/times. The continuous stream remains authoritative after individual attempt traces finalize; historical traces are not rewritten. [Issue #5](https://github.com/kapitalismho/vrc-translator-bench/issues/5) owns separate estimated grouping/alignment, observation deadlines and unaligned/late-output treatment.
 
 Use `bench metrics --manifest RUN/manifest.json --spec metrics-spec.json --output report.json` to derive measurements without changing captured observations. See [metric definitions and report-data inputs](metrics.md). The metrics specification supplies versioned per-app interpretation rules and explicit prepared-reference paths; capture context alone does not establish source correspondence.
+
+Use `bench quality prepare`, `score`, `status`, and `report` on those derived reports for blinded ESA, supplementary MetricX, durable scoring resume and Korean reference-review preparation. See the [scoring contract](quality.md); missing responses and unavailable models remain missing scores, not successful judgments.
 
 ## Persistence and failure semantics
 

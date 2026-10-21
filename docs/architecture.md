@@ -1,6 +1,6 @@
 # Architecture
 
-This repository implements local corpus preparation for issue #2, reusable Windows audio-to-OSC capture infrastructure for issue #3, application-profile preparation and observed development pilots for issue #4, and the derived measurement/report-data layer for issue #5. Bounded real-translator pilots do not establish full-profile readiness, quality scores, billing completeness or a completed comparison.
+This repository implements local corpus preparation for issue #2, reusable Windows audio-to-OSC capture infrastructure for issue #3, application-profile preparation and observed development pilots for issue #4, derived measurement/report data for issue #5, and blinded automatic quality scoring for issue #6. Routines and bounded pilots do not establish full-profile readiness, billing completeness or a completed comparison.
 
 ## Data flow
 
@@ -14,6 +14,8 @@ This repository implements local corpus preparation for issue #2, reusable Windo
 8. Raw OSC streams, callback/DAC timing, measured cable correction and separate diagnostics supply downstream metrics. Source grouping/alignment is not inferred by the capture runner.
 9. `bench metrics` reads immutable capture artifacts and explicit reference/rule inputs, normalizes source coordinates, and derives separately identified output relationships and source correspondence.
 10. Sentence/turn measurements, isolated responses, quality segments and diagnostics feed report-data summaries. Session clustering preserves original recording identity; external quality scores and internal application diagnostics retain separate provenance.
+11. `bench quality prepare` freezes source-based quality inputs, blinded prompts, interleaved order, tone and judge-calibration samples. A separate durable scoring queue retains independent judge calls, raw responses, failures and actual model provenance.
+12. ESA and context-free MetricX results join the original metric reports without replacing missing values or reference limitations. Disagreement selection prepares a separate Korean reference-review packet; human observations never overwrite automatic scores.
 
 ## Owned surfaces
 
@@ -44,6 +46,9 @@ This repository implements local corpus preparation for issue #2, reusable Windo
 | `bench/profiles.py`, `profiles/catalog.json` | Fourteen-profile findings, evidence-presence admission and static wave/app/CPU/OSC-port checks; not an application state observer |
 | `tools/prepare_profile_checks.py`, `profiles/output-checks.json` | Checksummed ten-second development excerpts for source-specific output checks; local audio only |
 | `profiles/findings/`, `profiles/evidence/`, `docs/profiles/` | Source-backed app-specific control/access findings, real GUI/audio/OSC observations, sanitized derivatives with original hashes and bounded interpretation rules |
+| `bench/quality*.py`, `bench/quality_bridge.mjs` | Blinded prompts, durable scoring, subscription judge transport, MetricX QE, report joins and separate review packets |
+| `bench/activity.py` | Shared OS lock excluding managed capture and scoring across worktrees for the same user |
+| `docs/quality.md` | Judge setup, scoring choices, provenance/cache, sampling, operator commands and evidence limits |
 | `.data/` | Local source/audio/models/environments and unresolved Japanese derived content; never staged for Git |
 
 Language-specific preparation remains explicit because the sources have materially different annotations and rights. There is no generic corpus-provider framework. Heavy model dependencies are isolated from the lightweight integration/test environment.
@@ -69,6 +74,10 @@ Language-specific preparation remains explicit because the sources have material
 - Reference ambiguity reduces the metric claim: partial units and ambiguous containing turns retain explicit reasons and population accounting. Quality context is two preceding reference turns, not scored source.
 - Metric reports inherit source-content restrictions, including local-only Japanese speech. Public presentation and main-run freeze are downstream responsibilities.
 - Profile catalogues separate planned routes, source support and observed effective state. Null runtime/OSC evidence remains blocked. Documented manual/configuration procedures do not pretend to implement the runner's subprocess control protocol.
+- ESA sees source references and earlier unscored turns, not measured ASR. MetricX uses the same source/output but no conversation context. Prompt metadata is blinded; PP2's judge-family relationship remains reporting metadata.
+- New ESA prompts identify exact quotes and occurrence numbers; Python derives normalized Unicode-codepoint span offsets without changing raw responses. Stored v1 plans retain their original strict offset protocol for inspection and resume; new v2 plans use separate prompt/cache identities rather than rewriting frozen evidence.
+- Cache identity requires exact inputs/prompt and actual model evidence. Missing, malformed, oversized, interrupted or unproven responses remain missing with reasons. Prior responses and mixed-version/calibration limitations survive model changes.
+- Managed capture and scoring share a per-user OS lock. Windows judge children enter a kill-on-close Job Object before request admission, containing descendants even when only the scoring parent dies. This does not prove provider-side cancellation. Real subscription dispatch on other platforms fails closed. Operator measurement-ended confirmation covers unmanaged activity; it is not an all-process detector. No paid API fallback is introduced.
 
 ## Verification boundary
 

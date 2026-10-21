@@ -13,6 +13,7 @@ dependencies = []
 audio = ["sounddevice>=0.5", "numpy>=1.26"]
 test = ["pytest>=8", "numpy>=1.26", "soundfile>=0.12", "jieba==0.42.1"]
 alignment = ["simalign==0.4", "transformers==4.44.2", "huggingface-hub==0.24.7", "torch>=2.2,<3", "numpy>=1.26,<3"]
+metricx = ["torch>=2.6,<3", "transformers==4.44.2", "huggingface-hub==0.24.7", "sentencepiece==0.2.0", "protobuf==5.29.5", "accelerate==1.6.0", "numpy>=1.26,<3"]
 
 [project.scripts]
 prepare-english = "tools.prepare_english:main"
@@ -21,6 +22,9 @@ bench = "bench.cli:main"
 [tool.setuptools.packages.find]
 include = ["tools", "bench"]
 namespaces = true
+
+[tool.setuptools.package-data]
+bench = ["quality_bridge.mjs"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
