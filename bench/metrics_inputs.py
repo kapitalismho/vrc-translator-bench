@@ -197,6 +197,21 @@ def ingest(manifest_path, specification_path):
                              and row.get("attempts", {}).get(item["config"]) == item["id"]]
         if not item["callbacks"]:
             item["callbacks"] = [row for row in trace if row.get("record") == "audio_callback"]
+        quiet_records = [row for row in records + trace
+                         if row.get("record") == "nonspeech_quiet_wait"
+                         and row.get("attempts", {}).get(item["config"]) == item["id"]]
+        for row in manifest.get("records", []):
+            if row.get("kind") == "nonspeech_quiet_wait":
+                detail = json.loads(row["detail"]) if isinstance(row["detail"], str) else row["detail"]
+                if detail.get("attempts", {}).get(item["config"]) == item["id"]:
+                    quiet_records.append(detail)
+        quiet_end = next((row for row in quiet_records if row.get("phase") == "end"), None)
+        quiet_start = next((row for row in quiet_records if row.get("phase") == "start"), None)
+        item["nonspeech_quiet_wait"] = quiet_end or quiet_start
+        item["quiet_precondition_met"] = quiet_end.get("quiet_precondition_met") if quiet_end else (
+            playback.get("quiet_precondition_met") if playback else None)
+        item["unresolved_carryover"] = quiet_end.get("unresolved_carryover") if quiet_end else (
+            playback.get("unresolved_carryover") if playback else None)
         reference = spec.get("references", {}).get(str(item["stage"]))
         item["isolated_quality_score"] = spec.get("isolated_quality_scores", {}).get(str(item["id"]))
         item["reference"] = timeline(reference, base) if reference else {"sentences": [], "turns": [], "intervals": []}

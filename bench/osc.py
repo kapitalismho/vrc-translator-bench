@@ -120,6 +120,7 @@ class Sink:
                                                       if key not in ("record", "actual_dac_observed", "audio_sha256")})
         self.targets = {}
         self.last_output = {}
+        self.attempt_last_output = {}
         self.lock = threading.RLock()
         self.stop_event = threading.Event()
         self.failure = None
@@ -156,7 +157,12 @@ class Sink:
         with self.lock:
             self.context[profile] = context
             self.targets[profile] = journal
-            self.last_output[profile] = None
+            self.attempt_last_output[profile] = None
+
+    def phase(self, profiles, phase, **details):
+        with self.lock:
+            for profile in profiles:
+                self.context[profile].update(capture_phase=phase, **details)
 
     def source(self, profile, source):
         with self.lock:
@@ -201,11 +207,22 @@ class Sink:
                                      "process_identity": self.identities.get(profile), "clock_session": self.session,
                                      "source_candidate_provenance": list(self.history.get(profile, [])),
                                      "attribution": "unassigned" if profile is None else "endpoint_identity"}
+                            phase = context.get("capture_phase")
+                            if phase:
+                                event["capture_phase"] = phase
+                            for key in ("quiet_precondition_met", "unresolved_carryover"):
+                                if key in context:
+                                    event[key] = context[key]
+                            nonempty = address == "/chatbox/input" and args and isinstance(args[0], str) and args[0].strip()
+                            if phase == "quiet_precondition" and nonempty:
+                                event["output_classification"] = "unresolved_carryover"
                             self.journal.append(event)
                             if profile in self.targets:
                                 self.targets[profile].append(event)
-                            if profile and address == "/chatbox/input" and args and isinstance(args[0], str) and args[0].strip():
+                            if profile and nonempty:
                                 self.last_output[profile] = received
+                                if profile in self.targets:
+                                    self.attempt_last_output[profile] = received
         except BaseException as error:
             self.failure = error
 

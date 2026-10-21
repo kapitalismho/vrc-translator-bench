@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import copy
 import json
+import math
 import re
 import subprocess
 import tomllib
@@ -117,6 +118,16 @@ def load_plan(path, run_id):
         if not IDENTIFIER.fullmatch(stage["chunk"]):
             raise ValueError("Chunk IDs must be safe identifiers")
         stage["wave"]
+        quiet_fields = ("quiet_seconds", "quiet_max_wait_seconds")
+        if any(key in stage for key in quiet_fields):
+            if stage["kind"] != "nonspeech" or not all(key in stage for key in quiet_fields):
+                raise ValueError("Quiet gating requires both quiet_seconds and quiet_max_wait_seconds on nonspeech stages")
+            for key in quiet_fields:
+                value = stage[key]
+                if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value) or value < 0:
+                    raise ValueError(f"{key} must be finite and nonnegative")
+            if stage["quiet_max_wait_seconds"] < stage["quiet_seconds"]:
+                raise ValueError("quiet_max_wait_seconds must be at least quiet_seconds")
         stage["direction"]
         audio(stage)
         common = {key: stage[key] for key in ("wave", "direction", "chunk")}

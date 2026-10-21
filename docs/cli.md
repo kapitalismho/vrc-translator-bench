@@ -103,6 +103,27 @@ Each profile requires:
 
 Each stage requires `kind` (`chunk`, `isolated`, `nonspeech`, `repeat`), `wave`, `direction`, `profiles` and PCM16 WAV `audio`. `chunk` defaults to `chunk-N`. Conversation resume units should be 2–5 minutes; short pilots are allowed. Speech stages require ordered, nonoverlapping `speech_intervals: [[start_seconds, end_seconds], ...]` in transformed playback coordinates. These annotations drive the continuing-speech watchdog; do not substitute elapsed audio duration for speech. Nonspeech has no speech requirement. `tail_seconds` defaults to 10 for isolated work, otherwise 15. Choose tails consistent with frozen observation windows and preserve later raw events for downstream attribution.
 
+For the first D1/D3 batch, each three-minute `nonspeech` stage additionally sets
+`quiet_seconds: 15` and `quiet_max_wait_seconds: 120`. These optional fields must
+appear together, be finite nonnegative numbers, and satisfy maximum wait ≥ quiet
+duration. They are valid only on nonspeech stages; historical plans without them
+retain their existing behavior. The 120-second cap is a recorded pre-freeze
+operating choice, not a product-failure or statistical equivalence threshold.
+
+The runner keeps the same applications and OSC sink running while observing a
+fresh continuous quiet window for all active profiles. Each nonempty
+`/chatbox/input` resets that profile's window; typing does not establish output.
+Resume observes a new window rather than reusing a previous clock session.
+`nonspeech_quiet_wait` records retain start/end, attempts, per-profile last output
+and achieved quiet, timeout status, and carryover uncertainty. Wait-period output
+is marked `capture_phase: quiet_precondition` and retained separately from
+playback measurements. Neither that wait nor its output enters main denominators.
+
+If the cap expires, the requested three-minute playback still occurs. Its raw
+interval counts remain observations, but `quiet_precondition_met: false` and
+`unresolved_carryover: true` prevent them from being reported as clean nonspeech
+attribution. A fixed observation tail is not evidence of continuous quiet.
+
 The runner records setup, direction-change and output-check stages. Use the common ten-second check clip for real prepared profiles. Checks occur after initial setup, direction changes and resume; typing or empty text does not satisfy them. A successful check proves received output, not semantic accuracy.
 
 At wave transitions, profiles leaving the wave stop capture/inference; entering profiles are prepared and started just before their work. Retained profiles stay running across ordinary chunk and direction boundaries. Resume prepares/checks each wave before its first unfinished playback rather than activating all future profiles together. The OSC sink and earlier playback provenance remain available across these transitions.

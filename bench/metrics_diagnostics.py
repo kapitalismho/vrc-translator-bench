@@ -228,9 +228,18 @@ def diagnostics(attempts, sentences, outputs, spec):
             start_ns = source_time(playback, attempt["callbacks"], interval["start"], attempt["stage_data"].get("sample_rate", 48000)) if playback else None
             end_ns = source_time(playback, attempt["callbacks"], interval["end"], attempt["stage_data"].get("sample_rate", 48000)) if playback else None
             valid = start_ns is not None and end_ns is not None
+            quiet_met = attempt.get("quiet_precondition_met")
+            clean_reason = ("Quiet precondition not met; unresolved carryover prevents clean nonspeech attribution"
+                            if quiet_met is False else "Quiet precondition observation unavailable"
+                            if quiet_met is None else "Playback/cable timing unavailable" if not valid else None)
             selected = [row["id"] for row in outputs if valid and row["raw"].get("clock_session") == attempt["clock_session"] and row["raw"].get("config") == attempt["config"]
                         and start_ns <= row["raw"]["t_ns"] < end_ns]
             nonspeech.append({"attempt_id": attempt["id"], **interval, "count": metric(len(selected) if valid else None, None if valid else "Playback/cable timing unavailable", "observed_outputs"),
+                              "clean_nonspeech_count": metric(len(selected) if valid and quiet_met is True else None,
+                                                              clean_reason, "observed_outputs"),
+                              "quiet_precondition_met": quiet_met,
+                              "unresolved_carryover": attempt.get("unresolved_carryover"),
+                              "nonspeech_quiet_wait": attempt.get("nonspeech_quiet_wait"),
                               "observation_complete": bool(valid and attempt.get("covered_until_ns", 0) >= end_ns),
                               "observed_seconds": max(0, min(end_ns, attempt.get("covered_until_ns", 0)) - start_ns) / 1e9 if valid else None,
                               "output_ids": selected, "scope": "Observed interval count, never hourly extrapolation"})

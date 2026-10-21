@@ -42,6 +42,20 @@ Sentence splits and merges describe message segmentation, not translation merit.
 
 Count nonspeech output separately for the observed two-minute silence/nonverbal interval and one-minute background-speech interval. Report those observed three-minute counts, never an hourly extrapolation.
 
+The optional observed pre-nonspeech quiet gate is described in the
+[runner contract](cli.md#plan-contract). Its delayed output is retained in
+`quiet_precondition_observations`, outside measured translation/alignment,
+quality, nonspeech and global output denominators. Each nonspeech diagnostic
+retains the complete `nonspeech_quiet_wait` evidence and the
+`quiet_precondition_met` / `unresolved_carryover` flags.
+
+`count` remains the raw observed interval count. `clean_nonspeech_count` is
+available only when quiet was actually established and playback timing is
+available. Timeout leaves clean attribution null with a carryover reason,
+without discarding the actual three-minute playback or fabricating a zero.
+Historical captures without the gate retain their observed counts; their quiet
+precondition and clean attribution are unknown, not retrospectively certified.
+
 ## Reporting populations and uncertainty
 
 Keep configuration, direction and category explicit. General, deliberately selected stress, and verified casual-chat-only views are separate. Preserve first-attempt product failures, operational invalidity, unsupported status, retries and resume provenance. Common-success-only comparisons are supplementary, not replacements for the retained-attempt results.
@@ -113,6 +127,7 @@ The output is one JSON object, `schema_version: 1`, calculation `version: "issue
 | `attempts` | Retained status, first-attempt history, failure reasons and resume provenance |
 | `outputs` | Nonempty interpreted translation outputs only, with untouched `raw`, derived text/source text, relationship/parent/group, rule evidence, content-change certainty, source proposals/confirmed links and quality-segment identity |
 | `nontranslation_observations` | Source-only observations retain raw payload and extraction evidence without entering translation, delivery or unaligned-output denominators |
+| `quiet_precondition_observations` | Preserved pre-playback wait output and source-only observations, raw payload and candidate provenance; excluded from measured output populations |
 | `sentences`, `turns` | Original/generated identity, source session/speaker/category, native reference evidence, uncertainty, candidate turns, timing, delivery and late/unknown output identities |
 | `quality_segments` | Approximately 30-second reference units, two unscored earlier turns, final display-order output, unaligned output and externally supplied quality score |
 | `quality_score_coverage` | Total/eligible/excluded segment and supplied-score counts, with exclusion reasons mapped to affected segment IDs |

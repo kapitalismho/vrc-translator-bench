@@ -229,6 +229,10 @@ def derive(manifest_path, spec_path, output_path=None, cache_path=None, allow_do
             attempt = attempts_by_id.get((observation["raw"].get("attempt"), observation["raw"].get("config")))
             observation["capture_kind"] = attempt["kind"] if attempt else "unassigned"
             observation["capture_attempt_id"] = attempt["id"] if attempt else None
+    quiet_observations = [row for row in outputs + nontranslation
+                          if row["raw"].get("capture_phase") == "quiet_precondition"]
+    outputs = [row for row in outputs if row["raw"].get("capture_phase") != "quiet_precondition"]
+    nontranslation = [row for row in nontranslation if row["raw"].get("capture_phase") != "quiet_precondition"]
     aligner = Alignment(spec, Path(spec_path).parent, cache_path, allow_download)
     covered = coverage(manifest, attempts, events)
     for attempt in attempts:
@@ -270,6 +274,7 @@ def derive(manifest_path, spec_path, output_path=None, cache_path=None, allow_do
               "attempts": [{key: value for key, value in attempt.items() if key not in ("reference", "callbacks")} for attempt in attempts],
               "outputs": outputs, "sentences": sentences, "turns": turns, "quality_segments": segments,
               "nontranslation_observations": nontranslation,
+              "quiet_precondition_observations": quiet_observations,
               "isolated": isolated_results(attempts, outputs),
               "diagnostics": diagnostics(attempts, sentences, outputs, spec),
               "limitations": ["No actual app readiness inferred; empirical interpretation requires issue #4 evidence",

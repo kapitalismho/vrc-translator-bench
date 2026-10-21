@@ -54,8 +54,11 @@ class Runner:
         self.resume_checked = set()
 
     def _context(self, stage, attempt):
-        return {"wave": stage.get("wave"), "direction": stage.get("direction"),
-                "chunk": stage.get("chunk"), "attempt": attempt["id"]}
+        context = {"wave": stage.get("wave"), "direction": stage.get("direction"),
+                   "chunk": stage.get("chunk"), "attempt": attempt["id"]}
+        if stage["kind"] == "nonspeech" and "quiet_seconds" in stage:
+            context["capture_phase"] = "quiet_precondition"
+        return context
 
     def _begin(self, work, stage):
         attempt = self.ledger.begin(work, self.resume)
@@ -296,6 +299,93 @@ class Runner:
             self._capture(index, self.plan["stages"][index])
         self.resume_checked.update((stage["wave"], profile) for profile in needed)
 
+    def _wait_for_quiet(self, index, stage, active, player):
+        # Only observations made by this sink/session can establish quiet. Even on
+        # resume, start a full new observation window after preparation/checks.
+        started = time.perf_counter_ns()
+        attempts = {profile: self.open_attempts[profile][0]["id"] for profile in sorted(active)}
+        quiet_ns = round(stage["quiet_seconds"] * 1e9)
+        deadline = started + round(stage["quiet_max_wait_seconds"] * 1e9)
+
+        def snapshot(status, phase):
+            with self.sink.lock:
+                now = time.perf_counter_ns()
+                profiles = {}
+                for profile in attempts:
+                    last = self.sink.last_output.get(profile)
+                    baseline = max(started, last if last is not None else started)
+                    elapsed = max(0, now - baseline)
+                    profiles[profile] = {"last_output_ns": last, "achieved_quiet_seconds": elapsed / 1e9,
+                                         "quiet_precondition_met": elapsed >= quiet_ns and baseline + quiet_ns <= deadline,
+                                         "active": profile in active}
+                return {"record": "nonspeech_quiet_wait", "phase": phase, "status": status,
+                        "stage": index, "wave": stage["wave"], "direction": stage["direction"], "chunk": stage["chunk"],
+                        "clock_session": self.session, "attempts": attempts, "start_ns": started,
+                        "end_ns": now if phase == "end" else None, "t_ns": now,
+                        "quiet_seconds": stage["quiet_seconds"], "quiet_max_wait_seconds": stage["quiet_max_wait_seconds"],
+                        "waited_seconds": (now - started) / 1e9, "profiles": profiles,
+                        "quiet_precondition_met": bool(active) and all(profiles[profile]["quiet_precondition_met"] for profile in active),
+                        "unresolved_carryover": status == "timeout", "timed_out": status == "timeout"}
+
+        def record(result):
+            self.sink.record(result)
+            for profile in attempts:
+                if profile in self.open_attempts:
+                    self.open_attempts[profile][1].append(result)
+            self.ledger.record("nonspeech_quiet_wait", result)
+
+        record(snapshot("waiting", "start"))
+        next_liveness = 0
+        try:
+            while active:
+                self.sink.check()
+                now = time.perf_counter_ns()
+                for profile in list(active):
+                    if profile not in self.open_attempts:
+                        active.discard(profile)
+                        continue
+                    try:
+                        adapter = self._adapter(profile)
+                        adapter.observe()
+                        if now >= next_liveness:
+                            health = adapter.call("liveness")
+                            if health.get("alive") is False:
+                                raise ProductError("crash", "Application process exited")
+                            if health.get("alive") is not True:
+                                raise OperationalError("Adapter liveness did not confirm alive")
+                            if health.get("failure"):
+                                failure = health["failure"]
+                                raise ProductError(failure["reason"], failure.get("message", ""), failure.get("scope"))
+                    except ProductError as error:
+                        self._product(profile, error)
+                        active.intersection_update(self.open_attempts)
+                if now >= next_liveness:
+                    next_liveness = now + 1_000_000_000
+                # Admit playback immediately after the final observation, without
+                # durable-record I/O in between; the receiver uses this same lock.
+                with self.sink.lock:
+                    result = snapshot("waiting", "end")
+                    if not active:
+                        result["status"] = "aborted"
+                    elif result["quiet_precondition_met"]:
+                        result["status"] = "achieved"
+                    elif result["end_ns"] >= deadline:
+                        result.update(status="timeout", unresolved_carryover=True, timed_out=True)
+                    else:
+                        result = None
+                    if result is not None and active:
+                        self.sink.phase(active, "nonspeech", quiet_precondition_met=result["quiet_precondition_met"],
+                                        unresolved_carryover=result["unresolved_carryover"])
+                        player.start()
+                if result is None:
+                    time.sleep(0.01)
+                    continue
+                record(result)
+                return result
+        except BaseException:
+            record(snapshot("aborted", "end"))
+            raise
+
     def _capture(self, index, stage):
         work_items = [work for work in self.ledger.work(index) if work["state"] not in TERMINAL]
         if not work_items:
@@ -339,6 +429,7 @@ class Runner:
         if not active:
             return
         player = None
+        quiet_result = None
         try:
             player = (ClockPlayback if self.synthetic else Playback)(stage["audio"], self.plan.get("output_device"))
             self.player = player
@@ -356,7 +447,13 @@ class Runner:
             active.intersection_update(self.open_attempts)
             if not active:
                 return
-            player.start()
+            if stage["kind"] == "nonspeech" and "quiet_seconds" in stage:
+                quiet_result = self._wait_for_quiet(index, stage, active, player)
+                active.intersection_update(self.open_attempts)
+                if not active:
+                    return
+            else:
+                player.start()
             callback_position = 0
             callback_deadline = time.perf_counter_ns() + 10_000_000_000
             next_liveness = 0
@@ -382,6 +479,9 @@ class Runner:
                                   "playback_dac_start_ns": player.first_dac_ns,
                                   "playback_end_ns": player.first_dac_ns + round(stage["duration_seconds"] * 1e9),
                                   "observation_end_ns": deadline, "calibration_offset_ns": self.plan["calibration"]["offset_ns"]}
+                        if quiet_result is not None:
+                            source.update(quiet_precondition_met=quiet_result["quiet_precondition_met"],
+                                          unresolved_carryover=quiet_result["unresolved_carryover"])
                         self.sink.source(profile, source)
                         self.open_attempts[profile][1].append({"record": "source_playback", **source,
                                                              "actual_dac_observed": not self.synthetic,
@@ -420,16 +520,22 @@ class Runner:
                         "calibration": {key: value for key, value in self.plan["calibration"].items()
                                         if key in ("status", "offset_ns", "record_path", "record_sha256", "convention")},
                         "audio_sha256": stage["audio_sha256"]}
+            if quiet_result is not None:
+                playback.update(quiet_precondition_met=quiet_result["quiet_precondition_met"],
+                                unresolved_carryover=quiet_result["unresolved_carryover"])
             self.sink.record({**playback, "wave": stage["wave"], "direction": stage["direction"],
                               "chunk": stage["chunk"], "attempts": self.playback_attempts,
                               "observation_end_ns": deadline})
             for profile in list(active):
                 self.open_attempts[profile][1].append(playback)
-                if stage["kind"] in ("output_check", "resume_check") and self.sink.last_output.get(profile) is None:
+                if stage["kind"] in ("output_check", "resume_check") and self.sink.attempt_last_output.get(profile) is None:
                     self._finish(profile, "invalid", "output_check_no_output")
                     active.remove(profile)
                     raise OperationalError("Short output check received no nonempty /chatbox/input")
-                self._finish(profile, "done")
+                detail = None if quiet_result is None else {"nonspeech_quiet_wait": quiet_result,
+                          "quiet_precondition_met": quiet_result["quiet_precondition_met"],
+                          "unresolved_carryover": quiet_result["unresolved_carryover"]}
+                self._finish(profile, "done", detail=detail)
                 active.remove(profile)
         except BaseException as error:
             for profile in list(active):
