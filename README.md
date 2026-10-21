@@ -18,6 +18,8 @@ Each main budget is 20 minutes general plus 10 minutes separately selected stres
 
 English and Chinese use human lexical references with automatic timing. Japanese is **automatic and exploratory**, with estimated speakers, provisional conversation eligibility and unresolved original-video rights. Its 3,166 main words now have acoustic timing estimates, including low-confidence covering alignment for formerly unsupported words; numeric completeness is not accuracy. Japanese full text/timelines remain local. No human listening or independent transcription-validation study is claimed.
 
+After local data loss, the owner accepted `issue-2-local-v2`: all indexed audio retains its original hash, but the regenerated Japanese main reference has a new hash. [Recovery provenance and revision boundaries](docs/corpus.md#local-recovery-revision) distinguish restored assets from regenerated references and historical pilot evidence.
+
 The owner delegated practical assessment rather than providing a listening judgment. [The sample record](corpus/practical-assessment.json) combines original human annotations/supplementary captions, actual recognized content and waveform checks, including Japanese reference disagreements and perceptual limits. It is not a human-listening result.
 
 ## Run

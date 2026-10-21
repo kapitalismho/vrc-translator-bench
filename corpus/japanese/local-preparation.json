@@ -189,7 +189,7 @@
       "producer_source_start": 67.75,
       "producer_source_end": 247.75,
       "source_reference_path": ".data\\japanese\\source-references\\ja-general-01.json",
-      "source_reference_sha256": "28dd10f8639d7273c382c685b86033ff1503c3d26957b506b3a0615257039a8b",
+      "source_reference_sha256": "705f88942fdf0d4f5402958cf3c53ea6f3520ea3d6b0801919f970dbc06a531a",
       "budget_trim": {
         "side": "right",
         "trim_samples": 522,
@@ -254,7 +254,7 @@
       "producer_source_start": 250.0,
       "producer_source_end": 430.0,
       "source_reference_path": ".data\\japanese\\source-references\\ja-general-02.json",
-      "source_reference_sha256": "1c08fa98a67b32f02d7219b4ea4a7d54640008565b6f37a2ff71e5369bcdfe08",
+      "source_reference_sha256": "4cde5fa03be540f63d097bb7bb5f4556e9fb1489881991dc47d5409d9143c5c4",
       "budget_trim": {
         "side": "left",
         "trim_samples": 79905,
@@ -299,12 +299,27 @@
         "duration_seconds": 240.0,
         "sample_rate": 48000,
         "channels": 1,
-        "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16"
+        "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
+        "rights": {
+          "release_cleared": false,
+          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+          "dataset_declared_license": "CC-BY-3.0",
+          "original_video_url": null,
+          "original_creator": null,
+          "video_specific_license_evidence": null,
+          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+          "evidence_urls": [
+            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+            "https://creativecommons.org/licenses/by/3.0/"
+          ]
+        }
       },
       "producer_source_start": 25.0,
       "producer_source_end": 265.0,
       "source_reference_path": ".data\\japanese\\source-references\\ja-general-03.json",
-      "source_reference_sha256": "3d11d73856ac81f5318f4f2aef0eaeb8f4441ca47559a015360d3da2c443359b",
+      "source_reference_sha256": "358c842435041bfbb856be898eda9230f8da598094a0b6c42d36d98425a9a673",
       "budget_trim": {
         "side": "none",
         "trim_samples": 0,
@@ -369,7 +384,7 @@
       "producer_source_start": 285.0,
       "producer_source_end": 525.0,
       "source_reference_path": ".data\\japanese\\source-references\\ja-general-04.json",
-      "source_reference_sha256": "eb354bdbd8c20c944378c5d3e26adb77516c40cf96f2f48eb226bfff550464e7",
+      "source_reference_sha256": "9b594aab8827afd08bf2f4869eb90c2bdc3596cf32817b377f07780a3d6ba82d",
       "budget_trim": {
         "side": "right",
         "trim_samples": 190773,
@@ -434,7 +449,7 @@
       "producer_source_start": 450.0,
       "producer_source_end": 630.0,
       "source_reference_path": ".data\\japanese\\source-references\\ja-general-05.json",
-      "source_reference_sha256": "390e2ee077fa96b2b09b0b83ccd81396d9117723be714606087dc655183a935f",
+      "source_reference_sha256": "ca74af85557582535716d8b489264cc044df489a7223cbf77dbc17a53c76a707",
       "budget_trim": {
         "side": "left",
         "trim_samples": 525,
@@ -499,7 +514,7 @@
       "producer_source_start": 650.0,
       "producer_source_end": 830.0,
       "source_reference_path": ".data\\japanese\\source-references\\ja-general-06.json",
-      "source_reference_sha256": "4a51111306a67732d48043e7f34dc14ac9697bab235fee3dc210db1984e74358",
+      "source_reference_sha256": "1879daef265403017d8a03647ae57477b5623d71f39d23f9f73d23d5aadd1154",
       "budget_trim": {
         "side": "left",
         "trim_samples": 304275,
@@ -565,7 +580,7 @@
       "producer_source_start": 0.0,
       "producer_source_end": 200.0,
       "source_reference_path": ".data\\japanese\\source-references\\ja-stress-01.json",
-      "source_reference_sha256": "9dfbcc0dbc02e4c5c7354ffd19d056024f8fe0ebb371ac9ac62e0f18991107d3",
+      "source_reference_sha256": "2cb192e3f28f8207f69d89e95a382b376190a83364f029901e8402b56c6bdc51",
       "budget_trim": {
         "side": "left",
         "trim_samples": 56415,
@@ -631,7 +646,7 @@
       "producer_source_start": 220.0,
       "producer_source_end": 420.0,
       "source_reference_path": ".data\\japanese\\source-references\\ja-stress-02.json",
-      "source_reference_sha256": "1ab2602ed77fe58fd46d6283010578d3639cf1931cf31a993f7624b22ee077f4",
+      "source_reference_sha256": "d21570ffbbb401793c5109a0d58b9f39ab18897a9e03662d3338cda825b0fdad",
       "budget_trim": {
         "side": "right",
         "trim_samples": 21464,
@@ -697,7 +712,7 @@
       "producer_source_start": 440.0,
       "producer_source_end": 640.0,
       "source_reference_path": ".data\\japanese\\source-references\\ja-stress-03.json",
-      "source_reference_sha256": "aa69862665b64a59347257dc0ee7e7bf9ce91cd70374cffb7bb394da0e4cb521",
+      "source_reference_sha256": "766874d3ada5751d9703b43856ef092a010d5850ff84ac4b0eb9ddba2a5ba4eb",
       "budget_trim": {
         "side": "right",
         "trim_samples": 114121,
@@ -741,7 +756,22 @@
         "duration_seconds": 300.0,
         "sample_rate": 48000,
         "channels": 1,
-        "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16"
+        "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
+        "rights": {
+          "release_cleared": false,
+          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+          "dataset_declared_license": "CC-BY-3.0",
+          "original_video_url": null,
+          "original_creator": null,
+          "video_specific_license_evidence": null,
+          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+          "evidence_urls": [
+            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+            "https://creativecommons.org/licenses/by/3.0/"
+          ]
+        }
       }
     },
     {
@@ -776,7 +806,22 @@
         "duration_seconds": 710.0,
         "sample_rate": 48000,
         "channels": 1,
-        "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16"
+        "normalization": "FFmpeg loudnorm -23 LUFS / -2 dBTP / LRA 7, dynamic, PCM16",
+        "rights": {
+          "release_cleared": false,
+          "status": "NOT_RELEASE_CLEARED_LOCAL_ONLY",
+          "dataset_declared_license": "CC-BY-3.0",
+          "original_video_url": null,
+          "original_creator": null,
+          "video_specific_license_evidence": null,
+          "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+          "evidence_urls": [
+            "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+            "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+            "https://creativecommons.org/licenses/by/3.0/"
+          ]
+        }
       }
     }
   ],
@@ -986,7 +1031,7 @@
     "ja-general-01": {
       "word_count": 438,
       "aligned_word_count": 438,
-      "reference_sha256": "02e5c156703297fd8f782b44dbe887a34f462690d0477a9b3e818f0c79201406",
+      "reference_sha256": "102499ebc2139b0ca72cd13f1c55b85f59f7ff227ead206a8e7d7afbb8427ed7",
       "stats": {
         "estimated_speakers": 13,
         "estimated_turns": 30,
@@ -1005,10 +1050,10 @@
         "interpretation": "Acoustic/lexical proxies only, not human stress labels. CTC blank gaps can include silence or uncertain alignment; pairwise overlap is model-estimated, not verified."
       },
       "runtime": {
-        "started_unix": 1792467378.8629656,
-        "ended_unix": 1792467427.0793874,
-        "elapsed_seconds": 48.216,
-        "diarization_seconds": 13.666,
+        "started_unix": 1792558313.125041,
+        "ended_unix": 1792558363.8682196,
+        "elapsed_seconds": 50.743,
+        "diarization_seconds": 14.279,
         "device": "cpu",
         "measured_source_audio_seconds": 180.0,
         "inference_reused_after_crop": true
@@ -1017,7 +1062,7 @@
     "ja-general-02": {
       "word_count": 302,
       "aligned_word_count": 302,
-      "reference_sha256": "681b99e0bc033e6f9d1f24bdfa4be113f8571e6638804fe1f57e723bba7636c4",
+      "reference_sha256": "59b0301ead0ae659887e88185f478e96e1edc8067485868db1c5e9ac6bdc3547",
       "stats": {
         "estimated_speakers": 19,
         "estimated_turns": 56,
@@ -1036,10 +1081,10 @@
         "interpretation": "Acoustic/lexical proxies only, not human stress labels. CTC blank gaps can include silence or uncertain alignment; pairwise overlap is model-estimated, not verified."
       },
       "runtime": {
-        "started_unix": 1792467427.0974262,
-        "ended_unix": 1792467475.0388346,
-        "elapsed_seconds": 47.941,
-        "diarization_seconds": 12.839,
+        "started_unix": 1792558363.8832886,
+        "ended_unix": 1792558410.9323258,
+        "elapsed_seconds": 47.049,
+        "diarization_seconds": 12.651,
         "device": "cpu",
         "measured_source_audio_seconds": 180.0,
         "inference_reused_after_crop": true
@@ -1048,7 +1093,7 @@
     "ja-general-03": {
       "word_count": 523,
       "aligned_word_count": 523,
-      "reference_sha256": "f2b2662dd69c4bae1e44f73911f5eb4f0d9669a86b0ffe0d31ca7555d21a0166",
+      "reference_sha256": "f6c3bd1c833b7410a5188acc7aeafd7346432d1ef987e637fed6e766d74a9591",
       "stats": {
         "estimated_speakers": 20,
         "estimated_turns": 36,
@@ -1067,17 +1112,17 @@
         "interpretation": "Acoustic/lexical proxies only, not human stress labels. CTC blank gaps can include silence or uncertain alignment; pairwise overlap is model-estimated, not verified."
       },
       "runtime": {
-        "started_unix": 1792467475.0543537,
-        "ended_unix": 1792467539.2555096,
-        "elapsed_seconds": 64.201,
-        "diarization_seconds": 18.735,
+        "started_unix": 1792558410.9458716,
+        "ended_unix": 1792558475.8403487,
+        "elapsed_seconds": 64.894,
+        "diarization_seconds": 19.021,
         "device": "cpu"
       }
     },
     "ja-general-04": {
       "word_count": 436,
       "aligned_word_count": 436,
-      "reference_sha256": "52c31ccde064577d796e659026b527060fdf692c60ed7630353266dc2089c32a",
+      "reference_sha256": "9f8f4bc81debd35bf63da6001c076684cb6c98710c7c627d39dcc8332cf36f5a",
       "stats": {
         "estimated_speakers": 14,
         "estimated_turns": 34,
@@ -1096,10 +1141,10 @@
         "interpretation": "Acoustic/lexical proxies only, not human stress labels. CTC blank gaps can include silence or uncertain alignment; pairwise overlap is model-estimated, not verified."
       },
       "runtime": {
-        "started_unix": 1792467539.2750216,
-        "ended_unix": 1792467602.4985006,
-        "elapsed_seconds": 63.223,
-        "diarization_seconds": 17.976,
+        "started_unix": 1792558475.859402,
+        "ended_unix": 1792558540.6844168,
+        "elapsed_seconds": 64.825,
+        "diarization_seconds": 18.292,
         "device": "cpu",
         "measured_source_audio_seconds": 240.0,
         "inference_reused_after_crop": true
@@ -1108,7 +1153,7 @@
     "ja-general-05": {
       "word_count": 468,
       "aligned_word_count": 468,
-      "reference_sha256": "288f7cec0be99a2bdf523167eb1cb86ac2726e9d12f101253c47e936eacd674e",
+      "reference_sha256": "2bd012cde23b8ca34649550fe8ae43910c8224534bb439c6835bfe868c6567b4",
       "stats": {
         "estimated_speakers": 14,
         "estimated_turns": 30,
@@ -1127,10 +1172,10 @@
         "interpretation": "Acoustic/lexical proxies only, not human stress labels. CTC blank gaps can include silence or uncertain alignment; pairwise overlap is model-estimated, not verified."
       },
       "runtime": {
-        "started_unix": 1792467602.5155852,
-        "ended_unix": 1792467651.9338303,
-        "elapsed_seconds": 49.418,
-        "diarization_seconds": 15.62,
+        "started_unix": 1792558540.7026184,
+        "ended_unix": 1792558590.6129513,
+        "elapsed_seconds": 49.91,
+        "diarization_seconds": 15.641,
         "device": "cpu",
         "measured_source_audio_seconds": 180.0,
         "inference_reused_after_crop": true
@@ -1139,7 +1184,7 @@
     "ja-general-06": {
       "word_count": 302,
       "aligned_word_count": 302,
-      "reference_sha256": "758c31cfa5004856f1e269f03a4856ba6c6a6733fe39a3f5881601ab0104639f",
+      "reference_sha256": "8ac0f8549aef867a0ec48689256ff4204272895958beb431ba71822a05b384d2",
       "stats": {
         "estimated_speakers": 25,
         "estimated_turns": 49,
@@ -1158,10 +1203,10 @@
         "interpretation": "Acoustic/lexical proxies only, not human stress labels. CTC blank gaps can include silence or uncertain alignment; pairwise overlap is model-estimated, not verified."
       },
       "runtime": {
-        "started_unix": 1792467651.9493582,
-        "ended_unix": 1792467696.4722834,
-        "elapsed_seconds": 44.523,
-        "diarization_seconds": 10.374,
+        "started_unix": 1792558590.6279738,
+        "ended_unix": 1792558634.2744582,
+        "elapsed_seconds": 43.646,
+        "diarization_seconds": 10.137,
         "device": "cpu",
         "measured_source_audio_seconds": 180.0,
         "inference_reused_after_crop": true
@@ -1170,7 +1215,7 @@
     "ja-stress-01": {
       "word_count": 270,
       "aligned_word_count": 270,
-      "reference_sha256": "17ccc6c8f47b64e1e967e72ef8a5339bd2c8afa3f25e7db021f4bc30d2dbabaf",
+      "reference_sha256": "318e788b119e2b806a3c1bf319a84b85a781fb78e10f456c36bca241a04a5a48",
       "stats": {
         "estimated_speakers": 14,
         "estimated_turns": 36,
@@ -1189,10 +1234,10 @@
         "interpretation": "Acoustic/lexical proxies only, not human stress labels. CTC blank gaps can include silence or uncertain alignment; pairwise overlap is model-estimated, not verified."
       },
       "runtime": {
-        "started_unix": 1792467696.4868026,
-        "ended_unix": 1792467743.8625917,
-        "elapsed_seconds": 47.376,
-        "diarization_seconds": 9.161,
+        "started_unix": 1792558634.2880788,
+        "ended_unix": 1792558680.471802,
+        "elapsed_seconds": 46.184,
+        "diarization_seconds": 8.837,
         "device": "cpu",
         "measured_source_audio_seconds": 200.0,
         "inference_reused_after_crop": true
@@ -1201,7 +1246,7 @@
     "ja-stress-02": {
       "word_count": 216,
       "aligned_word_count": 216,
-      "reference_sha256": "7190c69e106599bcae89978bf43dd8e6acd621c008575d0111b177e0c2209b03",
+      "reference_sha256": "e9877e65f496135597f4729692a13f49136e5c4ab63182e73e2bb5ef51bf6190",
       "stats": {
         "estimated_speakers": 12,
         "estimated_turns": 29,
@@ -1220,10 +1265,10 @@
         "interpretation": "Acoustic/lexical proxies only, not human stress labels. CTC blank gaps can include silence or uncertain alignment; pairwise overlap is model-estimated, not verified."
       },
       "runtime": {
-        "started_unix": 1792467743.8781128,
-        "ended_unix": 1792467790.5522606,
-        "elapsed_seconds": 46.674,
-        "diarization_seconds": 8.773,
+        "started_unix": 1792558680.4858384,
+        "ended_unix": 1792558726.9544427,
+        "elapsed_seconds": 46.469,
+        "diarization_seconds": 8.677,
         "device": "cpu",
         "measured_source_audio_seconds": 200.0,
         "inference_reused_after_crop": true
@@ -1232,7 +1277,7 @@
     "ja-stress-03": {
       "word_count": 211,
       "aligned_word_count": 211,
-      "reference_sha256": "2e534e0beca570799d23ab8cb3b0939b2a4dc7aa08399ef3af0ca6f4558ae958",
+      "reference_sha256": "215af498bf6a74fe338f26401f663f52cef7301fcfa4cbcf123e9194b49a5809",
       "stats": {
         "estimated_speakers": 20,
         "estimated_turns": 33,
@@ -1251,10 +1296,10 @@
         "interpretation": "Acoustic/lexical proxies only, not human stress labels. CTC blank gaps can include silence or uncertain alignment; pairwise overlap is model-estimated, not verified."
       },
       "runtime": {
-        "started_unix": 1792467790.5673387,
-        "ended_unix": 1792467836.4892454,
-        "elapsed_seconds": 45.922,
-        "diarization_seconds": 7.981,
+        "started_unix": 1792558726.968976,
+        "ended_unix": 1792558773.2874782,
+        "elapsed_seconds": 46.319,
+        "diarization_seconds": 8.114,
         "device": "cpu",
         "measured_source_audio_seconds": 200.0,
         "inference_reused_after_crop": true
@@ -1263,7 +1308,7 @@
     "ja-dev-01": {
       "word_count": 427,
       "aligned_word_count": 427,
-      "reference_sha256": "eecb6981807cb47a7940fbd22e0fb92442856e668fac86159e774964ab0e8a31",
+      "reference_sha256": "0b1e752fb50e4ce82947332ebc456f8dfebd1f20e9501b5af3728aec3a61f036",
       "stats": {
         "estimated_speakers": 19,
         "estimated_turns": 43,
@@ -1282,17 +1327,17 @@
         "interpretation": "Acoustic/lexical proxies only, not human stress labels. CTC blank gaps can include silence or uncertain alignment; pairwise overlap is model-estimated, not verified."
       },
       "runtime": {
-        "started_unix": 1792467836.503264,
-        "ended_unix": 1792467904.932343,
-        "elapsed_seconds": 68.429,
-        "diarization_seconds": 12.471,
+        "started_unix": 1792558773.3018916,
+        "ended_unix": 1792558842.5332294,
+        "elapsed_seconds": 69.231,
+        "diarization_seconds": 12.715,
         "device": "cpu"
       }
     },
     "ja-heldout-reserve": {
       "word_count": 1277,
       "aligned_word_count": 1277,
-      "reference_sha256": "3db6ff610381d6d1709fc3d8605471b6092a2030e91f04d788e05da5ba294134",
+      "reference_sha256": "2d94430df6af8a5621c4976797581f4b51ec98bbb770f532e64bebac119e88f6",
       "stats": {
         "estimated_speakers": 44,
         "estimated_turns": 101,
@@ -1311,10 +1356,10 @@
         "interpretation": "Acoustic/lexical proxies only, not human stress labels. CTC blank gaps can include silence or uncertain alignment; pairwise overlap is model-estimated, not verified."
       },
       "runtime": {
-        "started_unix": 1792467904.9518657,
-        "ended_unix": 1792468077.2040715,
-        "elapsed_seconds": 172.252,
-        "diarization_seconds": 38.107,
+        "started_unix": 1792558842.5538023,
+        "ended_unix": 1792559018.0104918,
+        "elapsed_seconds": 175.457,
+        "diarization_seconds": 37.766,
         "device": "cpu"
       }
     }
@@ -1332,7 +1377,13 @@
       "original_video_url": null,
       "original_creator": null,
       "video_specific_license_evidence": null,
-      "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets."
+      "reason": "YODAS2 pseudonymous IDs are not original video IDs; original attribution and video-specific rights unresolved. Do not decode mappings or publish derived speech assets.",
+      "evidence_urls": [
+        "https://huggingface.co/datasets/espnet/yodas2/blob/c9674490249665d658f527e2684848377108d82c/README.md",
+        "https://huggingface.co/datasets/espnet/yodas2/discussions/2",
+        "https://huggingface.co/datasets/espnet/yodas2/discussions/6",
+        "https://creativecommons.org/licenses/by/3.0/"
+      ]
     },
     "downloads": [
       {
@@ -1340,112 +1391,112 @@
         "path": ".data\\japanese\\source.tar.gz",
         "sha256": "f557b807d448d4ef5383174076892f41b457eaebeff540b5e5b8ee6605ed79f5",
         "bytes": 1406425120,
-        "elapsed_seconds": 72.151
+        "elapsed_seconds": 47.778
       },
       {
         "url": "https://huggingface.co/datasets/espnet/yodas2/resolve/c9674490249665d658f527e2684848377108d82c/data/ja000/text/00000000.json",
         "path": ".data\\japanese\\captions.json",
         "sha256": "f790b8fdcac8d70c9a71bba08e5686c010f05560ee77fbbd1b8165fd78c2d418",
         "bytes": 423572,
-        "elapsed_seconds": 0.362
+        "elapsed_seconds": 0.349
       },
       {
         "url": "https://huggingface.co/datasets/espnet/yodas2/resolve/c9674490249665d658f527e2684848377108d82c/data/ja000/duration/00000000.txt",
         "path": ".data\\japanese\\durations.txt",
         "sha256": "d197e4d49a875b8f498dfa33cef2c21ec160bdc09304765f2c9373b46c6657da",
         "bytes": 1381,
-        "elapsed_seconds": 0.306
+        "elapsed_seconds": 0.318
       },
       {
         "url": "https://huggingface.co/reazon-research/reazonspeech-k2-v2/resolve/291488c8151be24d7da4bf7af26e533fad96e407/encoder-epoch-99-avg-1.int8.onnx",
         "path": ".data\\japanese\\models\\reazon\\encoder-epoch-99-avg-1.int8.onnx",
         "sha256": "2c7bd08a8a99f9ddd0d9e458456577b1f6279214e51426f114f9eced44c54e1d",
         "bytes": 154670139,
-        "elapsed_seconds": 22.987
+        "elapsed_seconds": 8.015
       },
       {
         "url": "https://huggingface.co/reazon-research/reazonspeech-k2-v2/resolve/291488c8151be24d7da4bf7af26e533fad96e407/decoder-epoch-99-avg-1.onnx",
         "path": ".data\\japanese\\models\\reazon\\decoder-epoch-99-avg-1.onnx",
         "sha256": "58b18211ae06265466bfa17172dab574df94f76c8bcb61a3640c28ba860e4124",
         "bytes": 11767836,
-        "elapsed_seconds": 6.325
+        "elapsed_seconds": 2.221
       },
       {
         "url": "https://huggingface.co/reazon-research/reazonspeech-k2-v2/resolve/291488c8151be24d7da4bf7af26e533fad96e407/joiner-epoch-99-avg-1.int8.onnx",
         "path": ".data\\japanese\\models\\reazon\\joiner-epoch-99-avg-1.int8.onnx",
         "sha256": "49cc7ea1d3d35a40a27442db5e89996da64bf0e683a903dce76e99e57a12e4de",
         "bytes": 2696970,
-        "elapsed_seconds": 2.532
+        "elapsed_seconds": 2.643
       },
       {
         "url": "https://huggingface.co/reazon-research/reazonspeech-k2-v2/resolve/291488c8151be24d7da4bf7af26e533fad96e407/tokens.txt",
         "path": ".data\\japanese\\models\\reazon\\tokens.txt",
         "sha256": "2c3ac659818a48a0c04010e0593bbc4d7c8a24a054340b01131499c05fd52def",
         "bytes": 45754,
-        "elapsed_seconds": 1.043
+        "elapsed_seconds": 0.288
       },
       {
         "url": "https://huggingface.co/reazon-research/reazonspeech-k2-v2/resolve/291488c8151be24d7da4bf7af26e533fad96e407/README.md",
         "path": ".data\\japanese\\models\\reazon\\README.md",
         "sha256": "7debad4c9430f3310ad6d119fce385787c1c19f3ebc0cabe685a48dbe72a4de0",
         "bytes": 1188,
-        "elapsed_seconds": 0.285
+        "elapsed_seconds": 0.273
       },
       {
         "url": "https://github.com/k2-fsa/sherpa-onnx/releases/download/speaker-segmentation-models/sherpa-onnx-pyannote-segmentation-3-0.tar.bz2",
         "path": ".data\\japanese\\models\\segmentation.tar.bz2",
         "sha256": "24615ee884c897d9d2ba09bb4d30da6bb1b15e685065962db5b02e76e4996488",
         "bytes": 6958444,
-        "elapsed_seconds": 12.991
+        "elapsed_seconds": 2.617
       },
       {
         "url": "https://github.com/k2-fsa/sherpa-onnx/releases/download/speaker-recongition-models/3dspeaker_speech_eres2net_base_sv_zh-cn_3dspeaker_16k.onnx",
         "path": ".data\\japanese\\models\\embedding.onnx",
         "sha256": "1a331345f04805badbb495c775a6ddffcdd1a732567d5ec8b3d5749e3c7a5e4b",
         "bytes": 39593761,
-        "elapsed_seconds": 16.379
+        "elapsed_seconds": 15.647
       },
       {
         "url": "https://huggingface.co/jonatasgrosman/wav2vec2-large-xlsr-53-japanese/resolve/cf031e020336460d15a417eba710bbc5bb43be9a/pytorch_model.bin",
         "path": ".data\\japanese\\models\\alignment\\pytorch_model.bin",
         "sha256": "4f6821dcd79770fcd4c11487c4ee5c040b3a7e1863425224014ba5ea8fbc1b67",
         "bytes": 1271531927,
-        "elapsed_seconds": 64.178
+        "elapsed_seconds": 54.297
       },
       {
         "url": "https://huggingface.co/jonatasgrosman/wav2vec2-large-xlsr-53-japanese/resolve/cf031e020336460d15a417eba710bbc5bb43be9a/config.json",
         "path": ".data\\japanese\\models\\alignment\\config.json",
         "sha256": "552b8c8c85c54a761899eb94b5eb3d58166e769df8e26cf515ab9da695772cd7",
         "bytes": 1567,
-        "elapsed_seconds": 0.269
+        "elapsed_seconds": 0.263
       },
       {
         "url": "https://huggingface.co/jonatasgrosman/wav2vec2-large-xlsr-53-japanese/resolve/cf031e020336460d15a417eba710bbc5bb43be9a/preprocessor_config.json",
         "path": ".data\\japanese\\models\\alignment\\preprocessor_config.json",
         "sha256": "c403ce09975b90dff0dd8302c42d422e9de1f166cd7772df23490069893cb0cf",
         "bytes": 158,
-        "elapsed_seconds": 0.276
+        "elapsed_seconds": 0.269
       },
       {
         "url": "https://huggingface.co/jonatasgrosman/wav2vec2-large-xlsr-53-japanese/resolve/cf031e020336460d15a417eba710bbc5bb43be9a/special_tokens_map.json",
         "path": ".data\\japanese\\models\\alignment\\special_tokens_map.json",
         "sha256": "bb7068de1150661a10b55f9e4b12a0e77af8bf91f5e45e1b58afaf1d0e17f675",
         "bytes": 85,
-        "elapsed_seconds": 0.295
+        "elapsed_seconds": 1.275
       },
       {
         "url": "https://huggingface.co/jonatasgrosman/wav2vec2-large-xlsr-53-japanese/resolve/cf031e020336460d15a417eba710bbc5bb43be9a/vocab.json",
         "path": ".data\\japanese\\models\\alignment\\vocab.json",
         "sha256": "9ffedf9c2da2617b01c4227a4db875d2dfd4e8c31fb9a13182d03c3280679ffe",
         "bytes": 29298,
-        "elapsed_seconds": 0.28
+        "elapsed_seconds": 0.268
       },
       {
         "url": "https://huggingface.co/jonatasgrosman/wav2vec2-large-xlsr-53-japanese/resolve/cf031e020336460d15a417eba710bbc5bb43be9a/README.md",
         "path": ".data\\japanese\\models\\alignment\\README.md",
         "sha256": "5b903915e4edb98bf7a5a7f6be42792458272c73cbff07f5c2f8f33765f8f070",
         "bytes": 8634,
-        "elapsed_seconds": 0.301
+        "elapsed_seconds": 0.509
       }
     ]
   },
@@ -2507,7 +2558,7 @@
       "local_mapping_path": ".data\\japanese\\playback\\ja-main-mapping.json",
       "mapping_sha256": "4f77fbecb72a1806fd0792508d0528c67806dc4b1e687e361be79ff7d3e83e7c",
       "local_timeline_path": ".data\\japanese\\playback\\ja-main-reference.json",
-      "timeline_sha256": "672afdf52eeff6407db0859ca81102a63fe295c1524e1435301905f828453548"
+      "timeline_sha256": "5d943315650470ef46fde720df1811849d77e13bc72f28891c13e6368144c106"
     },
     "dev": {
       "rights": {
@@ -2554,8 +2605,8 @@
         "https://creativecommons.org/licenses/by/3.0/"
       ]
     },
-    "started_unix": 1792472223.71546,
-    "ended_unix": 1792472225.5657542,
+    "started_unix": 1792559508.8885796,
+    "ended_unix": 1792559510.5224094,
     "chunks": [
       {
         "chunk_id": "ja-general-01",
@@ -3318,16 +3369,16 @@
       },
       {
         "asset": "ja-general-06",
-        "dedicated_surface_words": 1,
-        "pronunciation_ctc_words": 1,
+        "dedicated_surface_words": 2,
+        "pronunciation_ctc_words": 0,
         "prediction_files_checked": 2,
         "source_hash_matches": true,
         "raw_prediction_mapping_matches": true
       },
       {
         "asset": "producer/ja-general-06",
-        "dedicated_surface_words": 1,
-        "pronunciation_ctc_words": 1,
+        "dedicated_surface_words": 2,
+        "pronunciation_ctc_words": 0,
         "prediction_files_checked": 2,
         "source_hash_matches": true,
         "raw_prediction_mapping_matches": true

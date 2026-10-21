@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "local_revision": "issue-2-local-v1",
+  "local_revision": "issue-2-local-v2",
   "status": "local_preparation_not_public_dataset_or_main_run_freeze",
   "authority": "https://github.com/kapitalismho/vrc-translator-bench/issues/2#issuecomment-6282606626",
   "publication": {
@@ -367,7 +367,7 @@
     "ja": {
       "manifest": {
         "path": "corpus/japanese/local-preparation.json",
-        "sha256": "c9788801bab2fa2d9cd7992607efb54b29d14cc962fcb377d3d5f7e4a8445f6e"
+        "sha256": "bae0aeb85616b248267e0bfd8e6f0f877dff00afec652097a1082c76ee109459"
       },
       "main": {
         "path": ".data\\japanese\\playback\\ja-main.wav",
@@ -507,7 +507,7 @@
       "timeline_units": "Seconds relative to containing playback bundle; join word IDs with chunk_id; preparation rejects missing word or sentence bounds",
       "main_timeline": {
         "path": ".data\\japanese\\playback\\ja-main-reference.json",
-        "sha256": "672afdf52eeff6407db0859ca81102a63fe295c1524e1435301905f828453548"
+        "sha256": "5d943315650470ef46fde720df1811849d77e13bc72f28891c13e6368144c106"
       },
       "timing_completion": {
         "local_record_path": ".data\\japanese\\alignment-repair\\completion.json",

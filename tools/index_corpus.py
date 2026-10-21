@@ -91,7 +91,7 @@ def build() -> dict:
     nonspeech = load("corpus/nonspeech/manifest.json")
     return {
         "schema_version": 1,
-        "local_revision": "issue-2-local-v1",
+        "local_revision": "issue-2-local-v2",
         "status": "local_preparation_not_public_dataset_or_main_run_freeze",
         "authority": "https://github.com/kapitalismho/vrc-translator-bench/issues/2#issuecomment-6282606626",
         "publication": {"hugging_face_repository": None, "hugging_face_revision": None, "authorized": False,

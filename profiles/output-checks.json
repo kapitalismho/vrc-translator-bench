@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "status": "prepared_not_translator_verified",
-  "corpus_sha256": "125516bc911780a3f7f235424462f94935bdf417f05d51c7341d8535dd1f2733",
+  "corpus_sha256": "60325dca0150de75aadea59817b78ce8a010416dfb541b52f228404a183b4c80",
   "selection": "First ten seconds of each existing development bundle, before any measured app output; reversible working default",
   "directions": {
     "D1": "en",
@@ -61,7 +61,7 @@
       },
       "source_manifest": {
         "path": "corpus/japanese/local-preparation.json",
-        "sha256": "c9788801bab2fa2d9cd7992607efb54b29d14cc962fcb377d3d5f7e4a8445f6e"
+        "sha256": "bae0aeb85616b248267e0bfd8e6f0f877dff00afec652097a1082c76ee109459"
       },
       "source_start_frame": 0,
       "frames": 480000,
