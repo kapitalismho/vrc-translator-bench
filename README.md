@@ -90,6 +90,15 @@ python -m bench.cli quality report --root .data/quality/pilot --output .data/qua
 
 Follow the [quality setup, prompts, resume, MetricX and review-packet contract](docs/quality.md) to configure the selected Sign in with ChatGPT route. The durable queue preserves raw responses, actual model identity, failures and unresolved calls; missing scores never become successful zero-error judgments. Optional `.[metricx]` supplies the selected supplementary local QE model runtime. Finish timed measurements before either scorer runs. Automatic scores and prepared Korean review packets are not human semantic verification.
 
+## Reconcile usage costs
+
+```powershell
+python -m bench.cli costs --spec tests/fixtures/costs/synthetic-spec.json --output .data/costs/synthetic.json
+python -m bench.cli costs --spec tests/fixtures/costs/real-missing-spec.json --output .data/costs/real-missing.json
+```
+
+The [cost input and report contract](docs/costs.md) covers selected OpenRouter/Qwen exports, PuriPuly diagnostic usage, dated prices, request-window attribution, subscription/free conditions and explicit normalization coverage for [issue #7](https://github.com/kapitalismho/vrc-translator-bench/issues/7). The first example is synthetic arithmetic; the second uses an actual historical VRCS2 capture with missing provider evidence and therefore null costs. Neither establishes measured billing totals. PP execution remains deferred; permitted actual exports and run-bound PP usage remain empirical prerequisites.
+
 ## Contracts and rights
 
 - [Architecture and artifact boundaries](docs/architecture.md)
@@ -98,6 +107,7 @@ Follow the [quality setup, prompts, resume, MetricX and review-packet contract](
 - [Derived measurement definitions and report-data contract](docs/metrics.md)
 - [Profile controls, readiness findings, waves and evidence limits](docs/profiles.md)
 - [Blinded quality scoring, provenance and Korean reference review](docs/quality.md)
+- [Usage-cost reconciliation, service conditions and evidence gaps](docs/costs.md)
 - [Six-direction local index](corpus/manifest.json)
 - [English references](corpus/english/manifest.json), [Chinese references](corpus/chinese/manifest.json), [Japanese public-safe metadata](corpus/japanese/local-preparation.json), [nonspeech attribution](corpus/nonspeech/manifest.json)
 

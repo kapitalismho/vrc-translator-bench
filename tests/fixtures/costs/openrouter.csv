@@ -1,0 +1,4 @@
+request,started,finished,model,key,cost,prompt,cached,output,reasoning,private_column
+synthetic-1,2026-10-20T12:00:00+00:00,2026-10-20T12:00:03+00:00,synthetic/gemma,shared,0.003,1000,200,300,50,DO_NOT_COPY_THIS
+synthetic-2,2026-10-20T12:00:50+00:00,2026-10-20T12:01:10+00:00,synthetic/gemma,shared,0.002,500,0,200,0,DO_NOT_COPY_THIS
+unrelated-account-record,2026-10-20T18:00:00+00:00,2026-10-20T18:00:01+00:00,private/unrelated,other,99,123,0,40,0,PRIVATE_UNRELATED
