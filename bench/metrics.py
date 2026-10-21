@@ -144,7 +144,8 @@ def assemble_segments(sentences, turns, outputs, scores):
             if len(candidates) > 1:
                 linked_segment.setdefault("cross_segment_output_ids", []).append(output["id"])
                 linked_segment["eligible"] = False
-                linked_segment["quality_eligibility_reason"] = "unresolved_merged_output_allocation"
+                if linked_segment.get("quality_eligibility_reason") != "unresolved_output_role":
+                    linked_segment["quality_eligibility_reason"] = "unresolved_merged_output_allocation"
         if not candidates:
             candidates = [segment for segment in segments if segment["clock_session"] == output["raw"].get("clock_session")
                           and segment["config"] == output["raw"].get("config") and segment["direction"] == output["raw"].get("direction")
@@ -172,6 +173,15 @@ def assemble_segments(sentences, turns, outputs, scores):
             affected = [item for item in segments if any(row["sentence_id"] in possible for row in item["reference"])]
             if capture_kind not in ("chunk", "repeat"):
                 affected = list(candidates)
+            # Missing timing cannot allocate within the captured attempt/stage's reference coverage.
+            untimed_capture = [item for item in segments if item["reference"] and item.get("attempt_id") == capture_attempt
+                               and item["clock_session"] == output["raw"].get("clock_session")
+                               and item["config"] == output["raw"].get("config") and item["direction"] == output["raw"].get("direction")
+                               and item["kind"] == capture_kind and (item["start_ns"] is None or item["end_ns"] is None)]
+            output["untimed_capture_quality_segment_ids"] = [item["id"] for item in untimed_capture]
+            for item in untimed_capture:
+                if item not in affected:
+                    affected.append(item)
             if segment not in affected:
                 affected.append(segment)
             output["unresolved_quality_segment_ids"] = [item["id"] for item in affected]

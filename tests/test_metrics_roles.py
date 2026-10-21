@@ -8,7 +8,7 @@ from pathlib import Path
 
 import pytest
 
-from bench.metrics import derive
+from bench.metrics import assemble_segments, derive
 from bench.metrics_alignment import Alignment, cache_binding, final_outputs, interpret
 from bench.quality import load_plan, prepare
 from bench.quality_prompts import blinded_input, fingerprint
@@ -137,6 +137,117 @@ def test_quality_inputs_are_unavailable_not_omissions_and_valid_jobs_survive(tmp
     assert joined["records"][0]["input"] is None
     assert all(row["esa"] is None and row["metricx"] is None for row in joined["records"])
     assert joined["joined_metrics_reports"][0]["quality_score_coverage"]["excluded_by_reason"] == {"unresolved_output_role": [unknown["id"]]}
+
+
+@pytest.mark.parametrize("first,unresolved,source_only", [
+    (AMBIGUOUS, True, False), (" (Hello)", False, True), ("Valid (Hello)", False, False)])
+def test_untimed_capture_quality_is_unavailable_only_with_unresolved_role_in_actual_cli(tmp_path, first, unresolved, source_only):
+    root = tmp_path / "inputs"
+    manifest, spec, _ = role_fixture(root, first)
+    trace = [json.loads(line) for line in (root / "attempt.jsonl").read_text().splitlines()]
+    next(row for row in trace if row["record"] == "source_playback")["calibration_offset_ns"] = None
+    (root / "attempt.jsonl").write_text("\n".join(json.dumps(row) for row in trace), encoding="utf-8")
+    output, queue, joined = tmp_path / "metrics.json", tmp_path / "queue", tmp_path / "joined.json"
+    commands = [["metrics", "--manifest", manifest, "--spec", spec, "--output", output],
+                ["quality", "prepare", "--report", output, "--root", queue, "--skip-tone", "--skip-korean-review"],
+                ["quality", "report", "--root", queue, "--output", joined]]
+    for command in commands:
+        process = subprocess.run([sys.executable, "-B", "-m", "bench.cli", *map(str, command)], cwd=ROOT,
+                                 capture_output=True, text=True, encoding="utf-8", timeout=30)
+        assert process.returncode == 0, process.stderr
+    metrics = json.loads(output.read_text(encoding="utf-8"))
+    plan = json.loads((queue / "quality-plan.json").read_text(encoding="utf-8"))
+    report = json.loads(joined.read_text(encoding="utf-8"))
+    reference = [row for row in metrics["quality_segments"] if row["reference"]]
+    assert len(reference) == 2
+    assert all(row["start_ns"] is None and row["end_ns"] is None and row["final_output"] == [] for row in reference)
+    assert all(row["reference_eligible"] and not row["timing_eligible"] for row in reference)
+    assert all(row["delivery_status"] == "N/A" and row["eligibility_reason"] == "source_timing_unavailable"
+               for row in metrics["sentences"])
+    assert all(row["alignment"]["candidate_ids"] == [] and row["source_quality_segment_ids"] == [] for row in metrics["outputs"])
+    assert "cache" not in metrics["alignment_provenance"]
+    assert metrics["nontranslation_observations"][0]["output_role"] == "source_only" if source_only else not metrics["nontranslation_observations"]
+    non_sanity = [job for job in plan["jobs"] if not job["sanity"]]
+    if unresolved:
+        unknown = metrics["outputs"][0]
+        assert unknown["id"] == "clock:1" and unknown["raw"]["args"][0] == first and unknown["text"] is None
+        assert unknown["untimed_capture_quality_segment_ids"] == [row["id"] for row in reference]
+        assert unknown["quality_segment_id"].startswith("orphan:")
+        assert set(unknown["unresolved_quality_segment_ids"]) == {row["id"] for row in metrics["quality_segments"]}
+        assert all(not row["eligible"] and row["quality_eligibility_reason"] == "unresolved_output_role"
+                   and row["unresolved_output_ids"] == ["clock:1"] for row in metrics["quality_segments"])
+        assert non_sanity == []
+        for record in [*plan["records"], *report["records"]]:
+            assert record["input"] is None
+            assert record["input_unavailable_reason"] == record["segment"]["quality_eligibility_reason"] == "unresolved_output_role"
+        expected = [row["id"] for row in metrics["quality_segments"]]
+        assert metrics["quality_score_coverage"]["excluded_by_reason"]["unresolved_output_role"] == expected
+        assert report["joined_metrics_reports"][0]["quality_score_coverage"]["excluded_by_reason"] == {"unresolved_output_role": expected}
+    else:
+        assert all(row["eligible"] and row["quality_eligibility_reason"] is None and not row["unresolved_output_ids"] for row in reference)
+        assert len(non_sanity) == 2
+        assert all(record["input"] is not None and "input_unavailable_reason" not in record for record in plan["records"])
+        assert all(job["input"]["output_text"] == "" for job in non_sanity)
+    assert report["execution"]["calls"] == report["execution"]["metricx_calls"] == []
+
+
+def test_untimed_role_exclusion_stays_within_exact_capture_population(tmp_path):
+    manifest, spec, _ = role_fixture(tmp_path)
+    trace = [json.loads(line) for line in (tmp_path / "attempt.jsonl").read_text().splitlines()]
+    next(row for row in trace if row["record"] == "source_playback")["calibration_offset_ns"] = None
+    (tmp_path / "attempt.jsonl").write_text("\n".join(json.dumps(row) for row in trace), encoding="utf-8")
+    metrics = derive(manifest, spec)
+    neighbors = []
+    for field, value in (("attempt_id", 2), ("config", "OTHER"), ("clock_session", "other-clock"), ("direction", "D2"), ("kind", "repeat")):
+        row = {**metrics["sentences"][0], "id": f"neighbor-{field}", "chunk_id": f"neighbor-{field}", field: value}
+        neighbors.append(row)
+    unknown = copy.deepcopy(metrics["outputs"][0])
+    segments = assemble_segments([*metrics["sentences"], *neighbors], metrics["turns"], [unknown], {})
+    affected = [row for row in segments if row["reference"] and not row["id"].startswith("1:neighbor-") and row["attempt_id"] == 1]
+    untouched = [row for row in segments if row["reference"] and row not in affected]
+    assert len(affected) == 2 and len(untouched) == 5
+    assert unknown["untimed_capture_quality_segment_ids"] == [row["id"] for row in affected]
+    assert all(not row["eligible"] and row["unresolved_output_ids"] == ["clock:1"] for row in affected)
+    assert all(row["eligible"] and row["unresolved_output_ids"] == [] and row["quality_eligibility_reason"] is None for row in untouched)
+
+
+@pytest.mark.parametrize("unknown_first", [True, False])
+def test_role_reason_survives_cross_segment_exclusion_and_quality_report(tmp_path, unknown_first):
+    root = tmp_path / "inputs"
+    manifest, spec, _ = role_fixture(root)
+    texts = [AMBIGUOUS, "Valid (Hello World)"] if unknown_first else ["Valid (Hello World)", AMBIGUOUS]
+    events = [packet(index, seconds, text) for index, (seconds, text) in enumerate(zip((45, 70), texts), 1)]
+    stream = root / "stream.jsonl"
+    stream.write_text("\n".join(json.dumps(row, ensure_ascii=False) for row in events), encoding="utf-8")
+    capture = json.loads(manifest.read_text())
+    capture["streams"][0].pop("sha256")
+    dump(manifest, capture)
+    unknown_id, known_id = ("clock:1", "clock:2") if unknown_first else ("clock:2", "clock:1")
+    cache = link(root, manifest, spec, {known_id: ["1:clip/s1", "1:clip/s2"]})
+    metrics = derive(manifest, spec, cache_path=cache)
+    segment_ids = [row["id"] for row in metrics["quality_segments"]]
+    assert len(segment_ids) == 2
+    assert sum(len(row["final_output"]) for row in metrics["quality_segments"]) == 1
+    for segment in metrics["quality_segments"]:
+        assert segment["eligible"] is False
+        assert segment["unresolved_output_ids"] == [unknown_id]
+        assert segment["quality_eligibility_reason"] == "unresolved_output_role"
+        assert segment["source_linked_output_ids"] == segment["cross_segment_output_ids"] == [known_id]
+        assert segment["cross_segment_group_ids"] == [known_id]
+        assert segment["reconstruction_status"] == "N/A_unresolved_output_role"
+    expected = {"unresolved_output_role": segment_ids}
+    assert metrics["quality_score_coverage"]["excluded_by_reason"] == expected
+    plan = prepare([dump(tmp_path / "metrics.json", metrics)], tmp_path / "queue",
+                   skip_tone=True, skip_korean_review=True)
+    assert not [job for job in plan["jobs"] if not job["sanity"]]
+    joined = build_report(tmp_path / "queue")
+    for record in [*plan["records"], *joined["records"]]:
+        assert record["input"] is None
+        assert record["input_unavailable_reason"] == record["segment"]["quality_eligibility_reason"] == "unresolved_output_role"
+        assert record["segment"]["cross_segment_output_ids"] == [known_id]
+    assert joined["joined_metrics_reports"][0]["quality_score_coverage"]["excluded_by_reason"] == expected
+    assert all(row["exclusions"] == {"unresolved_output_role": 2} for row in joined["quality_populations"])
+    assert joined["execution"]["calls"] == joined["execution"]["metricx_calls"] == []
 
 
 def test_isolated_unknown_role_retains_activity_without_translation_response_or_score(tmp_path):
