@@ -180,9 +180,11 @@ class Sink:
         try:
             while not self.stop_event.is_set():
                 for key, _ in self.selector.select(timeout=0.02):
-                    data, source = key.fileobj.recvfrom(65535)
-                    received = time.perf_counter_ns()
+                    # Receipt, its clock sample and publication are one admission
+                    # boundary: quiet snapshots must not overtake a received packet.
                     with self.lock:
+                        data, source = key.fileobj.recvfrom(65535)
+                        received = time.perf_counter_ns()
                         try:
                             messages = decode(data)
                         except (ValueError, UnicodeError, struct.error, IndexError) as error:
@@ -210,9 +212,9 @@ class Sink:
                             phase = context.get("capture_phase")
                             if phase:
                                 event["capture_phase"] = phase
-                            for key in ("quiet_precondition_met", "unresolved_carryover"):
-                                if key in context:
-                                    event[key] = context[key]
+                            for field in ("quiet_precondition_met", "unresolved_carryover"):
+                                if field in context:
+                                    event[field] = context[field]
                             nonempty = address == "/chatbox/input" and args and isinstance(args[0], str) and args[0].strip()
                             if phase == "quiet_precondition" and nonempty:
                                 event["output_classification"] = "unresolved_carryover"

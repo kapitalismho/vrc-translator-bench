@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import socket
+import struct
 import subprocess
 import threading
 from types import SimpleNamespace
@@ -9,6 +10,7 @@ from types import SimpleNamespace
 import pytest
 
 import bench.runner as runner_module
+import bench.osc as osc_module
 from bench.osc import Sink, encode
 from bench.plan import load_plan
 from bench.runner import Runner
@@ -233,6 +235,145 @@ def test_sink_preserves_session_output_across_attach_but_checks_require_fresh_ou
         assert fresh.last_output == {}  # Never reconstruct monotonic quiet from historical streams.
     finally:
         fresh.close()
+
+
+@pytest.mark.parametrize("gated", [False, True])
+def test_sink_publishes_bundle_in_wire_order_and_keeps_receiving(tmp_path, gated):
+    profile = {"id": "P1", "osc": {"host": "127.0.0.1", "port": free_port()}}
+    sink = Sink(tmp_path, "bundle-test", "bundle-session", [profile])
+    journal = Journal(tmp_path / "attempt.tmp")
+    context = {"attempt": 1}
+    if gated:
+        context.update(capture_phase="nonspeech", quiet_precondition_met=False, unresolved_carryover=True)
+    sink.attach("P1", context, journal)
+    messages = [encode("/chatbox/typing", [True]), encode("/chatbox/input", ["bundled output", True, False])]
+    bundle = b"#bundle\0" + struct.pack(">Q", 1) + b"".join(struct.pack(">I", len(message)) + message for message in messages)
+    try:
+        with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sender:
+            destination = ("127.0.0.1", profile["osc"]["port"])
+            sender.sendto(bundle, destination)
+            bundled_output = wait_until(lambda: sink.attempt_last_output.get("P1"))
+            sink.check()
+            assert sink.sequence == 2 and sink.last_output["P1"] == bundled_output
+            sender.sendto(encode("/chatbox/input", ["continued output", True, False]), destination)
+            wait_until(lambda: sink.sequence == 3)
+            with sink.lock:
+                sink.check()
+                assert sink.attempt_last_output["P1"] == sink.last_output["P1"] > bundled_output
+    finally:
+        stream, _ = sink.close()
+        trace, _ = journal.finalize()
+    rows = [json.loads(line) for line in (tmp_path / stream).read_text().splitlines()]
+    assert rows == [json.loads(line) for line in (tmp_path / trace).read_text().splitlines()]
+    assert [row["recv_seq"] for row in rows] == [1, 2, 3]
+    assert [(row["address"], row["args"][0]) for row in rows] == [
+        ("/chatbox/typing", True), ("/chatbox/input", "bundled output"), ("/chatbox/input", "continued output")]
+    assert rows[0]["t_ns"] == rows[1]["t_ns"] == bundled_output
+    if gated:
+        assert all(row["capture_phase"] == "nonspeech" and row["quiet_precondition_met"] is False
+                   and row["unresolved_carryover"] is True for row in rows)
+    else:
+        assert all("capture_phase" not in row and "quiet_precondition_met" not in row for row in rows)
+
+
+def test_pending_udp_receipt_blocks_admission_then_resets_full_quiet_window(tmp_path, monkeypatch):
+    received = threading.Event()
+    release = threading.Event()
+    admission_attempted = threading.Event()
+    blocked = []
+    controller_errors = []
+    starts = []
+    gate_thread = threading.current_thread()
+    profile = {"id": "P1", "osc": {"host": "127.0.0.1", "port": free_port()}}
+
+    class Clock:
+        now = 10_000_000_000
+        sent = False
+
+        def perf_counter_ns(self):
+            return self.now
+
+        def sleep(self, seconds):
+            self.now += round(seconds * 1e9)
+            if not self.sent and self.now >= 24_000_000_000:
+                self.sent = True
+                with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sender:
+                    sender.sendto(encode("/chatbox/input", ["pending carryover", True, False]),
+                                  ("127.0.0.1", profile["osc"]["port"]))
+                assert received.wait(2), "Receiver did not reach the post-recv clock sample"
+                self.now = 25_000_000_000
+
+    clock = Clock()
+
+    def receipt_time():
+        stamp = clock.now
+        received.set()
+        assert release.wait(5), "Controller did not release pending receipt"
+        return stamp
+
+    class AdmissionLock:
+        def __init__(self, lock):
+            self.lock = lock
+
+        def __enter__(self):
+            if threading.current_thread() is gate_thread and received.is_set() and not admission_attempted.is_set():
+                acquired = self.lock.acquire(blocking=False)
+                blocked.append(not acquired)
+                admission_attempted.set()
+                if acquired:
+                    return self
+            self.lock.acquire()
+            return self
+
+        def __exit__(self, *args):
+            self.lock.release()
+
+    def control_publication():
+        try:
+            assert admission_attempted.wait(3), "Gate did not attempt admission with receipt pending"
+            assert blocked == [True], "Admission overtook an already-received packet"
+            assert not starts, "Playback started before pending receipt was published"
+        except BaseException as error:
+            controller_errors.append(error)
+        finally:
+            release.set()
+
+    monkeypatch.setattr(osc_module, "time", SimpleNamespace(perf_counter_ns=receipt_time))
+    monkeypatch.setattr(runner_module, "time", clock)
+    sink = Sink(tmp_path, "pending-test", "receipt-session", [profile])
+    sink.lock = AdmissionLock(sink.lock)
+    journal = Journal(tmp_path / "attempt.tmp")
+    sink.attach("P1", {"attempt": 1, "capture_phase": "quiet_precondition"}, journal)
+    runner = Runner(tmp_path, {"synthetic": True, "profiles": [profile]}, synthetic=True)
+    runner.sink = sink
+    runner.session = "receipt-session"
+    runner.open_attempts = {"P1": ({"id": 1}, journal)}
+    runner.adapters = {"P1": SimpleNamespace(observe=lambda: None, call=lambda method: {"alive": True})}
+    controller = threading.Thread(target=control_publication)
+    controller.start()
+    try:
+        result = runner._wait_for_quiet(0, {"wave": "W1", "direction": "D1", "chunk": "ns",
+                                         "quiet_seconds": 15, "quiet_max_wait_seconds": 120}, {"P1"},
+                                        SimpleNamespace(start=lambda: starts.append(clock.now)))
+        sink.check()
+        assert not controller_errors, controller_errors
+        assert blocked == [True]
+        assert result["status"] == "achieved" and result["quiet_precondition_met"]
+        assert result["profiles"]["P1"]["last_output_ns"] == 24_000_000_000
+        assert result["profiles"]["P1"]["achieved_quiet_seconds"] == 15
+        assert starts == [result["end_ns"]] == [39_000_000_000]
+    finally:
+        release.set()
+        controller.join(5)
+        stream, _ = sink.close()
+        journal.finalize()
+        runner.ledger.close()
+    assert not controller.is_alive()
+    rows = [json.loads(line) for line in (tmp_path / stream).read_text().splitlines()]
+    event, = [row for row in rows if row.get("address") == "/chatbox/input"]
+    assert event["t_ns"] == 24_000_000_000
+    assert event["capture_phase"] == "quiet_precondition"
+    assert event["output_classification"] == "unresolved_carryover"
 
 
 @pytest.mark.parametrize("reverse_stream_order", [False, True])
