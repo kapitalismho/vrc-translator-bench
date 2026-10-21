@@ -103,6 +103,8 @@ def build_report(root, output=None, review_output=None, human_notes=None, model=
     plan = load_plan(root)
     store = QualityStore(root)
     try:
+        # Keep history, cached judgments, and execution status on one WAL snapshot.
+        store.db.execute("BEGIN")
         selected_model = model or store.get("active_model")
         calls = store.history(include_raw=False)
         mxhistory = store.metricx_history()

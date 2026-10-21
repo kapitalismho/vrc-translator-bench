@@ -1,12 +1,19 @@
 from __future__ import annotations
 
 import copy
+import sqlite3
+from concurrent.futures import ThreadPoolExecutor
+from threading import Event, get_ident
 
+import pytest
+
+import bench.quality_report as quality_report
 from bench.metrics import derive
 from bench.quality import prepare, score
 from bench.quality_report import build_report
+from bench.quality_store import QualityStore
 from test_metrics import link, packet, sample
-from test_quality import Judge, dump
+from test_quality import Judge, Metric, dump, input_report
 
 
 def test_join_replaces_unobserved_supplied_scores_without_losing_timing_or_exclusions(tmp_path):
@@ -83,3 +90,94 @@ def test_isolated_exact_window_join_and_out_of_window_text_stays_unscored(tmp_pa
         else:
             assert quality["quality_score_reason"] == "no_exact_window_matching_quality_segment"
             assert quality["tone_score"] is None and quality["metricx_score"] is None
+
+
+@pytest.mark.parametrize("boundary", ["history", "cached"])
+@pytest.mark.parametrize("model", [None, "synthetic-v1"])
+def test_report_keeps_one_snapshot_while_scoring_commits(tmp_path, monkeypatch, boundary, model):
+    root = tmp_path / "queue"
+    plan = prepare([input_report(tmp_path / "input.json")], root)
+    with ThreadPoolExecutor(max_workers=1) as executor:
+        ready = Event()
+        release = Event()
+
+        def writer():
+            ready.set()
+            assert release.wait(10), "Report never reached the controlled read boundary"
+            return score(root, Judge(), "synthetic-v1", metricx=Metric(), measurements_ended=True)
+
+        store = QualityStore(root)
+        store.set("active_model", "synthetic-v1")
+        store.close()
+        future = executor.submit(writer)
+        assert ready.wait(10)
+        original = getattr(QualityStore, boundary)
+        triggered = False
+        reader_thread = get_ident()
+
+        def read_then_commit(self, *args, **kwargs):
+            nonlocal triggered
+            value = original(self, *args, **kwargs)
+            if not triggered and get_ident() == reader_thread:
+                triggered = True
+                release.set()
+                completed = future.result(timeout=10)
+                assert completed["completed_for_model"] == len(plan["jobs"])
+                assert completed["metricx_calls"]
+            return value
+
+        try:
+            with monkeypatch.context() as patch:
+                patch.setattr(QualityStore, boundary, read_then_commit)
+                current = build_report(root, model=model)
+        finally:
+            release.set()
+        assert triggered
+        assert current["selected_actual_model"] == "synthetic-v1"
+        assert current["scoring_models_observed"] == []
+        assert current["calibration"]["model_coverage"] == {}
+        assert all(row["esa"] is None and row["tone"] is None and row["metricx"] is None for row in current["records"])
+        assert all(row["status"] == "missing" for row in current["sanity"])
+        assert current["execution"]["completed_for_model"] == 0
+        assert current["execution"]["calls"] == []
+        assert current["execution"]["metricx_calls"] == []
+        assert current["joined_metrics_reports"][0]["quality_segments"][0]["quality_score"] is None
+
+    following = build_report(root, model=model)
+    assert following["plan_binding"] == current["plan_binding"] == plan["binding"]
+    assert following["scoring_models_observed"] == ["synthetic-v1"]
+    assert following["calibration"]["model_coverage"] == {"synthetic-v1": len(plan["samples"]["calibration"]["keys"])}
+    assert all(row["esa"] is not None and row["tone"] is not None and row["metricx"]["status"] == "completed" for row in following["records"])
+    assert all(row["status"] == "completed" for row in following["sanity"])
+    assert following["execution"]["completed_for_model"] == len(plan["jobs"])
+    assert following["execution"]["calls"]
+    assert following["execution"]["metricx_calls"]
+    assert all("raw" not in call and call["raw_artifact"]["id"] == call["id"] for call in following["execution"]["calls"])
+    assert following["joined_metrics_reports"][0]["quality_segments"][0]["quality_score"]["esa_score"] == 20
+
+
+def test_report_closes_snapshot_after_output_error(tmp_path, monkeypatch):
+    root = tmp_path / "queue"
+    prepare([input_report(tmp_path / "input.json")], root)
+    stores = []
+    original = quality_report.atomic_json
+
+    def fail_output(path, result):
+        raise OSError("controlled output failure")
+
+    def open_store(root):
+        store = QualityStore(root)
+        stores.append(store)
+        return store
+
+    monkeypatch.setattr(quality_report, "QualityStore", open_store)
+    monkeypatch.setattr(quality_report, "atomic_json", fail_output)
+    with pytest.raises(OSError, match="controlled output failure"):
+        build_report(root, output=tmp_path / "failed.json")
+    with pytest.raises(sqlite3.ProgrammingError, match="closed"):
+        stores[0].db.execute("SELECT 1")
+    completed = score(root, Judge(), "synthetic-v1")
+    monkeypatch.setattr(quality_report, "atomic_json", original)
+    following = build_report(root, output=tmp_path / "report.json")
+    assert following["execution"]["completed_for_model"] == completed["jobs"]
+    assert (tmp_path / "report.json").is_file()
