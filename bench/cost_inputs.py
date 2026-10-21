@@ -243,8 +243,11 @@ class Inputs:
 
     def _source_identity(self, rows, path, source):
         source_hash = self.hashes[path]
+        container = (source.get("format", source["kind"]),
+                     tuple(source.get("records_path", [])) if source.get("format") == "json" else ())
         for row in rows:
             row["_source_hash"] = source_hash
+            row["_record_container"] = container
         return rows
 
 

@@ -32,7 +32,7 @@ def deduplicate(records):
     fields = ("provider", "upstream_provider", "component", "granularity", "scope", "start", "end",
               "model", "key_alias", "currency", "cost", "audio_seconds", "submitted_audio_interval", *TOKENS)
     for row in records:
-        source_key = (row["kind"], row["_source_hash"], row["source_rows"][0]["row"])
+        source_key = (row["kind"], row["_source_hash"], row["_record_container"], row["source_rows"][0]["row"])
         request_key = (row["kind"], row["provider"], row["request_hash"]) if row["request_hash"] else None
         candidates = list(by_source_row.get(source_key, []))
         for other in by_request.get(request_key, []) if request_key else []:

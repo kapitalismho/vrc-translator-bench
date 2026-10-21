@@ -62,6 +62,39 @@ def test_f1_distinct_identified_requests_remain_legitimate_even_when_other_field
     assert all(not item.get("exclusion") for item in result["records"])
 
 
+def test_r1_distinct_nested_json_arrays_keep_distinct_identified_calls(tmp_path):
+    spec = provider_spec(tmp_path, [])
+    path = tmp_path / "nested-export.json"
+    path.write_text(json.dumps({"exports": {"page_a": [row(request_id="distinct-a")],
+                                          "page_b": [row(request_id="distinct-b")]}}), encoding="utf-8")
+    source = spec["sources"][0]
+    source.update(path=str(path), records_path=["exports", "page_a"])
+    spec["sources"].append({**copy.deepcopy(source), "id": "page-b", "records_path": ["exports", "page_b"]})
+    result = report(tmp_path, spec)
+    assert len(result["records"]) == 2
+    assert len({item["request_hash"] for item in result["records"]}) == 2
+    assert all(not item.get("exclusion") for item in result["records"])
+    assert result["components"][0]["provider_records"] == 2
+    assert result["components"][0]["cost"] == pytest.approx(.006)
+
+
+@pytest.mark.parametrize("request_id", ["same-request", None])
+def test_r1_repeated_same_nested_json_record_deduplicates_despite_inspection_wording(tmp_path, request_id):
+    spec = provider_spec(tmp_path, [])
+    path = tmp_path / "nested-export.json"
+    path.write_text(json.dumps({"exports": {"page_a": [row(request_id=request_id)]}}), encoding="utf-8")
+    source = spec["sources"][0]
+    source.update(path=str(path), records_path=["exports", "page_a"])
+    spec["sources"].append({**copy.deepcopy(source), "id": "second-inspection",
+                            "selection_evidence": "Independent second inspection, same physical record"})
+    result = report(tmp_path, spec)
+    assert len(result["records"]) == 1
+    assert len(result["records"][0]["source_rows"]) == 2
+    assert not result["records"][0].get("exclusion")
+    assert result["components"][0]["provider_records"] == 1
+    assert result["components"][0]["cost"] == .003
+
+
 def test_f2_conflicting_alternatives_retain_every_affected_consumer(tmp_path):
     rows = [row(), row(start="2026-10-20T12:02:00Z", key_alias="second-key"),
             row(start="2026-10-20T12:02:01Z", key_alias="second-key", request_id="valid-second")]
