@@ -1,20 +1,24 @@
 {
   "schema_version": 1,
   "decision_date": "2026-10-21",
-  "authority": "Director delegated prefreeze reversible wave choice under owner current ten-competitor GUI-pilot scope; no model or paid-route substitution",
-  "selected_policy": "One active competitor profile at a time. Stop leaving-profile capture/inference and confirm owned application/process cleanup before changing applications; same-app route changes occur only outside timed playback and require fresh observed state.",
-  "historical_parent_working_waves": [
+  "status": "withdrawn_by_owner",
+  "withdrawal_date": "2026-10-21",
+  "owner_withdrawal": "The owner rejected the unreported scheduling change and instructed that it be discarded. The S01-S10 replacement is no longer an active or authorized comparison plan.",
+  "authority_correction": "The earlier Director prefreeze-discretion claim did not establish owner agreement to discard simultaneous comparison. Consequential comparison-design changes must be reported and agreed with the owner before application.",
+  "current_policy": "Restore the original W1-W4 membership with concurrent profiles within each wave. The owner subsequently reported PuriPuly updated and removed the PP1-PP4 execution deferral; see decisions-and-candidate.json. PP returns to preparation under the existing protocol. Missing readiness/isolation evidence remains an explicit blocker; it does not authorize automatic serialization or new qualification campaigns.",
+  "withdrawn_policy": "One active competitor profile at a time (S01-S10). Retained here only to explain historical preparation records; do not use for the main comparison.",
+  "restored_parent_working_waves": [
     {"id": "W1", "profiles": ["PP4", "KIKI2", "VRCLT1", "VRCT3"]},
     {"id": "W2", "profiles": ["VRCT1", "PP1", "VRCS2", "KIKI1"]},
     {"id": "W3", "profiles": ["VRCT2", "VRCLT2", "PP2"]},
     {"id": "W4", "profiles": ["VRCS1", "PP3", "VRCLS1"]}
   ],
-  "historical_status": "Original working default retained for provenance only; not the selected executable layout and not a frozen comparison",
-  "active_profile_order": ["VRCS2", "VRCS1", "VRCLT2", "VRCLT1", "VRCT1", "VRCT2", "VRCT3", "VRCLS1", "KIKI1", "KIKI2"],
-  "ordering_limit": "Preparation or blocked findings may be established in a different order; each actual attempt retains its real order. The earlier KIKI1 preplayback native crash is not erased or replayed by this layout.",
-  "deferred_profiles": {"profiles": ["PP1", "PP2", "PP3", "PP4"], "execution": "Do not execute, launch, build, update or infer. Catalogue reserved waves exist only to account for all fourteen parent IDs; all four remain owner-deferred blocked."},
-  "why": "Separate account/project quota independence has not been established for existing authorized credentials. Serial preparation removes intentional simultaneous same-app, fixed-port, local-neural-workload and shared-service contention without pretending credentials create independent quota.",
-  "lost_relationships": ["KIKI2/VRCLT1 are no longer same-time Gemini shared-engine co-measurements.", "PP1/VRCS2 same-time shared-engine co-measurement is unavailable; all PP execution is deferred.", "Sequential results do not control service-side/time variation as simultaneous paired observations would."],
-  "qwen_port_addendum": "After the owner-requested minimal workspace-host repair, adopt the observed UDP19131 for VRCLT2 S03 and VRCLT1 S04, never concurrently. The former19132 reservation is superseded. The preserved vrclt2-workspace-hostcheck.json records the prior diagnostic-only admission decision; this addendum supersedes that decision without changing its observed ten-second run, hashes or limits. No forty-second stage or obsolete-port retest is required for bounded profile preparation.",
-  "preserved_limits": ["Sequential operation does not reset cumulative project/account/public-IP quotas, replenish credit, establish numeric limits or prove current exports.", "OpenRouter provider pinning and response identity remain unverified where apps do not expose them.", "Dynamic control/OSCQuery listeners remain application-specific; no fabricated mute/OSCQuery service or VRChat process is introduced.", "Current selected layout is prefreeze preparation, not a claim all profiles are ready or the full comparison was measured."]
+  "restored_plan_status": "Original four-wave comparison plan restored; not a frozen revision or proof of simultaneous readiness. The later PP deferral withdrawal does not waive preflight.",
+  "withdrawn_profile_order": ["VRCS2", "VRCS1", "VRCLT2", "VRCLT1", "VRCT1", "VRCT2", "VRCT3", "VRCLS1", "KIKI1", "KIKI2"],
+  "historical_observations": "Preserve the actual order, hashes, results and limits of completed individual pilots, including the KIKI1 preplayback crash. Those observations are not a simultaneous comparison and are not rewritten by this withdrawal.",
+  "pp_scope_update": {"profiles": ["PP1", "PP2", "PP3", "PP4"], "status": "execution_deferral_withdrawn_by_owner", "decision_evidence": "decisions-and-candidate.json", "execution": "Resume preparation under existing GUI/access/route requirements. Missing updated-build runtime evidence remains a readiness gap, not an owner exclusion."},
+  "withdrawn_rationale": "Unverified quota independence and simpler control of potential app/port/local-workload/shared-service contention motivated the agent's serial-preparation choice. These observations did not prove the original four-wave plan impossible or justify an unreported comparison-design change.",
+  "interpretation": "The original simultaneous shared-engine comparison intent is restored. Earlier serial pilots do not supply that comparison. PP pair measurements are still unobserved, but no longer owner-deferred; cumulative quotas and service-side/time variation remain limitations.",
+  "qwen_port_addendum": "Preserve the supported workspace-host correction and actual UDP19131 observation. VRCLT1 is in W1 and VRCLT2 is in W3, never concurrent, so observed19131 remains usable across those distinct waves without the withdrawn S03/S04 layout. The former19132 reservation remains superseded; no new audio run or obsolete-port retest is authorized or required by this scheduling withdrawal.",
+  "preserved_limits": ["Scheduling does not reset cumulative project/account/public-IP quotas, replenish credit, establish numeric limits or prove current exports.", "OpenRouter provider pinning and response identity remain unverified where apps do not expose them.", "Dynamic control/OSCQuery listeners remain application-specific; no fabricated mute/OSCQuery service or VRChat process is introduced.", "Report concrete preflight blockers and seek owner agreement for any consequential change; do not silently replace the restored comparison design."]
 }

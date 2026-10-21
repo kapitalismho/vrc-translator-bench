@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "synthetic": false,
+  "manifests": [
+    {"id": "vrcs2-pilot", "path": "../../../profiles/evidence/issue45/vrcs2-gui-initial/manifest.json", "export_provenance": "../../../profiles/evidence/issue45/vrcs2-gui-initial/export-provenance.json", "populations": {"2": "output_check", "3": "development"}}
+  ],
+  "evidence_files": [
+    {"id": "native-reference-unit-evidence", "path": "../../../profiles/evidence/issue45/metrics/vrcs2-metrics-result.json"}
+  ],
+  "components": [
+    {"id": "VRCS2.translation", "profile": "VRCS2", "services": ["translation"], "provider": "openrouter", "treatment": "provider", "coverage": {"window_ids": ["vrcs2-pilot.attempt-4"], "complete": false, "evidence": "No permitted authenticated export or returned model/key identity available"}, "access": {"condition": "Owner-approved paid requested Gemma route; actual returned model/upstream unknown", "limit_status": "unknown"}},
+    {"id": "VRCS2.asr", "profile": "VRCS2", "services": ["asr"], "provider": "gemini", "treatment": "unknown", "missing_reason": "No actual Gemini project-tier/usage export or complete submitted-audio ledger", "coverage": {"window_ids": ["vrcs2-pilot.attempt-4"], "complete": false, "evidence": "Pilot capture is not provider usage evidence"}, "access": {"condition": "Gemini ASR effective tier unknown; not assigned zero", "limit_status": "unknown"}}
+  ],
+  "denominators": [
+    {"id": "vrcs2-development-only", "window_ids": ["vrcs2-pilot.attempt-4"], "component_ids": ["VRCS2.translation", "VRCS2.asr"], "population": "real 40-second D1 development chunk; excludes separate 10-second output check", "replay_seconds": 40, "reference_sentences": 9, "evidence": "native-reference-unit-evidence; existing native reference units, not OSC packet count"}
+  ]
+}

@@ -5,13 +5,13 @@
   "status": "empirical_preparation_in_progress_not_frozen",
   "installed_app_evidence": "evidence/installed-apps.json",
   "gui_preparation_evidence": "evidence/gui-preparation.json",
-  "owner_update": "Owner now defers all PP1-PP4 execution. Current empirical scope is ten competitor profiles through visible installed GUIs. Existing credentials and short planned-route provider calls authorized. PP1 mixed26B/31B and VRCS2 current paid Gemma route accepted before PP deferral; no new paid fallback/model substitution. Preserve historical evidence. New observations: evidence/issue45/.",
+  "owner_update": "Owner reports PuriPuly updated and removes the PP1-PP4 execution deferral. Accept the update report without inferring the updated version number; PP observed.version2.8.2 and linked control evidence are historical pre-update observations, not the current build identity or capability. Restore PP preparation under the existing actual-GUI, access, routing and audio-to-OSC evidence protocol; this request does not ask for an app launch now or establish readiness. Original W1-W4 concurrent-within-wave membership remains unchanged; unresolved readiness/isolation conditions are blockers, not authority to serialize or redesign the comparison. Approved mixed26B/31B PP1 and paid VRCS2 routes remain unchanged; no paid fallback or model substitution is authorized.",
   "profiles": [
     {
       "id": "PP1",
       "application": "PuriPuly",
       "finding": "blocked",
-      "reason": "Owner-requested execution deferral: skip all PuriPuly profiles in the current empirical pass. The actual mixed26B/31B OpenRouter route was accepted before deferral; no PP1 launch or inference performed in this pass.",
+      "reason": "Updated-build runtime, access and audio-to-OSC evidence are unobserved. The owner reports PuriPuly updated; observed.version2.8.2 is historical pre-update identity, not the current build. The approved mixed26B/31B OpenRouter route still requires effective route/provider and Gemini ASR access observations under the existing GUI protocol; no PP1 readiness claim.",
       "planned": {
         "translation": "Gemma 4 26B / OpenRouter",
         "asr": "Gemini 3.5 Transcribe",
@@ -74,7 +74,7 @@
       "id": "PP2",
       "application": "PuriPuly",
       "finding": "blocked",
-      "reason": "Owner-requested execution deferral: skip all PuriPuly profiles in the current empirical pass. Existing auth, Luna entitlement/limits and Gemini access are intentionally not exercised; not an unsupported or product-failure finding.",
+      "reason": "Updated-build runtime, access and audio-to-OSC evidence are unobserved. The owner reports PuriPuly updated; observed.version2.8.2 is historical pre-update identity, not the current build. Existing auth, Luna entitlement/limits and Gemini access still require observation under the existing GUI protocol; no paid API fallback, unsupported or product-failure finding.",
       "planned": {
         "translation": "GPT 6 Luna / Sign in with ChatGPT",
         "asr": "Gemini 3.5 Transcribe",
@@ -137,7 +137,7 @@
       "id": "PP3",
       "application": "PuriPuly",
       "finding": "blocked",
-      "reason": "Owner-requested execution deferral: skip all PuriPuly profiles in the current empirical pass. Read-only installed identity remains2.8.2 without Index; no build/update/source substitution authorized or performed.",
+      "reason": "Updated-build runtime, access and audio-to-OSC evidence are unobserved. The owner reports PuriPuly updated; observed.version2.8.2 is historical pre-update identity, not evidence of current Index availability. Effective Index capability/access and Gemini ASR access still require observation under the existing GUI protocol; no PP3 readiness claim.",
       "planned": {
         "translation": "Index Translator",
         "asr": "Gemini 3.5 Transcribe",
@@ -200,7 +200,7 @@
       "id": "PP4",
       "application": "PuriPuly",
       "finding": "blocked",
-      "reason": "Owner-requested execution deferral: skip all PuriPuly profiles in the current empirical pass. Installed2.8.2 lacks Index; normal CPU model assets exist but were not loaded or inferred. No PP4 empirical readiness claim.",
+      "reason": "Updated-build runtime, access and audio-to-OSC evidence are unobserved. The owner reports PuriPuly updated; observed.version2.8.2 is historical pre-update identity, not evidence of current Index availability. Effective Index capability/access and CPU ASR asset loading/inference still require observation under the existing GUI protocol; no PP4 readiness claim.",
       "planned": {
         "translation": "Index Translator",
         "asr": "CPU-auto-selected local ASR",
@@ -509,7 +509,7 @@
         "actual_limits": null,
         "key_aliases": [],
         "exclusive_quota_scope": null,
-        "details": "Existing owner OpenRouter credentials authorized. Paid translation cost/export/remaining limits and upstream identity unknown; sequential avoids simultaneous contention but not cumulative account/provider quotas."
+        "details": "Existing owner OpenRouter credentials authorized for the recorded pilots. Paid translation cost/export/remaining limits and upstream identity remain unknown; neither past serial pilots nor restored W1-W4 membership establishes independent account/provider quota."
       },
       "procedure": "../docs/profiles/vrct-vrcs.md",
       "evidence": [
@@ -852,7 +852,7 @@
       "id": "VRCLT2",
       "application": "VRCLT",
       "finding": "ready",
-      "reason": "Bounded D1 readiness: the supported GUI correction to the existing Beijing workspace-specific host preserved the Qwen model, region and text-only mode. One ten-second English check delivered three Japanese-bearing chatbox inputs on UDP19131; four stages completed, runner exit0, full owned launcher/runtime cleanup verified. Preserve the initial Chelsie failure on19132. The selected sequential S03/S04 arrangement adopts observed19131 for both non-concurrent VRCLT profiles; no extra forty-second stage or obsolete-port retest is an admission requirement. Other directions, numeric quotas, usage and returned provider/model identity remain unverified.",
+      "reason": "Bounded D1 readiness: the supported GUI correction to the existing Beijing workspace-specific host preserved the Qwen model, region and text-only mode. One ten-second English check delivered three Japanese-bearing chatbox inputs on UDP19131; four stages completed, runner exit0, full owned launcher/runtime cleanup verified. Preserve the initial Chelsie failure on19132. Observed19131 remains usable for VRCLT1 in W1 and VRCLT2 in W3, which are not concurrent; no extra forty-second stage or obsolete-port retest is an admission requirement. Other directions, numeric quotas, usage and returned provider/model identity remain unverified.",
       "planned": {
         "translation": "Qwen 3.8 LiveTranslate",
         "asr": "All-in-one",
@@ -887,7 +887,7 @@
         "host": "127.0.0.1",
         "send_port": 19131,
         "receive_port": null,
-        "assignment": "actual_GUI_and_received_OSC_verified_D1; sequential S03/S04 reuse19131, never concurrently; supersedes unused19132 reservation",
+        "assignment": "actual_GUI_and_received_OSC_verified_D1; VRCLT1 W1 and VRCLT2 W3 reuse19131 across distinct waves, never concurrently; supersedes unused19132 reservation",
         "oscquery_or_mute_signal": "none supplied; no VRChat process observed for the successful workspace-host diagnostic"
       },
       "tts": {
@@ -918,27 +918,17 @@
     }
   ],
   "wave_history_evidence": "evidence/issue45/sequential-wave-decision.json",
-  "selected_wave_policy": "Sequential one-profile preparation; ten active competitors, four nonexecuted owner-deferred PP reservations. Reversible before main freeze; no simultaneous shared-engine pairing or independent-account quota claim.",
+  "selected_wave_policy": "Original W1-W4 membership restored by owner withdrawal of unreported S01-S10 serialization. Profiles within a wave are intended to run concurrently; waves run separately. This is the unfrozen comparison plan, not execution admission. The owner-reported PuriPuly update removes the PP1-PP4 execution deferral and restores preparation under the existing protocol; updated-build runtime/access/audio evidence, readiness, account/project isolation and cleanup gaps remain explicit blockers. No scheduling redesign without reporting the consequence and obtaining owner agreement.",
   "waves": [
-    {"id": "S01", "profiles": ["VRCS2"], "execution": "active_if_ready"},
-    {"id": "S02", "profiles": ["VRCS1"], "execution": "active_if_ready"},
-    {"id": "S03", "profiles": ["VRCLT2"], "execution": "active_if_ready"},
-    {"id": "S04", "profiles": ["VRCLT1"], "execution": "active_if_ready"},
-    {"id": "S05", "profiles": ["VRCT1"], "execution": "active_if_ready"},
-    {"id": "S06", "profiles": ["VRCT2"], "execution": "active_if_ready"},
-    {"id": "S07", "profiles": ["VRCT3"], "execution": "active_if_ready"},
-    {"id": "S08", "profiles": ["VRCLS1"], "execution": "active_if_ready"},
-    {"id": "S09", "profiles": ["KIKI1"], "execution": "active_if_ready"},
-    {"id": "S10", "profiles": ["KIKI2"], "execution": "active_if_ready"},
-    {"id": "DEFERRED-PP1", "profiles": ["PP1"], "execution": "owner_deferred_do_not_execute"},
-    {"id": "DEFERRED-PP2", "profiles": ["PP2"], "execution": "owner_deferred_do_not_execute"},
-    {"id": "DEFERRED-PP3", "profiles": ["PP3"], "execution": "owner_deferred_do_not_execute"},
-    {"id": "DEFERRED-PP4", "profiles": ["PP4"], "execution": "owner_deferred_do_not_execute"}
+    {"id": "W1", "profiles": ["PP4", "KIKI2", "VRCLT1", "VRCT3"], "execution": "blocked_pending_preflight"},
+    {"id": "W2", "profiles": ["VRCT1", "PP1", "VRCS2", "KIKI1"], "execution": "blocked_pending_preflight"},
+    {"id": "W3", "profiles": ["VRCT2", "VRCLT2", "PP2"], "execution": "blocked_pending_preflight"},
+    {"id": "W4", "profiles": ["VRCS1", "PP3", "VRCLS1"], "execution": "blocked_pending_preflight"}
   ],
   "limitations": [
-    "Readiness is evidence-specific and bounded: observed profiles/directions are recorded individually, not an exhaustive fourteen-profile language matrix certification. PP1-PP4 are explicitly owner-deferred.",
-    "Selected waves are sequential per profile, not the historical parent four-wave default or a main-run freeze. Original layout and lost same-time shared-engine pairings remain in wave_history_evidence.",
-    "Sequential execution avoids intentional simultaneous app/port/local-neural-workload/shared-service conflicts, but does not reset cumulative project/account/public-IP quota or establish separate project independence. Confirm leaving-profile capture/inference/process cleanup before the next profile; no ordinary chunk-boundary restarts.",
+    "Readiness is evidence-specific and bounded: observed profiles/directions are recorded individually, not an exhaustive fourteen-profile language matrix certification. PP1-PP4 preparation is restored after the owner-reported update, but updated-build runtime/access/audio evidence remains unobserved. Their version2.8.2 observations are historical; the updated version number and readiness are not claimed. Removing deferral does not request an app launch now or relax the existing GUI, CPU, quota, routing, cleanup and readiness guards.",
+    "The unreported S01-S10 sequential replacement is withdrawn by the owner. Original W1-W4 concurrent-within-wave membership is restored, not certified ready or frozen. Earlier serial pilots remain historical observations, not equivalent simultaneous pair measurements.",
+    "Unverified account/project independence is a missing fact, not proof that the original four-wave plan is impossible. Report concrete blockers and obtain owner agreement before changing comparison scheduling. Confirm leaving-wave capture/inference/process cleanup; no ordinary chunk-boundary restarts.",
     "OSC port assignments are requested settings until observed on each app; dynamic receive/control ports require actual effective-state inspection. UDP availability is instantaneous, not reservation.",
     "No actual VRChat process, speculative OSCQuery or fake mute signaling is supplied. Block any discovered process requirement.",
     "Actual visible GUI controls supply fresh PID/profile/session-bound manual observations before/after capture; the runner bridge reports that limitation and independent process liveness, not requested-state echoes or continuous effective-state API truth.",

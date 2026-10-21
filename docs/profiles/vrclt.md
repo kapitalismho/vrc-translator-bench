@@ -20,11 +20,11 @@ The earlier [GUI preparation](../../profiles/evidence/gui-preparation.json) and 
 | Profile | Current finding | Observed route | OSC destination |
 | --- | --- | --- | --- |
 | VRCLT1 | **ready, bounded D1 pilot** | Google Gemini Developer Live API, `gemini-3.5-live-translate-preview` | `127.0.0.1:19131` |
-| VRCLT2 | **ready, bounded D1 output check** | Alibaba Cloud Model Studio, same Qwen model through existing Beijing workspace-specific route | Observed `127.0.0.1:19131`; reused only in separate sequential waves |
+| VRCLT2 | **ready, bounded D1 output check** | Alibaba Cloud Model Studio, same Qwen model through existing Beijing workspace-specific route | Observed `127.0.0.1:19131`; distinct W3, not concurrent with VRCLT1/W1 |
 
 Readiness is limited to the observed profile/direction, not all languages, provider isolation or quality. Raw hashes and sanitized derivatives are linked from the run records. Effective tier, numeric account limits, complete response identity and actual billing exports remain unverified; missing usage is null, not $0.
 
-The following source-backed descriptions and isolated-launch procedure preserve the initial preparation research. They are not the control method used for the later GUI-only pilots. Owner-authorized existing installed instances/access and sequential waves replaced the proposed fresh-user/dedicated-key setup; that change does not establish equivalent privacy or quota isolation.
+The following source-backed descriptions and isolated-launch procedure preserve the initial preparation research. They are not the control method used for the later GUI-only pilots. The owner authorized existing installed instances/access for those pilots; they do not establish fresh-user/dedicated-project privacy or quota isolation. The agent-selected serial replacement is withdrawn, and original W1/W3 placement is restored without changing historical observations.
 
 The inspected release is [VRCLT 1.0.1](https://github.com/VRCLT/VRCLT/releases/tag/v1.0.1), published 2026-10-17. Its [tag resolves](https://api.github.com/repos/VRCLT/VRCLT/git/ref/tags/v1.0.1) to `d97574fd451f1e5af8d0c68bd13c488fab54eaae`; that revision's version constant is `1.0.1`. The installed-machine inspection independently matched both existing executables to the advertised digest above. The release itself says it was not checked with live translation engines or a headset; the later benchmark observations have their own narrower scope.
 
@@ -106,7 +106,7 @@ For both profiles, set these fields in the private YAML, retaining all unlisted 
 | `dashboard.translation_on` / `dashboard.subtitles_on` | `true` / `false` |
 | `control.enabled` / `control.feedback_chatbox` | `false` / `false` |
 | `control.osc_listen_port` | `19231` for VRCLT1; `19232` for VRCLT2; **not bound while control is disabled** |
-| `osc.ip` / `osc.port` | `127.0.0.1` / observed `19131` for both profiles in separate sequential waves; never run them concurrently |
+| `osc.ip` / `osc.port` | `127.0.0.1` / observed `19131` for VRCLT1/W1 and VRCLT2/W3; never run these two same-app profiles concurrently |
 | `osc.show_source` / `osc.stream_sentences` | `true` / `true` |
 | `osc.throttle_sec` / `osc.chunk_display_sec` / `osc.notification_sfx` | normal defaults `1.5` / `4.0` / `false` |
 | `audio.mic_idle_disconnect_sec` | Preserve the normal selected-release value: **15.0 seconds for a fresh 1.0.1 config**; do not set 0 or extend it for the benchmark |
@@ -174,7 +174,7 @@ Actual rolling output does not resolve every new-utterance, revision, page or re
 
 ## Remaining limits
 
-1. The Chelsie rejection was bypassed by the supported existing-workspace route, without changing voice fields or product code. Only the ten-second Qwen check on UDP19131 was run. The selected sequential wave plan now adopts that observed port, superseding19132; an additional forty-second stage is not a profile-preparation criterion. No broader comparison or additional app work was resumed.
+1. The Chelsie rejection was bypassed by the supported existing-workspace route, without changing voice fields or product code. Only the ten-second Qwen check on UDP19131 was run. That observed port is retained across distinct original waves W1 (VRCLT1) and W3 (VRCLT2), superseding19132 without relying on the withdrawn single-profile layout. An additional forty-second stage is not a profile-preparation criterion. No broader comparison or additional app work is authorized by restoring the plan.
 2. Existing access worked for VRCLT1, but dedicated free-tier project identity, separate KIKI2 quota, numeric limits and actual billing/usage exports remain unverified.
 3. VRCLT1 readiness is D1-only; no exhaustive direction matrix, provider reconnect attribution or process-restart persistence claim is made.
 4. Actual all-in-one rolling output is available. Pagination, resends and final-dependent correspondence remain uncertain where the packets lack identity fields.

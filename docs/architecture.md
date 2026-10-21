@@ -1,6 +1,6 @@
 # Architecture
 
-This repository implements local corpus preparation for issue #2, reusable Windows audio-to-OSC capture infrastructure for issue #3, application-profile preparation and observed development pilots for issue #4, derived measurement/report data for issue #5, and blinded automatic quality scoring for issue #6. Routines and bounded pilots do not establish full-profile readiness, billing completeness or a completed comparison.
+This repository implements local corpus preparation for issue #2, reusable Windows audio-to-OSC capture infrastructure for issue #3, application-profile preparation and observed development pilots for issue #4, derived measurement/report data for issue #5, blinded automatic quality scoring for issue #6, and evidence-bound local usage-cost processing for issue #7. Routines and bounded pilots do not establish full-profile readiness, billing completeness or a completed comparison.
 
 ## Data flow
 
@@ -16,6 +16,7 @@ This repository implements local corpus preparation for issue #2, reusable Windo
 10. Sentence/turn measurements, isolated responses, quality segments and diagnostics feed report-data summaries. Session clustering preserves original recording identity; external quality scores and internal application diagnostics retain separate provenance.
 11. `bench quality prepare` freezes source-based quality inputs, blinded prompts, interleaved order, tone and judge-calibration samples. A separate durable scoring queue retains independent judge calls, raw responses, failures and actual model provenance.
 12. ESA and context-free MetricX results join the original metric reports without replacing missing values or reference limitations. Disagreement selection prepares a separate Korean reference-review packet; human observations never overwrite automatic scores.
+13. `bench costs` joins selected permitted usage evidence to observed wall-clock windows, reconciles provider charges with separately labelled usage calculations, and retains subscription, free-access, coarse-attribution and missing-evidence conditions without manufacturing numeric totals.
 
 ## Owned surfaces
 
@@ -49,6 +50,7 @@ This repository implements local corpus preparation for issue #2, reusable Windo
 | `bench/quality*.py`, `bench/quality_bridge.mjs` | Blinded prompts, durable scoring, subscription judge transport, MetricX QE, report joins and separate review packets |
 | `bench/activity.py` | Shared OS lock excluding managed capture and scoring across worktrees for the same user |
 | `docs/quality.md` | Judge setup, scoring choices, provenance/cache, sampling, operator commands and evidence limits |
+| `bench/cost_inputs.py`, `bench/costs.py`, `docs/costs.md` | Selected provider/PP usage ingestion, actual playback-window derivation, dated usage calculations, attribution/reconciliation and report coverage; no provider calls or account access |
 | `.data/` | Local source/audio/models/environments and unresolved Japanese derived content; never staged for Git |
 
 Language-specific preparation remains explicit because the sources have materially different annotations and rights. There is no generic corpus-provider framework. Heavy model dependencies are isolated from the lightweight integration/test environment.
@@ -78,6 +80,7 @@ Language-specific preparation remains explicit because the sources have material
 - New ESA prompts identify exact quotes and occurrence numbers; Python derives normalized Unicode-codepoint span offsets without changing raw responses. Stored v1 plans retain their original strict offset protocol for inspection and resume; new v2 plans use separate prompt/cache identities rather than rewriting frozen evidence.
 - Cache identity requires exact inputs/prompt and actual model evidence. Missing, malformed, oversized, interrupted or unproven responses remain missing with reasons. Prior responses and mixed-version/calibration limitations survive model changes.
 - Managed capture and scoring share a per-user OS lock. Windows judge children enter a kill-on-close Job Object before request admission, containing descendants even when only the scoring parent dies. This does not prove provider-side cancellation. Real subscription dispatch on other platforms fails closed. Operator measurement-ended confirmation covers unmanaged activity; it is not an all-process detector. No paid API fallback is introduced.
+- Costs use request start through playback end plus 30 seconds, retaining overlapping candidates and native provider granularity. Account isolation, observed free eligibility and complete usage coverage need explicit evidence. PP2 subscription is not API-priced actual cost; missing components remain unknown. Capture-derived UTC windows and completion-derived PP start times disclose their approximation. Selected evidence and aliases require operator privacy inspection before publication.
 
 ## Verification boundary
 
@@ -87,7 +90,7 @@ The owner-delegated practical method is recorded in `corpus/practical-assessment
 
 No private account, live translation service, microphone capture, VRChat process or OSC destination is used by routine corpus checks. Public dependency installation may use the normal pip cache; corpus/model payloads remain in `.data/`. Do not delete shared caches as cleanup.
 
-Capture behavior checks use isolated controlled adapters, synthetic WAVs and loopback UDP. Actual Windows shared-mode cable calibration and playback were observed separately. Issue #4 has real GUI-operated VRCT CPU-M2M translation, VRCS cloud-ASR/CPU-Qwen-ASR captures, a VRCS direction-change/capture-resume check, and VRCLT1 all-in-one rolling bilingual output. Failed VRCLT2 and pre-playback KIKI1 attempts remain separate evidence. These streams and source-bound derived measurements are distinct from earlier control-only PuriPuly observations; further PuriPuly execution is owner-deferred. See `docs/cli.md`, `docs/profiles.md` and `profiles/evidence/issue45/` for exact boundaries and outstanding profiles. Application settings and minimal OSCQuery/mute dependencies remain with profile preparation; no speculative signaling was added to the runner.
+Capture behavior checks use isolated controlled adapters, synthetic WAVs and loopback UDP. Actual Windows shared-mode cable calibration and playback were observed separately. Issue #4 has real GUI-operated VRCT CPU-M2M translation, VRCS cloud-ASR/CPU-Qwen-ASR captures, a VRCS direction-change/capture-resume check, and VRCLT1 all-in-one rolling bilingual output. Failed VRCLT2 and pre-playback KIKI1 attempts remain separate evidence. These streams and source-bound derived measurements are distinct from earlier control-only PuriPuly observations. The owner reported PuriPuly updated and removed its execution deferral; post-update runtime evidence remains pending. See `docs/cli.md`, `docs/profiles.md` and `profiles/evidence/issue45/` for exact boundaries and outstanding profiles. Application settings and minimal OSCQuery/mute dependencies remain with profile preparation; no speculative signaling was added to the runner.
 
 ## Release boundary
 

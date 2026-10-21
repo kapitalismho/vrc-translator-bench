@@ -41,6 +41,9 @@ def parser():
     metrics.add_argument("--output", type=Path, required=True)
     metrics.add_argument("--alignment-cache", type=Path)
     metrics.add_argument("--allow-model-download", action="store_true")
+    costs = commands.add_parser("costs")
+    costs.add_argument("--spec", type=Path, required=True)
+    costs.add_argument("--output", type=Path, required=True)
     profiles = commands.add_parser("profiles")
     profiles.add_argument("--catalog", type=Path, default=Path("profiles/catalog.json"))
     profiles.add_argument("--check-ports", action="store_true")
@@ -82,6 +85,13 @@ def main(argv=None):
     try:
         if args.command == "quality":
             return quality_main(args)
+        if args.command == "costs":
+            from .costs import derive
+            result = derive(args.spec, args.output)
+            print(json.dumps({"report": str(args.output), "version": result["version"],
+                              "components": len(result["components"]), "records": len(result["records"]),
+                              "unknown_profiles": sum(row["cost"] is None for row in result["profiles"])}, indent=2))
+            return 0
         if args.command == "metrics":
             from .metrics import derive
             result = derive(args.manifest, args.spec, args.output, args.alignment_cache, args.allow_model_download)

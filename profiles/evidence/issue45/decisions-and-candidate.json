@@ -3,10 +3,11 @@
   "recorded_date": "2026-10-21",
   "owner_decisions": [
     {"decision": "Existing installed apps and their normal existing credentials may be used for short planned-route real development-audio pilots.", "supersedes": "Historical no-pilot authorization and fresh-empty-auth-only assumptions."},
-    {"decision": "Accept PuriPuly's actual automatic26B/31B OpenRouter route; retain actual returned model when exposed.", "later_scope": "All PP execution subsequently deferred by owner; no PP pilot performed."},
+    {"decision": "Accept PuriPuly's actual automatic26B/31B OpenRouter route; retain actual returned model when exposed.", "later_scope": "PP execution was subsequently deferred, then restored by the owner's reported update and deferral withdrawal. No PP audio pilot is claimed by these decision changes."},
     {"decision": "Accept VRCS2's current paid OpenRouter Gemma route. Remove whole-profile free claim; actual cost remains unknown, not zero.", "exact_translation_model": "google/gemma-4-26b-a4b-it"},
     {"decision": "Use actual visible installed application GUIs for all app launch/settings/start/stop. No native stdin/WebSocket/HTTP bypass.", "implementation": "Obsolete new native bridge modules removed. Generic runner GUI-operator mailbox preserves actual GUI observation and explicit manual limits."},
-    {"decision": "Skip all PuriPuly profiles PP1-PP4 in current empirical pass.", "classification": "blocked_owner_requested_execution_deferral", "not": "unsupported or product failure"}
+    {"decision": "Skip all PuriPuly profiles PP1-PP4 in current empirical pass.", "classification": "blocked_owner_requested_execution_deferral", "status": "superseded_by_owner_update_and_deferral_withdrawal", "not": "unsupported or product failure"},
+    {"decision": "Remove the PP1-PP4 execution deferral after the owner reported PuriPuly updated.", "recorded_date": "2026-10-21", "status": "active", "supersedes": "The PP-only skip and no-launch/update/build/run prohibition, including earlier issue #4/#7 closure notes and #8 deferral guidance.", "effect": "Return all four PP profiles to preparation and the unchanged original W1-W4 plan under the existing GUI, access, route and preflight requirements. The current request changes the decision only; it does not run an application or measurement.", "evidence_boundary": "The update is owner-reported. Its exact installed version/hash and post-update runtime/access/audio-to-OSC evidence remain unrecorded. Retain the old2.8.2 observations as historical, not current installed identity or proof that Index is still unavailable."}
   ],
   "vr cs_update_observation": {
     "application": "VRCS",

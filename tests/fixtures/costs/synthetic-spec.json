@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "synthetic": true,
+  "windows": [
+    {"id": "pilot-chunk", "run": "synthetic-pilot", "wave": "synthetic-wave", "profile": "PP1", "chunk": "development-1", "kind": "chunk", "population": "development", "state": "done", "start": "2026-10-20T12:00:00Z", "end": "2026-10-20T12:00:20Z", "evidence": "Hand-built synthetic window; not an empirical app run"}
+  ],
+  "components": [
+    {"id": "PP1.translation", "profile": "PP1", "services": ["translation"], "provider": "openrouter", "models": ["synthetic/gemma"], "key_aliases": ["shared"], "treatment": "provider", "price_table": "synthetic-tokens", "reconciliation_coverage_equal": true, "coverage": {"window_ids": ["pilot-chunk"], "complete": true, "evidence": "Synthetic two-request ledger"}, "access": {"condition": "synthetic paid example", "limit_status": "not_observed"}},
+    {"id": "PP1.asr", "profile": "PP1", "services": ["asr"], "provider": "gemini", "models": ["synthetic/transcribe"], "treatment": "usage", "price_table": "synthetic-audio", "coverage": {"window_ids": ["pilot-chunk"], "complete": true, "evidence": "Synthetic complete submitted interval ledger"}, "access": {"condition": "synthetic usage example", "limit_status": "unknown"}}
+  ],
+  "sources": [
+    {"id": "openrouter-synthetic", "path": "openrouter.csv", "kind": "provider_export", "provider": "openrouter", "format": "csv", "permitted": true, "synthetic": true, "select": {"model": ["synthetic/gemma"]}, "selection_evidence": "Synthetic explicit model filter excludes unrelated example row before normalization", "fields": {"request_id": "request", "start": "started", "end": "finished", "model": "model", "key_alias": "key", "cost": "cost", "input_tokens": "prompt", "cached_tokens": "cached", "output_tokens": "output", "reasoning_tokens": "reasoning"}, "currency": "USD", "isolation": {"verified": true, "evidence": "Synthetic input only; not real account isolation"}},
+    {"id": "pp-synthetic", "path": "pp.log", "kind": "pp_log", "provider": "openrouter", "component": "PP1.translation", "key_alias": "shared", "permitted": true, "synthetic": true, "benchmark_only": true, "selection_evidence": "Human-inspected synthetic session/process log excerpt", "session": "synthetic-session", "process_id": 42, "timezone": "+09:00", "start_basis": "network_ms", "timing_evidence": "Synthetic production-shaped completion records; approximate start=end-network_ms"},
+    {"id": "asr-synthetic", "path": "submitted-audio.json", "kind": "submitted_audio", "provider": "gemini", "component": "PP1.asr", "format": "json", "permitted": true, "synthetic": true, "benchmark_only": true, "selection_evidence": "Human-inspected synthetic submitted-audio ledger", "basis": "vad_passed_submitted", "evidence": "Synthetic actual-send intervals, not replay duration or Recognition terminal counters", "fields": {"request_id": "request", "start": "submitted_at", "audio_start": "audio_start_seconds", "audio_end": "audio_end_seconds", "model": "model"}}
+  ],
+  "price_tables": [
+    {"id": "synthetic-tokens", "provider": "openrouter", "model": "synthetic/gemma", "date": "2026-10-20", "valid_from": "2026-10-20T00:00:00Z", "valid_until": "2026-10-21T00:00:00Z", "currency": "USD", "basis": "tokens", "per_tokens": 1000000, "rates": {"input": 1, "cached": 0.25, "output": 2}, "input_includes_cached": true, "output_includes_reasoning": true, "evidence": "Invented arithmetic fixture rates, NOT actual provider prices"},
+    {"id": "synthetic-audio", "provider": "gemini", "model": "synthetic/transcribe", "date": "2026-10-20", "valid_from": "2026-10-20T00:00:00Z", "valid_until": "2026-10-21T00:00:00Z", "currency": "USD", "basis": "audio_seconds", "per_second": 0.0001, "evidence": "Invented arithmetic fixture rate, NOT actual Gemini price"}
+  ],
+  "denominators": [
+    {"id": "development-only", "window_ids": ["pilot-chunk"], "component_ids": ["PP1.translation", "PP1.asr"], "population": "synthetic development only", "replay_seconds": 20, "reference_sentences": 10, "evidence": "Explicit hand-built synthetic denominators, not planned stages"}
+  ]
+}
