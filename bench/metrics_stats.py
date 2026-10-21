@@ -97,6 +97,37 @@ def output_attribution(report):
     return attribution
 
 
+def paired_comparisons(sentences, quality_segments, iterations, seed):
+    paired = []
+    indexed = defaultdict(dict)
+    for row in quality_segments:
+        if row.get("shared_id") and row["reference_eligible"] and row.get("kind") == "chunk":
+            indexed[(row["direction"], row["category"], row["config"])][row["shared_id"]] = row
+    for direction, category in sorted({(key[0], key[1]) for key in indexed}):
+        configs = sorted(key[2] for key in indexed if key[:2] == (direction, category))
+        for left, right in combinations(configs, 2):
+            a, b = indexed[(direction, category, left)], indexed[(direction, category, right)]
+            shared = sorted(a.keys() & b.keys())
+            points = []
+            for identity in shared:
+                one, two = a[identity], b[identity]
+                s1 = [row for row in sentences if row["attempt_id"] == one["attempt_id"] and one["start"] <= row["start"] and row["end"] <= one["end"]]
+                s2 = [row for row in sentences if row["attempt_id"] == two["attempt_id"] and two["start"] <= row["start"] and row["end"] <= two["end"]]
+                v1, v2 = rate(s1, "delivery_status", {"delivered"}), rate(s2, "delivery_status", {"delivered"})
+                points.append({"session_id": one["session_id"], "shared_id": identity, "delivery_difference": v1 - v2 if v1 is not None and v2 is not None else None,
+                               "common_success": one["status"] == two["status"] == "done",
+                               "major_error_difference": int(one["quality_score"]["major_error"]) - int(two["quality_score"]["major_error"]) if one["eligible"] and two["eligible"] and one.get("quality_score") and two.get("quality_score") and isinstance(one["quality_score"].get("major_error"), bool) and isinstance(two["quality_score"].get("major_error"), bool) else None})
+                for name in ("fol", "lul"):
+                    left_value = quantile([row[name]["value"] for row in eligible(s1) if row[name]["value"] is not None], 0.5)
+                    right_value = quantile([row[name]["value"] for row in eligible(s2) if row[name]["value"] is not None], 0.5)
+                    points[-1][f"{name}_difference"] = left_value - right_value if left_value is not None and right_value is not None else None
+            comparisons = {}
+            for label, values in (("all_shared", points), ("common_success_only_supplemental", [row for row in points if row["common_success"]])):
+                comparisons[label] = {name: clustered([row for row in values if row[name] is not None], lambda sample, name=name: sum(row[name] for row in sample) / len(sample) if sample else None, iterations, seed, "left_minus_right_seconds" if name in ("fol_difference", "lul_difference") else "left_minus_right_fraction") for name in ("delivery_difference", "major_error_difference", "fol_difference", "lul_difference")}
+            paired.append({"direction": direction, "category": category, "left": left, "right": right, "shared_segments": shared, "comparisons": comparisons})
+    return paired
+
+
 def aggregate(report, options):
     iterations, seed = options.get("iterations", 2000), options.get("seed", 20261020)
     if not isinstance(iterations, int) or iterations < 1:
@@ -165,33 +196,7 @@ def aggregate(report, options):
                                                             None if denominator else "No eligible first attempts", "fraction_of_eligible_first_attempts", denominator=len(denominator),
                                                             statuses=dict(Counter(row["state"] for row in attempts)))
         aggregates.append(result)
-    paired = []
-    indexed = defaultdict(dict)
-    for row in report["quality_segments"]:
-        if row.get("shared_id") and row["reference_eligible"] and row.get("kind") == "chunk":
-            indexed[(row["direction"], row["category"], row["config"])][row["shared_id"]] = row
-    for direction, category in sorted({(key[0], key[1]) for key in indexed}):
-        configs = sorted(key[2] for key in indexed if key[:2] == (direction, category))
-        for left, right in combinations(configs, 2):
-            a, b = indexed[(direction, category, left)], indexed[(direction, category, right)]
-            shared = sorted(a.keys() & b.keys())
-            points = []
-            for identity in shared:
-                one, two = a[identity], b[identity]
-                s1 = [row for row in sentences if row["attempt_id"] == one["attempt_id"] and one["start"] <= row["start"] and row["end"] <= one["end"]]
-                s2 = [row for row in sentences if row["attempt_id"] == two["attempt_id"] and two["start"] <= row["start"] and row["end"] <= two["end"]]
-                v1, v2 = rate(s1, "delivery_status", {"delivered"}), rate(s2, "delivery_status", {"delivered"})
-                points.append({"session_id": one["session_id"], "shared_id": identity, "delivery_difference": v1 - v2 if v1 is not None and v2 is not None else None,
-                               "common_success": one["status"] == two["status"] == "done",
-                               "major_error_difference": int(one["quality_score"]["major_error"]) - int(two["quality_score"]["major_error"]) if one["eligible"] and two["eligible"] and one.get("quality_score") and two.get("quality_score") and isinstance(one["quality_score"].get("major_error"), bool) and isinstance(two["quality_score"].get("major_error"), bool) else None})
-                for name in ("fol", "lul"):
-                    left_value = quantile([row[name]["value"] for row in eligible(s1) if row[name]["value"] is not None], 0.5)
-                    right_value = quantile([row[name]["value"] for row in eligible(s2) if row[name]["value"] is not None], 0.5)
-                    points[-1][f"{name}_difference"] = left_value - right_value if left_value is not None and right_value is not None else None
-            comparisons = {}
-            for label, values in (("all_shared", points), ("common_success_only_supplemental", [row for row in points if row["common_success"]])):
-                comparisons[label] = {name: clustered([row for row in values if row[name] is not None], lambda sample, name=name: sum(row[name] for row in sample) / len(sample) if sample else None, iterations, seed, "left_minus_right_seconds" if name in ("fol_difference", "lul_difference") else "left_minus_right_fraction") for name in ("delivery_difference", "major_error_difference", "fol_difference", "lul_difference")}
-            paired.append({"direction": direction, "category": category, "left": left, "right": right, "shared_segments": shared, "comparisons": comparisons})
+    paired = paired_comparisons(sentences, report["quality_segments"], iterations, seed)
     repeat_groups = defaultdict(list)
     for row in sentences:
         if row["kind"] == "repeat":

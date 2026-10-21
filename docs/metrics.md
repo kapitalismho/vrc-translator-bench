@@ -64,6 +64,22 @@ Report p50/p90 latency alongside delivery, unaligned-output rate, first-attempt 
 
 Repeated-subset results expose run-to-run variation; resumed-chunk sensitivity reports summaries with and without resumed chunks. Neither constitutes a validation of the benchmark's statistical or linguistic accuracy.
 
+### Cross-wave paired composition
+
+Use actual retained wave/direction reports, then the joined quality report after scoring:
+
+```powershell
+python -m bench.cli metrics-batch --report wave1-d1.json --report wave2-d1.json --output batch-paired.json
+python -m bench.cli metrics-batch --quality-report batch-quality.json --output batch-scored-paired.json
+```
+
+Repeat `--report` for every retained canonical metrics report. `--quality-report` consumes `joined_metrics_reports`; do not also supply original reports already represented there. Composition performs no capture, judging, inference or provider calls.
+
+The batch envelope preserves each source report unchanged, including category/casual, turn, output, repeat, resume and failure summaries, with input/source hashes, run IDs and joined-report JSON pointers. Only paired estimates combine reports, using the existing estimator and narrowly projected, run/config/direction/attempt-scoped inputs. Shared reference and original-session identities remain unchanged; report percentiles are never averaged.
+
+Any duplicate reference-eligible chunk/shared population is rejected, including duplicates within one report or successful retries after failures. Diagnostics identify the source/run/attempt; resolve the actual canonical population without silently selecting a successful retry or erasing failure evidence. Shared source identity, text and original session must agree; output-specific quality eligibility may differ.
+
+
 ## Command and inputs
 
 ```powershell
