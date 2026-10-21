@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "recorded_date": "2026-10-21",
+  "authority": "Owner selected '공유·미확인 쿼터로 동시 측정' in the issue #8 execution conversation after current credential/project findings were explained.",
+  "scope": "First D1/D3 batch only",
+  "decision": "Allow shared or unverified project quotas while retaining original concurrent W1-W4 membership. Do not change existing accounts, keys, service tiers or paid routes.",
+  "superseded_for_this_batch": "Distinct Google-project evidence as a prerequisite for measuring KIKI2/VRCLT1 and PP1/VRCS2 concurrently.",
+  "unchanged": ["Original concurrent-within-wave design", "Fourteen-profile accounting", "D1/D3-only execution", "First-attempt product failure rules", "Actual access/runtime/output preflight", "CPU-local measurement", "No paid fallback", "Unknown cost is not zero"],
+  "current_evidence": {
+    "basis": "Private in-memory comparison of normal stored application credentials, matched to an authenticated AI Studio API-key list observed through actual browser GUI. No keys, suffixes, project IDs or account identities are published.",
+    "Google-A": {"console_condition": "free tier observed", "configured_consumers_observed": ["KIKI2", "VRCLT1", "PP1 Gemini ASR"], "same_stored_key": true},
+    "VRCS2": {"stored_gemini_key": "different from PP1", "project": "unknown; absent from the current logged-in console's four displayed key rows", "effective_capture": "not yet observed in this preparation pass"},
+    "numeric_allowance": null,
+    "console_warning": "One or more billing accounts require prepaid transition; not evidence of a current service failure and not authorization to change billing."
+  },
+  "consequences": [
+    "Shared-project contention and cumulative quota consumption can affect comparison outcomes.",
+    "Different keys alone do not establish independent capacity.",
+    "Report encountered limits and their timing; preserve first failures and explicitly account for quota-stopped remaining work.",
+    "Do not claim quota-isolated measurement or use the amendment to serialize profiles.",
+    "Cost attribution and provider-export limitations remain explicit."
+  ],
+  "protocol_freeze": false,
+  "main_measurement_started": false
+}

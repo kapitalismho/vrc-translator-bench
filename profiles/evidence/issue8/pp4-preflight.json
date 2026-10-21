@@ -1,0 +1,499 @@
+{
+  "schema_version": 1,
+  "kind": "real_gui_prepared_development_audio_to_translated_osc_preflight",
+  "profile": "PP4",
+  "application": "PuriPuly",
+  "observed_date_utc": "2026-10-21",
+  "version": "2.9.0",
+  "executable_sha256": "2f9b9938e0b7e03731f7cfa57056a68f78d05eb099312f6c07e9b71a8440ac31",
+  "installer": {
+    "filename": "PuriPulyHeart-Setup-2.9.0.exe",
+    "sha256": "2b2232a4cb6c7876fc2d26957338d10021e4abef3f418d0423f221299b9a3193",
+    "basis": "Owner-supplied retained installer identity; not copied or rehashed in this repository-evidence reconciliation."
+  },
+  "route": {
+    "asr": "local_cpu_auto",
+    "translation": "index_translate_35b",
+    "connection": "public_api",
+    "basis": "Actual GUI showed CPU auto, Index-Translate35B A3B and official API after translation enabled; retained observations record public read-only ASR CLI corroboration. No new application query performed.",
+    "returned_model": null,
+    "returned_upstream_provider": null,
+    "continuous_route_instrumentation": false
+  },
+  "settings": {
+    "microphone": "CABLE Output(VB-Audio Virtual Cable)",
+    "host_api": "Windows WASAPI (Compatibility Mode)",
+    "osc_host": "127.0.0.1",
+    "osc_send_port": 19104,
+    "osc_receive_port": 19204,
+    "peer_capture": false,
+    "voice_output": false,
+    "activation_notice": false,
+    "voice_output_basis": "Retained actual-GUI observations: LISTEN/CAPTIONS inactive and microphone-to-text/OSC path only; no TTS enabled."
+  },
+  "control": {
+    "method": "actual_visible_gui_with_evidence_backed_manual_runner_bridge",
+    "timed_gui_activity": false,
+    "continuous_effective_state_API": false,
+    "direction_change": "D1 to D3 in the same GUI process, capture toggled off then on. Old D1 GUI text before D3 playback is not D3 delivery evidence.",
+    "app_pid_in_historical_records": 105076,
+    "process_exit_claimed": false
+  },
+  "captures": [
+    {
+      "direction": "D1",
+      "source_language": "en",
+      "target_language": "ja",
+      "runtime_asr": "parakeet-tdt-0.6b-v3-int8-sherpa",
+      "runtime_basis": "Public read-only asr status reports local_cpu_auto, provider phase running, resources/live true and effective CABLE shared-mode capture.",
+      "native_directory": ".data/issue8/preflight-runs/pp4-d1-preflight-20261021",
+      "native_manifest_sha256": "348eacd8750c4011103ec75e2e40e25ce1dc90edbd8f18aa9af522db79629839",
+      "native_stream": "stream-2946a3277fc24f5e856dd502bb07ab09.jsonl",
+      "native_stream_sha256": "0ebb403715c76f00a0e82b0e2f36187e89e63559355f0a8e423ba1378be7cf76",
+      "safe_derivative": "pp4-d1-preflight/manifest.json",
+      "export_provenance": "pp4-d1-preflight/export-provenance.json",
+      "counts": {
+        "pending": 0,
+        "running": 0,
+        "done": 4,
+        "product_failure": 0,
+        "invalid": 0
+      },
+      "pending_stages": [],
+      "stages": [
+        {
+          "kind": "setup",
+          "outcome": "done",
+          "start_wall": "2026-10-21T10:16:49.898832+00:00",
+          "end_wall": "2026-10-21T10:16:49.981493+00:00"
+        },
+        {
+          "kind": "direction",
+          "outcome": "done",
+          "start_wall": "2026-10-21T10:16:50.056878+00:00",
+          "end_wall": "2026-10-21T10:16:50.065955+00:00"
+        },
+        {
+          "kind": "output_check",
+          "outcome": "done",
+          "start_wall": "2026-10-21T10:16:50.071483+00:00",
+          "end_wall": "2026-10-21T10:17:15.690279+00:00"
+        },
+        {
+          "kind": "nonspeech",
+          "outcome": "done",
+          "start_wall": "2026-10-21T10:17:15.696305+00:00",
+          "end_wall": "2026-10-21T10:17:18.835315+00:00"
+        }
+      ],
+      "timeline": [
+        {
+          "kind": "session_start",
+          "wall": "2026-10-21T10:16:49.896333+00:00",
+          "t_ns": 410557813690400
+        },
+        {
+          "kind": "capture_ownership",
+          "wall": "2026-10-21T10:18:52.268680+00:00",
+          "t_ns": 410680185715900
+        },
+        {
+          "kind": "session_end",
+          "wall": "2026-10-21T10:18:52.295201+00:00",
+          "t_ns": 410680212437300
+        }
+      ],
+      "audio": {
+        "output_check_seconds": 10,
+        "output_check_tail_seconds": 15,
+        "silent_lifecycle_seconds": 1,
+        "silent_lifecycle_tail_seconds": 2,
+        "silent_lifecycle_frames": 48000,
+        "silent_lifecycle_speech_intervals": [],
+        "silent_lifecycle_limit": "One-second lifecycle-only input, not full nonspeech or zero-hallucination certification.",
+        "callbacks": 1100,
+        "output_check_callbacks": 1000,
+        "silent_lifecycle_callbacks": 100,
+        "playbacks": [
+          {
+            "dac_start_ns": 410558486763800,
+            "end_ns": 410568470212900,
+            "observation_end_ns": 410583600173300,
+            "audio_sha256": "ff7ada666a62f9fe3cf6846a0857f564399bc23d2848ad1b51a749cd36279cfd",
+            "actual_dac_observed": true,
+            "attempt": 3
+          },
+          {
+            "dac_start_ns": 410583625976300,
+            "end_ns": 410584608443800,
+            "observation_end_ns": 410586739385800,
+            "audio_sha256": "0a8f76d89c709043814cb74f331a4578d17ff61256303bd0019a263d053f86e8",
+            "actual_dac_observed": true,
+            "attempt": 4
+          }
+        ]
+      },
+      "events": {
+        "stream_records": 1108,
+        "osc_packets": 6,
+        "chatbox_inputs": 2,
+        "typing_packets": 4,
+        "output_check_osc_packets": 6,
+        "silent_lifecycle_osc_packets": 0,
+        "ordered_osc": [
+          {
+            "recv_seq": 1,
+            "t_ns": 410561357428100,
+            "attempt": 3,
+            "address": "/chatbox/typing",
+            "args": [
+              true
+            ]
+          },
+          {
+            "recv_seq": 2,
+            "t_ns": 410563249567400,
+            "attempt": 3,
+            "address": "/chatbox/input",
+            "args": [
+              "えーっと…今日はポケットに何か入ってる？",
+              true,
+              false
+            ]
+          },
+          {
+            "recv_seq": 3,
+            "t_ns": 410563250252100,
+            "attempt": 3,
+            "address": "/chatbox/typing",
+            "args": [
+              false
+            ]
+          },
+          {
+            "recv_seq": 4,
+            "t_ns": 410569211616400,
+            "attempt": 3,
+            "address": "/chatbox/typing",
+            "args": [
+              true
+            ]
+          },
+          {
+            "recv_seq": 5,
+            "t_ns": 410570217928200,
+            "attempt": 3,
+            "address": "/chatbox/input",
+            "args": [
+              "今すぐこれやらないといけないのかな？",
+              true,
+              false
+            ]
+          },
+          {
+            "recv_seq": 6,
+            "t_ns": 410570218643800,
+            "attempt": 3,
+            "address": "/chatbox/typing",
+            "args": [
+              false
+            ]
+          }
+        ]
+      },
+      "gui_running_observed_at_utc": "2026-10-21T10:16:13.522144+00:00",
+      "gui_stopped_observed_at_utc": "2026-10-21T10:18:31.620921+00:00",
+      "cleanup": "Actual TALK GUI toggled off after requested stop. LISTEN remains inactive. Owned GUI process retained for direction preparation; not full app exit.",
+      "runner_terminal_session_recorded": true,
+      "runner_exit_code": null,
+      "runner_exit_limit": "Terminal session_end and four done stages retained; numeric process exit code not supplied by these sources.",
+      "source_records": [
+        {
+          "path": ".data/issue8/pp4-d1-observation.json",
+          "sha256": "7a0403617dc63ac5235930029b27ca8d7836f2b553dcb9aadda5e817207188e5"
+        },
+        {
+          "path": ".data/issue8/pp4-d1-stopped.json",
+          "sha256": "50c013b97003463130e8d1c9b651f5b1112b20456d4317f4b4eef6fcb588513c"
+        }
+      ],
+      "local_gui_evidence": [
+        {
+          "path": ".data/issue8/gui/pp4-d1-running.png",
+          "sha256": "e0bd42d2df3f3209f836958130111e98e18278cc2616bdce1b2165d13c15e434"
+        },
+        {
+          "path": ".data/issue8/gui/pp4-osc-ports.png",
+          "sha256": "684607862fe7a565e0828403f3d77dd9b29e19e0e246e285abfbbd7306ac9f5d"
+        },
+        {
+          "path": ".data/issue8/gui/pp4-effective-route.png",
+          "sha256": "dc2b3f2f5f4eb47e4776caa0ad19e7939b244c310ec7f015c07711c2252b57c8"
+        },
+        {
+          "path": ".data/issue8/gui/pp4-notice-disabled.png",
+          "sha256": "c6c35aceed16e209e89c27d29ca198b5108743de74eb9b47f3918fcafbdce300"
+        },
+        {
+          "path": ".data/issue8/gui/pp4-d1-stopped.png",
+          "sha256": "560a59fec078eeadef943d4b6b4631266204374ebbb295772690e4c722d73094"
+        },
+        {
+          "path": ".data/issue8/gui/pp4-d1-output.png",
+          "sha256": "99634b0aa3b2f21da74211565c8ae218c83f108585f225bc37f3cc2210e9c092"
+        }
+      ]
+    },
+    {
+      "direction": "D3",
+      "source_language": "zh-CN",
+      "target_language": "ko",
+      "runtime_asr": "qwen3-asr-0.6b-int8-sherpa",
+      "runtime_basis": "Public read-only asr status confirms qwen CPUauto phase running, resources/live true, effective self true and peer false.",
+      "native_directory": ".data/issue8/preflight-runs/pp4-d3-preflight-20261021",
+      "native_manifest_sha256": "95499942b5cdd7ed234babd241793789221a18d607cb4070f6130ecca3b17c72",
+      "native_stream": "stream-8b7923ad00bf40b7b8cfe2d5f6b0d894.jsonl",
+      "native_stream_sha256": "6b2496d024bda4adf51aa0532b24837350f9b43344f1ae7bf3e5342cc9aa731f",
+      "safe_derivative": "pp4-d3-preflight/manifest.json",
+      "export_provenance": "pp4-d3-preflight/export-provenance.json",
+      "counts": {
+        "pending": 0,
+        "running": 0,
+        "done": 4,
+        "product_failure": 0,
+        "invalid": 0
+      },
+      "pending_stages": [],
+      "stages": [
+        {
+          "kind": "setup",
+          "outcome": "done",
+          "start_wall": "2026-10-21T10:25:22.263139+00:00",
+          "end_wall": "2026-10-21T10:25:22.351079+00:00"
+        },
+        {
+          "kind": "direction",
+          "outcome": "done",
+          "start_wall": "2026-10-21T10:25:22.458234+00:00",
+          "end_wall": "2026-10-21T10:25:22.467745+00:00"
+        },
+        {
+          "kind": "output_check",
+          "outcome": "done",
+          "start_wall": "2026-10-21T10:25:22.472267+00:00",
+          "end_wall": "2026-10-21T10:25:47.753911+00:00"
+        },
+        {
+          "kind": "nonspeech",
+          "outcome": "done",
+          "start_wall": "2026-10-21T10:25:47.760508+00:00",
+          "end_wall": "2026-10-21T10:25:50.907006+00:00"
+        }
+      ],
+      "timeline": [
+        {
+          "kind": "session_start",
+          "wall": "2026-10-21T10:25:22.260640+00:00",
+          "t_ns": 411070177969600
+        },
+        {
+          "kind": "capture_ownership",
+          "wall": "2026-10-21T10:26:57.955337+00:00",
+          "t_ns": 411165872690600
+        },
+        {
+          "kind": "session_end",
+          "wall": "2026-10-21T10:26:57.973351+00:00",
+          "t_ns": 411165890736600
+        }
+      ],
+      "audio": {
+        "output_check_seconds": 10,
+        "output_check_tail_seconds": 15,
+        "silent_lifecycle_seconds": 1,
+        "silent_lifecycle_tail_seconds": 2,
+        "silent_lifecycle_frames": 48000,
+        "silent_lifecycle_speech_intervals": [],
+        "silent_lifecycle_limit": "One-second lifecycle-only input, not full nonspeech or zero-hallucination certification.",
+        "callbacks": 1100,
+        "output_check_callbacks": 1000,
+        "silent_lifecycle_callbacks": 100,
+        "playbacks": [
+          {
+            "dac_start_ns": 411070546726500,
+            "end_ns": 411080539982800,
+            "observation_end_ns": 411095660136000,
+            "audio_sha256": "3be6974425b8b0de3cafced557d58bc5e1c2d7578445a3f094606f67ca97f20a",
+            "actual_dac_observed": true,
+            "attempt": 3
+          },
+          {
+            "dac_start_ns": 411095700589400,
+            "end_ns": 411096686236300,
+            "observation_end_ns": 411098813998900,
+            "audio_sha256": "0a8f76d89c709043814cb74f331a4578d17ff61256303bd0019a263d053f86e8",
+            "actual_dac_observed": true,
+            "attempt": 4
+          }
+        ]
+      },
+      "events": {
+        "stream_records": 1108,
+        "osc_packets": 6,
+        "chatbox_inputs": 2,
+        "typing_packets": 4,
+        "output_check_osc_packets": 6,
+        "silent_lifecycle_osc_packets": 0,
+        "ordered_osc": [
+          {
+            "recv_seq": 1,
+            "t_ns": 411074119991000,
+            "attempt": 3,
+            "address": "/chatbox/typing",
+            "args": [
+              true
+            ]
+          },
+          {
+            "recv_seq": 2,
+            "t_ns": 411075746656400,
+            "attempt": 3,
+            "address": "/chatbox/input",
+            "args": [
+              "제 말은, 추석 말이죠. 그러니까...",
+              true,
+              false
+            ]
+          },
+          {
+            "recv_seq": 3,
+            "t_ns": 411075747124600,
+            "attempt": 3,
+            "address": "/chatbox/typing",
+            "args": [
+              false
+            ]
+          },
+          {
+            "recv_seq": 4,
+            "t_ns": 411081189694400,
+            "attempt": 3,
+            "address": "/chatbox/typing",
+            "args": [
+              true
+            ]
+          },
+          {
+            "recv_seq": 5,
+            "t_ns": 411083478791500,
+            "attempt": 3,
+            "address": "/chatbox/input",
+            "args": [
+              "제 말은, 추석 말이죠. 그러니까... 사람들이 중국을 더 잘 이해할 수 있도록... 음... 어떤 활동을 해야 한다는 거죠, 그렇죠?",
+              true,
+              false
+            ]
+          },
+          {
+            "recv_seq": 6,
+            "t_ns": 411083479449100,
+            "attempt": 3,
+            "address": "/chatbox/typing",
+            "args": [
+              false
+            ]
+          }
+        ]
+      },
+      "gui_running_observed_at_utc": "2026-10-21T10:22:31.443020+00:00",
+      "gui_stopped_observed_at_utc": "2026-10-21T10:26:41.678688+00:00",
+      "cleanup": "TALK toggled off via actual GUI; LISTEN inactive. Owned app remains open for preparation, not full exit.",
+      "runner_terminal_session_recorded": true,
+      "runner_exit_code": null,
+      "runner_exit_limit": "Terminal session_end and four done stages retained; numeric process exit code not supplied by these sources.",
+      "source_records": [
+        {
+          "path": ".data/issue8/pp4-d3-observation.json",
+          "sha256": "26e5bc84722f01a82fb7d106660ad9b2e60029cc43566d61c10037f42d50011d"
+        },
+        {
+          "path": ".data/issue8/pp4-d3-stopped.json",
+          "sha256": "e9e4705138d806cd3337f103aa49f4797dd0848340fccfe9d1744d5c9f3ee799"
+        }
+      ],
+      "local_gui_evidence": [
+        {
+          "path": ".data/issue8/gui/pp4-d3-running.png",
+          "sha256": "50fa0dd0295e85fe7dc3b47c4e9da47c201da82101e231b5c323e1162830ce40"
+        },
+        {
+          "path": ".data/issue8/gui/pp4-osc-ports.png",
+          "sha256": "684607862fe7a565e0828403f3d77dd9b29e19e0e246e285abfbbd7306ac9f5d"
+        },
+        {
+          "path": ".data/issue8/gui/pp4-effective-route.png",
+          "sha256": "dc2b3f2f5f4eb47e4776caa0ad19e7939b244c310ec7f015c07711c2252b57c8"
+        },
+        {
+          "path": ".data/issue8/gui/pp4-d3-stopped.png",
+          "sha256": "6c0321818e8f8ee7b2cfcb63ca996688a5d7aff44eb297635224f9d60a124d0e"
+        },
+        {
+          "path": ".data/issue8/gui/pp4-d3-output.png",
+          "sha256": "bf7eb53010016a55daa76d0ed97e4732587b57712f94c036db4c11ff547b2a95"
+        }
+      ]
+    }
+  ],
+  "check_translation_boundary": {
+    "runner_guard": "The short output-check guard requires nonempty /chatbox/input, not translated meaning.",
+    "independent_payload_observation": "Raw OSC contains Japanese text for D1 and Korean text for D3, consistent with the configured target; typing is counted separately.",
+    "guarantee": "Observed translated-target-language OSC during/after each ten-second check only.",
+    "not_established": [
+      "Source-meaning equivalence, translation accuracy or completeness",
+      "Universal final/revision/page/utterance identity",
+      "Returned model or upstream provider identity",
+      "Measured cost, numeric allowance or quota independence",
+      "Thirty-minute stability, full nonspeech protocol or simultaneous W1-W4 execution",
+      "Restart persistence or current personal settings"
+    ]
+  },
+  "access": {
+    "tier": "unknown; planned Free is not observed billing evidence",
+    "actual_limits": null,
+    "usage": null,
+    "cost": null,
+    "quota_amendment": "quota-isolation-amendment.json"
+  },
+  "owner_priority": {
+    "evidence": "owner-use-preparation-order.json",
+    "current_instruction": "Subsequent owner authority excludes PP1-PP4 from this execution; the ten competitor profiles proceed under the batch amendment. PuriPuly manipulation stays suspended. PP3 standalone observation is pending, not performed.",
+    "current_batch_pp1_pp4": "owner_excluded_pending",
+    "subsequent_owner_state": "unknown",
+    "resumption": "Any later PuriPuly work requires owner-permitted scope and fresh actual-GUI admission, effective route/runtime/audio/OSC state and cleanup. The generic cumulative catalogue retains its original no-VRChat readiness guard; this batch's separate amendment excludes PuriPuly.",
+    "batch_amendment": "non-puripuly-batch-amendment.json"
+  },
+  "main_measurement_started": false,
+  "protocol_frozen": false,
+  "privacy": {
+    "exports": "Only manifest, native stream and four attempt traces per run via tools/export_pilot_evidence.py. Each export-provenance.json binds native and derivative SHA-256 values.",
+    "redaction": "Repository/user path prefixes replaced recursively, including serialized JSON. Numeric callback/DAC/OSC timestamps, receive order and benchmark text retained.",
+    "verified_export_files": 12,
+    "byte_identical_export_files": 4,
+    "path_redacted_export_files": 8,
+    "originals_unchanged": true,
+    "excluded": [
+      "Raw diagnostics, ledger, frozen/execution plans as separate exports",
+      "Installer and application executable",
+      "Whole application state/settings, credentials and private backups",
+      "GUI images (retained locally and hash-referenced only)"
+    ],
+    "limits": "Path redaction is not a universal secret scrubber. Selected export fields/text were inspected; no personal path, credential-key field or external URL was found in these derivatives. Local source paths identify retained evidence, not published settings. No private settings backup was read or exported."
+  },
+  "no_vrchat": {
+    "process_absence_during_historical_preflights": null,
+    "basis": "Supplied running/stopped observations and terminal manifests do not record bounded VRChat absence. Available Director-history references include process inspection outside these preflight windows, which is not sufficient admission evidence. No live process query was performed.",
+    "emulation_supplied": "No emulation is recorded in the retained run inputs; this is not proof of VRChat process absence.",
+    "catalogue_readiness": "blocked: actual translated OSC is retained, but required no-VRChat readiness evidence is unknown."
+  }
+}

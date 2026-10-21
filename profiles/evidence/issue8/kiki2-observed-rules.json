@@ -1,0 +1,199 @@
+{
+  "schema_version": 1,
+  "version": "issue8-kiki2-parenthesized-preflight-v1",
+  "profile": "KIKI2",
+  "application": "Kikitan Translator2.0.2",
+  "executable_sha256": "17270e64effb2ca38a9d6895c89ec6ca4009ef53a057d9c5cf60ac4de5069565",
+  "observed_directions": [
+    "D1",
+    "D3"
+  ],
+  "basis": "Actual normal-GUI source-matched ten-second preflight receipts from both selected directions, with source display and default mixed formatting preserved. These are observed field roles, not semantic accuracy, complete delivery or universal packet relationships.",
+  "preflight_receipts": "profiles/evidence/issue8/kikitan-current-preflights.json",
+  "observed_chatbox_inputs": 4,
+  "observations": [
+    {
+      "direction": "D1",
+      "native_trace": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki2-d1-20261021T192549Z/runs/kiki2-d1-20261021T192549Z/attempt-0003-001.jsonl",
+      "native_trace_sha256": "0ba2704e1dded3bb910278f15d03eddf2414c6cbf637f95f4eeb89f7eeaf178d",
+      "public_trace": "profiles/evidence/issue8/kiki2-d1-preflight/attempt-0003-001.jsonl",
+      "public_trace_sha256": "3e0e08a539a2b953fb8b9c2eb3c78fcb57b74f35fe1f209280e95c15c74d002c",
+      "export_provenance": "profiles/evidence/issue8/kiki2-d1-preflight/export-provenance.json",
+      "clock_session": "756aacac6d32479cb37e003b8461c0c3",
+      "recv_seq": [
+        7,
+        12
+      ],
+      "trace_lines": [
+        492,
+        1014
+      ],
+      "format": "Japanese translation, a single space, parenthesized English recognized source; trailing OSC arguments true,false; zero newlines in these observed messages",
+      "receipts": [
+        {
+          "trace_line": 492,
+          "identity": "756aacac6d32479cb37e003b8461c0c3:7",
+          "recv_seq": 7,
+          "t_ns": 9296536837200,
+          "text_sha256_utf8": "94594e8bed7cacc1cdb0693b098bb230c8764e26ed4a7d3a24e19e5717d5d883",
+          "args_tail": [
+            true,
+            false
+          ],
+          "source_host": "127.0.0.1",
+          "source_port": 58174
+        },
+        {
+          "trace_line": 1014,
+          "identity": "756aacac6d32479cb37e003b8461c0c3:12",
+          "recv_seq": 12,
+          "t_ns": 9303788969300,
+          "text_sha256_utf8": "e7243edfac245682a527c0bd67466ef7fd1051c56c4cb9227c247e231d670038",
+          "args_tail": [
+            true,
+            false
+          ],
+          "source_host": "127.0.0.1",
+          "source_port": 58174
+        }
+      ],
+      "mode_evidence": {
+        "public_manifest": "profiles/evidence/issue8/kiki2-d1-preflight/manifest.json",
+        "public_manifest_sha256": "9b27329363dae738fed7f21be341ad9466d0f7878ca79a39e918326ddca65932",
+        "saved_intent_location": "application_observations entry with metadata.saved_intent",
+        "GUI_observed_at_utc": "2026-10-21T19:35:38.779811+00:00",
+        "GUI_basis": "actual_visible_gui",
+        "GUI_observation_session": "kiki2-d1-20261021T192549Z",
+        "saved_fields": {
+          "speech_to_text_only": false,
+          "translation_only": false,
+          "send_to_chatbox": true,
+          "send_without_waiting_for_finish": false,
+          "source_language": "en",
+          "target_language": "ja",
+          "osc_port": 19152
+        }
+      }
+    },
+    {
+      "direction": "D3",
+      "native_trace": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki2-d3-20261021T192549Z/runs/kiki2-d3-20261021T192549Z/attempt-0003-001.jsonl",
+      "native_trace_sha256": "9e321ff35d4a904430fe3d0f73ae43a297b2fc2be6063468d659763eada7f178",
+      "public_trace": "profiles/evidence/issue8/kiki2-d3-preflight/attempt-0003-001.jsonl",
+      "public_trace_sha256": "b722e927cb4dc44ff37b97cef5781cc7146a97de7de4f7b1dbda505f7f7ad5be",
+      "export_provenance": "profiles/evidence/issue8/kiki2-d3-preflight/export-provenance.json",
+      "clock_session": "f445f70e8f694d4a9c42e4f5c93c1967",
+      "recv_seq": [
+        8,
+        24
+      ],
+      "trace_lines": [
+        457,
+        1026
+      ],
+      "format": "Korean translation, a single space, parenthesized Chinese recognized source; trailing OSC arguments true,false; zero newlines in these observed messages",
+      "receipts": [
+        {
+          "trace_line": 457,
+          "identity": "f445f70e8f694d4a9c42e4f5c93c1967:8",
+          "recv_seq": 8,
+          "t_ns": 9373927082700,
+          "text_sha256_utf8": "fd4ed639dff3f71455dc705593ce599cbebe4c027323db8adaa3b89dc21a86e8",
+          "args_tail": [
+            true,
+            false
+          ],
+          "source_host": "127.0.0.1",
+          "source_port": 58174
+        },
+        {
+          "trace_line": 1026,
+          "identity": "f445f70e8f694d4a9c42e4f5c93c1967:24",
+          "recv_seq": 24,
+          "t_ns": 9381178323800,
+          "text_sha256_utf8": "bb7ec6b833ccae147c3480ab4506a6a77076db5daee3b05045ce963066631d0f",
+          "args_tail": [
+            true,
+            false
+          ],
+          "source_host": "127.0.0.1",
+          "source_port": 58174
+        }
+      ],
+      "mode_evidence": {
+        "public_manifest": "profiles/evidence/issue8/kiki2-d3-preflight/manifest.json",
+        "public_manifest_sha256": "607aebba68142d0ce43183db9ec605fd0c4c93e67cf0c597bb4d970ff30aa045",
+        "saved_intent_location": "application_observations entry with metadata.saved_intent",
+        "GUI_observed_at_utc": "2026-10-21T19:36:56.644002+00:00",
+        "GUI_basis": "actual_visible_gui",
+        "GUI_observation_session": "kiki2-d3-20261021T192549Z",
+        "saved_fields": {
+          "speech_to_text_only": false,
+          "translation_only": false,
+          "send_to_chatbox": true,
+          "send_without_waiting_for_finish": false,
+          "source_language": "zh",
+          "target_language": "ko",
+          "osc_port": 19152
+        }
+      }
+    }
+  ],
+  "source_format_evidence": {
+    "source_revision": "175fb87f95d7b6592965fe3f099883ee2f830316",
+    "source": "https://github.com/YusufOzmen01/kikitan-translator/blob/175fb87f95d7b6592965fe3f099883ee2f830316/KikitanTranslator.Base/Outputs/Chatbox.cs",
+    "method": "Chatbox.Send",
+    "selected_mixed_mode": {
+      "speech_to_text_only": false,
+      "translation_only": false,
+      "send_without_waiting_for_finish": false
+    },
+    "composition": "The selected branch calls OscChatbox.SendMessage($\"{translated} ({recognized})\", true). The formatter does not escape delimiter parentheses.",
+    "other_modes": "SpeechToTextOnly sends recognized; TranslationOnly sends translated. Neither alternate mode was selected for these receipts. Bare payloads are not automatically assigned those modes.",
+    "empty_fields": "The mixed branch can produce \" (recognized)\" when translation is empty and \"translated ()\" when recognized source is empty. These are source-derived boundary cases, not extra observed preflight packets.",
+    "typing": "SetIsTyping(!final) is sent separately. With default waiting enabled, nonfinal chatbox input is suppressed. Neither typing state nor observed order establishes common endpoint finality, completeness or relationships.",
+    "delegation_limit": "Chatbox.Send delegates message transport to its OSC library. No universal library truncation, paging or completeness guarantee follows from the inspected formatter."
+  },
+  "rule": {
+    "version": "issue8-kiki2-parenthesized-preflight-v1",
+    "evidence": [
+      "profiles/evidence/issue8/kiki2-observed-rules.json",
+      "profiles/evidence/issue8/kikitan-current-preflights.json"
+    ],
+    "style": "unknown",
+    "text_pattern": "(?P<translation>[^()]*) \\((?P<source>[^()]*)\\)",
+    "supports": {
+      "revision": false,
+      "erasure": false,
+      "resend": false
+    },
+    "relationships": {},
+    "uncertainty": "Bounded mixed-mode field framing only. Empty extracted translation is known source-only/nontranslation, with raw and source retained; a nonempty target with empty source is permitted by the formatter. Literal, nested, extra or unmatched delimiter parentheses are not universally decodable: nonmatching packets must remain ROLE unknown, not full mixed text treated as translation and not known source-only/empty translation. Preserve raw packet/order and rule provenance; require genuine input-bound interpretation evidence before granting unknown-role text translated-output alignment or judging. No universal utterance, revision, erasure, resend, pagination or finality semantics are established; typing does not establish finality. Source is application recognition, not reference truth."
+  },
+  "required_uncertainty_boundary": {
+    "matching": "Use full-message matching, equivalent to re.fullmatch(text_pattern, payload, re.DOTALL), only for the recorded mixed mode.",
+    "empty_translation": "Retain raw and recognized source as known source-only/nontranslation; do not count it as translated content.",
+    "empty_source": "A nonempty extracted translation with empty recognized source is allowed.",
+    "pattern_mismatch": "Literal, nested, extra or unmatched delimiter parentheses cannot be universally decoded. Preserve an unresolved ROLE-unknown observation and raw receipt, distinct from known source-only and known translated output. Never treat the complete mixed-role payload as translation or silently turn uncertainty into empty translation.",
+    "relationships": "No preflight receipt creates an utterance, revision, erasure, resend, page or finality relationship.",
+    "implementation_status": "This record states the observed format and required uncertainty boundary. It does not certify ambiguous-case behavior of the interpreter: the reproduced legacy mismatch fallback is assigned for repair before freeze. No ambiguous-case fix or scoring readiness is claimed here.",
+    "main_measurement_or_protocol_freeze": false
+  },
+  "known_matching_payload_smoke": {
+    "scope": "One pure existing-interpreter call over all seven actual selected public-export chatbox receipts: three KIKI1 and four KIKI2. No synthetic ambiguous cases, models, providers, alignment, quality or GUI were exercised.",
+    "interpreter": "bench.metrics_alignment.interpret",
+    "interpreter_module_sha256": "6e9541a4cf27c853070c83ecaca820bec577b387810e1ff3ce5b7c01532e4b2a",
+    "command": "Existing .data/check-venv/Scripts/python.exe -c; the in-memory program loaded the seven exact exported receipt events and these unchanged rule objects, invoked interpret once, and asserted actual source/translation fields, unchanged raw events, seven outputs, zero nontranslation observations and unknown relationships.",
+    "exit_code": 0,
+    "selected_actual_packets": 7,
+    "this_profile_actual_packets": 4,
+    "combined_translated_outputs": 7,
+    "combined_nontranslation_observations": 0,
+    "source_and_translation_fields_preserved": true,
+    "raw_events_preserved": true,
+    "relations_all_unknown": true,
+    "ambiguous_case_repair_verified": false
+  },
+  "public_export_integrity_basis": "Reuse the accepted independent app-readiness inspection of all24 native/derivative file pairs across the four named public exports: all hashes passed, with no payload or numeric changes. The native/public trace hashes and exact identities above come from their existing export-provenance and receipt records; no new export or privacy certification was manufactured.",
+  "binding_policy": "Preflight clock sessions, receive sequences, timestamps and trace lines identify evidence only. Never copy them as main-run relationships or alignment links. Future correspondence or role resolution requires genuine exact input/output-bound evidence under the separately frozen method."
+}

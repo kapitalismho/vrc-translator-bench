@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "kind": "public_safe_path_redacted_capture_derivative",
+  "authority": "Original runner manifest, ledger, frozen plan and streams remain unchanged locally.",
+  "redactions": "Only local repository/user path prefixes replaced, including inside serialized JSON strings. Unchanged strings retain their original text. No raw diagnostics or account/configuration files exported.",
+  "timing_policy": "All original numeric callback/DAC/OSC timestamps, order, payload text, source provenance and outcome history retained; none reconstructed.",
+  "files": [
+    {
+      "name": "manifest.json",
+      "original_sha256": "95499942b5cdd7ed234babd241793789221a18d607cb4070f6130ecca3b17c72",
+      "export_sha256": "4d8a7a64e651f90ae3ab43d617eee273af3740d6e55a6422ce5ac78a6929c03f",
+      "byte_identical": false,
+      "redacted_json_pointers": [
+        "/records/0/detail",
+        "/plan/calibration/record_path",
+        "/plan/output_check/audio",
+        "/plan/stages/2/audio",
+        "/plan/stages/3/audio",
+        "/plan/harness_implementation/package_path",
+        "/plan/input_plan",
+        "/session_implementations/0/implementation/package_path"
+      ]
+    },
+    {
+      "name": "stream-8b7923ad00bf40b7b8cfe2d5f6b0d894.jsonl",
+      "original_sha256": "6b2496d024bda4adf51aa0532b24837350f9b43344f1ae7bf3e5342cc9aa731f",
+      "export_sha256": "ff57791ea81c1acedbc6e8403f588aec1672611dde20636b6a84e61efacaa391",
+      "byte_identical": false,
+      "redacted_json_pointers": [
+        "/rows/1006/calibration/record_path",
+        "/rows/1107/calibration/record_path"
+      ]
+    },
+    {
+      "name": "attempt-0001-001.jsonl",
+      "original_sha256": "1263a9a32be9224c4ebc8201ed07b7cf326a6b50b8c5ea3001d44089ab4def11",
+      "export_sha256": "1263a9a32be9224c4ebc8201ed07b7cf326a6b50b8c5ea3001d44089ab4def11",
+      "byte_identical": true,
+      "redacted_json_pointers": []
+    },
+    {
+      "name": "attempt-0002-001.jsonl",
+      "original_sha256": "b8477284e2abf8423e4858ae3e0fe2a4d6111403416fb4c9e809637dfb2a6c6c",
+      "export_sha256": "b8477284e2abf8423e4858ae3e0fe2a4d6111403416fb4c9e809637dfb2a6c6c",
+      "byte_identical": true,
+      "redacted_json_pointers": []
+    },
+    {
+      "name": "attempt-0003-001.jsonl",
+      "original_sha256": "26c9a5fa1639a0f59564d2f22b47472a3cb55d7bf04f7d4fad81771dc6f53586",
+      "export_sha256": "97dedc2359d291949373a2dd47972386e443dd22f64e908f741075731d560838",
+      "byte_identical": false,
+      "redacted_json_pointers": [
+        "/rows/1008/calibration/record_path"
+      ]
+    },
+    {
+      "name": "attempt-0004-001.jsonl",
+      "original_sha256": "89b6346aed99cb3bbcdb1710537396f4e4ab759cbf9f0049151b2acdb60c4d84",
+      "export_sha256": "7bdd268beca64cf261ded6329739d42b14887a8336acb9ee6c319e78a14d91dc",
+      "byte_identical": false,
+      "redacted_json_pointers": [
+        "/rows/102/calibration/record_path"
+      ]
+    }
+  ]
+}

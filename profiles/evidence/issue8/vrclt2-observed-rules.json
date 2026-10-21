@@ -1,0 +1,504 @@
+{
+  "schema_version": 1,
+  "version": "issue8-vrclt2-required-newline-preflight-v1",
+  "profile": "VRCLT2",
+  "application": "VRCLT Live Translator1.0.1",
+  "executable_sha256": "e92eee6aa418c7abc096d4def18e496593f81c93da534171807bef01e0272fc5",
+  "observed_directions": [
+    "D1",
+    "D3"
+  ],
+  "basis": "Current normal-GUI source-specific preflight packets, actual checked source display and selected text-only/voice-off mode, interpreted with the pinned outbound formatter. This is bounded field-role evidence, not semantic accuracy or universal endpoint identity.",
+  "preflight_receipts": "profiles/evidence/issue8/vrclt-current-preflights.json",
+  "observed_chatbox_inputs": 9,
+  "coverage": {
+    "D1": 3,
+    "D3": 6
+  },
+  "observations": [
+    {
+      "direction": "D1",
+      "run_id": "vrclt2-d1-20261021T195054Z",
+      "clock_session": "7b6101d1421b46cdb10ae85af47643a9",
+      "native_trace": ".data/issue8/competitor-preflights/vrclt/actual-20261021T195054Z/vrclt2-d1-20261021T195054Z/runs/vrclt2-d1-20261021T195054Z/attempt-0003-001.jsonl",
+      "native_trace_sha256": "22f0a9d2b23c9e54bb96ed6d0c8ef6899f1299c9408d4a5ed827af1923ee60d0",
+      "public_trace": "profiles/evidence/issue8/vrclt2-d1-preflight/attempt-0003-001.jsonl",
+      "public_trace_sha256": "5674960a0545bf90a6778acc0afa9906ca972f33226b072f9915eb8388f348ac",
+      "native_stream": ".data/issue8/competitor-preflights/vrclt/actual-20261021T195054Z/vrclt2-d1-20261021T195054Z/runs/vrclt2-d1-20261021T195054Z/stream-7b6101d1421b46cdb10ae85af47643a9.jsonl",
+      "native_stream_sha256": "f2417c803e1b7cd510a6443d25ebf74da6da0831c9afdbcb0e26e9e92b9adb65",
+      "public_stream": "profiles/evidence/issue8/vrclt2-d1-preflight/stream-7b6101d1421b46cdb10ae85af47643a9.jsonl",
+      "public_stream_sha256": "4e06873a7fe79a32688f222e38e6344f029786d783d4873b0da2e9809a0e300f",
+      "export_provenance": "profiles/evidence/issue8/vrclt2-d1-preflight/export-provenance.json",
+      "export_provenance_sha256": "3a156a5b95f08c20428e7f74e613c89660c85f85e340c12f1b77df1b19b3bef2",
+      "recv_seq": [
+        3,
+        6,
+        9
+      ],
+      "trace_lines": [
+        213,
+        416,
+        1011
+      ],
+      "stream_lines": [
+        211,
+        414,
+        1009
+      ],
+      "format": "English recognized source, one required LF, Japanese target; both fields nonblank in these receipts; OSC argument tail true,false",
+      "receipts": [
+        {
+          "trace_id": "vrclt2-d1-20261021T195054Z/7b6101d1421b46cdb10ae85af47643a9/recv-3",
+          "identity": "7b6101d1421b46cdb10ae85af47643a9:3",
+          "recv_seq": 3,
+          "t_ns": 10314810755300,
+          "native_stream_line": 211,
+          "native_stream_raw_line_sha256": "f34ccae7b4aca1a385e180191c109c61b9c9813d6f9ac4da0515f5bc4f1d8b2c",
+          "public_stream_line": 211,
+          "public_stream_raw_line_sha256": "0ce9ca822e42be9bd187f09e1a757b2d6229e9a6768822240a74816f2ff5ca3b",
+          "native_trace_line": 213,
+          "native_trace_raw_line_sha256": "f34ccae7b4aca1a385e180191c109c61b9c9813d6f9ac4da0515f5bc4f1d8b2c",
+          "public_trace_line": 213,
+          "public_trace_raw_line_sha256": "0ce9ca822e42be9bd187f09e1a757b2d6229e9a6768822240a74816f2ff5ca3b",
+          "payload_utf8_sha256": "7f1afedcf463e4086bad310df0cd912bd31825752214431ab2b4dc661c8d158f",
+          "newline_count": 1,
+          "args_tail": [
+            true,
+            false
+          ],
+          "source_host": "127.0.0.1",
+          "source_port": 64693
+        },
+        {
+          "trace_id": "vrclt2-d1-20261021T195054Z/7b6101d1421b46cdb10ae85af47643a9/recv-6",
+          "identity": "7b6101d1421b46cdb10ae85af47643a9:6",
+          "recv_seq": 6,
+          "t_ns": 10316807077700,
+          "native_stream_line": 414,
+          "native_stream_raw_line_sha256": "fc32f3608715c7d5abc288459fd393995999cf3f4356ca495cd537f43a07995f",
+          "public_stream_line": 414,
+          "public_stream_raw_line_sha256": "abed887bb3ceaca46dc9d7fcccb588d04b78fdf5234e86199cbeba00bfbece9f",
+          "native_trace_line": 416,
+          "native_trace_raw_line_sha256": "fc32f3608715c7d5abc288459fd393995999cf3f4356ca495cd537f43a07995f",
+          "public_trace_line": 416,
+          "public_trace_raw_line_sha256": "abed887bb3ceaca46dc9d7fcccb588d04b78fdf5234e86199cbeba00bfbece9f",
+          "payload_utf8_sha256": "2c1be49cddbc29ab1ebb03c502d6cef5eee61d78952d5545f213beff5c71f193",
+          "newline_count": 1,
+          "args_tail": [
+            true,
+            false
+          ],
+          "source_host": "127.0.0.1",
+          "source_port": 64693
+        },
+        {
+          "trace_id": "vrclt2-d1-20261021T195054Z/7b6101d1421b46cdb10ae85af47643a9/recv-9",
+          "identity": "7b6101d1421b46cdb10ae85af47643a9:9",
+          "recv_seq": 9,
+          "t_ns": 10324351026200,
+          "native_stream_line": 1009,
+          "native_stream_raw_line_sha256": "162a201b8e549971122b1c77de966e2e2fe798a5c8cb401c721c7c6035ce7fe2",
+          "public_stream_line": 1009,
+          "public_stream_raw_line_sha256": "2b7c351147e467bc7fae043fd9375a90b0693a98e2ec7d4a2e6d74631988ecd8",
+          "native_trace_line": 1011,
+          "native_trace_raw_line_sha256": "162a201b8e549971122b1c77de966e2e2fe798a5c8cb401c721c7c6035ce7fe2",
+          "public_trace_line": 1011,
+          "public_trace_raw_line_sha256": "2b7c351147e467bc7fae043fd9375a90b0693a98e2ec7d4a2e6d74631988ecd8",
+          "payload_utf8_sha256": "c91a94a9c77509bde24725a1699d1de057f871027943f459cd90676c1346b0db",
+          "newline_count": 1,
+          "args_tail": [
+            true,
+            false
+          ],
+          "source_host": "127.0.0.1",
+          "source_port": 64693
+        }
+      ],
+      "mode_evidence": {
+        "public_manifest": "profiles/evidence/issue8/vrclt2-d1-preflight/manifest.json",
+        "public_manifest_sha256": "bdf0bfccc56305b5df168977270e6ce178e55c6ad8014a960a4ab48999c6ffb9",
+        "public_manifest_pointer": "/application_observations/0/metadata",
+        "actual_GUI_observation": {
+          "basis": "actual_visible_gui",
+          "observed_at_utc": "2026-10-21T19:52:39.591217+00:00",
+          "evidence": [
+            "[LOCAL_REPOSITORY]\\.data\\issue8\\competitor-preflights\\vrclt\\actual-20261021T195054Z\\evidence\\vrclt2-d1-running.png",
+            "[LOCAL_REPOSITORY]\\.data\\issue8\\competitor-preflights\\vrclt\\actual-20261021T195054Z\\evidence\\audio-route.png",
+            "[LOCAL_REPOSITORY]\\.data\\issue8\\competitor-preflights\\vrclt\\actual-20261021T195054Z\\evidence\\osc-format-controls.png",
+            "[LOCAL_REPOSITORY]\\.data\\issue8\\competitor-preflights\\vrclt\\actual-20261021T195054Z\\evidence\\qwen-settings-redacted.png"
+          ],
+          "profile": "VRCLT2",
+          "session": "vrclt2-d1-20261021T195054Z"
+        },
+        "saved_output_and_format_fields": {
+          "provider": "qwen",
+          "requested_model": "qwen3.8-livetranslate-flash-realtime",
+          "text_only": true,
+          "voice_output": false,
+          "chatbox": true,
+          "source_language": "en",
+          "target_language": "ja",
+          "show_source": true,
+          "stream_sentences": true,
+          "notification_sfx": false,
+          "OSC_throttle_sec": 1.5,
+          "chunk_display_sec": 4.0
+        },
+        "source_target_GUI_controls": {
+          "provider": "qwen",
+          "model": "qwen3.8-livetranslate-flash-realtime",
+          "region": "beijing",
+          "source": "English (en)",
+          "target": "Japanese (ja)",
+          "source_ref": "e102",
+          "target_ref": "e99"
+        },
+        "source_display_GUI_checked": true,
+        "source_display_GUI_label": "챗박스에 원문 표시",
+        "source_display_native_ref": "e158",
+        "GUI_proof_record_binding": {
+          "public_record": "profiles/evidence/issue8/vrclt-current-preflights.json",
+          "pointer": "/evidence/GUI_role_evidence",
+          "native_GUI_role_evidence_sha256": "09ed1daf23ee3df7c3ece2336924b49e23cb2e5ed42d1419500d9fc36b037cb5"
+        }
+      },
+      "export_command": {
+        "command_argv": [
+          ".data/check-venv/Scripts/python.exe",
+          "-B",
+          "-m",
+          "tools.export_pilot_evidence",
+          "--run-directory",
+          ".data/issue8/competitor-preflights/vrclt/actual-20261021T195054Z/vrclt2-d1-20261021T195054Z/runs/vrclt2-d1-20261021T195054Z",
+          "--output",
+          "profiles/evidence/issue8/vrclt2-d1-preflight",
+          "--repository",
+          "."
+        ],
+        "exit_code": 0,
+        "stdout": "{\"files\": 6, \"output\": \"profiles\\\\evidence\\\\issue8\\\\vrclt2-d1-preflight\"}\n",
+        "stderr": "",
+        "public_directory": "profiles/evidence/issue8/vrclt2-d1-preflight"
+      }
+    },
+    {
+      "direction": "D3",
+      "run_id": "vrclt2-d3-20261021T195054Z",
+      "clock_session": "006e787e10da40a3a5f3c89db06ce2bc",
+      "native_trace": ".data/issue8/competitor-preflights/vrclt/actual-20261021T195054Z/vrclt2-d3-20261021T195054Z/runs/vrclt2-d3-20261021T195054Z/attempt-0003-001.jsonl",
+      "native_trace_sha256": "efcc8a24804d96c2bb0b84eef736970c16b278727d00a14adcda2da2dc06cde8",
+      "public_trace": "profiles/evidence/issue8/vrclt2-d3-preflight/attempt-0003-001.jsonl",
+      "public_trace_sha256": "7b4f6c403bf76903226bd369aae2fef154037a9d576839c0f10afecf036ac6c5",
+      "native_stream": ".data/issue8/competitor-preflights/vrclt/actual-20261021T195054Z/vrclt2-d3-20261021T195054Z/runs/vrclt2-d3-20261021T195054Z/stream-006e787e10da40a3a5f3c89db06ce2bc.jsonl",
+      "native_stream_sha256": "d261d877ad5d0f6dc51b73b044fe09982bb79320c2d3d31d5244505337b54eca",
+      "public_stream": "profiles/evidence/issue8/vrclt2-d3-preflight/stream-006e787e10da40a3a5f3c89db06ce2bc.jsonl",
+      "public_stream_sha256": "7e6727671db1ee80751d0d4c56e33d941f9d96ada39d3714c8084177d7dc9c15",
+      "export_provenance": "profiles/evidence/issue8/vrclt2-d3-preflight/export-provenance.json",
+      "export_provenance_sha256": "143e95c10e0c081c7a83acbb083541b0363f340605117caf9a465f94c7e2b8a3",
+      "recv_seq": [
+        3,
+        6,
+        9,
+        12,
+        15,
+        18
+      ],
+      "trace_lines": [
+        331,
+        637,
+        789,
+        943,
+        1017,
+        1020
+      ],
+      "stream_lines": [
+        329,
+        635,
+        787,
+        941,
+        1015,
+        1018
+      ],
+      "format": "Chinese recognized source, one required LF, Korean target; both fields nonblank in these receipts; OSC argument tail true,false",
+      "receipts": [
+        {
+          "trace_id": "vrclt2-d3-20261021T195054Z/006e787e10da40a3a5f3c89db06ce2bc/recv-3",
+          "identity": "006e787e10da40a3a5f3c89db06ce2bc:3",
+          "recv_seq": 3,
+          "t_ns": 10496591481600,
+          "native_stream_line": 329,
+          "native_stream_raw_line_sha256": "271280282f7750cbde5f6aba92762a1571a061ef645966ad2e4c19d773c36cdd",
+          "public_stream_line": 329,
+          "public_stream_raw_line_sha256": "bf99a50d76cddd3ea466aa49d1df69ac6fee15ede9b2207cd0f6364f1f6e33fe",
+          "native_trace_line": 331,
+          "native_trace_raw_line_sha256": "271280282f7750cbde5f6aba92762a1571a061ef645966ad2e4c19d773c36cdd",
+          "public_trace_line": 331,
+          "public_trace_raw_line_sha256": "bf99a50d76cddd3ea466aa49d1df69ac6fee15ede9b2207cd0f6364f1f6e33fe",
+          "payload_utf8_sha256": "6c5a99579a5b074bc7b2e08f6dc12f9f8daf56df041a829114fa114f67a5bcaa",
+          "newline_count": 1,
+          "args_tail": [
+            true,
+            false
+          ],
+          "source_host": "127.0.0.1",
+          "source_port": 51263
+        },
+        {
+          "trace_id": "vrclt2-d3-20261021T195054Z/006e787e10da40a3a5f3c89db06ce2bc/recv-6",
+          "identity": "006e787e10da40a3a5f3c89db06ce2bc:6",
+          "recv_seq": 6,
+          "t_ns": 10499619010000,
+          "native_stream_line": 635,
+          "native_stream_raw_line_sha256": "83be69153984accbe7a31be169b90c480b20a97e164e16875fc217539eb1b26b",
+          "public_stream_line": 635,
+          "public_stream_raw_line_sha256": "7c8098e7ca925f90f1905d88017ebdfb2216800fa92a971fc8b1ed54244519e0",
+          "native_trace_line": 637,
+          "native_trace_raw_line_sha256": "83be69153984accbe7a31be169b90c480b20a97e164e16875fc217539eb1b26b",
+          "public_trace_line": 637,
+          "public_trace_raw_line_sha256": "7c8098e7ca925f90f1905d88017ebdfb2216800fa92a971fc8b1ed54244519e0",
+          "payload_utf8_sha256": "2704cce102cbd6608641836de13ef6f54f394c8afd4c4d70ad1f3be67bf0bcdf",
+          "newline_count": 1,
+          "args_tail": [
+            true,
+            false
+          ],
+          "source_host": "127.0.0.1",
+          "source_port": 51263
+        },
+        {
+          "trace_id": "vrclt2-d3-20261021T195054Z/006e787e10da40a3a5f3c89db06ce2bc/recv-9",
+          "identity": "006e787e10da40a3a5f3c89db06ce2bc:9",
+          "recv_seq": 9,
+          "t_ns": 10501120507300,
+          "native_stream_line": 787,
+          "native_stream_raw_line_sha256": "4295cb023c22e9d85e86abeb6b27acab081e306544746c1ca4b4f9942b0c05ec",
+          "public_stream_line": 787,
+          "public_stream_raw_line_sha256": "3e497b3217c8ba1047bbb18f7a7987216b67b70f17f32ed85c58906d41d20168",
+          "native_trace_line": 789,
+          "native_trace_raw_line_sha256": "4295cb023c22e9d85e86abeb6b27acab081e306544746c1ca4b4f9942b0c05ec",
+          "public_trace_line": 789,
+          "public_trace_raw_line_sha256": "3e497b3217c8ba1047bbb18f7a7987216b67b70f17f32ed85c58906d41d20168",
+          "payload_utf8_sha256": "ec03c3099142c935fbba5cb08ad3c23ab188dd281934fb74568764c224038917",
+          "newline_count": 1,
+          "args_tail": [
+            true,
+            false
+          ],
+          "source_host": "127.0.0.1",
+          "source_port": 51263
+        },
+        {
+          "trace_id": "vrclt2-d3-20261021T195054Z/006e787e10da40a3a5f3c89db06ce2bc/recv-12",
+          "identity": "006e787e10da40a3a5f3c89db06ce2bc:12",
+          "recv_seq": 12,
+          "t_ns": 10502621213200,
+          "native_stream_line": 941,
+          "native_stream_raw_line_sha256": "284563e363af3332185b7df5bcd52261892043620360eb89408b0f7eba41cee9",
+          "public_stream_line": 941,
+          "public_stream_raw_line_sha256": "9b6984f53d27b2a6b1c8ee16a8a6751de0d2d10efeedbaa8aa2cfb75f3db994c",
+          "native_trace_line": 943,
+          "native_trace_raw_line_sha256": "284563e363af3332185b7df5bcd52261892043620360eb89408b0f7eba41cee9",
+          "public_trace_line": 943,
+          "public_trace_raw_line_sha256": "9b6984f53d27b2a6b1c8ee16a8a6751de0d2d10efeedbaa8aa2cfb75f3db994c",
+          "payload_utf8_sha256": "95b21ae6af418dfdd7eb740e79d5a02327673e2be2566db0eb3189cd4d359ecd",
+          "newline_count": 1,
+          "args_tail": [
+            true,
+            false
+          ],
+          "source_host": "127.0.0.1",
+          "source_port": 51263
+        },
+        {
+          "trace_id": "vrclt2-d3-20261021T195054Z/006e787e10da40a3a5f3c89db06ce2bc/recv-15",
+          "identity": "006e787e10da40a3a5f3c89db06ce2bc:15",
+          "recv_seq": 15,
+          "t_ns": 10504122095600,
+          "native_stream_line": 1015,
+          "native_stream_raw_line_sha256": "82b8895d1ee54b5dfea2925c94ac490f0804f6a03716932f93ec0f8a2e07614d",
+          "public_stream_line": 1015,
+          "public_stream_raw_line_sha256": "dd83c85b29343e898d933ac990eec5888cbc198cd890fe17f1db8e90b9b2a9e6",
+          "native_trace_line": 1017,
+          "native_trace_raw_line_sha256": "82b8895d1ee54b5dfea2925c94ac490f0804f6a03716932f93ec0f8a2e07614d",
+          "public_trace_line": 1017,
+          "public_trace_raw_line_sha256": "dd83c85b29343e898d933ac990eec5888cbc198cd890fe17f1db8e90b9b2a9e6",
+          "payload_utf8_sha256": "ae86465119c036006d76a157d5481832c29e843ae6f6e4d856a27d261f3049ac",
+          "newline_count": 1,
+          "args_tail": [
+            true,
+            false
+          ],
+          "source_host": "127.0.0.1",
+          "source_port": 51263
+        },
+        {
+          "trace_id": "vrclt2-d3-20261021T195054Z/006e787e10da40a3a5f3c89db06ce2bc/recv-18",
+          "identity": "006e787e10da40a3a5f3c89db06ce2bc:18",
+          "recv_seq": 18,
+          "t_ns": 10505622277900,
+          "native_stream_line": 1018,
+          "native_stream_raw_line_sha256": "504001cc4d58b0c800d8a69806158fa26a88f12c4896cf3642bad5d363b64453",
+          "public_stream_line": 1018,
+          "public_stream_raw_line_sha256": "12907ac5cc2d9ee0a5c3627da66a584a3d50e277a8bda51f98dbf91274b99937",
+          "native_trace_line": 1020,
+          "native_trace_raw_line_sha256": "504001cc4d58b0c800d8a69806158fa26a88f12c4896cf3642bad5d363b64453",
+          "public_trace_line": 1020,
+          "public_trace_raw_line_sha256": "12907ac5cc2d9ee0a5c3627da66a584a3d50e277a8bda51f98dbf91274b99937",
+          "payload_utf8_sha256": "0923dc9ce992dd0f32cbad169fb5664c3bf161fc655bedceda1b4b0777ba8f91",
+          "newline_count": 1,
+          "args_tail": [
+            true,
+            false
+          ],
+          "source_host": "127.0.0.1",
+          "source_port": 51263
+        }
+      ],
+      "mode_evidence": {
+        "public_manifest": "profiles/evidence/issue8/vrclt2-d3-preflight/manifest.json",
+        "public_manifest_sha256": "2851010b9cf0adafbfbcdbe27c570679cde41128ea84f0249bb3c2120e97179b",
+        "public_manifest_pointer": "/application_observations/0/metadata",
+        "actual_GUI_observation": {
+          "basis": "actual_visible_gui",
+          "observed_at_utc": "2026-10-21T19:55:39.535797+00:00",
+          "evidence": [
+            "[LOCAL_REPOSITORY]\\.data\\issue8\\competitor-preflights\\vrclt\\actual-20261021T195054Z\\evidence\\vrclt2-d3-running.png",
+            "[LOCAL_REPOSITORY]\\.data\\issue8\\competitor-preflights\\vrclt\\actual-20261021T195054Z\\evidence\\audio-route.png",
+            "[LOCAL_REPOSITORY]\\.data\\issue8\\competitor-preflights\\vrclt\\actual-20261021T195054Z\\evidence\\osc-format-controls.png",
+            "[LOCAL_REPOSITORY]\\.data\\issue8\\competitor-preflights\\vrclt\\actual-20261021T195054Z\\evidence\\qwen-settings-redacted.png"
+          ],
+          "profile": "VRCLT2",
+          "session": "vrclt2-d3-20261021T195054Z"
+        },
+        "saved_output_and_format_fields": {
+          "provider": "qwen",
+          "requested_model": "qwen3.8-livetranslate-flash-realtime",
+          "text_only": true,
+          "voice_output": false,
+          "chatbox": true,
+          "source_language": "zh-Hans",
+          "target_language": "ko",
+          "show_source": true,
+          "stream_sentences": true,
+          "notification_sfx": false,
+          "OSC_throttle_sec": 1.5,
+          "chunk_display_sec": 4.0
+        },
+        "source_target_GUI_controls": {
+          "provider": "qwen",
+          "model": "qwen3.8-livetranslate-flash-realtime",
+          "source": "Simplified Chinese 简体中文 (zh-Hans)",
+          "target": "Korean (ko)",
+          "source_ref": "e341",
+          "target_ref": "e338"
+        },
+        "source_display_GUI_checked": true,
+        "source_display_GUI_label": "챗박스에 원문 표시",
+        "source_display_native_ref": "e158",
+        "GUI_proof_record_binding": {
+          "public_record": "profiles/evidence/issue8/vrclt-current-preflights.json",
+          "pointer": "/evidence/GUI_role_evidence",
+          "native_GUI_role_evidence_sha256": "09ed1daf23ee3df7c3ece2336924b49e23cb2e5ed42d1419500d9fc36b037cb5"
+        }
+      },
+      "export_command": {
+        "command_argv": [
+          ".data/check-venv/Scripts/python.exe",
+          "-B",
+          "-m",
+          "tools.export_pilot_evidence",
+          "--run-directory",
+          ".data/issue8/competitor-preflights/vrclt/actual-20261021T195054Z/vrclt2-d3-20261021T195054Z/runs/vrclt2-d3-20261021T195054Z",
+          "--output",
+          "profiles/evidence/issue8/vrclt2-d3-preflight",
+          "--repository",
+          "."
+        ],
+        "exit_code": 0,
+        "stdout": "{\"files\": 6, \"output\": \"profiles\\\\evidence\\\\issue8\\\\vrclt2-d3-preflight\"}\n",
+        "stderr": "",
+        "public_directory": "profiles/evidence/issue8/vrclt2-d3-preflight"
+      }
+    }
+  ],
+  "source_format_evidence": {
+    "source_revision": "d97574fd451f1e5af8d0c68bd13c488fab54eaae",
+    "outbound_pipeline": "https://github.com/VRCLT/VRCLT/blob/d97574fd451f1e5af8d0c68bd13c488fab54eaae/vrclt/pipeline.py",
+    "wire_formatter": "https://github.com/VRCLT/VRCLT/blob/d97574fd451f1e5af8d0c68bd13c488fab54eaae/vrclt/out/osc_chatbox.py",
+    "selected_mode": {
+      "text_only": true,
+      "voice_output": false,
+      "show_source": true,
+      "stream_sentences": true,
+      "notification_sfx": false
+    },
+    "source_target_GUI_proof": "Each observation binds the current public-manifest GUI observation and explicit saved fields, plus the GUI source/target controls and checked source-display setting retained by the current-preflight record.",
+    "paired_branch": "OutboundPipeline._tail_render joins recent source fields and target fields separately; with show_source and both nonempty it returns f\"{srcs}\\n{dsts}\". _chatbox_payload uses the same source-first framing for the other path.",
+    "fallback_ambiguity": "Those functions otherwise return dst or src. make_parts likewise emits a bare nonempty field when the other field is absent; bare wire text has no source/target role tag. No source-only or target-only packet was observed in these current four checks, so neither a historical literal exception nor a universal single-line fallback is justified.",
+    "normal_rolling_path": "With stream_sentences=true, _send_chatbox_text cleans fields and sends a rolling _tail_render snapshot through chatbox.send(payload). It suppresses source-only partials, can retain earlier context and evict old entries, and resets dedup state after final/interrupted callbacks. These internal states are not wire IDs.",
+    "wire_and_paging": "Chatbox._run sends /chatbox/input [part,true,notification_sfx]. make_parts can split/truncate oversized text and single-field parts need not retain paired roles. Internal paging does not expose page IDs. Neither current two-line packets nor typing state establishes semantic completeness or finality.",
+    "delimiter_limit": "The inspected producer does not escape embedded field newlines. The rule therefore covers the observed nonblank, one-LF field layout only; additional or genuinely ambiguous field-newline layouts require exact run-bound role evidence rather than a universal decoder."
+  },
+  "rule": {
+    "version": "issue8-vrclt2-required-newline-preflight-v1",
+    "evidence": [
+      "profiles/evidence/issue8/vrclt2-observed-rules.json",
+      "profiles/evidence/issue8/vrclt-current-preflights.json"
+    ],
+    "style": "unknown",
+    "text_pattern": "(?P<source>[^\\r\\n]*\\S[^\\r\\n]*)\\n(?P<translation>[^\\r\\n]*\\S[^\\r\\n]*)",
+    "supports": {
+      "revision": false,
+      "erasure": false,
+      "resend": false
+    },
+    "relationships": {},
+    "uncertainty": "Only the18 currently observed nonblank source-plus-one-LF-plus-target receipts support this bounded field rule, nine per profile. A literal LF is required, and CR/additional LF/blank-field or newline-less forms are outside this rule: preserve them as unresolved ROLE, not guessed source-only, target-only or full mixed-text translation. Source-backed single-field fallbacks are not wire-role tags; none were observed in these four checks. Embedded field newlines are not escaped by the inspected producer, so structural compatibility is not universal proof of roles; genuinely ambiguous new payloads require exact run-bound evidence and an explicit interpretation amendment. Rolling context growth/eviction is observed but does not establish revision, erasure, resend, page, utterance or finality identities. Typing is activity, not finality; recognized source is not reference truth."
+  },
+  "required_uncertainty_boundary": {
+    "fullmatch": "Require exactly one literal LF between two nonblank fields; the pattern also rejects CR-containing forms. Use full-message matching, not a search, optional newline or first-line guess.",
+    "unobserved_forms": "Newline-less source-only-looking or target-only-looking messages, extra LF/CR, blank-field forms and other ambiguous layouts stay unresolved ROLE under this rule. They are not full mixed-text translations, known source-only omissions or reconstructed pages.",
+    "structural_limit": "A matching shape alone is not a universal semantic role guarantee. The current18 receipts are supported by their mode/source evidence and actual inspected text; ambiguous future payloads require explicit input-bound interpretation evidence.",
+    "no_relationships": "No receipt ID, receive order, repeated prefix, growth, context eviction or typing boolean is assigned a revision/erasure/resend/page/finality relationship.",
+    "main_measurement_or_protocol_freeze": false
+  },
+  "known_matching_payload_smoke": {
+    "release_basis": "Explicit latest FINAL RELEASE from batch-composition stated sources stable and safe for the Director-authorized18-actual-receipt pure interpret smoke; imports occurred only after that message.",
+    "command_argv": [
+      ".data/check-venv/Scripts/python.exe",
+      "-B",
+      "-c",
+      "import json,sys,re,hashlib\nimport bench.metrics_alignment as m\npayload=json.load(sys.stdin)\noutputs,nontranslation=m.interpret(payload['events'],payload['rules'])\nassert len(outputs)==18 and nontranslation==[]\nby_id={o['id']:o for o in outputs}\nassert len(by_id)==18\nfor e in payload['events']:\n  text=e['args'][0]\n  assert text.count('\\n')==1 and '\\r' not in text\n  source,target=text.split('\\n')\n  assert source.strip() and target.strip()\n  assert re.fullmatch(payload['rules'][e['config']]['text_pattern'],text,re.DOTALL)\n  o=by_id[f\"{e['clock_session']}:{e['recv_seq']}\"]\n  assert o['source_text']==source and o['text']==target\n  assert o['raw']==e and o['output_role']=='translation'\n  assert o['relation']=='unknown' and o['interpretation']['style']=='unknown'\n  assert o['interpretation']['supports']=={'revision':False,'erasure':False,'resend':False}\nprint(json.dumps({'kind':'actual_VRCLT_known_matching_extraction_only_not_main','selected_actual_packets':18,'known_translation':len(outputs),'unresolved_role':sum(o['output_role']=='unresolved' for o in outputs),'known_source_only':len(nontranslation),'raw_packets_and_source_target_fields_preserved':True,'relationships_all_unknown':True,'interpreter_module_sha256':hashlib.sha256(open(m.__file__,'rb').read()).hexdigest(),'slot_counts':{f\"{p}/{d}\":sum(e['config']==p and e['direction']==d for e in payload['events']) for p in ['VRCLT1','VRCLT2'] for d in ['D1','D3']},'models_providers_alignment_quality_or_GUI_called':False,'ambiguous_case_repair_verified_by_this_smoke':False}))\n"
+    ],
+    "stdin_binding": "The18 actual public-stream events selected by the exact receipt identities/lines/hashes in these two records, plus the unchanged rule objects under their profile IDs.",
+    "stdin_utf8_sha256": "4bea9046e50c5a84faef91de8cbe51e5ebfea0ea0cb55a73bec0c6d69547bd66",
+    "exit_code": 0,
+    "result": {
+      "kind": "actual_VRCLT_known_matching_extraction_only_not_main",
+      "selected_actual_packets": 18,
+      "known_translation": 18,
+      "unresolved_role": 0,
+      "known_source_only": 0,
+      "raw_packets_and_source_target_fields_preserved": true,
+      "relationships_all_unknown": true,
+      "interpreter_module_sha256": "a0aa22e8aa54b376b713b8cfb7459c72b6b86326dc0c286a4ccce7f140635a38",
+      "slot_counts": {
+        "VRCLT1/D1": 3,
+        "VRCLT1/D3": 6,
+        "VRCLT2/D1": 3,
+        "VRCLT2/D3": 6
+      },
+      "models_providers_alignment_quality_or_GUI_called": false,
+      "ambiguous_case_repair_verified_by_this_smoke": false
+    },
+    "scope": "Known-matching extraction only. No synthetic ambiguous cases, alignment models, providers, quality scoring, GUI or audio were run; no independent ambiguous-case repair certification follows."
+  },
+  "export_boundary": {
+    "tool": "tools.export_pilot_evidence CLI, unmodified",
+    "published_selection": "Per run: manifest, its listed stream and four listed attempt traces, plus generated export-provenance.json. No diagnostics, raw application logs, config files, private account/workspace hosts or capture archive were exported.",
+    "native_originals": "Read only; unchanged. Existing native raw-line and UTF8 payload hashes were bound to the exact exported event objects, with separate derived line hashes rather than relabeling native bytes.",
+    "independent_privacy_inspection": "Pending separate assigned inspection; these records do not claim it has passed.",
+    "path_redaction": "Existing exporter replaces private local repository/user path prefixes, including embedded JSON strings. Numeric timing, order and payloads are preserved by its existing convention."
+  },
+  "binding_policy": "All preflight run/clock/receive/line/hash identities identify evidence only. Never copy them as main-run relationships or alignment links; relationships remains empty. Future role resolution or correspondence requires actual exact input/output-bound evidence under a separately frozen method."
+}

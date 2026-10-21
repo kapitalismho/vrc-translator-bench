@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "kind": "bounded_read_only_startup_research_not_runtime_admission",
+  "scope": "D1/D3 preparation under owner instruction to leave PuriPuly alone during intended VRChat use",
+  "KIKI1_KIKI2": {
+    "version": "2.0.2",
+    "source_revision": "175fb87f95d7b6592965fe3f099883ee2f830316",
+    "source_path": "KikitanTranslator.Photino/UserInterface/src/pages/Kikitan.tsx",
+    "startup": "Dashboard mount calls controlKikitan(true); GUI launch is not capture-inactive preparation.",
+    "stored_microphone": "CABLE Output(VB-Audio Virtual Cable)",
+    "fallback": "Capture/Microphone.cs can clear a failed explicit input and retry the system default. Manager.cs can replace a disappeared selected device with default and restart capture.",
+    "boundary": "No kikitan launch in this resumed pass. A saved Cable name alone does not exclude private-input fallback while owner uses a personal microphone. Do not alter system default input or disable owner devices without authorization. Establish safe input conditions before actual startup, then observe the real GUI route and output; no source modification or native-control bypass."
+  },
+  "VRCLT1_VRCLT2": {
+    "version": "1.0.1",
+    "source_revision": "d97574fd451f1e5af8d0c68bd13c488fab54eaae",
+    "normal_frozen_executable_config": "%LOCALAPPDATA%/vrclt/config.yaml",
+    "override": "Nonempty VRCLT_CONFIG takes precedence; no override was present in inspected Eval or persisted user/machine environment. Explorer's actual environment block was not inspected.",
+    "ownership_correction": "%APPDATA%/vrchat-livetranslate/config.yaml is not this pinned executable's normal config. Its different schema is not a demonstrated blocker and was not modified.",
+    "stored_safe_route": {"microphone": "CABLE Output(VB-Audio Virtual Cable)", "passthrough_output": "Realtek Digital Output(Realtek USB Audio)", "text_only": true, "voice_output": false, "inbound": false, "control": false, "osc": "127.0.0.1:19131", "direction": "en to ja"},
+    "startup": "GUI starts runtime. Translation OFF is not microphone stop; text-only can retain raw passthrough. Current normal config has dashboard translation ON.",
+    "boundary": "No launch in this resumed pass. Confirm intended default-config ownership, explicit Cable/non-injection output and actual GUI state before startup/playback. Do not use Find my mic or Auto setup to alter owner routing."
+  },
+  "VRCLS1": {
+    "version": "0.7.0-20260913 / 0.7.0.1015",
+    "normal_config": "%APPDATA%/VRCLS/config.json",
+    "file_present": true,
+    "stored_intent": {"autoStartMic": false, "autoStartDesktop": false, "controlAutoStart": false, "controlEnabled": false, "micName": "CABLE Output(VB-Audio Virtual Cable)", "recognitionMode": "remote", "source": "en", "target": "ja", "osc": "127.0.0.1:19141", "TTSToggle": 0, "ttsMicPassthroughEnabled": false, "enableOscServer": false},
+    "boundary": "No missing-config blocker and no launch in this pass. Stored autostart OFF does not prove all hardware/provider startup activity absent. Token validity and audio-to-OSC output remain unverified."
+  },
+  "limits": ["No credential, project ID, account identity or full settings file is included.", "These observations do not establish access, output, no-VRChat runtime dependence or primary measurement eligibility.", "Normal stored settings may subsequently change through owner use; fresh GUI admission is required."]
+}

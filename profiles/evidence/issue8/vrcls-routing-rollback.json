@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "kind": "owner_authorized_three_field_rollback_not_safe_routing_fix",
+  "recorded_date_local": "2026-10-22",
+  "completed_at_utc": "2026-10-21T20:36:25.925324+00:00",
+  "authority": "Owner authorized restoring ONLY the three unsuccessful directed config edits if their current values still matched this worker's edits. Preserve all other current bytes, normal GUI/auth-refresh/user changes; never restore the whole old backup or old tokens. No further VRCLS launch/audio/provider calls.",
+  "config": "%APPDATA%/VRCLS/config.json",
+  "result": "All three fields still matched the worker-owned values. Rolled back exactly those three fields with surgical edit; no skipped/user-changed field and no whole-config restore.",
+  "process_absence_precondition": {
+    "observed_at_utc": "2026-10-21T20:35:57.608439+00:00",
+    "method": "Read-only Win32_Process query for process names matching *VRCLS* before reading/editing the fields",
+    "query_exit_code": 0,
+    "matching_processes": [],
+    "new_user_owned_instance_observed": false,
+    "processes_launched_or_terminated": false,
+    "proof": ".data/issue8/competitor-preflights/vrcls/rollback-20261021T203557Z/process-absence-proof.json",
+    "proof_sha256": "8c474d2ddb2a02692d56d282a1459796fd3d3e730179456e7dd00f0bb710769d",
+    "boundary": "Timestamped passive absence observation, not an indefinite guarantee about later user launches. No process was touched or killed."
+  },
+  "current_value_ownership_checked": {
+    "desktopAudioSourceMode": 0,
+    "gameMicName": "CABLE Input (VB-Audio Virtual Cable)",
+    "micName": "CABLE Output (VB-Audio Virtual Cable)",
+    "all_three_still_worker_owned": true,
+    "user_changed_fields_left_untouched": [],
+    "safe_displayed_edit_lines": [21, 1226, 1229]
+  },
+  "exact_rollback_delta": [
+    {"key":"desktopAudioSourceMode","old":0,"new":1},
+    {"key":"gameMicName","old":"CABLE Input (VB-Audio Virtual Cable)","new":"default"},
+    {"key":"micName","old":"CABLE Output (VB-Audio Virtual Cable)","new":"CABLE Output(VB-Audio Virtual Cable)"}
+  ],
+  "byte_preservation_proof": {
+    "before_current_config_sha256": "2f1cc15466cc674a87d971803875ccd8604d92f1fb78c3d99409e464d47c69e7",
+    "after_rollback_config_sha256": "711886b35a7ffd2e19d83d6ebf8896101775552e1358c16aa7bfbfe4db564583",
+    "comparison": "After bytes exactly equal the fresh before-current bytes with only the three authorized inverse literal replacements, each occurring once.",
+    "exact_three_replacements": true,
+    "all_other_CURRENT_bytes_preserved": true,
+    "all_other_auth_refresh_normal_GUI_and_user_state_bytes_preserved": true,
+    "before_bytes": 36159,
+    "after_bytes": 36129,
+    "before_CRLF_count": 1653,
+    "after_CRLF_count": 1653,
+    "whole_backup_restored": false,
+    "original_prelaunch_config_sha256_for_distinction": "3401b0edf98074febe6cd85ee2cf3aae33232b7f42432e7be444c04ec1d3598e",
+    "after_equals_original_prelaunch_backup": false,
+    "meaning": "The differing whole-file hash is expected: only the owned routing fields were reverted, not current unrelated state/tokens.",
+    "proof": ".data/issue8/competitor-preflights/vrcls/rollback-20261021T203557Z/byte-preservation-proof.json",
+    "proof_sha256": "8dd0ea593b4fb2b634dcab98bd0032a28b423f67bbc08b567062f22e34dcf1b3"
+  },
+  "private_retention": {
+    "root": ".data/issue8/competitor-preflights/vrcls/rollback-20261021T203557Z",
+    "fresh_before_and_after_config_bytes_retained": true,
+    "raw_config_or_credentials_publicly_exported": false,
+    "prior_original_backups_logs_screenshots_captures_manifests_untouched": true
+  },
+  "unchanged_incident_dispositions": {
+    "D1": "operational-invalid effective-route fallback/source binding unverified despite CLI0; never a translation preflight pass",
+    "D3": "blocked before launch for actual installed-routing prerequisite",
+    "prior_records_preserved_without_rewrite": ["vrcls-current-preflights.json", "vrcls-startup-routing-amendment.json"],
+    "rollback_is_safe_routing_fix_or_admission": false,
+    "rollback_boundary": "Restores only the three worker-directed fields to their original values. Does not establish safe capture, resolve the installed resolver discrepancy, authorize startup or admit VRCLS to measurement."
+  },
+  "operations_and_handoff": {
+    "VRCLS_launch_audio_or_provider_calls": false,
+    "ordinary_spelling_retry_or_other_config_route_changes": false,
+    "OS_VRChat_PuriPuly_or_other_app_changes": false,
+    "whole_backup_or_old_token_restore": false,
+    "prior_runtime_capture_or_evidence_rewrite": false,
+    "repository_source_docs_catalog_Git_or_rulefile_changes": false,
+    "checks": "Only requested passive process query and exact byte-delta/hash proof. No repository tests/build/lint or application verification launch.",
+    "computer_closed": false,
+    "desktop_authority": "Sole native desktop ownership retained; session kept open for next Director-authorized other-app main preparation.",
+    "further_VRCLS_launch": "Not authorized; keep closed. Director retains batch-freeze/integration authority with VRCLS blocked."
+  }
+}

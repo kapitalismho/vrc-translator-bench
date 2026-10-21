@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "authority": ["Owner: 퓨리퓰리 제외하고 일단 진행해줘 웨이브는 네가 적절히 변경해줘", "After explicit measurement-condition clarification, owner: 나 브챗할거니깐 그냥 측정해줘. cpu 로컬 매우 가벼우니깐 별 상관 없어"],
+  "scope": "Current D1 English-to-Japanese and D3 Chinese-to-Korean execution; cumulative issue8 remains open",
+  "decision": "Measure ten competitor configurations while owner uses VRChat. Exclude PP1-PP4 from this execution, leave PuriPuly and owner VRChat untouched, and preserve concurrent-within-wave operation among remaining profiles.",
+  "waves": {"W1": ["KIKI2", "VRCLT1", "VRCT3"], "W2": ["VRCT1", "VRCS2", "KIKI1"], "W3": ["VRCT2", "VRCLT2"], "W4": ["VRCS1", "VRCLS1"]},
+  "wave_choice": "Director removes only the four PuriPuly members from the original waves; remaining simultaneous membership and wave order stay unchanged. No single-profile sequential replacement.",
+  "direction_order_per_wave": ["D1", "D3"],
+  "puripuly": {"PP1": "owner_excluded_this_execution_pending", "PP2": "owner_excluded_this_execution_pending", "PP3": "owner_excluded_this_execution_pending", "PP4": "owner_excluded_this_execution_pending", "PP3_alone_observation": "pending_with_PP3_not_performed_or_waived_as_complete"},
+  "runtime_condition": {"VRChat": "owner_authorized_concurrent_use", "user_activity": "not_isolated", "local_inference": "CPU remains required", "interpretation": "Light CPU workload is the owner's rationale, not evidence of negligible interference. Do not quantify or dismiss interference without observations, and do not add a load/time-of-day campaign."},
+  "provenance": "Record actual app/OS observation times, clock sessions, versions, run identities and this condition in executable plans and reports. Retain original captures. Do not pool this condition with no-VRChat runs or silently present later PP measurements as simultaneous peers.",
+  "unchanged": ["No PuriPuly application or repository manipulation", "Actual GUI preparation/control and fresh audio-to-OSC checks", "Exact D1/D3 inputs and preselected common examples", "First-attempt product failures and retained operational-invalid evidence", "Isolated response, output-dependent quiet/nonspeech and D1 repeat obligations for participating profiles", "Shared/unverified quota amendment", "Post-timed-wave judging and exact supplementary shortfalls", "No unqualified fourteen-profile or six-direction completion claim"],
+  "supersedes": ["first-batch-scope.json and observation-order.json original PP-containing wave membership for this execution only", "owner-use-preparation-order.json restriction against primary measurement with VRChat present", "Prior no-VRChat primary-admission prerequisite for this execution only"],
+  "later_directions": {"D2": "not_yet_measured", "D4": "not_yet_measured", "D5": "not_yet_measured", "D6": "not_yet_measured"},
+  "protocol_frozen": false,
+  "main_measurement_started": false
+}

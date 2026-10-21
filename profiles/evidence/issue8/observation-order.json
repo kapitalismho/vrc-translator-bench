@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "scope": "D1/D3 first batch only",
+  "authority": "Director pre-result operating choices under issue8; original wave membership and D1-then-D3 selection unchanged.",
+  "protocol_frozen": false,
+  "main_measurement_started": false,
+  "waves": {"W1": ["PP4", "KIKI2", "VRCLT1", "VRCT3"], "W2": ["VRCT1", "PP1", "VRCS2", "KIKI1"], "W3": ["VRCT2", "VRCLT2", "PP2"], "W4": ["VRCS1", "PP3", "VRCLS1"]},
+  "direction_order_per_wave": ["D1", "D3"],
+  "direction_sequence": ["GUI preparation and fresh state observation", "source-matched ten-second development output check plus15-second observation tail", "1800-second main input in ordered resume chunks", "twenty isolated-response clips immediately following the main observation window, without language changes", "continuous output-dependent quiet gate", "180-second nonspeech/background track", "D1 only: two additional fixed300-second repeats"],
+  "main": {"D1_resume_seconds": [300,300,300,300,300,300], "D3_resume_seconds": [200,200,200,200,200,200,200,200,200], "intermediate_chunk_tail_seconds": 0, "last_chunk_tail_seconds": 15, "rationale": "Keep exact source separators and do not insert a15-second silence after every resume unit. Actual callback/start clocks retain transition overhead; no claim of perfectly gapless device scheduling. Preserve following-stage raw output for cross-boundary attribution under existing metrics rules."},
+  "isolated": {"clips_per_direction": 20, "order": "existing numbered input order", "tail_seconds_each": 10, "rationale": "Preserve immediate same-configuration isolated-response testing and its existing utterance-end-plus10-second window before the post-direction quiet/nonspeech diagnostic."},
+  "nonspeech": {"quiet_seconds": 15, "quiet_max_wait_seconds": 120, "duration_seconds": 180, "tail_seconds": 15, "intervals_seconds": [[0,120],[120,180]], "timeout": "Retain delayed carryover separately and play the complete requested track with contaminated/unknown clean attribution, not a fabricated clean count or product failure."},
+  "D1_repeats": {"additional_count": 2, "input": ".data/english/audio/repeat.wav", "duration_seconds_each": 300, "tail_seconds_each": 15, "primary_first_observation": "same first300-second input subset within main D1", "denominator": "supplementary, separate from main"},
+  "PP3_alone": {"position": "after W3 and before W4", "direction": "D1", "input": ".data/english/audio/repeat.wav", "duration_seconds": 300, "tail_seconds": 15, "comparison": "PP3 same fixed subset in W4, contextualized with small D1 repeat variation; descriptive only"},
+  "capture_continuity": "One shared playback and one concurrent profile set per wave/direction plan. Do not restart applications at ordinary chunk/isolated/repeat/nonspeech boundaries. Separate D1 and D3 plans use source-specific output checks; their final cleanup and fresh GUI direction preparation are explicit direction-boundary stops, not serialized within-wave replacements.",
+  "remaining_admission": "Complete applicable fresh actual-GUI profile access/output observations, retain unavailable-profile explanations, integrate final rules/prompts/evidence/common examples, and freeze one repository revision before first main measurement. This record alone is not a runnable plan or freeze."
+}

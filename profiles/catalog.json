@@ -5,20 +5,29 @@
   "status": "empirical_preparation_in_progress_not_frozen",
   "installed_app_evidence": "evidence/installed-apps.json",
   "gui_preparation_evidence": "evidence/gui-preparation.json",
-  "owner_update": "Owner reports PuriPuly updated and removes the PP1-PP4 execution deferral. Accept the update report without inferring the updated version number; PP observed.version2.8.2 and linked control evidence are historical pre-update observations, not the current build identity or capability. Restore PP preparation under the existing actual-GUI, access, routing and audio-to-OSC evidence protocol; this request does not ask for an app launch now or establish readiness. Original W1-W4 concurrent-within-wave membership remains unchanged; unresolved readiness/isolation conditions are blockers, not authority to serialize or redesign the comparison. Approved mixed26B/31B PP1 and paid VRCS2 routes remain unchanged; no paid fallback or model substitution is authorized.",
+  "owner_update": "PuriPuly2.9.0 identity and actual PP4 D1/D3 translated-OSC preflights are retained, not current personal-setting guarantees. No bounded no-VRChat admission record was retained for those preflights, so PP4 remains blocked for readiness despite successful output checks. The latest owner authority excludes PP1-PP4 from this execution and authorizes the ten-competitor batch wave amendment; the fourteen-profile cumulative matrix and original W1-W4 membership below remain historical comparison design. PuriPuly manipulation stays suspended; PP3 standalone observation is pending, not performed. Approved mixed26B/31B PP1 and paid VRCS2 routes remain unchanged; no paid fallback or model substitution.",
+  "first_batch_preparation_evidence": [
+    "evidence/issue8/pp4-preflight.json",
+    "evidence/issue8/vrct-preparation.json",
+    "evidence/issue8/vrcs-preparation.json",
+    "evidence/issue8/owner-use-preparation-order.json"
+  ],
+  "first_batch_wave_amendment": "evidence/issue8/non-puripuly-batch-amendment.json",
+  "first_batch_quota_amendment": "evidence/issue8/quota-isolation-amendment.json",
+  "first_batch_supplementary_amendment": "evidence/issue8/supplementary-scope-amendment.json",
   "profiles": [
     {
       "id": "PP1",
       "application": "PuriPuly",
       "finding": "blocked",
-      "reason": "Updated-build runtime, access and audio-to-OSC evidence are unobserved. The owner reports PuriPuly updated; observed.version2.8.2 is historical pre-update identity, not the current build. The approved mixed26B/31B OpenRouter route still requires effective route/provider and Gemini ASR access observations under the existing GUI protocol; no PP1 readiness claim.",
+      "reason": "Historical2.9.0 GUI/build observations do not establish PP1 Gemini ASR access, effective mixed26B/31B OpenRouter provider execution or an audio-to-OSC pilot. Historical2.8.2 control evidence remains separate. Latest owner authority excludes PP1 from this execution and suspends PuriPuly manipulation; no product-failure or readiness claim.",
       "planned": {
         "translation": "Gemma 4 26B / OpenRouter",
         "asr": "Gemini 3.5 Transcribe",
         "access": "Paid"
       },
       "observed": {
-        "version": "2.8.2",
+        "version": "2.9.0",
         "asr": null,
         "translation": null,
         "provider_route": null,
@@ -66,7 +75,9 @@
       },
       "procedure": "../docs/profiles/puripuly.md",
       "evidence": [
-        "evidence/puripuly-control.json"
+        "evidence/puripuly-control.json",
+        "evidence/issue8/pp4-preflight.json",
+        "evidence/issue8/owner-use-preparation-order.json"
       ],
       "osc_example": null
     },
@@ -74,14 +85,14 @@
       "id": "PP2",
       "application": "PuriPuly",
       "finding": "blocked",
-      "reason": "Updated-build runtime, access and audio-to-OSC evidence are unobserved. The owner reports PuriPuly updated; observed.version2.8.2 is historical pre-update identity, not the current build. Existing auth, Luna entitlement/limits and Gemini access still require observation under the existing GUI protocol; no paid API fallback, unsupported or product-failure finding.",
+      "reason": "Historical2.9.0 GUI/build observations do not establish PP2 Luna entitlement/limits, Gemini ASR access or an audio-to-OSC pilot. Latest owner authority excludes PP2 from this execution and suspends PuriPuly manipulation. No paid API fallback, unsupported or product-failure finding.",
       "planned": {
         "translation": "GPT 6 Luna / Sign in with ChatGPT",
         "asr": "Gemini 3.5 Transcribe",
         "access": "Subscription + ASR usage"
       },
       "observed": {
-        "version": "2.8.2",
+        "version": "2.9.0",
         "asr": null,
         "translation": null,
         "provider_route": null,
@@ -129,7 +140,9 @@
       },
       "procedure": "../docs/profiles/puripuly.md",
       "evidence": [
-        "evidence/puripuly-control.json"
+        "evidence/puripuly-control.json",
+        "evidence/issue8/pp4-preflight.json",
+        "evidence/issue8/owner-use-preparation-order.json"
       ],
       "osc_example": null
     },
@@ -137,14 +150,14 @@
       "id": "PP3",
       "application": "PuriPuly",
       "finding": "blocked",
-      "reason": "Updated-build runtime, access and audio-to-OSC evidence are unobserved. The owner reports PuriPuly updated; observed.version2.8.2 is historical pre-update identity, not evidence of current Index availability. Effective Index capability/access and Gemini ASR access still require observation under the existing GUI protocol; no PP3 readiness claim.",
+      "reason": "Historical2.9.0 GUI/build observations and PP4 Index output do not establish PP3 Gemini ASR access/provider execution or an audio-to-OSC pilot. Historical2.8.2 missing-choice evidence is not a current-build limitation. Latest owner authority excludes PP3 from this execution; standalone PP3 observation remains pending, not performed. PuriPuly manipulation stays suspended.",
       "planned": {
         "translation": "Index Translator",
         "asr": "Gemini 3.5 Transcribe",
         "access": "Free as planned; ASR tier unverified"
       },
       "observed": {
-        "version": "2.8.2",
+        "version": "2.9.0",
         "asr": null,
         "translation": null,
         "provider_route": null,
@@ -192,7 +205,9 @@
       },
       "procedure": "../docs/profiles/puripuly.md",
       "evidence": [
-        "evidence/puripuly-control.json"
+        "evidence/puripuly-control.json",
+        "evidence/issue8/pp4-preflight.json",
+        "evidence/issue8/owner-use-preparation-order.json"
       ],
       "osc_example": null
     },
@@ -200,64 +215,66 @@
       "id": "PP4",
       "application": "PuriPuly",
       "finding": "blocked",
-      "reason": "Updated-build runtime, access and audio-to-OSC evidence are unobserved. The owner reports PuriPuly updated; observed.version2.8.2 is historical pre-update identity, not evidence of current Index availability. Effective Index capability/access and CPU ASR asset loading/inference still require observation under the existing GUI protocol; no PP4 readiness claim.",
+      "reason": "Actual2.9.0 GUI CPUauto plus Index official-API D1/D3 ten-second checks each completed4stages,0product_failure,0invalid and delivered2translated-target-language OSC inputs; one-second silent lifecycle only. D1 parakeet/D3 qwen runtime corroboration is retained. Required bounded no-VRChat admission evidence is unknown, so successful output checks do not satisfy ready admission. Latest owner authority excludes PP4 from this execution; no current personal-setting, semantics, cost or30minute claim. Fresh permitted admission is required on resume.",
       "planned": {
         "translation": "Index Translator",
         "asr": "CPU-auto-selected local ASR",
         "access": "Free"
       },
       "observed": {
-        "version": "2.8.2",
-        "asr": null,
-        "translation": null,
-        "provider_route": null,
-        "state_evidence": null
+        "version": "2.9.0",
+        "asr": "local_cpu_auto; D1 parakeet-tdt-0.6b-v3-int8-sherpa; D3 qwen3-asr-0.6b-int8-sherpa",
+        "translation": "index_translate_35b",
+        "provider_route": "Actual GUI Index-Translate35B A3B / public_api; retained public read-only CLI CPUauto corroboration; returned model/upstream unknown",
+        "state_evidence": "evidence/issue8/pp4-preflight.json"
       },
       "directions": {
-        "D1": "unverified",
+        "D1": "verified",
         "D2": "unverified",
-        "D3": "unverified",
+        "D3": "verified",
         "D4": "unverified",
         "D5": "unverified",
         "D6": "unverified"
       },
       "cpu_local": "asr",
       "control": {
-        "method": "public_cli",
+        "method": "actual_visible_gui_with_evidence_backed_manual_runner_bridge",
         "timed_gui_activity": false,
-        "adapter": null
+        "adapter": "bench.gui_operator_adapter; historical manual GUI observations plus read-only CLI corroboration, not continuous state truth; fresh owner-permitted admission required"
       },
       "microphone": {
-        "requested": "CABLE Output (select exact WASAPI device name)",
-        "verified": false
+        "requested": "CABLE Output(VB-Audio Virtual Cable), Windows WASAPI (Compatibility Mode)",
+        "verified": true
       },
       "osc": {
         "host": "127.0.0.1",
         "send_port": 19104,
         "receive_port": 19204,
-        "assignment": "requested_not_profile_verified",
-        "oscquery_or_mute_signal": "none supplied; dependency must be observed"
+        "assignment": "observed_actual_udp_destination_19104_in_D1_D3_checks_and_GUI_receive_port19204",
+        "oscquery_or_mute_signal": "No supplied emulation recorded; bounded VRChat process absence during these historical checks is unknown"
       },
       "tts": {
-        "required": "off injection route",
-        "verified_off_injection": false
+        "required": "Historical GUI microphone-to-text/OSC only; LISTEN/CAPTIONS inactive, no TTS enabled",
+        "verified_off_injection": true
       },
       "updates": {
-        "policy": "Disable where supported; otherwise record app version/executable hash at preparation, resume and end",
-        "verified": false
+        "policy": "Historical GUI version2.9.0 and executable SHA-256 retained; no auto-update toggle established; fresh version/hash required on permitted resume",
+        "verified": true
       },
       "access": {
-        "tier": "Free",
+        "tier": "unknown; planned Free is not measured billing evidence",
         "actual_limits": null,
         "key_aliases": [],
         "exclusive_quota_scope": "index-public-ip",
-        "details": "See linked application procedure for source-backed keys/projects, provider identity/export and unverified access findings"
+        "details": "Index official-API GUI route and translated OSC observed; returned model/upstream, numeric public-IP limits, usage and cost unknown. Missing cost is not zero."
       },
       "procedure": "../docs/profiles/puripuly.md",
       "evidence": [
-        "evidence/puripuly-control.json"
+        "evidence/puripuly-control.json",
+        "evidence/issue8/pp4-preflight.json",
+        "evidence/issue8/owner-use-preparation-order.json"
       ],
-      "osc_example": null
+      "osc_example": {"kind": "audio_to_osc", "no_vrchat": null, "path": "evidence/issue8/pp4-preflight.json", "raw_safe_derivatives": ["evidence/issue8/pp4-d1-preflight/manifest.json", "evidence/issue8/pp4-d3-preflight/manifest.json"], "limits": "Two translated-target-language inputs per ten-second check; no retained bounded no-VRChat admission record. One-second silent lifecycle is not full nonspeech certification; no semantics, cost,30minute or current-state claim."}
     },
     {
       "id": "VRCT1",
@@ -328,7 +345,7 @@
       "id": "VRCT2",
       "application": "VRCT",
       "finding": "blocked",
-      "reason": "Current GUI-only execution prerequisite: Director window visibility/control unavailable and renewed approval timed out; no new audio. VRCT1 remains last observed capture OFF, not fully quit. VRCT2 still needs fresh Google translation/Whisper base CPU selection, port19112 and actual output; this pause is not a product failure.",
+      "reason": "Actual3.6.0 GUI selected Whisper base CPU int8 plus Google web translation, port19112 and D3 then D1 while stopped; no audio/output check. Configuration-only evidence does not prove model/provider execution. Foreground interference suspended GUI preparation. Window-closing attempt did not establish process exit; cleanup/admission remain pending, not product failure.",
       "planned": {
         "translation": "Google Translate",
         "asr": "Whisper base",
@@ -336,10 +353,10 @@
       },
       "observed": {
         "version": "3.6.0",
-        "asr": null,
-        "translation": null,
-        "provider_route": null,
-        "state_evidence": null
+        "asr": "Whisper base, CPU, int8 selected in actual GUI; inference not exercised",
+        "translation": "Google web selected in actual GUI; request not exercised",
+        "provider_route": "Configuration only; actual provider execution/access unknown",
+        "state_evidence": "evidence/issue8/vrct-preparation.json"
       },
       "directions": {
         "D1": "unverified",
@@ -351,19 +368,19 @@
       },
       "cpu_local": "asr",
       "control": {
-        "method": "configuration_or_documented_manual",
+        "method": "actual_visible_gui_configuration_only",
         "timed_gui_activity": false,
         "adapter": null
       },
       "microphone": {
-        "requested": "CABLE Output (select exact WASAPI device name)",
+        "requested": "CABLE Output(VB-Audio Virtual Cable), Windows WASAPI; GUI selection only, no audio check",
         "verified": false
       },
       "osc": {
         "host": "127.0.0.1",
         "send_port": 19112,
         "receive_port": null,
-        "assignment": "requested_not_profile_verified",
+        "assignment": "observed_saved_GUI_port19112_not_runtime_delivery_verified",
         "oscquery_or_mute_signal": "none supplied; dependency must be observed"
       },
       "tts": {
@@ -385,7 +402,9 @@
       "evidence": [
         "findings/vrct-vrcs.json",
         "evidence/installed-apps.json",
-        "evidence/issue45/gui-execution-prerequisite.json"
+        "evidence/issue45/gui-execution-prerequisite.json",
+        "evidence/issue8/vrct-preparation.json",
+        "evidence/issue8/owner-use-preparation-order.json"
       ],
       "osc_example": null
     },
@@ -393,7 +412,7 @@
       "id": "VRCT3",
       "application": "VRCT",
       "finding": "blocked",
-      "reason": "Current GUI-only execution prerequisite: Director window visibility/control unavailable and renewed approval timed out; no new audio. VRCT1 remains last observed capture OFF, not fully quit. VRCT3 still needs fresh route selection/port19113 and actual output; key validity/isolation remain unknown. This pause is not a product failure.",
+      "reason": "Actual3.6.0 GUI selected Google ASR plus exact requested OpenRouter google/gemma-4-26b-a4b-it, port19113 and D1 then D3 while stopped; then replaced by VRCT2. No audio/output check or provider-access proof. Foreground interference suspended GUI preparation. Window-closing attempt did not establish process exit; cleanup/admission remain pending, not product failure.",
       "planned": {
         "translation": "Gemma 4 26B / OpenRouter",
         "asr": "Google Web Speech",
@@ -401,10 +420,10 @@
       },
       "observed": {
         "version": "3.6.0",
-        "asr": null,
-        "translation": null,
-        "provider_route": null,
-        "state_evidence": null
+        "asr": "Google selected in actual GUI; recognition not exercised",
+        "translation": "Requested google/gemma-4-26b-a4b-it selected in actual GUI; request not exercised",
+        "provider_route": "OpenRouter_API configuration only; actual returned model/upstream/access unknown",
+        "state_evidence": "evidence/issue8/vrct-preparation.json"
       },
       "directions": {
         "D1": "unverified",
@@ -416,19 +435,19 @@
       },
       "cpu_local": null,
       "control": {
-        "method": "configuration_or_documented_manual",
+        "method": "actual_visible_gui_configuration_only",
         "timed_gui_activity": false,
         "adapter": null
       },
       "microphone": {
-        "requested": "CABLE Output (select exact WASAPI device name)",
+        "requested": "CABLE Output(VB-Audio Virtual Cable), Windows WASAPI; GUI selection only, no audio check",
         "verified": false
       },
       "osc": {
         "host": "127.0.0.1",
         "send_port": 19113,
         "receive_port": null,
-        "assignment": "requested_not_profile_verified",
+        "assignment": "observed_saved_GUI_port19113_not_runtime_delivery_verified",
         "oscquery_or_mute_signal": "none supplied; dependency must be observed"
       },
       "tts": {
@@ -450,7 +469,9 @@
       "evidence": [
         "findings/vrct-vrcs.json",
         "evidence/installed-apps.json",
-        "evidence/issue45/gui-execution-prerequisite.json"
+        "evidence/issue45/gui-execution-prerequisite.json",
+        "evidence/issue8/vrct-preparation.json",
+        "evidence/issue8/owner-use-preparation-order.json"
       ],
       "osc_example": null
     },
@@ -458,7 +479,7 @@
       "id": "VRCS1",
       "application": "VRCS",
       "finding": "ready",
-      "reason": "Actual installed0.2.8 GUI downloaded/selected Qwen3-ASR0.6BQ8_0 CPU; observed owned llama-server CPU-only flags and real English development audio produced Japanese OSC without VRChat. D1 short readiness only, not exhaustive language/quality certification. Actual GUI stop/quit plus independent app/runtime/port exit verified.",
+      "reason": "Historical0.2.8 D1 real-audio Japanese OSC and independent CPU-only llama-server flags retain bounded readiness; historical full exit was verified. Later issue8 GUI-only preparation selected Cable/QwenQ8 CPU/requested Gemma26B Japanese. An unexpected Stop indicator was stopped immediately; then Model not_loaded. No zero-prestop-capture/usage claim, new output check or D3 selection. Foreground interference suspended GUI preparation; fresh admission/cleanup required.",
       "planned": {
         "translation": "Gemma 4 26B / OpenRouter",
         "asr": "Qwen3-ASR 0.6B",
@@ -516,7 +537,9 @@
         "findings/vrct-vrcs.json",
         "evidence/installed-apps.json",
         "evidence/issue45/vrcs1-d1-observation.json",
-        "evidence/issue45/vrcs1-cpu-runtime.json"
+        "evidence/issue45/vrcs1-cpu-runtime.json",
+        "evidence/issue8/vrcs-preparation.json",
+        "evidence/issue8/owner-use-preparation-order.json"
       ],
       "osc_example": {"kind": "audio_to_osc", "no_vrchat": true, "path": "evidence/issue45/vrcs1-d1-observation.json", "raw_safe_derivative": "evidence/issue45/vrcs1-gui-initial/manifest.json", "limits": "Bilingual current-result packets and one bounded source-only to translated update; source truncation observed, no actual page chain or universal final/revision IDs."}
     },
@@ -918,7 +941,7 @@
     }
   ],
   "wave_history_evidence": "evidence/issue45/sequential-wave-decision.json",
-  "selected_wave_policy": "Original W1-W4 membership restored by owner withdrawal of unreported S01-S10 serialization. Profiles within a wave are intended to run concurrently; waves run separately. This is the unfrozen comparison plan, not execution admission. The owner-reported PuriPuly update removes the PP1-PP4 execution deferral and restores preparation under the existing protocol; updated-build runtime/access/audio evidence, readiness, account/project isolation and cleanup gaps remain explicit blockers. No scheduling redesign without reporting the consequence and obtaining owner agreement.",
+  "selected_wave_policy": "Cumulative original W1-W4 membership below is preserved. For this D1/D3 execution only, latest owner authority excludes PP1-PP4 and authorizes the linked non-puripuly-batch-amendment: W1 KIKI2/VRCLT1/VRCT3; W2 VRCT1/VRCS2/KIKI1; W3 VRCT2/VRCLT2; W4 VRCS1/VRCLS1. Profiles remain concurrent within each batch wave, D1 then D3. The linked quota amendment permits shared/unverified quotas only for this batch, not a quota-isolation claim. No freeze or primary measurements yet; runtime/admission/cleanup prerequisites remain.",
   "waves": [
     {"id": "W1", "profiles": ["PP4", "KIKI2", "VRCLT1", "VRCT3"], "execution": "blocked_pending_preflight"},
     {"id": "W2", "profiles": ["VRCT1", "PP1", "VRCS2", "KIKI1"], "execution": "blocked_pending_preflight"},
@@ -926,9 +949,9 @@
     {"id": "W4", "profiles": ["VRCS1", "PP3", "VRCLS1"], "execution": "blocked_pending_preflight"}
   ],
   "limitations": [
-    "Readiness is evidence-specific and bounded: observed profiles/directions are recorded individually, not an exhaustive fourteen-profile language matrix certification. PP1-PP4 preparation is restored after the owner-reported update, but updated-build runtime/access/audio evidence remains unobserved. Their version2.8.2 observations are historical; the updated version number and readiness are not claimed. Removing deferral does not request an app launch now or relax the existing GUI, CPU, quota, routing, cleanup and readiness guards.",
-    "The unreported S01-S10 sequential replacement is withdrawn by the owner. Original W1-W4 concurrent-within-wave membership is restored, not certified ready or frozen. Earlier serial pilots remain historical observations, not equivalent simultaneous pair measurements.",
-    "Unverified account/project independence is a missing fact, not proof that the original four-wave plan is impossible. Report concrete blockers and obtain owner agreement before changing comparison scheduling. Confirm leaving-wave capture/inference/process cleanup; no ordinary chunk-boundary restarts.",
+    "Readiness is historical and evidence-specific, not current personal-setting certification. PP4 retains actual2.9.0 D1/D3 output checks but remains blocked because bounded no-VRChat admission evidence is unknown. PP1/2/3 GUI/version history proves no provider pilot. Latest owner authority excludes PP1-PP4 from this execution without deleting them from the cumulative fourteen-profile/six-direction matrix.",
+    "The original W1-W4 comparison design remains recorded. The latest owner-authorized ten-competitor D1/D3 batch override is linked separately, retains within-wave concurrency and does not claim simultaneous observations already exist. PP3 standalone observation is pending, not performed.",
+    "For this D1/D3 batch only, the linked quota-isolation-amendment permits shared/unverified quotas; report contention, first failures and quota-stopped work without claiming independence or changing keys/tiers/routes. Other runtime/CPU/routing/cleanup requirements remain; no ordinary chunk-boundary restarts.",
     "OSC port assignments are requested settings until observed on each app; dynamic receive/control ports require actual effective-state inspection. UDP availability is instantaneous, not reservation.",
     "No actual VRChat process, speculative OSCQuery or fake mute signaling is supplied. Block any discovered process requirement.",
     "Actual visible GUI controls supply fresh PID/profile/session-bound manual observations before/after capture; the runner bridge reports that limitation and independent process liveness, not requested-state echoes or continuous effective-state API truth.",

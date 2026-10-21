@@ -28,6 +28,32 @@ The regenerated reference uses the same pinned source/model payloads and actual 
 
 Keep prior results bound to their original reference hashes. New runs must record v2 and its current hashes; do not silently rescore old results against it. The original `.data` run ledgers, raw captures and canonical metric caches were not recovered. Committed public-safe pilot derivatives remain historical evidence, not resumable run directories. Local recovery reports and retained failed attempts are under `.data/english`, `.data/chinese` and `.data/japanese`.
 
+## First D1/D3 batch inputs
+
+Issue #8's [input assembly record](../profiles/evidence/issue8/input-assembly.json)
+identifies local resumable slices and the pre-result common-example selection.
+This is input preparation, not a protocol freeze, measured baseline or public
+dataset release.
+
+- D1: six 300-second slices of the unchanged 1,800-second main bundle.
+- D3: nine 200-second slices of the unchanged 1,800-second main bundle.
+- Streaming comparison of the persisted slices against each original bundle
+  confirmed byte-identical concatenated PCM and complete reference coverage.
+  All ten English and sixteen Chinese separator seconds remain. The English
+  1,500-second boundary divides a separator, not a lexical reference.
+- Original zero-width Chinese alignment estimates remain uncertain; their
+  durations are not invented to populate speech intervals.
+- Common examples are the whole pre-existing shortlisted components:
+  D1 `general-01`, `stress-01`, `stress-02`; D3 `zh-general-01`,
+  `zh-general-02`, `zh-stress-03`. Selection preceded main-result inspection;
+  source-specific attribution and redistribution terms still apply.
+
+The existing twenty isolated inputs per direction, D1 fixed five-minute repeat,
+three-minute nonspeech track, source-matched development checks and measured
+calibration remain separately identified. The [observation-order record](../profiles/evidence/issue8/observation-order.json)
+specifies their proposed execution order and observation tails; fresh application
+admission and the single pre-result freeze remain pending.
+
 ## Nonspeech/background track
 
 Run from the repository root with Python, NumPy and FFmpeg on PATH:

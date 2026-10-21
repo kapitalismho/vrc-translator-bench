@@ -1,0 +1,2 @@
+{"record": "attempt_start", "t_ns": 9120640908300, "wall": "2026-10-21T19:32:55.965337+00:00", "run": "kiki1-d3-20261021T192549Z", "config": "KIKI1", "stage": 1, "kind": "direction", "resumed": false, "clock_session": "abaf9b1f723e4e409e1dbd499ba5ffdb", "wave": "preflight-only", "direction": "D3", "chunk": "one-second-lifecycle-only", "attempt": 2}
+{"record": "attempt_end", "t_ns": 9120643452300, "wall": "2026-10-21T19:32:55.967796+00:00", "state": "done", "reason": null, "detail": {}}

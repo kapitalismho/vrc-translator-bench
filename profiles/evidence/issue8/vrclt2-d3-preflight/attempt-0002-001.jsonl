@@ -1,0 +1,2 @@
+{"record": "attempt_start", "t_ns": 10493140257800, "wall": "2026-10-21T19:55:48.464078+00:00", "run": "vrclt2-d3-20261021T195054Z", "config": "VRCLT2", "stage": 1, "kind": "direction", "resumed": false, "clock_session": "006e787e10da40a3a5f3c89db06ce2bc", "wave": "preflight-only", "direction": "D3", "chunk": "one-second-lifecycle-only", "attempt": 2}
+{"record": "attempt_end", "t_ns": 10493142835400, "wall": "2026-10-21T19:55:48.467099+00:00", "state": "done", "reason": null, "detail": {}}

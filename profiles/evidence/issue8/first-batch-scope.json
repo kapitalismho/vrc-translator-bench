@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "recorded_date": "2026-10-21",
+  "authority": "Owner instruction in the issue #8 execution conversation: perform only the first stage, two language pairs.",
+  "issue": "https://github.com/kapitalismho/vrc-translator-bench/issues/8",
+  "parent": "https://github.com/kapitalismho/vrc-translator-bench/issues/1",
+  "scope": "First dated D1/D3 batch only; cumulative issue #8 remains open.",
+  "selected_direction_order": ["D1", "D3"],
+  "order_basis": "Director premeasurement selection: D1 then D3 within each original wave, with the required isolated, nonspeech and repeat stages kept distinct.",
+  "waves": {
+    "W1": ["PP4", "KIKI2", "VRCLT1", "VRCT3"],
+    "W2": ["VRCT1", "PP1", "VRCS2", "KIKI1"],
+    "W3": ["VRCT2", "VRCLT2", "PP2"],
+    "W4": ["VRCS1", "PP3", "VRCLS1"]
+  },
+  "within_wave_execution": "concurrent; no single-profile sequential replacement",
+  "later_directions": {"D2": "not_yet_measured", "D4": "not_yet_measured", "D5": "not_yet_measured", "D6": "not_yet_measured"},
+  "supplementary_obligations": "Use eligible first-batch outputs for tone and Korean review; disclose exact shortfalls and D4 absence. Actual owner review is separate. No incompatible revision pooling.",
+  "puripuly": "All four profiles are in preparation scope after the owner-reported update; historical 2.8.2 evidence does not establish current readiness.",
+  "starting_revision": "1a5244a04d6a62e447a6ed888893f81a9eed9cf6",
+  "starting_worktree": "Clean before fast-forwarding to current origin/main and creating issue8-first-batch.",
+  "protocol_freeze": null,
+  "measurement_started": false,
+  "status": "scope_and_order_record_only_not_a_freeze_or_result_package"
+}

@@ -1,0 +1,953 @@
+{
+  "schema_version": 1,
+  "kind": "actual_normal_GUI_Kikitan_four_short_audio_to_translated_OSC_preflights",
+  "scope": "issue8-development-preflight-not-main-freeze",
+  "recorded_at_utc": "2026-10-21T19:42:31.376809+00:00",
+  "summary": {
+    "slots": 4,
+    "passed_short_preflights": 4,
+    "current_output_check_failures": 0,
+    "real_output_check_invocations": 4,
+    "nonempty_translated_chatbox_inputs": 7,
+    "output_check_source_frames_total": 1920000,
+    "silent_lifecycle_source_frames_total": 192000,
+    "silent_lifecycle_nonempty_chatbox_inputs": 0,
+    "main_measurement_performed": false,
+    "protocol_frozen": false
+  },
+  "actual_sequence": [
+    "KIKI1/D1",
+    "KIKI1/D3",
+    "KIKI2/D1",
+    "KIKI2/D3"
+  ],
+  "sequence_basis": "Actual saved cable-only route was KIKI1/D1 and normal dashboard autostarts recognition. Retained safe-first actual sequence before normal GUI provider change to KIKI2. One app process throughout.",
+  "computer": {
+    "enabled": true,
+    "configuration_source": "inherited session override",
+    "persisted_or_global_setting_changes": false,
+    "native_backend": "win32",
+    "capture_input_AX_permissions": "granted",
+    "native_GUI_control_only": true,
+    "control_acquire_prompt_used": false,
+    "session_closed_and_exclusive_desktop_relinquished": true
+  },
+  "application": {
+    "name": "Kikitan Translator",
+    "GUI_version": "2.0.2",
+    "FileVersion": "2.0.2.0",
+    "ProductVersion": "2.0.2+175fb87f95d7b6592965fe3f099883ee2f830316",
+    "executable": "%LOCALAPPDATA%/KikitanTranslator/current/KikitanTranslator.Photino.exe",
+    "sha256_before_and_after": "17270e64effb2ca38a9d6895c89ec6ca4009ef53a057d9c5cf60ac4de5069565",
+    "owned_GUI_pid": 6956,
+    "owned_parent_pid": 21556,
+    "owned_overlay_child_pid": 37368,
+    "owned_WebView_root_child_pid": 23744,
+    "native_window_id": "724446",
+    "full_owned_lineage": {
+      "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/owned-process-lineage-before-close.json",
+      "sha256": "03a15154c62a6b6b12b517f988aaa5c54f099500d12c2f16ee7e8a6737f8d120",
+      "bytes": 2366
+    },
+    "same_GUI_process_for_all_four_slots": true
+  },
+  "safety_and_routes": {
+    "microphone": "CABLE Output(VB-Audio Virtual Cable)",
+    "playback_endpoint": "CABLE Input(VB-Audio Virtual Cable)",
+    "playback_backend": "Windows WASAPI",
+    "not_default_or_CABLE_In16ch": true,
+    "source_field": "preserved",
+    "translation_only": false,
+    "speech_to_text_only": false,
+    "voice_output": false,
+    "voice_output_basis": "Pinned microphone-to-chatbox path has no TTS route; no voice consumer enabled. KIKI2 pinned source requests TEXT.",
+    "desktop_capture": false,
+    "secondary_speaker_path": false,
+    "send_user_data": false,
+    "disable_when_muted": false,
+    "send_to_chatbox": true,
+    "send_without_waiting_for_finish": false,
+    "chatbox_wait_per_char_ms": 30,
+    "ASR_optimization_performed": false,
+    "OSC_host": "127.0.0.1",
+    "OSC_ports": {
+      "KIKI1": 19151,
+      "KIKI2": 19152
+    },
+    "saved_startup_fields_and_current_endpoint_evidence": {
+      "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/startup-safety-current.json",
+      "sha256": "1623b425bb781d546b992a58273461328861bdaf74c8a26d3af59d3e8d004483",
+      "bytes": 1860
+    },
+    "actual_native_device_match": {
+      "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/native-device-matching.json",
+      "sha256": "e753c2f6a8e29d44c0953fd8669805ff24a81e13c554231f9fbb101f006a771e",
+      "bytes": 1049
+    },
+    "actual_device_match_summary": "Pinned SoundFlow MiniAudio Wasapi/Oss enumerator matches d.Name exactly. GUI native selected=true Cable item maps to saved exact CABLE Output name; GUI deliberately displays parenthetical device family only. Not an MME-index or PortAudio-only inference. Saved cable name remained unchanged after startup/start/stop.",
+    "native_device_match_observation_order": "Native GUI selected-item confirmation and matching-source review were recorded after the completed first KIKI1/D1 check, before subsequent slots, in response to owner clarification; earlier launch prerequisite used fresh saved safe fields and exact WASAPI endpoint availability.",
+    "OS_defaults_and_owner_devices_changed": false
+  },
+  "configured_routes": {
+    "KIKI1": {
+      "recognizer": 0,
+      "translator": 0,
+      "ASR": "Microsoft Bing",
+      "translation": "Google web translation"
+    },
+    "KIKI2": {
+      "recognizer": 2,
+      "translator": 2,
+      "route": "existing Gemini all-in-one",
+      "requested_model": "gemini-3.5-live-translate-preview",
+      "requested_modality": "TEXT",
+      "model_and_modality_basis": "Installed product embeds pinned source revision; source pins model and TEXT. Actual GUI selected Gemini for both services and retained fresh allowlisted saved state. Not an independent provider returned-model attestation.",
+      "returned_model_independently_attested": false,
+      "existing_account_alias": "Google-A",
+      "quota_condition": "owner-approved shared/unverified existing project quota; no keys/accounts/tiers/fallback changed"
+    }
+  },
+  "directions": {
+    "D1": {
+      "source_GUI": "English",
+      "target_GUI": "Japanese",
+      "saved_codes": [
+        "en",
+        "ja"
+      ]
+    },
+    "D3": {
+      "source_GUI": "Chinese",
+      "target_GUI": "Korean",
+      "saved_codes": [
+        "zh",
+        "ko"
+      ]
+    }
+  },
+  "input_and_timing": {
+    "D1_source": {
+      "path": ".data/issue4/output-checks/en-output-check.wav",
+      "sha256": "ff7ada666a62f9fe3cf6846a0857f564399bc23d2848ad1b51a749cd36279cfd",
+      "bytes": 960044
+    },
+    "D3_source": {
+      "path": ".data/issue4/output-checks/zh-output-check.wav",
+      "sha256": "3be6974425b8b0de3cafced557d58bc5e1c2d7578445a3f094606f67ca97f20a",
+      "bytes": 960044
+    },
+    "silent_lifecycle": {
+      "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/one-second-silent-lifecycle.wav",
+      "sha256": "0a8f76d89c709043814cb74f331a4578d17ff61256303bd0019a263d053f86e8",
+      "bytes": 96044
+    },
+    "calibration": {
+      "path": ".data/issue3/calibration/cable.json",
+      "sha256": "ff8c74a66eff13e838c27772287b0050463f56c207edc1b64ae83a71f3d70550",
+      "bytes": 102451
+    },
+    "calibration_offset_ns": 113409500,
+    "output_check_seconds": 10,
+    "output_check_tail_seconds": 15,
+    "lifecycle_seconds": 1,
+    "lifecycle_tail_seconds": 2,
+    "render_sample_rate": 48000,
+    "no_GUI_calls_screenshots_or_auxiliary_inference_during_timed_playback_and_tails": true
+  },
+  "slots": [
+    {
+      "profile": "KIKI1",
+      "direction": "D1",
+      "disposition": "real_short_preflight_passed",
+      "run_id": "kiki1-d1-20261021T192549Z",
+      "actual_CLI_argv": [
+        ".data/check-venv/Scripts/python.exe",
+        "-m",
+        "bench.cli",
+        "run",
+        "--plan",
+        ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki1-d1-20261021T192549Z/plan.json",
+        "--run-id",
+        "kiki1-d1-20261021T192549Z",
+        "--root",
+        ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki1-d1-20261021T192549Z/runs"
+      ],
+      "CLI_exit_code": null,
+      "CLI_exit_evidence": {
+        "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki1-d1-original-tool-completion-receipt.json",
+        "sha256": "ac0adf6813b456757ca188fc66f7d4f50c9ccfa507ae48db79d1f1126182a484",
+        "bytes": 2201
+      },
+      "CLI_exit_note": "No numeric child exit code was exposed or separately retained. Do not infer one from done4. Original asynchronous completion message and actual manifest establish terminal completion. No replay to manufacture an exit receipt.",
+      "counts": {
+        "pending": 0,
+        "running": 0,
+        "done": 4,
+        "product_failure": 0,
+        "invalid": 0
+      },
+      "manifest": {
+        "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki1-d1-20261021T192549Z/runs/kiki1-d1-20261021T192549Z/manifest.json",
+        "sha256": "efc2c634b8ea4ce1a3c0241ff725450d26a849dc4f70ec5592bdd0a73240dd39",
+        "bytes": 175747
+      },
+      "plan": {
+        "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki1-d1-20261021T192549Z/plan.json",
+        "sha256": "f328869e310ea099130171993a24468ef1f6d3fc8545fb4d17f2e97b460313da",
+        "bytes": 2629
+      },
+      "ledger": {
+        "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki1-d1-20261021T192549Z/runs/kiki1-d1-20261021T192549Z/ledger.sqlite",
+        "sha256": "00ada62f655b588a0592ac23f3c70344daedf945fabb8725edd4980fd4a5e3c2",
+        "bytes": 53248
+      },
+      "loaded_harness": {
+        "kind": "checkout",
+        "revision": "fec7899771799d946fc3152d6f1db548597e254e",
+        "revision_reason": "loaded_harness_checkout",
+        "package_version": "0.2.0"
+      },
+      "loaded_harness_source_hashes_in_raw_manifest": true,
+      "stages": [
+        {
+          "kind": "output_check",
+          "trace": {
+            "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki1-d1-20261021T192549Z/runs/kiki1-d1-20261021T192549Z/attempt-0003-001.jsonl",
+            "sha256": "dc4e05f33ff36dbafd81190bb626a03df805bd2c9e92c650a84ab11301e28cfa",
+            "bytes": 263809
+          },
+          "state": "done",
+          "reason": null,
+          "nonempty_chatbox_inputs": 1,
+          "submitted_source_frames": 480000,
+          "callback_count": 1000,
+          "source_playback": {
+            "record": "source_playback",
+            "config": "KIKI1",
+            "attempt": 3,
+            "chunk": "one-second-lifecycle-only",
+            "wave": "preflight-only",
+            "direction": "D1",
+            "clock_session": "b8bc89e70c374b5da33907d7d7c7fbb1",
+            "playback_dac_start_ns": 8941919343400,
+            "playback_end_ns": 8951919343400,
+            "observation_end_ns": 8967032752900,
+            "calibration_offset_ns": 113409500,
+            "actual_dac_observed": true,
+            "audio_sha256": "ff7ada666a62f9fe3cf6846a0857f564399bc23d2848ad1b51a749cd36279cfd"
+          },
+          "observed_payloads": [
+            {
+              "trace_line": 549,
+              "recv_seq": 7,
+              "source_host": "127.0.0.1",
+              "source_port": 56398,
+              "clock_session": "b8bc89e70c374b5da33907d7d7c7fbb1",
+              "process_identity": {
+                "pid": 6956,
+                "application": "GUI-prepared installed translator"
+              },
+              "args_tail": [
+                true,
+                false
+              ],
+              "text_sha256_utf8": "1f02c4be883cccfbabd7ce9e14437eeabc4098df113901112a85cfc3c37c8f38",
+              "text_characters": 62,
+              "newline_count": 0,
+              "contains_parenthesized_text": true,
+              "translation_then_parenthesized_source_shape": true
+            }
+          ]
+        },
+        {
+          "kind": "silent_lifecycle",
+          "trace": {
+            "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki1-d1-20261021T192549Z/runs/kiki1-d1-20261021T192549Z/attempt-0004-001.jsonl",
+            "sha256": "ade0c00efd208e1845fad949fae3c49cbf2723c2d5aa63532ca77d3533ad0118",
+            "bytes": 27068
+          },
+          "state": "done",
+          "reason": null,
+          "nonempty_chatbox_inputs": 0,
+          "submitted_source_frames": 48000,
+          "callback_count": 100,
+          "source_playback": {
+            "record": "source_playback",
+            "config": "KIKI1",
+            "attempt": 4,
+            "chunk": "one-second-lifecycle-only",
+            "wave": "preflight-only",
+            "direction": "D1",
+            "clock_session": "b8bc89e70c374b5da33907d7d7c7fbb1",
+            "playback_dac_start_ns": 8967070301700,
+            "playback_end_ns": 8968070301700,
+            "observation_end_ns": 8970183711200,
+            "calibration_offset_ns": 113409500,
+            "actual_dac_observed": true,
+            "audio_sha256": "0a8f76d89c709043814cb74f331a4578d17ff61256303bd0019a263d053f86e8"
+          },
+          "observed_payloads": []
+        }
+      ],
+      "streams": [
+        {
+          "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki1-d1-20261021T192549Z/runs/kiki1-d1-20261021T192549Z/stream-b8bc89e70c374b5da33907d7d7c7fbb1.jsonl",
+          "sha256": "aeb784ac36290b3eb2d989205384173f658efb0caecadfa6342614f654d3fedf",
+          "bytes": 507138
+        }
+      ],
+      "initial_GUI_observation": {
+        "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki1-d1-20261021T192549Z/observation-initial.json",
+        "sha256": "61b90f8ed8ae33515785f2f893179a3a5c5394f8bfa6f92f4ec0d4a0d816344a",
+        "bytes": 2684
+      },
+      "fresh_stopped_GUI_ACK_observation": {
+        "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki1-d1-20261021T192549Z/observation-ack-0001.json",
+        "sha256": "ab421df725d6c6f95619069280bc48574c7f9225a1d4b7266df0eb1b8f0350d6",
+        "bytes": 2047
+      },
+      "operator_retirement": {
+        "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki1-d1-20261021T192549Z/operator/invalidated.json",
+        "sha256": "c7a9fc3bb6d41be9ae0615439b984d91e157e56deac1f71e62f62a2a1ff7d133",
+        "bytes": 211
+      },
+      "bridge_observation_recording_exit_codes": [
+        0,
+        0
+      ]
+    },
+    {
+      "profile": "KIKI1",
+      "direction": "D3",
+      "disposition": "real_short_preflight_passed",
+      "run_id": "kiki1-d3-20261021T192549Z",
+      "actual_CLI_argv": [
+        ".data/check-venv/Scripts/python.exe",
+        "-m",
+        "bench.cli",
+        "run",
+        "--plan",
+        ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki1-d3-20261021T192549Z/plan.json",
+        "--run-id",
+        "kiki1-d3-20261021T192549Z",
+        "--root",
+        ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki1-d3-20261021T192549Z/runs"
+      ],
+      "CLI_exit_code": 0,
+      "CLI_exit_evidence": {
+        "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki1-d3-20261021T192549Z/cli-receipt.json",
+        "sha256": "6b426dd47d6086316c58ef0daca226bfb4459b70482c08ca8af168bacdc0cd91",
+        "bytes": 1406
+      },
+      "CLI_exit_note": null,
+      "counts": {
+        "pending": 0,
+        "running": 0,
+        "done": 4,
+        "product_failure": 0,
+        "invalid": 0
+      },
+      "manifest": {
+        "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki1-d3-20261021T192549Z/runs/kiki1-d3-20261021T192549Z/manifest.json",
+        "sha256": "0dc096d3f9c7d17045cc3eb2702f01b48185c822b69bc860c04331d95d6c024d",
+        "bytes": 178193
+      },
+      "plan": {
+        "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki1-d3-20261021T192549Z/plan.json",
+        "sha256": "72040125008b6cae8abb1915be9fdc10b2c912a6402387e2ae1a77c33c42425f",
+        "bytes": 2629
+      },
+      "ledger": {
+        "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki1-d3-20261021T192549Z/runs/kiki1-d3-20261021T192549Z/ledger.sqlite",
+        "sha256": "d63f4a9fc29c911a2235b4320523039b8e8935142d976f8f622a1c80da4d514a",
+        "bytes": 53248
+      },
+      "loaded_harness": {
+        "kind": "checkout",
+        "revision": "fec7899771799d946fc3152d6f1db548597e254e",
+        "revision_reason": "loaded_harness_checkout",
+        "package_version": "0.2.0"
+      },
+      "loaded_harness_source_hashes_in_raw_manifest": true,
+      "stages": [
+        {
+          "kind": "output_check",
+          "trace": {
+            "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki1-d3-20261021T192549Z/runs/kiki1-d3-20261021T192549Z/attempt-0003-001.jsonl",
+            "sha256": "8234d22d5edfd0947d2c2043b5a238e71f3be1e375b4d37a3080e0e028af60f8",
+            "bytes": 276091
+          },
+          "state": "done",
+          "reason": null,
+          "nonempty_chatbox_inputs": 2,
+          "submitted_source_frames": 480000,
+          "callback_count": 1000,
+          "source_playback": {
+            "record": "source_playback",
+            "config": "KIKI1",
+            "attempt": 3,
+            "chunk": "one-second-lifecycle-only",
+            "wave": "preflight-only",
+            "direction": "D3",
+            "clock_session": "abaf9b1f723e4e409e1dbd499ba5ffdb",
+            "playback_dac_start_ns": 9120922786100,
+            "playback_end_ns": 9130922786100,
+            "observation_end_ns": 9146036195600,
+            "calibration_offset_ns": 113409500,
+            "actual_dac_observed": true,
+            "audio_sha256": "3be6974425b8b0de3cafced557d58bc5e1c2d7578445a3f094606f67ca97f20a"
+          },
+          "observed_payloads": [
+            {
+              "trace_line": 608,
+              "recv_seq": 9,
+              "source_host": "127.0.0.1",
+              "source_port": 56398,
+              "clock_session": "abaf9b1f723e4e409e1dbd499ba5ffdb",
+              "process_identity": {
+                "pid": 6956,
+                "application": "GUI-prepared installed translator"
+              },
+              "args_tail": [
+                true,
+                false
+              ],
+              "text_sha256_utf8": "359c1260e834c3d8525422b63379d84df800bdbb04fe290f1ec2e86d88f9beaa",
+              "text_characters": 29,
+              "newline_count": 0,
+              "contains_parenthesized_text": true,
+              "translation_then_parenthesized_source_shape": true
+            },
+            {
+              "trace_line": 1023,
+              "recv_seq": 21,
+              "source_host": "127.0.0.1",
+              "source_port": 56398,
+              "clock_session": "abaf9b1f723e4e409e1dbd499ba5ffdb",
+              "process_identity": {
+                "pid": 6956,
+                "application": "GUI-prepared installed translator"
+              },
+              "args_tail": [
+                true,
+                false
+              ],
+              "text_sha256_utf8": "7f6b93db4c904088fa7ee6ba824a8f57559f0dbb06b026cf2e60251a4994faf9",
+              "text_characters": 107,
+              "newline_count": 0,
+              "contains_parenthesized_text": true,
+              "translation_then_parenthesized_source_shape": true
+            }
+          ]
+        },
+        {
+          "kind": "silent_lifecycle",
+          "trace": {
+            "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki1-d3-20261021T192549Z/runs/kiki1-d3-20261021T192549Z/attempt-0004-001.jsonl",
+            "sha256": "e89688c487cf07c1f9bae95969506f3a995385cf090dc82a9349da2bf117e5b6",
+            "bytes": 27100
+          },
+          "state": "done",
+          "reason": null,
+          "nonempty_chatbox_inputs": 0,
+          "submitted_source_frames": 48000,
+          "callback_count": 100,
+          "source_playback": {
+            "record": "source_playback",
+            "config": "KIKI1",
+            "attempt": 4,
+            "chunk": "one-second-lifecycle-only",
+            "wave": "preflight-only",
+            "direction": "D3",
+            "clock_session": "abaf9b1f723e4e409e1dbd499ba5ffdb",
+            "playback_dac_start_ns": 9146081009900,
+            "playback_end_ns": 9147081009900,
+            "observation_end_ns": 9149194419400,
+            "calibration_offset_ns": 113409500,
+            "actual_dac_observed": true,
+            "audio_sha256": "0a8f76d89c709043814cb74f331a4578d17ff61256303bd0019a263d053f86e8"
+          },
+          "observed_payloads": []
+        }
+      ],
+      "streams": [
+        {
+          "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki1-d3-20261021T192549Z/runs/kiki1-d3-20261021T192549Z/stream-abaf9b1f723e4e409e1dbd499ba5ffdb.jsonl",
+          "sha256": "cc0511b07df3a5df6517b327f05f8561d7aab042b293e5db6914f77e55699bc9",
+          "bytes": 519452
+        }
+      ],
+      "initial_GUI_observation": {
+        "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki1-d3-20261021T192549Z/observation-initial.json",
+        "sha256": "64df9d307c9369fd51657fda2f6e3814132d3e4bd21c47f1e5a9507db448726b",
+        "bytes": 2872
+      },
+      "fresh_stopped_GUI_ACK_observation": {
+        "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki1-d3-20261021T192549Z/observation-ack-0001.json",
+        "sha256": "65ffcf4137164db3a335443902f9967fe8a9ad34e6855d0b3c2c23ecb9d8403b",
+        "bytes": 2047
+      },
+      "operator_retirement": {
+        "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki1-d3-20261021T192549Z/operator/invalidated.json",
+        "sha256": "64fc7acd907071724925fa515e134092ae50f28eff733521e987e8d366236c0e",
+        "bytes": 223
+      },
+      "bridge_observation_recording_exit_codes": [
+        0,
+        0
+      ]
+    },
+    {
+      "profile": "KIKI2",
+      "direction": "D1",
+      "disposition": "real_short_preflight_passed",
+      "run_id": "kiki2-d1-20261021T192549Z",
+      "actual_CLI_argv": [
+        ".data/check-venv/Scripts/python.exe",
+        "-m",
+        "bench.cli",
+        "run",
+        "--plan",
+        ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki2-d1-20261021T192549Z/plan.json",
+        "--run-id",
+        "kiki2-d1-20261021T192549Z",
+        "--root",
+        ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki2-d1-20261021T192549Z/runs"
+      ],
+      "CLI_exit_code": 0,
+      "CLI_exit_evidence": {
+        "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki2-d1-20261021T192549Z/cli-receipt.json",
+        "sha256": "194c39cb35bed78221c2ee61d075cdb87a708a15d250bea10340be3aba1e789c",
+        "bytes": 1406
+      },
+      "CLI_exit_note": null,
+      "counts": {
+        "pending": 0,
+        "running": 0,
+        "done": 4,
+        "product_failure": 0,
+        "invalid": 0
+      },
+      "manifest": {
+        "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki2-d1-20261021T192549Z/runs/kiki2-d1-20261021T192549Z/manifest.json",
+        "sha256": "4e46b08d2fb6d71dfc7a52c0f488f140d06e870ffe770749fe945abd23d9d6bc",
+        "bytes": 178438
+      },
+      "plan": {
+        "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki2-d1-20261021T192549Z/plan.json",
+        "sha256": "1c9e89ce8f280458ed0c2e93a8dbac49113c518112bfc1b015aea24879930cbe",
+        "bytes": 2646
+      },
+      "ledger": {
+        "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki2-d1-20261021T192549Z/runs/kiki2-d1-20261021T192549Z/ledger.sqlite",
+        "sha256": "d8f94fa7ecb76d75ff63559cbeec5fce68be5d2f4591a4b9c882003bf4172e72",
+        "bytes": 53248
+      },
+      "loaded_harness": {
+        "kind": "checkout",
+        "revision": "fec7899771799d946fc3152d6f1db548597e254e",
+        "revision_reason": "loaded_harness_checkout",
+        "package_version": "0.2.0"
+      },
+      "loaded_harness_source_hashes_in_raw_manifest": true,
+      "stages": [
+        {
+          "kind": "output_check",
+          "trace": {
+            "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki2-d1-20261021T192549Z/runs/kiki2-d1-20261021T192549Z/attempt-0003-001.jsonl",
+            "sha256": "0ba2704e1dded3bb910278f15d03eddf2414c6cbf637f95f4eeb89f7eeaf178d",
+            "bytes": 268090
+          },
+          "state": "done",
+          "reason": null,
+          "nonempty_chatbox_inputs": 2,
+          "submitted_source_frames": 480000,
+          "callback_count": 1000,
+          "source_playback": {
+            "record": "source_playback",
+            "config": "KIKI2",
+            "attempt": 3,
+            "chunk": "one-second-lifecycle-only",
+            "wave": "preflight-only",
+            "direction": "D1",
+            "clock_session": "756aacac6d32479cb37e003b8461c0c3",
+            "playback_dac_start_ns": 9291728202700,
+            "playback_end_ns": 9301728202700,
+            "observation_end_ns": 9316841612200,
+            "calibration_offset_ns": 113409500,
+            "actual_dac_observed": true,
+            "audio_sha256": "ff7ada666a62f9fe3cf6846a0857f564399bc23d2848ad1b51a749cd36279cfd"
+          },
+          "observed_payloads": [
+            {
+              "trace_line": 492,
+              "recv_seq": 7,
+              "source_host": "127.0.0.1",
+              "source_port": 58174,
+              "clock_session": "756aacac6d32479cb37e003b8461c0c3",
+              "process_identity": {
+                "pid": 6956,
+                "application": "GUI-prepared installed translator"
+              },
+              "args_tail": [
+                true,
+                false
+              ],
+              "text_sha256_utf8": "94594e8bed7cacc1cdb0693b098bb230c8764e26ed4a7d3a24e19e5717d5d883",
+              "text_characters": 59,
+              "newline_count": 0,
+              "contains_parenthesized_text": true,
+              "translation_then_parenthesized_source_shape": true
+            },
+            {
+              "trace_line": 1014,
+              "recv_seq": 12,
+              "source_host": "127.0.0.1",
+              "source_port": 58174,
+              "clock_session": "756aacac6d32479cb37e003b8461c0c3",
+              "process_identity": {
+                "pid": 6956,
+                "application": "GUI-prepared installed translator"
+              },
+              "args_tail": [
+                true,
+                false
+              ],
+              "text_sha256_utf8": "e7243edfac245682a527c0bd67466ef7fd1051c56c4cb9227c247e231d670038",
+              "text_characters": 56,
+              "newline_count": 0,
+              "contains_parenthesized_text": true,
+              "translation_then_parenthesized_source_shape": true
+            }
+          ]
+        },
+        {
+          "kind": "silent_lifecycle",
+          "trace": {
+            "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki2-d1-20261021T192549Z/runs/kiki2-d1-20261021T192549Z/attempt-0004-001.jsonl",
+            "sha256": "8ccadb22047a2955572fcc606938c0b7ee91529512a5400be7e4914173fd48f4",
+            "bytes": 27105
+          },
+          "state": "done",
+          "reason": null,
+          "nonempty_chatbox_inputs": 0,
+          "submitted_source_frames": 48000,
+          "callback_count": 100,
+          "source_playback": {
+            "record": "source_playback",
+            "config": "KIKI2",
+            "attempt": 4,
+            "chunk": "one-second-lifecycle-only",
+            "wave": "preflight-only",
+            "direction": "D1",
+            "clock_session": "756aacac6d32479cb37e003b8461c0c3",
+            "playback_dac_start_ns": 9316878618800,
+            "playback_end_ns": 9317878618800,
+            "observation_end_ns": 9319992028300,
+            "calibration_offset_ns": 113409500,
+            "actual_dac_observed": true,
+            "audio_sha256": "0a8f76d89c709043814cb74f331a4578d17ff61256303bd0019a263d053f86e8"
+          },
+          "observed_payloads": []
+        }
+      ],
+      "streams": [
+        {
+          "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki2-d1-20261021T192549Z/runs/kiki2-d1-20261021T192549Z/stream-756aacac6d32479cb37e003b8461c0c3.jsonl",
+          "sha256": "2372b2615d17654945817f8c79fff930ef70e98fc8b011b2c0bd0a78000902cf",
+          "bytes": 511456
+        }
+      ],
+      "initial_GUI_observation": {
+        "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki2-d1-20261021T192549Z/observation-initial.json",
+        "sha256": "66af6ae94cc4a20c7ede4432e53a219653aac926e7475322da43d3e3b6f861fe",
+        "bytes": 2889
+      },
+      "fresh_stopped_GUI_ACK_observation": {
+        "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki2-d1-20261021T192549Z/observation-ack-0001.json",
+        "sha256": "f7ac7dd8d470872dcb64ee41a334b686b896c4707d41c56b3cc43d4e64dadab0",
+        "bytes": 2064
+      },
+      "operator_retirement": {
+        "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki2-d1-20261021T192549Z/operator/invalidated.json",
+        "sha256": "da105105b011e5fd7e6cec739a5fe26117a8dd146a867ca1136a93063fc49dd7",
+        "bytes": 218
+      },
+      "bridge_observation_recording_exit_codes": [
+        0,
+        0
+      ]
+    },
+    {
+      "profile": "KIKI2",
+      "direction": "D3",
+      "disposition": "real_short_preflight_passed",
+      "run_id": "kiki2-d3-20261021T192549Z",
+      "actual_CLI_argv": [
+        ".data/check-venv/Scripts/python.exe",
+        "-m",
+        "bench.cli",
+        "run",
+        "--plan",
+        ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki2-d3-20261021T192549Z/plan.json",
+        "--run-id",
+        "kiki2-d3-20261021T192549Z",
+        "--root",
+        ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki2-d3-20261021T192549Z/runs"
+      ],
+      "CLI_exit_code": 0,
+      "CLI_exit_evidence": {
+        "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki2-d3-20261021T192549Z/cli-receipt.json",
+        "sha256": "7907e9f1d28cbca3bee33074fd0acf9014fd78e3256e1c1b7bfa9c4a8f575446",
+        "bytes": 1406
+      },
+      "CLI_exit_note": null,
+      "counts": {
+        "pending": 0,
+        "running": 0,
+        "done": 4,
+        "product_failure": 0,
+        "invalid": 0
+      },
+      "manifest": {
+        "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki2-d3-20261021T192549Z/runs/kiki2-d3-20261021T192549Z/manifest.json",
+        "sha256": "d5374231b44934eef39bcd4e45c499f105fd2ed5a78ce9853093e68e6e2b2e42",
+        "bytes": 178438
+      },
+      "plan": {
+        "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki2-d3-20261021T192549Z/plan.json",
+        "sha256": "e8ebe78a2a2f4f76eefb95d6b95ec4b915764b8631ab5c286db996f21a34e861",
+        "bytes": 2646
+      },
+      "ledger": {
+        "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki2-d3-20261021T192549Z/runs/kiki2-d3-20261021T192549Z/ledger.sqlite",
+        "sha256": "79b239a4fcf1a91f91468bf939cae421d8bef96a7928b53a7236246eb8f4e0a8",
+        "bytes": 53248
+      },
+      "loaded_harness": {
+        "kind": "checkout",
+        "revision": "fec7899771799d946fc3152d6f1db548597e254e",
+        "revision_reason": "loaded_harness_checkout",
+        "package_version": "0.2.0"
+      },
+      "loaded_harness_source_hashes_in_raw_manifest": true,
+      "stages": [
+        {
+          "kind": "output_check",
+          "trace": {
+            "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki2-d3-20261021T192549Z/runs/kiki2-d3-20261021T192549Z/attempt-0003-001.jsonl",
+            "sha256": "9e321ff35d4a904430fe3d0f73ae43a297b2fc2be6063468d659763eada7f178",
+            "bytes": 278668
+          },
+          "state": "done",
+          "reason": null,
+          "nonempty_chatbox_inputs": 2,
+          "submitted_source_frames": 480000,
+          "callback_count": 1000,
+          "source_playback": {
+            "record": "source_playback",
+            "config": "KIKI2",
+            "attempt": 3,
+            "chunk": "one-second-lifecycle-only",
+            "wave": "preflight-only",
+            "direction": "D3",
+            "clock_session": "f445f70e8f694d4a9c42e4f5c93c1967",
+            "playback_dac_start_ns": 9369469729900,
+            "playback_end_ns": 9379469729900,
+            "observation_end_ns": 9394583139400,
+            "calibration_offset_ns": 113409500,
+            "actual_dac_observed": true,
+            "audio_sha256": "3be6974425b8b0de3cafced557d58bc5e1c2d7578445a3f094606f67ca97f20a"
+          },
+          "observed_payloads": [
+            {
+              "trace_line": 457,
+              "recv_seq": 8,
+              "source_host": "127.0.0.1",
+              "source_port": 58174,
+              "clock_session": "f445f70e8f694d4a9c42e4f5c93c1967",
+              "process_identity": {
+                "pid": 6956,
+                "application": "GUI-prepared installed translator"
+              },
+              "args_tail": [
+                true,
+                false
+              ],
+              "text_sha256_utf8": "fd4ed639dff3f71455dc705593ce599cbebe4c027323db8adaa3b89dc21a86e8",
+              "text_characters": 37,
+              "newline_count": 0,
+              "contains_parenthesized_text": true,
+              "translation_then_parenthesized_source_shape": true
+            },
+            {
+              "trace_line": 1026,
+              "recv_seq": 24,
+              "source_host": "127.0.0.1",
+              "source_port": 58174,
+              "clock_session": "f445f70e8f694d4a9c42e4f5c93c1967",
+              "process_identity": {
+                "pid": 6956,
+                "application": "GUI-prepared installed translator"
+              },
+              "args_tail": [
+                true,
+                false
+              ],
+              "text_sha256_utf8": "bb7ec6b833ccae147c3480ab4506a6a77076db5daee3b05045ce963066631d0f",
+              "text_characters": 88,
+              "newline_count": 0,
+              "contains_parenthesized_text": true,
+              "translation_then_parenthesized_source_shape": true
+            }
+          ]
+        },
+        {
+          "kind": "silent_lifecycle",
+          "trace": {
+            "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki2-d3-20261021T192549Z/runs/kiki2-d3-20261021T192549Z/attempt-0004-001.jsonl",
+            "sha256": "1305a80795c5fa55b767ca2250c94defbba2ef40984ce7fa63bcdc089c66419d",
+            "bytes": 27081
+          },
+          "state": "done",
+          "reason": null,
+          "nonempty_chatbox_inputs": 0,
+          "submitted_source_frames": 48000,
+          "callback_count": 100,
+          "source_playback": {
+            "record": "source_playback",
+            "config": "KIKI2",
+            "attempt": 4,
+            "chunk": "one-second-lifecycle-only",
+            "wave": "preflight-only",
+            "direction": "D3",
+            "clock_session": "f445f70e8f694d4a9c42e4f5c93c1967",
+            "playback_dac_start_ns": 9394621768200,
+            "playback_end_ns": 9395621768200,
+            "observation_end_ns": 9397735177700,
+            "calibration_offset_ns": 113409500,
+            "actual_dac_observed": true,
+            "audio_sha256": "0a8f76d89c709043814cb74f331a4578d17ff61256303bd0019a263d053f86e8"
+          },
+          "observed_payloads": []
+        }
+      ],
+      "streams": [
+        {
+          "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki2-d3-20261021T192549Z/runs/kiki2-d3-20261021T192549Z/stream-f445f70e8f694d4a9c42e4f5c93c1967.jsonl",
+          "sha256": "be20bea1ca8b15b935e70ae267bddf203a9580c50c4741859d9dc380948b4813",
+          "bytes": 522010
+        }
+      ],
+      "initial_GUI_observation": {
+        "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki2-d3-20261021T192549Z/observation-initial.json",
+        "sha256": "23d24186337e85fa9da209c29b1f0a95117639e2c5c4c9e99fc952b3bbf626cb",
+        "bytes": 2889
+      },
+      "fresh_stopped_GUI_ACK_observation": {
+        "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki2-d3-20261021T192549Z/observation-ack-0001.json",
+        "sha256": "63886b982ed30386077f1d54e225562c5f71f2233415b70143ff5484f196e834",
+        "bytes": 2064
+      },
+      "operator_retirement": {
+        "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/kiki2-d3-20261021T192549Z/operator/invalidated.json",
+        "sha256": "4fa2bcf4ead4dc6dd5729662215ebcfa6e75d6e0e501f1fa4d04d32f797c742d",
+        "bytes": 213
+      },
+      "bridge_observation_recording_exit_codes": [
+        0,
+        0
+      ]
+    }
+  ],
+  "bounded_payload_format_observation": {
+    "observed_shape": "<translated text> (<recognized source>)",
+    "observed_OSC_argument_tails": [
+      true,
+      false
+    ],
+    "observed_message_count": 7,
+    "observed_newline_count_per_message": 0,
+    "exact_per_message_trace_lines_and_payload_hashes": "slots[].stages[].observed_payloads",
+    "local_exact_payload_literals": {
+      "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/run-results-with-local-actual-payloads.json",
+      "sha256": "350bfa11d72e423bccff10516f82a9a1da84db9db328edf9e03e9cdfac864716",
+      "bytes": 50792
+    },
+    "example_KIKI1_D1": "今日誰がポケットを手に入れたか見てみましょう。 (Let's see whoever got pockets today.)",
+    "example_KIKI2_D1": "そうですね。今日はポケットもないし。 (Right. I don't even got pockets today.)",
+    "limits": "Only these seven observed packets. No utterance/revision/page/resend/finality IDs or universal reconstruction/finality claim. Some output is phrase-fragment shaped; last update is not proof of complete meaning delivery. No primary latency/delivery/quality/cost score or frozen extraction rule assigned."
+  },
+  "sender_identity": {
+    "bridge_identity": "PID6956 is the actual app GUI/translator process, not a fabricated source PID",
+    "KIKI1_observed_UDP_source_port": 56398,
+    "KIKI2_observed_UDP_source_port": 58174,
+    "post_run_kernel_observation": "Get-NetUDPEndpoint matched source UDP58174 to owned PID6956 before normal close; earlier56398 lacked a contemporaneous per-packet kernel snapshot. Raw source endpoints and bridge identity are retained without retroactive reassignment.",
+    "evidence": {
+      "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/final-owned-before-close.txt",
+      "sha256": "2c8e3725085755c7580203cc11539fd370ecfdeea11ed5b3fe6b04b1e6ecd288",
+      "bytes": 702
+    }
+  },
+  "historical_failure_preserved": {
+    "reference": "profiles/evidence/issue45/kiki1-failure.json",
+    "disposition": "Historical headless/native Source array was not long enough crash occurred before playback; not rewritten or claimed about current normal GUI startup. Current normal GUI process stayed alive through all four checks and later exited normally."
+  },
+  "operator_failures_and_transitions": {
+    "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/operator-action-history.json",
+    "sha256": "cae250fd87c6977332d63eccba736e8450b804ab35e40f38a0b8434884529833",
+    "bytes": 3264
+  },
+  "evidence": {
+    "root": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z",
+    "inventory": {
+      "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/inventory.json",
+      "sha256": "cdb8f323231becb1c0a66f8a86fd0593a5172d333d69d7b17cabe34540905ebd",
+      "bytes": 30284
+    },
+    "inventory_file_count": 112,
+    "inventory_total_bytes": 6863969,
+    "full_actual_commands_receipts_and_payloads": {
+      "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/run-results-with-local-actual-payloads.json",
+      "sha256": "350bfa11d72e423bccff10516f82a9a1da84db9db328edf9e03e9cdfac864716",
+      "bytes": 50792
+    },
+    "pending_notifications": {
+      "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/pending-notification-deliveries.json",
+      "sha256": "3f64ab6a3c86bfe99233f64cf475226df6c3a3cfa38f368e3987891abc6d3756",
+      "bytes": 5702
+    },
+    "raw_artifacts_edited": false,
+    "preserved": "All four original plans/manifests, eight output/lifecycle traces, raw stream and diagnostic receipts, ledger files, initial and fresh stop observations, request/ACK and retired-session records, native GUI screenshots and secret-omitted AX route records. No failed/invalid audio attempts occurred."
+  },
+  "cleanup": {
+    "final_stopped_GUI_before_close": "KIKI2/D3, zh to ko, OSC19152, desktop capture off",
+    "normal_GUI_close_performed": true,
+    "actual_exit_codes": {
+      "GUI_PID6956": 0,
+      "overlay_PID37368": 0,
+      "WebView_root_PID23744": 0
+    },
+    "all_nine_previously_owned_processes_absent_after_close": true,
+    "all_four_bridge_sessions_retired": true,
+    "all_CLI_and_pending_watchers_completed": true,
+    "computer_control_released_and_session_closed": true,
+    "final_state": {
+      "path": ".data/issue8/competitor-preflights/kikitan/preflight-20261021T192549Z/final-owned-state.json",
+      "sha256": "b322e72d486c72d2610114292ecc33f8415eb7dfac73ff3ca73512aa306c09b8",
+      "bytes": 1629
+    },
+    "other_applications_manipulated": false
+  },
+  "measurement_and_reporting_boundary": {
+    "runtime_condition": "Owner-authorized concurrent user activity",
+    "PuriPuly_excluded_and_untouched": true,
+    "VRChat_untouched": true,
+    "supplementary_tone_Korean100_and_owner_review": "owner-removed; not run/generated/requested",
+    "new_provider_or_judge_calls_outside_intended_application_preflight": false,
+    "protocol_and_main_admission_owner": "Director",
+    "current_implementation_checkpoint": "fec7899771799d946fc3152d6f1db548597e254e",
+    "actual_loaded_harness_evidence": "Each raw manifest session_start implementation independently records loaded checkout revision and source hashes. The plan declaration alone is not that evidence, and neither is protocol freeze."
+  },
+  "remaining_observation_gap": "KIKI1/D1 original asynchronous tool reports completed with done4 but exposed no separately retained numeric CLI exit code. This is reported null; the other three numeric CLI exit codes and all three observed application process exit codes are0. No replay was performed merely to fill that reporting field."
+}

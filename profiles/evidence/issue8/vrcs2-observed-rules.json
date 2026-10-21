@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "version": "issue8-vrcs2-bilingual-preflight-v1",
+  "profile": "VRCS2",
+  "application": "VRCS0.2.8",
+  "executable_sha256": "9343aeb6902e62535337f58c844272ab18348304c32925f8053d6686d244eb0e",
+  "basis": "Director inspected the four actual source-matched development-check chatbox payloads before any main measurement. Source display remained enabled. This is field-format evidence, not translation-quality scoring or universal message identity.",
+  "preflight_receipts": "profiles/evidence/issue8/vrcs-current-preflights.json",
+  "observations": [
+    {
+      "direction": "D1",
+      "trace": ".data/issue8/competitor-preflights/vrcs/preflight-20261021T174339Z/vrcs2-d1-20261021T174339Z/runs/vrcs2-d1-20261021T174339Z/attempt-0003-001.jsonl",
+      "sha256": "8155ce6682a0fc7af2cafbe231b604cdbe324629662e087c8d773a48f2a4804d",
+      "clock_session": "a073f5f2f6b140f1ac3b19da17fd1654",
+      "recv_seq": [1, 2],
+      "format": "English ASR text, one newline, Japanese target text"
+    },
+    {
+      "direction": "D3",
+      "trace": ".data/issue8/competitor-preflights/vrcs/preflight-20261021T174339Z/vrcs2-d3-20261021T174339Z/runs/vrcs2-d3-20261021T174339Z/attempt-0003-001.jsonl",
+      "sha256": "8e57524b12a5a3b7428d3d0aadcc2b8bcdfd2a890ada39e5851f60c57d0cc6f3",
+      "clock_session": "661ed613c8dd4ad0a14f07a6ffb5eb81",
+      "recv_seq": [1, 2],
+      "format": "Chinese ASR text, one newline, Korean target text"
+    }
+  ],
+  "rule": {
+    "version": "issue8-vrcs2-bilingual-preflight-v1",
+    "evidence": ["profiles/evidence/issue8/vrcs2-observed-rules.json", "profiles/evidence/issue8/vrcs-current-preflights.json", "profiles/evidence/issue45/metrics/vrcs2-observed-rules.json"],
+    "style": "unknown",
+    "text_pattern": "(?P<source>[^\\n]*)(?:\\n|$)(?P<translation>.*)",
+    "supports": {"revision": false, "erasure": false, "resend": false},
+    "relationships": {},
+    "uncertainty": "Bilingual field framing observed in both selected directions; the historical source-only observation supplies the empty-target case. No universal revision/page/resend/finality IDs or cross-packet grouping are established. Source text is application ASR, not reference truth. Newline or role ambiguities require preserved run-bound inspection; no restored text or manufactured page chain."
+  },
+  "binding_policy": "The preflight clocks and recv_seq identify evidence only; they are never copied as relationships or alignment links into main runs. Future correspondence and any explicit relationships require actual input/output-bound evidence under the frozen method."
+}

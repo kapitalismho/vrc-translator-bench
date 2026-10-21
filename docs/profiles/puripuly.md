@@ -2,18 +2,43 @@
 
 ## Finding and version boundary
 
-The owner reported PuriPuly updated and **removed the execution deferral for PP1–PP4**. All four profiles return to preparation under the existing protocol. Their catalogue findings remain **blocked pending updated-build runtime/access/audio evidence**, not owner-excluded, ready or unsupported. The exact updated installed version/hash is not yet recorded. The historical 2026-10-20 installed snapshot identified **2.8.2**, whose public CLI was exercised with isolated configuration and an empty encrypted secret store. The inspected development checkout identified **2.9.0**, commit `a52fcc97a93d34e040545f388e77a55724cf3c91`. Neither historical identity establishes the updated installed version.
+Retained actual-GUI PP4 preparation now identifies **PuriPuly 2.9.0**, not merely an owner-reported update. D1 and D3 produced translated-target-language OSC through CPU-auto ASR plus Index official API. The generic catalogue still marks PP4 **blocked** because its required bounded historical no-VRChat admission evidence is unknown; that does not erase the successful output checks. PP1/PP2/PP3 GUI/version history proves neither provider access nor their own pilots. The older **2.8.2** isolated public-CLI/empty-secret-store observations remain historical control evidence; the inspected development checkout was 2.9.0 at `a52fcc97a93d34e040545f388e77a55724cf3c91`.
 
-The former PP-only skip/no-launch restriction is superseded by the [owner decision](../../profiles/evidence/issue45/decisions-and-candidate.json). Keep earlier control-only evidence intact. Missing CPU assets in the fresh isolated probe never established that the owner's normal model store was empty. The update report and deferral withdrawal do not claim Index execution or a new PuriPuly translation; this decision change launches no application or measurement.
+After the earlier [deferral withdrawal](../../profiles/evidence/issue45/decisions-and-candidate.json), the owner requested [other-app-first preparation](../../profiles/evidence/issue8/owner-use-preparation-order.json), then explicitly **excluded PP1–PP4 from this execution** under the [current batch amendment](../../profiles/evidence/issue8/non-puripuly-batch-amendment.json). PuriPuly manipulation stays suspended. PP3 standalone observation is pending, not performed or waived as complete. All four profiles and six directions remain in the cumulative catalogue. Subsequent owner changes to personal settings are unknown; retained preflights are not current-state guarantees or permission to resume.
 
 | Profile | Planned route | Discovered constraint |
 |---|---|---|
 | PP1 | Owner-accepted mixed Gemma 4 26B/31B / OpenRouter + Gemini 3.5 Transcribe | Public `gemma4_26b_31b` selection uses a 26B/31B list and latency-based routing. The owner accepted that mixed route; actual returned model/provider, separate access and audio output remain unobserved. |
 | PP2 | GPT 6 Luna / Sign in with ChatGPT + Gemini 3.5 Transcribe | `gpt_6_luna` / `chatgpt` was supported in the inspected source and historical installed choices. Existing permitted accounts may be used; runtime entitlement, quota and completed translation remain unverified. No API-paid fallback is authorized. |
-| PP3 | Index Translator + Gemini 3.5 Transcribe | Historical 2.8.2 choices lacked `index_translate_35b`; inspected 2.9.0 source supported it. Observe the updated build's effective Index route and isolated Google project. “Free” translation does not establish zero ASR charges. |
-| PP4 | Index Translator + CPU-auto ASR | The old installed Index mismatch is historical, not a claim about the updated build. The isolated probe's missing assets are not a claim about the normal model store. Actual CPU model load/recognition remains unobserved. |
+| PP3 | Index Translator + Gemini 3.5 Transcribe | Historical 2.8.2 missing-choice evidence is not a 2.9.0 capability finding. PP4's Index output does not establish PP3 Gemini ASR access or output. PP3 remains pending outside this execution. |
+| PP4 | Index Translator + CPU-auto ASR | Actual 2.9.0 D1/D3 ten-second checks produced Japanese/Korean OSC; language-specific CPU-auto runtime IDs are retained below. Generic readiness admission remains blocked for missing historical no-VRChat evidence, not missing Index output/assets. |
 
 The source constant for the Gemini ASR route is `gemini-3.5-transcribe-live`; do not replace it with a similarly named file-transcription API. CPU auto-selection must remain `local_cpu_auto`, with actual language-specific runtime model recorded after each direction change. Source intent is not proof that weights loaded or that inference ran on CPU.
+
+## Retained 2.9.0 PP4 preflights
+
+The [public-safe summary](../../profiles/evidence/issue8/pp4-preflight.json) binds retained observation/stop records, local GUI images, terminal manifests, native streams and public derivatives by SHA-256. GUI executable SHA-256: `2f9b9938e0b7e03731f7cfa57056a68f78d05eb099312f6c07e9b71a8440ac31`. Retained installer identity: `PuriPulyHeart-Setup-2.9.0.exe`, SHA-256 `2b2232a4cb6c7876fc2d26957338d10021e4abef3f418d0423f221299b9a3193` (owner-supplied identity; not copied or rehashed in this reconciliation).
+
+Actual GUI settings were `local_cpu_auto`, `index_translate_35b`, `public_api`, CABLE Output on Windows WASAPI (Compatibility Mode), OSC `127.0.0.1:19104` / receive `19204`, peer capture off and no TTS enabled. Retained public read-only `asr status` corroborated running CPU-auto providers/resources/live capture. This is not a new state query or independent compute-backend instrumentation.
+
+| Direction | Runtime ASR | Terminal work | Recorded output |
+|---|---|---|---|
+| D1 en→ja | `parakeet-tdt-0.6b-v3-int8-sherpa` | 4 done, 0 product failure, 0 invalid/pending | 1,100 callbacks; 2 Japanese chatbox inputs, 4 typing packets |
+| D3 zh-CN→ko | `qwen3-asr-0.6b-int8-sherpa` | 4 done, 0 product failure, 0 invalid/pending | 1,100 callbacks; 2 Korean chatbox inputs, 4 typing packets |
+
+Each run contains setup, direction, a **ten-second development output check + 15-second tail**, then a **one-second silent lifecycle + two-second tail**. The check accounts for 1,000 callbacks and all six OSC packets; the lifecycle accounts for 100 callbacks and no OSC. This is not the full nonspeech protocol or a zero-hallucination certification. TALK was stopped through the actual GUI at `10:18:31.620921Z` (D1) and `10:26:41.678688Z` (D3); the owned app was retained, not fully exited. Terminal session-end records are present; numeric runner exit codes are not supplied by these sources.
+
+Representative raw `/chatbox/input` payloads, each with `true, false` flags:
+
+- D1 receive sequence 2: `えーっと…今日はポケットに何か入ってる？`; sequence 5: `今すぐこれやらないといけないのかな？`
+- D3 receive sequence 2: `제 말은, 추석 말이죠. 그러니까...`; sequence 5 expands that Korean text to `제 말은, 추석 말이죠. 그러니까... 사람들이 중국을 더 잘 이해할 수 있도록... 음... 어떤 활동을 해야 한다는 거죠, 그렇죠?`
+
+The runner's output-check guard only requires nonempty `/chatbox/input`; inspection separately establishes Japanese/Korean target-language text, **not source-meaning equivalence, accuracy or completeness**. Typing is not translated output or universal finality. The D3 same-prefix expansion is a bounded update observation, not a reconstructed utterance/page/finality rule. Old D1 GUI text visible before D3 audio is not D3 output.
+
+Public derivatives: [D1 manifest](../../profiles/evidence/issue8/pp4-d1-preflight/manifest.json), [D1 provenance](../../profiles/evidence/issue8/pp4-d1-preflight/export-provenance.json), [D3 manifest](../../profiles/evidence/issue8/pp4-d3-preflight/manifest.json), [D3 provenance](../../profiles/evidence/issue8/pp4-d3-preflight/export-provenance.json). The actual exporter produced six files per run. All twelve native/derivative hash pairs matched; four files were byte-identical and eight path-redacted. Numeric timing/order and benchmark text were retained; repository/user paths, including serialized JSON, were redacted. Original runs are unchanged. Raw diagnostics, personal settings/private backups, credentials, executables, installer and GUI images were not exported.
+
+These observations establish neither returned upstream model/provider identity, tier/usage/cost, thirty-minute stability, restart persistence nor D2/D4/D5/D6 runtime coverage. Fresh authorized admission is required for any later PuriPuly work; the current ten-competitor batch excludes it.
+
 
 ## Historical public control procedure
 
@@ -57,7 +82,7 @@ Supported focused change shape observed on 2.8.2:
 }
 ```
 
-Use PP1/2/3/4 send ports 19101/19102/19103/19104 and receive ports 19201/19202/19203/19204. The loopback host is established in the dedicated bootstrap and checked through `osc status`. Disable `vrc_mic_intercept`; no mute signal or OSCQuery was needed for the observed manual-output path. No VRChat process was present before the direction/restart output observation. Audio-to-OSC dependence remains unverified.
+Use PP1/2/3/4 send ports 19101/19102/19103/19104 and receive ports 19201/19202/19203/19204. In the historical isolated control procedure, the loopback host was established in the dedicated bootstrap and checked through `osc status`; no mute signal or OSCQuery was needed for its manual-output path. Its no-VRChat direction/restart observation must not be transferred to the later PP4 preflight windows. PP4 audio-to-OSC output is now retained above, with historical process absence still unknown.
 
 Language codes observed in choices include `en`, `ja`, `zh-CN`, `ko`. Map D1 en→ja, D2 en→zh-CN, D3 zh-CN→ko, D4 ja→ko, D5 zh-CN→ja, D6 ja→en. `zh-Hans` was rejected; the corrected `zh-CN` applied and persisted across restart. Language catalog support is not verified engine coverage.
 
@@ -76,7 +101,7 @@ No auto-update toggle was established from the public CLI. Pin/hash the executab
 
 ## Credentials, limits and retained evidence
 
-PP1 and VRCS2 can be configured with independent Google credentials. Isolation requires **distinct projects** for project-scoped Gemini quotas, not merely two keys in one project. Record project aliases and usage windows; no secret values. Distinct OpenRouter keys permit attribution but do not prove separate account-level quotas. No benchmark keys/projects were provisioned or validated.
+PP1 and VRCS2 can be configured with independent Google credentials. Project-scoped isolation requires **distinct projects**, not merely two keys in one project; distinct OpenRouter keys permit attribution but do not prove separate account-level capacity. The [owner-approved quota amendment](../../profiles/evidence/issue8/quota-isolation-amendment.json) permits shared/unverified quotas for the D1/D3 batch only, without changing accounts, keys, tiers or routes. The later competitor-only amendment excludes PP1–PP4 from this execution. Neither amendment establishes isolation, numeric limits or measured cost.
 
 The source OpenRouter request for the combined Gemma selection contains `google/gemma-4-26b-a4b-it` and `google/gemma-4-31b-it`, provider `only` list `cloudflare`, `coreweave/fp4`, `deepinfra/turbo`, `dekallm/bf16`, `nextbit/bf16`, `makora`, latency sorting and `allow_fallbacks: true`. The public selection is not a single-provider pin. Record response identity rather than the UI label. PuriPuly's inspected LLM timing observation retains `actual_model` and token counts but does not retain OpenRouter generation ID/upstream provider name there. OpenRouter's authenticated per-generation metadata API documents `model`, `provider_name`, token counts, `created_at`, `total_cost` and ID. Export access and matching actual account records remain untested; missing evidence is not $0.
 
@@ -86,7 +111,7 @@ The ChatGPT source handles subscription ineligibility, route-not-supported and u
 
 ## Observed OSC and limits
 
-Public-safe raw evidence: [`../../profiles/evidence/puripuly-control.jsonl`](../../profiles/evidence/puripuly-control.jsonl), [`../../profiles/evidence/puripuly-direction-resume.jsonl`](../../profiles/evidence/puripuly-direction-resume.jsonl), and [`../../profiles/evidence/puripuly-control.json`](../../profiles/evidence/puripuly-control.json).
+Historical public-safe **manual control** evidence: [`../../profiles/evidence/puripuly-control.jsonl`](../../profiles/evidence/puripuly-control.jsonl), [`../../profiles/evidence/puripuly-direction-resume.jsonl`](../../profiles/evidence/puripuly-direction-resume.jsonl), and [`../../profiles/evidence/puripuly-control.json`](../../profiles/evidence/puripuly-control.json). The separate actual 2.9.0 PP4 preflights are documented above.
 
 These are real application UDP messages from **manual synthetic text, translation disabled, capture off**, not PP1–PP4 microphone/translation results. The development benchmark excludes synthetic-speech tracks; this control probe is not such a track and supplies no benchmark score.
 
@@ -96,7 +121,7 @@ These are real application UDP messages from **manual synthetic text, translatio
 - Source documentation describes progressive corrections and suppression of an identical compatible final result. Neither revisions nor resend behavior were empirically isolated here.
 - A later manual submission after en→zh-CN configuration and restart still emitted the source text, because translation was disabled. This confirms resumed control/output, not Chinese translation correctness.
 
-No profile has an observed ten-second microphone-to-translated-OSC example. Revision-dependent metrics remain N/A. No universal final-output reconstruction is supplied.
+PP4 now has observed ten-second audio-to-translated-target-language OSC examples for D1/D3, not semantic-quality or all-direction certification. PP1/PP2/PP3 still lack their own audio-to-OSC checks. Revision-dependent metrics remain N/A where ambiguous; no universal final-output reconstruction is supplied.
 
 ## Sources
 

@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "observed_date": "2026-10-21",
+  "scope": ["D1", "D3"],
+  "method": "Read-only SHA-256 and PCM/WAV inspection of existing prepared artifacts; no playback or main-result inspection.",
+  "source_revision": "issue-2-local-v2",
+  "checked_wav_count": 67,
+  "format": "48000 Hz mono PCM16",
+  "english_checks": {"unique_audio_and_timeline_files": 62, "all_recorded_hashes_match": true},
+  "chinese_checks": {"unique_audio_files": 33, "all_recorded_hashes_match": true},
+  "nonspeech_hash_matches": true,
+  "english_and_chinese_output_check_hashes_match": true,
+  "main": {
+    "D1": {"path": ".data/english/audio/main.wav", "seconds": 1800, "sha256": "48f2f9f48b24fee5895415db198951f099bd259652367f696f503f83f0fb61f7"},
+    "D3": {"path": ".data/chinese/audio/zh-main.wav", "seconds": 1800, "sha256": "4f869813efa8b820fbdc2e7e01ebe6406acfd206286a44d88c0ccc18907818ae"}
+  },
+  "D1_repeat": {"seconds": 300, "sha256": "94d46a1558fd5c664e97234f09a30db29a92870232d2670a0ee2cae1c2f6bc0c", "pcm_matches_main_prefix_exactly": true},
+  "isolated_count_per_direction": 20,
+  "calibration": {
+    "path": ".data/issue3/calibration/cable.json",
+    "sha256": "ff8c74a66eff13e838c27772287b0050463f56c207edc1b64ae83a71f3d70550",
+    "raw_sha256": "6c97630bbf2cee74634b9122fac6057c9657459c127bcc33567d2ef8683d45ee",
+    "raw_hash_matches": true,
+    "offset_ns": 113409500,
+    "measured_at_utc": "2026-10-21T04:50:51.022550+00:00",
+    "current_wasapi_output_index": 19,
+    "current_wasapi_input_index": 20,
+    "current_device_names_match_record": true,
+    "current_probe_performed": false
+  },
+  "limits": [
+    "Input integrity does not establish profile readiness or protocol freeze.",
+    "Main chunk slices must preserve the bundle separators; raw component sums are only 1790 seconds for D1 and 1784 seconds for D3.",
+    "AMI derivatives retain CC BY 4.0; AliMeeting derivatives retain CC BY-SA 4.0. No public upload performed.",
+    "No later-direction input execution or measurement occurred."
+  ]
+}

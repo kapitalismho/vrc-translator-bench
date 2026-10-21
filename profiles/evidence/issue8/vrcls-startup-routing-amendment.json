@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "kind": "owner_authorized_one_time_prelaunch_safe_routing_exception",
+  "recorded_date_local": "2026-10-22",
+  "owner_choice": "실행 전 설정만 수정",
+  "authority": "Owner selected 실행 전 설정만 수정 and authorized desktop-only virtual Cable routing. Director then explicitly authorized spacing-only canonicalization of micName to the same already-intended virtual Cable endpoint; not a different microphone route/device. This bounded exception does not authorize keys/accounts/provider/other-flag or OS/VRChat changes.",
+  "config": "%APPDATA%/VRCLS/config.json",
+  "private_original_backup_retained": true,
+  "private_original_config_sha256": "3401b0edf98074febe6cd85ee2cf3aae33232b7f42432e7be444c04ec1d3598e",
+  "after_desktop_change_config_sha256": "4115126b207052bd2d3464a79969657c364fce5b7d7ef0c8559630a7cbc90f18",
+  "after_all_three_authorized_changes_config_sha256": "5356ddd096bb0b126eadd7007877bc2c8a8874d4188ccb5bad536a3ad1d04c65",
+  "changes": [
+    {"key":"desktopAudioSourceMode","old":1,"new":0,"meaning":"Application→System endpoint-loopback; source enum values established, not guessed"},
+    {"key":"gameMicName","old":"default","new":"CABLE Input (VB-Audio Virtual Cable)","meaning":"Exact active NAudio Render FriendlyName for virtual Cable; not CABLE In16ch or system default"},
+    {"key":"micName","old":"CABLE Output(VB-Audio Virtual Cable)","new":"CABLE Output (VB-Audio Virtual Cable)","meaning":"Director-authorized spacing-only identifier correction to the SAME already-intended capture endpoint; no different mic route/device"}
+  ],
+  "mutation_method": "Read only displayed safe config lines1226/1229 and21, then surgical edit replacements on those lines. Original and pre-canonicalization bytes backed up privately before edits. Final bytes exactly equal original bytes with only those three literal replacements; all unrelated bytes/fields and CRLF preserved.",
+  "all_unrelated_bytes_preserved": true,
+  "different_main_microphone_route_provider_keys_accounts_or_other_flags_changed": false,
+  "VRChat_or_OS_settings_changed": false,
+  "normal_GUI_only_after_exception": true,
+  "source_proof": {
+    "reference_revision":"5b489c4504a9a9b14460a609a9799df8e6eda1c0",
+    "enum":"ConfigEnums.cs DesktopAudioSourceMode: System=0, Application=1",
+    "field_binding":"MainViewModel.BuildDesktopCaptureRequest System branch uses AppConfig.GameMicName, serialized gameMicName, and requests IsLoopback=true/DesktopSourceMode.System",
+    "endpoint_resolution":"AudioCaptureService.StartLoopbackCapture enumerates active Render endpoints and uses exact case-insensitive FriendlyName; unresolved/default selection falls back to default loopback",
+    "installed_source_mapping":"Installed exe/dll hashes are known; exact reference-commit correspondence remains unproven"
+  },
+  "passive_installed_enumerator_evidence": {
+    "method":"Loaded installed NAudio.Core.dll and NAudio.Wasapi.dll only; MMDeviceEnumerator active Render/Capture enumeration. No capture/playback stream or application runtime started.",
+    "exit_code":0,
+    "render":"CABLE Input (VB-Audio Virtual Cable)",
+    "capture":"CABLE Output (VB-Audio Virtual Cable)",
+    "state":"Active",
+    "important_spelling":"NAudio FriendlyName includes a space before parenthesis. PortAudio WASAPI names omit that space. PortAudio-only presence did not establish source resolver matching.",
+    "fresh_exact_unique_active_match_counts": {"Render":1,"Capture":1},
+    "final_exact_resolution_evidence":"final-prelaunch-exact-NAudio-resolution.json",
+    "task_local_evidence_root":".data/issue8/competitor-preflights/vrcls/actual-20261021T200833Z"
+  },
+  "resolved_prelaunch_identifier_blocker": {
+    "old_saved_micName":"CABLE Output(VB-Audio Virtual Cable)",
+    "canonical_saved_micName":"CABLE Output (VB-Audio Virtual Cable)",
+    "old_reference_match_result":"Neither exact nor bidirectional substring match because of the inserted space; would permit default microphone fallback.",
+    "same_endpoint_canonicalization_authorized":true,
+    "final_prelaunch_match":"Fresh installed NAudio enumeration uniquely matches exact active named Render/Capture endpoints; no stream opened.",
+    "decision":"These passive unique matches justified a bounded normal startup under the owner exception, not an effective-route guarantee. Actual installed runtime then contradicted this prediction and fell back to default capture routes; no further startup is authorized by the passive evidence."
+  },
+  "actual_runtime_contradiction": {
+    "normal_launch_attempts":1,
+    "owned_GUI_pid":38260,
+    "observed_microphone":"2026-10-22 05:17:24.722 named canonical Cable capture not found; fallback default.05:17:24.739 WasapiCapture effective device=default.",
+    "observed_desktop":"2026-10-22 05:17:25.174 canonical Cable render not found; fallback default loopback.05:17:25.180 WasapiLoopbackCapture started.",
+    "intended_vs_effective":"GUI and controller capture-running messages retained intended Cable names; capture-service diagnostics explicitly establish default fallback. Passive host-process NAudio enumeration did not attest selection inside the installed process.",
+    "cause":"Unresolved installed-process enumerator/resolver discrepancy; exact installed source mapping remains unproven. Fresh saved config after startup/sync/normal exit still has the intended canonical Cable identifiers and desktop System mode, so no persisted route reversion was observed. Exact origin of each message (wrong capture, server/demo/carryover or other) remains unknown; no guessed attribution, spelling retry or additional config mutation.",
+    "cleanup":"Normal owned main GUI Close and independent PID38260 absence before ACK1; no remaining VRCLS capture.",
+    "dispositions":"D1 operational-invalid effective-route/source-binding failure despite generic CLI0; actual server rate limit retained separately. D3 blocked before launch under this known unsafe boundary.",
+    "privacy":"Actual OSC and post-tail screen may contain unintended private input; raw text/screen retained local only, public record uses identities/hashes and safe diagnostic fields.",
+    "future_prerequisite":"Director must resolve and authorize actual installed-process named-device matching before another startup. These owner-authorized config deltas do not authorize default/private fallback."
+  },
+  "confirmed_incident_decision": {
+    "authority":"Owner confirmed no further VRCLS launch/audio/provider calls; D1 operational-invalid, six nonempty payloads private, D3 blocked. Director will separately assign static installed-binary resolver investigation.",
+    "D1_runner_facts":"CLI0, done4,480000 source-check frames and48000 silent-lifecycle frames; generic nonempty gate is not expected-source translation proof.",
+    "observed_messages":"Six /chatbox/input events retained privately: three attempt3 and three attempt4. All six source bindings unresolved. Attempt4 events arrived during stop-await context24.1075849/27.2318403/36.8322958s after the silent observation end; retained as three raw silent-context events, not relabeled zero or assumed caused by silence.",
+    "actual_rate_limit_status":"Five actual installed response-status log lines report numeric430, followed by returned430 warnings; GUI reports10/minute. Not inferred solely from GUI or reference source; no separate wire-level HTTP capture.",
+    "altered_prelaunch_config_sha256":"5356ddd096bb0b126eadd7007877bc2c8a8874d4188ccb5bad536a3ad1d04c65",
+    "after_normal_GUI_exit_config_sha256":"2f1cc15466cc674a87d971803875ccd8604d92f1fb78c3d99409e464d47c69e7",
+    "private_retention":"Original and altered configs, full raw log, unredacted incident screens and all original runtime captures/manifests retained locally, no public export.",
+    "computer_session":"Open and exclusive desktop authority retained for future Director-authorized other-app work; computer.close not called."
+  },
+  "privacy":"Raw config and original backup contain private data and remain local only. No raw config/logs, CONFIG_SNAPSHOT_V1, credentials or account identities are in this record.",
+  "performance_boundary":"Input-routing safety correction only; no performance claim or scoring penalty and no owner-activity limitation note.",
+  "sources":[
+    "https://github.com/VoiceLinkVR/VRCLS/blob/5b489c4504a9a9b14460a609a9799df8e6eda1c0/01.VRCLS.Core/Models/ConfigEnums.cs",
+    "https://github.com/VoiceLinkVR/VRCLS/blob/5b489c4504a9a9b14460a609a9799df8e6eda1c0/01.VRCLS.Core/Models/AppConfig.cs#L227-L261",
+    "https://github.com/VoiceLinkVR/VRCLS/blob/5b489c4504a9a9b14460a609a9799df8e6eda1c0/03.VRCLS.UI/ViewModels/MainViewModel.cs#L2990-L3042",
+    "https://github.com/VoiceLinkVR/VRCLS/blob/5b489c4504a9a9b14460a609a9799df8e6eda1c0/02.VRCLS.Services/Audio/AudioCaptureService.cs#L103-L141",
+    "https://github.com/VoiceLinkVR/VRCLS/blob/5b489c4504a9a9b14460a609a9799df8e6eda1c0/02.VRCLS.Services/Audio/AudioCaptureService.cs#L584-L609"
+  ]
+}

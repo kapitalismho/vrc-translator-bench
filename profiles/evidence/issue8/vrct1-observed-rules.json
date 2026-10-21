@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "version": "issue8-vrct1-bilingual-preflight-v1",
+  "profile": "VRCT1",
+  "application": "VRCT3.6.0",
+  "observed_directions": ["D3"],
+  "preflight_receipts": "profiles/evidence/issue8/vrct-current-preflights.json",
+  "observations": [{"direction": "D3", "public_trace": "profiles/evidence/issue8/vrct1-d3-preflight/attempt-0003-001.jsonl", "export_provenance": "profiles/evidence/issue8/vrct1-d3-preflight/export-provenance.json", "native_trace_sha256": "2ac3ae9825edfd22b0ed6195d022be07aa97f497e8c6efee1a446f9b03aeb1f3", "trace_lines": [474, 830, 1005], "format": "Chinese source, one newline, Korean translation; trailing OSC arguments true,true"}],
+  "rule": {
+    "version": "issue8-vrct1-bilingual-preflight-v1",
+    "evidence": ["profiles/evidence/issue8/vrct1-observed-rules.json", "profiles/evidence/issue8/vrct-current-preflights.json"],
+    "style": "unknown",
+    "text_pattern": "(?P<source>[^\\n]*)(?:\\n|$)(?P<translation>.*)",
+    "supports": {"revision": false, "erasure": false, "resend": false},
+    "relationships": {},
+    "uncertainty": "Actual source-first bilingual framing agrees with the saved message/translation template. A missing target section supplies no translated text. Source is application ASR, not reference truth. No universal revision, resend, pagination or finality semantics are established; ambiguous new payloads require run-bound inspection."
+  },
+  "binding_policy": "Bind only the observed D3 preflight coverage. D1 emitted no payload and is not admitted. Preflight clocks, sequence IDs and trace lines identify evidence only; never transfer them as main-run relationships or alignment links."
+}
