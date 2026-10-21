@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "version": "issue45-vrcs2-gui-observed-rules-v1",
+  "profile": "VRCS2",
+  "application": "VRCS 0.2.8",
+  "executable_sha256": "9343aeb6902e62535337f58c844272ab18348304c32925f8053d6686d244eb0e",
+  "route": {"asr": "Gemini Transcribe / gemini-3.5-transcribe-live", "translation": "OpenRouter / google/gemma-4-26b-a4b-it", "paid_route_authorized": true, "cost": null},
+  "runtime_identity_basis": "Runner manifest retains preparation-time actual visible GUI observation and process liveness, not continuous effective-state API truth. Metrics worker did not control or independently view the application.",
+  "run": ".data/issue45/runs/vrcs2-gui-initial/manifest.json",
+  "clock_session": "5ebe4e0a8c9f40a2b48f6780ec3b49c7",
+  "raw_evidence": [
+    {"path": ".data/issue45/runs/vrcs2-gui-initial/attempt-0003-001.jsonl", "sha256": "3512ce7a6ca8eb43585db7ec7dfb0409f41d64a5ed79bff0690f76668eaf681b", "osc_lines": [528, 684, 1005], "population": "reference-free output_check"},
+    {"path": ".data/issue45/runs/vrcs2-gui-initial/attempt-0004-001.jsonl", "sha256": "06b7b3b88a124ba40dbb41cf3404ad90d5911d4e27410598299649b40923b1b5", "osc_lines": [208, 474, 705, 2781], "population": "measured continuous development slice"}
+  ],
+  "inspection": {
+    "method": "Actual assistant inspection of exact immutable raw OSC payloads, supplied prepared English source, and app-owner GUI metadata; not human validation or semantic-quality scoring.",
+    "observed_payload_format": "A source-only English payload is followed by source newline Japanese translation. Six translated observations inspected each expose source and translation on separate lines.",
+    "source_only_example": {"recv_seq": 1, "text": "Good that we've got pockets today.", "role": "retained nontranslation observation, excluded from translation denominator"},
+    "bounded_translation_addition": {"from_recv_seq": 1, "to_recv_seq": 2, "same_source": "Good that we've got pockets today.", "added_translation": "今日はポケットがあって良かったです。", "interpretation": "Observed source-only to bilingual update, not evidence that all later messages revise one group. The source-only parent is outside the translation-output graph."},
+    "measured_outputs": [
+      {"recv_seq": 4, "source": "Okay.", "translation": "わかりました。", "relationship": "new", "basis": "First measured output; exact distinct source unit .16 rather than preceding reference-free check phrase 'right now'."},
+      {"recv_seq": 5, "source": "I think that I would have to say", "translation": "そう言わざるを得ないと思います", "relationship": "unknown", "basis": "Related partial content from .17; source correspondence does not prove message-group/revision/final-display relationship."},
+      {"recv_seq": 6, "source": "My favorite animal is", "translation": "私の好きな動物は", "relationship": "unknown", "basis": "Related partial content from .17; do not infer append or revision solely from the shared source sentence."},
+      {"recv_seq": 7, "source": "dogs maybe", "translation": "犬、かもね", "relationship": "unknown", "basis": "Related partial content from .20; prior-message grouping and finality not established."}
+    ]
+  },
+  "rule": {
+    "version": "issue45-vrcs2-gui-observed-rules-v1",
+    "evidence": ["profiles/evidence/issue45/metrics/vrcs2-observed-rules.json", ".data/issue45/runs/vrcs2-gui-initial/attempt-0003-001.jsonl:528,684,1005", ".data/issue45/runs/vrcs2-gui-initial/attempt-0004-001.jsonl:208,474,705,2781"],
+    "style": "unknown",
+    "text_pattern": "(?P<source>[^\\n]*)\\n?(?P<translation>.*)",
+    "supports": {"revision": false, "erasure": false, "resend": false},
+    "relationships": {"5ebe4e0a8c9f40a2b48f6780ec3b49c7:4": {"relation": "new"}},
+    "uncertainty": "Bounded newline extraction from this exact GUI pilot only. Global update/pagination/resend/finality relationships unsupported; ambiguous content-change-dependent metrics remain N/A. Source-only update evidence retained separately."
+  },
+  "limits": ["One configuration and one original development session, not a campaign or cross-app conclusion.", "An exposed source fragment aids correspondence but does not certify translation accuracy or complete delivery of sentence meaning.", "No timing based on app-internal events or typing/finality signals.", "Different real competitor style observation remains separately required."]
+}

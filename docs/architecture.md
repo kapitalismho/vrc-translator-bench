@@ -1,6 +1,6 @@
 # Architecture
 
-This repository implements local corpus preparation for issue #2, reusable Windows audio-to-OSC capture infrastructure for issue #3, and the derived measurement/report-data layer for issue #5. Application-specific profile preparation, quality judging, billing and public presentation remain separate outcomes. Capture and metric routines do not imply a completed real-translator pilot or comparison.
+This repository implements local corpus preparation for issue #2, reusable Windows audio-to-OSC capture infrastructure for issue #3, application-profile preparation and observed development pilots for issue #4, and the derived measurement/report-data layer for issue #5. Bounded real-translator pilots do not establish full-profile readiness, quality scores, billing completeness or a completed comparison.
 
 ## Data flow
 
@@ -33,12 +33,17 @@ This repository implements local corpus preparation for issue #2, reusable Windo
 | `bench/audio.py` | Shared-mode WASAPI playback, callback/DAC clock mapping and bounded measured cable correction |
 | `bench/osc.py` | Ordered raw UDP/OSC capture across chunks and observation tails |
 | `bench/adapter.py` | Long-lived subprocess JSON control boundary; application-specific implementations belong to issue #4 |
+| `bench/gui_operator_adapter.py`, `tools/prepare_gui_pilot.py` | GUI-operator attestation through the existing subprocess adapter boundary, session-bound action acknowledgements and source-bound development pilot plans; no hidden application API control |
+| `tools/export_pilot_evidence.py` | Separate sanitized pilot exports with original/derived checksums and provenance; never replaces authoritative raw captures |
 | `docs/cli.md` | Runner CLI, plan, adapter, raw timing and persistence contracts |
 | `bench/metrics_inputs.py` | Native corpus normalization, capture identity/checksums and cable-corrected source-clock mapping |
 | `bench/metrics_alignment.py` | Versioned output interpretation, input-bound alignment cache and optional pinned SimAlign |
 | `bench/metrics.py` | Timing/delivery, isolated windows, quality-segment assembly and report orchestration |
 | `bench/metrics_diagnostics.py`, `bench/metrics_stats.py` | Evidence-gated diagnostics and original-session statistical summaries |
 | `docs/metrics.md` | Working calculation definitions, report-data contract and verification limits |
+| `bench/profiles.py`, `profiles/catalog.json` | Fourteen-profile findings, evidence-presence admission and static wave/app/CPU/OSC-port checks; not an application state observer |
+| `tools/prepare_profile_checks.py`, `profiles/output-checks.json` | Checksummed ten-second development excerpts for source-specific output checks; local audio only |
+| `profiles/findings/`, `profiles/evidence/`, `docs/profiles/` | Source-backed app-specific control/access findings, real GUI/audio/OSC observations, sanitized derivatives with original hashes and bounded interpretation rules |
 | `.data/` | Local source/audio/models/environments and unresolved Japanese derived content; never staged for Git |
 
 Language-specific preparation remains explicit because the sources have materially different annotations and rights. There is no generic corpus-provider framework. Heavy model dependencies are isolated from the lightweight integration/test environment.
@@ -58,10 +63,12 @@ Language-specific preparation remains explicit because the sources have material
 - An event's current chunk is capture context, not source alignment. Continuous streams retain late events after attempt finalization, with earlier playback provenance. Downstream consumers must not interpret a finalized per-attempt trace as the entire future observation window.
 - Typing is retained but never translation output. Product failure, operational invalidity and unsupported N/A remain distinct; resume preserves terminal history and marks replayed attempts.
 - Adapters own actual application readiness, effective state and startup isolation. A control acknowledgement or synthetic UDP output is not evidence of a configured real translator. No ordinary chunk-boundary application restart is introduced.
+- GUI-operated pilots require actual visible state evidence before acknowledging actions. Process liveness is observed independently; GUI state is not continuously monitored during timed playback. Retire the observation session after external configuration changes or application restart. A translation-off toggle does not establish stopped microphone capture in an application that retains raw passthrough; fully quit that owned application and verify its complete identified runtime, not just one window/PID. Shared launcher ancestors and unrelated user processes are outside cleanup ownership.
 - Metrics never overwrite raw capture or native references. Unaligned outputs remain in quality inputs; missing, late, operationally invalid and unsupported evidence are distinct.
 - App-dependent revisions/final reconstruction and source CER require applicable evidence. A current capture chunk, typing signal or text similarity alone is not source/finality proof.
 - Reference ambiguity reduces the metric claim: partial units and ambiguous containing turns retain explicit reasons and population accounting. Quality context is two preceding reference turns, not scored source.
 - Metric reports inherit source-content restrictions, including local-only Japanese speech. Public presentation and main-run freeze are downstream responsibilities.
+- Profile catalogues separate planned routes, source support and observed effective state. Null runtime/OSC evidence remains blocked. Documented manual/configuration procedures do not pretend to implement the runner's subprocess control protocol.
 
 ## Verification boundary
 
@@ -71,7 +78,7 @@ The owner-delegated practical method is recorded in `corpus/practical-assessment
 
 No private account, live translation service, microphone capture, VRChat process or OSC destination is used by routine corpus checks. Public dependency installation may use the normal pip cache; corpus/model payloads remain in `.data/`. Do not delete shared caches as cleanup.
 
-Capture behavior checks use isolated controlled adapters, synthetic WAVs and loopback UDP. Actual Windows shared-mode cable calibration and playback were observed separately. No isolated configured translator was available for the real audio-to-OSC pilot; that observation remains explicitly not run. See `docs/cli.md` for the evidence boundary and operator contract. Application-specific settings and minimal OSCQuery/mute dependencies remain with profile preparation, not speculative runner behavior.
+Capture behavior checks use isolated controlled adapters, synthetic WAVs and loopback UDP. Actual Windows shared-mode cable calibration and playback were observed separately. Issue #4 has real GUI-operated VRCT CPU-M2M translation, VRCS cloud-ASR/CPU-Qwen-ASR captures, a VRCS direction-change/capture-resume check, and VRCLT1 all-in-one rolling bilingual output. Failed VRCLT2 and pre-playback KIKI1 attempts remain separate evidence. These streams and source-bound derived measurements are distinct from earlier control-only PuriPuly observations; further PuriPuly execution is owner-deferred. See `docs/cli.md`, `docs/profiles.md` and `profiles/evidence/issue45/` for exact boundaries and outstanding profiles. Application settings and minimal OSCQuery/mute dependencies remain with profile preparation; no speculative signaling was added to the runner.
 
 ## Release boundary
 

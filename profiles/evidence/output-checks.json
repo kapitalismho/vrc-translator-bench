@@ -1,0 +1,38 @@
+{
+  "kind": "clip_preparation_and_cable_only_playback",
+  "checks": [
+    {
+      "language": "en",
+      "frames": 480000,
+      "pcm_matches_source": true,
+      "rms_pcm16": 355.267,
+      "sha256_matches": true
+    },
+    {
+      "language": "zh",
+      "frames": 480000,
+      "pcm_matches_source": true,
+      "rms_pcm16": 2507.658,
+      "sha256_matches": true
+    },
+    {
+      "language": "ja",
+      "frames": 480000,
+      "pcm_matches_source": true,
+      "rms_pcm16": 2776.915,
+      "sha256_matches": true
+    }
+  ],
+  "playback": {
+    "language": "en",
+    "frames": 480000,
+    "callbacks": 1000,
+    "translation_pilot": false,
+    "local_artifact": ".data/issue4/output-checks/playback-en.json"
+  },
+  "limitations": [
+    "RMS is not a listening or language-correctness assessment",
+    "No translator inference attached to this playback",
+    "First playback command failed because the selected environment lacked the audio extra; installed declared dependencies then completed playback"
+  ]
+}

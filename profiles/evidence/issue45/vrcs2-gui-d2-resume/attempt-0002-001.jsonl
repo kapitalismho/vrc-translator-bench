@@ -1,0 +1,2 @@
+{"record": "attempt_start", "t_ns": 371323253882500, "wall": "2026-10-20T23:22:55.336843+00:00", "run": "vrcs2-gui-d2-resume", "config": "VRCS2", "stage": 1, "kind": "direction", "resumed": false, "clock_session": "9b55e352def34c7096a0b727a2211ee5", "wave": "gui-pilot-sequential", "direction": "D2", "chunk": "capture-resume-observation", "attempt": 2}
+{"record": "attempt_end", "t_ns": 371323255842600, "wall": "2026-10-20T23:22:55.338347+00:00", "state": "done", "reason": null, "detail": {}}

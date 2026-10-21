@@ -30,6 +30,52 @@ bench run --resume pilot
 
 `status` returns 0 if inspection succeeds, even when the run contains failures.
 
+## Profile preparation commands
+
+`bench profiles --catalog profiles/catalog.json` inspects all 14 recorded findings and the working waves. Add `--check-ports` for an instantaneous loopback UDP availability probe and `--require-ready` to return 2 when real readiness evidence is missing. A valid blocked catalogue otherwise exits 0 for inspection. These commands do not start/configure translators or certify the contents of operator evidence.
+
+`python -m tools.prepare_profile_checks` prepares three ten-second development-audio checks and `profiles/output-checks.json`. Use source-language-specific run plans because `output_check.audio` is currently a single clip per plan. See [profile control procedures, access findings and observed limits](profiles.md). The catalogue is not a runner plan, and documented manual preparation is not a fabricated subprocess adapter.
+
+### Actual-GUI development pilots
+
+`tools.prepare_gui_pilot` prepares the bounded English development pilot used in `profiles/evidence/issue45/`, not a main comparison:
+
+```powershell
+python -m tools.prepare_gui_pilot --root . --profile VRCS1 --owned-pid 12345 --port 19121
+```
+
+Replace the PID with the actual owned GUI process. The command prints the plan path and creates a unique operator session under `.data/issue45/gui/<profile>/`. It requires the prepared English audio/output-check files and the measured `.data/issue3/calibration/cable.json`; it does not launch or configure an app. D1/D2 are supported for this English-only helper. The default measured excerpt is original PCM `[34,74)` seconds of `development-01`, with a separate ten-second output check. `--direction D2 --check-only` uses the output check plus a one-second silent lifecycle stage: this is not a scored dialogue or the full nonspeech protocol.
+
+The plan starts `bench.gui_operator_adapter`, which waits for an operator rather than calling a hidden application API. Prepare the app through its actual GUI, then record an observation file with:
+
+- `basis: "actual_visible_gui"`, actual `pid`, `profile`, the generated `session`, UTC `observed_at_utc`, and nonempty `evidence` paths to the inspected GUI observations.
+- `state` containing actual `microphone`, boolean `voice_output`, `osc_host`, integer `osc_port`, direction ID and boolean `running`.
+- Optional `metadata` for actual version/model/provider, CPU evidence, capture semantics, access limits and observation uncertainty. Never include credentials.
+
+Register that file using the same PID/profile/session arguments as the generated plan:
+
+```powershell
+python -m bench.gui_operator_adapter --directory OPERATOR_DIRECTORY --owned-pid 12345 --profile VRCS1 --session SESSION --record-observation OBSERVATION_JSON
+```
+
+Then run the printed plan with the normal `bench run` command. A required start/stop/configuration action creates `request-NNNN.json`. Inspect the request, perform the actual GUI action outside timed playback, verify its result, and record a **fresh** observation using the same command plus `--ack-sequence N`. An observation predating the request, another PID/session or an unconfirmed capture transition is rejected. Pending changes invalidate prior state; an acknowledgement alone is not an application observation.
+
+Once playback begins, stop all computer-use screenshots/input and unrelated CPU-heavy checks until the runner requests cleanup. GUI state is manually observed, not continuously polled; independent process liveness does not prove continuous capture or translation health. Preserve raw output and any provider/application errors.
+
+Some apps retain microphone capture and raw passthrough when translation is off. For these apps, safely enable the intended translation route before the initial observation, record `running: true`, and let the runner adopt that actual capture. Do not fabricate a stopped initial state. At cleanup, fully quit the owned app through its GUI and independently verify the whole owned runtime, including identified launcher/child processes, before recording `running: false`. A vanished window or one exited PID is insufficient when related runtimes remain. Never include shared ancestors or unrelated user processes in cleanup. Keep raw passthrough off the injection endpoint even with translated voice disabled.
+
+After an external profile/direction change or application restart, retire the old operator directory by writing `invalidated.json` with the reason and prepare a new session. The retired session rejects further acknowledgements. Keep earlier observations and finalized raw capture artifacts unchanged; sanitized publication copies must identify themselves as derivatives and retain original hashes.
+
+Inspect screenshots and accessibility values before retaining them: offscreen credential fields can be present in a full accessibility tree. Use necessary controls and allowlisted values rather than publishing complete trees, configuration, logs or query-bearing connection URLs.
+
+Create a separate publication derivative only after the run is terminal:
+
+```powershell
+python -m tools.export_pilot_evidence --run-directory .data/issue45/runs/RUN --output profiles/evidence/issue45/NEW_EXPORT
+```
+
+Use a new export destination and inspect the result for secrets, private paths and source-content rights. The derivative records original hashes and its transformations; it does not replace authoritative raw evidence or certify arbitrary diagnostics as safe.
+
 ## Plan contract
 
 Supply a JSON object. Relative audio/calibration paths resolve against the plan directory. The runner materializes the plan and source hashes before execution.
@@ -154,4 +200,6 @@ The focused capture and repair suites executed 32 passing behavior tests. The in
 
 Repair observations used an independent TCP-controlled synthetic application that outlived its controller: terminal-profile capture was stopped before the next wave, and post-start invalidity still confirmed cleanup. An installed-command run from a foreign checkout and resume through a copied non-checkout package retained frozen original identity while recording actual per-session provenance. Evidence remains under `.data/issue3/repair-r1-r4/`; all traffic was controlled loopback, with no provider or hardware use in these repair checks.
 
-**Actual translator audio-to-OSC pilot: not run.** No dedicated configured translator with demonstrated isolation from personal keyrings and ambient provider credentials was established. The existing personal PuriPuly instance was not changed or attached, and no provider calls were made. Prepared application adapters and a real translation pilot remain explicit downstream integration prerequisites; synthetic UDP traces must not be represented as that observation.
+**Actual translator audio-to-OSC integration is now observed in bounded development pilots.** GUI-operated VRCT CPU-M2M translation and VRCS cloud-ASR/CPU-local-Qwen configurations produced translated OSC through this runner; a VRCS target-language change and same-process capture resume completed another output check. A planned VRCLT1 Gemini pilot supplied actual all-in-one rolling bilingual output, while VRCLT2's failed Qwen output check remains separate. These runs used owner-authorized installed applications and existing access, not independently quota-isolated accounts. They do not establish provider pinning, complete usage exports, all-profile readiness or a main comparison. See `profiles/evidence/issue45/` and [current profile findings](profiles.md), including the remaining GUI-access and VRCT full-process-cleanup prerequisite.
+
+Earlier issue #4 preparation exercised an isolated installed PuriPuly 2.8.2 instance through its public CLI: effective OSC state, settings changes, restart persistence and actual manual-text UDP output, including two pages with typing false before the second page. That evidence explicitly labels capture/translation disabled. A separate ten-second English development clip completed 480,000 frames and 1,000 callbacks through `bench playback`. Neither historical observation is a microphone-to-translated-OSC pilot. Further PuriPuly execution is now owner-deferred; the new competitor pilots do not change that boundary.

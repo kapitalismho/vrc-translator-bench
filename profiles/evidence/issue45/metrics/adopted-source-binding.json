@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "version": "issue45-adopted-source-binding-v1",
+  "status": "prepared_input_only_not_runtime_success",
+  "selection": {
+    "clip_id": "development-01",
+    "original_session": "ES2014a",
+    "speaker": "C",
+    "channel": 2,
+    "category": "development",
+    "source_group": "en",
+    "sample_rate": 48000,
+    "native_playback_seconds_half_open": [34, 74],
+    "native_playback_frames_half_open": [1632000, 3552000],
+    "original_source_frames_half_open": [15478560, 17398560],
+    "duration_seconds": 40,
+    "source_audio": ".data/english/audio/development-01.wav",
+    "source_audio_sha256": "2cd64a1a493bf3794f02b58a5d78404128b9e6ab087ca82854b653601d9ef97e"
+  },
+  "reference": {
+    "native_path": "corpus/english/timelines/development-01.json",
+    "native_sha256": "933bc6bc01f17f0cb1e1c727feed72b0e8bfa3fd8ee11943c11b5b4330f6a191",
+    "native_line_ranges": {"mapping": [7, 13], "sentences": [11628, 11982], "turn24": [12753, 12825]},
+    "metadata": "corpus/english/manifest.json:1145-1270",
+    "derived_view": ".data/issue45/metrics/development-01-34-74-reference.json",
+    "derived_view_sha256": "d62c3048524b2a36aee0cc5607cbd44e2dc97389617ee864f5f0ad0f7354fffd",
+    "spec_fragment": ".data/issue45/metrics/development-01-34-74-reference-spec.json",
+    "binding": ".data/issue45/metrics/development-01-34-74-binding.json",
+    "reproduction": ".data/issue45/metrics/reference-reproduction.json",
+    "units": "integer 48000 Hz samples",
+    "offset_seconds": 34,
+    "window_after_offset_seconds": [0, 40],
+    "native_rows_unchanged": true,
+    "complete_target_dialogue_act_suffixes": [16, 17, 18, 19, 20, 21, 22, 23, 24],
+    "containing_turn": "development-01.turn24",
+    "unique_native_containing_turns_confirmed_by_existing_normalizer": true,
+    "reference_level": "human transcript/manual dialogue acts; automatically forced-aligned source word times; not independently verified",
+    "partial_rows": 0
+  },
+  "unscored_context": [
+    {"native_turn": "development-01.turn22", "speaker": "C", "source_start": 14698560, "source_end": 14876160},
+    {"native_turn": "development-01.turn23", "speaker": "A", "source_start": 14717280, "source_end": 14905920}
+  ],
+  "speech_intervals_seconds_after_offset": [[0.21, 7.37], [13.61, 14.84], [17.11, 18.77], [20.26, 34.97], [37.18, 39.2]],
+  "annotation_basis": "Union of scored nonpunctuation target lexical-word native intervals; not independent acoustic voice activity",
+  "hand_frame_arithmetic": [
+    "Selected frames: 3552000 - 1632000 = 1920000; /48000 = 40 seconds.",
+    "First target unit .16 starts: (1642080 - 1632000)/48000 = 0.21 seconds.",
+    "Unit .17: [(1703520-1632000)/48000, (1985760-1632000)/48000] = [1.49,7.37] seconds; duration 5.88 seconds (>5 bin).",
+    "Turn24 ends: (3513600 - 1632000)/48000 = 39.2 seconds. Deadline is its actual callback-mapped corrected end +15 seconds, not a fabricated monotonic origin.",
+    "Relative deadline 39.2 +15 =54.2 seconds; a completed 40-second playback with15-second tail should cover it, subject to actual callback coverage/session end."
+  ],
+  "checks_exercised": [
+    "Existing bench.metrics_inputs.timeline imported from candidate ROOT and normalized this exact derived view: nine complete scored units, all unique native turn24, original session/category retained.",
+    "SHA256 calculated for actual native timeline, existing source WAV and generated view.",
+    "Native sentence/turn/word coordinates copied unchanged; exactly one offset applied by the spec.",
+    "Offline prefix comparison separately found the historical23-second WAV PCM equal to the first1104000frames of both the prepared development bundle and clip. That superseded input had three ambiguous-turn units out of five; it is not the adopted40-second input."
+  ],
+  "limits": [
+    "No audio created, played, recorded or listened to by the metrics worker. App owner creates and binds exact audio slice.",
+    "This source preparation alone cannot establish observed OSC, application output style, delivery, FOL, LUL or quality.",
+    "No independent semantic-accuracy certification or human adjudication.",
+    "Source clocks must come from immutable actual playback callbacks with matching clock session and retained cable correction. No origin extrapolation for real capture.",
+    "Quality context is unscored original-source material, not played target speech.",
+    "PP1-4 are skipped. Historical KIKI1 native/headless failure is not GUI proof. Different competitor styles remain an empirical input."
+  ]
+}

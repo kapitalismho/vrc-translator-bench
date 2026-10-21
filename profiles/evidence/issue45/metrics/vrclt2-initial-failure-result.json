@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "version": "issue45-vrclt2-initial-failure-metrics-v1",
+  "status": "retained_operational_invalid_output_check_not_main_no_output_or_style_sample",
+  "run": "vrclt2-gui-initial",
+  "measurement_date": "2026-10-20T23:41:40.867658+00:00",
+  "synthetic": false,
+  "runner_exit": 2,
+  "metrics_cli_exit": 0,
+  "manifest": ".data/issue45/runs/vrclt2-gui-initial/manifest.json",
+  "manifest_sha256": "2a568ff8c5395689a8b44f40d1c72bddc3e5bf7cba14d3da5e5f7c122e41a713",
+  "stream_sha256": "cff428f94b8393a376232b6db6c7b8bf43e64897c077b9f89cb5e5ae950c3846",
+  "report": ".data/issue45/metrics/vrclt2-initial-failure-report.json",
+  "report_sha256": "ad2e11d42186a6b4c7761ee59c0fcf2d1e75edaf2f2853f3ce355f8b5e40c5ad",
+  "command": ".data/check-venv/Scripts/python.exe -B -m bench.cli metrics --manifest .data/issue45/runs/vrclt2-gui-initial/manifest.json --spec .data/issue45/metrics/vrclt2-initial-failure-spec.json --output .data/issue45/metrics/vrclt2-initial-failure-report.json",
+  "command_cwd": "repository ROOT; executable invoked by absolute path",
+  "authoritative_runner_status": {
+    "setup": "done",
+    "direction": "done",
+    "output_check": "invalid:output_check_no_output",
+    "measured40s_chunk": "pending/unplayed"
+  },
+  "actual_capture": {
+    "callbacks": 1000,
+    "ingested_attempt_source_playbacks": 1,
+    "source_playbacks_in_continuous_stream": 0,
+    "audio_seconds": 10,
+    "osc_observations": 0
+  },
+  "derived": {
+    "reference_sentences": 0,
+    "translation_outputs": 0,
+    "quality_segments": 0,
+    "aggregate_groups": 0,
+    "delivery": null,
+    "delivery_reason": "No measured40s chunk attempt or corresponding source-clock reference exists. Do not invent0/9 delivery,9misses or latency.",
+    "unaligned_output_rate": {
+      "value": null,
+      "unit": "fraction_of_observed_translation_outputs",
+      "reason": "No translation output",
+      "denominator": 0
+    }
+  },
+  "separate_provider_observation": {
+    "safe_evidence": "profiles/evidence/issue45/vrclt2-d1-initial-failure.json",
+    "error_code": "COMMON_ERROR",
+    "message": "<400>InternalError.Algo.InvalidParameter: Voice 'Chelsie' is not supported.",
+    "event_timestamp": null,
+    "basis": "Director/app-owner actual post-output-check GUI observation, not inferred server event time or rewritten runner status.",
+    "classification": "Blocked actual provider/session-parameter error; client-sent Chelsie not established and specifically rejected by subsequent binary/source research reported by Director.",
+    "limit": "Does not prove planned model/language unsupported. Text-only path omits all voice fields; GUI voice box is ignored there. No supported Tina fix or VRCLT2 retry."
+  },
+  "later_process_ownership_limit": {
+    "evidence": "profiles/evidence/issue45/vrclt-process-ownership-gap.json",
+    "basis": "Later app-owner read-only process inspection; no metrics-worker process/GUI controls.",
+    "observed": "PID95372 exit remains factual, but related23:35pair107628->87164 and fresh23:43pair111800->82508 remained live at inspection.",
+    "uncertainty": "Runtime ownership and current capture were unresolved. Surviving processes are not automatically active capture, unrelated personal processes or observed crashes.",
+    "cleanup_claim": "Prior GUI Close/PID95372 exit and manual stopACK do not prove every descendant, microphone or provider runtime stopped.",
+    "measurement_effect": "Original callback/OSC counts, invalid output-check ledger and unplayed40s main stage remain unchanged. No complete hardware/descendant cleanup or next-pilot readiness claimed."
+  },
+  "checks": [
+    {
+      "name": "terminal output_check remains operational invalid",
+      "passed": true
+    },
+    {
+      "name": "measured40s work remains pending and unattempted",
+      "passed": true
+    },
+    {
+      "name": "zero main source rows not nine missing units",
+      "passed": true
+    },
+    {
+      "name": "zero actual outputs and quality inputs retained as such",
+      "passed": true
+    },
+    {
+      "name": "no-output global fraction unavailable not fabricated zero",
+      "passed": true
+    },
+    {
+      "name": "actual10s callback activity not native preaudio crash",
+      "passed": false
+    },
+    {
+      "name": "replacement actual10s capture uses ingested attempt playback, not assumed stream placement",
+      "passed": true
+    },
+    {
+      "name": "no actual OSC observation implies no actual style proof",
+      "passed": true
+    },
+    {
+      "name": "retained terminal manifest hash matches handoff",
+      "passed": true
+    },
+    {
+      "name": "retained terminal stream hash matches manifest",
+      "passed": true
+    }
+  ],
+  "attempted_check_count": 10,
+  "passed": 9,
+  "retained_failed_observation_check": {
+    "name": "actual10s callback activity not native preaudio crash",
+    "product_defect": false,
+    "cause": "Worker incorrectly assumed source_playback must appear in the continuous stream. It is retained in the attempt and correctly ingested by metrics, while continuous stream carries1000callbacks.",
+    "replacement_protection": "Check actual ingested attempt playback identity, real DAC observation, nonsynthetic status, exact10s duration and output-check audio hash plus all1000callbacks. Do not rerun application or weaken no-main-delivery protection."
+  },
+  "failed": 1,
+  "skipped": 0,
+  "voice_research": ".data/issue45/metrics/vrclt2-voice-prerequisite.json",
+  "limits": [
+    "No actual all-in-one translated packet or distinct-style evidence yet.",
+    "No main delivery, latency, quality, provider response identity or billing result.",
+    "Failed first attempt preserved independently of any later planned VRCLT1 Gemini route, not silently replaced by a fallback.",
+    "No app/config/source/raw/Git mutations by metrics worker. Director explicitly rejected an unreachable Tina GUI fix or VRCLT2 retry."
+  ]
+}

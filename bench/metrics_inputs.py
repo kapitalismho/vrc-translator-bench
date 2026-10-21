@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import math
+from fractions import Fraction
 from pathlib import Path
 from .storage import digest
 
@@ -143,13 +144,15 @@ def source_time(playback, callbacks, seconds, rate):
     correction = playback.get("calibration_offset_ns")
     if correction is None:
         return None
+    if isinstance(seconds, Fraction):
+        rate = Fraction(str(rate))
     frame = seconds * rate
     candidates = [row for row in callbacks if "dac_t_ns" in row and row["source_frame"] <= frame <= row["source_frame"] + row["source_frames"]]
     if candidates:
         row = max(candidates, key=lambda item: item["source_frame"])
-        return row["dac_t_ns"] + round((frame - row["source_frame"]) / rate * 1e9) + correction
+        return row["dac_t_ns"] + round((frame - row["source_frame"]) / rate * 1_000_000_000) + correction
     if playback.get("synthetic"):
-        return playback["playback_dac_start_ns"] + round(seconds * 1e9) + correction
+        return playback["playback_dac_start_ns"] + round(seconds * 1_000_000_000) + correction
     return None
 
 
@@ -208,8 +211,13 @@ def ingest(manifest_path, specification_path):
             item["playback"] = playback
             for kind in ("sentences", "turns"):
                 for row in item["reference"][kind]:
-                    row["start_ns"] = source_time(playback, item["callbacks"], row["start"], stage.get("sample_rate", 48000))
-                    row["end_ns"] = source_time(playback, item["callbacks"], row["end"], stage.get("sample_rate", 48000))
+                    for boundary in ("start", "end"):
+                        seconds = row[boundary]
+                        if row["native_coordinate_units"] == "samples":
+                            native = row["reference_evidence"]
+                            coordinate = native.get(f"playback_{boundary}", native.get(boundary))
+                            seconds = Fraction(str(coordinate)) / Fraction(str(reference.get("sample_rate", 48000))) - Fraction(str(row["offset_seconds"]))
+                        row[f"{boundary}_ns"] = source_time(playback, item["callbacks"], seconds, stage.get("sample_rate", 48000))
         attempts.append(item)
     events = [row for row in records if "address" in row and "recv_seq" in row]
     keys = [(row.get("clock_session"), row["recv_seq"]) for row in events]

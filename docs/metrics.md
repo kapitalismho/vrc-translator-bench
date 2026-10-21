@@ -22,6 +22,8 @@ The following are the working calculation definitions. The final input/rule/mode
 
 Source times are transformed playback times corrected to cable capture. Output times are OSC receipt times. See [capture clock mapping](cli.md#clock-and-endpoint-records). Do not subtract monotonic timestamps from different clock sessions. Do not infer a source assignment from the currently active capture chunk: delayed output can belong to earlier playback.
 
+Sample-native reference boundaries retain exact native-sample, sample-rate and excerpt-offset arithmetic through callback selection and nanosecond rounding. Public playback-second fields remain floating-point values, but those rounded values are not converted back to frames for sample-native clock mapping. At a shared callback boundary, use the later callback's observed DAC timestamp. Seconds-native references retain their fractional-second timing without blanket sample rounding.
+
 Negative latency is retained when the observed timing supports it. Missing output has null latency, not an arbitrary timeout latency. LUL means the last observed content update, not proven semantic completion. Resends do not create content changes; revision-dependent measurements require applicable interpretation evidence.
 
 No corresponding output before a deadline, output after the deadline, and output with undetermined correspondence are different observations. An unaligned output is retained and assigned to its nearest temporal quality segment; it is not silently discarded or credited as delivery. Obvious alignment problems must restrict the claim or produce an explicit unknown/N/A reason.
@@ -173,4 +175,22 @@ Independent-review repairs also covered explicit-parent page revisions, aligned 
 
 A terminal audit additionally found a single merged message crossing two quality segments without a supported per-segment translation allocation. The repaired actual CLI retained one display placement and linked both source segments, excluded their two supplied scores with reasons, and preserved 3/3 sentence delivery and the original two-output denominator. A third independent segment remained scorable. Fifteen composition checks passed; `.data/issue5-t1/` retains the controlled evidence. Paired-comparison regressions also preserve delivery/FOL/LUL pairs while excluding unsupported major-error comparisons, including product-failure, invalid/unsupported and ambiguous-timing cases.
 
-**Remaining empirical prerequisite:** #4 has not supplied different applications' actual microphone-to-translated-OSC examples and observed interpretation rules. The available PuriPuly manual-text probe does not satisfy that criterion. Synthetic append/revision/pagination fixtures exercise calculations but cannot establish real-app readiness or translation timing. Issue #5 must not be closed as fully empirically verified on that basis. No human listening, independent semantic-accuracy study, live provider call or public result publication is claimed.
+### Actual application samples
+
+The earlier missing-real-trace prerequisite is now covered by inspected **VRCS 0.2.8** and **VRCLT 1.0.1** speech-to-translated-OSC observations. The [artifact index](../profiles/evidence/issue45/metrics/actual-pilot-metric-index.json) links source binding, raw hashes, observed rules, sanitized results and the retained local calculation records. VRCS1/VRCS2 are two configurations of one app; VRCLT1 supplies the distinct all-in-one rolling/mixed-role style. The separate Qwen endpoint-repair check is not included in these metric samples.
+
+All three samples reuse one 40-second English development excerpt from original session ES2014a, nine complete manual dialogue-act reference units and two earlier context turns. Word times are automatically aligned, and dialogue acts are not independently verified grammatical sentences. These are bounded integration examples, not independent recordings, a fair performance ranking or frozen main results. Unrelated background user activity was not isolated.
+
+| Configuration | Related-content delivery | FOL p50 / p90, seconds | Supported sentence LUL |
+| --- | --- | --- | --- |
+| VRCS2 | 3/9; six no-output-before-deadline | 3.086 / 4.543 | 0.436 seconds for one unit; otherwise N/A |
+| VRCS1 | 8/9 confirmed; one unresolved | 3.630 / 6.788 | 0.404 seconds for one unit; otherwise N/A |
+| VRCLT1 | 9/9 related-content units | 4.759 / 5.969 | N/A for rolling output |
+
+Delivery and FOL are conditional on inspected source correspondence; they do not establish complete or accurate meaning transfer. Missing output has null latency. Unknown filler and rolling fragments remain unknown rather than receiving forced source credit. Rolling content changes do not establish revision identity, finality or semantic completion; unsupported LUL, erasure and final reconstruction remain N/A.
+
+Denominators retain their scope: global unaligned translation counts are 2/6, 3/12 and 5/25 respectively; the continuous/measured-stage counts are 0/4, 1/10 and 2/22. Source-only and typing observations are preserved but excluded from translation denominators. Reference-free output-check translations remain separate. VRCLT's mixed check/main packet retains its prefix and provenance; only its inspected new acknowledgment receives source credit.
+
+Unknown translated output reaches quality inputs. An indivisible merged packet crossing source quality-segment boundaries is displayed once and linked to both segments; both affected inputs are unscorable with `unresolved_merged_output_allocation`, rather than inventing translation spans or duplicating the text. The retained VRCLT mixed-carryover example is protected by that cross-segment guard; it does not demonstrate a generic standalone carryover guard. No quality scores, major-error rates, session-clustered confidence intervals or repeated-run conclusions are claimed from these samples.
+
+The actual CLI derivations and bounded checks are recorded in the index: 25 checks for each VRCS sample and 29 plus four mixed-carryover checks for VRCLT. All 18 source bounds per sample were checked against integer-frame callback arithmetic after correcting a native-frame float round-trip defect. Pre-repair artifacts and first failed/invalid attempts remain preserved. The historical cable correction was reused, not newly precision-certified. These observations replace the old missing-input statement; they are bounded integration evidence, not a completed comparison.

@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "purpose": "One owner-requested minimal Qwen endpoint repair check, not a full benchmark or capture-resume validation",
+  "application": "VRCLT 1.0.1",
+  "correction": {
+    "method": "Actual GUI: select qwen, enter the owner-supplied existing Beijing workspace ID, Save and restart, then read back the saved provider/model/region/workspace fields",
+    "route": "Existing supported workspace-specific Beijing MAAS WebSocket resolver instead of the empty-workspace DashScope fallback",
+    "model": "qwen3.8-livetranslate-flash-realtime",
+    "region": "beijing",
+    "voice_mode": "Text-only; voice clone off; voice ID empty",
+    "source_code_patch": false,
+    "api_key_changed": false,
+    "privacy": "Workspace ID, full account-specific host, credentials and private GUI screenshots are omitted"
+  },
+  "observation": {
+    "run": "vrclt2-workspace-hostcheck",
+    "profile": "VRCLT2-HOSTCHECK",
+    "direction": "English to Japanese",
+    "audio_seconds": 10,
+    "tail_seconds": 15,
+    "lifecycle_silence_seconds": 1,
+    "osc_destination": "127.0.0.1:19131",
+    "translated_chatbox_inputs": 3,
+    "sample": "Let's see.\nでは、見てみましょう。",
+    "terminal_stage_counts": {"pending":0,"running":0,"done":4,"product_failure":0,"invalid":0},
+    "runner_exit": 0,
+    "post_check_gui": "Running/waiting with text-only enabled, inbound subtitles off and no visible Chelsie error; subtitle area blank. Translation evidence is the separately captured raw OSC, not the blank GUI.",
+    "cleanup": "Actual GUI Close after runner STOP request, followed by independent absence of the entire owned launcher/runtime pair. STOP observation acknowledged; runner exited 0. Shared ancestor was not controlled."
+  },
+  "raw_evidence": {
+    "local_run_directory": ".data/issue45/runs/vrclt2-workspace-hostcheck",
+    "output_check_trace": "attempt-0003-001.jsonl",
+    "output_check_sha256": "168b056c42697fb95ed7ea6d3adb80a3e15be38fabe7750d913f33ec37c1d03a",
+    "stream": "stream-deda93a543274b3abbe35e2226705f61.jsonl",
+    "stream_sha256": "92294c3896f3e2431aae56999d24448f232d2954d091de0a8f03d1124e00907c",
+    "prior_failure": "vrclt2-d1-initial-failure.json"
+  },
+  "conclusion": "The supported GUI workspace-host correction was sufficient for actual Japanese translation delivery without changing the requested model, region, text-only mode or voice fields. This does not establish why the old provider route rejected Chelsie or prove that the client sent that voice.",
+  "limits": [
+    "Only one short audio check was performed; no forty-second main stage, other apps, additional directions, quality metrics or quota checks were run.",
+    "The helper labels the stage capture-resume-observation, but this run diagnoses endpoint configuration; it is not a capture-resume claim.",
+    "The diagnostic retained port19131; the catalog's reserved VRCLT2 port19132 was not reconfigured or validated. Full profile admission remains unchanged pending that intended-route check.",
+    "Saved configuration was read back after the app's Save/restart action, but no further OS-process restart persistence experiment was performed.",
+    "The effective server connection host, returned model identity and billing were not independently captured; route selection follows saved GUI configuration and the inspected resolver."
+  ]
+}

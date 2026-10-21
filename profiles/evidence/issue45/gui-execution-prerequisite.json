@@ -1,0 +1,11 @@
+{
+ "schema_version":1,
+ "kind":"pending_actual_GUI_execution_prerequisite_not_product_failure",
+ "status":"No new audio authorized; future GUI-prepared attempts paused",
+ "Director_observation":{"timestamp_utc":null,"timestamp_limit":"Exact observation timestamp not supplied; do not substitute independent process-check time","window":"Previously observed VRCT window2825532 no longer listed","application_listing":"PID30032 still listed running","computer_control":"inactive","renewed_control_acquisition":"Timed out without approval result","actions":"No app relaunch, kill or further app control"},
+ "independent_read_only_observation":{"observed_at_utc":"2026-10-21T00:20:35.6286481Z","live_processes":[{"name":"VRCT.exe","pid":30032,"parent_pid":111840},{"name":"msedgewebview2.exe","pid":82256,"parent_pid":30032},{"name":"VRCT-sidecar.exe","pid":82716,"parent_pid":30032},{"name":"conhost.exe","pid":109612,"parent_pid":82716}],"UDP19111_19112_19113_bound":false,"shared_launcher111840_app_owned":false},
+ "VRCT1":{"last_actual_capture_OFF_observed_at_utc":"2026-10-21T00:16:44.477Z","basis":"Director actual microphone OFF then translation OFF; all four switches grey OFF","full_quit":false,"app_retained":true,"session_retired":true,"bounded_ready_result_unchanged":true},
+ "affected_pending_attempts":["VRCT2","VRCT3","VRCLS1","KIKI2","distinct supported-GUI KIKI1 attempt"],
+ "required_before_execution":"Director restores supported live GUI visibility/control authorization and supplies fresh actual profile configuration, active/stopped attestation, explicit audio GO and timed CPU barrier",
+ "limits":["Window invisibility is not process exit.","Absent UDP bindings do not prove capture stopped; capture-OFF basis is the last actual GUI observation.","This is an operator-permission/window-visibility prerequisite, not a new product failure.","KIKI1 retained native preplayback crash remains unchanged and is not repaired or superseded by a distinct requested GUI attempt.","No new audio, application launches, process kills or repeated process checks performed."]
+}

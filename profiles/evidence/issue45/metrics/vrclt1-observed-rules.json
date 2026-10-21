@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "version": "issue45-vrclt1-rolling-inspected-v1",
+  "profile": "VRCLT1",
+  "method": "Actual assistant inspection of all26 exact finalized chatbox payloads and source context; no human/model alignment validation or GUI controls by metrics worker.",
+  "manifest_sha256": "0e1142dce5d9f6861765383accfadcaede2d741404dac39f1732220adeffbb92",
+  "stream_sha256": "147b6d9f2d2f1ea6fd2ffd46ecebce0c36088310b7f86f83a693fc98fd428084",
+  "observed_style": "Incremental rolling bilingual snapshots, with observable prefix removal and same-source translation extension, not independent final sentences or concatenate-all text.",
+  "bounded_source_only_annotation": {
+    "recv_seq": 43,
+    "exact_payload": "Um, and this would be because because the very independent uh, they're",
+    "basis": "This exact English-only packet repeats the app-exposed English source prefix from bilingual40, contains no translated Japanese field, and is separately inspected as source-only. This annotation is frozen to actual payload, not generalized to every single-line packet."
+  },
+  "translation_only_annotation": {
+    "recv_seq": 58,
+    "exact_payload": "私はとても",
+    "source_field": null,
+    "basis": "Exact Japanese-only target prefix, also present in60 and expanded in62; retained as a translated observation even if source correspondence remains unknown."
+  },
+  "literal_observations": {
+    "translation_extension_pairs": [
+      [
+        3,
+        5
+      ],
+      [
+        60,
+        62
+      ],
+      [
+        67,
+        69
+      ]
+    ],
+    "prefix_removal_pairs": [
+      [
+        23,
+        25
+      ],
+      [
+        37,
+        40
+      ]
+    ],
+    "universal_revision_page_final_ids": false,
+    "last69_target_ends": "から",
+    "semantic_completion_proven": false
+  },
+  "mixed_packet12": "Contains the unscored output-check suffix from8 plus new main acknowledgment. Only demonstrable main translated content may receive source links; do not assign all source/target text to40s merely from attempt4. Full raw source_candidate_provenance retained.",
+  "rule": {
+    "version": "issue45-vrclt1-rolling-inspected-v1",
+    "evidence": [
+      "profiles/evidence/issue45/vrclt1-d1-observation.json",
+      "profiles/evidence/issue45/metrics/vrclt1-observed-rules.json",
+      ".data/issue45/runs/vrclt1-gui-initial/stream-8fc867139ac34ca6a701e6e5c20dd64c.jsonl"
+    ],
+    "style": "unknown",
+    "text_pattern": "(?P<source>[^\\n]+(?=\\n)|Um,\\ and\\ this\\ would\\ be\\ because\\ because\\ the\\ very\\ independent\\ uh,\\ they're$)?\\n?(?P<translation>.*)",
+    "supports": {
+      "revision": false,
+      "erasure": false,
+      "resend": false
+    },
+    "relationships": {},
+    "uncertainty": "Run-bound inspected extraction for this immutable26-chatbox-packet trace only: bilingual newline pairs; exact observed English-only source43 explicitly annotated; remaining observed single-line Japanese58 retained as translation. Not a universal single-line/language classifier. Rolling prefixes and bounded extensions do not establish message/final/page IDs. No concatenate-all final reconstruction or revision/erasure claim."
+  },
+  "limits": [
+    "No universal final reconstruction; observed-order snapshots remain distinct.",
+    "No source text concatenation/CER reconstruction spans or Japanese translation span allocation invented.",
+    "GUI outbound subtitle field was blank; actual translated OSC, not visual translated text, is evidence.",
+    "Unrelated user background work was not isolated; endpoint FOL is bounded debug observation, not fair ranking."
+  ]
+}

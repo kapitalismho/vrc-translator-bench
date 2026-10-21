@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "kind": "read_only_process_ownership_after_user_application_restart",
+  "authority": "Owner explicitly selected VRCLT app restart and subsequently restarted it directly; worker/Director issued no CLI/native kills",
+  "observed_at_utc": "2026-10-20T23:56:50.3749067Z",
+  "old_processes": [{"pid": 107628, "alive": false}, {"pid": 87164, "alive": false}, {"pid": 111800, "alive": false}, {"pid": 82508, "alive": false}],
+  "current_vrclt_processes": [{"pid": 111144, "parent_pid": 9036, "created_at_utc": "2026-10-20T23:55:44.545000+00:00", "executable": "vrclt-v1.0.1-windows-x64.exe"}, {"pid": 107968, "parent_pid": 111144, "created_at_utc": "2026-10-20T23:55:48.364000+00:00", "executable": "vrclt-v1.0.1-windows-x64.exe"}],
+  "root_parent": {"pid": 9036, "name": "sihost.exe", "scope": "Observed ancestry only; not a benchmark cleanup target"},
+  "gui_reported_by_Director": {"pid": 107968, "window": 20190140, "version": "1.0.1", "translation_on": true, "microphone": "CABLE Output(VB-Audio Virtual Cable)", "target": "ja", "text_only": true, "inbound": false, "next_preparation": "Distinct planned VRCLT1 Gemini through actual GUI; not a Qwen correction/fallback", "fresh_complete_profile_attestation": "pending"},
+  "interpretation": "At inspection, no old VRCLT executable process from either previously observed pair remained; exactly the new pair was present. This resolves the surviving-old-process observation at this later time, not retroactively the earlier stopACK or exact time all old capture ended. Current restarted app may capture; it is not claimed stopped or ready for the next planned route.",
+  "cleanup_requirement": "For the current instance, Director actual GUI Quit must be followed by independent exit proof for BOTH GUI child107968 and parent111144 plus any observed owned descendant runtime. Never equate GUI child exit alone to all-runtime cleanup.",
+  "worker_actions": {"read_only_process_metadata": true, "desktop_control": false, "native_window_automation": false, "app_API_or_CLI_control": false, "kill": false, "launch": false, "audio": false},
+  "next_gate": "No audio authorization yet. Fresh Director actual GUI profile settings/active state, explicit GO and idle CPU/metrics barrier required before preparation/run."
+}

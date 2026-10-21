@@ -10,6 +10,7 @@ from .adapter import OperationalError
 from .audio import Playback, calibrate
 from .plan import IDENTIFIER, load_plan
 from .runner import Runner
+from .profiles import inspect_catalog
 from .storage import Ledger, atomic_json, utc_now
 
 
@@ -40,6 +41,10 @@ def parser():
     metrics.add_argument("--output", type=Path, required=True)
     metrics.add_argument("--alignment-cache", type=Path)
     metrics.add_argument("--allow-model-download", action="store_true")
+    profiles = commands.add_parser("profiles")
+    profiles.add_argument("--catalog", type=Path, default=Path("profiles/catalog.json"))
+    profiles.add_argument("--check-ports", action="store_true")
+    profiles.add_argument("--require-ready", action="store_true")
     return root
 
 
@@ -52,6 +57,10 @@ def main(argv=None):
             print(json.dumps({"report": str(args.output), "version": result["version"], "sentences": len(result["sentences"]),
                               "outputs": len(result["outputs"]), "quality_segments": len(result["quality_segments"])}, indent=2))
             return 0
+        if args.command == "profiles":
+            result = inspect_catalog(args.catalog, check_ports=args.check_ports)
+            print(json.dumps(result, indent=2, ensure_ascii=False))
+            return 2 if args.require_ready and result["status"] != "ready" else 0
         if args.command == "calibrate":
             result = calibrate(args.output, args.output_device, args.input_device)
             print(json.dumps({"status": result["status"], "offset_ns": result["offset_ns"], "artifact": str(args.output)}, indent=2))

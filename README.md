@@ -1,6 +1,6 @@
 # VRC Translator Bench
 
-Local speech-corpus preparation, resumable Windows audio-to-OSC capture, and derived measurements for the community translation benchmark in [issue #1](https://github.com/kapitalismho/vrc-translator-bench/issues/1). The repository implements the local corpus work in [issue #2](https://github.com/kapitalismho/vrc-translator-bench/issues/2), capture infrastructure in [issue #3](https://github.com/kapitalismho/vrc-translator-bench/issues/3), and the calculation/report-data layer in [issue #5](https://github.com/kapitalismho/vrc-translator-bench/issues/5). This is not a completed application comparison or quality-judging system.
+Local speech-corpus preparation, resumable Windows audio-to-OSC capture, application-profile preparation and derived measurements for the community translation benchmark in [issue #1](https://github.com/kapitalismho/vrc-translator-bench/issues/1). The repository contains local corpus work ([#2](https://github.com/kapitalismho/vrc-translator-bench/issues/2)), capture infrastructure ([#3](https://github.com/kapitalismho/vrc-translator-bench/issues/3)), profile findings and bounded actual-GUI development pilots ([#4](https://github.com/kapitalismho/vrc-translator-bench/issues/4)), and the calculation/report-data layer ([#5](https://github.com/kapitalismho/vrc-translator-bench/issues/5)), not completed quality judging or comparison results.
 
 The owner [replaced the Hugging Face publication criterion with local preparation](https://github.com/kapitalismho/vrc-translator-bench/issues/2#issuecomment-6282606626). No public audio dataset has been published. Audio, model weights and downloads remain in ignored `.data/`; Git contains preparation code and permitted metadata.
 
@@ -53,7 +53,19 @@ bench run --resume pilot
 
 Follow the [runner CLI, plan and adapter contract](docs/cli.md) to prepare the plan and application adapter. Artifacts default to ignored `.data/runs`. Completed and product-failed work survives resume; interrupted work retains invalid evidence and gets a new marked attempt.
 
-Windows cable calibration/playback was observed. A real translator pilot was **not run**: an isolated configured translator was unavailable. Synthetic process/OSC checks do not establish real application translation. Application-specific preparation belongs to issue #4; do not attach this runner to a personal app instance or run VRChat.
+Windows cable calibration/playback and actual GUI-operated microphone-to-translated-OSC development pilots were observed for VRCT, VRCS and VRCLT configurations. Their bounded results, failures and cleanup limits are recorded separately from earlier PuriPuly manual-text/control probes. Use only explicitly owner-authorized application instances, keep secrets out of exported evidence, and do not run VRChat.
+
+## Application profiles
+
+[Profile preparation](docs/profiles.md) accounts for all 14 planned profiles, exact model/access caveats, observed GUI state and reserved OSC ports. The active plan uses ten sequential competitor waves; the owner deferred all four PuriPuly profiles. Bounded readiness requires actual audio/OSC evidence, not source availability or saved credentials. The [catalogue](profiles/catalog.json) records each current ready/blocked finding and its limits.
+
+```powershell
+python -m tools.prepare_profile_checks
+bench profiles --check-ports
+bench profiles --require-ready
+```
+
+The first command prepares local ten-second development clips for the three source languages. Catalogue inspection checks static wave/port/workload conflicts; `--require-ready` exits 2 while readiness evidence is missing, including owner-deferred profiles. See the [actual pilot evidence](profiles/evidence/issue45/) and separately labelled [historical control-only evidence](profiles/evidence/puripuly-control.json). [GUI operator instructions](docs/cli.md#actual-gui-development-pilots) connect actual observed GUI actions to the existing runner without hidden application API control.
 
 ## Derive measurements
 
@@ -63,7 +75,7 @@ python -m bench.cli metrics --manifest .data/runs/pilot/manifest.json --spec met
 
 The [metric definitions and report-data contract](docs/metrics.md) describe reference normalization, versioned application rules, cross-language alignment, timing/delivery, quality segments, diagnostics and session-clustered summaries. Optional model alignment uses `.[alignment]`; inspected, input-bound alignment caches support offline calculations. Raw capture is never rewritten. Missing correspondence, late output, failure, reference uncertainty and unsupported measurements remain visible.
 
-Actual distinct-application translation traces and observed interpretation rules remain a #4 integration prerequisite. Synthetic boundary checks and retained PuriPuly manual-text OSC observations do not establish audio-to-translated-OSC accuracy. Derived reports can contain speech and local provenance: keep them local until their content and rights are cleared.
+Actual VRCT, VRCS and VRCLT translation streams now supply distinct-application integration inputs. Per-run interpretation and inspected correspondence remain evidence-bound: rolling context, cumulative updates, truncation and unknown relationships must not become invented final-output reconstruction or quality scores. Synthetic checks and PuriPuly manual-text probes remain separate. Derived reports can contain speech and local provenance; publish only inspected, rights-cleared derivatives with their original hashes.
 
 ## Contracts and rights
 
@@ -71,6 +83,7 @@ Actual distinct-application translation traces and observed interpretation rules
 - [Curation, reproduction and observed verification](docs/corpus.md)
 - [Capture CLI, persistence, adapter and timing contracts](docs/cli.md)
 - [Derived measurement definitions and report-data contract](docs/metrics.md)
+- [Profile controls, readiness findings, waves and evidence limits](docs/profiles.md)
 - [Six-direction local index](corpus/manifest.json)
 - [English references](corpus/english/manifest.json), [Chinese references](corpus/chinese/manifest.json), [Japanese public-safe metadata](corpus/japanese/local-preparation.json), [nonspeech attribution](corpus/nonspeech/manifest.json)
 

@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "kind": "public_safe_path_redacted_capture_derivative",
+  "authority": "Original runner manifest, ledger, frozen plan and streams remain unchanged locally.",
+  "redactions": "Only local repository/user path prefixes replaced, including inside serialized JSON strings. Unchanged strings retain their original text. No raw diagnostics or account/configuration files exported.",
+  "timing_policy": "All original numeric callback/DAC/OSC timestamps, order, payload text, source provenance and outcome history retained; none reconstructed.",
+  "files": [
+    {
+      "name": "manifest.json",
+      "original_sha256": "cb90c2b8b8c71b9ab6717d76a1d858abe3ad8bbd1a9c4a536176469e85b2bf84",
+      "export_sha256": "99536834e762f0e91f491e2f905556f8ba3938d38d29ea6bc7afc0d2b35e2b2b",
+      "byte_identical": false,
+      "redacted_json_pointers": [
+        "/records/0/detail",
+        "/records/2/detail",
+        "/records/3/detail",
+        "/records/5/detail",
+        "/records/6/detail",
+        "/records/7/detail",
+        "/records/8/detail",
+        "/plan/calibration/record_path",
+        "/plan/output_check/audio",
+        "/plan/profiles/0/adapter/0",
+        "/plan/profiles/0/adapter/4",
+        "/plan/profiles/0/metadata/provenance",
+        "/plan/stages/2/audio",
+        "/plan/stages/3/audio",
+        "/plan/harness_implementation/package_path",
+        "/plan/input_plan",
+        "/session_implementations/0/implementation/package_path",
+        "/application_observations/0/metadata/gui_observation/evidence/0",
+        "/application_observations/0/metadata/gui_observation/evidence/1",
+        "/application_observations/0/metadata/gui_observation/evidence/2",
+        "/application_observations/0/metadata/gui_observation/evidence/3",
+        "/application_observations/1/state/metadata/gui_observation/evidence/0",
+        "/application_observations/1/state/metadata/gui_observation/evidence/1",
+        "/application_observations/1/state/metadata/gui_observation/evidence/2",
+        "/application_observations/1/state/metadata/gui_observation/evidence/3",
+        "/application_observations/2/state/metadata/gui_observation/evidence/0",
+        "/application_observations/2/state/metadata/gui_observation/evidence/1",
+        "/application_observations/2/state/metadata/gui_observation/evidence/2",
+        "/application_observations/2/state/metadata/gui_observation/evidence/3",
+        "/application_observations/3/state/metadata/gui_observation/evidence/0",
+        "/application_observations/3/state/metadata/gui_observation/evidence/1",
+        "/application_observations/3/state/metadata/gui_observation/evidence/2",
+        "/application_observations/3/state/metadata/gui_observation/evidence/3",
+        "/application_observations/4/state/metadata/gui_observation/evidence/0",
+        "/application_observations/4/state/metadata/gui_observation/evidence/1",
+        "/application_observations/4/state/metadata/gui_observation/evidence/2",
+        "/application_observations/4/state/metadata/gui_observation/evidence/3",
+        "/application_observations/5/state/metadata/gui_observation/evidence/0",
+        "/application_observations/5/state/metadata/gui_observation/evidence/1",
+        "/application_observations/5/state/metadata/gui_observation/evidence/2",
+        "/application_observations/5/state/metadata/gui_observation/evidence/3"
+      ]
+    },
+    {
+      "name": "stream-bd3436fdc666446f98f31ece957cd65d.jsonl",
+      "original_sha256": "6bb20bf8739bfee16ce68c45ea5bc5d6d4be7488c572ae3614fd2196a602b65c",
+      "export_sha256": "dc01677cb94758c7dcf8576094f7d2422db199a9aa63d671ff22a03845d6583c",
+      "byte_identical": false,
+      "redacted_json_pointers": [
+        "/rows/1003/calibration/record_path",
+        "/rows/5014/calibration/record_path"
+      ]
+    },
+    {
+      "name": "attempt-0001-001.jsonl",
+      "original_sha256": "bccd547084fdde7838599f06d41a4a8a7616e5a283c6e94c43aa9266ffc1499f",
+      "export_sha256": "bccd547084fdde7838599f06d41a4a8a7616e5a283c6e94c43aa9266ffc1499f",
+      "byte_identical": true,
+      "redacted_json_pointers": []
+    },
+    {
+      "name": "attempt-0002-001.jsonl",
+      "original_sha256": "ebe5accf06dc0fdbdd93deef484295944360aec6efbe12833cd39d9e768cb908",
+      "export_sha256": "ebe5accf06dc0fdbdd93deef484295944360aec6efbe12833cd39d9e768cb908",
+      "byte_identical": true,
+      "redacted_json_pointers": []
+    },
+    {
+      "name": "attempt-0003-001.jsonl",
+      "original_sha256": "7a74b4b40a3554d2e63e38434199a5f167523c20ae7d63b2bfc68ccc69b4eeb9",
+      "export_sha256": "b263a414caaca0c714e623cad565cb88fe80703c8fc84c591ca134764205ebbe",
+      "byte_identical": false,
+      "redacted_json_pointers": [
+        "/rows/1005/calibration/record_path"
+      ]
+    },
+    {
+      "name": "attempt-0004-001.jsonl",
+      "original_sha256": "88f9eec4090e37ee12b2322c9db40311afa63af1e5739ddf64f60dce78222a90",
+      "export_sha256": "ea56b31720564ac21ef3b41d89cabfa50eecd80edf683780dae47e2aee94ace3",
+      "byte_identical": false,
+      "redacted_json_pointers": [
+        "/rows/4012/calibration/record_path"
+      ]
+    }
+  ]
+}

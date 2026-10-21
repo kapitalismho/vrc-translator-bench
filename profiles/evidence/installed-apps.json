@@ -1,0 +1,367 @@
+{
+  "schema_version": 1,
+  "observed_at_utc": "2026-10-20T17:37:47.414125+00:00",
+  "kind": "read_only_installed_application_inspection",
+  "owner_update": "All apps installed; PuriPuly 2.9.0 update planned by owner, not yet observed",
+  "scope": {
+    "applications_launched": false,
+    "settings_changed": false,
+    "inference_started": false,
+    "credential_values_published": false,
+    "credential_manager_blob_read": false,
+    "matching_named_processes_at_inspection": 0,
+    "audio_to_osc_pilot": false
+  },
+  "applications": [
+    {
+      "application": "VRCT",
+      "installed": true,
+      "version": "3.6.0",
+      "version_evidence": "Frozen Python 3.11 config.Config.init_config assigns _VERSION = 3.6.0; decoded without executing application code",
+      "registry_version": "3.4.0",
+      "registry_version_stale": true,
+      "location": "%LOCALAPPDATA%/VRCT",
+      "binaries": [
+        {
+          "file": "VRCT.exe",
+          "bytes": 22173184,
+          "file_version": "0.0.0",
+          "product_version": "0.0.0",
+          "sha256": "889ae8ee3ec0f4a395a4cc21050631d0215e2be997db3d08131edef3aa961ebe"
+        },
+        {
+          "file": "VRCT-sidecar.exe",
+          "bytes": 36881596,
+          "file_version": null,
+          "product_version": null,
+          "sha256": "63205c34bfad83fa17bec6862f3dc318125d04eb4f2e67a4960c1cfd66980c5f"
+        }
+      ],
+      "saved_settings": {
+        "asr": "Whisper",
+        "asr_model": "base",
+        "translation_tab_1": "CTranslate2",
+        "translation_model": "m2m100_418M-ct2-int8",
+        "asr_device": "cpu",
+        "translation_device": "cpu",
+        "compute_type": "auto",
+        "selected_openrouter_model": "google/gemma-4-26b-a4b-it",
+        "microphone": "Virtual Desktop Audio microphone",
+        "host_api": "MME",
+        "osc_host": "127.0.0.1",
+        "osc_port": 9000,
+        "mute_sync": false,
+        "send_chatbox": true,
+        "source_tab_1": "ko",
+        "target_tab_1": "en"
+      },
+      "credential_presence": {
+        "gemini": true,
+        "openrouter": true
+      },
+      "local_models": [
+        {
+          "model": "ctranslate2/m2m100_418M-ct2-int8",
+          "model_bin_present": true,
+          "model_bin_bytes": 490667713,
+          "marker_file_count": 23,
+          "missing_marker_files": [],
+          "size_mismatches": [],
+          "check_scope": "file existence and cached marker sizes, not model inference or cryptographic asset certification"
+        },
+        {
+          "model": "whisper/base",
+          "model_bin_present": true,
+          "model_bin_bytes": 145217532,
+          "marker_file_count": 4,
+          "missing_marker_files": [],
+          "size_mismatches": [],
+          "check_scope": "file existence and cached marker sizes, not model inference or cryptographic asset certification"
+        }
+      ],
+      "remaining": [
+        "Select benchmark CABLE Output/shared-mode input and direction",
+        "Separate VRCT1 Google ASR + M2M and VRCT2 Whisper base + Google Translate; saved state combines both local workloads",
+        "Assign profile OSC port and verify effective settings/output",
+        "Keys present; validity and benchmark isolation not checked"
+      ]
+    },
+    {
+      "application": "VRCS",
+      "installed": true,
+      "version": "0.2.2",
+      "version_evidence": "Executable file/product version and registry agree",
+      "source_procedure_version": "0.2.8",
+      "location": "%LOCALAPPDATA%/VRCS",
+      "binaries": [
+        {
+          "file": "vrcs-desktop.exe",
+          "bytes": 55490560,
+          "file_version": "0.2.2",
+          "product_version": "0.2.2",
+          "sha256": "9f230b337897aab26d28af5c16a1f3d8a4d6b67f9f64c3e4b8a431d81c98e08e"
+        }
+      ],
+      "saved_settings": {
+        "schema_version": 30,
+        "asr_backend": "gemini_transcribe",
+        "asr_model": "gemini-3.5-transcribe-live",
+        "asr_language": "ko",
+        "managed_qwen_selection": {
+          "package": "qwen3-asr-0.6b-q8_0",
+          "device": "cpu"
+        },
+        "audio_microphone_mode": "default",
+        "audio_output_mode": "system",
+        "osc_enabled": false,
+        "osc_port": 9000,
+        "mute_sync": true
+      },
+      "access_and_targets": {
+        "credential_metadata_enumeration_succeeded": true,
+        "error": null,
+        "credential_blobs_read": false,
+        "profiles": [
+          {
+            "provider": "openrouter",
+            "credential_target_present": true
+          },
+          {
+            "provider": "gemini",
+            "credential_target_present": true
+          },
+          {
+            "provider": "deepseek",
+            "credential_target_present": true
+          },
+          {
+            "provider": "qwen_ai",
+            "credential_target_present": false
+          }
+        ],
+        "active_asr_profile_provider": "gemini",
+        "translation_targets": [
+          {
+            "language": "ko",
+            "provider": "deepseek",
+            "model": "deepseek-flash"
+          },
+          {
+            "language": "zh-Hans",
+            "provider": "openrouter",
+            "model": "gpt-5-mini"
+          }
+        ]
+      },
+      "local_models": {
+        "standard_store": "%LOCALAPPDATA%/.vrcs/models",
+        "observed": [
+          "silero_vad.onnx",
+          "whisper/ggml-small.bin",
+          "ocr/ppocrv6-small"
+        ],
+        "managed_qwen_package_present_in_standard_store": false,
+        "global_cache_search_claimed": false
+      },
+      "remaining": [
+        "Do not apply schema-33/0.2.8 procedures blindly to installed schema-30/0.2.2",
+        "OpenRouter/Gemini credential targets exist; validity/project isolation not checked",
+        "Select Gemma, CABLE input and one target; enable assigned OSC and disable mute sync",
+        "Prepare/locate Qwen assets for VRCS1; saved selection is not loaded-model evidence"
+      ]
+    },
+    {
+      "application": "VRCLS",
+      "installed": true,
+      "version": "0.7.0-20260913",
+      "file_version": "0.7.0.1015",
+      "version_evidence": "Executable and main assembly agree with registry",
+      "location": "%LOCALAPPDATA%/Programs/VRCLS",
+      "binaries": [
+        {
+          "file": "VRCLS.exe",
+          "bytes": 215040,
+          "file_version": "0.7.0.1015",
+          "product_version": "0.7.0-20260913",
+          "sha256": "eec5acd87649e73f70d2ab9330f14a5e3b5df2d0794e3cc8d21f7ac3dd726f8b"
+        },
+        {
+          "file": "VRCLS.dll",
+          "bytes": 2953728,
+          "file_version": "0.7.0.1015",
+          "product_version": "0.7.0-20260913",
+          "sha256": "98e0046265557ac62154624886203df5a370be9b29af2c8b66e67fa281573a41"
+        }
+      ],
+      "saved_settings": {
+        "recognition_mode": "remote",
+        "translate_service": "developer",
+        "translation_server": "developer",
+        "legacy_backend": false,
+        "microphone": "default",
+        "source": "ja",
+        "target": "en",
+        "osc_host": "127.0.0.1",
+        "osc_port": 9000,
+        "tts_enabled": false,
+        "tts_passthrough": false,
+        "auto_start_microphone": true,
+        "auto_start_desktop": false,
+        "control_enabled": false,
+        "control_auto_start": true,
+        "inbound_osc_enabled": false,
+        "auto_check_update": true,
+        "auto_download_update": false,
+        "cached_asr_codes": [
+          "en",
+          "ja",
+          "zh"
+        ],
+        "cached_required_target_codes": [
+          "zh-hans",
+          "ja",
+          "en",
+          "ko"
+        ]
+      },
+      "credential_presence": {
+        "auth_mode": "website_authorized",
+        "access_token": true,
+        "refresh_token": true
+      },
+      "remaining": [
+        "Existing authorized-account state exists; token validity, quota and server model identity not checked",
+        "Startup can automatically capture microphone; app deliberately not launched",
+        "Select cable and assigned OSC port; cached languages do not prove service access"
+      ]
+    },
+    {
+      "application": "kikitan",
+      "installed": true,
+      "version": "2.0.2",
+      "source_commit": "175fb87f95d7b6592965fe3f099883ee2f830316",
+      "version_evidence": "Executable/assembly product version contains source commit; registry and saved last_version agree",
+      "location": "%LOCALAPPDATA%/KikitanTranslator/current",
+      "binaries": [
+        {
+          "file": "KikitanTranslator.Photino.exe",
+          "bytes": 167936,
+          "file_version": "2.0.2.0",
+          "product_version": "2.0.2+175fb87f95d7b6592965fe3f099883ee2f830316",
+          "sha256": "17270e64effb2ca38a9d6895c89ec6ca4009ef53a057d9c5cf60ac4de5069565"
+        },
+        {
+          "file": "KikitanTranslator.Photino.dll",
+          "bytes": 2408448,
+          "file_version": "2.0.2.0",
+          "product_version": "2.0.2+175fb87f95d7b6592965fe3f099883ee2f830316",
+          "sha256": "b3d92e6bf20b9b6972f8bacd492ad609e350725063ad927cc435ec5031fee1ff"
+        }
+      ],
+      "saved_settings": {
+        "recognizer": 0,
+        "translator": 0,
+        "route": "Bing + Google Translate",
+        "source": "en",
+        "target": "ja",
+        "microphone_contains_unicode_replacement_characters": true,
+        "osc_port": 9000,
+        "send_chatbox": true,
+        "desktop_translation": false,
+        "disable_when_muted": false,
+        "speech_to_text_only": false,
+        "translation_only": false
+      },
+      "credential_presence": {
+        "gemini": true,
+        "groq": false
+      },
+      "remaining": [
+        "Re-select CABLE Output; stored microphone name contains replacement characters",
+        "Assign profile OSC port",
+        "Gemini key exists; project isolation and Live compatibility not checked"
+      ]
+    },
+    {
+      "application": "VRCLT",
+      "installed": true,
+      "deployment": "portable executable",
+      "version": "1.0.1",
+      "version_evidence": "Both v1.0.1 executable versions and hashes match published release digest",
+      "location": "%USERPROFILE%/Downloads/vrclt-v1.0.1-windows-x64.exe",
+      "binaries": [
+        {
+          "file": "vrclt-v1.0.1-windows-x64.exe",
+          "bytes": 201642412,
+          "file_version": "1.0.1",
+          "product_version": "1.0.1",
+          "sha256": "e92eee6aa418c7abc096d4def18e496593f81c93da534171807bef01e0272fc5"
+        },
+        {
+          "file": "vrclt-v1.0.1-windows-x64(1).exe",
+          "bytes": 201642412,
+          "file_version": "1.0.1",
+          "product_version": "1.0.1",
+          "sha256": "e92eee6aa418c7abc096d4def18e496593f81c93da534171807bef01e0272fc5"
+        }
+      ],
+      "saved_settings": {
+        "provider": "qwen",
+        "model": "gemini-3.5-live-translate-preview",
+        "gemini_key_present": true,
+        "qwen_key_present": true,
+        "qwen_workspace_present": false,
+        "outbound": {
+          "enabled": true,
+          "source_language": "",
+          "target_language": "ja",
+          "mic_device": "마이크(Virtual Desktop Audio)",
+          "tts_device": "CABLE Input(VB-Audio Virtual Cable)",
+          "text_only": false,
+          "voice_output": true,
+          "passthrough_while_translating": false,
+          "chatbox": true
+        },
+        "inbound": {
+          "enabled": true,
+          "play_audio": false
+        },
+        "control": {
+          "enabled": true,
+          "osc_listen_port": 9001
+        },
+        "osc": {
+          "ip": "127.0.0.1",
+          "port": 9000,
+          "show_source": true,
+          "stream_sentences": true
+        },
+        "audio": {
+          "mic_idle_disconnect_sec": 15.0
+        },
+        "qwen": {
+          "model": "qwen3.8-livetranslate-flash-realtime",
+          "endpoint": "beijing"
+        },
+        "app": {
+          "mode": "vrchat"
+        },
+        "dashboard": {
+          "translation_on": true,
+          "subtitles_on": true
+        }
+      },
+      "remaining": [
+        "Current Qwen endpoint is Beijing, not previously proposed Singapore; absent workspace is not asserted as a Beijing blocker",
+        "Select CABLE Output and separate non-injection playback before text_only; current voice output targets CABLE Input",
+        "Disable inbound/control; assign port; preserve normal 15-second idle behavior",
+        "Both keys exist; access, quotas and separate Gemini projects not checked"
+      ]
+    }
+  ],
+  "limitations": [
+    "All five apps are installed; previous missing-installation/access phrasing was too broad",
+    "Saved settings and credential presence are not effective runtime state or successful inference",
+    "No application settings, account state or installed binaries were changed"
+  ]
+}

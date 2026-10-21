@@ -1,0 +1,540 @@
+{
+  "schema_version": 1,
+  "version": "issue45-vrcs1-actual-metrics-v1",
+  "status": "additional_real_configuration_derived_current_cross_app_index_available",
+  "measurement_date": "2026-10-20T23:32:52.173631+00:00",
+  "report_generated_utc": "2026-10-20T23:37:33.526572+00:00",
+  "profile": "VRCS1",
+  "application": "VRCS0.2.8",
+  "source_group": "en",
+  "target": "Japanese",
+  "category": "development",
+  "original_session": "ES2014a",
+  "duration_seconds": 40,
+  "source_audio_sha256": "b214d5288ed05ce51e6c18a7e8b2b3101218331122a8cf19192e9dc398c33926",
+  "reference_sha256": "d62c3048524b2a36aee0cc5607cbd44e2dc97389617ee864f5f0ad0f7354fffd",
+  "route": {
+    "asr": "Managed Local Qwen3-ASR0.6B Q8_0 GGUF plus Q8_0 projector",
+    "device": "CPU",
+    "translation_gateway": "OpenRouter",
+    "requested_translation_model": "google/gemma-4-26b-a4b-it",
+    "returned_translation_model": null,
+    "upstream_provider": null,
+    "source": "en",
+    "target": "ja"
+  },
+  "effective_cpu_execution": {
+    "owned_runtime_pid": 3212,
+    "parent_pid": 101188,
+    "executable": "llama-server.exe",
+    "model": "Qwen3-ASR-0.6B-Q8_0.gguf",
+    "projector": "mmproj-Qwen3-ASR-0.6B-Q8_0.gguf",
+    "observed_flags": {
+      "--device": "none",
+      "--gpu-layers": "0",
+      "--no-mmproj-offload": true,
+      "--no-op-offload": true
+    },
+    "full_commandline_published": false
+  },
+  "runtime_observation_basis": "Director/app-owner GUI evidence and independent process flags, not new GUI/process inspection by metrics worker. Requested Gemma model does not establish returned model/provider identity.",
+  "application_evidence": "profiles/evidence/issue45/vrcs1-d1-observation.json",
+  "rules": "profiles/evidence/issue45/metrics/vrcs1-observed-rules.json",
+  "canonical_report": ".data/issue45/metrics/vrcs1-final-report.json",
+  "verification": ".data/issue45/metrics/vrcs1-verification.json",
+  "artifact_sha256": {
+    ".data/issue45/runs/vrcs1-gui-initial/manifest.json": "cb90c2b8b8c71b9ab6717d76a1d858abe3ad8bbd1a9c4a536176469e85b2bf84",
+    ".data/issue45/runs/vrcs1-gui-initial/stream-bd3436fdc666446f98f31ece957cd65d.jsonl": "6bb20bf8739bfee16ce68c45ea5bc5d6d4be7488c572ae3614fd2196a602b65c",
+    ".data/issue45/metrics/development-01-34-74-reference.json": "d62c3048524b2a36aee0cc5607cbd44e2dc97389617ee864f5f0ad0f7354fffd",
+    ".data/issue45/metrics/vrcs1-spec.json": "c7c1d5acb435aa37e385c816999e558420cda088025c9d9472ea25fe4c8be449",
+    ".data/issue45/metrics/vrcs1-raw-unknown-report.json": "9528f79c67c299b78a0ef86799de70bd4bc947bc24ac48b32ada4a3493bcd2f7",
+    ".data/issue45/metrics/vrcs1-confirmed-cache.json": "a0f41df74d17bae91134573b90a3b7c1722be9ba7e724f5d3ab143820c42976b",
+    ".data/issue45/metrics/vrcs1-final-report.json": "ff861eed72a0a3a556db675aa93470d4939d252f79b9c46bb1504844d1cad6a7",
+    "profiles/evidence/issue45/metrics/vrcs1-observed-rules.json": "bdb0dd84a142fa3a5e8bfa57677155ef9766acffe5769782440eafb665b318ea"
+  },
+  "calculation_source_sha256": {
+    "metrics.py": "2f9fe36e7d25feed758c9c30dc01b9f167dcb2fe1d47323e0aefba7b9d1f5b1e",
+    "metrics_inputs.py": "bbc0db759d32951b4a7561535e75866de0f0d7de358c26851495850aca96972e",
+    "metrics_alignment.py": "6e9541a4cf27c853070c83ecaca820bec577b387810e1ff3ce5b7c01532e4b2a",
+    "metrics_diagnostics.py": "e287d4a1e3c8a2b0fac14a8a4516829bc607f83b5e5a34c94b1567de4a160f72",
+    "metrics_stats.py": "66e6e61d5a33d9802088992c6500be1c2b62177dd4d8a75c7bebd15e0a045ac5"
+  },
+  "observations": {
+    "packets": 13,
+    "translated_outputs": 12,
+    "measured_translated_outputs": 10,
+    "output_check_translated_outputs": 2,
+    "source_only_observations": 1,
+    "callbacks": 5000,
+    "attempt_states": [
+      "done",
+      "done",
+      "done",
+      "done"
+    ],
+    "all18_source_bounds_match_integer_frames": true
+  },
+  "correspondence": {
+    "method": "Actual assistant inspection of exact English reference, app source and Japanese translation; not human or automatic model-only adjudication.",
+    "aligned_output_sequences": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      12,
+      13
+    ],
+    "unknown_output_sequences": [
+      2,
+      3,
+      11
+    ],
+    "common_filler": "seq11 Um. / あの。 remains unknown; broad candidate uncertainty means native .18 delivery remains unresolved, not falsely missing or forced delivered.",
+    "merged_output": "seq12 Japanese contains native .21/.22/.23 content; exposed English is ellipsized, remains unmodified and is not reconstructed. Exact packet length144Unicode characters does not prove a page chain.",
+    "completeness": "Related content only; no complete/final/faithful translation claim or quality scores."
+  },
+  "aggregate": {
+    "reference_sentences": 9,
+    "eligible_sentences": 9,
+    "delivery_status_counts": {
+      "delivered": 8,
+      "unknown_correspondence": 1
+    },
+    "delivery": {
+      "value": 0.8888888888888888,
+      "unit": "fraction_of_eligible_sentences",
+      "reason": null,
+      "confidence_interval_95": null,
+      "uncertainty_reason": "Fewer than two original sessions; show session values, no bootstrap interval",
+      "original_sessions": 1,
+      "session_values": [
+        {
+          "session_id": "ES2014a",
+          "value": 0.8888888888888888
+        }
+      ],
+      "observations": 9,
+      "bootstrap_iterations": 2000,
+      "seed": 20261020,
+      "unresolved_sentences": 1,
+      "correspondence_bounds": [
+        0.8888888888888888,
+        1.0
+      ]
+    },
+    "fol_p50": {
+      "value": 3.6300678829999997,
+      "unit": "seconds",
+      "reason": null,
+      "confidence_interval_95": null,
+      "uncertainty_reason": "Fewer than two original sessions; show session values, no bootstrap interval",
+      "original_sessions": 1,
+      "session_values": [
+        {
+          "session_id": "ES2014a",
+          "value": 3.6300678829999997
+        }
+      ],
+      "observations": 9,
+      "bootstrap_iterations": 2000,
+      "seed": 20261020
+    },
+    "fol_p90": {
+      "value": 6.787579172999999,
+      "unit": "seconds",
+      "reason": null,
+      "confidence_interval_95": null,
+      "uncertainty_reason": "Fewer than two original sessions; show session values, no bootstrap interval",
+      "original_sessions": 1,
+      "session_values": [
+        {
+          "session_id": "ES2014a",
+          "value": 6.787579172999999
+        }
+      ],
+      "observations": 9,
+      "bootstrap_iterations": 2000,
+      "seed": 20261020
+    },
+    "fol_by_duration": {
+      "below_2s": {
+        "p50": {
+          "value": 3.490352733,
+          "unit": "seconds",
+          "reason": null,
+          "confidence_interval_95": null,
+          "uncertainty_reason": "Fewer than two original sessions; show session values, no bootstrap interval",
+          "original_sessions": 1,
+          "session_values": [
+            {
+              "session_id": "ES2014a",
+              "value": 3.490352733
+            }
+          ],
+          "observations": 3,
+          "bootstrap_iterations": 2000,
+          "seed": 20261020
+        },
+        "p90": {
+          "value": 4.935306253,
+          "unit": "seconds",
+          "reason": null,
+          "confidence_interval_95": null,
+          "uncertainty_reason": "Fewer than two original sessions; show session values, no bootstrap interval",
+          "original_sessions": 1,
+          "session_values": [
+            {
+              "session_id": "ES2014a",
+              "value": 4.935306253
+            }
+          ],
+          "observations": 3,
+          "bootstrap_iterations": 2000,
+          "seed": 20261020
+        }
+      },
+      "2_to_5s": {
+        "p50": {
+          "value": 3.6300678829999997,
+          "unit": "seconds",
+          "reason": null,
+          "confidence_interval_95": null,
+          "uncertainty_reason": "Fewer than two original sessions; show session values, no bootstrap interval",
+          "original_sessions": 1,
+          "session_values": [
+            {
+              "session_id": "ES2014a",
+              "value": 3.6300678829999997
+            }
+          ],
+          "observations": 4,
+          "bootstrap_iterations": 2000,
+          "seed": 20261020
+        },
+        "p90": {
+          "value": 7.541098173,
+          "unit": "seconds",
+          "reason": null,
+          "confidence_interval_95": null,
+          "uncertainty_reason": "Fewer than two original sessions; show session values, no bootstrap interval",
+          "original_sessions": 1,
+          "session_values": [
+            {
+              "session_id": "ES2014a",
+              "value": 7.541098173
+            }
+          ],
+          "observations": 4,
+          "bootstrap_iterations": 2000,
+          "seed": 20261020
+        }
+      },
+      "above_5s": {
+        "p50": {
+          "value": 4.390118333,
+          "unit": "seconds",
+          "reason": null,
+          "confidence_interval_95": null,
+          "uncertainty_reason": "Fewer than two original sessions; show session values, no bootstrap interval",
+          "original_sessions": 1,
+          "session_values": [
+            {
+              "session_id": "ES2014a",
+              "value": 4.390118333
+            }
+          ],
+          "observations": 2,
+          "bootstrap_iterations": 2000,
+          "seed": 20261020
+        },
+        "p90": {
+          "value": 5.513601133,
+          "unit": "seconds",
+          "reason": null,
+          "confidence_interval_95": null,
+          "uncertainty_reason": "Fewer than two original sessions; show session values, no bootstrap interval",
+          "original_sessions": 1,
+          "session_values": [
+            {
+              "session_id": "ES2014a",
+              "value": 5.513601133
+            }
+          ],
+          "observations": 2,
+          "bootstrap_iterations": 2000,
+          "seed": 20261020
+        }
+      }
+    },
+    "lul_p50": {
+      "value": 0.404231033,
+      "unit": "seconds",
+      "reason": null,
+      "confidence_interval_95": null,
+      "uncertainty_reason": "Fewer than two original sessions; show session values, no bootstrap interval",
+      "original_sessions": 1,
+      "session_values": [
+        {
+          "session_id": "ES2014a",
+          "value": 0.404231033
+        }
+      ],
+      "observations": 9,
+      "bootstrap_iterations": 2000,
+      "seed": 20261020
+    },
+    "lul_p90": {
+      "value": 0.404231033,
+      "unit": "seconds",
+      "reason": null,
+      "confidence_interval_95": null,
+      "uncertainty_reason": "Fewer than two original sessions; show session values, no bootstrap interval",
+      "original_sessions": 1,
+      "session_values": [
+        {
+          "session_id": "ES2014a",
+          "value": 0.404231033
+        }
+      ],
+      "observations": 9,
+      "bootstrap_iterations": 2000,
+      "seed": 20261020
+    },
+    "turn_lul_p50": {
+      "value": null,
+      "unit": "seconds",
+      "reason": "No measurable observations",
+      "confidence_interval_95": null,
+      "uncertainty_reason": "Fewer than two original sessions; show session values, no bootstrap interval",
+      "original_sessions": 1,
+      "session_values": [
+        {
+          "session_id": "ES2014a",
+          "value": null
+        }
+      ],
+      "observations": 1,
+      "bootstrap_iterations": 2000,
+      "seed": 20261020
+    },
+    "turn_lul_p90": {
+      "value": null,
+      "unit": "seconds",
+      "reason": "No measurable observations",
+      "confidence_interval_95": null,
+      "uncertainty_reason": "Fewer than two original sessions; show session values, no bootstrap interval",
+      "original_sessions": 1,
+      "session_values": [
+        {
+          "session_id": "ES2014a",
+          "value": null
+        }
+      ],
+      "observations": 1,
+      "bootstrap_iterations": 2000,
+      "seed": 20261020
+    },
+    "unaligned_output_rate": {
+      "value": 0.1,
+      "unit": "fraction_of_observed_translation_outputs",
+      "reason": null,
+      "denominator": 10,
+      "population_attribution": {
+        "selection_basis_counts": {
+          "linked_source": 9,
+          "assigned_quality_segment": 1
+        },
+        "ambiguous_output_ids": [],
+        "excluded_ambiguous_output_ids": [],
+        "unassigned_capture_output_ids": [],
+        "policy": "Linked source identity takes precedence; otherwise assigned quality-segment population. Unassigned outputs remain global, not copied into category/casual views. Mixed or cross-population attribution is not exclusive."
+      }
+    },
+    "major_error_segment_rate": {
+      "value": null,
+      "unit": "fraction_of_scored_segments",
+      "reason": "No measurable observations",
+      "confidence_interval_95": null,
+      "uncertainty_reason": "Fewer than two original sessions; show session values, no bootstrap interval",
+      "original_sessions": 0,
+      "session_values": [],
+      "observations": 0,
+      "bootstrap_iterations": 2000,
+      "seed": 20261020,
+      "eligible_segments": 0,
+      "scored_segments": 0
+    },
+    "first_attempt_product_failure_rate": {
+      "value": 0.0,
+      "unit": "fraction_of_eligible_first_attempts",
+      "reason": null,
+      "denominator": 1,
+      "statuses": {
+        "done": 1
+      }
+    }
+  },
+  "global_output_population": {
+    "observed_translation_outputs": 12,
+    "alignment_status_counts": {
+      "unknown": 3,
+      "aligned": 9
+    },
+    "unassigned_output_ids": [
+      "bd3436fdc666446f98f31ece957cd65d:2",
+      "bd3436fdc666446f98f31ece957cd65d:3"
+    ],
+    "ambiguous_population_output_ids": [],
+    "unaligned_output_rate": {
+      "value": 0.25,
+      "unit": "fraction_of_observed_translation_outputs",
+      "reason": null,
+      "denominator": 12
+    },
+    "orphans": 2
+  },
+  "quality": {
+    "source_eligible_continuous_segments": 2,
+    "scoring_eligible_continuous_segments": 0,
+    "exclusion_reason": "unresolved_merged_output_allocation",
+    "cross_segment_output_id": "bd3436fdc666446f98f31ece957cd65d:12",
+    "source_linked_units": [
+      21,
+      22,
+      23
+    ],
+    "display_placements": 1,
+    "unknown_filler_retained_in_continuous_quality": true,
+    "unknown_output_check_retained_separately": true,
+    "unscored_context_turns": 2,
+    "score_coverage": {
+      "population": "All report quality segments; each aggregate separately declares its eligible/scored population",
+      "total_segments": 3,
+      "eligible_segments": 0,
+      "excluded_segments": 3,
+      "supplied_major_error_scores": 0,
+      "scored_eligible_segments": 0,
+      "excluded_major_error_scores": 0,
+      "excluded_by_reason": {
+        "unresolved_merged_output_allocation": [
+          "4:development-01:quality-1",
+          "4:development-01:quality-2"
+        ],
+        "No captured source timeline in this clock/config": [
+          "orphan:bd3436fdc666446f98f31ece957cd65d:VRCS1:output_check:3"
+        ]
+      }
+    },
+    "no_invented_translation_spans": true
+  },
+  "hand_arithmetic": {
+    "fol": [
+      {
+        "native_unit": "ES2014a.C.dialog-act.s9553330.16",
+        "output_receipt_ns": 371787887360700,
+        "source_start_ns": 371786203199867,
+        "fol_seconds": 1.684160833,
+        "report_seconds": 1.684160833
+      },
+      {
+        "native_unit": "ES2014a.C.dialog-act.s9553330.17",
+        "output_receipt_ns": 371793277601500,
+        "source_start_ns": 371787483129667,
+        "fol_seconds": 5.794471833,
+        "report_seconds": 5.794471833
+      },
+      {
+        "native_unit": "ES2014a.C.dialog-act.s9553330.19",
+        "output_receipt_ns": 371806085226600,
+        "source_start_ns": 371803099461767,
+        "fol_seconds": 2.985764833,
+        "report_seconds": 2.985764833
+      },
+      {
+        "native_unit": "ES2014a.C.dialog-act.s9553330.20",
+        "output_receipt_ns": 371811829249500,
+        "source_start_ns": 371808711863367,
+        "fol_seconds": 3.117386133,
+        "report_seconds": 3.117386133
+      },
+      {
+        "native_unit": "ES2014a.C.dialog-act.s9553330.21",
+        "output_receipt_ns": 371822434387100,
+        "source_start_ns": 371813329557467,
+        "fol_seconds": 9.104829633,
+        "report_seconds": 9.104829633
+      },
+      {
+        "native_unit": "ES2014a.C.dialog-act.s9553330.22",
+        "output_receipt_ns": 371822434387100,
+        "source_start_ns": 371817137842467,
+        "fol_seconds": 5.296544633,
+        "report_seconds": 5.296544633
+      },
+      {
+        "native_unit": "ES2014a.C.dialog-act.s9553330.23",
+        "output_receipt_ns": 371822434387100,
+        "source_start_ns": 371818541995667,
+        "fol_seconds": 3.892391433,
+        "report_seconds": 3.892391433
+      },
+      {
+        "native_unit": "ES2014a.C.dialog-act.s9553330.24",
+        "output_receipt_ns": 371826537237300,
+        "source_start_ns": 371823169492967,
+        "fol_seconds": 3.367744333,
+        "report_seconds": 3.367744333
+      }
+    ],
+    "acknowledgment_lul_seconds": 0.404231033,
+    "deadline_ns": 371840189508967,
+    "measured_attempt_end_ns": 371846014065900,
+    "historical_cable_offset_ns": 112374867,
+    "calibration_limit": "Same-endpoint historical native probe reused, not newly measured or precision certification."
+  },
+  "checks": {
+    "bounded_assertions": 25,
+    "passed": 25,
+    "failed": 0,
+    "skipped": 0,
+    "cli_results": "Raw CLI exit0; confirmed CLI recovered already-completed with9/12/3 success stdout, numeric exit code not surfaced; no redundant rerun."
+  },
+  "diagnostic_limits": {
+    "revisions": {
+      "value": null,
+      "unit": "updates",
+      "reason": "App rules do not support revision inference"
+    },
+    "erasure": {
+      "value": null,
+      "unit": "characters",
+      "reason": "No supported revision pairs"
+    },
+    "source_cer": {
+      "value": null,
+      "reason": "Source reconstruction unresolved: Multiple source messages share reference coverage; explicit source_coverage is required to distinguish fragments from snapshots"
+    },
+    "endpoint_cut_tradeoff": {
+      "value": null,
+      "unit": "boundary_records",
+      "reason": "Identifiable source boundaries and app endpoint/cut signals absent"
+    }
+  },
+  "limits": [
+    "One original ES2014a development session reused across configurations, not independent recordings, generalized quality, stress/casual comparison or multi-session uncertainty.",
+    "Only one supported sentence LUL; other related-content LUL and turn LUL N/A. Unknown relation text remains observed-order only.",
+    "Both continuous quality inputs excluded rather than inventing allocation for one indivisible merged packet. No scores supplied; no major-error rate.",
+    "No actual page chain isolated; same VRCS app is not automatically a different-application style example.",
+    "Unrelated user background work was not isolated. Pilot FOL/quantiles are bounded debug observations, not fair rankings or controlled performance comparisons.",
+    "VRCLT2 failed preflight remains separately retained with unplayed40s main. Separate planned VRCLT1 Gemini now has actual rolling/mixed-role metric evidence; not a Qwen fallback. See actual-pilot-metric-index.json.",
+    "No apps/audio/screenshots/providers/credentials/model inference, product-source changes, maintained-doc edits or Git mutations by metrics worker."
+  ],
+  "proposed_maintained_guidance": [
+    "Add this real common-filler uncertainty and144-character cross-segment merge as an observed report-consumer example. Preserve8/9 lower-bound related-content delivery with one unresolved source, global3/12 versus continuous1/10 unaligned counts, and both quality inputs N/A.",
+    "Do not call the ellipsized source packet pagination, reconstruct missing English, split Japanese into arbitrary score spans, or equate8/9 related content with translation accuracy.",
+    "Actual separate VRCLT1 rolling/mixed-role evidence now covers the distinct-application sample; keep failed VRCLT2 output-check separately visible without fictional40s no-output delivery."
+  ]
+}

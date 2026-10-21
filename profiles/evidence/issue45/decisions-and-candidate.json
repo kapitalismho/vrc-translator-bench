@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "recorded_date": "2026-10-21",
+  "owner_decisions": [
+    {"decision": "Existing installed apps and their normal existing credentials may be used for short planned-route real development-audio pilots.", "supersedes": "Historical no-pilot authorization and fresh-empty-auth-only assumptions."},
+    {"decision": "Accept PuriPuly's actual automatic26B/31B OpenRouter route; retain actual returned model when exposed.", "later_scope": "All PP execution subsequently deferred by owner; no PP pilot performed."},
+    {"decision": "Accept VRCS2's current paid OpenRouter Gemma route. Remove whole-profile free claim; actual cost remains unknown, not zero.", "exact_translation_model": "google/gemma-4-26b-a4b-it"},
+    {"decision": "Use actual visible installed application GUIs for all app launch/settings/start/stop. No native stdin/WebSocket/HTTP bypass.", "implementation": "Obsolete new native bridge modules removed. Generic runner GUI-operator mailbox preserves actual GUI observation and explicit manual limits."},
+    {"decision": "Skip all PuriPuly profiles PP1-PP4 in current empirical pass.", "classification": "blocked_owner_requested_execution_deferral", "not": "unsupported or product failure"}
+  ],
+  "vr cs_update_observation": {
+    "application": "VRCS",
+    "before": {"version": "0.2.2", "sha256": "9f230b337897aab26d28af5c16a1f3d8a4d6b67f9f64c3e4b8a431d81c98e08e", "owned_pid": 53592},
+    "visible_observation": "Restoring the actual application window showed 'VRCS0.2.8 is available' and 'Installing update...100%' before any update request by this worker. No measured audio had begun.",
+    "initiator": "unknown; possibly persisted updater intent or automatic behavior; not attributed to an owner/agent update click",
+    "lifecycle": "Old owned process exited0; replacement process101188 appeared.",
+    "after": {"version": "0.2.8", "file_version": "0.2.8", "product_version": "0.2.8", "sha256": "9343aeb6902e62535337f58c844272ab18348304c32925f8053d6686d244eb0e", "pid": 101188},
+    "measurement_policy": "Only the new actual candidate may supply the next pilot, after GUI state verification. No downgrade or updater-internal changes. Retain start/end version hashes; any later change invalidates affected measured attempt."
+  },
+  "gui_transport": {"worker_control_acquire": "active:false, reason:no-ui", "parent_grant_visible_in_leaf": false, "resolution": "Director is sole desktop/computer-use mutation owner; worker owns runner/evidence and non-GUI liveness only."},
+  "private_originals": ".data/issue45/*-original.private.*; not copied into tracked evidence",
+  "account_isolation_limit": "Existing owner accounts are authorized. Separate project/key/account quota isolation and live billing exports are not established by credential presence or a successful short pilot. Sequential pilots avoid intentional co-measurement contention but do not create isolated quota.",
+  "no_vrchat": true
+}

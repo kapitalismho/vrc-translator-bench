@@ -1,0 +1,149 @@
+{
+  "schema_version": 1,
+  "version": "issue45-historical-kiki1-metrics-v1",
+  "observed_utc": "2026-10-20T23:09:00.280102+00:00",
+  "status": "historical_failure_only_empirical_completion_not_established",
+  "harness_revision": "9ba3ebb246200af564b2eb5fce5e3f9da64f2dcf",
+  "run": "kiki1-initial",
+  "synthetic": false,
+  "application": {
+    "profile": "KIKI1",
+    "version": "2.0.2",
+    "control_boundary": "Historical native/headless attempt before GUI-only override; not GUI proof"
+  },
+  "authoritative_runner": {
+    "setup": {
+      "attempt_id": 1,
+      "kind": "setup",
+      "state": "done"
+    },
+    "failure": {
+      "attempt_id": 2,
+      "stage": 1,
+      "kind": "direction",
+      "state": "invalid",
+      "reason": "ConnectionClosedError: native application control failed; inspect private evidence"
+    },
+    "unattempted_work": [
+      {
+        "stage": 2,
+        "kind": "output_check",
+        "state": "pending"
+      },
+      {
+        "stage": 3,
+        "kind": "chunk",
+        "state": "pending"
+      }
+    ]
+  },
+  "separate_product_observation": {
+    "safe_evidence": "profiles/evidence/issue45/kiki1-failure.json",
+    "classification": "Native microphone-processing crash, not a rewritten runner product_failure status",
+    "exception": "System.ArgumentException: Source array was not long enough",
+    "stack_frame": "KikitanTranslator.Capture.Microphone.AudioProcessCallback",
+    "evidence_status": "App-owner safe native-log record inspected; metrics worker did not relaunch or reproduce failure"
+  },
+  "observed_report": {
+    "sentence_count": 0,
+    "turn_count": 0,
+    "translation_outputs": 0,
+    "quality_segments": 0,
+    "aggregate_groups": 0,
+    "unaligned_output_rate": {
+      "value": null,
+      "unit": "fraction_of_observed_translation_outputs",
+      "reason": "No translation output",
+      "denominator": 0
+    },
+    "source_playback_records": 0,
+    "source_callback_records": 0
+  },
+  "interpretation": {
+    "delivery": null,
+    "delivery_reason": "No measured chunk attempt, source playback, or callback-mapped reference exists; do not report 0/9 delivery or no_output_before_deadline.",
+    "latency": null,
+    "latency_reason": "No observed source-clock boundaries or related output; no FOL/LUL/deadline arithmetic can be constructed for this run.",
+    "style": null,
+    "style_reason": "Zero OSC observations cannot establish translation extraction, message relationships, or output style.",
+    "quality": null,
+    "quality_reason": "No observed source/output quality segment, and no judge score supplied."
+  },
+  "raw_line_identity": {
+    "setup_attempt_start": {
+      "path": ".data/issue45/runs/kiki1-initial/attempt-0001-001.jsonl",
+      "line": 1
+    },
+    "setup_attempt_end": {
+      "path": ".data/issue45/runs/kiki1-initial/attempt-0001-001.jsonl",
+      "line": 2
+    },
+    "direction_attempt_start": {
+      "path": ".data/issue45/runs/kiki1-initial/attempt-0002-001.invalid.jsonl",
+      "line": 1
+    },
+    "direction_attempt_end": {
+      "path": ".data/issue45/runs/kiki1-initial/attempt-0002-001.invalid.jsonl",
+      "line": 2
+    },
+    "continuous_stream": {
+      "path": ".data/issue45/runs/kiki1-initial/stream-a65b14652bf14921abf113cd02f63303.jsonl",
+      "lines": 0
+    }
+  },
+  "input_sha256": {
+    ".data/issue45/runs/kiki1-initial/manifest.json": "c39ce0c2ae792808c0ea0eb74dd65c5b12ba02759f3d43541ce3668aae3130e0",
+    ".data/issue45/runs/kiki1-initial/frozen-plan.json": "9e4a5c2d26190725f8f5c2690e78dbb9bdca28786356568a753c8bd620ac482c",
+    ".data/issue45/runs/kiki1-initial/execution-plan.json": "9e4a5c2d26190725f8f5c2690e78dbb9bdca28786356568a753c8bd620ac482c",
+    ".data/issue45/runs/kiki1-initial/stream-a65b14652bf14921abf113cd02f63303.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".data/issue45/runs/kiki1-initial/attempt-0001-001.jsonl": "75e90afe3fddcf98ac5ae6d61f96e7694acdcc86a90cf08691d0e0fed3941614",
+    ".data/issue45/runs/kiki1-initial/attempt-0002-001.invalid.jsonl": "7f3ff25d63cc5e2170e81393998a04b5b5c12ae5b5b2aa05d9f77020ed2b355a",
+    ".data/issue45/metrics/kiki1-initial-spec.json": "4aa327796dd28d41e7d542b8c0476148f5e94c9f3ef3a39c1db73446a0ba4140",
+    ".data/issue45/metrics/kiki1-initial-report.json": "97dfb1690f491518ee78bbadb4e4cdaddaa162079e02b4ea5c0a8ce8ba9ce412",
+    ".data/issue45/plans/kiki1/provenance.json": "c577cca1de4b0d97484d30c93116b3be6abc9a08f0d1e461253c7533a479c0a9",
+    "corpus/english/timelines/development-01.json": "933bc6bc01f17f0cb1e1c727feed72b0e8bfa3fd8ee11943c11b5b4330f6a191",
+    "corpus/english/manifest.json": "69be711d981ac95e8a1594a2439dd315384972eb92a12e5644de7d4027fdd76c"
+  },
+  "commands": [
+    {
+      "cwd": "repository root",
+      "command": ".data/check-venv/Scripts/python.exe -c \"import sys, bench.metrics, bench.metrics_alignment; print(sys.executable); print(bench.metrics.__file__); print(bench.metrics_alignment.__file__)\"",
+      "exit_status": 0,
+      "result": "Imports resolved to candidate root bench modules."
+    },
+    {
+      "cwd": "repository root",
+      "command": ".data/check-venv/Scripts/python.exe -m bench.cli metrics --manifest .data/issue45/runs/kiki1-initial/manifest.json --spec .data/issue45/metrics/kiki1-initial-spec.json --output .data/issue45/metrics/kiki1-initial-report.json",
+      "exit_status": 0,
+      "cli_stdout": {
+        "version": "issue5-v1",
+        "sentences": 0,
+        "outputs": 0,
+        "quality_segments": 0
+      }
+    }
+  ],
+  "command_failures": [
+    {
+      "activity": "Initial import command used PowerShell ampersand operator in tool shell",
+      "exit_status": 2,
+      "error": "pi-natives:command: syntax error at line 1 col 1",
+      "effect": "No Python/import/app command executed; fixed shell syntax once. Not product failure."
+    }
+  ],
+  "scope": [
+    "No apps, provider requests, settings, credentials, captures, playback, screenshots or heavy models used by this metrics worker.",
+    "PP1-4 excluded by owner. Successful empirical output styles must come from actual GUI competitor traces.",
+    "No product-source, maintained-doc, catalog, Git/index/history or raw-input changes."
+  ],
+  "remaining_acceptance": [
+    "Successful GUI competitor speech-to-translated-OSC trace with callbacks/calibration and actual GUI-observed identity.",
+    "Different actually observed competitor output styles with evidence-supported relationships, retaining ambiguity.",
+    "Inspected bound exact bilingual links and hand-worked real callback/OSC latency/deadline examples.",
+    "Real unaligned output retained once in quality input if present; otherwise keep prior controlled boundary evidence separately labelled."
+  ],
+  "proposed_maintained_guidance": [
+    "After successful empirical integration, Director may replace docs/metrics.md remaining prerequisite paragraph with scoped evidence, exact retained paths and limits; no closure is justified by this failure report.",
+    "Architecture/profile readiness statements should distinguish GUI pilot evidence from historical native/headless failure and from full campaign readiness."
+  ]
+}

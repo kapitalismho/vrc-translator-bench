@@ -1,0 +1,639 @@
+{
+  "schema_version": 1,
+  "version": "issue45-vrcs2-actual-metrics-v1",
+  "status": "actual_configuration_sample_derived_current_cross_app_index_available",
+  "measurement_date": "2026-10-20T23:19:03.763938+00:00",
+  "report_generated_utc": "2026-10-20T23:26:52.600658+00:00",
+  "profile": "VRCS2",
+  "run": "vrcs2-gui-initial",
+  "synthetic": false,
+  "direction": "D1",
+  "category": "development",
+  "source_group": "en",
+  "original_session": "ES2014a",
+  "source_reference_sha256": "d62c3048524b2a36aee0cc5607cbd44e2dc97389617ee864f5f0ad0f7354fffd",
+  "input_sha256": {
+    ".data/issue45/runs/vrcs2-gui-initial/manifest.json": "3eca8554d9de2f24ad8e089c90bece4719f15796775fb5186b1dd4e0af65a844",
+    ".data/issue45/runs/vrcs2-gui-initial/stream-5ebe4e0a8c9f40a2b48f6780ec3b49c7.jsonl": "7b500f7b81e9709636739a498ce11305d51d9044ae7d39122f5e5e018a8628ae"
+  },
+  "canonical_artifacts": {
+    "raw_unknown_report": ".data/issue45/metrics/vrcs2-native-frame-unknown-report.json",
+    "confirmed_cache": ".data/issue45/metrics/vrcs2-native-frame-confirmed-cache.json",
+    "report": ".data/issue45/metrics/vrcs2-final-report.json",
+    "verification": ".data/issue45/metrics/vrcs2-verification.json"
+  },
+  "canonical_sha256": {
+    ".data/issue45/metrics/vrcs2-native-frame-unknown-report.json": "df154c6201f2fc9d1f02bea7748ec4e3bdd33c22869f3c6c64942919828c58e9",
+    ".data/issue45/metrics/vrcs2-native-frame-confirmed-cache.json": "cc614c825290471e5249ba4c2076be5ae12270f40e7c53f84ce99b87624fcfdf",
+    ".data/issue45/metrics/vrcs2-final-report.json": "91fe22290e29fa4e8bfd676072c3695be8ce96e559a9a1d67d9610dcfd06cc75"
+  },
+  "calculation_implementation_sha256": {
+    "metrics.py": "2f9fe36e7d25feed758c9c30dc01b9f167dcb2fe1d47323e0aefba7b9d1f5b1e",
+    "metrics_inputs.py": "bbc0db759d32951b4a7561535e75866de0f0d7de358c26851495850aca96972e",
+    "metrics_alignment.py": "6e9541a4cf27c853070c83ecaca820bec577b387810e1ff3ce5b7c01532e4b2a",
+    "metrics_diagnostics.py": "e287d4a1e3c8a2b0fac14a8a4516829bc607f83b5e5a34c94b1567de4a160f72",
+    "metrics_stats.py": "66e6e61d5a33d9802088992c6500be1c2b62177dd4d8a75c7bebd15e0a045ac5"
+  },
+  "capture_harness_revision": "9ba3ebb246200af564b2eb5fce5e3f9da64f2dcf",
+  "provenance_distinction": "Capture harness revision identifies immutable producer; calculation source hashes identify the actual ROOT derivation including Director-owned native-frame repair.",
+  "application_rules": "profiles/evidence/issue45/metrics/vrcs2-observed-rules.json",
+  "inspection": "profiles/evidence/issue45/metrics/vrcs2-independent-inspection.json",
+  "observations": {
+    "nonempty_chatbox_packets": 7,
+    "global_translated_outputs": 6,
+    "measured_translated_outputs": 4,
+    "reference_free_output_check_translations": 2,
+    "source_only_nontranslation_observations": 1,
+    "callback_counts": {
+      "output_check": 1000,
+      "measured": 4000
+    },
+    "attempt_states": [
+      "done",
+      "done",
+      "done",
+      "done"
+    ],
+    "no_resumes": true
+  },
+  "source_correspondence": {
+    "method": "Actual assistant inspection of exact English/app-source/Japanese pairs and all nine native source units; not human validation, model-only links or semantic-quality scores.",
+    "confirmed_output_links": {
+      "seq4": [
+        ".16"
+      ],
+      "seq5": [
+        ".17"
+      ],
+      "seq6": [
+        ".17"
+      ],
+      "seq7": [
+        ".20"
+      ]
+    },
+    "unknown_output_sequences": [
+      2,
+      3
+    ],
+    "delivery_meaning": "Any related translated content, not complete/final/accurate rendering of sentence meaning. .17 and .20 are partial fragments.",
+    "relationships": "Only seq4 supported new; other relationships unknown; no universal grouping/finality inference."
+  },
+  "sentence_results": [
+    {
+      "native_unit": "16",
+      "duration_seconds": 1.2800000000000011,
+      "duration_bin": "below_2s",
+      "delivery_status": "delivered",
+      "fol": {
+        "value": 1.717030633,
+        "unit": "seconds",
+        "reason": null
+      },
+      "lul": {
+        "value": 0.436284433,
+        "unit": "seconds",
+        "reason": null
+      },
+      "observation_complete": true,
+      "deadline_ns": 370975505180067
+    },
+    {
+      "native_unit": "17",
+      "duration_seconds": 5.8799999999999955,
+      "duration_bin": "above_5s",
+      "delivery_status": "delivered",
+      "fol": {
+        "value": 3.086303533,
+        "unit": "seconds",
+        "reason": null
+      },
+      "lul": {
+        "value": null,
+        "unit": "seconds",
+        "reason": "Ambiguous content-change interpretation"
+      },
+      "observation_complete": true,
+      "deadline_ns": 370975505180067
+    },
+    {
+      "native_unit": "18",
+      "duration_seconds": 1.230000000000004,
+      "duration_bin": "below_2s",
+      "delivery_status": "no_output_before_deadline",
+      "fol": {
+        "value": null,
+        "unit": "seconds",
+        "reason": "no_output_before_deadline"
+      },
+      "lul": {
+        "value": null,
+        "unit": "seconds",
+        "reason": "no_output_before_deadline"
+      },
+      "observation_complete": true,
+      "deadline_ns": 370975505180067
+    },
+    {
+      "native_unit": "19",
+      "duration_seconds": 5.609999999999999,
+      "duration_bin": "above_5s",
+      "delivery_status": "no_output_before_deadline",
+      "fol": {
+        "value": null,
+        "unit": "seconds",
+        "reason": "no_output_before_deadline"
+      },
+      "lul": {
+        "value": null,
+        "unit": "seconds",
+        "reason": "no_output_before_deadline"
+      },
+      "observation_complete": true,
+      "deadline_ns": 370975505180067
+    },
+    {
+      "native_unit": "20",
+      "duration_seconds": 4.6200000000000045,
+      "duration_bin": "2_to_5s",
+      "delivery_status": "delivered",
+      "fol": {
+        "value": 4.907336833,
+        "unit": "seconds",
+        "reason": null
+      },
+      "lul": {
+        "value": null,
+        "unit": "seconds",
+        "reason": "Ambiguous content-change interpretation"
+      },
+      "observation_complete": true,
+      "deadline_ns": 370975505180067
+    },
+    {
+      "native_unit": "21",
+      "duration_seconds": 3.8100000000000023,
+      "duration_bin": "2_to_5s",
+      "delivery_status": "no_output_before_deadline",
+      "fol": {
+        "value": null,
+        "unit": "seconds",
+        "reason": "no_output_before_deadline"
+      },
+      "lul": {
+        "value": null,
+        "unit": "seconds",
+        "reason": "no_output_before_deadline"
+      },
+      "observation_complete": true,
+      "deadline_ns": 370975505180067
+    },
+    {
+      "native_unit": "22",
+      "duration_seconds": 1.3999999999999915,
+      "duration_bin": "below_2s",
+      "delivery_status": "no_output_before_deadline",
+      "fol": {
+        "value": null,
+        "unit": "seconds",
+        "reason": "no_output_before_deadline"
+      },
+      "lul": {
+        "value": null,
+        "unit": "seconds",
+        "reason": "no_output_before_deadline"
+      },
+      "observation_complete": true,
+      "deadline_ns": 370975505180067
+    },
+    {
+      "native_unit": "23",
+      "duration_seconds": 2.4200000000000017,
+      "duration_bin": "2_to_5s",
+      "delivery_status": "no_output_before_deadline",
+      "fol": {
+        "value": null,
+        "unit": "seconds",
+        "reason": "no_output_before_deadline"
+      },
+      "lul": {
+        "value": null,
+        "unit": "seconds",
+        "reason": "no_output_before_deadline"
+      },
+      "observation_complete": true,
+      "deadline_ns": 370975505180067
+    },
+    {
+      "native_unit": "24",
+      "duration_seconds": 2.019999999999996,
+      "duration_bin": "2_to_5s",
+      "delivery_status": "no_output_before_deadline",
+      "fol": {
+        "value": null,
+        "unit": "seconds",
+        "reason": "no_output_before_deadline"
+      },
+      "lul": {
+        "value": null,
+        "unit": "seconds",
+        "reason": "no_output_before_deadline"
+      },
+      "observation_complete": true,
+      "deadline_ns": 370975505180067
+    }
+  ],
+  "aggregate": {
+    "reference_sentences": 9,
+    "eligible_sentences": 9,
+    "denominator_coverage": {
+      "eligible": 9
+    },
+    "delivery_status_counts": {
+      "delivered": 3,
+      "no_output_before_deadline": 6
+    },
+    "delivery": {
+      "value": 0.3333333333333333,
+      "unit": "fraction_of_eligible_sentences",
+      "reason": null,
+      "confidence_interval_95": null,
+      "uncertainty_reason": "Fewer than two original sessions; show session values, no bootstrap interval",
+      "original_sessions": 1,
+      "session_values": [
+        {
+          "session_id": "ES2014a",
+          "value": 0.3333333333333333
+        }
+      ],
+      "observations": 9,
+      "bootstrap_iterations": 2000,
+      "seed": 20261020,
+      "unresolved_sentences": 0,
+      "correspondence_bounds": [
+        0.3333333333333333,
+        0.3333333333333333
+      ]
+    },
+    "fol_p50": {
+      "value": 3.086303533,
+      "unit": "seconds",
+      "reason": null,
+      "confidence_interval_95": null,
+      "uncertainty_reason": "Fewer than two original sessions; show session values, no bootstrap interval",
+      "original_sessions": 1,
+      "session_values": [
+        {
+          "session_id": "ES2014a",
+          "value": 3.086303533
+        }
+      ],
+      "observations": 9,
+      "bootstrap_iterations": 2000,
+      "seed": 20261020
+    },
+    "fol_p90": {
+      "value": 4.543130173,
+      "unit": "seconds",
+      "reason": null,
+      "confidence_interval_95": null,
+      "uncertainty_reason": "Fewer than two original sessions; show session values, no bootstrap interval",
+      "original_sessions": 1,
+      "session_values": [
+        {
+          "session_id": "ES2014a",
+          "value": 4.543130173
+        }
+      ],
+      "observations": 9,
+      "bootstrap_iterations": 2000,
+      "seed": 20261020
+    },
+    "fol_by_duration": {
+      "below_2s": {
+        "p50": {
+          "value": 1.717030633,
+          "unit": "seconds",
+          "reason": null,
+          "confidence_interval_95": null,
+          "uncertainty_reason": "Fewer than two original sessions; show session values, no bootstrap interval",
+          "original_sessions": 1,
+          "session_values": [
+            {
+              "session_id": "ES2014a",
+              "value": 1.717030633
+            }
+          ],
+          "observations": 3,
+          "bootstrap_iterations": 2000,
+          "seed": 20261020
+        },
+        "p90": {
+          "value": 1.717030633,
+          "unit": "seconds",
+          "reason": null,
+          "confidence_interval_95": null,
+          "uncertainty_reason": "Fewer than two original sessions; show session values, no bootstrap interval",
+          "original_sessions": 1,
+          "session_values": [
+            {
+              "session_id": "ES2014a",
+              "value": 1.717030633
+            }
+          ],
+          "observations": 3,
+          "bootstrap_iterations": 2000,
+          "seed": 20261020
+        }
+      },
+      "2_to_5s": {
+        "p50": {
+          "value": 4.907336833,
+          "unit": "seconds",
+          "reason": null,
+          "confidence_interval_95": null,
+          "uncertainty_reason": "Fewer than two original sessions; show session values, no bootstrap interval",
+          "original_sessions": 1,
+          "session_values": [
+            {
+              "session_id": "ES2014a",
+              "value": 4.907336833
+            }
+          ],
+          "observations": 4,
+          "bootstrap_iterations": 2000,
+          "seed": 20261020
+        },
+        "p90": {
+          "value": 4.907336833,
+          "unit": "seconds",
+          "reason": null,
+          "confidence_interval_95": null,
+          "uncertainty_reason": "Fewer than two original sessions; show session values, no bootstrap interval",
+          "original_sessions": 1,
+          "session_values": [
+            {
+              "session_id": "ES2014a",
+              "value": 4.907336833
+            }
+          ],
+          "observations": 4,
+          "bootstrap_iterations": 2000,
+          "seed": 20261020
+        }
+      },
+      "above_5s": {
+        "p50": {
+          "value": 3.086303533,
+          "unit": "seconds",
+          "reason": null,
+          "confidence_interval_95": null,
+          "uncertainty_reason": "Fewer than two original sessions; show session values, no bootstrap interval",
+          "original_sessions": 1,
+          "session_values": [
+            {
+              "session_id": "ES2014a",
+              "value": 3.086303533
+            }
+          ],
+          "observations": 2,
+          "bootstrap_iterations": 2000,
+          "seed": 20261020
+        },
+        "p90": {
+          "value": 3.086303533,
+          "unit": "seconds",
+          "reason": null,
+          "confidence_interval_95": null,
+          "uncertainty_reason": "Fewer than two original sessions; show session values, no bootstrap interval",
+          "original_sessions": 1,
+          "session_values": [
+            {
+              "session_id": "ES2014a",
+              "value": 3.086303533
+            }
+          ],
+          "observations": 2,
+          "bootstrap_iterations": 2000,
+          "seed": 20261020
+        }
+      }
+    },
+    "lul_p50": {
+      "value": 0.436284433,
+      "unit": "seconds",
+      "reason": null,
+      "confidence_interval_95": null,
+      "uncertainty_reason": "Fewer than two original sessions; show session values, no bootstrap interval",
+      "original_sessions": 1,
+      "session_values": [
+        {
+          "session_id": "ES2014a",
+          "value": 0.436284433
+        }
+      ],
+      "observations": 9,
+      "bootstrap_iterations": 2000,
+      "seed": 20261020
+    },
+    "lul_p90": {
+      "value": 0.436284433,
+      "unit": "seconds",
+      "reason": null,
+      "confidence_interval_95": null,
+      "uncertainty_reason": "Fewer than two original sessions; show session values, no bootstrap interval",
+      "original_sessions": 1,
+      "session_values": [
+        {
+          "session_id": "ES2014a",
+          "value": 0.436284433
+        }
+      ],
+      "observations": 9,
+      "bootstrap_iterations": 2000,
+      "seed": 20261020
+    },
+    "turn_lul_p50": {
+      "value": null,
+      "unit": "seconds",
+      "reason": "No measurable observations",
+      "confidence_interval_95": null,
+      "uncertainty_reason": "Fewer than two original sessions; show session values, no bootstrap interval",
+      "original_sessions": 1,
+      "session_values": [
+        {
+          "session_id": "ES2014a",
+          "value": null
+        }
+      ],
+      "observations": 1,
+      "bootstrap_iterations": 2000,
+      "seed": 20261020
+    },
+    "turn_lul_p90": {
+      "value": null,
+      "unit": "seconds",
+      "reason": "No measurable observations",
+      "confidence_interval_95": null,
+      "uncertainty_reason": "Fewer than two original sessions; show session values, no bootstrap interval",
+      "original_sessions": 1,
+      "session_values": [
+        {
+          "session_id": "ES2014a",
+          "value": null
+        }
+      ],
+      "observations": 1,
+      "bootstrap_iterations": 2000,
+      "seed": 20261020
+    },
+    "unaligned_output_rate": {
+      "value": 0.0,
+      "unit": "fraction_of_observed_translation_outputs",
+      "reason": null,
+      "denominator": 4,
+      "population_attribution": {
+        "selection_basis_counts": {
+          "linked_source": 4
+        },
+        "ambiguous_output_ids": [],
+        "excluded_ambiguous_output_ids": [],
+        "unassigned_capture_output_ids": [],
+        "policy": "Linked source identity takes precedence; otherwise assigned quality-segment population. Unassigned outputs remain global, not copied into category/casual views. Mixed or cross-population attribution is not exclusive."
+      }
+    },
+    "first_attempt_product_failure_rate": {
+      "value": 0.0,
+      "unit": "fraction_of_eligible_first_attempts",
+      "reason": null,
+      "denominator": 1,
+      "statuses": {
+        "done": 1
+      }
+    },
+    "major_error_segment_rate": {
+      "value": null,
+      "unit": "fraction_of_scored_segments",
+      "reason": "No measurable observations",
+      "confidence_interval_95": null,
+      "uncertainty_reason": "Fewer than two original sessions; show session values, no bootstrap interval",
+      "original_sessions": 0,
+      "session_values": [],
+      "observations": 0,
+      "bootstrap_iterations": 2000,
+      "seed": 20261020,
+      "eligible_segments": 2,
+      "scored_segments": 0
+    }
+  },
+  "global_output_population": {
+    "observed_translation_outputs": 6,
+    "alignment_status_counts": {
+      "unknown": 2,
+      "aligned": 4
+    },
+    "unassigned_output_ids": [
+      "5ebe4e0a8c9f40a2b48f6780ec3b49c7:2",
+      "5ebe4e0a8c9f40a2b48f6780ec3b49c7:3"
+    ],
+    "ambiguous_population_output_ids": [],
+    "unaligned_output_rate": {
+      "value": 0.3333333333333333,
+      "unit": "fraction_of_observed_translation_outputs",
+      "reason": null,
+      "denominator": 6
+    },
+    "orphans": 2
+  },
+  "quality": {
+    "eligible_continuous_segments": 2,
+    "scored_segments": 0,
+    "reference_free_output_check_segment_excluded": true,
+    "unaligned_output_retention": "Canonical two unknown output-check translations retained in own orphan quality input; canonical unknown baseline additionally retains all four continuous unknown observations once in nearest continuous segment. No raw observation discarded.",
+    "context_turns": 2,
+    "context_scored": false,
+    "reconstruction": "Observed order only for unknown relationships, not asserted final text.",
+    "score_coverage": {
+      "population": "All report quality segments; each aggregate separately declares its eligible/scored population",
+      "total_segments": 3,
+      "eligible_segments": 2,
+      "excluded_segments": 1,
+      "supplied_major_error_scores": 0,
+      "scored_eligible_segments": 0,
+      "excluded_major_error_scores": 0,
+      "excluded_by_reason": {
+        "No captured source timeline in this clock/config": [
+          "orphan:5ebe4e0a8c9f40a2b48f6780ec3b49c7:VRCS2:output_check:3"
+        ]
+      }
+    }
+  },
+  "diagnostic_limits": {
+    "revisions": {
+      "value": null,
+      "unit": "updates",
+      "reason": "App rules do not support revision inference"
+    },
+    "erasure": {
+      "value": null,
+      "unit": "characters",
+      "reason": "No supported revision pairs"
+    },
+    "source_cer": {
+      "value": null,
+      "unit": "edits/reference_character",
+      "reason": "Source reconstruction unresolved: Multiple source messages share reference coverage; explicit source_coverage is required to distinguish fragments from snapshots"
+    },
+    "endpoint_cut_tradeoff": {
+      "value": null,
+      "unit": "boundary_records",
+      "reason": "Identifiable source boundaries and app endpoint/cut signals absent"
+    },
+    "long_speech_accumulation": {
+      "value": null,
+      "unit": "series",
+      "reason": "No sufficiently long annotated uninterrupted speech with supported latency"
+    },
+    "nonspeech": "No such test in this run; no extrapolated counts."
+  },
+  "timing": {
+    "source_bounds": "Real matching-clock playback callback DAC timing plus sample position and exact historical cable offset112374867ns.",
+    "calibration": "Historical same-endpoint native probe reused, not newly measured or precision-certified.",
+    "deadline_ns": 370975505180067,
+    "attempt4_end_ns": 370981336369700,
+    "attempt4_coverage_beyond_deadline_seconds": 5.831189633,
+    "independent_integer_frame_comparisons": 18,
+    "mismatches_after_repair": 0,
+    "before_defect": ".data/issue45/metrics/vrcs2-boundary-defect-before.json",
+    "before_evidence_retained": true,
+    "report_repaired_by_hand": false
+  },
+  "checks": {
+    "actual_canonical_cli_commands": 2,
+    "exit_statuses": [
+      0,
+      0
+    ],
+    "bounded_artifact_assertions": 25,
+    "passed": 25,
+    "failed": 0,
+    "skipped": 0,
+    "product_test_suite": "Not run by this worker; no inherited repair test claim used as independent evidence."
+  },
+  "historical_failure": "profiles/evidence/issue45/metrics/kiki1-historical-result.json retains operational-invalid direction plus separate native crash and0callbacks; not counted as no-output for played source.",
+  "limits": [
+    "One development session, one configuration, one direction; no multi-session interval, repeated-run conclusion or cross-app ranking.",
+    "FOL summary has three related-content sentence observations. Sentence LUL p50/p90 are based on only one supported update; two other delivered-sentence LUL values and turn LUL are N/A.",
+    "English native dialogue acts and forced-aligned source word times are not independently verified grammatical sentence/acoustic truth. Source IDs, categories and uncertainty remain in full report.",
+    "No judge scores or major-error rate supplied. Partial source CER reconstruction is N/A, not selected partial accuracy.",
+    "GUI identity and Stop observations were supplied by Director; this worker never controlled apps/audio/screenshots/providers/credentials/model inference. Undated postrun Core banner is retained in separate inspection record without failure classification.",
+    "Unrelated user background work was not isolated. Pilot FOL/quantiles are bounded debug observations, not fair rankings or controlled performance comparisons.",
+    "Separate actual VRCLT1 rolling/mixed-role sample now supplies different-application evidence; see actual-pilot-metric-index.json. PP1-4 skipped; D2 ten-second output check is not continuous metric evidence.",
+    "No product source, maintained docs, Git/index/history, raw inputs or pre-repair artifacts were changed by this worker."
+  ],
+  "proposed_maintained_guidance": [
+    "Director may update docs/metrics.md with this actual trace, assistant-confirmed fragments,25 bounded checks,18 native-frame comparisons and the separate actual VRCLT1 rolling-style example; no missing-other-app prerequisite remains for this bounded sample.",
+    "Separate global2/6 unaligned denominator from continuous0/4; disclose3/9 related-content delivery, three FOL samples and one supported LUL, not semantic completion.",
+    "Retain native source uncertainty, historical112374867ns calibration reuse, zero quality-score coverage, historical failure status, unknown relationships, and distinction between captured producer revision and derivation source hashes."
+  ]
+}

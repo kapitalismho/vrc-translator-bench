@@ -1,0 +1,107 @@
+{
+  "kind": "installed_cli_smoke",
+  "observations": [
+    {
+      "args": [
+        "profiles",
+        "--check-ports"
+      ],
+      "returncode": 0,
+      "status": "blocked",
+      "ready_profiles": [],
+      "finding_count": 14,
+      "wave_count": 4,
+      "port_observations": [
+        {
+          "port": 19101,
+          "available": true
+        },
+        {
+          "port": 19102,
+          "available": true
+        },
+        {
+          "port": 19103,
+          "available": true
+        },
+        {
+          "port": 19104,
+          "available": true
+        },
+        {
+          "port": 19111,
+          "available": true
+        },
+        {
+          "port": 19112,
+          "available": true
+        },
+        {
+          "port": 19113,
+          "available": true
+        },
+        {
+          "port": 19121,
+          "available": true
+        },
+        {
+          "port": 19122,
+          "available": true
+        },
+        {
+          "port": 19131,
+          "available": true
+        },
+        {
+          "port": 19132,
+          "available": true
+        },
+        {
+          "port": 19141,
+          "available": true
+        },
+        {
+          "port": 19151,
+          "available": true
+        },
+        {
+          "port": 19152,
+          "available": true
+        },
+        {
+          "port": 19201,
+          "available": true
+        },
+        {
+          "port": 19202,
+          "available": true
+        },
+        {
+          "port": 19203,
+          "available": true
+        },
+        {
+          "port": 19204,
+          "available": true
+        }
+      ]
+    },
+    {
+      "args": [
+        "profiles",
+        "--require-ready"
+      ],
+      "returncode": 2,
+      "status": "blocked",
+      "ready_profiles": [],
+      "finding_count": 14,
+      "wave_count": 4,
+      "port_observations": []
+    }
+  ],
+  "limitations": [
+    "No translator app readiness established",
+    "Port availability is instantaneous, not reserved",
+    "An initial smoke exposed a literal procedure-name lookup bug; corrected before these observations"
+  ]
+}

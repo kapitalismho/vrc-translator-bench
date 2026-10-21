@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "status": "prepared_not_translator_verified",
+  "corpus_sha256": "125516bc911780a3f7f235424462f94935bdf417f05d51c7341d8535dd1f2733",
+  "selection": "First ten seconds of each existing development bundle, before any measured app output; reversible working default",
+  "directions": {
+    "D1": "en",
+    "D2": "en",
+    "D3": "zh",
+    "D4": "ja",
+    "D5": "zh",
+    "D6": "ja"
+  },
+  "clips": {
+    "en": {
+      "source": {
+        "path": ".data/english/audio/development.wav",
+        "sha256": "ae3fee2e18ee325111dc97f4716843ea7123e62b05257146c70c0f917b95348f",
+        "frames": 14400000,
+        "duration_seconds": 300.0
+      },
+      "source_manifest": {
+        "path": "corpus/english/manifest.json",
+        "sha256": "69be711d981ac95e8a1594a2439dd315384972eb92a12e5644de7d4027fdd76c"
+      },
+      "source_start_frame": 0,
+      "frames": 480000,
+      "sample_rate": 48000,
+      "duration_seconds": 10,
+      "pcm_sha256": "96e276b7c9d7679d6cde0ddd171fbcb8831219b39ac0166b337bfa25601ed5d3",
+      "semantic_output_verified": false,
+      "path": ".data/issue4/output-checks/en-output-check.wav",
+      "sha256": "ff7ada666a62f9fe3cf6846a0857f564399bc23d2848ad1b51a749cd36279cfd"
+    },
+    "zh": {
+      "source": {
+        "path": ".data/chinese/audio/zh-dev.wav",
+        "sha256": "360258012c6c9b0a1e525973608f7edf54b4ea89ecfd0735b02670953eb3a140",
+        "frames": 14400000,
+        "duration_seconds": 300.0
+      },
+      "source_manifest": {
+        "path": "corpus/chinese/manifest.json",
+        "sha256": "1413b6c066af7afeecc71fd1f63025c7f7a52246d6a542528dca15fde1cd736e"
+      },
+      "source_start_frame": 0,
+      "frames": 480000,
+      "sample_rate": 48000,
+      "duration_seconds": 10,
+      "pcm_sha256": "0a57ed5c23277bc54801725715db41cc2963de1d44072137886f2ad7b148f89d",
+      "semantic_output_verified": false,
+      "path": ".data/issue4/output-checks/zh-output-check.wav",
+      "sha256": "3be6974425b8b0de3cafced557d58bc5e1c2d7578445a3f094606f67ca97f20a"
+    },
+    "ja": {
+      "source": {
+        "path": ".data\\japanese\\playback\\ja-dev.wav",
+        "sha256": "946b2434b4f5968e90be58fb42547e605ba421a5ad6b9301a8b5076189069a91",
+        "frames": 14400000,
+        "duration_seconds": 300.0
+      },
+      "source_manifest": {
+        "path": "corpus/japanese/local-preparation.json",
+        "sha256": "c9788801bab2fa2d9cd7992607efb54b29d14cc962fcb377d3d5f7e4a8445f6e"
+      },
+      "source_start_frame": 0,
+      "frames": 480000,
+      "sample_rate": 48000,
+      "duration_seconds": 10,
+      "pcm_sha256": "34641391fb6e0eb294514ddefb275c50c8f3223d9007321ec4cdfa0a4cd9c659",
+      "semantic_output_verified": false,
+      "path": ".data/issue4/output-checks/ja-output-check.wav",
+      "sha256": "4c79fba84f25bcc1c560de3921d6e6c261408ae277832278de5537613c9f8221"
+    }
+  },
+  "redistribution": "Audio remains local under source-specific terms; Japanese publication rights unresolved",
+  "runner_use": "Use the matching source clip as output_check.audio in a source-language-specific run plan; do not reuse English checks for Chinese/Japanese capture"
+}

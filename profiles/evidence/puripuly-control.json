@@ -1,0 +1,181 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-20",
+  "application": "PuriPuly",
+  "installed_version": "2.8.2",
+  "executable_sha256": "69a86b55f70e926b813b78dacffefcb71c318842b7339bd09738e8f5a272e34f",
+  "source_inspected": {
+    "version": "2.9.0",
+    "commit": "a52fcc97a93d34e040545f388e77a55724cf3c91"
+  },
+  "kind": "manual_text_control_probe",
+  "audio_to_osc_pilot": false,
+  "benchmark_profile": null,
+  "translation_enabled": false,
+  "capture_enabled": false,
+  "provider_requests_requested": false,
+  "secret_store": "fresh empty encrypted_file; inherited provider credentials omitted",
+  "isolation": "dedicated config and APPDATA/LOCALAPPDATA/USERPROFILE; owned CLI instance only",
+  "no_vrchat_process_count_before_direction_resume_probe": 0,
+  "model_choices_observed": [
+    "gemma4_26b_31b",
+    "deepseek_v4_flash",
+    "deepseek_v4_flash_41",
+    "gemini_flash",
+    "gpt_6_luna",
+    "qwen38_flash",
+    "managed_gemma",
+    "local_llm",
+    "custom_http"
+  ],
+  "cpu_models_observed": [
+    {
+      "model_id": "parakeet-tdt-0.6b-v3-int8-sherpa",
+      "backend": "cpu",
+      "integrity": "missing",
+      "operation": "idle"
+    },
+    {
+      "model_id": "parakeet-tdt-ctc-0.6b-ja-int8-sherpa",
+      "backend": "cpu",
+      "integrity": "missing",
+      "operation": "idle"
+    },
+    {
+      "model_id": "qwen3-asr-0.6b-int8-sherpa",
+      "backend": "cpu",
+      "integrity": "missing",
+      "operation": "idle"
+    },
+    {
+      "model_id": "qwen3-asr-1.7b-q6-k-transcribe-vulkan",
+      "backend": "gpu",
+      "integrity": "not_requested",
+      "operation": "idle"
+    }
+  ],
+  "osc_state": {
+    "configured_mode": "manual",
+    "configured_host": "127.0.0.1",
+    "configured_send_port": 19104,
+    "configured_receive_port": 19204,
+    "effective_mode": "manual",
+    "effective_send_port": 19104,
+    "effective_receive_port": 19204,
+    "receiver_available": true,
+    "sender_available": true,
+    "query_service_started": false,
+    "query_advertised_port": null,
+    "discovered_remote": null,
+    "query_failure": null,
+    "local_availability": "available",
+    "remote_delivery": "unacknowledged"
+  },
+  "microphone_state_after_restart": {
+    "ring_buffer_ms": 500,
+    "input_host_api": "Windows WASAPI (Compatibility Mode)",
+    "input_device": "CABLE Output(VB-Audio Virtual Cable)"
+  },
+  "languages_after_restart": {
+    "source_language": "en",
+    "target_language": "zh-CN",
+    "secondary_target_language": "",
+    "peer_source_language": "en",
+    "peer_target_language": "ko",
+    "peer_source_mode": "manual",
+    "peer_expected_languages": [],
+    "recent_source_languages": [
+      "en",
+      "zh-CN",
+      "ja"
+    ],
+    "recent_target_languages": [
+      "en",
+      "zh-CN",
+      "ja"
+    ]
+  },
+  "operations": {
+    "initial_incomplete_bootstrap": {
+      "exit_code": 3,
+      "error": "CanonicalSettingsPersistenceError"
+    },
+    "corrected_canonical_start": {
+      "output_version": 1,
+      "status": "ready",
+      "instance_id": "35f41cd5-cbc0-4430-82b0-fb897248c0e4",
+      "pid": 99996
+    },
+    "apply_d1": {
+      "output_version": 1,
+      "instance_id": "35f41cd5-cbc0-4430-82b0-fb897248c0e4",
+      "operation_id": "54853bfda9014683ab0d0f6b33e89acf",
+      "request_id": "0abf130e15c1545a860185aa4796ae9d",
+      "status": "applied",
+      "terminal": true,
+      "revision": 3,
+      "transaction": {
+        "status": "settings_commit_success_runtime_applied",
+        "message": null,
+        "diagnostics": null
+      }
+    },
+    "invalid_zh_Hans": {
+      "output_version": 1,
+      "instance_id": "35f41cd5-cbc0-4430-82b0-fb897248c0e4",
+      "operation_id": "12394eee434345348e91c9ca9c586ff0",
+      "request_id": "c81a0c0fb23553d4535c0d5c2067ffc4",
+      "status": "rejected",
+      "terminal": true,
+      "revision": 3,
+      "error": {
+        "code": "invalid_arguments",
+        "type": "ValueError"
+      }
+    },
+    "corrected_zh_CN": {
+      "output_version": 1,
+      "instance_id": "4808d0e9-ca66-4608-bdef-8717898de9de",
+      "operation_id": "3c57149ba422450db39d2577a81e4ad8",
+      "request_id": "13f9b9114a937d2cf0e2360b2545814d",
+      "status": "applied",
+      "terminal": true,
+      "revision": 2,
+      "transaction": {
+        "status": "settings_commit_success_runtime_applied",
+        "message": null,
+        "diagnostics": null
+      }
+    },
+    "restart_d2": {
+      "output_version": 1,
+      "status": "ready",
+      "instance_id": "abf2b858-cb9e-40c5-9f1a-e4b9366612ed",
+      "pid": 96212
+    },
+    "final_stop": {
+      "output_version": 1,
+      "status": "stopped",
+      "terminal": true,
+      "instance_id": "abf2b858-cb9e-40c5-9f1a-e4b9366612ed",
+      "operation_id": "606893f4a2424b7ba38064fa93867048"
+    }
+  },
+  "streams": [
+    {
+      "path": "puripuly-control.jsonl",
+      "sha256": "4f507db157039eea3a8c8a8c13981a430a30d5bc9c98768eb714fce4ada8ce44"
+    },
+    {
+      "path": "puripuly-direction-resume.jsonl",
+      "sha256": "95564c4250702ed6f7ff6dd89c4e3fc32d786ec017a039f9baf70e84734d14a0"
+    }
+  ],
+  "limits": [
+    "No ASR, translation, paid-provider or account-access observation",
+    "No actual ten-second audio-to-OSC pilot",
+    "Paging observed only with manual synthetic text; revisions/resends unverified",
+    "Initial control-probe process enumeration was not recorded; zero VRChat count observed before later direction-resume probe",
+    "No GUI presentation claim; public CLI only"
+  ]
+}

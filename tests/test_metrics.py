@@ -147,6 +147,94 @@ def test_clock_cable_mapping_uses_callback_frame_not_origin_extrapolation():
     assert source_time({**playback, "calibration_offset_ns": None}, callbacks, 1.5, 48000) is None
 
 
+@pytest.mark.parametrize("native_rate,playback_rate,offset,native_boundary,frame", [
+    (48000, 48000, 34, 3194400, 1562400),
+    (44100, 48000, 0.1, 1439865, 1562400),
+    (48000, 96000.0, 34.125, 3200400, 3124800),
+    (32000, 44100, 0.125, 68000, 88200),
+])
+def test_native_sample_boundary_uses_later_discontinuous_callback(tmp_path, native_rate, playback_rate, offset, native_boundary, frame):
+    native = dump(tmp_path / "native.json", {
+        "clip_id": "clip",
+        "sentences": [{"id": "before", "speaker": "a", "playback_start": native_boundary - 1,
+                       "playback_end": native_boundary, "start": 0, "end": 0, "text": "Before"},
+                      {"id": "after", "speaker": "a", "start": native_boundary,
+                       "end": native_boundary + 1, "text": "After"}],
+        "turns": [{"id": "turn", "speaker": "a", "start": native_boundary - 1, "end": native_boundary + 1}],
+    })
+    manifest_path, spec_path = sample(tmp_path, native=native)
+    manifest = json.loads(manifest_path.read_text())
+    manifest["plan"]["synthetic"] = False
+    manifest["plan"]["stages"][0]["sample_rate"] = playback_rate
+    dump(manifest_path, manifest)
+    spec = json.loads(spec_path.read_text())
+    spec["references"]["0"].update({"sample_rate": native_rate, "offset_seconds": offset})
+    dump(spec_path, spec)
+    callbacks = [{"record": "audio_callback", "source_frame": frame - playback_rate // 100,
+                  "source_frames": playback_rate // 100, "dac_t_ns": 50_000_000_000},
+                 {"record": "audio_callback", "source_frame": frame,
+                  "source_frames": playback_rate // 100, "dac_t_ns": 50_030_000_000}]
+    trace_path = tmp_path / "attempt.jsonl"
+    trace_path.write_text(trace_path.read_text() + "\n" + "\n".join(json.dumps(row) for row in callbacks), encoding="utf-8")
+    report = derive(manifest_path, spec_path)
+    before, after = report["sentences"]
+    assert before["end_ns"] == after["start_ns"] == 50_130_000_000
+    assert before["start_ns"] == 50_110_000_000 - round(1_000_000_000 / native_rate)
+    assert after["end_ns"] == 50_130_000_000 + round(1_000_000_000 / native_rate)
+    assert report["turns"][0]["start_ns"] == before["start_ns"]
+    assert report["turns"][0]["end_ns"] == after["end_ns"]
+    assert before["reference_evidence"]["playback_end"] == native_boundary
+    assert before["end"] == native_boundary / native_rate - offset
+    assert isinstance(before["end"], float)
+    json.dumps(report)
+
+
+@pytest.mark.parametrize("source_group", ["zh", "ja"])
+def test_native_seconds_preserve_subframe_positions(tmp_path, source_group):
+    rate, boundary, offset = 48000, 1562400, 34
+    start = offset + boundary / rate - 0.25 / rate
+    end = offset + boundary / rate + 0.25 / rate
+    native = dump(tmp_path / "native.json", {
+        "clip_id": "clip", "sentences": [{"id": "fractional", "speaker": "a", "start": start, "end": end, "text": "Speech"}],
+        "turns": [{"id": "turn", "speaker": "a", "start": start, "end": end}],
+    })
+    manifest_path, spec_path = sample(tmp_path, native=native)
+    spec = json.loads(spec_path.read_text())
+    spec["references"]["0"].update({"units": "seconds", "source_group": source_group, "offset_seconds": offset})
+    dump(spec_path, spec)
+    callbacks = [{"record": "audio_callback", "source_frame": boundary - 480, "source_frames": 480, "dac_t_ns": 50_000_000_000},
+                 {"record": "audio_callback", "source_frame": boundary, "source_frames": 480, "dac_t_ns": 50_030_000_000}]
+    trace_path = tmp_path / "attempt.jsonl"
+    trace_path.write_text(trace_path.read_text() + "\n" + "\n".join(json.dumps(row) for row in callbacks), encoding="utf-8")
+    sentence = derive(manifest_path, spec_path)["sentences"][0]
+    assert sentence["start_ns"] == 50_110_000_000 - 5208
+    assert sentence["end_ns"] == 50_130_000_000 + 5208
+
+
+@pytest.mark.parametrize("synthetic,correction,expected", [
+    (True, 100_000_000, 42_650_000_000),
+    (False, 100_000_000, None),
+    (True, None, None),
+])
+def test_native_samples_keep_synthetic_fallback_and_unavailable_clock(tmp_path, synthetic, correction, expected):
+    native = dump(tmp_path / "native.json", {
+        "sentences": [{"id": "s", "start": 3194400, "end": 3194880, "text": "Speech"}],
+    })
+    manifest_path, spec_path = sample(tmp_path, native=native)
+    manifest = json.loads(manifest_path.read_text())
+    manifest["plan"]["synthetic"] = synthetic
+    dump(manifest_path, manifest)
+    spec = json.loads(spec_path.read_text())
+    spec["references"]["0"]["offset_seconds"] = 34
+    dump(spec_path, spec)
+    trace_path = tmp_path / "attempt.jsonl"
+    trace = [json.loads(line) for line in trace_path.read_text().splitlines()]
+    trace[1]["calibration_offset_ns"] = correction
+    trace_path.write_text("\n".join(json.dumps(row) for row in trace), encoding="utf-8")
+    _, _, attempts, _, _ = ingest(manifest_path, spec_path)
+    assert attempts[0]["reference"]["sentences"][0]["start_ns"] == expected
+
+
 def test_isolated_uses_window_without_alignment_and_keeps_carryover(tmp_path):
     manifest, spec = sample(tmp_path, [packet(1, 11), packet(2, 24.1), packet(3, 24.100000001)], kind="isolated")
     report = derive(manifest, spec)

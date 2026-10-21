@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "profile": "KIKI1",
+  "kind": "first_pilot_preplayback_native_crash",
+  "application": "kikitan",
+  "version": "2.0.2",
+  "executable_sha256": "17270e64effb2ca38a9d6895c89ec6ca4009ef53a057d9c5cf60ac4de5069565",
+  "route": {"asr": "Microsoft Bing bundled-client route", "translation": "Google Translate web", "source": "en", "target": "ja"},
+  "observed_preparation": {"microphone": "CABLE Output(VB-Audio Virtual Cable)", "enumerated_microphone_present": true, "desktop_capture": false, "mute_gating": false, "chatbox_enabled": true, "osc_destination": "127.0.0.1:19151", "recognition_status_before_start": 0, "application_reported_started_before_failure": true},
+  "authorization": "Owner explicitly authorized existing installed apps, normal existing credentials and short planned-route real development-audio pilots.",
+  "control_boundary": "Historical attempt used the installed native headless/WebSocket surface before the subsequent owner GUI-only override. No headless-specific adapter remains in product code; exact historical source remains privately retained with the original capture envelope.",
+  "first_attempt": {
+    "manifest": ".data/issue45/runs/kiki1-initial/manifest.json",
+    "native_manifest_unchanged": true,
+    "setup_attempt_id": 1,
+    "setup_outcome": "done",
+    "direction_attempt_id": 2,
+    "runner_outcome": "invalid",
+    "runner_reason": "ConnectionClosedError: native application control failed; inspect private evidence",
+    "direction_trace": "attempt-0002-001.invalid.jsonl",
+    "direction_trace_sha256": "7f3ff25d63cc5e2170e81393998a04b5b5c12ae5b5b2aa05d9f77020ed2b355a",
+    "native_process_exit_code": 3762504530,
+    "received_osc_packets": 0,
+    "output_check_status": "pending_not_played",
+    "audio_callbacks_observed": 0,
+    "annotated_chunk_completed": false
+  },
+  "separately_observed_product_failure": {
+    "exception": "System.ArgumentException: Source array was not long enough. Check the source index, length, and the array's lower bounds. (Parameter 'sourceArray')",
+    "stack_frame": "KikitanTranslator.Capture.Microphone.AudioProcessCallback(Span`1 samples, Capability capability)",
+    "private_log": ".data/issue45/kiki-startup.private.log",
+    "private_log_sha256": "37078f98647f5ecf0e22c19c5e7e27dbe6b12a8fffdb62c52f7c0b52d86f3eda",
+    "interpretation": "The native application exited during the direction-control attempt after setup/start, before output-check audio playback. This is distinct evidence of a product microphone-processing crash; the authoritative runner operational classification was not rewritten.",
+    "retry": "No retry performed without a concrete supported correction. No competing-product source change authorized or made."
+  },
+  "calibration": {"path": ".data/issue3/calibration/cable.json", "measured_utc": "2026-10-20T06:08:32.482296+00:00", "offset_ns": 112374867, "reuse": true, "remeasured": false, "same_enumerated_wasapi_cable_endpoints": true},
+  "cleanup": {"native_application_exited": true, "runner_exited": true, "exit_means_capture_terminated": true},
+  "limits": ["No translated OSC output observed; no output-style or latency claim.", "Bing and Google model identity, entitlement, quota and cost remain unobserved.", "KIKI2 shares the installed microphone path, but its actual route was not exercised by this attempt; this is a risk, not proof that its provider or capture necessarily fails.", "Source inspection shows fixed callback slices of 480 samples; no supported buffer-size field was found in the stored application configuration. This does not establish the exact cause or a supported remedy."]
+}

@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "version": "issue45-actual-pilot-metric-index-v1",
+  "status": "requested_small_actual_metric_samples_complete_for_director_review",
+  "empirical_sample_criteria_covered": true,
+  "issue5_complete": null,
+  "issue5_acceptance": "Director pinned independent review and issue acceptance remain pending; additional-app GUI/quota/control blockers are not missing metric samples.",
+  "authority": "Metric samples and limits only. Integration, review, issue acceptance and publishing remain with Director. No GitHub/Git mutations by metrics worker.",
+  "source_binding": {
+    "evidence": "profiles/evidence/issue45/metrics/adopted-source-binding.json",
+    "original_session": "ES2014a",
+    "category": "development",
+    "source_group": "en",
+    "native_clip": "development-01",
+    "native_slice_seconds": [34, 74],
+    "duration_seconds": 40,
+    "sample_rate": 48000,
+    "frames": 1920000,
+    "audio_sha256": "b214d5288ed05ce51e6c18a7e8b2b3101218331122a8cf19192e9dc398c33926",
+    "reference_sha256": "d62c3048524b2a36aee0cc5607cbd44e2dc97389617ee864f5f0ad0f7354fffd",
+    "native_target_units": "Nine complete manual dialogue acts .16-.24 with unique native containing turn24; two prior turns retained unscored.",
+    "uncertainty": "Human transcript/manual dialogue acts with automatically forced-aligned source word times; not independently verified grammatical sentence/acoustic truth.",
+    "independence": "Three configurations across two applications reuse one original recording; not three independent sessions.",
+    "historical_cable_offset_ns": 112374867,
+    "calibration_limit": "Same-endpoint native cable probe reused, not newly measured or precision-certified."
+  },
+  "successful_measured_samples": [
+    {
+      "profile": "VRCS2",
+      "application": "VRCS0.2.8",
+      "route": "Configured Gemini3.5Transcribe plus authorized OpenRouter Gemma4-26B route; returned provider/response identity not established.",
+      "canonical_report": ".data/issue45/metrics/vrcs2-final-report.json",
+      "report_sha256": "91fe22290e29fa4e8bfd676072c3695be8ce96e559a9a1d67d9610dcfd06cc75",
+      "safe_result": "profiles/evidence/issue45/metrics/vrcs2-metrics-result.json",
+      "verification": ".data/issue45/metrics/vrcs2-verification.json",
+      "source_artifact_map": ".data/issue45/metrics/vrcs2-artifact-map.json",
+      "delivery": "3/9 related-content units; six no_output_before_deadline with null latency; no complete meaning/quality claim.",
+      "fol_seconds": {"observed_units": 3, "p50": 3.086303533, "p90": 4.543130173},
+      "lul_seconds": {"observed_units": 1, "value": 0.436284433, "other_delivered_unit_and_turn_lul": null},
+      "unaligned": {"global": "2/6 translations", "continuous": "0/4 translations", "source_only_observations_excluded": 1},
+      "quality": "Two continuous inputs, zero scores. Two reference-free output-check translations retained separately, never promoted to continuous source.",
+      "checks": "25bounded artifact assertions passed;18integer-frame source bounds independently checked. Two canonical CLI commands exited0.",
+      "style_limit": "Bounded source-only then newline-bilingual observations; global message relationships unknown. Not universal grouping/finality proof."
+    },
+    {
+      "profile": "VRCS1",
+      "application": "VRCS0.2.8",
+      "route": "Owner-observed Qwen3-ASR0.6BQ8_0 CPU runtime flags plus configured OpenRouter Gemma4-26B; returned provider/response identity unknown.",
+      "canonical_report": ".data/issue45/metrics/vrcs1-final-report.json",
+      "report_sha256": "ff861eed72a0a3a556db675aa93470d4939d252f79b9c46bb1504844d1cad6a7",
+      "safe_result": "profiles/evidence/issue45/metrics/vrcs1-metrics-result.json",
+      "verification": ".data/issue45/metrics/vrcs1-verification.json",
+      "delivery": "8/9 related-content confirmed, one unresolved; bounds8/9-1. Common filler is unknown rather than forced source credit or falsely missing.",
+      "fol_seconds": {"observed_units": 8, "p50": 3.6300678829999997, "p90": 6.787579172999999},
+      "lul_seconds": {"observed_units": 1, "value": 0.404231033, "other_delivered_unit_and_turn_lul": null},
+      "unaligned": {"global": "3/12 translations", "continuous": "1/10 translations", "source_only_observations_excluded": 1},
+      "quality": "Actual144-character packet links .21/.22/.23 across both source quality segments. Text is displayed once; both quality inputs N/A unresolved_merged_output_allocation. Actual unknown filler remains in continuous quality. Zero scores.",
+      "checks": "25bounded artifact assertions passed;18integer-frame source bounds and eight FOL subtractions independently checked. Raw CLI exit0; confirmed CLI recovered already completed with9/12/3 success stdout, numeric exit not exposed and no redundant rerun.",
+      "style_limit": "Additional real configuration of same app. Source ellipsis is preserved without restored text or inferred page chain; not automatically distinct-app/style completion."
+    },
+    {
+      "profile": "VRCLT1",
+      "application": "VRCLT1.0.1",
+      "route": "Actual GUI-selected Gemini Developer Live API / gemini-3.5-live-translate-preview; returned model, tier, usage and cost unknown. Separate planned profile, not Qwen fallback.",
+      "canonical_report": ".data/issue45/metrics/vrclt1-final-report.json",
+      "report_sha256": "a824a95945a66f315163ad19c10384fa91b53815798a15f3ec53c42c1038d5c8",
+      "safe_result": "profiles/evidence/issue45/metrics/vrclt1-metrics-result.json",
+      "verification": ".data/issue45/metrics/vrclt1-verification.json",
+      "rules": "profiles/evidence/issue45/metrics/vrclt1-observed-rules.json",
+      "delivery": "9/9 determinate related-content units by deadline; not full, accurate or semantically completed translation. Earlier generic/pronominal fragments remain proposed or unknown.",
+      "fol_seconds": {"observed_units": 9, "conditional_p50": 4.759434433, "conditional_p90": 5.9689916730000006},
+      "lul_seconds": null,
+      "unaligned": {"global": "5/25 translations", "measured_stage": "2/22 translations; includes mixed check/main12", "source_only_observations_excluded": 1, "typing_observations_excluded": 44},
+      "mixed_roles": "Exactly English-only43 retained as source-only; Japanese-only58 retained as translated output with unknown correspondence. No general newline-only or single-line-source assumption.",
+      "mixed_source12": "Only new acknowledgment receives .16 credit. Prior check suffix remains unscored and raw check/main candidate provenance is preserved; no whole-packet40s attribution.",
+      "mixed_source12_actual_check": ".data/issue45/metrics/vrclt1-mixed-carryover-check.json proves full prefix retained, scope nonexclusive, only .16 linked, actual container eligible=false/score=null. Existing55 cross-segment guard protects this sample; no generic standalone mixed-carryover guard or Japanese span allocation is claimed.",
+      "mismatched_prefix46": "Target comparison links .20 despite English source Um; paired source/translation rolling prefixes are not synchronously one-to-one.",
+      "quality": "Actual packet55 links .20/.21/.22 across both source quality segments; text displayed once, both inputs N/A unresolved_merged_output_allocation. Unknown58/60 reach continuous quality. All rolling LUL/revision/erasure/final reconstruction N/A; final target69 ends unfinished から. Zero scores.",
+      "checks": "29bounded assertions plus4direct mixed-carryover assertions passed;18integer-frame source bounds and nine conditional FOL subtractions independently checked. Raw and confirmed cache CLI commands each exited0 with9sentences/25outputs/3quality segments.",
+      "style_limit": "Actual rolling bilingual prefix removal and translation growth, not concatenate-all final sentences. Run-bound extraction/adjudication only; no universal revision/page/final IDs. GUI outbound field was blank, so translated OSC is evidence, not visual translated text."
+    }
+  ],
+  "retained_failed_or_invalid_attempts": [
+    {
+      "profile": "KIKI1",
+      "safe_result": "profiles/evidence/issue45/metrics/kiki1-historical-result.json",
+      "boundary": "Historical native/headless operational-invalid direction and separate native crash; zero callbacks/outputs. Not GUI success or no-output delivery on played main source. Not rerun by replacement worker."
+    },
+    {
+      "profile": "VRCLT2",
+      "canonical_report": ".data/issue45/metrics/vrclt2-initial-failure-report.json",
+      "report_sha256": "ad2e11d42186a6b4c7761ee59c0fcf2d1e75edaf2f2853f3ce355f8b5e40c5ad",
+      "safe_result": "profiles/evidence/issue45/metrics/vrclt2-initial-failure-result.json",
+      "boundary": "Actual ten-second output check played with1000callbacks and zeroOSC; runner operational invalid output_check_no_output,40s main pending/unplayed. Metrics CLI exited0 with0source sentences/outputs/quality inputs. Main delivery/latency N/A, not0/9.",
+      "provider_error": "Actual post-check GUI COMMON_ERROR voice rejection retained separately. Text-only source/binary research says no voice fields sent; do not claim client sent Chelsie. No reachable Tina fix, audio/model/source retry or fallback.",
+      "cleanup_limit": "Historical related processes survived observedPID95372 exit, so prior manual stopACK/GUI Close did not prove complete hardware/runtime stop. Later owner app restart established old pairs absent; fresh VRCLT1 pair and direct descendants were independently absent after its actual full GUI Quit. Do not rewrite the earlier failed-run ownership gap.",
+      "checks": "Nine passed plus one retained failed worker observation assumption, not product defect: source_playback is in attempt trace, not continuous stream. Replacement verifies real ingested10s playback/hash plus1000callbacks.",
+      "style_limit": "Zero translated packets establish no all-in-one or distinct-app style."
+    }
+  ],
+  "bounded_product_defect": {
+    "before": ".data/issue45/metrics/vrcs2-boundary-defect-before.json",
+    "diagnosis": "Sample-native float round-trip chose earlier callback at exact integer frame boundary:18us at .17end and10.1102ms at .22end/.23start.",
+    "repair_authority": "Director-assigned native-frame repair owner; metrics worker did not edit product sources or manually repair reports.",
+    "independent_after_evidence": "All three actual configurations across VRCS and VRCLT independently match all18 source bounds per run to exact integer-frame callback arithmetic.",
+    "calculation_metrics_inputs_sha256": "bbc0db759d32951b4a7561535e75866de0f0d7de358c26851495850aca96972e",
+    "cache_policy": "Pre-repair report/cache retained unchanged; canonical VRCS2 bindings regenerated against repaired source timestamps with identical semantic decisions."
+  },
+  "remaining_prerequisite": null,
+  "remaining_authority": "Director integrates maintained guidance and performs pinned independent review/acceptance. No additional real style input is missing for this bounded #5 sample deliverable. Further-app GUI/control/quota prerequisites remain separate.",
+  "optional_additional_capture_not_derived": {"profile": "VRCT1", "reason": "Director made extra profile derivations optional only if new uncertainty changes the engineering decision. Its reported bilingual/extension shape adds no new uncertainty beyond inspected VRCS and VRCLT examples; no needless coverage expansion or full comparison is claimed."},
+  "common_limits": [
+    "Actual assistant bilingual correspondence inspection, not human validation or quality scoring. No lexical-model forced delivery or invented scores.",
+    "Only translated outputs enter output denominators. Source-only raw observations, unknowns, reference-free checks and failed attempts remain identifiable.",
+    "One original development session; no confidence interval, cross-app ranking, repeated-run conclusion, major-error rate or main comparison freeze.",
+    "Unrelated user background work was not isolated. Every pilot FOL/quantile is bounded debug evidence conditional on correspondence, not a fair ranking or controlled performance comparison.",
+    "Unknown relationships keep content-change dependent LUL/revision/erasure N/A. Last observed update is not semantic completion.",
+    "All GUI/audio/provider/model controls and app cleanup remain with Director/app owners. Metrics worker used no screenshots, credentials, live inference, product-source edits, maintained-doc edits or Git mutations.",
+    "PP1-4 skipped by owner; historical manual-text pagination is not substituted for real application evidence. Distinct actual VRCLT1 rolling/mixed-role output now supplies that sample."
+  ],
+  "proposed_maintained_guidance": [
+    "Document actual VRCS current-result/ellipsis/merge examples and distinct VRCLT1 rolling/mixed-singleline examples; the previous missing-other-app empirical prerequisite is now covered, subject to Director review.",
+    "Show global and source/capture-stage denominators separately, partial known source scope in mixed12, related-content delivery rather than semantic completeness, conditional debug FOL, one supported LUL for each VRCS sample and no supported rolling LUL, historical correction reuse, zero judge coverage and source uncertainty.",
+    "Preserve actual unknown filler/prefix output in quality input and exclude both affected inputs for indivisible cross-segment output. Never concatenate rolling snapshots as final or invent translation spans, erasure, page IDs or completion from typing=false.",
+    "Preserve failed first attempts and ownership history; later owner restart resolves future ownership without proving the earlier manual stopACK stopped every runtime. Keep external GUI/quota/control blockers distinct from the completed metric sample deliverable."
+  ]
+}

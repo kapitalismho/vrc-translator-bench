@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "version": "issue45-vrcs2-independent-inspection-v1",
+  "status": "historical_pre_repair_inspection_current_canonical_results_in_actual_pilot_metric_index",
+  "application": {"profile": "VRCS2", "name": "VRCS", "version": "0.2.8", "executable_sha256": "9343aeb6902e62535337f58c844272ab18348304c32925f8053d6686d244eb0e", "asr": "Gemini Transcribe / gemini-3.5-transcribe-live", "translation": "OpenRouter / google/gemma-4-26b-a4b-it", "paid_route_authorized": true, "cost": null},
+  "measurement": {"run": "vrcs2-gui-initial", "direction": "D1", "source_group": "en", "target": "Japanese", "category": "development", "original_session": "ES2014a", "speaker": "C", "duration_seconds": 40, "audio_frames": 1920000, "sample_rate": 48000, "synthetic": false, "first_attempt": true, "resumed": false},
+  "input_binding": {
+    "manifest": ".data/issue45/runs/vrcs2-gui-initial/manifest.json",
+    "manifest_sha256": "3eca8554d9de2f24ad8e089c90bece4719f15796775fb5186b1dd4e0af65a844",
+    "stream": ".data/issue45/runs/vrcs2-gui-initial/stream-5ebe4e0a8c9f40a2b48f6780ec3b49c7.jsonl",
+    "stream_sha256": "7b500f7b81e9709636739a498ce11305d51d9044ae7d39122f5e5e018a8628ae",
+    "audio_sha256": "b214d5288ed05ce51e6c18a7e8b2b3101218331122a8cf19192e9dc398c33926",
+    "reference_sha256": "d62c3048524b2a36aee0cc5607cbd44e2dc97389617ee864f5f0ad0f7354fffd",
+    "source_binding": "profiles/evidence/issue45/metrics/adopted-source-binding.json",
+    "clock_session": "5ebe4e0a8c9f40a2b48f6780ec3b49c7",
+    "historical_calibration_offset_ns": 112374867,
+    "calibration_measurement_start_utc": "2026-10-20T06:08:32.482296+00:00",
+    "calibration_limit": "Reused historical shared-mode cable probe for the same endpoints, not newly measured or precision-certified. Offset was not rounded to 112375000ns."
+  },
+  "actual_observations": {
+    "runner_exit": 0,
+    "runner_attempts": "All four setup, direction, output_check and measured chunk attempts done; retained without status rewriting.",
+    "audio_callbacks": {"output_check_10s": 1000, "measured_40s": 4000},
+    "nonempty_chatbox_packets": 7,
+    "translated_outputs": {"global": 6, "measured_continuous": 4, "reference_free_output_check": 2},
+    "source_only_observations": 1,
+    "source_only_to_bilingual_update_seconds": 1.5543106,
+    "source_only_update_scope": "seq1 to seq2 retains identical English source and adds Japanese after a newline; source-only parent remains outside translation denominator and relationship graph.",
+    "adopted_rule": "profiles/evidence/issue45/metrics/vrcs2-observed-rules.json",
+    "rule_inspection": "Replacement assistant independently inspected exact raw payloads and source context and retained the existing bounded rule unchanged: newline source/translation extraction, style unknown, only seq4 new, revision/erasure/resend unsupported.",
+    "adjudication": "Actual assistant inspection of exact bilingual pairs, not human validation or automatic lexical matching; cache records related fragments only, no scores or completeness claim.",
+    "confirmed_source_links": {"seq4": ".16 acknowledgment", "seq5": ".17 opening clause", "seq6": ".17 incomplete favourite-animal clause", "seq7": ".20 dogs maybe fragment"},
+    "unknown_source_links": "seq2 and seq3 are reference-free output-check translations, retained separately without invented source assignment.",
+    "relationships": "Same-source .17 fragments do not establish new/revision/pagination/finality. Their LUL and turn content-change measures must remain N/A until supported.",
+    "gui_evidence_boundary": "Director alone controlled and observed GUI. Worker inspected retained runner metadata and raw OSC, not screens. Preparation-time GUI identity plus process liveness is not continuous effective-state/provider truth.",
+    "director_reported_stop": {"utc": "2026-10-20T23:18:09.418Z", "pid": 101188, "navigation": "Start transcription", "status": "Waiting", "basis": "Director supplied actual post-Stop GUI observation"},
+    "director_reported_banner": {"text": "Could not connect to VRCS Core.", "alongside": "Connected / Waiting", "banner_event_date": null, "classification": null, "limit": "Undated postrun UI observation; not invented contemporaneous failure classification and not a rewrite of completed attempts."}
+  },
+  "raw_unknown_cli": {
+    "report": ".data/issue45/metrics/vrcs2-raw-unknown-report.json",
+    "exit_status": 0,
+    "sentences": 9,
+    "outputs": 6,
+    "quality_segments": 3,
+    "source_only_observations": 1,
+    "sentence_statuses": {"unknown_correspondence": 8, "no_output_before_deadline": 1},
+    "continuous_quality_retention": "All four measured unknown outputs occur once in quality-1; quality-2 retains later reference units even with no output. Two preceding source turns remain unscored context. Two output-check translations stay in their own orphan quality segment rather than entering continuous quality.",
+    "quality_scores_supplied": 0,
+    "scope": "This is the immutable pre-adjudication and failing-before timestamp report, not final campaign delivery."
+  },
+  "exact_unaffected_hand_arithmetic": {
+    "unit16_start_ns": 370921517108467,
+    "unit16_end_ns": 370922797854667,
+    "seq4_receipt_ns": 370923234139100,
+    "unit16_fol_seconds": 1.717030633,
+    "unit16_lul_seconds": 0.436284433,
+    "unit17_start_ns": 370922797854667,
+    "seq5_receipt_ns": 370925884158200,
+    "unit17_fol_seconds": 3.086303533,
+    "unit20_start_ns": 370944027715967,
+    "seq7_receipt_ns": 370948935052800,
+    "unit20_fol_seconds": 4.907336833,
+    "turn_end_ns": 370960505180067,
+    "deadline_ns": 370975505180067,
+    "measured_attempt_end_ns": 370981336369700,
+    "attempt_tail_beyond_deadline_seconds": 5.831189633,
+    "session_coverage_end_ns": 371091680334700,
+    "boundary_defect_record": ".data/issue45/metrics/vrcs2-boundary-defect-before.json",
+    "formula": "Source native sample minus1632000 chooses its real playback callback; add within-callback sample interval plus112374867ns. FOL=OSC receipt-source start. LUL uses only supported related content changes. Deadline=corrected containing turn end+15s.",
+    "limit": "Three other normalized boundaries differ before repair; no manual report correction or invented source clock was applied."
+  },
+  "commands": [
+    {"cwd": "repository ROOT", "command": ".data/check-venv/Scripts/python.exe -B -c \"import sys, bench.metrics, bench.metrics_alignment; print(sys.executable); print(bench.metrics.__file__); print(bench.metrics_alignment.__file__)\"", "exit_status": 127, "result": "Tool relative executable resolution failed before Python started; absolute executable retry succeeded. Runtime issue reported, not product failure."},
+    {"cwd": "repository ROOT", "command": "<ROOT>/.data/check-venv/Scripts/python.exe -B -c \"import sys, bench.metrics, bench.metrics_alignment; print(sys.executable); print(bench.metrics.__file__); print(bench.metrics_alignment.__file__)\"", "exit_status": 0, "result": "Both metric modules resolved to ROOT/bench, not stale worktree or installed copies."},
+    {"cwd": "repository ROOT", "command": "<ROOT>/.data/check-venv/Scripts/python.exe -B -m bench.cli metrics --manifest .data/issue45/runs/vrcs2-gui-initial/manifest.json --spec .data/issue45/metrics/vrcs2-spec.json --output .data/issue45/metrics/vrcs2-raw-unknown-report.json", "exit_status": 0, "stdout": {"version": "issue5-v1", "sentences": 9, "outputs": 6, "quality_segments": 3}}
+  ],
+  "limits": [
+    "One development session/configuration/direction only; not general/stress/casual campaign or cross-app comparison. No repeated-run variation or multi-session interval claimed.",
+    "Only related translated content qualifies for delivery; partial fragments do not imply semantic completion, faithful meaning or complete sentence translation.",
+    "No quality judge scores, provider cost, new calibration, internal timing, nonspeech result, endpoint/cut identification, or supported revision/erasure reconstruction was fabricated.",
+    "Historical KIKI1 operational invalidity and separate native crash remain in their existing evidence; zero callbacks there is not no-output delivery for played speech.",
+    "PP1-4 skipped. Additional actual competitor style remains an empirical prerequisite. A future D2 ten-second output check is not continuous-dialogue latency evidence.",
+    "No product source, maintained docs, Git/index/history, raw capture, app, audio, credential, provider or model operation by this metrics worker."
+  ],
+  "proposed_maintained_guidance": [
+    "After boundary repair/canonical replay, Director may update docs/metrics.md's remaining prerequisite to acknowledge this exact one-session GUI trace and bounded source-only/bilingual extraction while preserving unsupported grouping/LUL and missing other-style limits.",
+    "Architecture/profile readiness prose should distinguish this actual GUI microphone-to-translated-OSC pilot from manual-text probes, historical native/headless failure, and full comparison readiness.",
+    "Freeze/report notes should disclose historical112374867ns cable calibration reuse, assistant-not-human correspondence decisions, related-fragment delivery semantics, source uncertainty and zero quality-score coverage."
+  ]
+}

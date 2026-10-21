@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "version": "issue45-vrcs1-actual-inspected-v1",
+  "profile": "VRCS1",
+  "application_evidence": "profiles/evidence/issue45/vrcs1-d1-observation.json",
+  "manifest_sha256": "cb90c2b8b8c71b9ab6717d76a1d858abe3ad8bbd1a9c4a536176469e85b2bf84",
+  "stream_sha256": "6bb20bf8739bfee16ce68c45ea5bc5d6d4be7488c572ae3614fd2196a602b65c",
+  "method": "Replacement assistant inspection of every exact finalized raw payload; app GUI and CPU/runtime evidence supplied by Director/app owner, not controlled by metrics worker.",
+  "rule": {
+    "version": "issue45-vrcs1-actual-inspected-v1",
+    "evidence": [
+      "profiles/evidence/issue45/vrcs1-d1-observation.json",
+      "profiles/evidence/issue45/vrcs1-gui-initial/export-provenance.json"
+    ],
+    "style": "unknown",
+    "text_pattern": "(?P<source>[^\\n]+)(?:\\n|$)(?P<translation>.*)",
+    "supports": {
+      "revision": false,
+      "erasure": false,
+      "resend": false
+    },
+    "relationships": {
+      "bd3436fdc666446f98f31ece957cd65d:4": {
+        "relation": "new"
+      }
+    },
+    "uncertainty": "Bounded exact-payload bilingual extraction; only first measured acknowledgment supported new. Other message relationships/finality unknown. Source ellipsis at seq12 is observed truncation, not pagination; do not reconstruct removed source text."
+  },
+  "source_only_to_bilingual_seconds": 1.5103623,
+  "truncation_observation": {
+    "recv_seq": 12,
+    "unicode_character_count": 144,
+    "exact_raw_payload": "And they can be very very affectionate. Some people don't think so, but I know very …\nそして、彼らはとてもとても愛情深くなることがあります。そう思わない人もいますが、私はとても愛情深い猫を知っています。",
+    "source_ellipsis_observed": true,
+    "paging_chain_identified": false,
+    "source_removed_text_reconstructed": false,
+    "note": "Japanese translation contains information beyond truncated English source; preserve both as observed. A144-character packet is not evidence of a next page."
+  },
+  "style_scope": "Additional real configuration of same VRCS app; not automatically a different application or style criterion.",
+  "unknown_correspondence_candidate": {
+    "recv_seq": 11,
+    "source": "Um.",
+    "translation": "あの。",
+    "reason": "Common filler across several native source units; do not force unique correspondence from receipt proximity."
+  }
+}

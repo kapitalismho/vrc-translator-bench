@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "profile": "VRCS1",
+  "observed_during_run": "vrcs1-gui-initial",
+  "observation": "Read-only Win32 process inspection after actual GUI capture-start acknowledgment; only owned child and allowlisted CPU/model flags published, no full commandline or secret-bearing arguments copied",
+  "application_pid": 101188,
+  "runtime": {
+    "pid": 3212,
+    "parent_pid": 101188,
+    "executable": "llama-server.exe",
+    "model": "Qwen3-ASR-0.6B-Q8_0.gguf",
+    "projector": "mmproj-Qwen3-ASR-0.6B-Q8_0.gguf",
+    "flags": {"--device": "none", "--gpu-layers": "0", "--no-mmproj-offload": true, "--no-op-offload": true}
+  },
+  "gui_correspondence": "Actual selected Local Qwen3-ASR0.6B Q8_0, CPU, English; installed assets and actual running child match the planned model package",
+  "limits": ["Runtime flags plus completed recognition/output evidence corroborate CPU route; flags alone do not establish translation quality or model byte integrity.", "Full runtime/model file hashes were not computed during timed CPU inference.", "Owned inference process exit must be independently observed after actual application GUI quit; current record is not cleanup proof."]
+}

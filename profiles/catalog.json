@@ -1,0 +1,947 @@
+{
+  "schema_version": 1,
+  "issue": "https://github.com/kapitalismho/vrc-translator-bench/issues/4",
+  "date": "2026-10-21",
+  "status": "empirical_preparation_in_progress_not_frozen",
+  "installed_app_evidence": "evidence/installed-apps.json",
+  "gui_preparation_evidence": "evidence/gui-preparation.json",
+  "owner_update": "Owner now defers all PP1-PP4 execution. Current empirical scope is ten competitor profiles through visible installed GUIs. Existing credentials and short planned-route provider calls authorized. PP1 mixed26B/31B and VRCS2 current paid Gemma route accepted before PP deferral; no new paid fallback/model substitution. Preserve historical evidence. New observations: evidence/issue45/.",
+  "profiles": [
+    {
+      "id": "PP1",
+      "application": "PuriPuly",
+      "finding": "blocked",
+      "reason": "Owner-requested execution deferral: skip all PuriPuly profiles in the current empirical pass. The actual mixed26B/31B OpenRouter route was accepted before deferral; no PP1 launch or inference performed in this pass.",
+      "planned": {
+        "translation": "Gemma 4 26B / OpenRouter",
+        "asr": "Gemini 3.5 Transcribe",
+        "access": "Paid"
+      },
+      "observed": {
+        "version": "2.8.2",
+        "asr": null,
+        "translation": null,
+        "provider_route": null,
+        "state_evidence": null
+      },
+      "directions": {
+        "D1": "unverified",
+        "D2": "unverified",
+        "D3": "unverified",
+        "D4": "unverified",
+        "D5": "unverified",
+        "D6": "unverified"
+      },
+      "cpu_local": null,
+      "control": {
+        "method": "public_cli",
+        "timed_gui_activity": false,
+        "adapter": null
+      },
+      "microphone": {
+        "requested": "CABLE Output (select exact WASAPI device name)",
+        "verified": false
+      },
+      "osc": {
+        "host": "127.0.0.1",
+        "send_port": 19101,
+        "receive_port": 19201,
+        "assignment": "requested_not_profile_verified",
+        "oscquery_or_mute_signal": "none supplied; dependency must be observed"
+      },
+      "tts": {
+        "required": "off injection route",
+        "verified_off_injection": false
+      },
+      "updates": {
+        "policy": "Disable where supported; otherwise record app version/executable hash at preparation, resume and end",
+        "verified": false
+      },
+      "access": {
+        "tier": "Paid",
+        "actual_limits": null,
+        "key_aliases": [],
+        "exclusive_quota_scope": null,
+        "details": "See linked application procedure for source-backed keys/projects, provider identity/export and unverified access findings"
+      },
+      "procedure": "../docs/profiles/puripuly.md",
+      "evidence": [
+        "evidence/puripuly-control.json"
+      ],
+      "osc_example": null
+    },
+    {
+      "id": "PP2",
+      "application": "PuriPuly",
+      "finding": "blocked",
+      "reason": "Owner-requested execution deferral: skip all PuriPuly profiles in the current empirical pass. Existing auth, Luna entitlement/limits and Gemini access are intentionally not exercised; not an unsupported or product-failure finding.",
+      "planned": {
+        "translation": "GPT 6 Luna / Sign in with ChatGPT",
+        "asr": "Gemini 3.5 Transcribe",
+        "access": "Subscription + ASR usage"
+      },
+      "observed": {
+        "version": "2.8.2",
+        "asr": null,
+        "translation": null,
+        "provider_route": null,
+        "state_evidence": null
+      },
+      "directions": {
+        "D1": "unverified",
+        "D2": "unverified",
+        "D3": "unverified",
+        "D4": "unverified",
+        "D5": "unverified",
+        "D6": "unverified"
+      },
+      "cpu_local": null,
+      "control": {
+        "method": "public_cli",
+        "timed_gui_activity": false,
+        "adapter": null
+      },
+      "microphone": {
+        "requested": "CABLE Output (select exact WASAPI device name)",
+        "verified": false
+      },
+      "osc": {
+        "host": "127.0.0.1",
+        "send_port": 19102,
+        "receive_port": 19202,
+        "assignment": "requested_not_profile_verified",
+        "oscquery_or_mute_signal": "none supplied; dependency must be observed"
+      },
+      "tts": {
+        "required": "off injection route",
+        "verified_off_injection": false
+      },
+      "updates": {
+        "policy": "Disable where supported; otherwise record app version/executable hash at preparation, resume and end",
+        "verified": false
+      },
+      "access": {
+        "tier": "Subscription + ASR usage",
+        "actual_limits": null,
+        "key_aliases": [],
+        "exclusive_quota_scope": null,
+        "details": "See linked application procedure for source-backed keys/projects, provider identity/export and unverified access findings"
+      },
+      "procedure": "../docs/profiles/puripuly.md",
+      "evidence": [
+        "evidence/puripuly-control.json"
+      ],
+      "osc_example": null
+    },
+    {
+      "id": "PP3",
+      "application": "PuriPuly",
+      "finding": "blocked",
+      "reason": "Owner-requested execution deferral: skip all PuriPuly profiles in the current empirical pass. Read-only installed identity remains2.8.2 without Index; no build/update/source substitution authorized or performed.",
+      "planned": {
+        "translation": "Index Translator",
+        "asr": "Gemini 3.5 Transcribe",
+        "access": "Free as planned; ASR tier unverified"
+      },
+      "observed": {
+        "version": "2.8.2",
+        "asr": null,
+        "translation": null,
+        "provider_route": null,
+        "state_evidence": null
+      },
+      "directions": {
+        "D1": "unverified",
+        "D2": "unverified",
+        "D3": "unverified",
+        "D4": "unverified",
+        "D5": "unverified",
+        "D6": "unverified"
+      },
+      "cpu_local": null,
+      "control": {
+        "method": "public_cli",
+        "timed_gui_activity": false,
+        "adapter": null
+      },
+      "microphone": {
+        "requested": "CABLE Output (select exact WASAPI device name)",
+        "verified": false
+      },
+      "osc": {
+        "host": "127.0.0.1",
+        "send_port": 19103,
+        "receive_port": 19203,
+        "assignment": "requested_not_profile_verified",
+        "oscquery_or_mute_signal": "none supplied; dependency must be observed"
+      },
+      "tts": {
+        "required": "off injection route",
+        "verified_off_injection": false
+      },
+      "updates": {
+        "policy": "Disable where supported; otherwise record app version/executable hash at preparation, resume and end",
+        "verified": false
+      },
+      "access": {
+        "tier": "Free as planned; ASR tier unverified",
+        "actual_limits": null,
+        "key_aliases": [],
+        "exclusive_quota_scope": "index-public-ip",
+        "details": "See linked application procedure for source-backed keys/projects, provider identity/export and unverified access findings"
+      },
+      "procedure": "../docs/profiles/puripuly.md",
+      "evidence": [
+        "evidence/puripuly-control.json"
+      ],
+      "osc_example": null
+    },
+    {
+      "id": "PP4",
+      "application": "PuriPuly",
+      "finding": "blocked",
+      "reason": "Owner-requested execution deferral: skip all PuriPuly profiles in the current empirical pass. Installed2.8.2 lacks Index; normal CPU model assets exist but were not loaded or inferred. No PP4 empirical readiness claim.",
+      "planned": {
+        "translation": "Index Translator",
+        "asr": "CPU-auto-selected local ASR",
+        "access": "Free"
+      },
+      "observed": {
+        "version": "2.8.2",
+        "asr": null,
+        "translation": null,
+        "provider_route": null,
+        "state_evidence": null
+      },
+      "directions": {
+        "D1": "unverified",
+        "D2": "unverified",
+        "D3": "unverified",
+        "D4": "unverified",
+        "D5": "unverified",
+        "D6": "unverified"
+      },
+      "cpu_local": "asr",
+      "control": {
+        "method": "public_cli",
+        "timed_gui_activity": false,
+        "adapter": null
+      },
+      "microphone": {
+        "requested": "CABLE Output (select exact WASAPI device name)",
+        "verified": false
+      },
+      "osc": {
+        "host": "127.0.0.1",
+        "send_port": 19104,
+        "receive_port": 19204,
+        "assignment": "requested_not_profile_verified",
+        "oscquery_or_mute_signal": "none supplied; dependency must be observed"
+      },
+      "tts": {
+        "required": "off injection route",
+        "verified_off_injection": false
+      },
+      "updates": {
+        "policy": "Disable where supported; otherwise record app version/executable hash at preparation, resume and end",
+        "verified": false
+      },
+      "access": {
+        "tier": "Free",
+        "actual_limits": null,
+        "key_aliases": [],
+        "exclusive_quota_scope": "index-public-ip",
+        "details": "See linked application procedure for source-backed keys/projects, provider identity/export and unverified access findings"
+      },
+      "procedure": "../docs/profiles/puripuly.md",
+      "evidence": [
+        "evidence/puripuly-control.json"
+      ],
+      "osc_example": null
+    },
+    {
+      "id": "VRCT1",
+      "application": "VRCT",
+      "finding": "ready",
+      "reason": "Actual3.6.0 GUI Google ASR plus CPU M2M418M explicitint8 D1 pilot completed real10-second output check and40-second development playback;5000callbacks/6bilingual OSC packets. Bounded debug observation, not fair ranking, quality or universal finality certification; service access/usage remain unknown.",
+      "planned": {
+        "translation": "m2m100_418m",
+        "asr": "Google Web Speech",
+        "access": "Free"
+      },
+      "observed": {
+        "version": "3.6.0",
+        "asr": "Google Speech Recognition actual GUI radio selected",
+        "translation": "AI CTranslate2 m2m100_418M-ct2-int8, CPU and explicit int8 selected through actual GUI",
+        "provider_route": "Google remote recognition selected, local CT2 translation; backend identities and usage unknown",
+        "state_evidence": "evidence/issue45/vrct1-d1-observation.json"
+      },
+      "directions": {
+        "D1": "verified",
+        "D2": "unverified",
+        "D3": "unverified",
+        "D4": "unverified",
+        "D5": "unverified",
+        "D6": "unverified"
+      },
+      "cpu_local": "translation",
+      "control": {
+        "method": "actual_visible_gui_operator_bridge",
+        "timed_gui_activity": false,
+        "adapter": "bench.gui_operator_adapter; fresh GUI start/stop observations and ACKs"
+      },
+      "microphone": {
+        "requested": "CABLE Output(VB-Audio Virtual Cable)",
+        "verified": true
+      },
+      "osc": {
+        "host": "127.0.0.1",
+        "send_port": 19111,
+        "receive_port": null,
+        "assignment": "actual_GUI_and_received_OSC_verified_D1",
+        "oscquery_or_mute_signal": "No emulation supplied; actual output without VRChat"
+      },
+      "tts": {
+        "required": "off injection route",
+        "verified_off_injection": true
+      },
+      "updates": {
+        "policy": "Disable where supported; otherwise record app version/executable hash at preparation, resume and end",
+        "verified": false
+      },
+      "access": {
+        "tier": "unknown; planned Free access not established by account evidence",
+        "actual_limits": null,
+        "key_aliases": [],
+        "exclusive_quota_scope": null,
+        "details": "Actual bounded output observed; service usage, cost, limits and quota isolation unknown"
+      },
+      "procedure": "../docs/profiles/vrct-vrcs.md",
+      "evidence": [
+        "findings/vrct-vrcs.json",
+        "evidence/installed-apps.json",
+        "evidence/issue45/vrct1-d1-observation.json"
+      ],
+      "osc_example": {"kind": "audio_to_osc", "no_vrchat": true, "path": "evidence/issue45/vrct1-d1-observation.json", "raw_safe_derivative": "evidence/issue45/vrct1-gui-initial/manifest.json", "limits": "Bilingual current-result packets with bounded seq4-to5 source/translation expansion; no universal final/page IDs or quality/fair-ranking claim."}
+    },
+    {
+      "id": "VRCT2",
+      "application": "VRCT",
+      "finding": "blocked",
+      "reason": "Current GUI-only execution prerequisite: Director window visibility/control unavailable and renewed approval timed out; no new audio. VRCT1 remains last observed capture OFF, not fully quit. VRCT2 still needs fresh Google translation/Whisper base CPU selection, port19112 and actual output; this pause is not a product failure.",
+      "planned": {
+        "translation": "Google Translate",
+        "asr": "Whisper base",
+        "access": "Free"
+      },
+      "observed": {
+        "version": "3.6.0",
+        "asr": null,
+        "translation": null,
+        "provider_route": null,
+        "state_evidence": null
+      },
+      "directions": {
+        "D1": "unverified",
+        "D2": "unverified",
+        "D3": "unverified",
+        "D4": "unverified",
+        "D5": "unverified",
+        "D6": "unverified"
+      },
+      "cpu_local": "asr",
+      "control": {
+        "method": "configuration_or_documented_manual",
+        "timed_gui_activity": false,
+        "adapter": null
+      },
+      "microphone": {
+        "requested": "CABLE Output (select exact WASAPI device name)",
+        "verified": false
+      },
+      "osc": {
+        "host": "127.0.0.1",
+        "send_port": 19112,
+        "receive_port": null,
+        "assignment": "requested_not_profile_verified",
+        "oscquery_or_mute_signal": "none supplied; dependency must be observed"
+      },
+      "tts": {
+        "required": "off injection route",
+        "verified_off_injection": false
+      },
+      "updates": {
+        "policy": "Disable where supported; otherwise record app version/executable hash at preparation, resume and end",
+        "verified": false
+      },
+      "access": {
+        "tier": "Free",
+        "actual_limits": null,
+        "key_aliases": [],
+        "exclusive_quota_scope": null,
+        "details": "See linked application procedure for source-backed keys/projects, provider identity/export and unverified access findings"
+      },
+      "procedure": "../docs/profiles/vrct-vrcs.md",
+      "evidence": [
+        "findings/vrct-vrcs.json",
+        "evidence/installed-apps.json",
+        "evidence/issue45/gui-execution-prerequisite.json"
+      ],
+      "osc_example": null
+    },
+    {
+      "id": "VRCT3",
+      "application": "VRCT",
+      "finding": "blocked",
+      "reason": "Current GUI-only execution prerequisite: Director window visibility/control unavailable and renewed approval timed out; no new audio. VRCT1 remains last observed capture OFF, not fully quit. VRCT3 still needs fresh route selection/port19113 and actual output; key validity/isolation remain unknown. This pause is not a product failure.",
+      "planned": {
+        "translation": "Gemma 4 26B / OpenRouter",
+        "asr": "Google Web Speech",
+        "access": "Paid"
+      },
+      "observed": {
+        "version": "3.6.0",
+        "asr": null,
+        "translation": null,
+        "provider_route": null,
+        "state_evidence": null
+      },
+      "directions": {
+        "D1": "unverified",
+        "D2": "unverified",
+        "D3": "unverified",
+        "D4": "unverified",
+        "D5": "unverified",
+        "D6": "unverified"
+      },
+      "cpu_local": null,
+      "control": {
+        "method": "configuration_or_documented_manual",
+        "timed_gui_activity": false,
+        "adapter": null
+      },
+      "microphone": {
+        "requested": "CABLE Output (select exact WASAPI device name)",
+        "verified": false
+      },
+      "osc": {
+        "host": "127.0.0.1",
+        "send_port": 19113,
+        "receive_port": null,
+        "assignment": "requested_not_profile_verified",
+        "oscquery_or_mute_signal": "none supplied; dependency must be observed"
+      },
+      "tts": {
+        "required": "off injection route",
+        "verified_off_injection": false
+      },
+      "updates": {
+        "policy": "Disable where supported; otherwise record app version/executable hash at preparation, resume and end",
+        "verified": false
+      },
+      "access": {
+        "tier": "Paid",
+        "actual_limits": null,
+        "key_aliases": [],
+        "exclusive_quota_scope": null,
+        "details": "See linked application procedure for source-backed keys/projects, provider identity/export and unverified access findings"
+      },
+      "procedure": "../docs/profiles/vrct-vrcs.md",
+      "evidence": [
+        "findings/vrct-vrcs.json",
+        "evidence/installed-apps.json",
+        "evidence/issue45/gui-execution-prerequisite.json"
+      ],
+      "osc_example": null
+    },
+    {
+      "id": "VRCS1",
+      "application": "VRCS",
+      "finding": "ready",
+      "reason": "Actual installed0.2.8 GUI downloaded/selected Qwen3-ASR0.6BQ8_0 CPU; observed owned llama-server CPU-only flags and real English development audio produced Japanese OSC without VRChat. D1 short readiness only, not exhaustive language/quality certification. Actual GUI stop/quit plus independent app/runtime/port exit verified.",
+      "planned": {
+        "translation": "Gemma 4 26B / OpenRouter",
+        "asr": "Qwen3-ASR 0.6B",
+        "access": "Paid"
+      },
+      "observed": {
+        "version": "0.2.8",
+        "asr": "Managed Qwen3-ASR0.6B Q8_0 GGUF plus Q8_0 projector on CPU",
+        "translation": "google/gemma-4-26b-a4b-it",
+        "provider_route": "Actual local llama-server --device none --gpu-layers0 --no-mmproj-offload --no-op-offload; OpenRouter paid requested model, returned model/upstream unknown",
+        "state_evidence": "evidence/issue45/vrcs1-d1-observation.json"
+      },
+      "directions": {
+        "D1": "verified",
+        "D2": "source_supported",
+        "D3": "source_supported",
+        "D4": "source_supported",
+        "D5": "source_supported",
+        "D6": "source_supported"
+      },
+      "cpu_local": "asr",
+      "control": {
+        "method": "actual_visible_gui_with_evidence_backed_manual_runner_bridge",
+        "timed_gui_activity": false,
+        "adapter": "bench.gui_operator_adapter; fresh actual GUI state/current PID/profile/session required, independent process liveness; retired sessions cannot admit new capture"
+      },
+      "microphone": {
+        "requested": "CABLE Output(VB-Audio Virtual Cable), GUI48000Hz1channel",
+        "verified": true
+      },
+      "osc": {
+        "host": "127.0.0.1",
+        "send_port": 19121,
+        "receive_port": null,
+        "assignment": "observed_actual_udp_destination_19121_in_real_CPU_ASR_pilot",
+        "oscquery_or_mute_signal": "none required/supplied; actual GUI mute sync off and no-VRChat translated output observed"
+      },
+      "tts": {
+        "required": "No TTS route in inspected microphone/chatbox implementation; actual GUI other-voice capture disabled",
+        "verified_off_injection": true
+      },
+      "updates": {
+        "policy": "Observed candidate0.2.8 after premeasurement updater lifecycle; auto-update disabled through actual GUI, pinned application hash retained",
+        "verified": true
+      },
+      "access": {
+        "tier": "Paid",
+        "actual_limits": null,
+        "key_aliases": [],
+        "exclusive_quota_scope": null,
+        "details": "Existing owner OpenRouter credentials authorized. Paid translation cost/export/remaining limits and upstream identity unknown; sequential avoids simultaneous contention but not cumulative account/provider quotas."
+      },
+      "procedure": "../docs/profiles/vrct-vrcs.md",
+      "evidence": [
+        "findings/vrct-vrcs.json",
+        "evidence/installed-apps.json",
+        "evidence/issue45/vrcs1-d1-observation.json",
+        "evidence/issue45/vrcs1-cpu-runtime.json"
+      ],
+      "osc_example": {"kind": "audio_to_osc", "no_vrchat": true, "path": "evidence/issue45/vrcs1-d1-observation.json", "raw_safe_derivative": "evidence/issue45/vrcs1-gui-initial/manifest.json", "limits": "Bilingual current-result packets and one bounded source-only to translated update; source truncation observed, no actual page chain or universal final/revision IDs."}
+    },
+    {
+      "id": "VRCS2",
+      "application": "VRCS",
+      "finding": "ready",
+      "reason": "Observed installed0.2.8 GUI-configured real English-to-Japanese development audio produced translated OSC without VRChat; D2 Chinese target change plus capture-resume output check also completed. Small representative readiness only: exact provider response identity, quotas/cost and D3-D6 runtime coverage remain unknown. See issue45 evidence; preserve first D1 and separate D2 traces.",
+      "planned": {
+        "translation": "Gemma 4 26B / OpenRouter",
+        "asr": "Gemini 3.5 Transcribe",
+        "access": "Owner-accepted current paid OpenRouter translation route; Gemini project tier unverified"
+      },
+      "observed": {
+        "version": "0.2.8",
+        "asr": "Gemini Transcribe / gemini-3.5-transcribe-live",
+        "translation": "google/gemma-4-26b-a4b-it",
+        "provider_route": "Google Gemini Developer Live ASR + OpenRouter paid translation; actual returned model/upstream provider not exposed",
+        "state_evidence": "evidence/issue45/vrcs2-d1-observation.json"
+      },
+      "directions": {
+        "D1": "verified",
+        "D2": "verified",
+        "D3": "source_supported",
+        "D4": "source_supported",
+        "D5": "source_supported",
+        "D6": "source_supported"
+      },
+      "cpu_local": null,
+      "control": {
+        "method": "actual_visible_gui_with_evidence_backed_manual_runner_bridge",
+        "timed_gui_activity": false,
+        "adapter": "bench.gui_operator_adapter; session-bound actual GUI attestation, separate process liveness, fresh operator action required for capture/configuration transitions"
+      },
+      "microphone": {
+        "requested": "CABLE Output(VB-Audio Virtual Cable), GUI48000Hz1channel",
+        "verified": true
+      },
+      "osc": {
+        "host": "127.0.0.1",
+        "send_port": 19122,
+        "receive_port": null,
+        "assignment": "observed_actual_udp_destination_in_D1_and_D2_pilots",
+        "oscquery_or_mute_signal": "none required or supplied; mute sync disabled in actual GUI; no-VRChat translated output observed"
+      },
+      "tts": {
+        "required": "No TTS route in inspected microphone/chatbox implementation; actual GUI other-voice capture disabled, no injection playback sink configured",
+        "verified_off_injection": true
+      },
+      "updates": {
+        "policy": "Unexpected0.2.2-to0.2.8 updater lifecycle observed before measured audio, initiator unknown. Director then disabled auto-update in actual GUI;0.2.8 executable hash unchanged at D1/D2 end.",
+        "verified": true
+      },
+      "access": {
+        "tier": "Paid OpenRouter translation accepted by owner; Gemini actual project tier unknown",
+        "actual_limits": null,
+        "key_aliases": [],
+        "exclusive_quota_scope": null,
+        "details": "Existing owner credentials authorized; sequential pilots. No separate quota/project independence, live account export, exact returned OpenRouter model/upstream provider or measured cost obtained; unknown remains null, not zero."
+      },
+      "procedure": "../docs/profiles/vrct-vrcs.md",
+      "evidence": [
+        "findings/vrct-vrcs.json",
+        "evidence/installed-apps.json",
+        "evidence/issue45/decisions-and-candidate.json",
+        "evidence/issue45/vrcs2-d1-observation.json",
+        "evidence/issue45/vrcs2-d2-resume-observation.json"
+      ],
+      "osc_example": {"kind": "audio_to_osc", "no_vrchat": true, "path": "evidence/issue45/vrcs2-d1-observation.json", "raw_safe_derivative": "evidence/issue45/vrcs2-gui-initial/manifest.json", "limits": "Observed bilingual source/translation updates; no universal utterance/page/revision/finality reconstruction. D2 is capture-resume, not process-restart or interrupted-harness proof."}
+    },
+    {
+      "id": "VRCLS1",
+      "application": "VRCLS",
+      "finding": "blocked",
+      "reason": "Current GUI-only execution prerequisite: Director window visibility/control unavailable and renewed approval timed out; no new audio or fresh VRCLS1 GUI attestation. Previously saved0.7.0-20260913 CABLE/en-ja/19141 settings do not prove current readiness. Token validity/server models/limits and actual output remain unverified; pause is not a product failure.",
+      "planned": {
+        "translation": "Developer server",
+        "asr": "Developer server",
+        "access": "Free as planned; limits unverified"
+      },
+      "observed": {
+        "version": "0.7.0-20260913",
+        "asr": null,
+        "translation": null,
+        "provider_route": null,
+        "state_evidence": null
+      },
+      "directions": {
+        "D1": "unverified",
+        "D2": "unverified",
+        "D3": "unverified",
+        "D4": "unverified",
+        "D5": "unverified",
+        "D6": "unverified"
+      },
+      "cpu_local": null,
+      "control": {
+        "method": "configuration_or_documented_manual",
+        "timed_gui_activity": false,
+        "adapter": null
+      },
+      "microphone": {
+        "requested": "CABLE Output (select exact WASAPI device name)",
+        "verified": false
+      },
+      "osc": {
+        "host": "127.0.0.1",
+        "send_port": 19141,
+        "receive_port": null,
+        "assignment": "requested_not_profile_verified",
+        "oscquery_or_mute_signal": "none supplied; dependency must be observed"
+      },
+      "tts": {
+        "required": "off injection route",
+        "verified_off_injection": false
+      },
+      "updates": {
+        "policy": "Disable where supported; otherwise record app version/executable hash at preparation, resume and end",
+        "verified": false
+      },
+      "access": {
+        "tier": "Free as planned; limits unverified",
+        "actual_limits": null,
+        "key_aliases": [],
+        "exclusive_quota_scope": null,
+        "details": "See linked application procedure for source-backed keys/projects, provider identity/export and unverified access findings"
+      },
+      "procedure": "../docs/profiles/kikitan-vrcls.md",
+      "evidence": [
+        "findings/kikitan-vrcls.json",
+        "evidence/installed-apps.json",
+        "evidence/issue45/gui-execution-prerequisite.json"
+      ],
+      "osc_example": null
+    },
+    {
+      "id": "KIKI1",
+      "application": "kikitan",
+      "finding": "blocked",
+      "reason": "Actual installed2.0.2 native microphone-processing crash after setup/start, during direction control before output-check audio. Runner preserves direction operational invalidity; separate native ArgumentException/process exit evidence establishes product crash. Zero OSC/audio callbacks; no uncorrected retry. See evidence/issue45/kiki1-failure.json. Separately requested supported-GUI KIKI1 attempt is pending Director window visibility/control authorization after approval timeout; no new audio. This GUI prerequisite does not overwrite, repair or supersede the retained native crash.",
+      "planned": {
+        "translation": "Google Translate",
+        "asr": "Microsoft Bing",
+        "access": "Free"
+      },
+      "observed": {
+        "version": "2.0.2",
+        "asr": "Bing selected; native capture crashed before speech playback",
+        "translation": "Google Translate selected; no completed translated output",
+        "provider_route": "Existing bundled-client Bing to Google web route; access not established by failed capture",
+        "state_evidence": "evidence/issue45/kiki1-failure.json"
+      },
+      "directions": {
+        "D1": "unverified",
+        "D2": "unverified",
+        "D3": "unverified",
+        "D4": "unverified",
+        "D5": "unverified",
+        "D6": "unverified"
+      },
+      "cpu_local": null,
+      "control": {
+        "method": "configuration_or_documented_manual",
+        "timed_gui_activity": false,
+        "adapter": null
+      },
+      "microphone": {
+        "requested": "CABLE Output (select exact WASAPI device name)",
+        "verified": false
+      },
+      "osc": {
+        "host": "127.0.0.1",
+        "send_port": 19151,
+        "receive_port": null,
+        "assignment": "requested_not_profile_verified",
+        "oscquery_or_mute_signal": "none supplied; dependency must be observed"
+      },
+      "tts": {
+        "required": "off injection route",
+        "verified_off_injection": false
+      },
+      "updates": {
+        "policy": "Disable where supported; otherwise record app version/executable hash at preparation, resume and end",
+        "verified": false
+      },
+      "access": {
+        "tier": "Free",
+        "actual_limits": null,
+        "key_aliases": [],
+        "exclusive_quota_scope": null,
+        "details": "See linked application procedure for source-backed keys/projects, provider identity/export and unverified access findings"
+      },
+      "procedure": "../docs/profiles/kikitan-vrcls.md",
+      "evidence": [
+        "findings/kikitan-vrcls.json",
+        "evidence/installed-apps.json",
+        "evidence/issue45/kiki1-failure.json",
+        "evidence/issue45/gui-execution-prerequisite.json"
+      ],
+      "osc_example": null
+    },
+    {
+      "id": "KIKI2",
+      "application": "kikitan",
+      "finding": "blocked",
+      "reason": "Current GUI-only execution prerequisite: Director window visibility/control unavailable and renewed approval timed out; no new audio or fresh KIKI2 GUI attestation. KIKI2 still requires Gemini selection, port19152, project-isolation evidence and real output. Existing2.0.2/key presence is not readiness; pause is not a product failure.",
+      "planned": {
+        "translation": "Gemini Live Translate 3.5",
+        "asr": "All-in-one",
+        "access": "Free as planned; project quotas unverified"
+      },
+      "observed": {
+        "version": "2.0.2",
+        "asr": null,
+        "translation": null,
+        "provider_route": null,
+        "state_evidence": null
+      },
+      "directions": {
+        "D1": "unverified",
+        "D2": "unverified",
+        "D3": "unverified",
+        "D4": "unverified",
+        "D5": "unverified",
+        "D6": "unverified"
+      },
+      "cpu_local": null,
+      "control": {
+        "method": "configuration_or_documented_manual",
+        "timed_gui_activity": false,
+        "adapter": null
+      },
+      "microphone": {
+        "requested": "CABLE Output (select exact WASAPI device name)",
+        "verified": false
+      },
+      "osc": {
+        "host": "127.0.0.1",
+        "send_port": 19152,
+        "receive_port": null,
+        "assignment": "requested_not_profile_verified",
+        "oscquery_or_mute_signal": "none supplied; dependency must be observed"
+      },
+      "tts": {
+        "required": "off injection route",
+        "verified_off_injection": false
+      },
+      "updates": {
+        "policy": "Disable where supported; otherwise record app version/executable hash at preparation, resume and end",
+        "verified": false
+      },
+      "access": {
+        "tier": "Free as planned; project quotas unverified",
+        "actual_limits": null,
+        "key_aliases": [],
+        "exclusive_quota_scope": null,
+        "details": "See linked application procedure for source-backed keys/projects, provider identity/export and unverified access findings"
+      },
+      "procedure": "../docs/profiles/kikitan-vrcls.md",
+      "evidence": [
+        "findings/kikitan-vrcls.json",
+        "evidence/installed-apps.json",
+        "evidence/issue45/gui-execution-prerequisite.json"
+      ],
+      "osc_example": null
+    },
+    {
+      "id": "VRCLT1",
+      "application": "VRCLT",
+      "finding": "ready",
+      "reason": "Actual GUI-prepared Gemini en-to-ja D1 pilot completed real10-second output check and40-second development audio with5000callbacks and26chatbox inputs. Incremental rolling bilingual/mixed single-line output observed; finality/page relationships and quality remain unestablished. Full GUI Quit and independent owned parent+child exit confirmed. Access tier, usage and project quota isolation remain unknown.",
+      "planned": {
+        "translation": "Gemini Live Translate 3.5",
+        "asr": "All-in-one with source transcription",
+        "access": "Free as planned; project quotas unverified"
+      },
+      "observed": {
+        "version": "1.0.1",
+        "asr": "Selected Gemini all-in-one route; separate returned recognition model unknown",
+        "translation": "gemini-3.5-live-translate-preview requested in actual GUI; Japanese OSC observed",
+        "provider_route": "Gemini Developer Live API selected; returned model/provider identity and usage unknown",
+        "state_evidence": "evidence/issue45/vrclt1-d1-observation.json"
+      },
+      "directions": {
+        "D1": "verified",
+        "D2": "unverified",
+        "D3": "unverified",
+        "D4": "unverified",
+        "D5": "unverified",
+        "D6": "unverified"
+      },
+      "cpu_local": null,
+      "control": {
+        "method": "actual_visible_gui_operator_bridge",
+        "timed_gui_activity": false,
+        "adapter": "bench.gui_operator_adapter; fresh GUI observation and matched stop ACK, no continuous state API"
+      },
+      "microphone": {
+        "requested": "CABLE Output(VB-Audio Virtual Cable)",
+        "verified": true
+      },
+      "osc": {
+        "host": "127.0.0.1",
+        "send_port": 19131,
+        "receive_port": null,
+        "assignment": "actual_GUI_and_received_OSC_verified_D1",
+        "oscquery_or_mute_signal": "No emulation supplied; actual output without VRChat"
+      },
+      "tts": {
+        "required": "off injection route",
+        "verified_off_injection": true
+      },
+      "updates": {
+        "policy": "Disable where supported; otherwise record app version/executable hash at preparation, resume and end",
+        "verified": false
+      },
+      "access": {
+        "tier": "unknown; planned Free tier not established by actual access evidence",
+        "actual_limits": null,
+        "key_aliases": [],
+        "exclusive_quota_scope": null,
+        "details": "Existing masked key; no account export, returned usage, cost or project/account quota isolation established"
+      },
+      "procedure": "../docs/profiles/vrclt.md",
+      "evidence": [
+        "findings/vrclt.json",
+        "evidence/installed-apps.json",
+        "evidence/issue45/vrclt1-d1-observation.json"
+      ],
+      "osc_example": {"kind": "audio_to_osc", "no_vrchat": true, "path": "evidence/issue45/vrclt1-d1-observation.json", "raw_safe_derivative": "evidence/issue45/vrclt1-gui-initial/manifest.json", "limits": "Incremental rolling bilingual updates with English-only and Japanese-only single-line exceptions; check-to-main carryover, no universal final/page IDs or quality claim."}
+    },
+    {
+      "id": "VRCLT2",
+      "application": "VRCLT",
+      "finding": "ready",
+      "reason": "Bounded D1 readiness: the supported GUI correction to the existing Beijing workspace-specific host preserved the Qwen model, region and text-only mode. One ten-second English check delivered three Japanese-bearing chatbox inputs on UDP19131; four stages completed, runner exit0, full owned launcher/runtime cleanup verified. Preserve the initial Chelsie failure on19132. The selected sequential S03/S04 arrangement adopts observed19131 for both non-concurrent VRCLT profiles; no extra forty-second stage or obsolete-port retest is an admission requirement. Other directions, numeric quotas, usage and returned provider/model identity remain unverified.",
+      "planned": {
+        "translation": "Qwen 3.8 LiveTranslate",
+        "asr": "All-in-one",
+        "access": "Paid"
+      },
+      "observed": {
+        "version": "1.0.1",
+        "asr": "All-in-one Qwen remote route; three English-source/Japanese-translation packets during one ten-second workspace-host check",
+        "translation": "qwen3.8-livetranslate-flash-realtime requested; Japanese translation delivered after supported GUI workspace-host correction",
+        "provider_route": "Alibaba Cloud Model Studio, existing Beijing workspace-specific MAAS route selected through saved GUI settings; effective server host, returned model identity and usage not independently captured",
+        "state_evidence": "evidence/issue45/vrclt2-workspace-hostcheck.json"
+      },
+      "directions": {
+        "D1": "verified",
+        "D2": "source_supported",
+        "D3": "source_supported",
+        "D4": "source_supported",
+        "D5": "source_supported",
+        "D6": "source_supported"
+      },
+      "cpu_local": null,
+      "control": {
+        "method": "actual_visible_gui_with_evidence_backed_manual_runner_bridge",
+        "timed_gui_activity": false,
+        "adapter": "bench.gui_operator_adapter; initial actual mic+translation running capture adopted; final full GUI quit/PID exit required; retired session cannot admit new capture"
+      },
+      "microphone": {
+        "requested": "CABLE Output(VB-Audio Virtual Cable), actual GUI selected",
+        "verified": true
+      },
+      "osc": {
+        "host": "127.0.0.1",
+        "send_port": 19131,
+        "receive_port": null,
+        "assignment": "actual_GUI_and_received_OSC_verified_D1; sequential S03/S04 reuse19131, never concurrently; supersedes unused19132 reservation",
+        "oscquery_or_mute_signal": "none supplied; no VRChat process observed for the successful workspace-host diagnostic"
+      },
+      "tts": {
+        "required": "Actual GUI text-only checked, voice output off; raw passthrough selected Realtek Digital Output(Realtek USB Audio), not CABLE Input",
+        "verified_off_injection": true
+      },
+      "updates": {
+        "policy": "Disable where supported; otherwise record app version/executable hash at preparation, resume and end",
+        "verified": false
+      },
+      "access": {
+        "tier": "Paid",
+        "actual_limits": null,
+        "key_aliases": [],
+        "exclusive_quota_scope": null,
+        "details": "Existing authorized Qwen Beijing workspace route delivered translations after the GUI endpoint correction. Quota, cost, billing export and returned provider/model identity remain unknown, not zero. Original Chelsie failure remains preserved separately."
+      },
+      "procedure": "../docs/profiles/vrclt.md",
+      "evidence": [
+        "findings/vrclt.json",
+        "evidence/installed-apps.json",
+        "evidence/issue45/vrclt2-d1-initial-failure.json",
+        "evidence/issue45/vrclt-process-ownership-gap.json",
+        "evidence/issue45/vrclt-user-restart-ownership.json",
+        "evidence/issue45/vrclt2-workspace-hostcheck.json"
+      ],
+      "osc_example": {"kind": "audio_to_osc", "no_vrchat": true, "path": "evidence/issue45/vrclt2-workspace-hostcheck.json", "limits": "One ten-second English-to-Japanese check; three bilingual updates. No main benchmark, quality claim or universal final/revision identity."}
+    }
+  ],
+  "wave_history_evidence": "evidence/issue45/sequential-wave-decision.json",
+  "selected_wave_policy": "Sequential one-profile preparation; ten active competitors, four nonexecuted owner-deferred PP reservations. Reversible before main freeze; no simultaneous shared-engine pairing or independent-account quota claim.",
+  "waves": [
+    {"id": "S01", "profiles": ["VRCS2"], "execution": "active_if_ready"},
+    {"id": "S02", "profiles": ["VRCS1"], "execution": "active_if_ready"},
+    {"id": "S03", "profiles": ["VRCLT2"], "execution": "active_if_ready"},
+    {"id": "S04", "profiles": ["VRCLT1"], "execution": "active_if_ready"},
+    {"id": "S05", "profiles": ["VRCT1"], "execution": "active_if_ready"},
+    {"id": "S06", "profiles": ["VRCT2"], "execution": "active_if_ready"},
+    {"id": "S07", "profiles": ["VRCT3"], "execution": "active_if_ready"},
+    {"id": "S08", "profiles": ["VRCLS1"], "execution": "active_if_ready"},
+    {"id": "S09", "profiles": ["KIKI1"], "execution": "active_if_ready"},
+    {"id": "S10", "profiles": ["KIKI2"], "execution": "active_if_ready"},
+    {"id": "DEFERRED-PP1", "profiles": ["PP1"], "execution": "owner_deferred_do_not_execute"},
+    {"id": "DEFERRED-PP2", "profiles": ["PP2"], "execution": "owner_deferred_do_not_execute"},
+    {"id": "DEFERRED-PP3", "profiles": ["PP3"], "execution": "owner_deferred_do_not_execute"},
+    {"id": "DEFERRED-PP4", "profiles": ["PP4"], "execution": "owner_deferred_do_not_execute"}
+  ],
+  "limitations": [
+    "Readiness is evidence-specific and bounded: observed profiles/directions are recorded individually, not an exhaustive fourteen-profile language matrix certification. PP1-PP4 are explicitly owner-deferred.",
+    "Selected waves are sequential per profile, not the historical parent four-wave default or a main-run freeze. Original layout and lost same-time shared-engine pairings remain in wave_history_evidence.",
+    "Sequential execution avoids intentional simultaneous app/port/local-neural-workload/shared-service conflicts, but does not reset cumulative project/account/public-IP quota or establish separate project independence. Confirm leaving-profile capture/inference/process cleanup before the next profile; no ordinary chunk-boundary restarts.",
+    "OSC port assignments are requested settings until observed on each app; dynamic receive/control ports require actual effective-state inspection. UDP availability is instantaneous, not reservation.",
+    "No actual VRChat process, speculative OSCQuery or fake mute signaling is supplied. Block any discovered process requirement.",
+    "Actual visible GUI controls supply fresh PID/profile/session-bound manual observations before/after capture; the runner bridge reports that limitation and independent process liveness, not requested-state echoes or continuous effective-state API truth.",
+    "Provider exports, account quotas and actual response identities are not established by public documentation; missing measured cost remains unknown, not zero."
+  ]
+}

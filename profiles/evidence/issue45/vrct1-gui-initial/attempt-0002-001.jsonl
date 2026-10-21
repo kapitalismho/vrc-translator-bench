@@ -1,0 +1,2 @@
+{"record": "attempt_start", "t_ns": 374437408594300, "wall": "2026-10-21T00:14:49.491482+00:00", "run": "vrct1-gui-initial", "config": "VRCT1", "stage": 1, "kind": "direction", "resumed": false, "clock_session": "9bcd638e51e84cb89b2d793c480ea611", "wave": "gui-pilot-sequential", "direction": "D1", "chunk": "development-01-34-74", "attempt": 2}
+{"record": "attempt_end", "t_ns": 374437410849600, "wall": "2026-10-21T00:14:49.493681+00:00", "state": "done", "reason": null, "detail": {}}
