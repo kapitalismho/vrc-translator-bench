@@ -27,6 +27,22 @@ python -m bench.cli quality report --root .data/quality/pilot --output .data/qua
 
 Repeat `--report` to assemble configurations from multiple reports. Preparation freezes the inputs, seed, sample membership, and prompts; use a new root for changed inputs or prompt versions. `--seed` defaults to `20261020`. The input reports remain unchanged.
 
+### Explicit core-only execution scope
+
+Default preparation still includes supplementary tone sampling/jobs and Korean reference-review reporting. For the owner-amended current D1/D3 execution, prepare a **new** queue with both opt-outs:
+
+```powershell
+python -m bench.cli quality prepare --report .data/reports/pilot.json --root .data/quality/core-only --skip-tone --skip-korean-review
+python -m bench.cli quality report --root .data/quality/core-only --output .data/quality/core-only/report.json
+```
+
+`--skip-tone` prevents tone sample selection and tone judge jobs; reports omit tone scores, summaries and sample/shortfall sections. `--skip-korean-review` prevents Korean packet selection and generation; reports omit `korean_review` rather than fabricate an empty packet or a coverage shortfall. Either flag may be used independently. ESA inputs/jobs, sanity checks, the fixed changed-judge calibration sample, MetricX eligibility and cost/metrics accounting are unchanged. Preparation and reporting do not perform inference.
+
+The booleans are frozen as `evaluation_scope.tone` and `evaluation_scope.korean_review` in the bound quality plan. Reusing a root with different requested scope is rejected, including omitting flags for a previously core-only root; repeat its original flags or use a new root. Plans without `evaluation_scope` retain the historical full behavior and are not rewritten. A review-disabled plan rejects report `--review-output` or `--human-notes` before writing report/packet files. These opt-outs do not change judge prompts, model selection or service/payment routes.
+
+The [current D1/D3 scope amendment](../profiles/evidence/issue8/supplementary-scope-amendment.json) removes tone-30, Korean-100 and owner-review obligations from that execution. Reusable supplementary features and historical observations below remain available; their historical shortfalls are not current execution requirements.
+
+
 New preparation generates v2 prompts. Use a **new root** to adopt this repair; `prepare` rejects an existing v1 root rather than rewriting its frozen protocol. Existing v1 queues remain readable and reportable, and `score` resumes their original prompts with the strict v1 offset decoder. Their failed responses are not reinterpreted as successes. Plan binding, per-job prompt version/hash and cache identity keep the two protocols separate.
 
 A normal repeated scoring invocation reuses completed cache entries. Failures, quota pauses, interrupted/unknown calls, and malformed or missing responses are not successful judgments. Inspect `quality status`, resolve the cause, and explicitly pass `--retry-unresolved` to attempt unfinished calls again. Each attempt and its raw response remains available. A retry may make another service call when the previous call's terminal outcome was unknown; it is not proof that the earlier call was never admitted.
@@ -137,7 +153,7 @@ Fresh verification used the current checkout:
 
 Current raw responses, frozen plan, reports, commands and row-preserving reuse proofs are under `.data/issue6-current-smoke/`; start with `execution-report.json`, `quality.sqlite`, `quality-report.json` and `korean-review.json`. Runtime setup and exact payload checks are under `.data/issue6-runtime/setup-evidence.json`; controlled CLI observations are under `.data/issue6-control-smoke/evidence.json`. A local evidence-wrapper filename collision required report regeneration, not repeated scoring; its diagnosis is retained separately.
 
-**Remaining evaluation obligations:** no eligible D3/D4 application-output population is present in these inputs. The populated 100-case Korean review packet therefore remains unavailable; packet-generation capability is not packet completion. Tone 30 per configuration, the full comparison and any required changed-judge calibration remain later evaluation work, not results of this smoke. Actual owner review is separate and unperformed. The owner has removed the PuriPuly execution deferral after reporting an update; this supplies no new evaluation outputs or scores. Publication and issue closure require separate owner authority; merging infrastructure does not waive these remaining evaluation obligations.
+**Coverage limits of that historical smoke:** no eligible D3/D4 application-output population was present. The populated 100-case Korean packet and tone 30 per configuration were not completed, and actual owner review was unperformed. These historical shortfalls are not pending obligations of the owner-amended current D1/D3 execution, which explicitly opts out of those supplementary features. The full comparison and any applicable changed-judge calibration are not established by the smoke. Publication and issue closure require separate owner authority.
 
 ## Historical bounded real-input verification
 

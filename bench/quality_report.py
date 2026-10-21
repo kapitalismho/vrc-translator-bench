@@ -21,7 +21,7 @@ def metricx_result(data, history):
     return matches[-1]["result"] if matches else None
 
 
-def summary(rows, iterations=2000, seed=20261020):
+def summary(rows, iterations=2000, seed=20261020, *, include_tone=True):
     eligible = [row for row in rows if row["segment"].get("eligible") is True]
     scored = [{**row["segment"], "esa": row["esa"]} for row in eligible if row.get("esa") is not None]
     esa = clustered(scored, lambda sample: mean([row["esa"]["esa_score"] for row in sample]), iterations, seed, "ESA_points_0_100")
@@ -34,9 +34,9 @@ def summary(rows, iterations=2000, seed=20261020):
             "metricx": {"mean": mean([row["metricx"]["score"] for row in eligible if row.get("metricx") and row["metricx"].get("status") == "completed"]),
                         "eligible_segments": len(eligible), "states": dict(Counter(row["metricx"]["status"] if row.get("metricx") else "missing" for row in eligible)),
                         "role": "Supplementary QE/disagreement finder; lower score is better; no conversation context"},
-            "tone": {field: {"mean": mean([row["tone"][field] for row in eligible if row.get("tone") and row["tone"][field] is not None]),
-                              "scored_dimensions": sum(row.get("tone") is not None and row["tone"][field] is not None for row in eligible)}
-                     for field in ("politeness_register", "rudeness_risk", "naturalness")},
+            **({"tone": {field: {"mean": mean([row["tone"][field] for row in eligible if row.get("tone") and row["tone"][field] is not None]),
+                                 "scored_dimensions": sum(row.get("tone") is not None and row["tone"][field] is not None for row in eligible)}
+                        for field in ("politeness_register", "rudeness_risk", "naturalness")}} if include_tone else {}),
             "reference_levels": dict(Counter(str(item.get("reference_level", "unknown")) for row in rows for item in row["segment"].get("reference", []))),
             "exclusions": dict(Counter(row["segment"].get("quality_eligibility_reason") or row["segment"].get("reason") or row["segment"].get("status", "unknown") for row in rows if row["segment"].get("eligible") is not True))}
 
@@ -71,7 +71,7 @@ def calibration(plan, history):
             "comparisons": comparisons, "limitation": "Fixed exact 100-case sample where available; movement describes these cases, not proof of judge equivalence"}
 
 
-def join_isolated(report, index):
+def join_isolated(report, index, *, include_tone=True):
     for isolated in report.get("isolated", []):
         quality = isolated.get("quality")
         if not isinstance(quality, dict):
@@ -79,7 +79,11 @@ def join_isolated(report, index):
             continue
         quality["previous_supplied_quality_score"] = quality.get("quality_score")
         quality["quality_score"] = None
-        quality["tone_score"] = None
+        if include_tone:
+            quality["tone_score"] = None
+        else:
+            quality.pop("tone_score", None)
+            quality.pop("tone_provenance", None)
         quality["metricx_score"] = None
         matches = [row for row in index.values() if row["segment"].get("kind") == "isolated"
                    and row["segment"].get("attempt_id") == isolated.get("attempt_id") and row["segment"].get("eligible") is True
@@ -93,14 +97,18 @@ def join_isolated(report, index):
         quality["quality_record_key"] = row["key"]
         quality["quality_score"] = {**row["esa"], "provenance": row["esa_provenance"]} if row["esa"] is not None else None
         quality["quality_score_reason"] = None if row["esa"] is not None else "matching_window_segment_has_no_completed_judgment"
-        quality["tone_score"] = row["tone"]
-        quality["tone_provenance"] = row["tone_provenance"]
+        if include_tone:
+            quality["tone_score"] = row["tone"]
+            quality["tone_provenance"] = row["tone_provenance"]
         quality["metricx_score"] = row["metricx"]
         quality["score_association"] = "Exact source texts and ordered final output IDs/texts match same-attempt window-only input; no alignment credit"
 
 
 def build_report(root, output=None, review_output=None, human_notes=None, model=None):
     plan = load_plan(root)
+    scope = plan.get("evaluation_scope", {"tone": True, "korean_review": True})
+    if not scope["korean_review"] and (review_output is not None or human_notes is not None):
+        raise ValueError("--review-output and --human-notes are unavailable: Korean review disabled in frozen evaluation scope")
     store = QualityStore(root)
     try:
         # Keep history, cached judgments, and execution status on one WAL snapshot.
@@ -112,7 +120,7 @@ def build_report(root, output=None, review_output=None, human_notes=None, model=
         rows = []
         for record in plan["records"]:
             values = {}
-            for kind in ("esa", "tone"):
+            for kind in (("esa", "tone") if scope["tone"] else ("esa",)):
                 job = jobs.get((record["key"], kind))
                 call = store.cached(job, selected_model) if job and selected_model else None
                 values[kind] = call["result"] if call else None
@@ -120,7 +128,7 @@ def build_report(root, output=None, review_output=None, human_notes=None, model=
             values["metricx"] = metricx_result(record["input"], mxhistory)
             rows.append({**record, **values, "judge_family_overlap": record["segment"].get("config") == "PP2"})
         disagreement = disagreements(rows)
-        packet = korean_packet(rows, disagreement, plan["samples"]["seed"], human_notes)
+        packet = korean_packet(rows, disagreement, plan["samples"]["seed"], human_notes) if scope["korean_review"] else None
         by_report = defaultdict(list)
         for row in rows:
             by_report[row["report_sha256"]].append(row)
@@ -132,12 +140,16 @@ def build_report(root, output=None, review_output=None, human_notes=None, model=
                 row = index[segment["id"]]
                 segment["previous_supplied_quality_score"] = segment.get("quality_score")
                 segment["quality_score"] = ({**row["esa"], "provenance": row["esa_provenance"]} if row["esa"] is not None else None)
-                segment["tone_score"] = row["tone"]
-                segment["tone_provenance"] = row["tone_provenance"]
+                if scope["tone"]:
+                    segment["tone_score"] = row["tone"]
+                    segment["tone_provenance"] = row["tone_provenance"]
+                else:
+                    segment.pop("tone_score", None)
+                    segment.pop("tone_provenance", None)
                 segment["metricx_score"] = row["metricx"]
                 segment["quality_record_key"] = row["key"]
                 segment["judge_family_overlap"] = row["judge_family_overlap"]
-            join_isolated(report, index)
+            join_isolated(report, index, include_tone=scope["tone"])
             if report.get("sentences") is not None and report.get("outputs") is not None and report.get("attempts") is not None:
                 original_aggregate = next(iter(report.get("aggregates", [])), {})
                 options = {key: original_aggregate.get("major_error_segment_rate", {}).get(field, default) for key, field, default in
@@ -153,7 +165,7 @@ def build_report(root, output=None, review_output=None, human_notes=None, model=
                 for population in report["aggregates"]:
                     attempt_ids = {sentence["attempt_id"] for sentence in primary if sentence["config"] == population["config"] and sentence["direction"] == population["direction"] and sentence["category"] == population["category"]}
                     selected = [row for row in index.values() if row["segment"].get("attempt_id") in attempt_ids and row["segment"].get("kind") == "chunk" and row["segment"].get("config") == population["config"] and row["segment"].get("direction") == population["direction"] and row["segment"].get("category") == population["category"] and (population["view"] != "casual_only" or row["segment"].get("casual") is True)]
-                    quality = summary(selected, options["iterations"], options["seed"])
+                    quality = summary(selected, options["iterations"], options["seed"], include_tone=scope["tone"])
                     population["esa_mean"] = quality["esa_mean"]
                     population["quality_supplementary"] = {key: value for key, value in quality.items() if key not in ("esa_mean", "major_error_segment_rate")}
             report["previous_supplied_quality_score_coverage"] = report.get("quality_score_coverage")
@@ -185,16 +197,18 @@ def build_report(root, output=None, review_output=None, human_notes=None, model=
                                "reason": None if call else attempts[-1]["reason"] if attempts else "No completed judgment for selected actual model",
                                "obvious_failure": call["result"]["esa_score"] > 50 or not call["result"]["major_error"] if call else None})
         result = {"schema_version": 1, "version": plan["version"], "created_utc": utc_now(), "synthetic": plan["synthetic"],
-                  "plan_binding": plan["binding"], "selected_actual_model": selected_model,
+                  "plan_binding": plan["binding"], "selected_actual_model": selected_model, "evaluation_scope": scope,
                   "scoring_models_observed": sorted({call["actual_model"] for call in calls if call["actual_model"]}),
                   "mixed_version_scoring": len({row["esa_provenance"]["actual_model"] for row in rows if row["esa_provenance"]}) > 1,
                   "limitations": plan["limitations"] + ["The shared OS activity lock excludes cooperating capture/scoring commands; root observations and operator acknowledgement do not detect unmanaged external measurements", "No single overall quality/latency/cost score is produced", "Raw transcripts and Japanese-derived speech content remain local; inspect before publication"],
                   "working_choices": {"prompt_version": plan["version"], "samples": plan["samples"], "sanity_rule": "Pause if an obvious bad-output ESA exceeds 50 or has no major span; working investigation trigger, not evaluator validation", "disagreement": "Absolute midrank-percentile difference of ESA error (100-score) and MetricX score within direction/category; no scale-equivalence claim", "order": "Seeded source-group order and randomized configurations within shared source segments; each call independent"},
                   "records": rows, "joined_metrics_reports": joined,
                   "quality_populations": [{"config": key[0], "direction": key[1], "category": key[2], "kind": key[3], "view": key[4],
-                                           "attempt_policy": "All retained quality input attempts, not additional independent recordings", **summary(members)} for key, members in sorted(grouped.items(), key=lambda item: str(item[0]))],
+                                           "attempt_policy": "All retained quality input attempts, not additional independent recordings", **summary(members, include_tone=scope["tone"])} for key, members in sorted(grouped.items(), key=lambda item: str(item[0]))],
                   "disagreements": disagreement, "calibration": calibration(plan, calls), "sanity": sanity,
-                  "korean_review": packet, "execution": status_from(plan, store, include_raw=False)}
+                  "execution": status_from(plan, store, include_raw=False)}
+        if scope["korean_review"]:
+            result["korean_review"] = packet
         if output:
             output.parent.mkdir(parents=True, exist_ok=True)
             atomic_json(output, result)

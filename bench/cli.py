@@ -54,6 +54,8 @@ def parser():
     prepare.add_argument("--report", type=Path, action="append", required=True)
     prepare.add_argument("--root", type=Path, required=True)
     prepare.add_argument("--seed", type=int, default=20261020)
+    prepare.add_argument("--skip-tone", action="store_true", help="Freeze this queue without supplementary tone sampling/jobs")
+    prepare.add_argument("--skip-korean-review", action="store_true", help="Freeze this queue without Korean review packets")
     score = operations.add_parser("score")
     score.add_argument("--root", type=Path, required=True)
     score.add_argument("--transport-spec", type=Path)
@@ -159,20 +161,27 @@ def main(argv=None):
 def quality_main(args):
     from .quality import prepare, score, status
     if args.quality_command == "prepare":
-        result = prepare(args.report, args.root, args.seed)
+        result = prepare(args.report, args.root, args.seed, skip_tone=args.skip_tone, skip_korean_review=args.skip_korean_review)
         print(json.dumps({"root": str(args.root), "version": result["version"], "segments": len(result["records"]),
-                          "jobs": len(result["jobs"]), "samples": result["samples"], "synthetic": result["synthetic"]}, indent=2))
+                          "jobs": len(result["jobs"]), "samples": result["samples"], "synthetic": result["synthetic"],
+                          "evaluation_scope": result.get("evaluation_scope", {"tone": True, "korean_review": True})}, indent=2))
         return 0
     if args.quality_command == "status":
         print(json.dumps(status(args.root), indent=2, ensure_ascii=False))
         return 0
     if args.quality_command == "report":
         from .quality_report import build_report
+        from .quality import load_plan
+        if (args.review_output or args.human_notes) and not load_plan(args.root).get("evaluation_scope", {}).get("korean_review", True):
+            raise ValueError("--review-output and --human-notes are unavailable: Korean review disabled in frozen evaluation scope")
         notes = json.loads(args.human_notes.read_text(encoding="utf-8")) if args.human_notes else None
         result = build_report(args.root, args.output, args.review_output, notes, args.model)
-        print(json.dumps({"report": str(args.output), "review": str(args.review_output) if args.review_output else None,
-                          "segments": len(result["records"]), "disagreements": len(result["disagreements"]),
-                          "korean_review_selected": result["korean_review"]["selected"], "human_review_performed": result["korean_review"]["human_review"]["performed"]}, indent=2))
+        summary = {"report": str(args.output), "review": str(args.review_output) if args.review_output else None,
+                   "segments": len(result["records"]), "disagreements": len(result["disagreements"])}
+        if "korean_review" in result:
+            summary.update(korean_review_selected=result["korean_review"]["selected"],
+                           human_review_performed=result["korean_review"]["human_review"]["performed"])
+        print(json.dumps(summary, indent=2))
         return 0
     if args.limit is not None and args.limit < 1:
         raise ValueError("--limit must be positive")

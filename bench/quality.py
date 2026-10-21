@@ -30,12 +30,15 @@ def make_job(kind, data, record_key, sanity=None):
             "input_hash": fingerprint(data), "prompt": request, "prompt_hash": fingerprint(request), "sanity": sanity}
 
 
-def prepare(reports, root, seed=20261020):
+def prepare(reports, root, seed=20261020, *, skip_tone=False, skip_korean_review=False):
     root = Path(root)
+    evaluation_scope = {"tone": not skip_tone, "korean_review": not skip_korean_review}
     root.mkdir(parents=True, exist_ok=True)
     with RunLock(root):
         if (root / "quality-plan.json").exists():
             plan = load_plan(root)
+            if plan.get("evaluation_scope", {"tone": True, "korean_review": True}) != evaluation_scope:
+                raise ValueError("Quality root already frozen with different evaluation scope; use a new root")
             if plan["version"] != VERSION:
                 raise ValueError("Quality root uses an older frozen prompt version; use a new root for current prompts")
             expected = sorted(digest(path) for path in reports)
@@ -66,15 +69,16 @@ def prepare(reports, root, seed=20261020):
                 records.append({"key": key, "report_sha256": checksum, "segment": segment, "input": data})
         if not records:
             raise ValueError("No quality segments in input reports")
-        samples = freeze_samples(records, seed)
+        samples = freeze_samples(records, seed, include_tone=not skip_tone)
         jobs = [make_job("esa", blinded_input(segment), segment["id"], segment["id"]) for segment in sanity_segments()]
-        tone_keys = {key for sample in samples["tone"].values() for key in sample["keys"]}
+        tone_keys = {key for sample in samples.get("tone", {}).values() for key in sample["keys"]}
         for record in interleaved([row for row in records if row["segment"].get("eligible") is True], seed):
             jobs.append(make_job("esa", record["input"], record["key"]))
             if record["key"] in tone_keys:
                 jobs.append(make_job("tone", record["input"], record["key"]))
         plan = {"schema_version": 1, "version": VERSION, "created_utc": utc_now(), "reports": originals,
                 "records": records, "samples": samples, "jobs": jobs,
+                "evaluation_scope": evaluation_scope,
                 "synthetic": all(item["report"].get("synthetic") is True for item in originals),
                 "limitations": ["Contextual approximately 30-second GEMBA-ESA adaptation, not unchanged standard ESA",
                                 "Automatic judgments do not establish human-verified semantic accuracy",

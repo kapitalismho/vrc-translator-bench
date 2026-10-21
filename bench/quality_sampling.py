@@ -9,16 +9,19 @@ def ordered(rows, seed, namespace):
     return sorted(rows, key=lambda row: fingerprint([seed, namespace, row["key"]]))
 
 
-def freeze_samples(records, seed):
+def freeze_samples(records, seed, *, include_tone=True):
     eligible = [row for row in records if row["segment"].get("eligible") is True]
     calibration = [row["key"] for row in ordered(eligible, seed, "calibration")[:100]]
-    by_config = {row["segment"]["config"]: [] for row in records}
-    for row in eligible:
-        by_config[row["segment"]["config"]].append(row)
-    tone = {config: [row["key"] for row in ordered(rows, seed, "tone:" + config)[:30]] for config, rows in sorted(by_config.items())}
-    return {"seed": seed, "calibration": {"requested": 100, "keys": calibration, "shortfall": 100 - len(calibration)},
-            "tone": {config: {"requested": 30, "keys": keys, "shortfall": 30 - len(keys)} for config, keys in tone.items()},
-            "policy": "Frozen exact input/output cases, reused across judge models; deterministic hash sampling without replacement. Tone: 30 per configuration across eligible directions/categories. These are working choices, not owner-mandated strata."}
+    samples = {"seed": seed, "calibration": {"requested": 100, "keys": calibration, "shortfall": 100 - len(calibration)},
+               "policy": "Frozen exact input/output cases, reused across judge models; deterministic hash sampling without replacement."}
+    if include_tone:
+        by_config = {row["segment"]["config"]: [] for row in records}
+        for row in eligible:
+            by_config[row["segment"]["config"]].append(row)
+        tone = {config: [row["key"] for row in ordered(rows, seed, "tone:" + config)[:30]] for config, rows in sorted(by_config.items())}
+        samples["tone"] = {config: {"requested": 30, "keys": keys, "shortfall": 30 - len(keys)} for config, keys in tone.items()}
+        samples["policy"] += " Tone: 30 per configuration across eligible directions/categories. These are working choices, not owner-mandated strata."
+    return samples
 
 
 def interleaved(records, seed):

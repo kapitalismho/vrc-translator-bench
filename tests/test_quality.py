@@ -379,3 +379,73 @@ def test_context_changes_judge_cache_but_not_context_free_metricx_cache(tmp_path
     report = build_report(root)
     assert report["records"][0]["esa_provenance"]["input_hash"] != report["records"][1]["esa_provenance"]["input_hash"]
     assert report["records"][0]["metricx"] == report["records"][1]["metricx"]
+
+
+@pytest.mark.parametrize("skip_tone,skip_review", [(True, True), (True, False), (False, True), (False, False)])
+def test_frozen_evaluation_scope_controls_jobs_and_report_sections(tmp_path, skip_tone, skip_review):
+    path = input_report(tmp_path / "input.json", [segment(), segment(1, eligible=False)])
+    root = tmp_path / "queue"
+    full = prepare([path], tmp_path / "full")
+    plan = prepare([path], root, skip_tone=skip_tone, skip_korean_review=skip_review)
+    assert plan["evaluation_scope"] == {"tone": not skip_tone, "korean_review": not skip_review}
+    assert plan["samples"]["calibration"] == full["samples"]["calibration"]
+    assert [job for job in plan["jobs"] if job["kind"] == "esa"] == [job for job in full["jobs"] if job["kind"] == "esa"]
+    assert ("tone" in plan["samples"]) is not skip_tone
+    assert sum(job["kind"] == "tone" for job in plan["jobs"]) == (0 if skip_tone else 1)
+    judge, runtime = Judge(), Metric()
+    outcome = score(root, judge, "synthetic-v1", metricx=runtime, measurements_ended=True)
+    assert len(judge.requests) == len(plan["jobs"]) == outcome["completed_for_model"]
+    assert len(runtime.calls) == 4  # Three unchanged sanity cases plus one eligible input.
+    report = build_report(root)
+    assert ("korean_review" in report) is not skip_review
+    assert all(("tone" in row) is not skip_tone for row in report["records"])
+    assert all(("tone" in row) is not skip_tone for row in report["quality_populations"])
+    assert all(("tone_score" in row) is not skip_tone for row in report["joined_metrics_reports"][0]["quality_segments"])
+    assert report["records"][0]["esa"] is not None
+    assert report["records"][0]["metricx"]["status"] == "completed"
+    assert report["records"][1]["esa"] is None and report["records"][1]["metricx"] is None
+    before = (root / "quality-plan.json").read_bytes()
+    assert prepare([path], root, skip_tone=skip_tone, skip_korean_review=skip_review) == plan
+    for changed in ({"skip_tone": not skip_tone, "skip_korean_review": skip_review},
+                    {"skip_tone": skip_tone, "skip_korean_review": not skip_review}):
+        with pytest.raises(ValueError, match="different evaluation scope"):
+            prepare([path], root, **changed)
+        assert (root / "quality-plan.json").read_bytes() == before
+
+
+def test_historical_plan_without_scope_keeps_full_behavior(tmp_path):
+    from bench.quality_prompts import fingerprint
+    path = input_report(tmp_path / "input.json")
+    root = tmp_path / "queue"
+    plan = prepare([path], root)
+    plan.pop("evaluation_scope")
+    plan.pop("binding")
+    plan["binding"] = fingerprint(plan)
+    dump(root / "quality-plan.json", plan)
+    before = (root / "quality-plan.json").read_bytes()
+    assert prepare([path], root) == plan
+    assert "korean_review" in build_report(root)
+    assert "tone" in build_report(root)["quality_populations"][0]
+    with pytest.raises(ValueError, match="different evaluation scope"):
+        prepare([path], root, skip_tone=True)
+    assert (root / "quality-plan.json").read_bytes() == before
+
+
+def test_cli_core_scope_omits_deliverables_and_rejects_review_options_before_writing(tmp_path):
+    root = tmp_path / "queue"
+    path = input_report(tmp_path / "input.json")
+    prepared = cli("prepare", "--report", path, "--root", root, "--skip-tone", "--skip-korean-review")
+    stdout = json.loads(prepared.stdout)
+    assert stdout["jobs"] == 4 and "tone" not in stdout["samples"]
+    output, packet = tmp_path / "report.json", tmp_path / "packet.json"
+    reported = cli("report", "--root", root, "--output", output)
+    assert "korean_review_selected" not in json.loads(reported.stdout)
+    assert "korean_review" not in json.loads(output.read_text())
+    for option, value in (("--review-output", packet), ("--human-notes", tmp_path / "does-not-exist.json")):
+        rejected = cli("report", "--root", root, "--output", tmp_path / "rejected.json", option, value, check=False)
+        assert rejected.returncode == 2
+        assert "Korean review disabled" in rejected.stderr
+        assert not packet.exists() and not (tmp_path / "rejected.json").exists()
+    with pytest.raises(ValueError, match="Korean review disabled"):
+        build_report(root, output=tmp_path / "api-rejected.json", human_notes={})
+    assert not (tmp_path / "api-rejected.json").exists()
