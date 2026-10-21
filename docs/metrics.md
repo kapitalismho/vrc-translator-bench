@@ -83,6 +83,8 @@ The specification is JSON with `schema_version: 1` and a nonempty `version`. Pat
 | `long_speech_min_seconds` | Continuous-speech diagnostic threshold, default 30 seconds |
 | `bootstrap` | `iterations` (default 2000) and `seed` (default 20261020) |
 
+`bench quality` consumes these report segments and emits joined reports; see [quality scoring](quality.md). It retains missing scores, source eligibility and judge provenance rather than assigning missing-as-zero.
+
 A global paging/revision style does not assert that every successive message belongs to one group. Explicit relationships connect only outputs whose association is supported. Retain uncertain observations when that connection cannot be established.
 
 Alignment caches have `schema_version: 1`, `version`, `provenance`, and `links` keyed by output ID. Each link records `status` (`aligned`, `unknown`, `unrelated`), `sentence_ids`, a reason and available token links/confidence. Only aligned entries carry source IDs. IDs for normalized sentences are scoped by attempt and native clip/unit identity; generated IDs remain marked as generated. A required `binding` hashes raw output, interpreted text/relationship/full rule identity, and same-config/clock source IDs, text, times and directions. Use `bench.metrics_alignment.cache_binding(output, sentences)` when preparing inspected links. Stale evidence fails rather than silently transferring to changed inputs. Source links may cross captured chunk/attempt/direction boundaries, but never configuration or clock session.

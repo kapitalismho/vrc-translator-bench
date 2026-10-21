@@ -45,12 +45,43 @@ def parser():
     profiles.add_argument("--catalog", type=Path, default=Path("profiles/catalog.json"))
     profiles.add_argument("--check-ports", action="store_true")
     profiles.add_argument("--require-ready", action="store_true")
+    quality = commands.add_parser("quality")
+    operations = quality.add_subparsers(dest="quality_command", required=True)
+    prepare = operations.add_parser("prepare")
+    prepare.add_argument("--report", type=Path, action="append", required=True)
+    prepare.add_argument("--root", type=Path, required=True)
+    prepare.add_argument("--seed", type=int, default=20261020)
+    score = operations.add_parser("score")
+    score.add_argument("--root", type=Path, required=True)
+    score.add_argument("--transport-spec", type=Path)
+    score.add_argument("--model", default="gpt-6-astra")
+    score.add_argument("--limit", type=int)
+    score.add_argument("--retry-unresolved", action="store_true")
+    score.add_argument("--calibration-only", action="store_true")
+    score.add_argument("--measurements-ended", action="store_true")
+    score.add_argument("--capture-root", type=Path, action="append")
+    score.add_argument("--sanity-limitation")
+    score.add_argument("--metricx", action="store_true")
+    score.add_argument("--metricx-only", action="store_true")
+    score.add_argument("--metricx-model-path", type=Path)
+    score.add_argument("--metricx-device", default="cpu")
+    score.add_argument("--allow-model-download", action="store_true")
+    quality_status = operations.add_parser("status")
+    quality_status.add_argument("--root", type=Path, required=True)
+    quality_report = operations.add_parser("report")
+    quality_report.add_argument("--root", type=Path, required=True)
+    quality_report.add_argument("--output", type=Path, required=True)
+    quality_report.add_argument("--review-output", type=Path)
+    quality_report.add_argument("--human-notes", type=Path)
+    quality_report.add_argument("--model")
     return root
 
 
 def main(argv=None):
     args = parser().parse_args(argv)
     try:
+        if args.command == "quality":
+            return quality_main(args)
         if args.command == "metrics":
             from .metrics import derive
             result = derive(args.manifest, args.spec, args.output, args.alignment_cache, args.allow_model_download)
@@ -113,6 +144,48 @@ def main(argv=None):
     except (OperationalError, OSError, ValueError, KeyError) as error:
         print(f"bench: {error}", file=sys.stderr)
         return 2
+
+
+def quality_main(args):
+    from .quality import prepare, score, status
+    if args.quality_command == "prepare":
+        result = prepare(args.report, args.root, args.seed)
+        print(json.dumps({"root": str(args.root), "version": result["version"], "segments": len(result["records"]),
+                          "jobs": len(result["jobs"]), "samples": result["samples"], "synthetic": result["synthetic"]}, indent=2))
+        return 0
+    if args.quality_command == "status":
+        print(json.dumps(status(args.root), indent=2, ensure_ascii=False))
+        return 0
+    if args.quality_command == "report":
+        from .quality_report import build_report
+        notes = json.loads(args.human_notes.read_text(encoding="utf-8")) if args.human_notes else None
+        result = build_report(args.root, args.output, args.review_output, notes, args.model)
+        print(json.dumps({"report": str(args.output), "review": str(args.review_output) if args.review_output else None,
+                          "segments": len(result["records"]), "disagreements": len(result["disagreements"]),
+                          "korean_review_selected": result["korean_review"]["selected"], "human_review_performed": result["korean_review"]["human_review"]["performed"]}, indent=2))
+        return 0
+    if args.limit is not None and args.limit < 1:
+        raise ValueError("--limit must be positive")
+    if args.sanity_limitation is not None and not args.sanity_limitation.strip():
+        raise ValueError("--sanity-limitation requires a nonempty explanation")
+    from .quality_transport import load_transport
+    if args.transport_spec:
+        transport = load_transport(args.transport_spec)
+    elif args.metricx_only:
+        from types import SimpleNamespace
+        transport = SimpleNamespace(synthetic=False, provenance={"kind": "metricx-only", "synthetic": False})
+    else:
+        raise ValueError("--transport-spec is required unless --metricx-only")
+    metricx = None
+    if args.metricx or args.metricx_only:
+        from .quality_metricx import MetricX
+        metricx = MetricX(args.metricx_model_path, args.metricx_device, args.allow_model_download)
+    result = score(args.root, transport, args.model, args.limit, args.retry_unresolved, args.calibration_only,
+                   args.measurements_ended, [Path(".data/runs"), *(args.capture_root or [])], metricx, args.metricx_only, args.sanity_limitation)
+    print(json.dumps({key: result[key] for key in ("root", "model", "jobs", "completed_for_model", "pending_or_unresolved_for_model", "call_states", "actual_models", "paused", "metricx_outcomes")}, indent=2))
+    if args.metricx_only:
+        return 2 if any(state != "completed" and count for state, count in result["metricx_outcomes"].items()) else 0
+    return 2 if result["paused"] or result["blocked_for_model"] or args.limit is None and result["pending_or_unresolved_for_model"] else 0
 
 
 if __name__ == "__main__":

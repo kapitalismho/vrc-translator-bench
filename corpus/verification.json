@@ -1,6 +1,8 @@
 {
-  "scope": "Issue #2 local preparation under the approved publication amendment; not a public dataset or main-run freeze",
+  "scope": "Historical issue-2-local-v1 preparation checks below; current issue-2-local-v2 recovery evidence is recorded separately in recovery. Neither is a public dataset or main-run freeze.",
   "authority": "https://github.com/kapitalismho/vrc-translator-bench/issues/2#issuecomment-6282606626",
+  "historical_local_revision": "issue-2-local-v1",
+  "historical_source_commit": "342b13c5b7340abaafa407a289baa5b8203ad00a",
   "checks": [
     {"command": ".data/check-venv/Scripts/python.exe -m tools.index_corpus && .data/check-venv/Scripts/python.exe -m pytest -q (after Japanese repairs)", "result": "68 actual audio assets passed; 78 tests and 29 subtests passed in 2.92s, no skips", "observations": "Full integrated repaired dataset and collected suite; earlier failures/skips below remain historical evidence."},
     {"command": "Japanese complete-alignment, playback-references, heldout, check and export-metadata; actual OOV smoke", "result": "passed", "observations": "40 Japanese unit tests; 42-asset timing inventory with zero missing word/sentence bounds; 20 isolated clips preserve all207 intersecting reserve words with zero boundary crossings. Actual previously unsupported examples received raw acoustic intervals, not interpolated times. Private detailed evidence: .data/japanese/alignment-repair/repair-result.json."},
@@ -16,15 +18,35 @@
   "language_evidence": {
     "english": "corpus/english/execution-report.json and corpus/english/verification.json: three actual post-compression PCM windows matched original decoded source bytes exactly; 19 focused tests passed.",
     "chinese": "corpus/chinese/preparation-report.json: original archive acquired, primary alignment failures retained and acoustically repaired, six real source/playback waveform windows correlated above0.98, prepared/unprepared/corrupt/incomplete smoke gating exercised; 17 tests passed.",
-    "japanese": "corpus/japanese/local-preparation.json records the repaired runtime inventory and hashes. All3166 main and427 dev words have finite acoustic estimates; 29 formerly unsupported main words use raw Qwen alignment and4 use genuine pronunciation CTC. Original lexical words and supported intervals are preserved. Low acoustic scores, dictionary-reading uncertainty and coincident predictions remain explicit. Repair history/raw failures stay in .data/japanese/alignment-repair; no derived Japanese speech is published here.",
+    "japanese": "Historical v1 metadata at commit342b13c records3166 main and427 dev words with finite acoustic estimates:29 formerly unsupported main words used raw Qwen alignment and4 used genuine pronunciation CTC. Those original full reference/prediction bytes were not recovered. Current local-preparation.json describes regenerated v2, not byte-identical restoration of this historical check. Low acoustic scores, dictionary-reading uncertainty and coincident predictions remain explicit; no derived Japanese speech is published here.",
     "nonspeech": "corpus/nonspeech/manifest.json retains four exact source records, local checksums, transforms, two scoring intervals and listening limits. Two focused regression tests passed."
   },
   "unresolved_observations": [
     "No human listening or independent transcription validation performed. The owner delegated a bounded source-assisted practical method recorded in corpus/practical-assessment.json and issuecomment-6283330068. Actual source-content/ASR/caption/waveform inspection supports intended types with explicit disagreements and perceptual limits.",
-    "Japanese timing completeness is now numeric, not an accuracy claim. Four pronunciation paths have very low uncalibrated acoustic scores, dictionary/name readings can be wrong, and some raw units overlap or share intervals.",
+    "Japanese timing completeness is numeric, not an accuracy claim. Pronunciation paths have very low uncalibrated acoustic scores, dictionary/name readings can be wrong, and some raw units overlap or share intervals.",
     "Japanese anonymous speaker estimates are substantially over-fragmented; automatic stress and mixed-conversation classifications are exploratory, not human-confirmed.",
     "Original-video attribution/rights remain unresolved; Japanese derived speech/audio/timelines remain local-only. No HF dataset exists.",
     "PP4's later actual ASR must be checked against the Japanese reference model before freezing reference independence.",
     "General casual-chat coverage is limited and explicitly recorded; general/stress must remain separate in later ranking."
-  ]
+  ],
+  "recovery": {
+    "date": "2026-10-21",
+    "local_revision": "issue-2-local-v2",
+    "authority": "Owner explicitly selected adoption of the current-code regenerated Japanese reference as a new local version in the recovery conversation.",
+    "original_main_reference_sha256": "672afdf52eeff6407db0859ca81102a63fe295c1524e1435301905f828453548",
+    "adopted_main_reference_sha256": "5d943315650470ef46fde720df1811849d77e13bc72f28891c13e6368144c106",
+    "audio": "All68 indexed WAVs match their original v1 SHA-256. Original selection, source payloads, formats, frame budgets and direction sharing were preserved.",
+    "references": "English/Chinese references unchanged. Japanese development and all20 isolated references match v1 hashes. Regenerated main has3166 words/656 sentence-like units, with30 raw-Qwen and3 pronunciation-CTC repairs. Original full outputs are unavailable; residual differences are not asserted to be metadata-only.",
+    "checks": [
+      {"command": ".data/check-venv/Scripts/python.exe -B -m tools.index_corpus", "result": "passed", "observations": "Built v2 after actual68-audio validation;6 directions,5400 unique main seconds,60 isolated assets and exact D1 repeat prefix."},
+      {"command": ".data/check-venv/Scripts/python.exe -B -m tools.check_corpus", "result": "passed", "observations": "Current reference/metadata/audio hashes, decoded format/frames, budgets and shared-direction identities match."},
+      {"command": ".data/check-venv/Scripts/python.exe -B -m tools.prepare_profile_checks", "result": "passed", "observations": "Three original ten-second clip identities restored; metadata rebound to the current corpus revision. No new translator observation."},
+      {"command": "tools/prepare_japanese.py check and export-metadata in the restored Japanese environment", "result": "passed", "observations": "42 timing artifacts have no missing bounds;20 isolated clips preserve207 intersecting words with zero boundary crossings. Metadata-only export guard and110 actual file/hash bindings passed. Existing live-check evidence was reused after export-input identity checks."},
+      {"command": "Existing English check and independent emitted-source/audio inspection", "result": "passed", "observations": "31 English audio/timeline pairs and exact nonspeech hash restored; first60 nonspeech seconds are digital silence."},
+      {"command": ".data/chinese/venv/Scripts/python.exe -B -X utf8 -m pytest -p no:cacheprovider -vv --basetemp .data/chinese/cache/pytest-temp tests/test_chinese_real.py", "result": "4 collected,4 passed,0 skipped", "observations": "Restored actual audio, human reference mappings, independent source waveform windows and split separation; no broad-suite rerun."}
+    ],
+    "retained_failures": "Initial clean-clone check failed on absent English audio. First integrated reconstruction failed on the Japanese v1 main-reference hash. An evidence-bound historical fallback replay also differed and was not adopted. Failed attempts and both regenerated variants remain local.",
+    "limits": "No listening, independent transcription validation, public rights clearance, new application pilot or full-suite run. Historical test counts and practical assessment above were not rerun. Original run ledgers/raw captures/canonical metric caches are not recovered.",
+    "local_evidence": [".data/english/recovery-results.json", ".data/chinese/recovery-report.json", ".data/japanese/recovery-provenance-1792559512272121000.json", ".data/japanese/metadata-export-audit.json", ".data/japanese/historical-replay/assessment.json"]
+  }
 }
