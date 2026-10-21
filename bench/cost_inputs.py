@@ -58,7 +58,6 @@ class Inputs:
         self.provenance = [{"id": "spec", "kind": "specification", "sha256": digest(self.spec_path)}]
         self.paths = {self.spec_path}
         self.hashes = {self.spec_path: self.provenance[0]["sha256"]}
-        self.parsers = {}
         self.source_ids = {"spec"}
         for evidence in self.spec.get("evidence_files", []):
             self.file(evidence["path"], identifier(evidence["id"]), "supporting_evidence")
@@ -72,6 +71,25 @@ class Inputs:
         self.hashes[path] = digest(path)
         self.provenance.append({"id": source_id, "kind": kind, "sha256": self.hashes[path], **metadata})
         return path
+
+    def _protect_manifest_paths(self, value, directory, key=""):
+        """Register capture references without opening irrelevant/private payloads."""
+        if isinstance(value, dict):
+            for field, item in value.items():
+                self._protect_manifest_paths(item, directory, "path" if key == "files" and field == "name" else field)
+        elif isinstance(value, list):
+            for item in value:
+                self._protect_manifest_paths(item, directory, key)
+        elif isinstance(value, str) and value:
+            if key == "detail":
+                try:
+                    self._protect_manifest_paths(json.loads(value), directory)
+                except ValueError:
+                    pass
+            path_field = key in ("path", "trace", "file", "audio", "reference", "input_plan", "ledger", "manifest", "frozen_plan", "execution_plan") or key.endswith(("_path", "_file", "_filename"))
+            file_label = bool(re.fullmatch(r"\.[A-Za-z0-9_-]{1,16}", Path(value).suffix))
+            if (path_field or file_label) and "://" not in value:
+                self.paths.add((directory / value).resolve())
 
     def windows(self):
         windows, attempts = [], []
@@ -95,12 +113,18 @@ class Inputs:
         sid = identifier(source["id"])
         path = self.file(source["path"], sid, "run_manifest")
         manifest = json.loads(path.read_text(encoding="utf-8-sig"))
+        self._protect_manifest_paths(manifest, path.parent)
+        for trace in source.get("traces", {}).values():
+            self.paths.add((path.parent / trace).resolve())
+        for name in ("ledger.sqlite", "frozen-plan.json", "execution-plan.json"):
+            self.paths.add((path.parent / name).resolve())
         exported = {}
         if manifest.get("derived_export_notice"):
             if not source.get("export_provenance"):
                 raise ValueError("Derived manifests require export_provenance linkage")
             provenance_path = self.file(source["export_provenance"], sid + ".export", "capture_export_provenance")
             provenance = json.loads(provenance_path.read_text(encoding="utf-8-sig"))
+            self._protect_manifest_paths(provenance, path.parent)
             exported = {row["name"]: row for row in provenance["files"]}
             if exported[path.name]["export_sha256"] != self.hashes[path]:
                 raise ValueError("Derived manifest hash differs from export provenance")
@@ -171,7 +195,6 @@ class Inputs:
             if source["kind"] == "pp_log" and source.get("benchmark_only") is not True:
                 raise ValueError("PP log sources require benchmark-owned session/process selection")
             kind = source["kind"]
-            self.parsers[sid] = fingerprint({key: value for key, value in source.items() if key not in ("id", "path")})
             path = self.file(source["path"], sid, kind, synthetic=source.get("synthetic", False),
                              selection_basis="operator_inspected_benchmark_only_excerpt" if source.get("benchmark_only") else "explicit_private_row_filter",
                              selection_evidence=source["selection_evidence"], private_filtered_row_count=0,
@@ -220,10 +243,8 @@ class Inputs:
 
     def _source_identity(self, rows, path, source):
         source_hash = self.hashes[path]
-        parser_hash = self.parsers[source["id"]]
         for row in rows:
             row["_source_hash"] = source_hash
-            row["_parser_hash"] = parser_hash
         return rows
 
 

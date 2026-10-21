@@ -71,7 +71,7 @@ def test_hand_reconciled_selected_output(tmp_path):
     serialized = json.dumps(result)
     for private in ("DO_NOT_COPY_THIS", "PRIVATE_UNRELATED", "private/unrelated", "unrelated-account-record", str(tmp_path), "synthetic-1", "successful_bytes"):
         assert private not in serialized
-    assert result["excluded_unmatched_record_count"] == 0
+    assert result["unmatched_record_count"] == 1  # One logical start precedes the playback window.
     assert next(item for item in result["provenance"] if item["id"] == "openrouter-synthetic")["private_filtered_row_count"] == 1
     assert all("sha256" in item for item in result["provenance"])
     assert result["price_tables"][0]["date"] == "2026-10-20"
@@ -81,13 +81,13 @@ def test_hand_reconciled_selected_output(tmp_path):
 @pytest.mark.parametrize(("start", "expected"), [
     ("2026-10-20T12:00:00Z", "attributed"),
     ("2026-10-20T21:00:50+09:00", "attributed"),
-    ("2026-10-20T12:00:50.000001Z", None),
-    ("2026-10-20T11:59:59.999999Z", None),
+    ("2026-10-20T12:00:50.000001Z", "unknown"),
+    ("2026-10-20T11:59:59.999999Z", "unknown"),
 ])
 def test_inclusive_start_grace_and_timezone(tmp_path, start, expected):
     result = report(tmp_path, provider_spec(tmp_path, [row(start=start)]))
     assert (result["records"][0]["attribution"]["status"] if result["records"] else None) == expected
-    assert result["components"][0]["cost"] == (.003 if expected else None)
+    assert result["components"][0]["cost"] == (.003 if expected == "attributed" else None)
 
 
 def test_completion_cannot_replace_missing_request_start(tmp_path):
@@ -158,8 +158,9 @@ def test_duplicate_request_and_duplicate_sources_count_once(tmp_path):
 
 def test_conflicting_duplicate_excludes_both_amounts(tmp_path):
     result = report(tmp_path, provider_spec(tmp_path, [row(), row(cost="8")]))
-    assert len(result["records"]) == 1
-    assert "Conflicting" in result["records"][0]["exclusion"]
+    assert len(result["records"]) == 2
+    assert {item["cost"] for item in result["records"]} == {.003, 8}
+    assert all("Conflicting" in item["exclusion"] and item["conflicting_record_ids"] for item in result["records"])
     assert result["components"][0]["cost"] is None
     assert result["components"][0]["known_subtotal"] is None
 

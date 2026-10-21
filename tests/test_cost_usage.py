@@ -72,7 +72,10 @@ def test_no_request_id_dedup_only_repeated_source_rows(tmp_path):
 
 def test_process_session_namespace_keeps_counter_reuse(tmp_path):
     spec = specification()
-    spec["sources"].append({**copy.deepcopy(spec["sources"][1]), "id": "other-session", "session": "second-process-session"})
+    second_log = tmp_path / "second-process.log"
+    second_log.write_text((FIXTURES / "pp.log").read_text(encoding="utf-8").replace("pid=42", "pid=43"), encoding="utf-8")
+    spec["sources"].append({**copy.deepcopy(spec["sources"][1]), "id": "other-session", "session": "second-process-session",
+                            "process_id": 43, "path": str(second_log)})
     result = report(tmp_path, spec)
     assert result["components"][0]["all_bound_internal_usage"]["calls"] == 4
     assert result["components"][0]["all_bound_internal_usage"]["logical_requests"] == 4
