@@ -6,7 +6,7 @@ This is the automatic quality layer for [issue #6](https://github.com/kapitalism
 
 Freeze these choices with the comparison revision in #8. They are implementation defaults, not independently validated measures of translation accuracy.
 
-- ESA receives the source reference, target language, two earlier unscored reference turns, and interpreted final output in display order. That output already includes temporally assigned unaligned output. Preserve #5 exclusions, reconstruction uncertainty, partial references, and automatic Japanese-reference limitations.
+- ESA receives the source reference, target language, two earlier unscored reference turns, and interpreted final output in display order. That output includes temporally assigned role-confirmed translation with unknown correspondence, not unresolved-role mixed text. Preserve #5 exclusions, reconstruction uncertainty, partial references, and automatic Japanese-reference limitations.
 - Application, engine, creator, price, latency, capture IDs, and report metadata are not sent to the judge. Speaker identities are pseudonymized consistently within a call. Reference/output content is untrusted data, not instructions. Blinding metadata does not promise that linguistic content can never reveal its origin.
 - Each judgment starts an independent conversation. Configurations are shuffled within shared-source groups with a recorded seed; earlier judgments are never conversation context. Queue resume does not resume a judge conversation.
 - ESA requests minor/major error spans and a 0–100 score. In `contextual-esa-tone-v2`, the judge supplies exact quoted `text` and a mandatory positive, 1-based `occurrence` within the selected source/output, counting overlapping matches. Python derives half-open Unicode-codepoint `start`/`end` offsets for the normalized result; the judge no longer counts characters. Raw responses remain unchanged. Nonexact quotes, invalid occurrences and model-supplied offset fields are rejected rather than repaired. Omissions quote missing source content; an entirely empty output may instead use an empty output omission with occurrence 1, normalized to `[0,0)`. Conversation context and roughly 30-second segments modify standard GEMBA-ESA practice.
@@ -26,6 +26,10 @@ python -m bench.cli quality report --root .data/quality/pilot --output .data/qua
 ```
 
 Repeat `--report` to assemble configurations from multiple reports. Preparation freezes the inputs, seed, sample membership, and prompts; use a new root for changed inputs or prompt versions. `--seed` defaults to `20261020`. The input reports remain unchanged.
+
+An extraction-role exclusion retains the record with `input: null`, `input_unavailable_reason: "unresolved_output_role"` and the affected segment's `unresolved_output_ids`. No ESA, tone or MetricX job is created for it; coverage and raw identities remain visible. Null input is not an empty output string and must not be scored as an omission. Reports and MetricX lookup retain this unavailable state; externally supplied scores cannot override input eligibility.
+
+Explicit legacy `pattern_mismatch_unknown_translation` artifacts are rejected before new scoring/composition, including frozen-plan loading. Rederive corrected metrics from retained raw observations and prepare a new queue. Do not edit historical reports or frozen queues; this safety boundary does not change valid historical matched inputs or judge prompts.
 
 ### Explicit core-only execution scope
 

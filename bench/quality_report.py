@@ -16,6 +16,8 @@ def mean(values):
 
 
 def metricx_result(data, history):
+    if data is None:
+        return None
     identity = fingerprint([data["source_text"], data["output_text"]])
     matches = [call for call in history if call["input_hash"] == identity]
     return matches[-1]["result"] if matches else None
@@ -85,6 +87,9 @@ def join_isolated(report, index, *, include_tone=True):
             quality.pop("tone_score", None)
             quality.pop("tone_provenance", None)
         quality["metricx_score"] = None
+        if quality.get("unresolved_output_ids"):
+            quality["quality_score_reason"] = "unresolved_output_role"
+            continue
         matches = [row for row in index.values() if row["segment"].get("kind") == "isolated"
                    and row["segment"].get("attempt_id") == isolated.get("attempt_id") and row["segment"].get("eligible") is True
                    and [item["text"] for item in row["segment"]["reference"]] == [item["text"] for item in quality.get("reference", [])]

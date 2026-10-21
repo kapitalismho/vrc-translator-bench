@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 
 from .metrics_stats import paired_comparisons
+from .metrics_alignment import require_current_extraction
 from .storage import atomic_json, utc_now
 
 
@@ -37,6 +38,7 @@ def _reports(report_paths, quality_report_paths):
                         or not isinstance(report.get("sentences"), list)
                         or not isinstance(report.get("quality_segments"), list)):
                     raise ValueError(f"Expected metrics report with run, synthetic, sentences and quality_segments: {path}#{pointer}")
+                require_current_extraction(report.get("outputs", []))
                 source_hash = report.get("quality_provenance", {}).get("source_report_sha256", None if joined else checksum)
                 if not isinstance(source_hash, str) or not source_hash:
                     raise ValueError(f"Joined metrics report lacks quality_provenance.source_report_sha256: {path}#{pointer}")

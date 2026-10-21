@@ -4,7 +4,7 @@ import json
 from collections import defaultdict
 from pathlib import Path
 
-from .metrics_alignment import Alignment, cache_binding, final_outputs, interpret
+from .metrics_alignment import Alignment, cache_binding, final_outputs, interpret, is_translation
 from .metrics_inputs import VERSION, ingest, metric
 from .storage import atomic_json, utc_now
 
@@ -19,6 +19,7 @@ DEFINITIONS = {
     "unaligned": "translation outputs without linked reference sentences / all nonempty interpreted chatbox/input translation outputs, including known-unrelated, resends and late/orphan output; unknown and known-unrelated statuses remain distinct",
     "isolated": "all output in [utterance start, utterance end + 10 seconds], inclusive, no language alignment",
     "quality": "about 30 seconds at reference sentence ends; TWO previous reference turns as unscored context; a merged output crossing segment cuts has one display placement and all source-linked segments are scoring N/A until allocation is supported",
+    "output_role": "Unresolved extraction retains raw endpoint activity and possible correspondence, never translated-content or quality credit",
     "uncertainty": "session-clustered percentile 95% bootstrap; excludes reference, alignment and judge bias",
     "policies": "product failure included; operational-invalid and unsupported N/A retained but excluded from headline measurement denominators; first eligible attempt primary; repeats separate; no overall score",
 }
@@ -162,9 +163,22 @@ def assemble_segments(sentences, turns, outputs, scores):
                            "eligible": False, "reference_eligible": False, "reason": "No captured source timeline in this clock/config", "reference": [], "context": [], "output_ids": [],
                            "unaligned_output_ids": [], "quality_score": None, "start_ns": None, "end_ns": None}
                 segments.append(segment)
-        segment["output_ids"].append(output["id"])
-        if not aligned:
-            segment["unaligned_output_ids"].append(output["id"])
+        if is_translation(output):
+            segment["output_ids"].append(output["id"])
+            if not aligned:
+                segment["unaligned_output_ids"].append(output["id"])
+        else:
+            possible = set(output["alignment"].get("candidate_ids", []))
+            affected = [item for item in segments if any(row["sentence_id"] in possible for row in item["reference"])]
+            if capture_kind not in ("chunk", "repeat"):
+                affected = list(candidates)
+            if segment not in affected:
+                affected.append(segment)
+            output["unresolved_quality_segment_ids"] = [item["id"] for item in affected]
+            for item in affected:
+                item.setdefault("unresolved_output_ids", []).append(output["id"])
+                item["eligible"] = False
+                item["quality_eligibility_reason"] = "unresolved_output_role"
         output["quality_segment_id"] = segment["id"]
     by_id = {output["id"]: output for output in outputs}
     group_locations = defaultdict(set)
@@ -174,12 +188,15 @@ def assemble_segments(sentences, turns, outputs, scores):
         segment.setdefault("source_linked_output_ids", [])
         segment.setdefault("cross_segment_output_ids", [])
         segment.setdefault("quality_eligibility_reason", None)
+        segment.setdefault("unresolved_output_ids", [])
         selected = [by_id[identity] for identity in segment["output_ids"]]
         final = final_outputs(selected)
         segment["final_output"] = [{"output_id": row["id"], "text": row["text"], "relation": row["relation"]} for row in final]
         related = [by_id[identity] for identity in dict.fromkeys(segment["output_ids"] + segment["source_linked_output_ids"])]
         segment["cross_segment_group_ids"] = sorted({row["group_id"] for row in related if len(group_locations[row["group_id"]]) > 1})
         segment["reconstruction_status"] = "N/A_unresolved_merged_output_allocation" if segment["cross_segment_output_ids"] else "unknown_observed_order_only" if segment["cross_segment_group_ids"] or any(row["relation"] == "unknown" for row in selected) else "estimated_under_versioned_rules"
+        if segment["unresolved_output_ids"]:
+            segment["reconstruction_status"] = "N/A_unresolved_output_role"
     return segments
 
 
@@ -195,8 +212,10 @@ def isolated_results(attempts, outputs):
             results.append({"attempt_id": attempt["id"], "status": "N/A", "reason": "Utterance timing unavailable"})
             continue
         deadline = end + 10_000_000_000
-        selected = [output for output in outputs if output["raw"].get("config") == attempt["config"] and output["raw"].get("clock_session") == attempt["clock_session"]
+        observed = [output for output in outputs if output["raw"].get("config") == attempt["config"] and output["raw"].get("clock_session") == attempt["clock_session"]
                     and start <= output["raw"]["t_ns"] <= deadline]
+        selected = [output for output in observed if is_translation(output)]
+        unresolved = [output["id"] for output in observed if not is_translation(output)]
         changes = [output for output in selected if output["content_changed"] is True]
         late = [output["id"] for output in outputs if output["raw"].get("config") == attempt["config"] and output["raw"].get("clock_session") == attempt["clock_session"]
                 and output["raw"]["t_ns"] > deadline and (output["raw"].get("attempt") == attempt["id"] or any(str(identity).startswith(f"{attempt['id']}:") for identity in output["alignment"]["sentence_ids"]))]
@@ -204,16 +223,19 @@ def isolated_results(attempts, outputs):
                         "attempt_status": attempt["state"], "outcome": attempt.get("outcome"),
                         "measurement_eligible": attempt["state"] in ("done", "product_failure") and attempt.get("outcome") != "N/A",
                         "output_ids": [row["id"] for row in selected], "late_carryover_ids": late,
+                        "raw_activity_ids": [row["id"] for row in observed], "unresolved_output_ids": unresolved,
                         "carryover_uncertainty": "All in-window output associated by time only; earlier-utterance carryover may contaminate quality",
-                        "status": "response" if selected else "timeout" if attempt.get("covered_until_ns", 0) >= deadline else "incomplete_observation",
-                        "first_from_start": metric((selected[0]["raw"]["t_ns"] - start) / 1e9 if selected else None, None if selected else "No in-window response"),
-                        "first_from_end": metric((selected[0]["raw"]["t_ns"] - end) / 1e9 if selected else None, None if selected else "No in-window response"),
-                        "last_content_change_from_end": metric((changes[-1]["raw"]["t_ns"] - end) / 1e9 if changes and not any(row["content_changed"] is None for row in selected) else None,
-                                                               "Ambiguous or absent content change" if not changes or any(row["content_changed"] is None for row in selected) else None),
+                        "status": "response" if selected else "unknown_output_role" if unresolved else "timeout" if attempt.get("covered_until_ns", 0) >= deadline else "incomplete_observation",
+                        "first_from_start": metric((selected[0]["raw"]["t_ns"] - start) / 1e9 if selected else None, None if selected else "unresolved_output_role" if unresolved else "No in-window response"),
+                        "first_from_end": metric((selected[0]["raw"]["t_ns"] - end) / 1e9 if selected else None, None if selected else "unresolved_output_role" if unresolved else "No in-window response"),
+                        "last_content_change_from_end": metric((changes[-1]["raw"]["t_ns"] - end) / 1e9 if changes and not unresolved and not any(row["content_changed"] is None for row in selected) else None,
+                                                               "Ambiguous or absent content change" if not changes or unresolved or any(row["content_changed"] is None for row in selected) else None),
                         "quality_segment_ids": sorted({row["quality_segment_id"] for row in selected})})
         results[-1]["quality"] = {"reference": [{"text": row["text"], "speaker": row["speaker"], "uncertainty": row["uncertainty"]} for row in refs],
                                   "final_output": [{"output_id": row["id"], "text": row["text"]} for row in final_outputs(selected)],
-                                  "quality_score": attempt.get("isolated_quality_score"), "association": "window_only_no_alignment"}
+                                  "quality_score": None if unresolved else attempt.get("isolated_quality_score"), "association": "window_only_no_alignment",
+                                  "eligible": results[-1]["measurement_eligible"] and not unresolved, "quality_eligibility_reason": "unresolved_output_role" if unresolved else None,
+                                  "unresolved_output_ids": unresolved}
     return results
 
 
@@ -276,7 +298,7 @@ def derive(manifest_path, spec_path, output_path=None, cache_path=None, allow_do
               "nontranslation_observations": nontranslation,
               "quiet_precondition_observations": quiet_observations,
               "isolated": isolated_results(attempts, outputs),
-              "diagnostics": diagnostics(attempts, sentences, outputs, spec),
+              "diagnostics": diagnostics(attempts, sentences, outputs, spec, nontranslation=nontranslation),
               "limitations": ["No actual app readiness inferred; empirical interpretation requires issue #4 evidence",
                               "OSC last update is not semantic completion", "Automatic lexical proposals are uncalibrated; full-run source correspondence requires adjudicated evidence", "No paid services are called",
                               "Prepared reference uncertainty, local-only assets and rights restrictions survive derived reports"]}

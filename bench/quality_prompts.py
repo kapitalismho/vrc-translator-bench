@@ -31,6 +31,8 @@ def fingerprint(value):
 
 
 def blinded_input(segment):
+    if segment.get("unresolved_output_ids"):
+        raise ValueError("unresolved_output_role: quality input unavailable, not an empty translation")
     direction = segment.get("direction")
     if direction not in LANGUAGES:
         raise ValueError(f"Unknown quality direction: {direction}")

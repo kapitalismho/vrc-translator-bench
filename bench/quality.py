@@ -7,6 +7,7 @@ from collections import Counter
 from pathlib import Path
 
 from .activity import exclusive_activity
+from .metrics_alignment import require_current_extraction
 from .quality_prompts import SUPPORTED_VERSIONS, VERSION, blinded_input, fingerprint, parse_result, prompt, sanity_segments
 from .quality_sampling import freeze_samples, interleaved
 from .quality_store import QualityStore
@@ -18,6 +19,11 @@ def load_plan(root):
     plan = json.loads(path.read_text(encoding="utf-8"))
     if plan.get("version") not in SUPPORTED_VERSIONS or plan.get("binding") != fingerprint({key: value for key, value in plan.items() if key != "binding"}):
         raise ValueError("Frozen quality plan version/binding mismatch; prepare a new root for changed inputs/prompts")
+    for item in plan["reports"]:
+        require_current_extraction(item["report"].get("outputs", []))
+    for record in plan["records"]:
+        if record["input"] is None and record["segment"].get("eligible") is True:
+            raise ValueError("Frozen quality plan has an eligible record with unavailable input; prepare a new queue")
     for job in plan["jobs"]:
         if job["prompt"].get("version") != plan["version"] or job.get("prompt_hash") != fingerprint(job["prompt"]):
             raise ValueError("Frozen quality job prompt version/hash mismatch")
@@ -56,17 +62,22 @@ def prepare(reports, root, seed=20261020, *, skip_tone=False, skip_korean_review
             report = json.loads(path.read_text(encoding="utf-8"))
             if report.get("schema_version") != 1 or not isinstance(report.get("quality_segments"), list):
                 raise ValueError("Expected issue5 metrics report with quality_segments")
+            require_current_extraction(report.get("outputs", []))
             originals.append({"sha256": checksum, "path": str(path.resolve()), "report": report})
             ids = set()
             for segment in report["quality_segments"]:
                 if segment["id"] in ids:
                     raise ValueError("Duplicate quality segment identity within metrics report")
                 ids.add(segment["id"])
-                data = blinded_input(segment)
+                unavailable = bool(segment.get("unresolved_output_ids"))
+                if unavailable and segment.get("eligible") is True:
+                    raise ValueError("unresolved_output_role quality segment must be ineligible; rederive metrics")
+                data = None if unavailable else blinded_input(segment)
                 if segment.get("eligible") is True and not data["source_text"].strip():
                     raise ValueError("Eligible quality segment has no reference text")
                 key = fingerprint([checksum, segment["id"]])
-                records.append({"key": key, "report_sha256": checksum, "segment": segment, "input": data})
+                records.append({"key": key, "report_sha256": checksum, "segment": segment, "input": data,
+                                **({"input_unavailable_reason": "unresolved_output_role"} if unavailable else {})})
         if not records:
             raise ValueError("No quality segments in input reports")
         samples = freeze_samples(records, seed, include_tone=not skip_tone)

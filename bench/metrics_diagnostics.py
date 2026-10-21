@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from collections import Counter
 
-from .metrics_alignment import final_outputs
+from .metrics_alignment import final_outputs, is_translation
 from .metrics_inputs import metric, source_time
 
 
@@ -144,7 +144,7 @@ def source_cer(refs, outputs, evidence):
                   guidance="Japanese automatic-reference CER is guidance, not validated accuracy")
 
 
-def diagnostics(attempts, sentences, outputs, spec):
+def diagnostics(attempts, sentences, outputs, spec, *, nontranslation=()):
     evidence = spec.get("evidence", {})
     by_id = {row["id"]: row for row in outputs}
     rows = []
@@ -208,6 +208,8 @@ def diagnostics(attempts, sentences, outputs, spec):
                      "segmentation_interpretation": "Estimated correspondence only; splitting/merging alone is neither good nor bad translation",
                      "messages_per_speaking_minute": metric(len(observed) * 60 / speaking if speaking else None, None if speaking else "Annotated speaking duration absent", "messages/minute", numerator=len(observed), denominator_seconds=speaking,
                                                             attribution="capture-context output, not asserted source correspondence"),
+                     "output_role_counts": dict(Counter(row.get("output_role", "translation") for row in observed)),
+                     "unresolved_output_ids": [row["id"] for row in observed if not is_translation(row)],
                      "duplicates": metric(sum(row["duplicate_observed"] for row in observed), None, "messages", denominator=len(observed)),
                      "order_changes": metric(sum(right < left for left, right in zip(order, order[1:])) if len(order) > 1 and not unknown else None, "At least two supported messages and determinate correspondence required" if len(order) < 2 or unknown else None, "adjacent_order_inversions", denominator=max(len(order) - 1, 0)),
                      "revisions": metric(sum(row["revision_supported"] for row in revisions) if any(row["interpretation"]["supports"].get("revision") for row in selected) else None,
@@ -232,9 +234,16 @@ def diagnostics(attempts, sentences, outputs, spec):
             clean_reason = ("Quiet precondition not met; unresolved carryover prevents clean nonspeech attribution"
                             if quiet_met is False else "Quiet precondition observation unavailable"
                             if quiet_met is None else "Playback/cable timing unavailable" if not valid else None)
-            selected = [row["id"] for row in outputs if valid and row["raw"].get("clock_session") == attempt["clock_session"] and row["raw"].get("config") == attempt["config"]
+            observed = [row for row in outputs if valid and row["raw"].get("clock_session") == attempt["clock_session"] and row["raw"].get("config") == attempt["config"]
                         and start_ns <= row["raw"]["t_ns"] < end_ns]
+            source_only = [row for row in nontranslation if valid and row["raw"].get("clock_session") == attempt["clock_session"] and row["raw"].get("config") == attempt["config"]
+                           and start_ns <= row["raw"]["t_ns"] < end_ns]
+            selected = [row["id"] for row in observed]
             nonspeech.append({"attempt_id": attempt["id"], **interval, "count": metric(len(selected) if valid else None, None if valid else "Playback/cable timing unavailable", "observed_outputs"),
+                              "raw_activity_count": metric(len(observed) + len(source_only) if valid else None, None if valid else "Playback/cable timing unavailable", "nonempty_chatbox_inputs"),
+                              "known_translation_count": metric(sum(is_translation(row) for row in observed) if valid else None, None if valid else "Playback/cable timing unavailable", "known_translation_outputs"),
+                              "unresolved_output_ids": [row["id"] for row in observed if not is_translation(row)],
+                              "source_only_output_ids": [row["id"] for row in source_only],
                               "clean_nonspeech_count": metric(len(selected) if valid and quiet_met is True else None,
                                                               clean_reason, "observed_outputs"),
                               "quiet_precondition_met": quiet_met,
@@ -248,7 +257,8 @@ def diagnostics(attempts, sentences, outputs, spec):
         refs = [row for row in sentences if row["chunk_id"] == clip["chunk_id"] and clip.get("start", float("-inf")) <= row["end"] and row["start"] <= clip.get("end", float("inf"))]
         ids = {row["id"] for row in refs}
         common.append({"selection": clip, "timelines": [{"output_id": row["id"], "t_ns": row["raw"]["t_ns"], "clock_session": row["raw"].get("clock_session"),
-                                                         "text": row["text"], "relation": row["relation"], "alignment": row["alignment"]}
+                                                         "text": row["text"], "raw_text": row["raw"]["args"][0], "output_role": row.get("output_role", "translation"),
+                                                         "relation": row["relation"], "alignment": row["alignment"]}
                                                         for row in outputs if ids.intersection(row["alignment"]["sentence_ids"]) or any(
                                                             row["raw"].get("config") == ref["config"] and row["raw"].get("clock_session") == ref["clock_session"]
                                                             and ref["start_ns"] is not None and ref["end_ns"] is not None

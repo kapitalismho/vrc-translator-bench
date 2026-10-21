@@ -17,6 +17,15 @@ def tokens(text):
     return re.findall(r"[\u3040-\u30ff\u3400-\u9fff\uac00-\ud7af]|[^\W_]+|[^\w\s]", text, re.UNICODE)
 
 
+def is_translation(output):
+    return output.get("output_role", "translation") == "translation" and output.get("extraction") != "pattern_mismatch_unknown_translation"
+
+
+def require_current_extraction(outputs):
+    if any(row.get("extraction") == "pattern_mismatch_unknown_translation" for row in outputs):
+        raise ValueError("Legacy unresolved text role: rederive metrics and prepare a new quality queue; retained reports/queues are not rewritten")
+
+
 def interpret(events, rules):
     outputs, nontranslation, previous = [], [], {}
     for event in events:
@@ -30,27 +39,28 @@ def interpret(events, rules):
             raise ValueError("Per-app rules require version and evidence")
         text, source = event["args"][0], None
         extraction = "full_message"
+        role = "translation"
         if rule.get("text_pattern"):
             match = re.fullmatch(rule["text_pattern"], text, re.DOTALL)
             if match is None:
-                extraction = "pattern_mismatch_unknown_translation"
-                style = "unknown"
+                extraction = "pattern_mismatch_unresolved_role"
+                text, role, style = None, "unresolved", "unknown"
             else:
                 text = match.group("translation")
                 source = match.groupdict().get("source")
-        if not text.strip():
+        if text is not None and not text.strip():
             nontranslation.append({"id": f"{event.get('clock_session', 'unknown')}:{event['recv_seq']}", "raw": event,
-                                   "text": text, "source_text": source, "extraction": extraction,
+                                   "text": text, "source_text": source, "extraction": extraction, "output_role": "source_only",
                                    "reason": "empty_extracted_translation", "rules_version": rule.get("version"),
                                    "rule_sha256": hashlib.sha256(json.dumps(rule, sort_keys=True, ensure_ascii=False).encode()).hexdigest()})
             continue
         key = (event.get("clock_session"), event.get("config"), event.get("direction"))
         prior = previous.get(key)
         identity = f"{event.get('clock_session', 'unknown')}:{event['recv_seq']}"
-        duplicate = prior is not None and prior["text"] == text
-        explicit = rule.get("relationships", {}).get(identity)
+        duplicate = role == "translation" and prior is not None and prior["text"] == text
+        explicit = rule.get("relationships", {}).get(identity) if role == "translation" else None
         relation = "new" if style == "append" else "unknown"
-        parent = prior["id"] if prior else None
+        parent = prior["id"] if prior and role == "translation" else None
         group = identity
         if explicit:
             relation = explicit["relation"]
@@ -59,19 +69,20 @@ def interpret(events, rules):
                 raise ValueError("Invalid explicit relationship")
             if relation in ("revision", "pagination", "resend"):
                 linked = next((row for row in outputs if row["id"] == parent), None)
-                if linked is None or linked["raw"].get("clock_session") != event.get("clock_session") or linked["raw"].get("config") != event.get("config"):
-                    raise ValueError("Grouping parent must be earlier output in the same config and clock")
+                if linked is None or not is_translation(linked) or linked["raw"].get("clock_session") != event.get("clock_session") or linked["raw"].get("config") != event.get("config"):
+                    raise ValueError("Grouping parent must be earlier translated output in the same config and clock")
                 group = linked["group_id"]
         changed = False if relation == "resend" else None if relation == "unknown" else True
         output = {"id": identity, "raw": event, "text": text, "source_text": source,
-                  "extraction": extraction, "relation": relation, "parent_id": parent,
+                  "extraction": extraction, "output_role": role, "relation": relation, "parent_id": parent,
                   "group_id": group, "content_changed": changed, "duplicate_observed": duplicate,
                   "interpretation": {"version": rule.get("version"), "evidence": rule.get("evidence", []),
                                      "rule_sha256": hashlib.sha256(json.dumps(rule, sort_keys=True, ensure_ascii=False).encode()).hexdigest(),
                                      "style": style, "supports": rule.get("supports", {}),
                                      "uncertainty": rule.get("uncertainty", "unknown" if style == "unknown" else "estimated from explicit rules")}}
         outputs.append(output)
-        previous[key] = output
+        if role == "translation":
+            previous[key] = output
     return outputs, nontranslation
 
 
@@ -137,6 +148,10 @@ class Alignment:
 
     def align(self, output, candidates, all_sentences):
         identity = output["id"]
+        if not is_translation(output):
+            return {"status": "unknown", "sentence_ids": [], "method": "unresolved_output_role",
+                    "reason": "unresolved_output_role", "candidate_ids": [row["id"] for row in candidates],
+                    "cached_correspondence_rejected": identity in self.links}
         if identity in self.links:
             entry = dict(self.links[identity])
             if entry.get("binding") != cache_binding(output, all_sentences):
@@ -204,6 +219,8 @@ def final_outputs(outputs):
     final = []
     positions = {}
     for output in outputs:
+        if not is_translation(output):
+            continue
         parent_position = positions.get(output.get("parent_id"))
         if output["relation"] == "resend":
             if parent_position is not None:

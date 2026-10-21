@@ -5,6 +5,7 @@ from collections import Counter, defaultdict
 from itertools import combinations
 
 from .metrics_inputs import metric
+from .metrics_alignment import is_translation, require_current_extraction
 
 
 def quantile(values, probability):
@@ -129,6 +130,7 @@ def paired_comparisons(sentences, quality_segments, iterations, seed):
 
 
 def aggregate(report, options):
+    require_current_extraction(report["outputs"])
     iterations, seed = options.get("iterations", 2000), options.get("seed", 20261020)
     if not isinstance(iterations, int) or iterations < 1:
         raise ValueError("Bootstrap iterations must be a positive integer")
@@ -166,6 +168,8 @@ def aggregate(report, options):
         selected_outputs = []
         selection_counts = Counter()
         for output in report["outputs"]:
+            if not is_translation(output):
+                continue
             population = attribution[output["id"]]
             linked = population["linked"]
             if source_ids.intersection(row["id"] for row in linked):
@@ -176,6 +180,9 @@ def aggregate(report, options):
                 selection_counts["assigned_quality_segment"] += 1
         result["unaligned_output_rate"] = metric(sum(not row["alignment"]["sentence_ids"] for row in selected_outputs) / len(selected_outputs) if selected_outputs else None,
                                                 None if selected_outputs else "No observed translation output in this capture/source population", "fraction_of_observed_translation_outputs", denominator=len(selected_outputs))
+        result["output_role_coverage"] = {
+            "known_translation_outputs": len(selected_outputs),
+            "unresolved_output_ids": sorted({identity for segment in segments for identity in segment.get("unresolved_output_ids", [])})}
         result["unaligned_output_rate"]["population_attribution"] = {
             "selection_basis_counts": dict(selection_counts),
             "ambiguous_output_ids": [row["id"] for row in selected_outputs if attribution[row["id"]]["ambiguous"]],
@@ -222,12 +229,17 @@ def aggregate(report, options):
                     "with_resumed": {**summary(rows, iterations, seed), **turn_summary(grouped_turns[key], iterations, seed)},
                     "without_resumed": {**summary([row for row in rows if not row["resumed"]], iterations, seed),
                                         **turn_summary([turn for turn in grouped_turns[key] if not turn["resumed"]], iterations, seed)}} for key, rows in grouped.items()]
-    output_count = len(report["outputs"])
+    translations = [row for row in report["outputs"] if is_translation(row)]
+    output_count = len(translations)
     return {"aggregates": aggregates, "paired": paired, "repeats": repeats, "repeat_variation": repeat_variation, "resume_sensitivity": sensitivity,
             "output_population": {"observed_translation_outputs": output_count,
-                                  "alignment_status_counts": dict(Counter(row["alignment"]["status"] for row in report["outputs"])),
+                                  "observed_nonempty_chatbox_inputs": len(report["outputs"]) + len(report.get("nontranslation_observations", [])),
+                                  "output_role_counts": dict(Counter([row.get("output_role", "translation") for row in report["outputs"]]
+                                                                     + [row.get("output_role", "source_only") for row in report.get("nontranslation_observations", [])])),
+                                  "unresolved_output_ids": [row["id"] for row in report["outputs"] if not is_translation(row)],
+                                  "alignment_status_counts": dict(Counter(row["alignment"]["status"] for row in translations)),
                                   "unassigned_output_ids": [identity for identity, population in attribution.items() if population["unassigned"]],
                                   "ambiguous_population_output_ids": [identity for identity, population in attribution.items() if population["ambiguous"]],
-                                  "unaligned_output_rate": metric(sum(not row["alignment"]["sentence_ids"] for row in report["outputs"]) / output_count if output_count else None,
+                                  "unaligned_output_rate": metric(sum(not row["alignment"]["sentence_ids"] for row in translations) / output_count if output_count else None,
                                                                   None if output_count else "No translation output", "fraction_of_observed_translation_outputs", denominator=output_count),
                                   "orphans": sum(row.get("quality_segment_id", "").startswith("orphan:") for row in report["outputs"])} }
