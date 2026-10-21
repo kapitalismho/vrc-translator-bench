@@ -2,20 +2,22 @@
 
 ## Finding and version boundary
 
-All four profiles are **owner-deferred / blocked**, not ready or unsupported. The owner explicitly excluded PP1–PP4 from the current empirical pass: do not launch, update, build or run PuriPuly for these pilots. The historical 2026-10-20 installed snapshot identified **2.8.2**, whose public CLI was exercised with isolated configuration and an empty encrypted secret store. The inspected development checkout identified **2.9.0**, commit `a52fcc97a93d34e040545f388e77a55724cf3c91`. Do not transfer capabilities between these builds or treat that historical snapshot as a new current-version observation.
+The owner reported PuriPuly updated and **removed the execution deferral for PP1–PP4**. All four profiles return to preparation under the existing protocol. Their catalogue findings remain **blocked pending updated-build runtime/access/audio evidence**, not owner-excluded, ready or unsupported. The exact updated installed version/hash is not yet recorded. The historical 2026-10-20 installed snapshot identified **2.8.2**, whose public CLI was exercised with isolated configuration and an empty encrypted secret store. The inspected development checkout identified **2.9.0**, commit `a52fcc97a93d34e040545f388e77a55724cf3c91`. Neither historical identity establishes the updated installed version.
 
-The deferral supersedes the earlier planned owner update to 2.9.0. No completed update, Index execution or new PuriPuly translation is claimed. Keep earlier control-only evidence intact. Missing CPU assets in the fresh isolated probe never established that the owner's normal model store was empty.
+The former PP-only skip/no-launch restriction is superseded by the [owner decision](../../profiles/evidence/issue45/decisions-and-candidate.json). Keep earlier control-only evidence intact. Missing CPU assets in the fresh isolated probe never established that the owner's normal model store was empty. The update report and deferral withdrawal do not claim Index execution or a new PuriPuly translation; this decision change launches no application or measurement.
 
 | Profile | Planned route | Discovered constraint |
 |---|---|---|
-| PP1 | Owner-accepted mixed Gemma 4 26B/31B / OpenRouter + Gemini 3.5 Transcribe | Public `gemma4_26b_31b` selection uses a 26B/31B list and latency-based routing. The owner accepted that mixed route; actual returned model/provider, separate access and audio output remain unobserved and are now deferred. |
-| PP2 | GPT 6 Luna / Sign in with ChatGPT + Gemini 3.5 Transcribe | `gpt_6_luna` / `chatgpt` is supported in the source and installed choices. No benchmark subscription authorization, entitlement, quota or completed translation was observed. No API-paid fallback is authorized. |
-| PP3 | Index Translator + Gemini 3.5 Transcribe | Installed 2.8.2 choices lack `index_translate_35b`; inspected 2.9.0 source supports it. A matching installed build and isolated Google project are required. “Free” translation does not establish zero ASR charges. |
-| PP4 | Index Translator + CPU-auto ASR | Same historical installed Index mismatch. The isolated probe's missing assets are not a claim about the normal model store. No CPU model load/recognition was performed; further observation is owner-deferred. |
+| PP1 | Owner-accepted mixed Gemma 4 26B/31B / OpenRouter + Gemini 3.5 Transcribe | Public `gemma4_26b_31b` selection uses a 26B/31B list and latency-based routing. The owner accepted that mixed route; actual returned model/provider, separate access and audio output remain unobserved. |
+| PP2 | GPT 6 Luna / Sign in with ChatGPT + Gemini 3.5 Transcribe | `gpt_6_luna` / `chatgpt` was supported in the inspected source and historical installed choices. Existing permitted accounts may be used; runtime entitlement, quota and completed translation remain unverified. No API-paid fallback is authorized. |
+| PP3 | Index Translator + Gemini 3.5 Transcribe | Historical 2.8.2 choices lacked `index_translate_35b`; inspected 2.9.0 source supported it. Observe the updated build's effective Index route and isolated Google project. “Free” translation does not establish zero ASR charges. |
+| PP4 | Index Translator + CPU-auto ASR | The old installed Index mismatch is historical, not a claim about the updated build. The isolated probe's missing assets are not a claim about the normal model store. Actual CPU model load/recognition remains unobserved. |
 
 The source constant for the Gemini ASR route is `gemini-3.5-transcribe-live`; do not replace it with a similarly named file-transcription API. CPU auto-selection must remain `local_cpu_auto`, with actual language-specific runtime model recorded after each direction change. Source intent is not proof that weights loaded or that inference ran on CPU.
 
-## Historical public control procedure — do not execute during deferral
+## Historical public control procedure
+
+These commands document the earlier 2.8.2 control probe, not the current execution method or confirmed updated-build interfaces. Resumed PP preparation follows the [existing actual-GUI requirement](../profiles.md#gui-preparation-of-installed-applications); removing the deferral does not revoke that requirement.
 
 Use the same explicit `--config <dedicated-settings-path>` on every command. A distinct config alone does **not** isolate Windows keyring credentials: the default keyring service is shared. Use a dedicated Windows benchmark account, or initialize a new canonical config with `intent.secrets.backend: encrypted_file` and a private relative `encrypted_file_path`, and supply `PURIPULY_HEART_SECRETS_PASSPHRASE` only in the owned process environment. Clear inherited provider credential variables. Do not copy personal settings or secrets. The isolated probe used fresh APPDATA/LOCALAPPDATA/USERPROFILE directories, an environment allowlist and no provider credentials.
 
@@ -61,7 +63,7 @@ Language codes observed in choices include `en`, `ja`, `zh-CN`, `ko`. Map D1 en�
 
 Provider changes, only after inspecting the selected build's choices:
 
-- PP1: `stt.provider: gemini_transcribe`, `translation.model: gemma4_26b_31b`, `translation.connection: openrouter` describes the discovered mixed-model route, which the owner accepted before deferring all PP execution. Preserve the mixed26B/31B identity; do not launch this profile during the deferral.
+- PP1: `stt.provider: gemini_transcribe`, `translation.model: gemma4_26b_31b`, `translation.connection: openrouter` describes the discovered mixed-model route accepted by the owner. Preserve the mixed26B/31B identity after the deferral withdrawal.
 - PP2: `stt.provider: gemini_transcribe`, `translation.model: gpt_6_luna`, `translation.connection: chatgpt`. `auth login chatgpt --open-browser` is an explicit operator action; `auth status` must confirm it. Do not enroll or purchase a fallback.
 - PP3: `stt.provider: gemini_transcribe`, `translation.model: index_translate_35b`, `translation.connection: public_api`, only on a build advertising these choices.
 - PP4: as PP3, but `stt.provider: local_cpu_auto`. Prepare required assets through public `models` commands; record `models status` and `asr status`, not guessed CPU model IDs.

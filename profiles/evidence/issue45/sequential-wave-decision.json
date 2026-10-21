@@ -5,7 +5,7 @@
   "withdrawal_date": "2026-10-21",
   "owner_withdrawal": "The owner rejected the unreported scheduling change and instructed that it be discarded. The S01-S10 replacement is no longer an active or authorized comparison plan.",
   "authority_correction": "The earlier Director prefreeze-discretion claim did not establish owner agreement to discard simultaneous comparison. Consequential comparison-design changes must be reported and agreed with the owner before application.",
-  "current_policy": "Restore the original W1-W4 membership with concurrent profiles within each wave. Preserve the separate owner deferral of PP1-PP4 execution. Missing readiness/isolation evidence remains an explicit blocker; it does not authorize automatic serialization, new qualification campaigns or app execution.",
+  "current_policy": "Restore the original W1-W4 membership with concurrent profiles within each wave. The owner subsequently reported PuriPuly updated and removed the PP1-PP4 execution deferral; see decisions-and-candidate.json. PP returns to preparation under the existing protocol. Missing readiness/isolation evidence remains an explicit blocker; it does not authorize automatic serialization or new qualification campaigns.",
   "withdrawn_policy": "One active competitor profile at a time (S01-S10). Retained here only to explain historical preparation records; do not use for the main comparison.",
   "restored_parent_working_waves": [
     {"id": "W1", "profiles": ["PP4", "KIKI2", "VRCLT1", "VRCT3"]},
@@ -13,12 +13,12 @@
     {"id": "W3", "profiles": ["VRCT2", "VRCLT2", "PP2"]},
     {"id": "W4", "profiles": ["VRCS1", "PP3", "VRCLS1"]}
   ],
-  "restored_plan_status": "Original four-wave comparison plan restored; not a frozen revision, proof of simultaneous readiness, or permission to execute deferred profiles.",
+  "restored_plan_status": "Original four-wave comparison plan restored; not a frozen revision or proof of simultaneous readiness. The later PP deferral withdrawal does not waive preflight.",
   "withdrawn_profile_order": ["VRCS2", "VRCS1", "VRCLT2", "VRCLT1", "VRCT1", "VRCT2", "VRCT3", "VRCLS1", "KIKI1", "KIKI2"],
   "historical_observations": "Preserve the actual order, hashes, results and limits of completed individual pilots, including the KIKI1 preplayback crash. Those observations are not a simultaneous comparison and are not rewritten by this withdrawal.",
-  "deferred_profiles": {"profiles": ["PP1", "PP2", "PP3", "PP4"], "execution": "Do not execute, launch, build, update or infer. Restored W1-W4 membership accounts for the planned profiles but does not revoke the separate owner deferral."},
+  "pp_scope_update": {"profiles": ["PP1", "PP2", "PP3", "PP4"], "status": "execution_deferral_withdrawn_by_owner", "decision_evidence": "decisions-and-candidate.json", "execution": "Resume preparation under existing GUI/access/route requirements. Missing updated-build runtime evidence remains a readiness gap, not an owner exclusion."},
   "withdrawn_rationale": "Unverified quota independence and simpler control of potential app/port/local-workload/shared-service contention motivated the agent's serial-preparation choice. These observations did not prove the original four-wave plan impossible or justify an unreported comparison-design change.",
-  "interpretation": "The original simultaneous shared-engine comparison intent is restored. Earlier serial pilots do not supply that comparison. PP pair measurements remain blocked by the separate execution deferral; cumulative quotas and service-side/time variation remain limitations.",
+  "interpretation": "The original simultaneous shared-engine comparison intent is restored. Earlier serial pilots do not supply that comparison. PP pair measurements are still unobserved, but no longer owner-deferred; cumulative quotas and service-side/time variation remain limitations.",
   "qwen_port_addendum": "Preserve the supported workspace-host correction and actual UDP19131 observation. VRCLT1 is in W1 and VRCLT2 is in W3, never concurrent, so observed19131 remains usable across those distinct waves without the withdrawn S03/S04 layout. The former19132 reservation remains superseded; no new audio run or obsolete-port retest is authorized or required by this scheduling withdrawal.",
   "preserved_limits": ["Scheduling does not reset cumulative project/account/public-IP quotas, replenish credit, establish numeric limits or prove current exports.", "OpenRouter provider pinning and response identity remain unverified where apps do not expose them.", "Dynamic control/OSCQuery listeners remain application-specific; no fabricated mute/OSCQuery service or VRChat process is introduced.", "Report concrete preflight blockers and seek owner agreement for any consequential change; do not silently replace the restored comparison design."]
 }

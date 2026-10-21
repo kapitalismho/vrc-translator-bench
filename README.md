@@ -59,7 +59,7 @@ Windows cable calibration/playback and actual GUI-operated microphone-to-transla
 
 ## Application profiles
 
-[Profile preparation](docs/profiles.md) accounts for all 14 planned profiles, exact model/access caveats, observed GUI state and reserved OSC ports. The owner withdrew the unreported sequential replacement; the original W1–W4 concurrent-within-wave plan is restored. All four PuriPuly profiles remain owner-deferred, and restoration does not certify wave readiness or authorize execution. Bounded readiness requires actual audio/OSC evidence, not source availability or saved credentials. The [catalogue](profiles/catalog.json) records current ready/blocked findings and the [withdrawal record](profiles/evidence/issue45/sequential-wave-decision.json) preserves the authority correction.
+[Profile preparation](docs/profiles.md) accounts for all 14 planned profiles, exact model/access caveats, observed GUI state and reserved OSC ports. The owner withdrew the unreported sequential replacement; the original W1–W4 concurrent-within-wave plan is restored. After reporting PuriPuly updated, the owner also removed the PP1–PP4 execution deferral. All four PP profiles return to preparation, with post-update runtime evidence still pending. Bounded readiness requires actual audio/OSC evidence, not source availability, an update report or saved credentials. The [catalogue](profiles/catalog.json) records current ready/blocked findings; the [owner decisions](profiles/evidence/issue45/decisions-and-candidate.json) and [scheduling withdrawal](profiles/evidence/issue45/sequential-wave-decision.json) record the scope corrections.
 
 ```powershell
 python -m tools.prepare_profile_checks
@@ -67,7 +67,7 @@ bench profiles --check-ports
 bench profiles --require-ready
 ```
 
-The first command prepares local ten-second development clips for the three source languages. Catalogue inspection checks static wave/port/workload conflicts; `--require-ready` exits 2 while readiness evidence is missing, including owner-deferred profiles. See the [actual pilot evidence](profiles/evidence/issue45/) and separately labelled [historical control-only evidence](profiles/evidence/puripuly-control.json). [GUI operator instructions](docs/cli.md#actual-gui-development-pilots) connect actual observed GUI actions to the existing runner without hidden application API control.
+The first command prepares local ten-second development clips for the three source languages. Catalogue inspection checks static wave/port/workload conflicts; `--require-ready` exits 2 while readiness evidence is missing, including PP post-update observations. See the [actual pilot evidence](profiles/evidence/issue45/) and separately labelled [historical control-only evidence](profiles/evidence/puripuly-control.json). [GUI operator instructions](docs/cli.md#actual-gui-development-pilots) connect actual observed GUI actions to the existing runner without hidden application API control.
 
 ## Derive measurements
 
@@ -97,7 +97,7 @@ python -m bench.cli costs --spec tests/fixtures/costs/synthetic-spec.json --outp
 python -m bench.cli costs --spec tests/fixtures/costs/real-missing-spec.json --output .data/costs/real-missing.json
 ```
 
-The [cost input and report contract](docs/costs.md) covers selected OpenRouter/Qwen exports, PuriPuly diagnostic usage, dated prices, request-window attribution, subscription/free conditions and explicit normalization coverage for [issue #7](https://github.com/kapitalismho/vrc-translator-bench/issues/7). The first example is synthetic arithmetic; the second uses an actual historical VRCS2 capture with missing provider evidence and therefore null costs. Neither establishes measured billing totals. PP execution remains deferred; permitted actual exports and run-bound PP usage remain empirical prerequisites.
+The [cost input and report contract](docs/costs.md) covers selected OpenRouter/Qwen exports, PuriPuly diagnostic usage, dated prices, request-window attribution, subscription/free conditions and explicit normalization coverage for [issue #7](https://github.com/kapitalismho/vrc-translator-bench/issues/7). The first example is synthetic arithmetic; the second uses an actual historical VRCS2 capture with missing provider evidence and therefore null costs. Neither establishes measured billing totals. PP execution is no longer owner-deferred; permitted actual exports and run-bound PP usage remain empirical prerequisites.
 
 ## Contracts and rights
 

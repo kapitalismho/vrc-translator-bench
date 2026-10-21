@@ -218,7 +218,7 @@ Destinations were observed for VRCT1/VRCS1/VRCS2; the others remain assigned pre
 
 VRCT `VRC_MIC_MUTE_SYNC=false` bypasses mute-driven capture gating. Its ordinary OSC helper can advertise OSCQuery without establishing a dependency on VRChat. VRCS must disable mute synchronization to avoid its unknown-mute-state gate. The actual named pilots produced translated UDP without VRChat or supplied OSCQuery/mute signals. This does not establish that every untested mode has the same dependency. [T12, S11]
 
-The owner withdrew the unreported sequential replacement. Original W1–W4 concurrent-within-wave membership is restored, not certified ready. Preserve the intended simultaneous shared-engine comparisons; individual historical pilots do not supply them. PuriPuly execution remains owner-deferred. Report concrete app, cleanup, attribution and account/project-isolation blockers rather than silently serializing the comparison; any consequential design change requires owner agreement.
+The owner withdrew the unreported sequential replacement. Original W1–W4 concurrent-within-wave membership is restored, not certified ready. Preserve the intended simultaneous shared-engine comparisons; individual historical pilots do not supply them. The owner subsequently removed PuriPuly's execution deferral after reporting its update; PP post-update readiness is still unverified. Report concrete app, cleanup, attribution and account/project-isolation blockers rather than silently serializing the comparison; any consequential design change requires owner agreement.
 
 ## Actual OSC observations and source-derived interpretation
 
