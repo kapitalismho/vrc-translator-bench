@@ -1,6 +1,6 @@
 # Application profile preparation
 
-This is the preparation deliverable for [issue #4](https://github.com/kapitalismho/vrc-translator-bench/issues/4), not a completed comparison. **VRCT1, VRCS1, VRCS2 and VRCLT1 have bounded real-audio readiness evidence; the other catalogue findings remain blocked or owner-deferred.** Engine availability, account access and actual output are not inferred from source support. No profile is declared unsupported merely because its access/pilot is missing.
+This is the preparation deliverable for [issue #4](https://github.com/kapitalismho/vrc-translator-bench/issues/4), not a completed comparison. **VRCT1, VRCS1, VRCS2, VRCLT1 and VRCLT2 have bounded real-audio readiness evidence; the other catalogue findings remain blocked or owner-deferred.** Engine availability, account access and actual output are not inferred from source support. No profile is declared unsupported merely because its access/pilot is missing.
 
 ## GUI preparation of installed applications
 
