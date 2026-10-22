@@ -13,7 +13,7 @@ The separately requested actual-GUI Kikitan execution has now passed D1/D3 check
 
 ## Finding and evidence boundary
 
-For the current D1/D3 execution, the [batch amendment](../../profiles/evidence/issue8/non-puripuly-batch-amendment.json) excludes PuriPuly and preserves concurrent competitor waves. The [quota amendment](../../profiles/evidence/issue8/quota-isolation-amendment.json) accepts shared or unverified quotas: creating separate projects or replacing existing keys is not a prerequisite for this batch. The original isolation instructions below remain cumulative preparation guidance where not superseded. Actual route/device/output checks and first-failure records are still required.
+The [PuriPuly restoration amendment](../../profiles/evidence/issue8/puripuly-restoration-amendment.json) restores PP1–PP4 subject to fresh admission in a separately frozen concurrent D1/D3 cohort; it does not replace the original97f22a6 observations or first failures. The [quota amendment](../../profiles/evidence/issue8/quota-isolation-amendment.json) accepts shared or unverified quotas: creating separate projects or replacing existing keys is not a prerequisite for this batch. The original isolation instructions below remain cumulative preparation guidance where not superseded. Actual route/device/output checks and first-failure records are still required; the genuine VRCLS routing blocker is unchanged.
 
 | Profile | Finding | Reason |
 | --- | --- | --- |

@@ -5,7 +5,7 @@
   "status": "empirical_preparation_in_progress_not_frozen",
   "installed_app_evidence": "evidence/installed-apps.json",
   "gui_preparation_evidence": "evidence/gui-preparation.json",
-  "owner_update": "PuriPuly2.9.0 identity and actual PP4 D1/D3 translated-OSC preflights are retained, not current personal-setting guarantees. No bounded no-VRChat admission record was retained for those preflights, so PP4 remains blocked for readiness despite successful output checks. The latest owner authority excludes PP1-PP4 from this execution and authorizes the ten-competitor batch wave amendment; the fourteen-profile cumulative matrix and original W1-W4 membership below remain historical comparison design. PuriPuly manipulation stays suspended; PP3 standalone observation is pending, not performed. Approved mixed26B/31B PP1 and paid VRCS2 routes remain unchanged; no paid fallback or model substitution.",
+  "owner_update": "The restored B cohort now has all8 actual source-bound PP1-PP4 D1/D3 preflights and genuine normal full cleanup in evidence/issue8/pp-restored-v1/current-preflights.json. Actual PP send is19104 for all four nonconcurrent profiles; receive is19204 for PP4 and19201 for PP1/PP2/PP3. Preserve PP1 GUI19101 versus effective19104 mismatch and both failed normal commits; no product repair is claimed. Prior Director port authority and subsequent source/effective observations are distinct dated records. These bounded checks are not main quality/FPR, returned-upstream identity, measured cost or future runtime admission. Generic historical finding/readiness fields remain unchanged. Original97f22a6 artifacts and first outcomes remain immutable; additional W1/W2 peer observations are post-amendment supplementary. B final source review, snapshot, new freeze and fresh runtime bindings remain required. No paid fallback or model substitution.",
   "first_batch_preparation_evidence": [
     "evidence/issue8/pp4-preflight.json",
     "evidence/issue8/vrct-preparation.json",
@@ -13,6 +13,11 @@
     "evidence/issue8/owner-use-preparation-order.json"
   ],
   "first_batch_wave_amendment": "evidence/issue8/non-puripuly-batch-amendment.json",
+  "first_batch_restoration_amendment": "evidence/issue8/puripuly-restoration-amendment.json",
+  "first_batch_current_PP_preflights": "evidence/issue8/pp-restored-v1/current-preflights.json",
+  "first_batch_PP_port_authority": "evidence/issue8/pp-restored-v1/observed-port-decision.json",
+  "first_batch_PP_source_effective_port_record": "evidence/issue8/pp-restored-v1/actual-osc-port-decision.json",
+  "first_batch_PP_normal_cleanup": "evidence/issue8/pp-restored-v1/normal-cleanup.json",
   "first_batch_quota_amendment": "evidence/issue8/quota-isolation-amendment.json",
   "first_batch_supplementary_amendment": "evidence/issue8/supplementary-scope-amendment.json",
   "profiles": [
@@ -20,9 +25,9 @@
       "id": "PP1",
       "application": "PuriPuly",
       "finding": "blocked",
-      "reason": "Historical2.9.0 GUI/build observations do not establish PP1 Gemini ASR access, effective mixed26B/31B OpenRouter provider execution or an audio-to-OSC pilot. Historical2.8.2 control evidence remains separate. Latest owner authority excludes PP1 from this execution and suspends PuriPuly manipulation; no product-failure or readiness claim.",
+      "reason": "Historical2.8.2 control and2.9.0 GUI/build findings remain separate. Current B PP1 D1/D3 source-specific checks passed under selected Gemini ASR and mixed26B/31B OpenRouter route, with genuine normal stop and full cleanup. Actual send19104/receive19201 is bound; GUI19101 did not become effective and was not repaired. Generic historical finding retained; returned upstream, quality, long-session behavior and measured cost remain unknown.",
       "planned": {
-        "translation": "Gemma 4 26B / OpenRouter",
+        "translation": "Gemma 4 mixed 26B/31B / OpenRouter",
         "asr": "Gemini 3.5 Transcribe",
         "access": "Paid"
       },
@@ -53,9 +58,9 @@
       },
       "osc": {
         "host": "127.0.0.1",
-        "send_port": 19101,
+        "send_port": 19104,
         "receive_port": 19201,
-        "assignment": "requested_not_profile_verified",
+        "assignment": "current_B_D1_D3_actual_send19104_receive19201; PP1_GUI19101_mismatch_and_failed_commits_preserved; see_issue8/pp-restored-v1_port_records",
         "oscquery_or_mute_signal": "none supplied; dependency must be observed"
       },
       "tts": {
@@ -77,7 +82,10 @@
       "evidence": [
         "evidence/puripuly-control.json",
         "evidence/issue8/pp4-preflight.json",
-        "evidence/issue8/owner-use-preparation-order.json"
+        "evidence/issue8/owner-use-preparation-order.json",
+        "evidence/issue8/pp-restored-v1/current-preflights.json",
+        "evidence/issue8/pp-restored-v1/pp1-d1-preflight.json",
+        "evidence/issue8/pp-restored-v1/pp1-d3-preflight.json"
       ],
       "osc_example": null
     },
@@ -85,7 +93,7 @@
       "id": "PP2",
       "application": "PuriPuly",
       "finding": "blocked",
-      "reason": "Historical2.9.0 GUI/build observations do not establish PP2 Luna entitlement/limits, Gemini ASR access or an audio-to-OSC pilot. Latest owner authority excludes PP2 from this execution and suspends PuriPuly manipulation. No paid API fallback, unsupported or product-failure finding.",
+      "reason": "Current B PP2 D1/D3 source-specific checks passed under selected Gemini ASR and GPT6Luna through the existing ChatGPT connection, with genuine normal stop and full cleanup. Actual send19104/receive19201 is individually corroborated. Generic historical finding retained; this is bounded source/output admission, not broad entitlement, returned-model, quality or cost certification. No paid API fallback.",
       "planned": {
         "translation": "GPT 6 Luna / Sign in with ChatGPT",
         "asr": "Gemini 3.5 Transcribe",
@@ -118,9 +126,9 @@
       },
       "osc": {
         "host": "127.0.0.1",
-        "send_port": 19102,
-        "receive_port": 19202,
-        "assignment": "requested_not_profile_verified",
+        "send_port": 19104,
+        "receive_port": 19201,
+        "assignment": "current_B_D1_D3_individually_observed_send19104_receive19201; nonconcurrent_PP_reuse_only",
         "oscquery_or_mute_signal": "none supplied; dependency must be observed"
       },
       "tts": {
@@ -142,7 +150,10 @@
       "evidence": [
         "evidence/puripuly-control.json",
         "evidence/issue8/pp4-preflight.json",
-        "evidence/issue8/owner-use-preparation-order.json"
+        "evidence/issue8/owner-use-preparation-order.json",
+        "evidence/issue8/pp-restored-v1/current-preflights.json",
+        "evidence/issue8/pp-restored-v1/pp2-d1-preflight.json",
+        "evidence/issue8/pp-restored-v1/pp2-d3-preflight.json"
       ],
       "osc_example": null
     },
@@ -150,7 +161,7 @@
       "id": "PP3",
       "application": "PuriPuly",
       "finding": "blocked",
-      "reason": "Historical2.9.0 GUI/build observations and PP4 Index output do not establish PP3 Gemini ASR access/provider execution or an audio-to-OSC pilot. Historical2.8.2 missing-choice evidence is not a current-build limitation. Latest owner authority excludes PP3 from this execution; standalone PP3 observation remains pending, not performed. PuriPuly manipulation stays suspended.",
+      "reason": "Current B PP3 D1/D3 source-specific checks passed under selected Gemini ASR plus Index official-API route, with genuine normal stop and full cleanup. Actual send19104/receive19201 is individually corroborated. Selected Index is not returned-upstream or server-fallback attestation; no native fallback was suppressed or relabelled. Generic historical finding retained. One fixed300s D1 standalone before W4 remains unperformed and awaits B freeze/fresh runtime binding.",
       "planned": {
         "translation": "Index Translator",
         "asr": "Gemini 3.5 Transcribe",
@@ -183,9 +194,9 @@
       },
       "osc": {
         "host": "127.0.0.1",
-        "send_port": 19103,
-        "receive_port": 19203,
-        "assignment": "requested_not_profile_verified",
+        "send_port": 19104,
+        "receive_port": 19201,
+        "assignment": "current_B_D1_D3_individually_observed_send19104_receive19201; nonconcurrent_PP_reuse_only",
         "oscquery_or_mute_signal": "none supplied; dependency must be observed"
       },
       "tts": {
@@ -207,7 +218,10 @@
       "evidence": [
         "evidence/puripuly-control.json",
         "evidence/issue8/pp4-preflight.json",
-        "evidence/issue8/owner-use-preparation-order.json"
+        "evidence/issue8/owner-use-preparation-order.json",
+        "evidence/issue8/pp-restored-v1/current-preflights.json",
+        "evidence/issue8/pp-restored-v1/pp3-d1-preflight.json",
+        "evidence/issue8/pp-restored-v1/pp3-d3-preflight.json"
       ],
       "osc_example": null
     },
@@ -215,7 +229,7 @@
       "id": "PP4",
       "application": "PuriPuly",
       "finding": "blocked",
-      "reason": "Actual2.9.0 GUI CPUauto plus Index official-API D1/D3 ten-second checks each completed4stages,0product_failure,0invalid and delivered2translated-target-language OSC inputs; one-second silent lifecycle only. D1 parakeet/D3 qwen runtime corroboration is retained. Required bounded no-VRChat admission evidence is unknown, so successful output checks do not satisfy ready admission. Latest owner authority excludes PP4 from this execution; no current personal-setting, semantics, cost or30minute claim. Fresh permitted admission is required on resume.",
+      "reason": "Historical2.9.0 checks remain unchanged. Current B PP4 D1/D3 source-specific checks passed with CPU-auto local ASR, actual D1 parakeet and D3 qwen runtime, and selected Index official-API route. Actual send19104/receive19204 and genuine normal stop/full cleanup are recorded. Generic historical finding retained; selected route does not attest returned upstream, native fallback, main quality/FPR, long-session behavior or measured cost.",
       "planned": {
         "translation": "Index Translator",
         "asr": "CPU-auto-selected local ASR",
@@ -250,7 +264,7 @@
         "host": "127.0.0.1",
         "send_port": 19104,
         "receive_port": 19204,
-        "assignment": "observed_actual_udp_destination_19104_in_D1_D3_checks_and_GUI_receive_port19204",
+        "assignment": "current_B_D1_D3_individually_observed_send19104_receive19204; historical_PP4_checks_retained",
         "oscquery_or_mute_signal": "No supplied emulation recorded; bounded VRChat process absence during these historical checks is unknown"
       },
       "tts": {
@@ -272,7 +286,10 @@
       "evidence": [
         "evidence/puripuly-control.json",
         "evidence/issue8/pp4-preflight.json",
-        "evidence/issue8/owner-use-preparation-order.json"
+        "evidence/issue8/owner-use-preparation-order.json",
+        "evidence/issue8/pp-restored-v1/current-preflights.json",
+        "evidence/issue8/pp-restored-v1/pp4-d1-preflight.json",
+        "evidence/issue8/pp-restored-v1/pp4-d3-preflight.json"
       ],
       "osc_example": {"kind": "audio_to_osc", "no_vrchat": null, "path": "evidence/issue8/pp4-preflight.json", "raw_safe_derivatives": ["evidence/issue8/pp4-d1-preflight/manifest.json", "evidence/issue8/pp4-d3-preflight/manifest.json"], "limits": "Two translated-target-language inputs per ten-second check; no retained bounded no-VRChat admission record. One-second silent lifecycle is not full nonspeech certification; no semantics, cost,30minute or current-state claim."}
     },
@@ -941,7 +958,7 @@
     }
   ],
   "wave_history_evidence": "evidence/issue45/sequential-wave-decision.json",
-  "selected_wave_policy": "Cumulative original W1-W4 membership below is preserved. For this D1/D3 execution only, latest owner authority excludes PP1-PP4 and authorizes the linked non-puripuly-batch-amendment: W1 KIKI2/VRCLT1/VRCT3; W2 VRCT1/VRCS2/KIKI1; W3 VRCT2/VRCLT2; W4 VRCS1/VRCLS1. Profiles remain concurrent within each batch wave, D1 then D3. The linked quota amendment permits shared/unverified quotas only for this batch, not a quota-isolation claim. No freeze or primary measurements yet; runtime/admission/cleanup prerequisites remain.",
+  "selected_wave_policy": "Restored original fourteen-profile concurrent W1-W4 membership below, D1 then D3, plus one fixed300s D1 PP3-alone after W3/before W4. All8 current PP source-bound preflights and normal cleanup are recorded, but B final source review/snapshot/new freeze and fresh imminent runtime bindings remain required. Actual PP send19104 reuse and receive19204/19201 reuse are nonconcurrent only, with wave-local uniqueness; do not claim PP1 GUI19101 was effective. Preserve original97f22a6 first outcomes; added W1/W2 peer observations remain supplementary, never replacement primary or pooled duplicate populations. All actually available wave members remain concurrent; genuine unavailable findings and cumulative shared quotas stay explicit. No restored main or standalone capture has occurred.",
   "waves": [
     {"id": "W1", "profiles": ["PP4", "KIKI2", "VRCLT1", "VRCT3"], "execution": "blocked_pending_preflight"},
     {"id": "W2", "profiles": ["VRCT1", "PP1", "VRCS2", "KIKI1"], "execution": "blocked_pending_preflight"},
@@ -949,10 +966,10 @@
     {"id": "W4", "profiles": ["VRCS1", "PP3", "VRCLS1"], "execution": "blocked_pending_preflight"}
   ],
   "limitations": [
-    "Readiness is historical and evidence-specific, not current personal-setting certification. PP4 retains actual2.9.0 D1/D3 output checks but remains blocked because bounded no-VRChat admission evidence is unknown. PP1/2/3 GUI/version history proves no provider pilot. Latest owner authority excludes PP1-PP4 from this execution without deleting them from the cumulative fourteen-profile/six-direction matrix.",
-    "The original W1-W4 comparison design remains recorded. The latest owner-authorized ten-competitor D1/D3 batch override is linked separately, retains within-wave concurrency and does not claim simultaneous observations already exist. PP3 standalone observation is pending, not performed.",
+    "Generic catalogue readiness remains historical/evidence-specific and is not upgraded here. All8 current PP source-bound preflights and genuine normal full cleanup are separate bounded B evidence; future main runtime admission, returned upstream, numeric limits/cost and main quality/FPR are not certified by those checks.",
+    "The original fourteen-profile W1-W4 design and one PP3 standalone observation are restored for a separately frozen cohort. Preserve the original97f22a6 first outcomes, and label additional W1/W2 peer observations supplementary without pooling duplicate configuration/direction/reference populations. PP3 standalone remains pending, not performed.",
     "For this D1/D3 batch only, the linked quota-isolation-amendment permits shared/unverified quotas; report contention, first failures and quota-stopped work without claiming independence or changing keys/tiers/routes. Other runtime/CPU/routing/cleanup requirements remain; no ordinary chunk-boundary restarts.",
-    "OSC port assignments are requested settings until observed on each app; dynamic receive/control ports require actual effective-state inspection. UDP availability is instantaneous, not reservation.",
+    "Current B PP effective sends are19104; receives arePP4=19204 andPP1/PP2/PP3=19201. Reuse is authorized only across their separate original waves; verify all wave-local endpoints and fresh actual effective state. Preserve PP1 GUI19101 mismatch without product repair. UDP availability is instantaneous, not reservation.",
     "No actual VRChat process, speculative OSCQuery or fake mute signaling is supplied. Block any discovered process requirement.",
     "Actual visible GUI controls supply fresh PID/profile/session-bound manual observations before/after capture; the runner bridge reports that limitation and independent process liveness, not requested-state echoes or continuous effective-state API truth.",
     "Provider exports, account quotas and actual response identities are not established by public documentation; missing measured cost remains unknown, not zero."

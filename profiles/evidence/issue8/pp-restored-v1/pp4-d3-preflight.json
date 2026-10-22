@@ -1,0 +1,281 @@
+{
+  "schema_version": 1,
+  "profile": "PP4",
+  "direction": "D3",
+  "status": "passed",
+  "basis": "actual_preflight_finding",
+  "reason": "Actual first source-specific normal-GUI check produced expected-language benchmark-content candidates; real normal stop released capture/inference resources. Operational/source-binding admission, not translation quality.",
+  "run_id": "issue8-pp-restored-PP4-D3-20261022T053145Z",
+  "application": {
+    "name": "PuriPulyHeart",
+    "version": "2.9.0",
+    "normal_installed_GUI": true,
+    "exe_basename": "PuriPulyHeart.exe",
+    "exe_sha256": "2f9b9938e0b7e03731f7cfa57056a68f78d05eb099312f6c07e9b71a8440ac31",
+    "packaged_python_archive_sha256": "b02cda0f64577d8efd442904c1ccb0fcded69be42450691c7591945a0fc03d50",
+    "source_commit_runtime_attestation": false,
+    "loose_and_packaged_source_not_assumed_identical": true
+  },
+  "selected_route": {
+    "ASR": "local_cpu_auto",
+    "reported_ASR_model_at_actual_capture": "qwen3-asr-0.6b-int8-sherpa",
+    "translation_model": "index_translate_35b",
+    "translation_connection": "public_api",
+    "returned_LLM_model_or_upstream_provider_attested": false,
+    "native_selection_fallback_observed": false,
+    "native_selection_fallback_basis": "GUI/safe selected intent observed before and after check; no returned-model attestation"
+  },
+  "input_output": {
+    "microphone": "CABLE Output(VB-Audio Virtual Cable)",
+    "saved_host_API": "Windows WASAPI (Compatibility Mode)",
+    "actual_host_API": "Windows WASAPI",
+    "sample_rate": 48000,
+    "shared": true,
+    "voice_output": false,
+    "peer_capture": false,
+    "captions": false,
+    "overlay": false,
+    "OSC_host": "127.0.0.1",
+    "actual_collector_send_port": 19104,
+    "actual_receive_port": 19204,
+    "chatbox_include_source": false,
+    "activation_notice": false
+  },
+  "execution": {
+    "cli_exit": 0,
+    "counts": {
+      "pending": 0,
+      "running": 0,
+      "done": 4,
+      "product_failure": 0,
+      "invalid": 0
+    },
+    "callback_count": 1100,
+    "callback_frames": 528000,
+    "source_frames": 528000,
+    "check_audio_sha256": "3be6974425b8b0de3cafced557d58bc5e1c2d7578445a3f094606f67ca97f20a",
+    "source_check_seconds": 10,
+    "source_check_tail_seconds": 15,
+    "silent_lifecycle_seconds": 1,
+    "silent_lifecycle_tail_seconds": 2,
+    "no_check_replay": true,
+    "no_timed_GUI_or_agent_model_inference": true
+  },
+  "source_binding": {
+    "checked": true,
+    "not_generic_nonempty_gate": true,
+    "notes": "Actual Korean OSC inputs contained the Mid-Autumn/China-understanding/activity content of the Chinese clip (not merely nonempty/Hangul); final Korean GUI text matched the later input. Two observed inputs overlap in topic; revision/finality/grouping relationships remain unknown.",
+    "actual_capture_runtime_signature_prefix": [
+      "zh-CN",
+      "Windows WASAPI (Compatibility Mode)",
+      "CABLE Output(VB-Audio Virtual Cable)"
+    ],
+    "actual_DAC_callback_provenance_preserved": true
+  },
+  "OSC": {
+    "output_check_event_count": 6,
+    "output_check_input_count": 2,
+    "silent_lifecycle_event_count": 0,
+    "outside_timed_attempt_events": 0,
+    "original_decoded_payloads_order_preserved": true,
+    "wire_bytes_for_valid_UDP_not_recorded_by_existing_bench_sink": true,
+    "hash_kind": "Exact decoded address/typed args canonical UTF-8 JSON and original journal/trace hashes; not a UDP wire digest",
+    "payload_identities": [
+      {
+        "recv_seq": 1,
+        "clock_session": "df8caf0b5a3744c69ba83ce0894f1ac8",
+        "t_ns": 45251332790100,
+        "address": "/chatbox/typing",
+        "argument_types": [
+          "bool"
+        ],
+        "decoded_address_args_sha256": "4079777e4df3f1df088768f4ae70fb13dd58e1a3567dd23184da744769a16eaf",
+        "text_utf8_sha256": null,
+        "text_characters": null,
+        "observer": "udp:127.0.0.1:19104",
+        "source_host": "127.0.0.1",
+        "source_port": 59185
+      },
+      {
+        "recv_seq": 2,
+        "clock_session": "df8caf0b5a3744c69ba83ce0894f1ac8",
+        "t_ns": 45252332722300,
+        "address": "/chatbox/input",
+        "argument_types": [
+          "str",
+          "bool",
+          "bool"
+        ],
+        "decoded_address_args_sha256": "e25e5fafdda606dc883ceafd8297739ef509e356842960387c5332e997910e28",
+        "text_utf8_sha256": "7a300d346e5c55ffa63f32183e96d89bd8119442e6df3a4ffaa8ebd14cd510a4",
+        "text_characters": 20,
+        "observer": "udp:127.0.0.1:19104",
+        "source_host": "127.0.0.1",
+        "source_port": 59185
+      },
+      {
+        "recv_seq": 3,
+        "clock_session": "df8caf0b5a3744c69ba83ce0894f1ac8",
+        "t_ns": 45252333342600,
+        "address": "/chatbox/typing",
+        "argument_types": [
+          "bool"
+        ],
+        "decoded_address_args_sha256": "a8542e4e02e1ab5b8373a2dc769e48219c377174a1ac09b0c08a6dfa94d43fb8",
+        "text_utf8_sha256": null,
+        "text_characters": null,
+        "observer": "udp:127.0.0.1:19104",
+        "source_host": "127.0.0.1",
+        "source_port": 59185
+      },
+      {
+        "recv_seq": 4,
+        "clock_session": "df8caf0b5a3744c69ba83ce0894f1ac8",
+        "t_ns": 45258411404400,
+        "address": "/chatbox/typing",
+        "argument_types": [
+          "bool"
+        ],
+        "decoded_address_args_sha256": "4079777e4df3f1df088768f4ae70fb13dd58e1a3567dd23184da744769a16eaf",
+        "text_utf8_sha256": null,
+        "text_characters": null,
+        "observer": "udp:127.0.0.1:19104",
+        "source_host": "127.0.0.1",
+        "source_port": 59185
+      },
+      {
+        "recv_seq": 5,
+        "clock_session": "df8caf0b5a3744c69ba83ce0894f1ac8",
+        "t_ns": 45260293266000,
+        "address": "/chatbox/input",
+        "argument_types": [
+          "str",
+          "bool",
+          "bool"
+        ],
+        "decoded_address_args_sha256": "841a208cf19ba286107895508003901c74f29cc6bf53f44be9303e55332101fd",
+        "text_utf8_sha256": "15c28f65722a2f792e54853b45664c5cea0e877df8354f9eb78551f356eaf91e",
+        "text_characters": 83,
+        "observer": "udp:127.0.0.1:19104",
+        "source_host": "127.0.0.1",
+        "source_port": 59185
+      },
+      {
+        "recv_seq": 6,
+        "clock_session": "df8caf0b5a3744c69ba83ce0894f1ac8",
+        "t_ns": 45260293957600,
+        "address": "/chatbox/typing",
+        "argument_types": [
+          "bool"
+        ],
+        "decoded_address_args_sha256": "a8542e4e02e1ab5b8373a2dc769e48219c377174a1ac09b0c08a6dfa94d43fb8",
+        "text_utf8_sha256": null,
+        "text_characters": null,
+        "observer": "udp:127.0.0.1:19104",
+        "source_host": "127.0.0.1",
+        "source_port": 59185
+      }
+    ],
+    "format_trace_ids": [
+      {
+        "run": "issue8-pp-restored-PP4-D3-20261022T053145Z",
+        "clock_session": "df8caf0b5a3744c69ba83ce0894f1ac8",
+        "recv_seq": 2,
+        "text_utf8_sha256": "7a300d346e5c55ffa63f32183e96d89bd8119442e6df3a4ffaa8ebd14cd510a4"
+      },
+      {
+        "run": "issue8-pp-restored-PP4-D3-20261022T053145Z",
+        "clock_session": "df8caf0b5a3744c69ba83ce0894f1ac8",
+        "recv_seq": 5,
+        "text_utf8_sha256": "15c28f65722a2f792e54853b45664c5cea0e877df8354f9eb78551f356eaf91e"
+      }
+    ]
+  },
+  "format": {
+    "observed": "Translation-only /chatbox/input string,true,false plus typing booleans; three D1 inputs / two D3 inputs for PP4. No source/translation delimiter required for these observed candidates.",
+    "role": "translation",
+    "style": "unknown",
+    "supports": {
+      "revision": false,
+      "erasure": false,
+      "resend": false
+    },
+    "relationships": {},
+    "typing_false_is_not_finality": true,
+    "pagination_revision_grouping_universality_inferred": false
+  },
+  "cleanup": {
+    "physical_capture_and_inference_resources_off": true,
+    "both_has_source_false": true,
+    "both_effective_active_false": true,
+    "self_has_loop_task_false": true,
+    "cleanup_debt": 0,
+    "provider_live_false": true,
+    "normal_GUI_retained_stopped": true,
+    "full_process_exit_claimed": false,
+    "fresh_stop_ACK_sequence": 2,
+    "session_retired_via_supported_invalidated_guard": true
+  },
+  "key_aliases": [],
+  "quota_scope": "index-public-ip",
+  "numeric_allowance_or_cost": "unknown; not fetched",
+  "evidence": {
+    "capture_inventory": {
+      "path": ".data/issue8/puripuly-restored-preflights/PP4-D3-20261022T053145Z/capture-inventory.json",
+      "sha256": "f383954749b73399098a9dd640ab08e40068f78662a8a7e50223e5f8f9520cea"
+    },
+    "manifest": {
+      "path": ".data/issue8/puripuly-restored-preflights/PP4-D3-20261022T053145Z/runs/issue8-pp-restored-PP4-D3-20261022T053145Z/manifest.json",
+      "sha256": "7b3cd7b0b76abd8c82fc6b3ac2a196cf1c3d63be3ee27bb12c3fa7a1aa37a8b9"
+    },
+    "CLI_terminal_receipt": {
+      "path": ".data/issue8/puripuly-restored-preflights/PP4-D3-20261022T053145Z/runner-terminal-receipt.json",
+      "sha256": "33bed21d2b4c0f1cd068b6e1a8f54c0541b48fe76d00b54b376db860b55bc1f2"
+    },
+    "raw_private_streams": [
+      {
+        "path": ".data/issue8/puripuly-restored-preflights/PP4-D3-20261022T053145Z/runs/issue8-pp-restored-PP4-D3-20261022T053145Z/stream-df8caf0b5a3744c69ba83ce0894f1ac8.jsonl",
+        "sha256": "3943e458ba4a636216a8831b467b79712535bcf5a4b0bf6a55174519f6835d5f"
+      }
+    ],
+    "raw_private_traces": [
+      {
+        "path": ".data/issue8/puripuly-restored-preflights/PP4-D3-20261022T053145Z/runs/issue8-pp-restored-PP4-D3-20261022T053145Z/attempt-0001-001.jsonl",
+        "sha256": "2b9beb8e4f4fe2be04b5b795a873b77c960c532dee69d2dde31166d2ed8b89e3"
+      },
+      {
+        "path": ".data/issue8/puripuly-restored-preflights/PP4-D3-20261022T053145Z/runs/issue8-pp-restored-PP4-D3-20261022T053145Z/attempt-0002-001.jsonl",
+        "sha256": "a15e67d4a30e2840cff3ba2290d40bbd2053659ec808342bafeb94b9b2dff214"
+      },
+      {
+        "path": ".data/issue8/puripuly-restored-preflights/PP4-D3-20261022T053145Z/runs/issue8-pp-restored-PP4-D3-20261022T053145Z/attempt-0003-001.jsonl",
+        "sha256": "600050917c65a697826100abbf83c5e244f96924f11e36696e057d8ab3a74b5a"
+      },
+      {
+        "path": ".data/issue8/puripuly-restored-preflights/PP4-D3-20261022T053145Z/runs/issue8-pp-restored-PP4-D3-20261022T053145Z/attempt-0004-001.jsonl",
+        "sha256": "ca730eee945900b1b7c4862adf412c190ab22d4d99307c851d15c77fdc7bcd2d"
+      }
+    ],
+    "start_runtime": {
+      "path": ".data/issue8/puripuly-restored-preflights/PP4-D3-20261022T053145Z/start-runtime-safe-facts.json",
+      "sha256": "92cbc20ab5a0d147b81c37f34366d819f5a227892a3ac21bd2908facc62011bb"
+    },
+    "stop_runtime": {
+      "path": ".data/issue8/puripuly-restored-preflights/PP4-D3-20261022T053145Z/stop-runtime-safe-facts.json",
+      "sha256": "c0890d173ecf9592819520e1c8c4e91ecd6cb295c86841d7b91604925a1885d0"
+    },
+    "stop_ACK": {
+      "path": ".data/issue8/puripuly-restored-preflights/PP4-D3-20261022T053145Z/stop-ack-seq2.receipt.json",
+      "sha256": "9a3f2b3c1799a68d5d755636585d567f81b4d8863d881028ddc7e9a9e9bca2e8"
+    },
+    "initial_observation": {
+      "path": ".data/issue8/puripuly-restored-preflights/PP4-D3-20261022T053145Z/initial-observation.json",
+      "sha256": "8744aad6a84536e720391d05f6646f6b9a5769c66e43b59b52544172455f31ed"
+    }
+  },
+  "raw_screenshots_logs_personal_settings_exported": false,
+  "silence_lifecycle_zero_is_not_a_main_FPR_claim": true,
+  "main_measurement": false,
+  "B_protocol_frozen": false,
+  "quality_scoring_or_ranking": false
+}

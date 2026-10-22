@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "profile": "PP4",
+  "observed_directions": [
+    "D3"
+  ],
+  "rule": {
+    "version": "issue8-pp-restored-v1-PP4-D3-first-observed-20261022",
+    "style": "unknown",
+    "text_pattern": "(?P<translation>.+)",
+    "supports": {
+      "revision": false,
+      "erasure": false,
+      "resend": false
+    },
+    "relationships": {},
+    "evidence": {
+      "path": "profiles/evidence/issue8/pp-restored-v1/pp4-d3-preflight.json",
+      "sha256": "af55bb325bc3fc456a6ea73ac510aaa7a0154fbb02dd4a2ecb9ea92a51fd223b"
+    },
+    "scope": "Whole observed translation-only input string; typing=false not finality; no transferred historical clock IDs or universal revision/page relationships"
+  }
+}

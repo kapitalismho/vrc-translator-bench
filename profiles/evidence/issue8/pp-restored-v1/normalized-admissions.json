@@ -1,0 +1,153 @@
+{
+  "cohort": "B-pp-restored-v1",
+  "findings": {
+    "PP1": {
+      "D1": {
+        "status": "passed",
+        "reason": "First actual source-specific check yielded expected-language benchmark-content translation candidates, with genuine normal stop and resource release. Admission only, not a quality, finality, or healthy-FPR claim.",
+        "basis": "actual_preflight_finding",
+        "evidence": {
+          "path": "profiles/evidence/issue8/pp-restored-v1/pp1-d1-preflight.json",
+          "sha256": "1536b116295d32489cf366920bdea25362467a0d54097267e9c72ec9523c2f9d"
+        },
+        "rule_binding": {
+          "path": "profiles/evidence/issue8/pp-restored-v1/pp1-d1-rule.json",
+          "sha256": "ef7331b4841ceb37fc5c8587377edbab91d618d6d28a85ae83a2936afaada0a4",
+          "pointer": "/rule"
+        },
+        "key_aliases": [
+          "Google-A"
+        ],
+        "quota_scope": "PP1"
+      },
+      "D3": {
+        "status": "passed",
+        "reason": "First actual source-specific check yielded expected-language benchmark-content translation candidates, with genuine normal stop and resource release. Admission only, not a quality, finality, or healthy-FPR claim.",
+        "basis": "actual_preflight_finding",
+        "evidence": {
+          "path": "profiles/evidence/issue8/pp-restored-v1/pp1-d3-preflight.json",
+          "sha256": "4912d56102818e322ff50be416c694a64a455fdd6873f07db7ce729a1dc625df"
+        },
+        "rule_binding": {
+          "path": "profiles/evidence/issue8/pp-restored-v1/pp1-d3-rule.json",
+          "sha256": "8aa7be5467aeb7033f00a19a8110fedf16cd9b650d8cb8b5393bdc41361e0f28",
+          "pointer": "/rule"
+        },
+        "key_aliases": [
+          "Google-A"
+        ],
+        "quota_scope": "PP1"
+      }
+    },
+    "PP2": {
+      "D1": {
+        "status": "passed",
+        "reason": "First actual source-specific check yielded expected-language benchmark-content translation candidates, with genuine normal stop and resource release. Admission only, not a quality, finality, or healthy-FPR claim.",
+        "basis": "actual_preflight_finding",
+        "evidence": {
+          "path": "profiles/evidence/issue8/pp-restored-v1/pp2-d1-preflight.json",
+          "sha256": "c3f909f0106c3221829172539836bf869381f8bb54cf3418dd186d0f1893f380"
+        },
+        "rule_binding": {
+          "path": "profiles/evidence/issue8/pp-restored-v1/pp2-d1-rule.json",
+          "sha256": "9fcca7a0572f919db65f03d1f270d8c969d230b00c33e1b2aabaf53656d8c60a",
+          "pointer": "/rule"
+        },
+        "key_aliases": [
+          "Google-A"
+        ],
+        "quota_scope": "PP2"
+      },
+      "D3": {
+        "status": "passed",
+        "reason": "First actual source-specific check yielded expected-language benchmark-content translation candidates, with genuine normal stop and resource release. Admission only, not a quality, finality, or healthy-FPR claim.",
+        "basis": "actual_preflight_finding",
+        "evidence": {
+          "path": "profiles/evidence/issue8/pp-restored-v1/pp2-d3-preflight.json",
+          "sha256": "ef4b0301ce0d2dcf92a4df144e55bd647121ad65f5fefd5b8d78c5ecb0fd921c"
+        },
+        "rule_binding": {
+          "path": "profiles/evidence/issue8/pp-restored-v1/pp2-d3-rule.json",
+          "sha256": "4bbdebc4f1c6f37669f901f16bf9dc82225c6ef7dad06667524d92435ffc2400",
+          "pointer": "/rule"
+        },
+        "key_aliases": [
+          "Google-A"
+        ],
+        "quota_scope": "PP2"
+      }
+    },
+    "PP3": {
+      "D1": {
+        "status": "passed",
+        "reason": "First actual source-specific check yielded expected-language benchmark-content translation candidates, with genuine normal stop and resource release. Admission only, not a quality, finality, or healthy-FPR claim.",
+        "basis": "actual_preflight_finding",
+        "evidence": {
+          "path": "profiles/evidence/issue8/pp-restored-v1/pp3-d1-preflight.json",
+          "sha256": "eea31da8f09b0447a842ced23013246b307d1f79f396871f49dd5faf111358d5"
+        },
+        "rule_binding": {
+          "path": "profiles/evidence/issue8/pp-restored-v1/pp3-d1-rule.json",
+          "sha256": "666c90acf9a3adf177eaf6191780e41e03a88dc3feebfe470aa75fbfd85eae53",
+          "pointer": "/rule"
+        },
+        "key_aliases": [
+          "Google-A"
+        ],
+        "quota_scope": "index-public-ip"
+      },
+      "D3": {
+        "status": "passed",
+        "reason": "First actual source-specific check yielded expected-language benchmark-content translation candidates, with genuine normal stop and resource release. Admission only, not a quality, finality, or healthy-FPR claim.",
+        "basis": "actual_preflight_finding",
+        "evidence": {
+          "path": "profiles/evidence/issue8/pp-restored-v1/pp3-d3-preflight.json",
+          "sha256": "3f18a6cda2e299587c6a6ab8aae1d75d0254c5de649862bc44032f4347a85104"
+        },
+        "rule_binding": {
+          "path": "profiles/evidence/issue8/pp-restored-v1/pp3-d3-rule.json",
+          "sha256": "adf8037ff3842cc44be314127d66f82bb09da11d6433fb94786a44dc17edd33d",
+          "pointer": "/rule"
+        },
+        "key_aliases": [
+          "Google-A"
+        ],
+        "quota_scope": "index-public-ip"
+      }
+    },
+    "PP4": {
+      "D1": {
+        "status": "passed",
+        "reason": "Actual first source-specific normal-GUI check produced expected-language benchmark-content candidates; real normal stop released capture/inference resources. Operational/source-binding admission, not translation quality.",
+        "basis": "actual_preflight_finding",
+        "evidence": {
+          "path": "profiles/evidence/issue8/pp-restored-v1/pp4-d1-preflight.json",
+          "sha256": "cb54cc67f670498869bae68fabba3f855e92ffdd926f52d114572b1be9034ad9"
+        },
+        "rule_binding": {
+          "path": "profiles/evidence/issue8/pp-restored-v1/pp4-d1-rule.json",
+          "sha256": "246e9ff6fdf0b2e61c9620a69fe65f6d2cfe27fe15239b40b0dac41ca29303a2",
+          "pointer": "/rule"
+        },
+        "key_aliases": [],
+        "quota_scope": "index-public-ip"
+      },
+      "D3": {
+        "status": "passed",
+        "reason": "Actual first source-specific normal-GUI check produced expected-language benchmark-content candidates; real normal stop released capture/inference resources. Operational/source-binding admission, not translation quality.",
+        "basis": "actual_preflight_finding",
+        "evidence": {
+          "path": "profiles/evidence/issue8/pp-restored-v1/pp4-d3-preflight.json",
+          "sha256": "af55bb325bc3fc456a6ea73ac510aaa7a0154fbb02dd4a2ecb9ea92a51fd223b"
+        },
+        "rule_binding": {
+          "path": "profiles/evidence/issue8/pp-restored-v1/pp4-d3-rule.json",
+          "sha256": "7656a950f548d4c2fe118f8b73437cf8d9f3ca1870729c5bb2cb3ee0eeddf1df",
+          "pointer": "/rule"
+        },
+        "key_aliases": [],
+        "quota_scope": "index-public-ip"
+      }
+    }
+  }
+}

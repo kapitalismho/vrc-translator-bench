@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-10-22T03:05:00.711162+00:00",
+  "authority": "Owner instruction in the issue8 execution conversation: 이제 퓨리퓰리도 해줘",
+  "decision": "Restore PP1, PP2, PP3 and PP4 to the current D1/D3 execution scope, subject to fresh actual installed-build, access, input-safety and source-specific output admission.",
+  "supersedes": {
+    "evidence": "profiles/evidence/issue8/non-puripuly-batch-amendment.json",
+    "scope": "PP1-PP4 exclusion and suspension of PuriPuly preparation for this execution only. The historical decision and its measured outcomes remain identifiable and unchanged."
+  },
+  "directions": ["D1", "D3"],
+  "later_directions": {"D2": "not_yet_measured", "D4": "not_yet_measured", "D5": "not_yet_measured", "D6": "not_yet_measured"},
+  "preserved_authority": [
+    "profiles/evidence/issue8/quota-isolation-amendment.json",
+    "profiles/evidence/issue8/reporting-presentation-amendment.json",
+    "profiles/evidence/issue8/supplementary-scope-amendment.json"
+  ],
+  "evaluation_scope": {"tone": false, "korean_review": false},
+  "waves": {
+    "W1": ["PP4", "KIKI2", "VRCLT1", "VRCT3"],
+    "W2": ["VRCT1", "PP1", "VRCS2", "KIKI1"],
+    "W3": ["VRCT2", "VRCLT2", "PP2"],
+    "W4": ["VRCS1", "PP3", "VRCLS1"]
+  },
+  "execution_policy": "All actually available members within a wave run concurrently. Actual unavailable findings remain explicit, not a silent sequential replacement. D1 precedes D3 within each wave.",
+  "current_execution_boundary": {
+    "original_frozen_revision": "97f22a62456a51c0540eca9195bf7a3b3aabba63",
+    "original_recipe_sha256": "dbef7ac0f92faa9ace09b3467a051ee4f17c2cae3763cfb2afe55003cdb619b9",
+    "already_terminal_direction_plans": ["W1-D1", "W1-D3", "W2-D1"],
+    "currently_started_plan": "W2-D3",
+    "currently_started_run": "issue8-W2-D3-20261022T023123Z",
+    "actual_start_basis": "Sole operator reports actual CLI start2026-10-22T02:33:24Z and completed480000-frame Chinese common check at02:39:32-02:39:57Z; main series already active. No PuriPuly profile is inserted into that running plan.",
+    "next_boundary": "Finish current frozen W2-D3 and owned cleanup; hold subsequent W3 launch for fresh PuriPuly preparation and a separately frozen restored-scope protocol."
+  },
+  "prior_result_preservation": {
+    "immutable": true,
+    "first_attempt_failures_replaced": false,
+    "policy": "Retain all original97f22a6 captures, first failures, service-health findings and nonexecuted records. W1/W2 observations needed for restored concurrent membership are additional post-amendment cohort observations for already measured competitors, not replacements for their original first attempts. W3/W4 remain first measurements where not previously performed. Keep cohort roles explicit and do not pool duplicate configuration/direction/reference populations across the old and restored conditions."
+  },
+  "PP3_standalone": {
+    "scope": "Restore the one original fixed300-second D1 standalone observation before restored W4, subject to actual PP3 admission.",
+    "performed": false,
+    "boundary": "No additional load/time-of-day campaign or formal equivalence claim. If W4 has no available peer, both conditions may be PP3-only; do not invent a distinct concurrent-load contrast."
+  },
+  "current_PuriPuly_readiness": "Unverified. Retained2.9.0 PP4 checks are historical and do not establish current version/settings or PP1/PP2/PP3 access. Fresh normal-GUI admission is required; this decision does not itself launch PuriPuly or constitute a protocol freeze.",
+  "planned_routes": {
+    "PP1": "Gemini3.5Transcribe ASR plus owner-accepted mixedGemma4-26B/31B OpenRouter route",
+    "PP2": "Gemini3.5Transcribe ASR plus GPT6Luna through Sign in with ChatGPT; GPT6Astra remains the separate judge",
+    "PP3": "Gemini3.5Transcribe ASR plus Index official API",
+    "PP4": "CPU-auto local ASR plus Index official API; actual per-language runtime must be observed"
+  },
+  "unchanged_constraints": [
+    "No new accounts, keys, tiers, paid API fallback or model substitution",
+    "No VRChat manipulation or unrelated application actions",
+    "No removal of genuine VRCS1 or VRCLS1 safety/access blockers",
+    "No direct personal-settings or secret-store rewrites/copies; normal GUI preparation",
+    "No suppression or relabelling of native Index route fallback",
+    "No GUI/computer observation or auxiliary scoring inference during timed playback",
+    "All automatic judging remains after all timed work of the amended D1/D3 batch",
+    "Missing cost, output identity or access evidence stays unknown rather than fabricated zero/success"
+  ],
+  "restored_protocol_frozen": false,
+  "restored_PuriPuly_main_started": false,
+  "publication_or_issue_closure_performed": false
+}
