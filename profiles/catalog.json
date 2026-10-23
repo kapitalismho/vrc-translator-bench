@@ -5,8 +5,11 @@
   "status": "empirical_preparation_in_progress_not_frozen",
   "installed_app_evidence": "evidence/installed-apps.json",
   "gui_preparation_evidence": "evidence/gui-preparation.json",
-  "owner_update": "Latest repair-and-retry authority preserves10 completed cohort-A configuration/direction slots without replay and6 original unavailable findings as history. Four authorized retry slots now passed actual checks;VRCLS1 remains blocked in both directions. Execute16 newly eligible main slots plus the pending PP3 standalone diagnostic only after the amended repair-retry freeze and fresh runtime admission. W1-D1=PP4/VRCT3,W1-D3=PP4;W2-D1=PP1/VRCT1,W2-D3=PP1;W3=VRCT2/VRCLT2/PP2;W4=PP3/VRCS1;D1 thenD3,PP3ALONE beforeW4. Unexecuted B/C snapshots remain historical. PP officialCLI control and approved VRCS process-only runtime startup override apply. Remaining D1 startup uses40s,D3 stays10s. Actual PPsend19104,receivePP4=19204,others19201;nonconcurrent reuse only. Preserve PP1 GUI/effective-port discrepancy, original failures and actual cohort provenance. No paid fallback/model substitution or invented co-measurement. See evidence/issue8/repair-retry-amendment.json and selected_wave_policy.",
+  "owner_update": "Latest repair-and-retry authority preserves10 completed A slots without replay and6 original unavailable findings as history. Four repaired slots passed actual checks;VRCLS1 remains blocked in both directions. The first R046 launch was rejected before materialization/main after installed PP changed2.9.0→2.9.1. All8 new2.9.1 CLI-driven startup/lifecycle checks now pass on a fresh desktop GUI host; oldbuild evidence and unexecuted B/C/R freezes remain history.16 eligible new main slots plus PP3ALONE require a new exact2.9.1 installation/source/rule freeze and fresh runtime admission. W1D1=PP4/VRCT3,W1D3=PP4;W2D1=PP1/VRCT1,W2D3=PP1;W3=VRCT2/VRCLT2/PP2;W4=PP3/VRCS1;D1thenD3,PP3ALONEbeforeW4. PP officialCLI controls preserve GUI mode through supported productCLIrun-gui; appstart/restart headless is not substituted. Approved VRCS process-only startup override applies. D1startup40s,D3=10s;PPsend19104/receive19204or19201 nonconcurrent. No paid/model/account substitution or invented co-measurement. See evidence/issue8/pp291-installed-build-amendment.json and selected_wave_policy.",
   "first_batch_preparation_evidence": [
+    "evidence/issue8/pp291-current-preflights.json",
+    "evidence/issue8/pp291-installed-build-amendment.json",
+    "evidence/issue8/pp291-voice-output-basis.json",
     "evidence/issue8/pp4-preflight.json",
     "evidence/issue8/vrct-preparation.json",
     "evidence/issue8/vrcs-preparation.json",
@@ -28,7 +31,7 @@
       "id": "PP1",
       "application": "PuriPuly",
       "finding": "blocked",
-      "reason": "Historical2.8.2 control and2.9.0 GUI/build findings remain separate. Current B PP1 D1/D3 source-specific checks passed under selected Gemini ASR and mixed26B/31B OpenRouter route, with genuine normal stop and full cleanup. Actual send19104/receive19201 is bound; GUI19101 did not become effective and was not repaired. Generic historical finding retained; returned upstream, quality, long-session behavior and measured cost remain unknown.",
+      "reason": "Generic historical finding retained, not current batch exclusion. New installed2.9.1 desktop GUI with officialCLI controls passed D1/D3 source/lifecycle checks under unchanged Gemini ASR/mixed26B31B OpenRouter policy,7/2target inputs; four stages each, genuine stop. Actualsend19104/receive19201. Prior2.9.0 and GUI19101 mismatch remain history. Newbuild freeze/runtime admission required; no returned-upstream/quality/cost claim. See evidence/issue8/pp291-current-preflights.json.",
       "planned": {
         "translation": "Gemma 4 mixed 26B/31B / OpenRouter",
         "asr": "Gemini 3.5 Transcribe",
@@ -96,7 +99,7 @@
       "id": "PP2",
       "application": "PuriPuly",
       "finding": "blocked",
-      "reason": "Current B PP2 D1/D3 source-specific checks passed under selected Gemini ASR and GPT6Luna through the existing ChatGPT connection, with genuine normal stop and full cleanup. Actual send19104/receive19201 is individually corroborated. Generic historical finding retained; this is bounded source/output admission, not broad entitlement, returned-model, quality or cost certification. No paid API fallback.",
+      "reason": "Generic historical finding retained. New2.9.1 actual desktop GUI/officialCLI checks passed D1/D3 under Gemini ASR/GPT6Luna existing ChatGPT connection,9/2target inputs; four stages each and genuine stop. Actualsend19104/receive19201, no newlogin/payment/API fallback. Prior2.9.0 evidence remains history. Newbuild freeze/runtime admission required; no returned-model/main/quality/cost claim. See evidence/issue8/pp291-current-preflights.json.",
       "planned": {
         "translation": "GPT 6 Luna / Sign in with ChatGPT",
         "asr": "Gemini 3.5 Transcribe",
@@ -164,7 +167,7 @@
       "id": "PP3",
       "application": "PuriPuly",
       "finding": "blocked",
-      "reason": "Current B PP3 D1/D3 source-specific checks passed under selected Gemini ASR plus Index official-API route, with genuine normal stop and full cleanup. Actual send19104/receive19201 is individually corroborated. Selected Index is not returned-upstream or server-fallback attestation; no native fallback was suppressed or relabelled. Generic historical finding retained. One fixed300s D1 standalone before W4 remains unperformed and awaits B freeze/fresh runtime binding.",
+      "reason": "Generic historical finding retained. New2.9.1 actual desktop GUI/officialCLI checks passed D1/D3 with Gemini ASR/selected Index official API,9/2target inputs; four stages each and genuine stop. Actualsend19104/receive19201. Selected Index is not returned-upstream/native-fallback attestation. Prior2.9.0 evidence remains history; fixed300s D1 standalone and main still pending newbuild freeze/runtime binding. See evidence/issue8/pp291-current-preflights.json.",
       "planned": {
         "translation": "Index Translator",
         "asr": "Gemini 3.5 Transcribe",
@@ -232,7 +235,7 @@
       "id": "PP4",
       "application": "PuriPuly",
       "finding": "blocked",
-      "reason": "Historical2.9.0 checks remain unchanged. Current B PP4 D1/D3 source-specific checks passed with CPU-auto local ASR, actual D1 parakeet and D3 qwen runtime, and selected Index official-API route. Actual send19104/receive19204 and genuine normal stop/full cleanup are recorded. Generic historical finding retained; selected route does not attest returned upstream, native fallback, main quality/FPR, long-session behavior or measured cost.",
+      "reason": "Generic historical finding retained. New2.9.1 actual desktop GUI/officialCLI checks passed D1/D3 with CPU-auto ASR/Index official API,10/2target inputs; runningparakeet D1/qwen3 D3, four stages each and genuine stop. Actualsend19104/receive19204. Afterall8checks, freshPP4D1 settings runtime_applied/OFF withcleannewinstancejournal; appretainedstopped. Old2.9.0 observations remain history. Newbuild freeze/runtime admission required; no main/quality/FPR/cost claim. See evidence/issue8/pp291-current-preflights.json.",
       "planned": {
         "translation": "Index Translator",
         "asr": "CPU-auto-selected local ASR",
@@ -969,10 +972,10 @@
     {"id": "W4", "profiles": ["VRCS1", "PP3", "VRCLS1"], "execution": "blocked_pending_preflight"}
   ],
   "limitations": [
-    "Generic catalogue readiness remains historical/evidence-specific and is not upgraded here. All8 current PP source-bound preflights and genuine normal full cleanup are separate bounded B evidence; future main runtime admission, returned upstream, numeric limits/cost and main quality/FPR are not certified by those checks.",
+    "Generic catalogue readiness remains historical/evidence-specific and is not upgraded here. All8 current PP2.9.1 source-bound CLI checks and genuine stop/final stopped preparation are bounded newbuild admission;2.9.0 B checks/fullcleanup remain historical. Fresh main runtime binding, returned upstream, numeric limits/cost and main quality/FPR are not certified by startup checks.",
     "The original fourteen-profile layout is historical context. Repair-retry preserves10 completed A slots and6 original unavailable observations; four retries now have passed checks, two VRCLS slots retain fresh static safety blockers.16 new eligible main slots still require amended freeze and runtime admission. Preserve actual cohort provenance and disjoint configuration/direction populations. The PP3 standalone observation remains pending and separate from primary results.",
     "For this D1/D3 batch only, the linked quota-isolation-amendment permits shared/unverified quotas; report contention, first failures and quota-stopped work without claiming independence or changing keys/tiers/routes. Other runtime/CPU/routing/cleanup requirements remain; no ordinary chunk-boundary restarts.",
-    "Current B PP effective sends are19104; receives arePP4=19204 andPP1/PP2/PP3=19201. Reuse is authorized only across their separate original waves; verify all wave-local endpoints and fresh actual effective state. Preserve PP1 GUI19101 mismatch without product repair. UDP availability is instantaneous, not reservation.",
+    "Actual2.9.1 PP sends remain19104; receivesPP4=19204 andPP1/PP2/PP3=19201. Reuse is nonconcurrent across plans; verify wave-local endpoints and fresh effective state. Preserve historical PP1 GUI19101 mismatch without product repair. UDP availability is instantaneous, not reservation.",
     "No actual VRChat process, speculative OSCQuery or fake mute signaling is supplied. Block any discovered process requirement.",
     "PuriPuly uses the installed public CLI under its later owner-approved control amendment; record exact instance identity, committed settings and effective capture/runtime state. Other apps retain actual GUI controls and session-bound manual bridge observations. Neither requested settings nor operation ACKs alone establish runtime truth or translated output.",
     "Provider exports, account quotas and actual response identities are not established by public documentation; missing measured cost remains unknown, not zero."

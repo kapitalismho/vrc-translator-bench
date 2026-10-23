@@ -44,6 +44,8 @@ For issue8 continuation and its subsequent [repair-and-retry amendment](../profi
 
 Settings transactions use the observed revision, require terminal runtime-applied completion and then read back state. Capture admission is distinct from effective running state. Stop owned self capture and translation and confirm both OFF; normal owned-app shutdown may follow outside timed work. Ordinary chunk boundaries do not restart capture. The [single PP4 control lifecycle](../profiles/evidence/issue8/pp-cli-lifecycle-check.json) exercised real stdio start/stop without benchmark audio; it is not a main result or another output check. New materialization requires the amended freeze and fresh runtime bindings.
 
+After the installed PuriPuly build changed to2.9.1, the [new-build amendment](../profiles/evidence/issue8/pp291-installed-build-amendment.json) required a fresh desktop GUI host and eight new source checks without replaying completed main work. Normal `puripuly app stop` was followed by the supported product command-line `run-gui` entrypoint; `puripuly app start/restart` would launch headless and is not equivalent. Actual forwarding/new-host identity and all eight [CLI-driven checks](../profiles/evidence/issue8/pp291-current-preflights.json) were observed. Preserve old journals/freezes; bind new identities rather than substituting hashes into old evidence. The adapter's voice-output flag is [current-source-derived unsupported-route metadata](../profiles/evidence/issue8/pp291-voice-output-basis.json), not a queried TTS state.
+
 ### Actual-GUI development pilots
 
 `tools.prepare_gui_pilot` prepares the bounded English development pilot used in `profiles/evidence/issue45/`, not a main comparison:
