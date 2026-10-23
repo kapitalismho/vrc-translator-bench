@@ -56,6 +56,8 @@ One [actual PP4 D1 control lifecycle](../../profiles/evidence/issue8/pp-cli-life
 
 The subsequent [controlled failure-boundary repair](../../profiles/evidence/issue8/pp-cli-failure-repair.json) retains known operation IDs from official `unknown_execution` receipts even without a top-level `terminal` flag. Resolve owned uncertain operations without replaying mutations: unsupported/requested cancellation or momentary OFF cannot certify cleanup. Observed provider failures cross stdio as `product/provider`; identity/revision/transport uncertainty remains operational, and cleanup preserves the first failure. The separate44 controlled checks exercised real stdio and runner control/ledger boundaries, not additional native activation or measurement.
 
+That same-controller repair did not preserve ownership across controller replacement. The [subsequent recovery repair](../../profiles/evidence/issue8/pp-cli-recovery-repair.json) journals responsibility and delivery uncertainty before dispatch, bound to the actual owned host PID/instance and CLI/config identity. Fresh `read_state`/resume cannot declare stopped cleanup while responsibility remains. Resolve the original operation and confirm OFF before release; changing scratch directories or deleting/resetting journals is not recovery. Unknown-ID uncertainty remains an operational blocker requiring explicit owned-host lifecycle reconciliation. Its separate63 recovery and44 retained-boundary checks used controlled transport, not native fault injection.
+
 
 ## Historical public control procedure
 

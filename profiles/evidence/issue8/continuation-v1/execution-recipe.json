@@ -5312,7 +5312,7 @@
     },
     "adapter": {
       "path": ".data/issue8/protocol-planning/continuation-v1/puripuly_cli_adapter.py",
-      "sha256": "00887c5bf999c1f6d78a7a4522ed5c17ab2f9cd0691a319adb0112af81d1219e"
+      "sha256": "65dda94b05e0de45ee72b0071c8be175725724a79960b3c8bc26655ce9fe075d"
     },
     "scope": "PP1-PP4 only; no fake GUI basis/ACK, host auto-launch, identity substitution, secret/profile cloning or hidden API",
     "integration_sources": [

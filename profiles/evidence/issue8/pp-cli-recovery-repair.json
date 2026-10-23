@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "kind": "controlled_CLI_controller_replacement_repair_not_measurement",
+  "prior_candidate": "def7b5a9cd5889dba6d958c5c0fbcd24e8b45c36",
+  "prior_review": "CCLI-2 closed; CCLI-1 same-controller closure supported, replacement-controller ownership still failed",
+  "prior_adapter_sha256": "00887c5bf999c1f6d78a7a4522ed5c17ab2f9cd0691a319adb0112af81d1219e",
+  "candidate_adapter_sha256": "65dda94b05e0de45ee72b0071c8be175725724a79960b3c8bc26655ce9fe075d",
+  "behavior": [
+    "Persist responsibility and uncertain submission before mutation dispatch, keyed by actual owned host PID/instance with CLI/config identity validation.",
+    "Fresh controllers cannot evade outstanding responsibility using another scratch directory or target selection. read_state/preflight/start fail closed while unresolved, preventing false stopped release during runner reconciliation.",
+    "Supported stop resolves original known operations before confirmed effective OFF and responsibility release. Unknown-ID delivery uncertainty remains an explicit operational blocker requiring owned-host lifecycle reconciliation, never mutation replay or journal deletion/reset."
+  ],
+  "observed_checks": {"recovery_exit_code": 0, "recovery_assertions": 63, "retained_boundary_exit_code": 0, "retained_boundary_assertions": 44},
+  "decisive_observations": [
+    "Same controlled host survived real stdio-controller replacement and changed scratch directory; production reconciliation with a real temporary Ledger retained unresolved ownership.",
+    "Original pending operation eventually applied ON; supported OFF then completed. A further controller released ownership only afterward, with one original on-submission and no later ON.",
+    "Controlled controller exit23 after host acceptance but before receipt preserved uncertainty across replacement and late completion; no false successful cleanup.",
+    "Observed provider failures retained product/provider classification, first product_failure1/invalid0 and terminal non-retry; identity/revision/transport uncertainty remained operational."
+  ],
+  "boundary": "Actual adapter main/stdio, generic Adapter and production reconcile/control paths; application transport and liveness controlled. No installed CLI/app/provider/model call, Runner.run, activity lock, OSC sink, audio or main.",
+  "history": "Prior44-check same-controller evidence and original11.23s native lifecycle remain separate and unchanged. Three development failures and their exact bytes were preserved privately; no assertions weakened. These63+44 controlled checks do not establish native fault verification.",
+  "cleanup": "Owned fixture children and temporary synthetic files/ledgers removed. Negative unresolved scenarios remain failed/owned in evidence, not successful cleanup.",
+  "next_gate": "Originating-reviewer verification of committed repaired candidate; final snapshot/freeze/materialization remain separate."
+}
