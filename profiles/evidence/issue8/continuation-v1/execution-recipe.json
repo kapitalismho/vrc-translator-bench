@@ -1,18 +1,11 @@
 {
   "schema_version": 1,
-  "status": "draft_continuation_pending_integration_review_and_final_approval",
+  "status": "prepared_for_commit",
   "protocol_frozen": false,
   "main_measurement_started": false,
   "pending_hash_refresh": {
-    "required_before_freeze_or_materialization": true,
-    "first_stopped_preparation": {
-      "path": ".data/issue8/protocol-planning/continuation-v1/cli-control-v1/actual/first-preparation.json",
-      "sha256": "702b7feac18b54490da59e6b06db0274f99a7320af9ca6fd56cbb637e12e8338"
-    },
-    "prerequisites": [
-      "Director-integrated committed CLI-control candidate and independent review",
-      "Actual Director final-snapshot authorization"
-    ]
+    "required_before_freeze_or_materialization": false,
+    "basis": "Authorized actual C first-preparation/guidance/source snapshot only; new Director C commit/freeze still required"
   },
   "scope": "CONTINUE only:12 new first-measurement wave slots plus one standalone;10 completed A and6 actual unavailable retained cumulatively",
   "candidate_context": {
@@ -3309,7 +3302,8 @@
     "reference_contracts": {
       "W1-D1": {
         "path": ".data/issue8/protocol-planning/continuation-v1/metrics-reference-contracts/W1-D1.json",
-        "sha256": "cc91d7e7a2a1e669b5b1ff59ceeb5b2f4983efeb4d4e2bf18c3eb0ff18ca3207",
+        "sha256": "0edfe8a57301d6a2c62fbbef9cf1a152c1a9287b37438b9d883f1d42509b2b7f",
+        "expanded_stages": 32,
         "speech_references": 28,
         "nonspeech_indices": [
           "29"
@@ -3317,7 +3311,8 @@
       },
       "W1-D3": {
         "path": ".data/issue8/protocol-planning/continuation-v1/metrics-reference-contracts/W1-D3.json",
-        "sha256": "a62820de5c3b8159559e42505f99ef9941ac6211e51d7c7e0da1a2df105aa313",
+        "sha256": "1d008477215f4116e232ebe05c022a47e53118d9cd55254b8eacb37f6731ca5c",
+        "expanded_stages": 33,
         "speech_references": 29,
         "nonspeech_indices": [
           "32"
@@ -3325,7 +3320,8 @@
       },
       "W2-D1": {
         "path": ".data/issue8/protocol-planning/continuation-v1/metrics-reference-contracts/W2-D1.json",
-        "sha256": "bcb4fb492ecacf78cf8fc51d3f19db6c5752f5182dfc5361e7e947d88d006353",
+        "sha256": "fe51ca6482dd1f8422d1723ad5551f81968a39c378df9647e07a47644afe597e",
+        "expanded_stages": 32,
         "speech_references": 28,
         "nonspeech_indices": [
           "29"
@@ -3333,7 +3329,8 @@
       },
       "W2-D3": {
         "path": ".data/issue8/protocol-planning/continuation-v1/metrics-reference-contracts/W2-D3.json",
-        "sha256": "e65aa6cfb1bdd9f22a2ffecd89a79b34bdbbae5a5a364d7e3fe8f7d668282eeb",
+        "sha256": "a7743e695c54404f7532e980300de5d869a4db2a81aee353b35024cf6aa4f2d9",
+        "expanded_stages": 33,
         "speech_references": 29,
         "nonspeech_indices": [
           "32"
@@ -3341,7 +3338,8 @@
       },
       "W3-D1": {
         "path": ".data/issue8/protocol-planning/continuation-v1/metrics-reference-contracts/W3-D1.json",
-        "sha256": "2a89aaee4043b0137959053bfefeb2d0565ea3834eddb437cb1b2ee6b7efc1e8",
+        "sha256": "a7b5002f293af4c256e42633eb39723809b238c30e9805401e142fcad6c9727f",
+        "expanded_stages": 32,
         "speech_references": 28,
         "nonspeech_indices": [
           "29"
@@ -3349,7 +3347,8 @@
       },
       "W3-D3": {
         "path": ".data/issue8/protocol-planning/continuation-v1/metrics-reference-contracts/W3-D3.json",
-        "sha256": "833fb0041e93053ecbcff18e1447d83ae4a781111d6d06a3c6ebc3234b8ec27b",
+        "sha256": "2322d8f662621e58035b46265486ea567d5207893b0dd4c207b42405ff885ba7",
+        "expanded_stages": 33,
         "speech_references": 29,
         "nonspeech_indices": [
           "32"
@@ -3357,13 +3356,15 @@
       },
       "PP3ALONE-D1": {
         "path": ".data/issue8/protocol-planning/continuation-v1/metrics-reference-contracts/PP3ALONE-D1.json",
-        "sha256": "646aa94b04d8a190b599ba1d9be8d6025c59d01e785daed56246216280cf40ad",
+        "sha256": "e93a041cb526fcd0069bbec3688f39341b287317dd02f0f2022f2ab6224f39e1",
+        "expanded_stages": 4,
         "speech_references": 1,
         "nonspeech_indices": []
       },
       "W4-D1": {
         "path": ".data/issue8/protocol-planning/continuation-v1/metrics-reference-contracts/W4-D1.json",
-        "sha256": "4ad0ac924c993ba3080b356da1f64c4ac6897b4eaab95972ab2f6252410b1e59",
+        "sha256": "a6af36c991b615ab6d266e2c4e72a65090a21bb55a42d656cf1c1a455180ea3d",
+        "expanded_stages": 32,
         "speech_references": 28,
         "nonspeech_indices": [
           "29"
@@ -3371,7 +3372,8 @@
       },
       "W4-D3": {
         "path": ".data/issue8/protocol-planning/continuation-v1/metrics-reference-contracts/W4-D3.json",
-        "sha256": "f0dbe1baec1532fa4101aacfc3eecf135c29beb8b0c97ba5c3b70daaf5324618",
+        "sha256": "d152e13b11b33e82ae2bf8a60ec516e6f1bd27e553c8b85a11025ed42c6f2646",
+        "expanded_stages": 33,
         "speech_references": 29,
         "nonspeech_indices": [
           "32"
@@ -4502,7 +4504,548 @@
     ]
   },
   "rights": "Local-only source/audio/transcript artifacts. Preserve AMI CC-BY4 and AliMeeting CC-BY-SA4 attribution/source/license/change notices. This recipe grants no upload/publication permission.",
-  "rules_and_contracts": [],
+  "rules_and_contracts": [
+    {
+      "path": "docs/cli.md",
+      "sha256": "634150b0e329b536f60be61f40eeda38a2ac6b2c3de4c8bdd8e50c9c4bc89ccf"
+    },
+    {
+      "path": "docs/metrics.md",
+      "sha256": "d8169aa7286dceb12234bcfc23ff9fa8bfe85a89c94db4219a9415792299cdc5"
+    },
+    {
+      "path": "docs/quality.md",
+      "sha256": "fa16add11e19de567dfb836ff10221cd767cfea23f1fef4ecedff9a80641b929"
+    },
+    {
+      "path": "docs/costs.md",
+      "sha256": "dbbd0e73613d2343cce259e46ec8f4b1bb3325753b5b1db6922c46f67e63ae3f"
+    },
+    {
+      "path": "docs/profiles.md",
+      "sha256": "e607202fa2c22adc2d9ca8724dda4e7313a7194a16dfcab04d7f0f39278b3eda"
+    },
+    {
+      "path": "docs/profiles/vrct-vrcs.md",
+      "sha256": "593f819464274b8d644fdbaf22abd2be10006b47a781ada19d0dc2413ad233b5"
+    },
+    {
+      "path": "docs/profiles/vrclt.md",
+      "sha256": "06fef2bf0332f589f5f0785625f057cfd79c1a134ca23cc8866d0176ae14b09e"
+    },
+    {
+      "path": "docs/profiles/kikitan-vrcls.md",
+      "sha256": "f4a36ac598327ce71343865c565b708be64996b0c969ba88f3f960b1d327cdf0"
+    },
+    {
+      "path": "docs/corpus.md",
+      "sha256": "8d11491829be91f334540cfd7cb43c7e042c881259607efcbb5c90ef4643f9f9"
+    },
+    {
+      "path": "docs/architecture.md",
+      "sha256": "6be433c8f45b035d851f8f4d3766509e6a81bc84de89f4e2f68878e2a58667f8"
+    },
+    {
+      "path": "profiles/catalog.json",
+      "sha256": "5857016f16339f30bff7cd01e2b800ce7d00c4cf283e5a8efb645fdffa0723e4"
+    },
+    {
+      "path": "profiles/evidence/issue8/non-puripuly-batch-amendment.json",
+      "sha256": "ffd51cbe59c3df967076904c3812e4bfdf9089fcab313d53211566696aa927f4"
+    },
+    {
+      "path": "profiles/evidence/issue8/observation-order.json",
+      "sha256": "630326a9e4c19d48ff1acf568adacbe4dcafc99937ff02f5abd14ef28d4a8f2a"
+    },
+    {
+      "path": "profiles/evidence/issue8/input-assembly.json",
+      "sha256": "58113d516c6aab4ca11e22c9d8a7dd1a369de4e7b1a567708293862e46bf5e0e"
+    },
+    {
+      "path": "profiles/evidence/issue8/quota-isolation-amendment.json",
+      "sha256": "5c9a578cb9a406e44e6f4c5433aa87d9494361edbd132885cba6e699e8ae7778"
+    },
+    {
+      "path": "profiles/evidence/issue8/supplementary-scope-amendment.json",
+      "sha256": "b1d4c59f0740a75aa6fb44d0f63c732c51d5bb616ea04e3958990310b261f6ee"
+    },
+    {
+      "path": "profiles/evidence/issue8/reporting-presentation-amendment.json",
+      "sha256": "f4b180f0146460ed049cee239dd291825f13a66c64f2b36d94af40a35d8a3ba5"
+    },
+    {
+      "path": "profiles/evidence/issue8/scoring-runtime.json",
+      "sha256": "768e6ac85758e142d073320fb940610ca300316d36d81904cfbbb0f76ce8a452"
+    },
+    {
+      "path": "profiles/evidence/issue8/cable-endpoints.json",
+      "sha256": "c51c6ed03631520fa86c5e0d7c264109096243e64f8251ca8477b6acdb6e174f"
+    },
+    {
+      "path": "profiles/evidence/issue8/vrcs-current-preflights.json",
+      "sha256": "dcf9a31ff65cd50021f7b9d0daea02256147460f4b514fe4d99117bd42eef9d7"
+    },
+    {
+      "path": "profiles/evidence/issue8/vrcs-runtime-security-observation.json",
+      "sha256": "335a932d83cbe19b22e37da5640f547f168f84e904cc9da2b26bd642e92c8ea2"
+    },
+    {
+      "path": "profiles/evidence/issue8/vrct-current-preflights.json",
+      "sha256": "36ba8dfeeb0692b076f970fc112b7a6476c3c95afdaf3bedc474d4c068f48c16"
+    },
+    {
+      "path": "profiles/evidence/issue8/kikitan-current-preflights.json",
+      "sha256": "3e179e8de7d473f03dd21d7532c81779a90b786c8e524c9b9fc6675c3689a606"
+    },
+    {
+      "path": "profiles/evidence/issue8/vrclt-current-preflights.json",
+      "sha256": "4924240ce4601e608f33ebac8de836cf1351ec825e1dccc97381f05fe41bf711"
+    },
+    {
+      "path": "profiles/evidence/issue8/vrcls-current-preflights.json",
+      "sha256": "2e11de602d24a66dfb7d0ca5a184ad178f7808e80f80374316a21c2364455f10"
+    },
+    {
+      "path": "profiles/evidence/issue8/vrcls-startup-routing-amendment.json",
+      "sha256": "df825193bb3c49c00676cb66dd908b2e9f05e71d88276340e2bdb2c83fade91c"
+    },
+    {
+      "path": "profiles/evidence/issue8/vrcls-installed-routing-findings.json",
+      "sha256": "e3764834837455fe14a741ec557a4682993150ca171ac8ee0f2aa1478affa626"
+    },
+    {
+      "path": "profiles/evidence/issue8/vrcls-routing-rollback.json",
+      "sha256": "c0740b5e2c62b2a06023b0f6f7dbd746162878ac9c3d470e24ca30228db1f84a"
+    },
+    {
+      "path": "bench/plan.py",
+      "sha256": "00f188525da18a9e46ba9053ad4764bf1369b43aa0256123928ae2a7f7e5923c"
+    },
+    {
+      "path": "bench/runner.py",
+      "sha256": "e4ec4d22669935e92c75fb91246411170ac70853a81460f0fae0f20dea72d87f"
+    },
+    {
+      "path": "bench/osc.py",
+      "sha256": "24d65ceb3eeb6fa1e5b45626fee5f5fc405232ab36ba9dc12ba0017ae2dbc22e"
+    },
+    {
+      "path": "bench/audio.py",
+      "sha256": "c1d58a2754c1be531ac3c85b5bf1656b5dd9a059a2f0b7195cc8c1f7c71a5ff4"
+    },
+    {
+      "path": "bench/storage.py",
+      "sha256": "cdce70eb22df4325153eb6fae31d4ebdd5c66d44ebd0945eb61ec61d1a1064e9"
+    },
+    {
+      "path": "bench/adapter.py",
+      "sha256": "17c1eb3f3f9053cd87173cf80be79c8daf5a7b932fd79e6b5b21605e4049f9ee"
+    },
+    {
+      "path": "bench/gui_operator_adapter.py",
+      "sha256": "1edb7bbdf920a6221ddf0a40f9b0db5322c2b70eca8b9a132c130f4396f78473"
+    },
+    {
+      "path": "bench/cli.py",
+      "sha256": "b5c4ccda6e388beb3bcedec64c1ce944630b25764f4b73bf8ddfbefbd75bdc60"
+    },
+    {
+      "path": "bench/activity.py",
+      "sha256": "e35b438c143586ce2b4336a2cce0b3bcdcf142dfd8bf0faadcd3af75d0a32686"
+    },
+    {
+      "path": "bench/metrics.py",
+      "sha256": "7733b2254c1039219ed38bca8904121a8eddd7e9cd073cc283b02c3b2270336d"
+    },
+    {
+      "path": "bench/metrics_inputs.py",
+      "sha256": "6162739b95c2807d4c275adc690cb8874b34a10c521c60e0a9355bcbdab3cf8e"
+    },
+    {
+      "path": "bench/metrics_alignment.py",
+      "sha256": "a0aa22e8aa54b376b713b8cfb7459c72b6b86326dc0c286a4ccce7f140635a38"
+    },
+    {
+      "path": "bench/metrics_diagnostics.py",
+      "sha256": "a81d6a24f9873920fbea94f8134fa9325dc411e9d6c9a2966dbb23af4382bb79"
+    },
+    {
+      "path": "bench/metrics_stats.py",
+      "sha256": "28afae31a456537b8fb4301de14a29090d6a6b56e41e680ebcade735d22e2768"
+    },
+    {
+      "path": "bench/metrics_batch.py",
+      "sha256": "ff14d01f4024ff851f3d1cb169fbfded1249fddc53b3c913ba02467a873019c3"
+    },
+    {
+      "path": ".data/issue8/batch-composition-smoke/acceptance.json",
+      "sha256": "920483a5ac3605696d28d88fd3d819325ed1c7e0d483cb9e3180bf2bff28d0c6"
+    },
+    {
+      "path": ".data/issue8/role-repair-followup/acceptance.json",
+      "sha256": "b58e45634c89a2198457fee36a9b17b4a988f68b5627dee0f4176de2ae1034f6"
+    },
+    {
+      "path": "bench/profiles.py",
+      "sha256": "0142978d01cba7448413a8cf0a3c631a9a565c148e1b2e856d8714ed3fc04d4d"
+    },
+    {
+      "path": "bench/__init__.py",
+      "sha256": "667d4a15b970b851e20d17510224670c14646cfb6d5a1e388ca6b9cc6da8bf41"
+    },
+    {
+      "path": "bench/quality.py",
+      "sha256": "92fac947746b50fd12f588baaa111d19a6eec1240a85664d8a33e661535a4ce2"
+    },
+    {
+      "path": "bench/quality_sampling.py",
+      "sha256": "920d75fce668fb660c413580a49b5a5b69a0cebe67054d0ad6ba1db4ee6bf4f6"
+    },
+    {
+      "path": "bench/quality_report.py",
+      "sha256": "aa3686e586318e235728509b0daf5c03b4c75571379be2a7a15084d9a7d1028f"
+    },
+    {
+      "path": "bench/quality_prompts.py",
+      "sha256": "5593b75fc30f30bceec1988ab6e5813663cb2b154a44e0652429de3db999ed46"
+    },
+    {
+      "path": "bench/quality_metricx.py",
+      "sha256": "eb3bc75599e23eae8deb7b5efe8c0f69c1f375f3b89a0320d779d135af2366e7"
+    },
+    {
+      "path": "bench/quality_judge.py",
+      "sha256": "7a83d704ba38336a867d6c9eb36ec5978bd94aaf75bfa1145c86797aecf1f7b7"
+    },
+    {
+      "path": "bench/quality_transport.py",
+      "sha256": "17bd38703c6704ccd985e804050fb55c6c7f3d193051e87cb274147be108fb16"
+    },
+    {
+      "path": "bench/quality_process.py",
+      "sha256": "b9ae92cd3b8e3631318370860165f7e8a3d8eb46d4e6540a2c596f72f63b74e1"
+    },
+    {
+      "path": "bench/quality_store.py",
+      "sha256": "17088e30ca05235ad4cf6750690af66fc5771f6004b06787280c75b2598e1e24"
+    },
+    {
+      "path": "bench/quality_bridge.mjs",
+      "sha256": "f24678320eef1e3c338eff19400466e64413f4859b16f33c92e006aa036e60d4"
+    },
+    {
+      "path": "bench/costs.py",
+      "sha256": "928fc38c88c0fee27bd501a9ac090727434ce83bfd7364828718e5f34ab15762"
+    },
+    {
+      "path": "bench/cost_inputs.py",
+      "sha256": "8dec384479dcf6f05baa2679e03dd36fdf0264aee1596b2a52503daf62979fef"
+    },
+    {
+      "path": "tools/prepare_gui_pilot.py",
+      "sha256": "6b2f50954da0d320981a6107bb6ef283c70976ad5292299da60a04c72ad9a962"
+    },
+    {
+      "path": "profiles/evidence/issue8/kiki1-observed-rules.json",
+      "sha256": "3a0577819fdff3379a6c888d95ad0e065130acb82a1919140e877bd4c72515e5"
+    },
+    {
+      "path": "profiles/evidence/issue8/kiki2-observed-rules.json",
+      "sha256": "810a63a6c62182d3a2bb6592f84544fea97f5fff391995a2f7beb5bd0f3d0004"
+    },
+    {
+      "path": "profiles/evidence/issue8/vrclt1-observed-rules.json",
+      "sha256": "db10cf5d0c8012023c3f08f5c14c03580af650c5c136918e46a72f0a88bec2e7"
+    },
+    {
+      "path": "profiles/evidence/issue8/vrclt2-observed-rules.json",
+      "sha256": "ad96f33f56088e1c04f37c03b6eb697b853401274435b42053e35050f3b1c16d"
+    },
+    {
+      "path": "profiles/evidence/issue8/vrcs2-observed-rules.json",
+      "sha256": "96ce372c01c586113b3be68a1c55f0c6592b82ef7d6132c7468cfe5ed6f99c1c"
+    },
+    {
+      "path": "profiles/evidence/issue8/vrct1-observed-rules.json",
+      "sha256": "ca9d2eb4a96b77c260bb95c69bc2081a18dd807ab3c8c927aedc31c867133333"
+    },
+    {
+      "path": "profiles/evidence/issue8/vrct2-observed-rules.json",
+      "sha256": "2ff2095779de9fadc5d52028c51d3ab6cea656b38909994c17274187ddb98062"
+    },
+    {
+      "path": "profiles/evidence/issue8/vrct3-observed-rules.json",
+      "sha256": "74945250a42daff6ba0e95c3fb7060c5c7e4dd643079b6df9874a5310803d3c0"
+    },
+    {
+      "path": "profiles/evidence/issue8/pp-restored-v1/observed-port-decision.json",
+      "sha256": "e31a11853593976ec39a23e9310aca8df7a3add50710d6331307fe7f02c0ea46"
+    },
+    {
+      "path": "profiles/evidence/issue8/pp-restored-v1/actual-osc-port-decision.json",
+      "sha256": "9ab8ebc4e19577244fd334d0aa9c41a61b5ac6c64d3d978abc3bacbebcaa71ba"
+    },
+    {
+      "path": "profiles/evidence/issue8/pp-restored-v1/current-preflights.json",
+      "sha256": "bd09e0492e5a508e415d06d1554200874c52eb530a845d78a22a864a67a81a09"
+    },
+    {
+      "path": "profiles/evidence/issue8/pp-restored-v1/normalized-admissions.json",
+      "sha256": "ad20b2944b44f73d61c913e4132204e597a4db215b225f8425504ea306d84055"
+    },
+    {
+      "path": "profiles/evidence/issue8/pp-restored-v1/normal-cleanup.json",
+      "sha256": "f98a2cd0089e6f48220aa0aa9eb7e9594d816517538680754e4ee33949f6869b"
+    },
+    {
+      "path": "profiles/evidence/issue8/puripuly-restoration-amendment.json",
+      "sha256": "949ec6d7ea84e9e189171cd50df7570fd16aff3a98569ea71b569ee914920992"
+    },
+    {
+      "path": "docs/profiles/puripuly.md",
+      "sha256": "186849c259f0d6bab201d5121a8c21818b1ac8b412db7c3dbf1b44b99b5532bf"
+    },
+    {
+      "path": "profiles/evidence/issue8/execution-recipe.json",
+      "sha256": "dbef7ac0f92faa9ace09b3467a051ee4f17c2cae3763cfb2afe55003cdb619b9"
+    },
+    {
+      "path": "profiles/evidence/issue8/pp-restored-v1/pp4-d1-preflight.json",
+      "sha256": "cb54cc67f670498869bae68fabba3f855e92ffdd926f52d114572b1be9034ad9"
+    },
+    {
+      "path": "profiles/evidence/issue8/pp-restored-v1/pp4-d3-preflight.json",
+      "sha256": "af55bb325bc3fc456a6ea73ac510aaa7a0154fbb02dd4a2ecb9ea92a51fd223b"
+    },
+    {
+      "path": "profiles/evidence/issue8/pp-restored-v1/pp1-d1-preflight.json",
+      "sha256": "1536b116295d32489cf366920bdea25362467a0d54097267e9c72ec9523c2f9d"
+    },
+    {
+      "path": "profiles/evidence/issue8/pp-restored-v1/pp1-d3-preflight.json",
+      "sha256": "4912d56102818e322ff50be416c694a64a455fdd6873f07db7ce729a1dc625df"
+    },
+    {
+      "path": "profiles/evidence/issue8/pp-restored-v1/pp2-d1-preflight.json",
+      "sha256": "c3f909f0106c3221829172539836bf869381f8bb54cf3418dd186d0f1893f380"
+    },
+    {
+      "path": "profiles/evidence/issue8/pp-restored-v1/pp2-d3-preflight.json",
+      "sha256": "ef4b0301ce0d2dcf92a4df144e55bd647121ad65f5fefd5b8d78c5ecb0fd921c"
+    },
+    {
+      "path": "profiles/evidence/issue8/pp-restored-v1/pp3-d1-preflight.json",
+      "sha256": "eea31da8f09b0447a842ced23013246b307d1f79f396871f49dd5faf111358d5"
+    },
+    {
+      "path": "profiles/evidence/issue8/pp-restored-v1/pp3-d3-preflight.json",
+      "sha256": "3f18a6cda2e299587c6a6ab8aae1d75d0254c5de649862bc44032f4347a85104"
+    },
+    {
+      "path": "profiles/evidence/issue8/pp-restored-v1/pp1-d1-rule.json",
+      "sha256": "ef7331b4841ceb37fc5c8587377edbab91d618d6d28a85ae83a2936afaada0a4"
+    },
+    {
+      "path": "profiles/evidence/issue8/pp-restored-v1/pp1-d3-rule.json",
+      "sha256": "8aa7be5467aeb7033f00a19a8110fedf16cd9b650d8cb8b5393bdc41361e0f28"
+    },
+    {
+      "path": "profiles/evidence/issue8/pp-restored-v1/pp2-d1-rule.json",
+      "sha256": "9fcca7a0572f919db65f03d1f270d8c969d230b00c33e1b2aabaf53656d8c60a"
+    },
+    {
+      "path": "profiles/evidence/issue8/pp-restored-v1/pp2-d3-rule.json",
+      "sha256": "4bbdebc4f1c6f37669f901f16bf9dc82225c6ef7dad06667524d92435ffc2400"
+    },
+    {
+      "path": "profiles/evidence/issue8/pp-restored-v1/pp3-d1-rule.json",
+      "sha256": "666c90acf9a3adf177eaf6191780e41e03a88dc3feebfe470aa75fbfd85eae53"
+    },
+    {
+      "path": "profiles/evidence/issue8/pp-restored-v1/pp3-d3-rule.json",
+      "sha256": "adf8037ff3842cc44be314127d66f82bb09da11d6433fb94786a44dc17edd33d"
+    },
+    {
+      "path": "profiles/evidence/issue8/pp-restored-v1/pp4-d1-rule.json",
+      "sha256": "246e9ff6fdf0b2e61c9620a69fe65f6d2cfe27fe15239b40b0dac41ca29303a2"
+    },
+    {
+      "path": "profiles/evidence/issue8/pp-restored-v1/pp4-d3-rule.json",
+      "sha256": "7656a950f548d4c2fe118f8b73437cf8d9f3ca1870729c5bb2cb3ee0eeddf1df"
+    },
+    {
+      "path": "profiles/evidence/issue8/continuation-only-amendment.json",
+      "sha256": "c02c56394cf352a82e3663f626baa8530f561e7c947faa3ab1a6dee960282f9e"
+    },
+    {
+      "path": ".data/issue8/continuation-only-resume-decision.json",
+      "sha256": "ad330f7c6aa76874b9c397142a37c979bee8d964867fe242c8c44030f057299d"
+    },
+    {
+      "path": "profiles/evidence/issue8/pp-restored-v1/execution-recipe.json",
+      "sha256": "3f596b1f2bce3ac4922d06c49ffc8780e63c0093f79f259e341df6207081d840"
+    },
+    {
+      "path": ".data/issue8/protocol-planning/continuation-v1/assemble_protocol.py",
+      "sha256": "946f24452d5a3eb47ab319c26249777441bdf442a9618793927fd897f1f923a7"
+    },
+    {
+      "path": ".data/issue8/protocol-planning/continuation-v1/runtime-bindings.schema.json",
+      "sha256": "8530ed967fbfc975f914c9c74cf314a73166631b4958c85129f627f8029e1df2"
+    },
+    {
+      "path": ".data/issue8/protocol-planning/continuation-v1/prepare_current_availability.py",
+      "sha256": "406dd2578871e4a26a6aa866750593e720f6045f59292cfd9ea7fb67c7ef58b0"
+    },
+    {
+      "path": ".data/issue8/protocol-planning/continuation-v1/finalize_snapshot.py",
+      "sha256": "975520ff4323bfdd80f7b074f7b9cc92abee6d736a96e3a0e476f3845d388759"
+    },
+    {
+      "path": ".data/issue8/protocol-planning/continuation-v1/wait_pending.py",
+      "sha256": "82e5baf8e036363172f2e91a2a94dd5055d51373fee769b75bec89b459f484b7"
+    },
+    {
+      "path": ".data/issue8/protocol-planning/continuation-v1/source_registry.py",
+      "sha256": "f0760c6e26888649d377781c053bf76c556da24ea6d04afffbbc08c3dae32720"
+    },
+    {
+      "path": ".data/issue8/protocol-planning/continuation-v1/puripuly_cli_adapter.py",
+      "sha256": "65dda94b05e0de45ee72b0071c8be175725724a79960b3c8bc26655ce9fe075d"
+    },
+    {
+      "path": "profiles/evidence/issue8/puripuly-cli-control-amendment.json",
+      "sha256": "8e7ecef461a36afb43a063953276095e8b55616c1085695a07a3fd4f4608fad0"
+    },
+    {
+      "path": ".data/issue8/protocol-planning/continuation-v1/current-availability-partition.json",
+      "sha256": "c0a87eccab09ffc1deff55a89c362c9c3cd44d0f0cdcbf97a7c56c4c6baf5d03"
+    },
+    {
+      "path": ".data/issue8/protocol-planning/continuation-v1/retained-A-provenance.json",
+      "sha256": "165b1df48322d75b3007454164fbee257e97fac7942bcd67a666b3b61dd38b02"
+    },
+    {
+      "path": ".data/issue8/protocol-planning/continuation-v1/final-snapshot-approval.json",
+      "sha256": "b8aea251b1714e5181ca7a8b0ec2d0053179618fe0e57f71ab0646c7cc26e669"
+    },
+    {
+      "path": ".data/issue8/protocol-planning/continuation-v1/cli-control-v1/actual/first-preparation.json",
+      "sha256": "702b7feac18b54490da59e6b06db0274f99a7320af9ca6fd56cbb637e12e8338"
+    },
+    {
+      "path": ".data/issue8/main/W1-D1-20261021T210405Z/runs/issue8-W1-D1-20261021T211859Z/manifest.json",
+      "sha256": "2419570359d5ea4f746128de22b17e5f77ca8ba7ae1dc362874d036fd0db42c3"
+    },
+    {
+      "path": ".data/issue8/main/W1-D1-20261021T210405Z/runs/issue8-W1-D1-20261021T211859Z/execution-plan.json",
+      "sha256": "dc06413aa4e7126deda67bb76aa65dbc9e16cdb062b80c631e5f1bed1e9edacb"
+    },
+    {
+      "path": ".data/issue8/protocol-planning/materialized/W1-D1/W1-D1-metrics-reference-binding.json",
+      "sha256": "49b37de3648ec23e0710859f273d41e0a05513c336700aee301147ae1c6de7ea"
+    },
+    {
+      "path": ".data/issue8/main/W1-D1-20261021T210405Z/terminal-handoff.json",
+      "sha256": "13a8ea3722631a11d897277102c70241fc615c14a155d8809dcc575390617fb8"
+    },
+    {
+      "path": ".data/issue8/main/W1-D3-20261021T224143Z/runs/issue8-W1-D3-20261021T230110Z/manifest.json",
+      "sha256": "f32db8d0eac1ab770fade7e6821c3adec11f311af188abc7c5ae814f0a9701f2"
+    },
+    {
+      "path": ".data/issue8/main/W1-D3-20261021T224143Z/runs/issue8-W1-D3-20261021T230110Z/execution-plan.json",
+      "sha256": "b45629c3eb5660623cd345f080818f1bdfaa6d656b118543b864ce79c65ba44e"
+    },
+    {
+      "path": ".data/issue8/protocol-planning/materialized/W1-D3/W1-D3-metrics-reference-binding.json",
+      "sha256": "0e7ed7f2e0c2acb535cc2b031cb5657911de667924d3f47822938c583810c88d"
+    },
+    {
+      "path": ".data/issue8/main/W1-D3-20261021T224143Z/terminal-handoff.json",
+      "sha256": "51e233c2220512a0938fc81e16ca3a2e34f60c016e9acd2194136a23d3b383c9"
+    },
+    {
+      "path": ".data/issue8/main/W2-D1-20261022T001525Z/runs/issue8-W2-D1-20261022T004525Z/manifest.json",
+      "sha256": "0ab2dfa8e9fa6265a6df247e4859509f9f0932599168f61abee88e78b0ec1035"
+    },
+    {
+      "path": ".data/issue8/main/W2-D1-20261022T001525Z/runs/issue8-W2-D1-20261022T004525Z/execution-plan.json",
+      "sha256": "617793fafe3553a4618b80a5a1b9fc68e9d2ce93e94e04ab720554326e134c2f"
+    },
+    {
+      "path": ".data/issue8/protocol-planning/materialized/W2-D1/W2-D1-metrics-reference-binding.json",
+      "sha256": "57a4a9fa1f7ff6630f4beda3dbc65b57c3d73e5f6f24035739a7fff3689de61d"
+    },
+    {
+      "path": ".data/issue8/main/W2-D1-20261022T001525Z/terminal-handoff.json",
+      "sha256": "56afa57889c1f5e9c7ceccf432746be6c639beff532bb9627a0e4582c5c238df"
+    },
+    {
+      "path": ".data/issue8/main/W2-D3-20261022T015804Z/runs/issue8-W2-D3-20261022T023123Z/manifest.json",
+      "sha256": "ad606bd643072092b2e6f9460e00af429f235bcb396daae4e0645feec0e3a382"
+    },
+    {
+      "path": ".data/issue8/main/W2-D3-20261022T015804Z/runs/issue8-W2-D3-20261022T023123Z/execution-plan.json",
+      "sha256": "0dae813f59f8d957998f812abc0e456096e9d167ccdc6f2300f65b424d27bd86"
+    },
+    {
+      "path": ".data/issue8/protocol-planning/materialized/W2-D3/W2-D3-metrics-reference-binding.json",
+      "sha256": "48dd4dad51c94767988d6ff40c0cda228bbeedea126a5e0aee18a0bba1fecfd4"
+    },
+    {
+      "path": ".data/issue8/main/W2-D3-20261022T015804Z/terminal-handoff.json",
+      "sha256": "ec407ec7565adcdc65c9a836832c86eb854a0f53709e11cb3ec04048132bbbe8"
+    },
+    {
+      "path": "profiles/evidence/issue8/pp4-cli-preparation.json",
+      "sha256": "3ec14232969866e1287d0708e36d59afbb9b12c990b596a0b3b716b0ffee4261"
+    },
+    {
+      "path": ".data/issue8/continuation-v1/resume-preparation/PP4-D1-actual-cli-preparation.json",
+      "sha256": "f246ae37a8deb744b65e6fa262dcbe5bb4aed3887ba4b4f9f9c09e3caeeca79a"
+    },
+    {
+      "path": ".data/issue8/protocol-planning/continuation-v1/cli-control-v1/actual/native-lifecycle.json",
+      "sha256": "bd668af65cbc0af04f58016eb1e60e9b55e580a3043e7b918e94cc8298af837d"
+    },
+    {
+      "path": ".data/issue8/protocol-planning/continuation-v1/metrics-reference-contracts/W1-D1.json",
+      "sha256": "0edfe8a57301d6a2c62fbbef9cf1a152c1a9287b37438b9d883f1d42509b2b7f"
+    },
+    {
+      "path": ".data/issue8/protocol-planning/continuation-v1/metrics-reference-contracts/W1-D3.json",
+      "sha256": "1d008477215f4116e232ebe05c022a47e53118d9cd55254b8eacb37f6731ca5c"
+    },
+    {
+      "path": ".data/issue8/protocol-planning/continuation-v1/metrics-reference-contracts/W2-D1.json",
+      "sha256": "fe51ca6482dd1f8422d1723ad5551f81968a39c378df9647e07a47644afe597e"
+    },
+    {
+      "path": ".data/issue8/protocol-planning/continuation-v1/metrics-reference-contracts/W2-D3.json",
+      "sha256": "a7743e695c54404f7532e980300de5d869a4db2a81aee353b35024cf6aa4f2d9"
+    },
+    {
+      "path": ".data/issue8/protocol-planning/continuation-v1/metrics-reference-contracts/W3-D1.json",
+      "sha256": "a7b5002f293af4c256e42633eb39723809b238c30e9805401e142fcad6c9727f"
+    },
+    {
+      "path": ".data/issue8/protocol-planning/continuation-v1/metrics-reference-contracts/W3-D3.json",
+      "sha256": "2322d8f662621e58035b46265486ea567d5207893b0dd4c207b42405ff885ba7"
+    },
+    {
+      "path": ".data/issue8/protocol-planning/continuation-v1/metrics-reference-contracts/PP3ALONE-D1.json",
+      "sha256": "e93a041cb526fcd0069bbec3688f39341b287317dd02f0f2022f2ab6224f39e1"
+    },
+    {
+      "path": ".data/issue8/protocol-planning/continuation-v1/metrics-reference-contracts/W4-D1.json",
+      "sha256": "a6af36c991b615ab6d266e2c4e72a65090a21bb55a42d656cf1c1a455180ea3d"
+    },
+    {
+      "path": ".data/issue8/protocol-planning/continuation-v1/metrics-reference-contracts/W4-D3.json",
+      "sha256": "d152e13b11b33e82ae2bf8a60ec516e6f1bd27e553c8b85a11025ed42c6f2646"
+    }
+  ],
   "local_assembler": {
     "path": ".data/issue8/protocol-planning/continuation-v1/assemble_protocol.py",
     "sha256": "946f24452d5a3eb47ab319c26249777441bdf442a9618793927fd897f1f923a7"
@@ -4526,21 +5069,20 @@
       "sha256": "8530ed967fbfc975f914c9c74cf314a73166631b4958c85129f627f8029e1df2"
     },
     "required": [
-      "Director-integrated committed control candidate and independent review",
-      "Actual Director final-snapshot approval",
-      "New C freeze; neither A nor B authorizes continuation",
-      "Fresh actual method-specific safe-state runtime bindings before every plan"
+      "Director freeze evidence with actual full frozen commit hash and recipe hash before first main result",
+      "For each active profile: fresh real ownership/executable and method-specific CLI instance/state or non-PP GUI session evidence; unavailable members require actual findings",
+      "Current calibration-route applicability evidence and exact actual output device",
+      "Fresh access/output admission outcomes retained by authorized preflight worker"
     ],
     "admission": "C remaining-only membership, new C freeze, fresh safe per-plan state/applicability; first stopped preparation never substitutes future bindings.",
     "load_plan": "Calls existing bench.plan.load_plan for each nonempty active plan; validates actual loaded revision against Director freeze; no adapter/audio start. Zero-active outcomes do not call load_plan. Loader performs its existing read-only revision lookup.",
     "scope_of_validation": "Evidence/hash/schema consistency, not fresh GUI/process/device/provider truth; authorized operator supplies real runtime facts"
   },
   "static_validation": {
-    "mode": "C_continuation_definition_draft_reusing_accepted_B_native_contracts",
+    "mode": "static_protocol_validation_no_runtime_execution",
     "source_hash_checks": {
-      "performed": false,
-      "expected": 221,
-      "basis": "Immutable A expected identities reused; no fresh bulk hash claim"
+      "checked": 221,
+      "matched": 221
     },
     "plans": [
       {
@@ -4548,82 +5090,86 @@
         "profiles": [
           "PP4"
         ],
-        "input_stages": 29,
-        "expanded_stages_when_bound": 32,
         "stage_counts": {
           "chunk": 6,
           "isolated": 20,
           "nonspeech": 1,
           "repeat": 2
         },
+        "input_stages": 29,
+        "expanded_stages_when_bound": 32,
         "audio_seconds_excluding_check": 2673.07,
         "output_check_audio_seconds": 10,
         "fixed_tail_seconds_including_check": 275,
         "quiet_wait_seconds_min_max": [
           15,
           120
-        ]
+        ],
+        "stage_bundle_sha256": "18647d81d5b5c584e2101442c5a071ace352c716a1c3167938f7081a6427e8e5"
       },
       {
         "id": "W1-D3",
         "profiles": [
           "PP4"
         ],
-        "input_stages": 30,
-        "expanded_stages_when_bound": 33,
         "stage_counts": {
           "chunk": 9,
           "isolated": 20,
           "nonspeech": 1
         },
+        "input_stages": 30,
+        "expanded_stages_when_bound": 33,
         "audio_seconds_excluding_check": 2020.97,
         "output_check_audio_seconds": 10,
         "fixed_tail_seconds_including_check": 245,
         "quiet_wait_seconds_min_max": [
           15,
           120
-        ]
+        ],
+        "stage_bundle_sha256": "f50f1515765d510bb963eda3302841d0f3bc971b8ad114c8748c3562c6f22aa7"
       },
       {
         "id": "W2-D1",
         "profiles": [
           "PP1"
         ],
-        "input_stages": 29,
-        "expanded_stages_when_bound": 32,
         "stage_counts": {
           "chunk": 6,
           "isolated": 20,
           "nonspeech": 1,
           "repeat": 2
         },
+        "input_stages": 29,
+        "expanded_stages_when_bound": 32,
         "audio_seconds_excluding_check": 2673.07,
         "output_check_audio_seconds": 10,
         "fixed_tail_seconds_including_check": 275,
         "quiet_wait_seconds_min_max": [
           15,
           120
-        ]
+        ],
+        "stage_bundle_sha256": "ea72fd9012840891ccd389461220abbf65dd027610b93256fcdd7f6838a801b4"
       },
       {
         "id": "W2-D3",
         "profiles": [
           "PP1"
         ],
-        "input_stages": 30,
-        "expanded_stages_when_bound": 33,
         "stage_counts": {
           "chunk": 9,
           "isolated": 20,
           "nonspeech": 1
         },
+        "input_stages": 30,
+        "expanded_stages_when_bound": 33,
         "audio_seconds_excluding_check": 2020.97,
         "output_check_audio_seconds": 10,
         "fixed_tail_seconds_including_check": 245,
         "quiet_wait_seconds_min_max": [
           15,
           120
-        ]
+        ],
+        "stage_bundle_sha256": "9cfcff517e22b09e4b2b8ea062eccb55a79ba1eee29e2cf4a41186ece2448998"
       },
       {
         "id": "W3-D1",
@@ -4632,21 +5178,22 @@
           "VRCLT2",
           "PP2"
         ],
-        "input_stages": 29,
-        "expanded_stages_when_bound": 32,
         "stage_counts": {
           "chunk": 6,
           "isolated": 20,
           "nonspeech": 1,
           "repeat": 2
         },
+        "input_stages": 29,
+        "expanded_stages_when_bound": 32,
         "audio_seconds_excluding_check": 2673.07,
         "output_check_audio_seconds": 10,
         "fixed_tail_seconds_including_check": 275,
         "quiet_wait_seconds_min_max": [
           15,
           120
-        ]
+        ],
+        "stage_bundle_sha256": "0cbe2f5f59f0e359bf3206467787cd4e6c148a2b856750e63c3b65d407ea8e03"
       },
       {
         "id": "W3-D3",
@@ -4655,79 +5202,83 @@
           "VRCLT2",
           "PP2"
         ],
-        "input_stages": 30,
-        "expanded_stages_when_bound": 33,
         "stage_counts": {
           "chunk": 9,
           "isolated": 20,
           "nonspeech": 1
         },
+        "input_stages": 30,
+        "expanded_stages_when_bound": 33,
         "audio_seconds_excluding_check": 2020.97,
         "output_check_audio_seconds": 10,
         "fixed_tail_seconds_including_check": 245,
         "quiet_wait_seconds_min_max": [
           15,
           120
-        ]
+        ],
+        "stage_bundle_sha256": "f9efdf6037037076ec260385d5c6c89fa4ddb323097e91e18188e9085dcffd32"
       },
       {
         "id": "PP3ALONE-D1",
         "profiles": [
           "PP3"
         ],
-        "input_stages": 1,
-        "expanded_stages_when_bound": 4,
         "stage_counts": {
           "repeat": 1
         },
+        "input_stages": 1,
+        "expanded_stages_when_bound": 4,
         "audio_seconds_excluding_check": 300.0,
         "output_check_audio_seconds": 10,
         "fixed_tail_seconds_including_check": 30,
         "quiet_wait_seconds_min_max": [
           0,
           0
-        ]
+        ],
+        "stage_bundle_sha256": "fadb6859502be48d286a3d7514742b2c9a549193628885db8c468d073eced3ae"
       },
       {
         "id": "W4-D1",
         "profiles": [
           "PP3"
         ],
-        "input_stages": 29,
-        "expanded_stages_when_bound": 32,
         "stage_counts": {
           "chunk": 6,
           "isolated": 20,
           "nonspeech": 1,
           "repeat": 2
         },
+        "input_stages": 29,
+        "expanded_stages_when_bound": 32,
         "audio_seconds_excluding_check": 2673.07,
         "output_check_audio_seconds": 10,
         "fixed_tail_seconds_including_check": 275,
         "quiet_wait_seconds_min_max": [
           15,
           120
-        ]
+        ],
+        "stage_bundle_sha256": "ab5255b86d558088a836bdb197b7147f997546c70170305db9b9209a9a052619"
       },
       {
         "id": "W4-D3",
         "profiles": [
           "PP3"
         ],
-        "input_stages": 30,
-        "expanded_stages_when_bound": 33,
         "stage_counts": {
           "chunk": 9,
           "isolated": 20,
           "nonspeech": 1
         },
+        "input_stages": 30,
+        "expanded_stages_when_bound": 33,
         "audio_seconds_excluding_check": 2020.97,
         "output_check_audio_seconds": 10,
         "fixed_tail_seconds_including_check": 245,
         "quiet_wait_seconds_min_max": [
           15,
           120
-        ]
+        ],
+        "stage_bundle_sha256": "7addfeac69a814289197e9ab243b78ec469fb4a6877c74ee1bce087aee13abec"
       }
     ],
     "totals": {
@@ -4745,6 +5296,15 @@
         "nonspeech": 8,
         "repeat": 9
       },
+      "audio_seconds_by_kind_excluding_checks": {
+        "chunk": 14400.0,
+        "isolated": 536.16,
+        "nonspeech": 1440.0,
+        "repeat": 2700.0
+      },
+      "output_checks": 9,
+      "output_check_audio_seconds": 90,
+      "metrics_speech_stage_references": 229,
       "audio_seconds_including_output_checks": 19166.16,
       "fixed_tail_seconds": 2110,
       "quiet_wait_seconds_min_max": [
@@ -5104,7 +5664,7 @@
       },
       {
         "path": "docs/profiles/puripuly.md",
-        "sha256": "8f8781663af91d0cb1935203f0df67a62370182862affd3c31900ace5591f679"
+        "sha256": "186849c259f0d6bab201d5121a8c21818b1ac8b412db7c3dbf1b44b99b5532bf"
       },
       {
         "path": "docs/costs.md",
@@ -5112,7 +5672,7 @@
       },
       {
         "path": "docs/cli.md",
-        "sha256": "5b81baae4382371e3d6e5f0234624e0a701bc9343f4d40394c9a422ecb532d5c"
+        "sha256": "634150b0e329b536f60be61f40eeda38a2ac6b2c3de4c8bdd8e50c9c4bc89ccf"
       },
       {
         "path": "docs/profiles/kikitan-vrcls.md",
@@ -5331,5 +5891,9 @@
     ],
     "terminal_rule": "Revision-guarded settings require terminal runtime_applied and effective readback; command admission alone is not completion",
     "lifecycle": "Start/stop only owned self capture/translation; preserve partial/pending/fallback/operation failures; no primary retry reset"
+  },
+  "snapshot_validation": {
+    "path": ".data/issue8/protocol-planning/continuation-v1/snapshot-validation.json",
+    "sha256": "fb7b6739ded6df2404b576204ef83b433fcef84359203fdbf3b5041aad540dcf"
   }
 }
