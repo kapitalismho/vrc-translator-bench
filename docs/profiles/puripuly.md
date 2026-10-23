@@ -54,6 +54,8 @@ The continuation adapter implements the existing runner stdio protocol using the
 
 One [actual PP4 D1 control lifecycle](../../profiles/evidence/issue8/pp-cli-lifecycle-check.json) observed effective CPU-auto/Parakeet capture plus translation, then self/peer capture and translation OFF with ASR resources released. The host remained open. No benchmark audio or translated-output test was replayed. Ordinary chunks retain capture; supported cleanup stops self capture/translation before any normal owned-app shutdown.
 
+The subsequent [controlled failure-boundary repair](../../profiles/evidence/issue8/pp-cli-failure-repair.json) retains known operation IDs from official `unknown_execution` receipts even without a top-level `terminal` flag. Resolve owned uncertain operations without replaying mutations: unsupported/requested cancellation or momentary OFF cannot certify cleanup. Observed provider failures cross stdio as `product/provider`; identity/revision/transport uncertainty remains operational, and cleanup preserves the first failure. The separate44 controlled checks exercised real stdio and runner control/ledger boundaries, not additional native activation or measurement.
+
 
 ## Historical public control procedure
 

@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "kind": "controlled_CLI_adapter_failure_boundary_repair_not_measurement",
+  "reviewed_initial_candidate": "432e0ce55f077569183573c74a7d5fcc5d66d34d",
+  "findings": ["CCLI-1", "CCLI-2"],
+  "prior_adapter_sha256": "47b5b6c4347392330c54591312477b3da1be3b0647d8383719efffe649ee95e5",
+  "repaired_adapter_sha256": "00887c5bf999c1f6d78a7a4522ed5c17ab2f9cd0691a319adb0112af81d1219e",
+  "behavior": [
+    "Official exit7 unknown_execution may carry a known operation_id and nested receipt without a top-level terminal flag. Retain and resolve that owned operation without replaying the mutation before declaring cleanup successful.",
+    "Unsupported/requested cancellation, unresolved operation ownership and momentary effective OFF are not terminal cleanup proof.",
+    "Observed provider failures cross stdio as product/provider; identity, revision and transport uncertainty remain operational. Preserve first product failures and invalid history."
+  ],
+  "observed_verification": {"driver_exit_code": 0, "focused_checks_passed": 44, "provider_case": {"product_failure": 1, "invalid": 0}, "identity_uncertainty_case": {"invalid": 1}},
+  "exercised_boundary": "Official installed emitter under controlled transport; real adapter stdio subprocess, generic Adapter.call, production control/finish handling and temporary Ledger. Legitimate same-operation completion used one submission. Cleanup scenarios rejected unresolved work and prevented the controlled late translation-ON effect.",
+  "replaced_boundary": "Application client/request transport and liveness replaced; no installed application/CLI call, native activation, Runner.run, playback or OSC sink in these checks.",
+  "cleanup": "Owned fixture processes and temporary inputs/ledgers removed",
+  "prior_evidence": "pp-cli-lifecycle-check.json retains the original11.23s native happy path and35/41 fixture history. Those earlier checks did not prove the repaired failure boundaries; they are not relabelled as these44 checks.",
+  "not_claimed": "No native fault injection, additional source-output pass, main measurement, final freeze, quality or cost result. Independent repaired-candidate verification remains separate."
+}
