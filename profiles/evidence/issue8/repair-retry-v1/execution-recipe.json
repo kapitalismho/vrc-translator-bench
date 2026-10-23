@@ -5278,7 +5278,7 @@
     },
     {
       "path": "profiles/catalog.json",
-      "sha256": "f69f1ad548501a7e2027bff0a55555e6062066a1d813f620e78612e35a466638"
+      "sha256": "50de6c354d69f6e5aafb1bf591bb4274a25d618d3d849d7fd3376901db9afb49"
     },
     {
       "path": "profiles/evidence/issue8/non-puripuly-batch-amendment.json",
@@ -5922,7 +5922,7 @@
       },
       {
         "path": "profiles/catalog.json",
-        "sha256": "f69f1ad548501a7e2027bff0a55555e6062066a1d813f620e78612e35a466638"
+        "sha256": "50de6c354d69f6e5aafb1bf591bb4274a25d618d3d849d7fd3376901db9afb49"
       }
     ]
   },
@@ -6239,6 +6239,6 @@
   ],
   "snapshot_validation": {
     "path": ".data/issue8/protocol-planning/repair-retry-v1/snapshot-validation.json",
-    "sha256": "6ff6865ea4bb2021635f0b7a96af5acd61936c7084f23831dcaf9d5470c1ee3b"
+    "sha256": "ceaa5523180b633e97182b8136393abff91cd229fd5fb53f03f16e9c2ed431bd"
   }
 }
