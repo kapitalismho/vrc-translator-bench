@@ -13,7 +13,7 @@ The separately requested actual-GUI Kikitan execution has now passed D1/D3 check
 
 ## Finding and evidence boundary
 
-The [PuriPuly restoration amendment](../../profiles/evidence/issue8/puripuly-restoration-amendment.json) restores PP1–PP4 subject to fresh admission in a separately frozen concurrent D1/D3 cohort; it does not replace the original97f22a6 observations or first failures. The [quota amendment](../../profiles/evidence/issue8/quota-isolation-amendment.json) accepts shared or unverified quotas: creating separate projects or replacing existing keys is not a prerequisite for this batch. The original isolation instructions below remain cumulative preparation guidance where not superseded. Actual route/device/output checks and first-failure records are still required; the genuine VRCLS routing blocker is unchanged.
+The latest [continuation-only amendment](../../profiles/evidence/issue8/continuation-only-amendment.json) retains completed KIKI1/KIKI2 D1/D3 cohort-A measurements without replaying them for PuriPuly's remaining measurements. Original observations and first failures remain unchanged. The [quota amendment](../../profiles/evidence/issue8/quota-isolation-amendment.json) accepts shared or unverified quotas: creating separate projects or replacing existing keys is not a prerequisite for this batch. Original isolation instructions below remain cumulative preparation guidance where not superseded. Actual route/device/output checks and first-failure records are still required; the genuine VRCLS routing blocker is unchanged.
 
 | Profile | Finding | Reason |
 | --- | --- | --- |
@@ -94,9 +94,9 @@ The kikitan [language catalog](https://github.com/YusufOzmen01/kikitan-translato
 
 | Direction | kikitan config source → target | KIKI1 evidence | KIKI2 evidence | Recorded outcome |
 | --- | --- | --- | --- | --- |
-| D1 en-ja | `en` → `ja` | Actual normal-GUI translated OSC | Actual selected TEXT route, Japanese OSC | both short preflights passed; main unmeasured |
+| D1 en-ja | `en` → `ja` | Actual normal-GUI translated OSC | Actual selected TEXT route, Japanese OSC | both short preflights passed; cohort-A main captured, failures retained, not quality-scored |
 | D2 en-zh | `en` → `zh` | Passed directly to Bing/Google; not exercised | Provider documents `zh-Hans`/`zh-Hant`, whereas app offers/passes `zh`; acceptance and script unconfirmed | not yet measured |
-| D3 zh-ko | `zh` → `ko` | Actual normal-GUI translated OSC | Actual selected TEXT route, Korean OSC | both short preflights passed; main unmeasured |
+| D3 zh-ko | `zh` → `ko` | Actual normal-GUI translated OSC | Actual selected TEXT route, Korean OSC | both short preflights passed; cohort-A main captured, failures retained, not quality-scored |
 | D4 ja-ko | `ja` → `ko` | Passed directly to Bing/Google; not exercised | Japanese/Korean documented; not exercised | not yet measured |
 | D5 zh-ja | `zh` → `ja` | Passed directly to Bing/Google; not exercised | Automatic source detection; Chinese/Japanese documented; not exercised | not yet measured |
 | D6 ja-en | `ja` → `en` | Passed directly to Bing/Google; not exercised | Japanese/English documented; not exercised | not yet measured |
@@ -182,6 +182,6 @@ For every profile, new utterance/revision/page/resend classification remains **u
 
 ## Wave and runner handoff
 
-The restored original placement is **W4 VRCLS1**, **W2 KIKI1**, **W1 KIKI2**, with concurrent profiles within each wave. The unreported S01–S10 replacement is withdrawn. Current Kikitan translated packets reached assigned destinations `127.0.0.1:19151` and `:19152`; receipt at VRCLS1's `:19141` did not establish correct input routing, so that profile remains blocked. KIKI1 and KIKI2 belong to distinct waves; confirm prior owned processes exit before reusing their fixed control port. Do not apply legacy Python controls to the installed C# generation. Shared cumulative quotas and project independence follow the current batch amendment, not an authority to redesign the comparison.
+The original placement is **W4 VRCLS1**, **W2 KIKI1**, **W1 KIKI2**. The unreported S01–S10 replacement is withdrawn. KIKI1/KIKI2 D1/D3 main captures are already retained in cohort A and are not repeated in continuation C. Their translated packets reached assigned destinations `127.0.0.1:19151` and `:19152`; receipt at VRCLS1's `:19141` did not establish correct input routing, so that profile remains blocked. Do not apply legacy Python controls to the installed C# generation. Shared cumulative quotas and project independence follow the quota amendment; the separate continuation-only authority governs remaining scheduling.
 
 Use the existing GUI operator bridge only with actual fresh state, session-bound acknowledgements and independent process ownership/liveness. Keep GUI activity outside timed playback. Current execution admission follows the linked batch amendment and requires each runnable profile's common ten-second translated-output check; the retained KIKI1 crash and generic bridge are not substitutes.

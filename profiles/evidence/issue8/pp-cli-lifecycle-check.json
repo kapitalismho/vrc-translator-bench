@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "profile": "PP4",
+  "direction": "D1",
+  "kind": "single_public_CLI_stdio_control_lifecycle_not_main",
+  "started_at_utc": "2026-10-23T04:48:41.033004+00:00",
+  "ended_at_utc": "2026-10-23T04:48:52.260465+00:00",
+  "application_version": "2.9.0",
+  "start_requests": 1,
+  "driver_exit_code": 0,
+  "adapter_exit_code": 0,
+  "observed_start": {"self_effective_active": true, "translation_enabled": true, "runtime_provider": "local_cpu_auto", "model_id": "parakeet-tdt-0.6b-v3-int8-sherpa"},
+  "observed_end": {"self_desired_active": false, "self_effective_active": false, "peer_desired_active": false, "peer_effective_active": false, "translation_enabled": false, "ASR_provider_live": false, "ASR_has_resources": false},
+  "host_disposition": "Original owned host retained; process exit not claimed",
+  "native_checked_adapter_sha256": "12119323f72ddb97123b1fdbb2455fc11e64052a2e59cbd48710ff1a2b1a38f0",
+  "candidate_adapter_sha256": "47b5b6c4347392330c54591312477b3da1be3b0647d8383719efffe649ee95e5",
+  "evidence_applicability": "The final adapter adds two read-only ownership checks immediately before mutation/cancellation. The actual command/runtime schema is unchanged; focused final-candidate fixtures exercise those checks. Native activation was not repeated.",
+  "focused_fixture_checks": {"adapter_cases": 35, "schema_preparation_binding_cases": 41},
+  "boundary": "Control progress and effective cleanup only. No benchmark audio, retained-eight-check replay, new translated-output pass, main measurement, restart-persistence, upstream identity, quality or cost result. Error branches were controlled fixtures, not faults induced on the live application.",
+  "main_gate": "Independent integrated candidate review, authorized final snapshot, new C freeze and fresh per-plan runtime bindings remain required."
+}

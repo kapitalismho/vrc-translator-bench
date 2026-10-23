@@ -5,7 +5,7 @@
   "status": "empirical_preparation_in_progress_not_frozen",
   "installed_app_evidence": "evidence/installed-apps.json",
   "gui_preparation_evidence": "evidence/gui-preparation.json",
-  "owner_update": "The restored B cohort now has all8 actual source-bound PP1-PP4 D1/D3 preflights and genuine normal full cleanup in evidence/issue8/pp-restored-v1/current-preflights.json. Actual PP send is19104 for all four nonconcurrent profiles; receive is19204 for PP4 and19201 for PP1/PP2/PP3. Preserve PP1 GUI19101 versus effective19104 mismatch and both failed normal commits; no product repair is claimed. Prior Director port authority and subsequent source/effective observations are distinct dated records. These bounded checks are not main quality/FPR, returned-upstream identity, measured cost or future runtime admission. Generic historical finding/readiness fields remain unchanged. Original97f22a6 artifacts and first outcomes remain immutable; additional W1/W2 peer observations are post-amendment supplementary. B final source review, snapshot, new freeze and fresh runtime bindings remain required. No paid fallback or model substitution.",
+  "owner_update": "The latest continuation-only amendment requires remaining measurements, not remeasurement. Retain10 completed cohort-A configuration/direction slots and6 unavailable findings; execute12 remaining main slots plus the pending PP3 standalone diagnostic under a new C freeze. W1=PP4 only, W2=PP1 only, W3=VRCT2/VRCLT2/PP2 concurrent, W4=PP3 only; D1 thenD3. Frozen but unexecuted B whole-wave replay is superseded, with its evidence preserved. All8 actual PP1-PP4 D1/D3 preflights and normal cleanup remain bounded evidence, subject to fresh applicability. Actual PP send19104; receivePP4=19204, PP1/PP2/PP3=19201. Preserve PP1 GUI19101/effective19104 discrepancy. No paid fallback/model substitution, invented co-measurement or replacement of original failures.",
   "first_batch_preparation_evidence": [
     "evidence/issue8/pp4-preflight.json",
     "evidence/issue8/vrct-preparation.json",
@@ -14,6 +14,9 @@
   ],
   "first_batch_wave_amendment": "evidence/issue8/non-puripuly-batch-amendment.json",
   "first_batch_restoration_amendment": "evidence/issue8/puripuly-restoration-amendment.json",
+  "first_batch_continuation_amendment": "evidence/issue8/continuation-only-amendment.json",
+  "first_batch_PP_control_amendment": "evidence/issue8/puripuly-cli-control-amendment.json",
+  "first_batch_PP4_CLI_preparation": "evidence/issue8/pp4-cli-preparation.json",
   "first_batch_current_PP_preflights": "evidence/issue8/pp-restored-v1/current-preflights.json",
   "first_batch_PP_port_authority": "evidence/issue8/pp-restored-v1/observed-port-decision.json",
   "first_batch_PP_source_effective_port_record": "evidence/issue8/pp-restored-v1/actual-osc-port-decision.json",
@@ -958,7 +961,7 @@
     }
   ],
   "wave_history_evidence": "evidence/issue45/sequential-wave-decision.json",
-  "selected_wave_policy": "Restored original fourteen-profile concurrent W1-W4 membership below, D1 then D3, plus one fixed300s D1 PP3-alone after W3/before W4. All8 current PP source-bound preflights and normal cleanup are recorded, but B final source review/snapshot/new freeze and fresh imminent runtime bindings remain required. Actual PP send19104 reuse and receive19204/19201 reuse are nonconcurrent only, with wave-local uniqueness; do not claim PP1 GUI19101 was effective. Preserve original97f22a6 first outcomes; added W1/W2 peer observations remain supplementary, never replacement primary or pooled duplicate populations. All actually available wave members remain concurrent; genuine unavailable findings and cumulative shared quotas stay explicit. No restored main or standalone capture has occurred.",
+  "selected_wave_policy": "The waves array preserves the original cumulative layout. Current owner-authorized continuation executes only W1PP4, W2PP1, concurrent W3VRCT2/VRCLT2/PP2, the one PP3ALONE D1 diagnostic, then W4PP3; D1 thenD3 within each wave. Retain10 completed A slots without replay and6 actual unavailable findings;12 remaining main slots require a new C freeze and fresh per-plan admission. PuriPuly now uses its installed public CLI; other applications retain GUI control. Actual PP send19104 and receive19204/19201 reuse is nonconcurrent only. Preserve original failures, actual source/time provenance and separate diagnostic populations; do not claim PP1/PP4 co-measurement with their already completed peers. No C main or standalone capture has occurred.",
   "waves": [
     {"id": "W1", "profiles": ["PP4", "KIKI2", "VRCLT1", "VRCT3"], "execution": "blocked_pending_preflight"},
     {"id": "W2", "profiles": ["VRCT1", "PP1", "VRCS2", "KIKI1"], "execution": "blocked_pending_preflight"},
@@ -967,11 +970,11 @@
   ],
   "limitations": [
     "Generic catalogue readiness remains historical/evidence-specific and is not upgraded here. All8 current PP source-bound preflights and genuine normal full cleanup are separate bounded B evidence; future main runtime admission, returned upstream, numeric limits/cost and main quality/FPR are not certified by those checks.",
-    "The original fourteen-profile W1-W4 design and one PP3 standalone observation are restored for a separately frozen cohort. Preserve the original97f22a6 first outcomes, and label additional W1/W2 peer observations supplementary without pooling duplicate configuration/direction/reference populations. PP3 standalone remains pending, not performed.",
+    "The original fourteen-profile layout is historical context. Current continuation C retains10 completed A slots and6 unavailable findings, and executes12 remaining slots without replaying completed W1/W2 peers. Preserve actual A+C provenance and disjoint configuration/direction populations. The one PP3 standalone observation remains pending and separate from main results.",
     "For this D1/D3 batch only, the linked quota-isolation-amendment permits shared/unverified quotas; report contention, first failures and quota-stopped work without claiming independence or changing keys/tiers/routes. Other runtime/CPU/routing/cleanup requirements remain; no ordinary chunk-boundary restarts.",
     "Current B PP effective sends are19104; receives arePP4=19204 andPP1/PP2/PP3=19201. Reuse is authorized only across their separate original waves; verify all wave-local endpoints and fresh actual effective state. Preserve PP1 GUI19101 mismatch without product repair. UDP availability is instantaneous, not reservation.",
     "No actual VRChat process, speculative OSCQuery or fake mute signaling is supplied. Block any discovered process requirement.",
-    "Actual visible GUI controls supply fresh PID/profile/session-bound manual observations before/after capture; the runner bridge reports that limitation and independent process liveness, not requested-state echoes or continuous effective-state API truth.",
+    "PuriPuly uses the installed public CLI under its later owner-approved control amendment; record exact instance identity, committed settings and effective capture/runtime state. Other apps retain actual GUI controls and session-bound manual bridge observations. Neither requested settings nor operation ACKs alone establish runtime truth or translated output.",
     "Provider exports, account quotas and actual response identities are not established by public documentation; missing measured cost remains unknown, not zero."
   ]
 }

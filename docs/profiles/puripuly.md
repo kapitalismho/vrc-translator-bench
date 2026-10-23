@@ -4,7 +4,7 @@
 
 Fresh actual-GUI checks on **PuriPuly 2.9.0** now cover PP1–PP4 in D1 and D3. The [restored-cohort preflight record](../../profiles/evidence/issue8/pp-restored-v1/current-preflights.json) binds the executable, actual routes, source-specific outputs, per-direction rules and normal full-app cleanup. These are operational admission checks, not quality scores or main measurements. Older PP4 checks and **2.8.2** isolated public-CLI/empty-secret-store observations remain historical; the earlier inspected development checkout was `a52fcc97a93d34e040545f388e77a55724cf3c91`, not an attested commit of the installed executable.
 
-The [PuriPuly restoration amendment](../../profiles/evidence/issue8/puripuly-restoration-amendment.json) supersedes the earlier exclusion for this D1/D3 execution. Original W2-D3 and its separate genuine cleanup completed before fresh PuriPuly preparation. Freeze the restored protocol before its main measurements. Preserve earlier captures unchanged; repeated W1/W2 competitor observations belong to a separate supplementary cohort, not replacement first attempts. The one PP3 standalone observation is restored but not yet performed. Tone/Korean review remains removed.
+The [PuriPuly restoration amendment](../../profiles/evidence/issue8/puripuly-restoration-amendment.json) superseded the earlier exclusion. The latest [continuation-only amendment](../../profiles/evidence/issue8/continuation-only-amendment.json) authorizes the remaining PP1–PP4 D1/D3 slots without replaying completed W1/W2 competitors. Original W2-D3 and its separate genuine cleanup completed before fresh PuriPuly preparation. Freeze continuation C before its main measurements and preserve earlier captures unchanged. PP4 and PP1 run separately from their already completed peers; W3 retains VRCT2/VRCLT2/PP2 concurrency. The one PP3 standalone observation remains pending. Tone/Korean review remains removed.
 
 | Profile | Selected route | Fresh D1 / D3 target-candidate inputs |
 |---|---|---|
@@ -44,9 +44,20 @@ Public derivatives: [D1 manifest](../../profiles/evidence/issue8/pp4-d1-prefligh
 These earlier observations establish neither returned upstream identity, cost, thirty-minute stability nor later-direction coverage. The separately identified fresh eight-slot checks above supply restored-cohort operational admission; neither set is a main measurement.
 
 
+## Current public CLI control
+
+The [owner's CLI-control amendment](../../profiles/evidence/issue8/puripuly-cli-control-amendment.json) authorizes ongoing public-CLI preparation, settings, start/stop, status and normal owned-instance lifecycle for PP1–PP4, superseding PuriPuly's GUI-only requirement. Other applications are unchanged. Use the original installed instance and existing authorized accounts/routes, not a new isolated profile or direct live-config edits.
+
+On the installed 2.9.0 instance, `settings choices` and `settings apply --help` confirmed the supported interface. An actual `settings apply --file … --expected-revision 2` committed revision3 with `settings_commit_success_runtime_applied`. Subsequent `settings current`, `app status`, `capture status`, `osc status` and `overlay status` confirmed PP4 English→Japanese, exact Cable/WASAPI compatibility selection, CPU-auto ASR, Index/public API, effective manual send19104/receive19204 and inactive self/peer capture, translation and overlay. The GUI also showed CPU-auto and Index. See [bounded preparation evidence](../../profiles/evidence/issue8/pp4-cli-preparation.json); this is not a new output check, restart-persistence claim or main result.
+
+The continuation adapter implements the existing runner stdio protocol using the installed public CLI. It binds the original configuration and actual host PID/instance, checks ownership before mutation, distinguishes accepted/pending/terminal operations from effective state, and uses revision-guarded settings changes. It neither starts a replacement host automatically nor presents CLI observations as GUI evidence. Other translators keep their GUI bridge.
+
+One [actual PP4 D1 control lifecycle](../../profiles/evidence/issue8/pp-cli-lifecycle-check.json) observed effective CPU-auto/Parakeet capture plus translation, then self/peer capture and translation OFF with ASR resources released. The host remained open. No benchmark audio or translated-output test was replayed. Ordinary chunks retain capture; supported cleanup stops self capture/translation before any normal owned-app shutdown.
+
+
 ## Historical public control procedure
 
-These commands document the earlier 2.8.2 control probe, not the current execution method or confirmed updated-build interfaces. Resumed PP preparation follows the [existing actual-GUI requirement](../profiles.md#gui-preparation-of-installed-applications); removing the deferral does not revoke that requirement.
+The commands below document the earlier 2.8.2 isolated control probe. Its dedicated-config bootstrap and credential isolation are historical test conditions, not instructions to replace the current owner-approved installed profile. Validate current command choices and instance identity before use; the CLI-control amendment above governs current PuriPuly execution.
 
 Use the same explicit `--config <dedicated-settings-path>` on every command. A distinct config alone does **not** isolate Windows keyring credentials: the default keyring service is shared. Use a dedicated Windows benchmark account, or initialize a new canonical config with `intent.secrets.backend: encrypted_file` and a private relative `encrypted_file_path`, and supply `PURIPULY_HEART_SECRETS_PASSPHRASE` only in the owned process environment. Clear inherited provider credential variables. Do not copy personal settings or secrets. The isolated probe used fresh APPDATA/LOCALAPPDATA/USERPROFILE directories, an environment allowlist and no provider credentials.
 
