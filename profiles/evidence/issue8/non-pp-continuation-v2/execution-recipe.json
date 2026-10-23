@@ -104,7 +104,7 @@
   "capture_device": "CABLE Output(VB-Audio Virtual Cable)",
   "resource_isolation": {
     "path": ".data/issue8/protocol-planning/non-pp-continuation-v2/resource-isolation.json",
-    "sha256": "2d7dddbb2fca57f579eec9c3bb51924be82f820152361560d14340db1be98aa0"
+    "sha256": "aebe83c904461dc834c1236bbff193062bc48aa3b214ccd28ea35f12465f88a7"
   },
   "preservation": [
     "Retain the original ten completed A slots and newly completed PP4/D1 and VRCT3/D1, including original failures and interrupted-output outcomes.",
@@ -136,7 +136,7 @@
     },
     "resource_isolation": {
       "path": ".data/issue8/protocol-planning/non-pp-continuation-v2/resource-isolation.json",
-      "sha256": "2d7dddbb2fca57f579eec9c3bb51924be82f820152361560d14340db1be98aa0"
+      "sha256": "aebe83c904461dc834c1236bbff193062bc48aa3b214ccd28ea35f12465f88a7"
     },
     "approved_before_main": true,
     "evidence": "Actual Director freeze record must bind all fields before materialization; no freeze file authored by worker."
