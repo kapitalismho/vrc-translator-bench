@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "kind": "actual_D1_startup_retry_finding_not_main_results",
+  "authority": "profiles/evidence/issue8/repair-retry-amendment.json",
+  "probe_amendment": "profiles/evidence/issue8/d1-startup-check-amendment.json",
+  "direction": "D1",
+  "language_pair": "English to Japanese",
+  "original_observation": "Both original10s checks reached Google English ASR no-match before translation. Those failed checks remain retained; cleanup timeout was separate. No application-configuration defect or causal fix was established.",
+  "new_observation": "Under the common40s startup-check amendment, each unchanged VRCT route produced five fresh bilingual destination OSC inputs, then stopped normally. This establishes fresh startup/extraction admission, not primary measurement or original10s success.",
+  "source": {
+    "path": ".data/english/audio/development-01.wav",
+    "source_sha256": "2cd64a1a493bf3794f02b58a5d78404128b9e6ab087ca82854b653601d9ef97e",
+    "crop_frame_interval_half_open": [1632000, 3552000],
+    "crop_sha256": "b214d5288ed05ce51e6c18a7e8b2b3101218331122a8cf19192e9dc398c33926",
+    "pcm": "48000Hz mono signed16bit",
+    "license": "AMI CC BY4.0; corpus/english/AMI-LICENCE.txt retained",
+    "primary_denominator": false
+  },
+  "findings": {
+    "VRCT1": {
+      "selected_route": "Google Web Speech -> m2m100_418M-ct2-int8, CPU/int8",
+      "session": "vrct1-d1-repair-diagnostic-20261023T065831Z",
+      "diagnostic_manifest_sha256": "6c879f5b608f42197b8489e7e96a708feb79d878ae8012b9430cd86eaa37eac1",
+      "terminal_counts": {"done": 4, "invalid": 0, "product_failure": 0},
+      "fresh_speech_chatbox_inputs": 5,
+      "one_second_silence_chatbox_inputs": 0,
+      "destination_port": 19111
+    },
+    "VRCT3": {
+      "selected_route": "Google Web Speech -> OpenRouter requested google/gemma-4-26b-a4b-it",
+      "session": "vrct3-d1-repair-diagnostic-20261023T065831Z",
+      "diagnostic_manifest_sha256": "cd97b830bf7c80e318294e0a39471566c8cc3fee31cad9aa59e2671f381a3a4f",
+      "terminal_counts": {"done": 4, "invalid": 0, "product_failure": 0},
+      "fresh_speech_chatbox_inputs": 5,
+      "one_second_silence_chatbox_inputs": 0,
+      "destination_port": 19113,
+      "returned_model_and_upstream": "not attested"
+    }
+  },
+  "unchanged": ["Google ASR", "Manual300", "VADoff", "selected Cable input", "D3", "primary inputs", "translation model choices"],
+  "cleanup": "Genuine native stop acknowledged for both checks; both bridges retired; normal GUI close followed by owned-process absence and explicit Cable lease release. Root process.log relocated byte-identically into retained private retry evidence; historical references not rewritten.",
+  "boundaries": [
+    "Selected Cable is observed UI state; opened endpoint is not independently instrumented.",
+    "Fresh framing/source/translation extraction was checked against actual captured payloads; no invented per-payload reference alignment.",
+    "No main run, quality score, calibrated latency, finality, FPR or cost result is claimed.",
+    "Historical instances and UDP observations are not future runtime materialization bindings."
+  ]
+}

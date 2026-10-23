@@ -300,7 +300,7 @@
       "id": "VRCT1",
       "application": "VRCT",
       "finding": "ready",
-      "reason": "Actual3.6.0 GUI Google ASR plus CPU M2M418M explicitint8 D1 pilot completed real10-second output check and40-second development playback;5000callbacks/6bilingual OSC packets. Bounded debug observation, not fair ranking, quality or universal finality certification; service access/usage remain unknown.",
+      "reason": "Historical bounded readiness retained. Original issue8 D1 ten-second Google ASR no-match remains; new unchanged Google-ASR/CPU-M2M418M-int8 route produced5 bilingual Japanese OSC inputs under common40s retry, with genuine stop/normal close/process absence. D3 main capture already completed in A and is not replayed. Fresh D1 main runtime admission still required; no main quality or causal app-defect claim. See evidence/issue8/vrct-d1-retry-finding.json.",
       "planned": {
         "translation": "m2m100_418m",
         "asr": "Google Web Speech",
@@ -432,7 +432,7 @@
       "id": "VRCT3",
       "application": "VRCT",
       "finding": "blocked",
-      "reason": "Actual3.6.0 GUI selected Google ASR plus exact requested OpenRouter google/gemma-4-26b-a4b-it, port19113 and D1 then D3 while stopped; then replaced by VRCT2. No audio/output check or provider-access proof. Foreground interference suspended GUI preparation. Window-closing attempt did not establish process exit; cleanup/admission remain pending, not product failure.",
+      "reason": "Generic historical finding retained, not current batch exclusion. D3 main capture already completed in A. Original D1 ten-second Google ASR no-match remains; new unchanged Google-ASR/requested-Gemma26B route produced5 bilingual Japanese OSC inputs on amended40s startup probe, with genuine cleanup. Fresh D1 admission evidence exists; new main still requires frozen grouping and fresh runtime binding. No returned-model/upstream attestation. See evidence/issue8/vrct-d1-retry-finding.json.",
       "planned": {
         "translation": "Gemma 4 26B / OpenRouter",
         "asr": "Google Web Speech",
@@ -499,7 +499,7 @@
       "id": "VRCS1",
       "application": "VRCS",
       "finding": "ready",
-      "reason": "Historical0.2.8 D1 real-audio Japanese OSC and independent CPU-only llama-server flags retain bounded readiness; historical full exit was verified. Later issue8 GUI-only preparation selected Cable/QwenQ8 CPU/requested Gemma26B Japanese. An unexpected Stop indicator was stopped immediately; then Model not_loaded. No zero-prestop-capture/usage claim, new output check or D3 selection. Foreground interference suspended GUI preparation; fresh admission/cleanup required.",
+      "reason": "Historical bounded readiness retained. Original issue8 startup/security failures remain. Approved process-only official b11501CPU runtime override now loads exact original Qwen0.6B Q8_0 model/projector; actual D1/D3 ten-second checks each produced2 bilingual inputs and completed4 stages, with normal stop/full cleanup. D1 also had1source-only input, not translation. Future launches require the scoped override; future D1 startup uses40s. No main/quality/cost claim. See evidence/issue8/vrcs-runtime-retry-finding.json.",
       "planned": {
         "translation": "Gemma 4 26B / OpenRouter",
         "asr": "Qwen3-ASR 0.6B",
@@ -634,7 +634,7 @@
       "id": "VRCLS1",
       "application": "VRCLS",
       "finding": "blocked",
-      "reason": "Current GUI-only execution prerequisite: Director window visibility/control unavailable and renewed approval timed out; no new audio or fresh VRCLS1 GUI attestation. Previously saved0.7.0-20260913 CABLE/en-ja/19141 settings do not prove current readiness. Token validity/server models/limits and actual output remain unverified; pause is not a product failure.",
+      "reason": "Actual original D1 default-device fallback made source binding operational-invalid; D3 was not launched. Installed1015 and latest official1017 actual static inspection retain early microphone/loopback capture and default fallbacks.1017 was not installed/run. No vendor-supported safe setup and fail-closed route for both paths established; both retry slots remain blocked. Original raw material stays private; missing results are not zero. See evidence/issue8/vrcls-retry-safety-finding.json.",
       "planned": {
         "translation": "Developer server",
         "asr": "Developer server",
@@ -961,7 +961,7 @@
     }
   ],
   "wave_history_evidence": "evidence/issue45/sequential-wave-decision.json",
-  "selected_wave_policy": "The waves array preserves the original cumulative layout. Current owner-authorized continuation executes only W1PP4, W2PP1, concurrent W3VRCT2/VRCLT2/PP2, the one PP3ALONE D1 diagnostic, then W4PP3; D1 thenD3 within each wave. Retain10 completed A slots without replay and6 actual unavailable findings;12 remaining main slots require a new C freeze and fresh per-plan admission. PuriPuly now uses its installed public CLI; other applications retain GUI control. Actual PP send19104 and receive19204/19201 reuse is nonconcurrent only. Preserve original failures, actual source/time provenance and separate diagnostic populations; do not claim PP1/PP4 co-measurement with their already completed peers. No C main or standalone capture has occurred.",
+  "selected_wave_policy": "The waves array preserves the original cumulative layout. Latest owner-authorized repair/retry retains10 completed A slots without replay and preserves6 original blocked/invalid findings as history. Four repaired slots passed actual checks;VRCLS1 D1/D3 remain blocked. New schedule candidates:W1-D1 PP4/VRCT3,W1-D3 PP4;W2-D1 PP1/VRCT1,W2-D3 PP1;W3 both directions VRCT2/VRCLT2/PP2;PP3ALONE D1;W4 both directions PP3/VRCS1. Thus16 eligible new main slots plus2 blocked dispositions, subject to amended freeze and fresh per-plan admission. PuriPuly officialCLI only; other appsGUI, with approved VRCS process-only startup override. PPsend19104/receive19204or19201 reuse is nonconcurrent. Remaining D1 startup uses40s,D3 keeps10s; primary inputs unchanged. No new main or standalone capture yet; prior C freeze remains unexecuted history.",
   "waves": [
     {"id": "W1", "profiles": ["PP4", "KIKI2", "VRCLT1", "VRCT3"], "execution": "blocked_pending_preflight"},
     {"id": "W2", "profiles": ["VRCT1", "PP1", "VRCS2", "KIKI1"], "execution": "blocked_pending_preflight"},
@@ -970,7 +970,7 @@
   ],
   "limitations": [
     "Generic catalogue readiness remains historical/evidence-specific and is not upgraded here. All8 current PP source-bound preflights and genuine normal full cleanup are separate bounded B evidence; future main runtime admission, returned upstream, numeric limits/cost and main quality/FPR are not certified by those checks.",
-    "The original fourteen-profile layout is historical context. Current continuation C retains10 completed A slots and6 unavailable findings, and executes12 remaining slots without replaying completed W1/W2 peers. Preserve actual A+C provenance and disjoint configuration/direction populations. The one PP3 standalone observation remains pending and separate from main results.",
+    "The original fourteen-profile layout is historical context. Repair-retry preserves10 completed A slots and6 original unavailable observations; four retries now have passed checks, two VRCLS slots retain fresh static safety blockers.16 new eligible main slots still require amended freeze and runtime admission. Preserve actual cohort provenance and disjoint configuration/direction populations. The PP3 standalone observation remains pending and separate from primary results.",
     "For this D1/D3 batch only, the linked quota-isolation-amendment permits shared/unverified quotas; report contention, first failures and quota-stopped work without claiming independence or changing keys/tiers/routes. Other runtime/CPU/routing/cleanup requirements remain; no ordinary chunk-boundary restarts.",
     "Current B PP effective sends are19104; receives arePP4=19204 andPP1/PP2/PP3=19201. Reuse is authorized only across their separate original waves; verify all wave-local endpoints and fresh actual effective state. Preserve PP1 GUI19101 mismatch without product repair. UDP availability is instantaneous, not reservation.",
     "No actual VRChat process, speculative OSCQuery or fake mute signaling is supplied. Block any discovered process requirement.",
