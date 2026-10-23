@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "authority": "Owner selected 한정된 실행 예외 허용 in response to the VRCS1 runtime recovery question",
+  "scope": "VRCS1 startup only: launch the unchanged installed desktop executable with a copied process environment containing the supported VRCS_LLAMA_SERVER override for the separately staged complete official CPU runtime. No shell and no user/system environment mutation.",
+  "preserved_controls": "All subsequent application configuration, capture start/stop and normal cleanup remain actual supported GUI operations. This is not a general CLI-control exception for other applications.",
+  "runtime": {"upstream": "ggml-org/llama.cpp", "release": "b11501", "commit": "46baf1f1fec5a06d1e52122a9207ca978b720f95", "asset": "llama-b11501-bin-win-cpu-x64.zip", "archive_sha256": "c4b823df0e10e62f51ae20e427086973cea2a953eaf71586dcb02d27a283caae"},
+  "preparation_evidence": "Official archive digest matched; complete51-member extraction matched archive hashes. Normal Defender archive and extracted-folder scans completed with protection enabled and no newly reported matching threat. No claim of absolute security certification.",
+  "preserved_configuration": "Exact existing Qwen3-ASR0.6B model/projector, CPU-only execution, existing approved translation route/accounts and dedicated Cable/OSC settings",
+  "prohibited": "No quarantine restoration, security exclusion/disable, individual DLL patching into the original runtime, global environment changes, model substitution or replay of completed VRCS2 results",
+  "execution_gate": "Coordinate native GUI and Cable ownership with other repair work. Verify actual child runtime path/hash/CPU arguments and effective safe input; environment intent alone does not establish successful recovery. Retain new failures and stop on security detection."
+}
