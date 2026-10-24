@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "kind": "VRCLS_only_exact_name_method_availability_schedule_amendment",
+  "authority": "Direct owner automatic repair-and-continuation request; Main authorizes exact frozen artifacts before any main materialization.",
+  "baseline_revision": "033aa5f71abdf8423dd3ebf770b8b90a14c14972",
+  "baseline_recipe": {
+    "path": "profiles/evidence/issue8/repair-retry-pp291-v1/execution-recipe.json",
+    "sha256": "6d3e3f621dd5dc3d3ac63d7d494775986dbbefb536b84af4d697c6582c4e69b8"
+  },
+  "profile": "VRCLS1",
+  "candidate": "original-installed-1015-exact-name",
+  "installed_exe_sha256": "eec5acd87649e73f70d2ab9330f14a5e3b5df2d0794e3cc8d21f7ac3dd726f8b",
+  "repair": {
+    "path": "profiles/evidence/issue8/vrcls-exact-name-routing-repair.json",
+    "sha256": "d0cb7a25fff98119afde032c69fa350705bf1ac3a2a25db912bcc9ff0352fbd5"
+  },
+  "new_admission_index": {
+    "path": ".data/issue8/repair-retry/VRCLS/exact-name-repair-20261024/admission/index.json",
+    "sha256": "98e835b893d1ec47a334e28f5887a86b34043dc031b69f90568e8b1431817916"
+  },
+  "execution_order": [
+    {
+      "plan_id": "W4-D1",
+      "profiles": [
+        "VRCLS1"
+      ]
+    },
+    {
+      "plan_id": "W4-D3",
+      "profiles": [
+        "VRCLS1"
+      ]
+    }
+  ],
+  "contract_amendments": [
+    {
+      "path": "docs/profiles.md",
+      "baseline_sha256": "7cfd0070247e38d8c635d7d46347155585f7ef2645332e39eed25a59fb519109",
+      "sha256": "007e698b782915ecb32b08bdf3366da65b95db2607025b4895319f2b62bf35ad"
+    },
+    {
+      "path": "docs/profiles/kikitan-vrcls.md",
+      "baseline_sha256": "d01ef5b9c9a45ead8e3b2a400390f18fe275a74d130de02e81abdb48637af2ab",
+      "sha256": "218bd347b147317b9ee5bf239d7e8a765da980de0079b1c45fcef177aa9ce322"
+    },
+    {
+      "path": "profiles/catalog.json",
+      "baseline_sha256": "79711fd768d02b05cf41f8a7d8c93d1fff2063fd010a407a579d6c84ada99fa3",
+      "sha256": "354b33afe6c03ef234e160c3df1ff6f60cfcee60fdfa75640eed7902f880d90d"
+    }
+  ],
+  "adopt_running": true,
+  "start_latency_claimed": false,
+  "stop_policy": "normal_full_process_exit",
+  "source_registry_plan_ids": "Existing W4-D1/W4-D3; actual slots only VRCLS1, old population-role declaration retained, no concurrency claim.",
+  "preservation": [
+    "All original invalid/blocked findings and all19 registered primary slots remain immutable; no completed nonPP capture replay.",
+    "Unchanged221 inputs, native references, common clips, isolated20 per direction, quiet15s/120s, nonspeech180s and two fixed300s D1 repetitions.",
+    "Common D1 startup40s and existing D3 startup10s, each main tail15s. Actual longer diagnostic tails stay recorded, not rewritten.",
+    "Original installed1015 only; exact mic Cable Output and System loopback Cable Input. Mic recognition ON by native preparation, desktop recognition OFF.",
+    "No PP inspection/control/settings/diagnostics/journals/cleanup; no device defaults or unrelated routing changes.",
+    "No scoring/cost before all main work; tone/Korean manual reviews remain withdrawn; no publication/closure."
+  ]
+}

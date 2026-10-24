@@ -5,8 +5,11 @@
   "status": "empirical_preparation_in_progress_not_frozen",
   "installed_app_evidence": "evidence/installed-apps.json",
   "gui_preparation_evidence": "evidence/gui-preparation.json",
-  "owner_update": "Latest repair-and-retry authority preserves10 completed A slots without replay and6 original unavailable findings as history. Four repaired slots passed actual checks;VRCLS1 remains blocked in both directions. The first R046 launch was rejected before materialization/main after installed PP changed2.9.0→2.9.1. All8 new2.9.1 CLI-driven startup/lifecycle checks now pass on a fresh desktop GUI host; oldbuild evidence and unexecuted B/C/R freezes remain history.16 eligible new main slots plus PP3ALONE require a new exact2.9.1 installation/source/rule freeze and fresh runtime admission. W1D1=PP4/VRCT3,W1D3=PP4;W2D1=PP1/VRCT1,W2D3=PP1;W3=VRCT2/VRCLT2/PP2;W4=PP3/VRCS1;D1thenD3,PP3ALONEbeforeW4. PP officialCLI controls preserve GUI mode through supported productCLIrun-gui; appstart/restart headless is not substituted. Approved VRCS process-only startup override applies. D1startup40s,D3=10s;PPsend19104/receive19204or19201 nonconcurrent. No paid/model/account substitution or invented co-measurement. See evidence/issue8/pp291-installed-build-amendment.json and selected_wave_policy.",
+  "owner_update": "Current non-PuriPuly continuation preserves the10 completed A slots, the earlier registered PP4D1/VRCT3D1 slots and seven subsequently completed non-PuriPuly slots without replay. Original failed/blocked findings remain history. The original1015 VRCLS exact-name repair now has actual D1/D3 source checks, four terminal stages each, named capture/render routes and normal full-process cleanup. Only W4-D1 VRCLS1 then W4-D3 VRCLS1 remain in the new non-PuriPuly main plan, subject to its own exact freeze and fresh runtime admission. PuriPuly is reserved for the owner: no application inspection, control, settings or cleanup. Preserve PP4D3 partial material. Existing PP build/control history remains unchanged, not a current resume instruction. D1 startup40s/D3 startup10s; primary inputs unchanged. No quality/cost claim follows from preparation.",
   "first_batch_preparation_evidence": [
+    "evidence/issue8/vrcls-exact-name-routing-repair.json",
+    "evidence/issue8/vrcls-exact-name-source-admissions.json",
+    "evidence/issue8/vrcls-exact-name-observed-rules.json",
     "evidence/issue8/pp291-current-preflights.json",
     "evidence/issue8/pp291-installed-build-amendment.json",
     "evidence/issue8/pp291-voice-output-basis.json",
@@ -637,23 +640,23 @@
       "id": "VRCLS1",
       "application": "VRCLS",
       "finding": "blocked",
-      "reason": "Actual original D1 default-device fallback made source binding operational-invalid; D3 was not launched. Installed1015 and latest official1017 actual static inspection retain early microphone/loopback capture and default fallbacks.1017 was not installed/run. No vendor-supported safe setup and fail-closed route for both paths established; both retry slots remain blocked. Original raw material stays private; missing results are not zero. See evidence/issue8/vrcls-retry-safety-finding.json.",
+      "reason": "Generic historical finding retained, not current batch exclusion. Original D1 default-device fallback remains operational-invalid and1017 remains unexecuted static history. The original1015 exact-name repair now has actual named capture/render startup with zero fallback warnings, D1/D3 source checks completed4done each and genuine normal full-process stop acknowledgements. Current source/rule admission is evidence/issue8/vrcls-exact-name-source-admissions.json. New VRCLS-only W4-D1 thenW4-D3 main execution requires its own freeze and fresh runtime guards; no vendor fail-closed, exact remote model, quality or cost claim.",
       "planned": {
         "translation": "Developer server",
         "asr": "Developer server",
         "access": "Free as planned; limits unverified"
       },
       "observed": {
-        "version": "0.7.0-20260913",
-        "asr": null,
-        "translation": null,
-        "provider_route": null,
-        "state_evidence": null
+        "version": "0.7.0-20260913 /0.7.0.1015",
+        "asr": "Remote developer recognition; Chinese GUI FireRedASR2S preference; deployed exact model unknown",
+        "translation": "Developer server; deployed exact model and downstream provider unknown",
+        "provider_route": "Existing website-authorized remote recognition and Developer server translation; no account, tier or provider substitution",
+        "state_evidence": "evidence/issue8/vrcls-exact-name-source-admissions.json"
       },
       "directions": {
-        "D1": "unverified",
+        "D1": "verified",
         "D2": "unverified",
-        "D3": "unverified",
+        "D3": "verified",
         "D4": "unverified",
         "D5": "unverified",
         "D6": "unverified"
@@ -665,38 +668,41 @@
         "adapter": null
       },
       "microphone": {
-        "requested": "CABLE Output (select exact WASAPI device name)",
-        "verified": false
+        "requested": "CABLE Output(VB-Audio Virtual Cable)",
+        "verified": true
       },
       "osc": {
         "host": "127.0.0.1",
         "send_port": 19141,
         "receive_port": null,
-        "assignment": "requested_not_profile_verified",
-        "oscquery_or_mute_signal": "none supplied; dependency must be observed"
+        "assignment": "actual_GUI_and_received_OSC_verified_D1_D3_at19141",
+        "oscquery_or_mute_signal": "Inbound OSC and automatic control disabled; no emulation supplied"
       },
       "tts": {
-        "required": "off injection route",
-        "verified_off_injection": false
+        "required": "Actual native TTS disabled; microphone-to-text/OSC only, desktop recognition off",
+        "verified_off_injection": true
       },
       "updates": {
-        "policy": "Disable where supported; otherwise record app version/executable hash at preparation, resume and end",
-        "verified": false
+        "policy": "Automatic update checks/downloads, model downloads and translation-profile synchronization disabled; retain original1015 binary hashes and recheck at each permitted launch and end",
+        "verified": true
       },
       "access": {
-        "tier": "Free as planned; limits unverified",
+        "tier": "Existing website-authorized access; exact tier and numeric entitlement unverified",
         "actual_limits": null,
         "key_aliases": [],
         "exclusive_quota_scope": null,
-        "details": "See linked application procedure for source-backed keys/projects, provider identity/export and unverified access findings"
+        "details": "Historical invalid preflight reported numeric430 and a displayed10/minute rule; no verified current bucket/reset or measured cost. Exact remote identities and attributable usage remain unknown."
       },
       "procedure": "../docs/profiles/kikitan-vrcls.md",
       "evidence": [
         "findings/kikitan-vrcls.json",
         "evidence/installed-apps.json",
-        "evidence/issue45/gui-execution-prerequisite.json"
+        "evidence/issue45/gui-execution-prerequisite.json",
+        "evidence/issue8/vrcls-exact-name-routing-repair.json",
+        "evidence/issue8/vrcls-exact-name-source-admissions.json",
+        "evidence/issue8/vrcls-exact-name-observed-rules.json"
       ],
-      "osc_example": null
+      "osc_example": {"kind": "audio_to_osc", "path": "evidence/issue8/vrcls-exact-name-source-admissions.json", "limits": "Original1015 D1/D3 source checks only; source-bound target candidates and normal cleanup, not main quality or universal final/revision semantics."}
     },
     {
       "id": "KIKI1",
@@ -964,7 +970,7 @@
     }
   ],
   "wave_history_evidence": "evidence/issue45/sequential-wave-decision.json",
-  "selected_wave_policy": "The waves array preserves the original cumulative layout. Latest owner-authorized repair/retry retains10 completed A slots without replay and preserves6 original blocked/invalid findings as history. Four repaired slots passed actual checks;VRCLS1 D1/D3 remain blocked. New schedule candidates:W1-D1 PP4/VRCT3,W1-D3 PP4;W2-D1 PP1/VRCT1,W2-D3 PP1;W3 both directions VRCT2/VRCLT2/PP2;PP3ALONE D1;W4 both directions PP3/VRCS1. Thus16 eligible new main slots plus2 blocked dispositions, subject to amended freeze and fresh per-plan admission. PuriPuly officialCLI only; other appsGUI, with approved VRCS process-only startup override. PPsend19104/receive19204or19201 reuse is nonconcurrent. Remaining D1 startup uses40s,D3 keeps10s; primary inputs unchanged. No new main or standalone capture yet; prior C freeze remains unexecuted history.",
+  "selected_wave_policy": "The waves array is the original cumulative layout, not current launch membership. Seven non-PuriPuly continuation slots are captured, registered and cleaned up: VRCS1 D1/D3, VRCT1 D1, and paired VRCT2/VRCLT2 D1/D3. Current exact-name VRCLS preparation resolves the last two non-PuriPuly source-admission blockers. The new continuation is W4-D1 VRCLS1 only, then W4-D3 VRCLS1 only, with a new immutable source/rule/input freeze and fresh normal-GUI runtime binding. Do not replay completed peers or inspect/change PuriPuly, which is reserved for the owner. Preserve original failures, old freezes and PP4D3 partial material. D1 startup40s/D3 startup10s; primary input populations and first-attempt policy unchanged. No new VRCLS main capture is claimed by source preparation.",
   "waves": [
     {"id": "W1", "profiles": ["PP4", "KIKI2", "VRCLT1", "VRCT3"], "execution": "blocked_pending_preflight"},
     {"id": "W2", "profiles": ["VRCT1", "PP1", "VRCS2", "KIKI1"], "execution": "blocked_pending_preflight"},
@@ -973,7 +979,7 @@
   ],
   "limitations": [
     "Generic catalogue readiness remains historical/evidence-specific and is not upgraded here. All8 current PP2.9.1 source-bound CLI checks and genuine stop/final stopped preparation are bounded newbuild admission;2.9.0 B checks/fullcleanup remain historical. Fresh main runtime binding, returned upstream, numeric limits/cost and main quality/FPR are not certified by startup checks.",
-    "The original fourteen-profile layout is historical context. Repair-retry preserves10 completed A slots and6 original unavailable observations; four retries now have passed checks, two VRCLS slots retain fresh static safety blockers.16 new eligible main slots still require amended freeze and runtime admission. Preserve actual cohort provenance and disjoint configuration/direction populations. The PP3 standalone observation remains pending and separate from primary results.",
+    "The original fourteen-profile layout and original six unavailable findings remain historical. Seven later non-PuriPuly slots are complete; the new original1015 VRCLS source checks now permit preparation of only the two still-unmeasured VRCLS main directions. New exact freeze and runtime admission remain required. Preserve cohort provenance and disjoint configuration/direction populations. PuriPuly and its standalone observation remain held for owner use.",
     "For this D1/D3 batch only, the linked quota-isolation-amendment permits shared/unverified quotas; report contention, first failures and quota-stopped work without claiming independence or changing keys/tiers/routes. Other runtime/CPU/routing/cleanup requirements remain; no ordinary chunk-boundary restarts.",
     "Actual2.9.1 PP sends remain19104; receivesPP4=19204 andPP1/PP2/PP3=19201. Reuse is nonconcurrent across plans; verify wave-local endpoints and fresh effective state. Preserve historical PP1 GUI19101 mismatch without product repair. UDP availability is instantaneous, not reservation.",
     "No actual VRChat process, speculative OSCQuery or fake mute signaling is supplied. Block any discovered process requirement.",

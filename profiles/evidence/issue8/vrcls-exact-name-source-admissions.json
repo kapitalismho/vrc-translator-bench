@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "version": "issue8-vrcls1-original1015-exact-name-source-admissions-v1",
+  "profile": "VRCLS1",
+  "kind": "actual_source_bound_startup_and_cleanup_admission_not_main_or_quality_result",
+  "status": "passed_D1_D3_source_admission",
+  "observed_directions": ["D1", "D3"],
+  "application": {"version": "0.7.0-20260913 /0.7.0.1015", "exe_sha256": "eec5acd87649e73f70d2ab9330f14a5e3b5df2d0794e3cc8d21f7ac3dd726f8b", "updated_or_patched": false},
+  "source_admissions": {"path": ".data/issue8/repair-retry/VRCLS/exact-name-repair-20261024/admission/source-admissions.json", "sha256": "5fa2126465897f71e894d1ada2c157dc494e2b88006229408232da5bae356863"},
+  "routing_repair": {"path": "profiles/evidence/issue8/vrcls-exact-name-routing-repair.json", "sha256": "d0cb7a25fff98119afde032c69fa350705bf1ac3a2a25db912bcc9ff0352fbd5"},
+  "rule": {"path": "profiles/evidence/issue8/vrcls-exact-name-observed-rules.json", "sha256": "b5053a9a45e0e6b00224e09bc204c30a4712aeeaddce93711286d8904832ce61", "pointer": "/rule"},
+  "directions": {
+    "D1": {
+      "status": "passed",
+      "finding": {"path": ".data/issue8/repair-retry/VRCLS/exact-name-repair-20261024/admission/vrcls1-d1-admission.json", "sha256": "32da729523485269002d085a31a4ca3a177569831a3b8969aa807b10e3d4b10d"},
+      "finished_at_utc": "2026-10-24T05:48:40.166535+00:00",
+      "source": "development-01[34,74), exact PCM crop,48kHz mono16-bit,1,920,000 submitted frames",
+      "source_audio_sha256": "b214d5288ed05ce51e6c18a7e8b2b3101218331122a8cf19192e9dc398c33926",
+      "actual_tail_seconds": 20,
+      "actual_OSC_payloads": 5,
+      "framing": "Japanese translation LF English ASR source",
+      "binding": "Assistant inspected all actual payloads against exact crop/native reference; distinctive cats/independence/intelligence/affection/self-care content, not nonempty-only or timing-only admission",
+      "terminal": "done4; pending/running/invalid/product_failure0; genuine normal close, independent owned PID66440 absence, stopACK1 and retired bridge"
+    },
+    "D3": {
+      "status": "passed",
+      "finding": {"path": ".data/issue8/repair-retry/VRCLS/exact-name-repair-20261024/admission/vrcls1-d3-admission.json", "sha256": "20fad1a88c42b4311848ff6e36b6d7a4aec32bdc111e60e509afef4d25b709bd"},
+      "finished_at_utc": "2026-10-24T06:05:51.045042+00:00",
+      "source": "zh-dev[0,10), exact PCM prefix,48kHz mono16-bit,480,000 submitted frames",
+      "source_audio_sha256": "3be6974425b8b0de3cafced557d58bc5e1c2d7578445a3f094606f67ca97f20a",
+      "actual_tail_seconds": 20,
+      "actual_OSC_payloads": 1,
+      "framing": "Korean translation LF Chinese ASR source",
+      "binding": "Assistant inspected actual payload against exact prefix/native reference; Mid-Autumn Festival/understanding China/activities content, not nonempty-only or timing-only admission. No unplayed reference phrase credited.",
+      "terminal": "CLI exit0 reported by parent; done4; pending/running/invalid/product_failure0; genuine normal close, independent owned PID61532 absence, stopACK1 and retired bridge"
+    }
+  },
+  "silent_lifecycle": "Each direction: actual one-second48,000-frame zero-PCM playback plus2-second tail, zero OSC; lifecycle evidence only, not frozen180-second nonspeech/FPR result",
+  "format_prerequisites": "Actual default translatedText/translatedText2/translatedText3/text multiline template, exactly one enabled target and unchanged mode. Strict full-message two-nonblank-line LF framing; ambiguous single/blank/extra-line/CRLF receipts remain unresolved, never the whole mixed payload as translation.",
+  "lifecycle_prerequisites": "Fresh actual mic-recognition-on adoption, desktop recognition OFF, both exact Cable capture routes with no actual fallback; no start-latency claim. Stop requires native mic OFF, normal full owned-process exit/independent absence, genuine ACK and retired session. Historical observations cannot admit a later runtime.",
+  "unknowns": ["Exact returned remote recognition/translation model, upstream, tier and quota isolation", "Universal revision, page, resend, erasure, utterance or finality identity", "Main-run correspondence or quality/latency/FPR results"],
+  "chinese_ASR_UI_preference": "FireRedASR2S; selected GUI label only, not returned remote model proof",
+  "verification": "Independent source-byte/reference/receipt/lifecycle inspection complete. Parent-run focused existing-interpreter smoke remains separate; workers did not run builds/tests/formatters or model evaluation.",
+  "preservation": "Original invalid/blocked history, frozen originals and completed captures unchanged. Current admissions are source checks only, not main completion, scoring, cost, publication or issue closure.",
+  "privacy": "Safe operational summaries and hashrefs only. No full raw transcripts, app configuration/log/account data or provider secrets exported."
+}

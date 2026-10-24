@@ -1,0 +1,452 @@
+{
+  "schema_version": 1,
+  "kind": "minimal_VRCLS_only_exact_name_continuation_reusing_frozen_method",
+  "status": "prepared_for_commit",
+  "continuation_id": "vrcls-exact-name-continuation-v1",
+  "output_cohort": "repair-retry-pp291-v1",
+  "baseline_recipe": {
+    "path": "profiles/evidence/issue8/repair-retry-pp291-v1/execution-recipe.json",
+    "sha256": "6d3e3f621dd5dc3d3ac63d7d494775986dbbefb536b84af4d697c6582c4e69b8"
+  },
+  "materializer": {
+    "path": ".data/issue8/protocol-planning/vrcls-exact-name-continuation-v1/materialize.py",
+    "sha256": "c295066b90008774d20c8bbcbf957a0853a029910711eb44dce8b6dac3499f28"
+  },
+  "preparer": {
+    "path": ".data/issue8/protocol-planning/vrcls-exact-name-continuation-v1/prepare.py",
+    "sha256": "9264436ac59549438f5c5cfadadcd7c165004b25f4b86fd11eced7746f7d9d58"
+  },
+  "runtime_bindings_schema": {
+    "path": ".data/issue8/protocol-planning/vrcls-exact-name-continuation-v1/runtime-bindings.schema.json",
+    "sha256": "de289371ee1bb1c5f366fec35591d4975836a52418cd7a55ce4086e3dee7b2e7"
+  },
+  "amendment": {
+    "path": "profiles/evidence/issue8/vrcls-exact-name-continuation-v1/amendment.json",
+    "sha256": "02addec5ca292ada5cd725b7ad1633a88c50b10ab94f2963531ecc65e09e6c69"
+  },
+  "overlay": {
+    "path": ".data/issue8/protocol-planning/vrcls-exact-name-continuation-v1/rule-availability-schedule-overlay.json",
+    "sha256": "c23f09d9b4be748bfa50a813d783ccfd0bee9f12cc73d072766c14f0b7cc39cc"
+  },
+  "admission_index": {
+    "path": ".data/issue8/repair-retry/VRCLS/exact-name-repair-20261024/admission/index.json",
+    "sha256": "98e835b893d1ec47a334e28f5887a86b34043dc031b69f90568e8b1431817916"
+  },
+  "installed_identity": {
+    "path": ".data/issue8/repair-retry/VRCLS/exact-name-repair-20261024/source-check-end-installation.json",
+    "sha256": "7294964a089f24d45304a5844e2d55fc7337a593706a17eb86a9e2d4f200567e"
+  },
+  "rules_and_contracts": [
+    {
+      "path": "docs/cli.md",
+      "sha256": "4de4724889c75010058ef679c640ab17ce5ed50792f6a4f2be25e4b417b20c55"
+    },
+    {
+      "path": "docs/metrics.md",
+      "sha256": "d8169aa7286dceb12234bcfc23ff9fa8bfe85a89c94db4219a9415792299cdc5"
+    },
+    {
+      "path": "docs/quality.md",
+      "sha256": "fa16add11e19de567dfb836ff10221cd767cfea23f1fef4ecedff9a80641b929"
+    },
+    {
+      "path": "docs/costs.md",
+      "sha256": "dbbd0e73613d2343cce259e46ec8f4b1bb3325753b5b1db6922c46f67e63ae3f"
+    },
+    {
+      "path": "docs/profiles.md",
+      "sha256": "007e698b782915ecb32b08bdf3366da65b95db2607025b4895319f2b62bf35ad"
+    },
+    {
+      "path": "docs/profiles/vrct-vrcs.md",
+      "sha256": "f57bb9fdbeeffb1d649f153eb8e4e9ccff475e5e130b2e7da1d0f7a1798143a0"
+    },
+    {
+      "path": "docs/profiles/vrclt.md",
+      "sha256": "06fef2bf0332f589f5f0785625f057cfd79c1a134ca23cc8866d0176ae14b09e"
+    },
+    {
+      "path": "docs/profiles/kikitan-vrcls.md",
+      "sha256": "218bd347b147317b9ee5bf239d7e8a765da980de0079b1c45fcef177aa9ce322"
+    },
+    {
+      "path": "docs/corpus.md",
+      "sha256": "8d11491829be91f334540cfd7cb43c7e042c881259607efcbb5c90ef4643f9f9"
+    },
+    {
+      "path": "docs/architecture.md",
+      "sha256": "6be433c8f45b035d851f8f4d3766509e6a81bc84de89f4e2f68878e2a58667f8"
+    },
+    {
+      "path": "profiles/catalog.json",
+      "sha256": "354b33afe6c03ef234e160c3df1ff6f60cfcee60fdfa75640eed7902f880d90d"
+    },
+    {
+      "path": "profiles/evidence/issue8/non-puripuly-batch-amendment.json",
+      "sha256": "ffd51cbe59c3df967076904c3812e4bfdf9089fcab313d53211566696aa927f4"
+    },
+    {
+      "path": "profiles/evidence/issue8/observation-order.json",
+      "sha256": "630326a9e4c19d48ff1acf568adacbe4dcafc99937ff02f5abd14ef28d4a8f2a"
+    },
+    {
+      "path": "profiles/evidence/issue8/input-assembly.json",
+      "sha256": "58113d516c6aab4ca11e22c9d8a7dd1a369de4e7b1a567708293862e46bf5e0e"
+    },
+    {
+      "path": "profiles/evidence/issue8/quota-isolation-amendment.json",
+      "sha256": "5c9a578cb9a406e44e6f4c5433aa87d9494361edbd132885cba6e699e8ae7778"
+    },
+    {
+      "path": "profiles/evidence/issue8/supplementary-scope-amendment.json",
+      "sha256": "b1d4c59f0740a75aa6fb44d0f63c732c51d5bb616ea04e3958990310b261f6ee"
+    },
+    {
+      "path": "profiles/evidence/issue8/reporting-presentation-amendment.json",
+      "sha256": "f4b180f0146460ed049cee239dd291825f13a66c64f2b36d94af40a35d8a3ba5"
+    },
+    {
+      "path": "profiles/evidence/issue8/scoring-runtime.json",
+      "sha256": "768e6ac85758e142d073320fb940610ca300316d36d81904cfbbb0f76ce8a452"
+    },
+    {
+      "path": "profiles/evidence/issue8/cable-endpoints.json",
+      "sha256": "c51c6ed03631520fa86c5e0d7c264109096243e64f8251ca8477b6acdb6e174f"
+    },
+    {
+      "path": "profiles/evidence/issue8/vrcls-current-preflights.json",
+      "sha256": "2e11de602d24a66dfb7d0ca5a184ad178f7808e80f80374316a21c2364455f10"
+    },
+    {
+      "path": "profiles/evidence/issue8/vrcls-startup-routing-amendment.json",
+      "sha256": "df825193bb3c49c00676cb66dd908b2e9f05e71d88276340e2bdb2c83fade91c"
+    },
+    {
+      "path": "profiles/evidence/issue8/vrcls-installed-routing-findings.json",
+      "sha256": "e3764834837455fe14a741ec557a4682993150ca171ac8ee0f2aa1478affa626"
+    },
+    {
+      "path": "profiles/evidence/issue8/vrcls-routing-rollback.json",
+      "sha256": "c0740b5e2c62b2a06023b0f6f7dbd746162878ac9c3d470e24ca30228db1f84a"
+    },
+    {
+      "path": "bench/plan.py",
+      "sha256": "00f188525da18a9e46ba9053ad4764bf1369b43aa0256123928ae2a7f7e5923c"
+    },
+    {
+      "path": "bench/runner.py",
+      "sha256": "e4ec4d22669935e92c75fb91246411170ac70853a81460f0fae0f20dea72d87f"
+    },
+    {
+      "path": "bench/osc.py",
+      "sha256": "24d65ceb3eeb6fa1e5b45626fee5f5fc405232ab36ba9dc12ba0017ae2dbc22e"
+    },
+    {
+      "path": "bench/audio.py",
+      "sha256": "c1d58a2754c1be531ac3c85b5bf1656b5dd9a059a2f0b7195cc8c1f7c71a5ff4"
+    },
+    {
+      "path": "bench/storage.py",
+      "sha256": "cdce70eb22df4325153eb6fae31d4ebdd5c66d44ebd0945eb61ec61d1a1064e9"
+    },
+    {
+      "path": "bench/adapter.py",
+      "sha256": "17c1eb3f3f9053cd87173cf80be79c8daf5a7b932fd79e6b5b21605e4049f9ee"
+    },
+    {
+      "path": "bench/gui_operator_adapter.py",
+      "sha256": "1edb7bbdf920a6221ddf0a40f9b0db5322c2b70eca8b9a132c130f4396f78473"
+    },
+    {
+      "path": "bench/cli.py",
+      "sha256": "b5c4ccda6e388beb3bcedec64c1ce944630b25764f4b73bf8ddfbefbd75bdc60"
+    },
+    {
+      "path": "bench/activity.py",
+      "sha256": "e35b438c143586ce2b4336a2cce0b3bcdcf142dfd8bf0faadcd3af75d0a32686"
+    },
+    {
+      "path": "bench/metrics.py",
+      "sha256": "7733b2254c1039219ed38bca8904121a8eddd7e9cd073cc283b02c3b2270336d"
+    },
+    {
+      "path": "bench/metrics_inputs.py",
+      "sha256": "6162739b95c2807d4c275adc690cb8874b34a10c521c60e0a9355bcbdab3cf8e"
+    },
+    {
+      "path": "bench/metrics_alignment.py",
+      "sha256": "a0aa22e8aa54b376b713b8cfb7459c72b6b86326dc0c286a4ccce7f140635a38"
+    },
+    {
+      "path": "bench/metrics_diagnostics.py",
+      "sha256": "a81d6a24f9873920fbea94f8134fa9325dc411e9d6c9a2966dbb23af4382bb79"
+    },
+    {
+      "path": "bench/metrics_stats.py",
+      "sha256": "28afae31a456537b8fb4301de14a29090d6a6b56e41e680ebcade735d22e2768"
+    },
+    {
+      "path": "bench/metrics_batch.py",
+      "sha256": "ff14d01f4024ff851f3d1cb169fbfded1249fddc53b3c913ba02467a873019c3"
+    },
+    {
+      "path": "bench/profiles.py",
+      "sha256": "0142978d01cba7448413a8cf0a3c631a9a565c148e1b2e856d8714ed3fc04d4d"
+    },
+    {
+      "path": "bench/__init__.py",
+      "sha256": "667d4a15b970b851e20d17510224670c14646cfb6d5a1e388ca6b9cc6da8bf41"
+    },
+    {
+      "path": "bench/quality.py",
+      "sha256": "92fac947746b50fd12f588baaa111d19a6eec1240a85664d8a33e661535a4ce2"
+    },
+    {
+      "path": "bench/quality_sampling.py",
+      "sha256": "920d75fce668fb660c413580a49b5a5b69a0cebe67054d0ad6ba1db4ee6bf4f6"
+    },
+    {
+      "path": "bench/quality_report.py",
+      "sha256": "aa3686e586318e235728509b0daf5c03b4c75571379be2a7a15084d9a7d1028f"
+    },
+    {
+      "path": "bench/quality_prompts.py",
+      "sha256": "5593b75fc30f30bceec1988ab6e5813663cb2b154a44e0652429de3db999ed46"
+    },
+    {
+      "path": "bench/quality_metricx.py",
+      "sha256": "eb3bc75599e23eae8deb7b5efe8c0f69c1f375f3b89a0320d779d135af2366e7"
+    },
+    {
+      "path": "bench/quality_judge.py",
+      "sha256": "7a83d704ba38336a867d6c9eb36ec5978bd94aaf75bfa1145c86797aecf1f7b7"
+    },
+    {
+      "path": "bench/quality_transport.py",
+      "sha256": "17bd38703c6704ccd985e804050fb55c6c7f3d193051e87cb274147be108fb16"
+    },
+    {
+      "path": "bench/quality_process.py",
+      "sha256": "b9ae92cd3b8e3631318370860165f7e8a3d8eb46d4e6540a2c596f72f63b74e1"
+    },
+    {
+      "path": "bench/quality_store.py",
+      "sha256": "17088e30ca05235ad4cf6750690af66fc5771f6004b06787280c75b2598e1e24"
+    },
+    {
+      "path": "bench/quality_bridge.mjs",
+      "sha256": "f24678320eef1e3c338eff19400466e64413f4859b16f33c92e006aa036e60d4"
+    },
+    {
+      "path": "bench/costs.py",
+      "sha256": "928fc38c88c0fee27bd501a9ac090727434ce83bfd7364828718e5f34ab15762"
+    },
+    {
+      "path": "bench/cost_inputs.py",
+      "sha256": "8dec384479dcf6f05baa2679e03dd36fdf0264aee1596b2a52503daf62979fef"
+    },
+    {
+      "path": "tools/prepare_gui_pilot.py",
+      "sha256": "6b2f50954da0d320981a6107bb6ef283c70976ad5292299da60a04c72ad9a962"
+    },
+    {
+      "path": ".data/issue8/protocol-planning/repair-retry-pp291-v1/assemble_protocol.py",
+      "sha256": "cb546a1ca119a41f37939f98b8397a16ad8905f43a200fa3e42d511844b94f8d"
+    },
+    {
+      "path": ".data/issue8/protocol-planning/repair-retry-pp291-v1/runtime-bindings.schema.json",
+      "sha256": "48bdf2f6708270c211bac8a32cbcd1e5d2865d4f6070c275cbb71a84ba9825bb"
+    },
+    {
+      "path": "profiles/evidence/issue8/vrcls-retry-safety-finding.json",
+      "sha256": "7920eacc6443895117353049353be69d7a64f9b6dc7ebad8ae5f8ffcfe6e398c"
+    },
+    {
+      "path": "profiles/evidence/issue8/d1-startup-check-amendment.json",
+      "sha256": "b27e7657aa4523df5b4cce85b880be1cf268350ed12e0cae0c2408d7224dc2f8"
+    },
+    {
+      "path": ".data/issue8/protocol-planning/repair-retry-pp291-v1/assemble_protocol.py",
+      "sha256": "cb546a1ca119a41f37939f98b8397a16ad8905f43a200fa3e42d511844b94f8d"
+    },
+    {
+      "path": ".data/issue8/protocol-planning/repair-retry-pp291-v1/runtime-bindings.schema.json",
+      "sha256": "48bdf2f6708270c211bac8a32cbcd1e5d2865d4f6070c275cbb71a84ba9825bb"
+    },
+    {
+      "path": "profiles/evidence/issue8/vrcls-exact-name-routing-repair.json",
+      "sha256": "d0cb7a25fff98119afde032c69fa350705bf1ac3a2a25db912bcc9ff0352fbd5"
+    },
+    {
+      "path": ".data/issue8/protocol-planning/repair-retry-pp291-v1/source_registry.py",
+      "sha256": "e7f34e23164db2896918d9c95416f400f7f2557f9a6ae0b33a2f148301ed9e7b"
+    }
+  ],
+  "input_inventory_count": 221,
+  "input_inventory_sha256": "ee6c44941548deba7d81da1a5fd79161693ce526845b5c49d70695bd7bacbdb2",
+  "director_freeze_path": ".data/issue8/vrcls-exact-name-continuation-v1/protocol-freeze.json",
+  "director_freeze_fields": {
+    "recipe_sha256": "6d3e3f621dd5dc3d3ac63d7d494775986dbbefb536b84af4d697c6582c4e69b8",
+    "approved_before_main": true,
+    "vrcls_exact_name_overlay": {
+      "path": ".data/issue8/protocol-planning/vrcls-exact-name-continuation-v1/rule-availability-schedule-overlay.json",
+      "sha256": "c23f09d9b4be748bfa50a813d783ccfd0bee9f12cc73d072766c14f0b7cc39cc"
+    },
+    "vrcls_exact_name_amendment": {
+      "path": "profiles/evidence/issue8/vrcls-exact-name-continuation-v1/amendment.json",
+      "sha256": "02addec5ca292ada5cd725b7ad1633a88c50b10ab94f2963531ecc65e09e6c69"
+    },
+    "admission_index": {
+      "path": ".data/issue8/repair-retry/VRCLS/exact-name-repair-20261024/admission/index.json",
+      "sha256": "98e835b893d1ec47a334e28f5887a86b34043dc031b69f90568e8b1431817916"
+    },
+    "authorized_profiles": [
+      "VRCLS1"
+    ],
+    "execution_order": [
+      "W4-D1",
+      "W4-D3"
+    ],
+    "adopt_running": true,
+    "start_latency_claimed": false,
+    "stop_policy": "normal_full_process_exit"
+  },
+  "retained_history_policy": "Exact baseline recipe hash binds old failures and unrelated historical evidence transitively. No PP diagnostics, journals, settings or app state are reopened.",
+  "commands": {
+    "prepare": [
+      ".data/check-venv/Scripts/python.exe",
+      "-B",
+      ".data/issue8/protocol-planning/vrcls-exact-name-continuation-v1/prepare.py",
+      "--root",
+      "."
+    ],
+    "targeted_read_only_smoke": [
+      ".data/check-venv/Scripts/python.exe",
+      "-B",
+      ".data/issue8/protocol-planning/vrcls-exact-name-continuation-v1/materialize.py",
+      "audit",
+      "--root",
+      "."
+    ],
+    "parent_only_freeze_argv": [
+      ".data/check-venv/Scripts/python.exe",
+      "-B",
+      "-c",
+      "import hashlib,json,subprocess; from pathlib import Path; p=Path('profiles/evidence/issue8/vrcls-exact-name-continuation-v1/execution-recipe.json'); r=json.loads(p.read_text(encoding='utf-8')); f=dict(r['director_freeze_fields']); f['revision']=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(); assert f['revision']!='033aa5f71abdf8423dd3ebf770b8b90a14c14972', 'Commit the new protocol first'; f['vrcls_exact_name_recipe']={'path':p.as_posix(),'sha256':hashlib.sha256(p.read_bytes()).hexdigest()}; d=Path(r['director_freeze_path']); d.parent.mkdir(parents=True,exist_ok=True); d.open('x',encoding='utf-8').write(json.dumps(f,ensure_ascii=False,indent=2)+'\\n'); print(f['revision'])"
+    ],
+    "materialize": ".data/check-venv/Scripts/python.exe -B .data/issue8/protocol-planning/vrcls-exact-name-continuation-v1/materialize.py materialize --root . --bindings .data/issue8/protocol-planning/vrcls-exact-name-continuation-v1/runtime/W4-D1/actual-bindings.json --output .data/issue8/protocol-planning/vrcls-exact-name-continuation-v1/runtime/W4-D1/materialized",
+    "register": "Use plan_commands[plan_id].register_terminal_argv after actual normal-close evidence is saved in that plan's runtime root.",
+    "D3": "Use plan_commands.W4-D3 only AFTER terminal normal-close+ACK D1 registration. Materializer derives unique run IDs from the actual frozen revision.",
+    "freeze": "Main commits only after both admissions and final integration; writes actual Director freeze with revision, legacy recipe_sha256, approved_before_main:true, exact vrcls_exact_name_recipe/overlay/amendment/admission_index refs, authorized_profiles:[VRCLS1], execution_order:[W4-D1,W4-D3], adopt_running:true, start_latency_claimed:false, stop_policy:normal_full_process_exit. No worker-generated approval."
+  },
+  "runtime_actions_performed_by_preparation": false,
+  "runtime_observation_contract": {
+    "basis": "actual_visible_gui",
+    "running": true,
+    "observation_after_both_admissions_utc": "2026-10-24T06:05:51.045042+00:00",
+    "repair_retry_applicability": {
+      "cohort": "repair-retry-pp291-v1",
+      "matches_approved_installation_and_rules": true,
+      "safe_input_and_exact_route_observed": true
+    },
+    "vrcls_exact_name": {
+      "candidate": "original-installed-1015-exact-name",
+      "microphone_recognition": true,
+      "desktop_recognition": false,
+      "desktop_source_mode": "System",
+      "desktop_capture_device": "CABLE Input(VB-Audio Virtual Cable)",
+      "fallback_warnings": 0,
+      "adopt_running": true,
+      "start_latency_claimed": false,
+      "stop_policy": "normal_full_process_exit",
+      "additional_targets_enabled": false,
+      "chatbox_template": "{translatedText}\n{translatedText2}\n{translatedText3}\n{text}",
+      "source_admission_by_direction": {
+        "D1": {
+          "path": ".data/issue8/repair-retry/VRCLS/exact-name-repair-20261024/admission/vrcls1-d1-admission.json",
+          "sha256": "32da729523485269002d085a31a4ca3a177569831a3b8969aa807b10e3d4b10d"
+        },
+        "D3": {
+          "path": ".data/issue8/repair-retry/VRCLS/exact-name-repair-20261024/admission/vrcls1-d3-admission.json",
+          "sha256": "20fad1a88c42b4311848ff6e36b6d7a4aec32bdc111e60e509afef4d25b709bd"
+        }
+      }
+    },
+    "named_capture_evidence_schema": {
+      "basis": "Fresh allowlisted actual startup record, same schema as D3-source-check-normal-start.json, never a whole log/config.",
+      "required_fields": [
+        "observed_at_utc",
+        "owned_pid",
+        "normal_app_launch",
+        "allowlisted_actual_log_lines",
+        "fallback_warnings",
+        "microphone",
+        "desktop",
+        "desktop_source_mode",
+        "source",
+        "target"
+      ],
+      "constraints": "Same current PID, normal launch true, exact Cable mic+System loopback, fallback0, matching language pair, native capture-success lines for BOTH paths, timestamp after both admissions and no later than current GUI observation."
+    }
+  },
+  "plan_commands": {
+    "W4-D1": {
+      "actual_runtime_binding_path": ".data/issue8/protocol-planning/vrcls-exact-name-continuation-v1/runtime/W4-D1/actual-bindings.json",
+      "actual_normal_close_evidence_path": ".data/issue8/protocol-planning/vrcls-exact-name-continuation-v1/runtime/W4-D1/normal-close-evidence.json",
+      "main_output_root": ".data/issue8/vrcls-exact-name-continuation-v1/main/W4-D1",
+      "materialize_argv": [
+        ".data/check-venv/Scripts/python.exe",
+        "-B",
+        ".data/issue8/protocol-planning/vrcls-exact-name-continuation-v1/materialize.py",
+        "materialize",
+        "--root",
+        ".",
+        "--bindings",
+        ".data/issue8/protocol-planning/vrcls-exact-name-continuation-v1/runtime/W4-D1/actual-bindings.json",
+        "--output",
+        ".data/issue8/protocol-planning/vrcls-exact-name-continuation-v1/runtime/W4-D1/materialized"
+      ],
+      "run_main_argv": [
+        ".data/check-venv/Scripts/python.exe",
+        "-B",
+        "-c",
+        "import json,subprocess; from pathlib import Path; m=Path('.data/issue8/protocol-planning/vrcls-exact-name-continuation-v1/runtime/W4-D1/materialized'); run=json.loads((m/'materialization-observation.json').read_text(encoding='utf-8'))['run_id']; subprocess.run(['.data/check-venv/Scripts/python.exe','-B','-m','bench.cli','run','--plan',str(m/'W4-D1.json'),'--run-id',run,'--root','.data/issue8/vrcls-exact-name-continuation-v1/main/W4-D1','--audio-backend','wasapi'],check=True)"
+      ],
+      "register_terminal_argv": [
+        ".data/check-venv/Scripts/python.exe",
+        "-B",
+        "-c",
+        "import json,subprocess; from pathlib import Path; m=Path('.data/issue8/protocol-planning/vrcls-exact-name-continuation-v1/runtime/W4-D1/materialized'); run=json.loads((m/'materialization-observation.json').read_text(encoding='utf-8'))['run_id']; manifest=Path('.data/issue8/vrcls-exact-name-continuation-v1/main/W4-D1')/'runs'/run/'manifest.json'; subprocess.run(['.data/check-venv/Scripts/python.exe','-B','.data/issue8/protocol-planning/vrcls-exact-name-continuation-v1/materialize.py','register','--root','.','--plan-id','W4-D1','--manifest',str(manifest),'--spec',str(m/'W4-D1-metrics-reference-binding.json'),'--normal-close','.data/issue8/protocol-planning/vrcls-exact-name-continuation-v1/runtime/W4-D1/normal-close-evidence.json'],check=True)"
+      ]
+    },
+    "W4-D3": {
+      "actual_runtime_binding_path": ".data/issue8/protocol-planning/vrcls-exact-name-continuation-v1/runtime/W4-D3/actual-bindings.json",
+      "actual_normal_close_evidence_path": ".data/issue8/protocol-planning/vrcls-exact-name-continuation-v1/runtime/W4-D3/normal-close-evidence.json",
+      "main_output_root": ".data/issue8/vrcls-exact-name-continuation-v1/main/W4-D3",
+      "materialize_argv": [
+        ".data/check-venv/Scripts/python.exe",
+        "-B",
+        ".data/issue8/protocol-planning/vrcls-exact-name-continuation-v1/materialize.py",
+        "materialize",
+        "--root",
+        ".",
+        "--bindings",
+        ".data/issue8/protocol-planning/vrcls-exact-name-continuation-v1/runtime/W4-D3/actual-bindings.json",
+        "--output",
+        ".data/issue8/protocol-planning/vrcls-exact-name-continuation-v1/runtime/W4-D3/materialized"
+      ],
+      "run_main_argv": [
+        ".data/check-venv/Scripts/python.exe",
+        "-B",
+        "-c",
+        "import json,subprocess; from pathlib import Path; m=Path('.data/issue8/protocol-planning/vrcls-exact-name-continuation-v1/runtime/W4-D3/materialized'); run=json.loads((m/'materialization-observation.json').read_text(encoding='utf-8'))['run_id']; subprocess.run(['.data/check-venv/Scripts/python.exe','-B','-m','bench.cli','run','--plan',str(m/'W4-D3.json'),'--run-id',run,'--root','.data/issue8/vrcls-exact-name-continuation-v1/main/W4-D3','--audio-backend','wasapi'],check=True)"
+      ],
+      "register_terminal_argv": [
+        ".data/check-venv/Scripts/python.exe",
+        "-B",
+        "-c",
+        "import json,subprocess; from pathlib import Path; m=Path('.data/issue8/protocol-planning/vrcls-exact-name-continuation-v1/runtime/W4-D3/materialized'); run=json.loads((m/'materialization-observation.json').read_text(encoding='utf-8'))['run_id']; manifest=Path('.data/issue8/vrcls-exact-name-continuation-v1/main/W4-D3')/'runs'/run/'manifest.json'; subprocess.run(['.data/check-venv/Scripts/python.exe','-B','.data/issue8/protocol-planning/vrcls-exact-name-continuation-v1/materialize.py','register','--root','.','--plan-id','W4-D3','--manifest',str(manifest),'--spec',str(m/'W4-D3-metrics-reference-binding.json'),'--normal-close','.data/issue8/protocol-planning/vrcls-exact-name-continuation-v1/runtime/W4-D3/normal-close-evidence.json'],check=True)"
+      ]
+    }
+  }
+}
