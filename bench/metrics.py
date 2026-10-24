@@ -212,27 +212,100 @@ def assemble_segments(sentences, turns, outputs, scores):
     return segments
 
 
-def exclude_inapplicable(sentences, turns, segments, applicability):
-    """Keep observed results; gate only the declared analysis population."""
-    excluded = {"attempts": len(applicability["exclusions"])}
-    decisions = {(entry["config"], entry["direction"], entry["attempt_id"]): {"population": applicability["population"], **entry}
-                 for entry in applicability["exclusions"]}
-    for name, rows in (("sentences", sentences), ("turns", turns), ("quality_segments", segments)):
-        count = 0
-        for row in rows:
-            decision = decisions.get((row.get("config"), row.get("direction"), row.get("attempt_id")))
-            if decision is None:
+def exclude_inapplicable(attempts, sentences, turns, segments, outputs, applicability):
+    """Retain observations and source links, but never infer their provider."""
+    direct = {(entry["config"], entry["attempt_id"]): {
+        "population": applicability["population"], **entry, "exclusion_kind": "direct"}
+        for entry in applicability["exclusions"]}
+    dependencies = defaultdict(dict)
+    sources = {row["id"]: row for row in sentences}
+    segment_index = {row["id"]: row for row in segments}
+
+    # Only explicitly selected capture origins seed dependencies. A clean
+    # origin does not become mixed because its source population is excluded.
+    for output in outputs:
+        origin = direct.get((output["raw"].get("config"), output.get("capture_attempt_id")))
+        if origin is None:
+            continue
+        output.update(population_eligible=False, applicability=origin)
+        affected = set(output["alignment"]["sentence_ids"])
+        if output["alignment"]["status"] == "unknown":
+            affected.update(output["alignment"].get("candidate_ids", []))
+        # Isolated results associate by the existing utterance window rather
+        # than source alignment; that consumer must retain the same uncertainty.
+        for attempt in attempts:
+            if (attempt["kind"] != "isolated" or attempt["config"] != output["raw"].get("config")
+                    or attempt["clock_session"] != output["raw"].get("clock_session")):
                 continue
-            row["applicability"] = decision
-            row["population_eligible"] = False
-            row["pre_applicability_eligible"] = row["eligible"]
-            row["eligible"] = False
-            reason_key = "quality_eligibility_reason" if name == "quality_segments" else "eligibility_reason"
-            row[f"pre_applicability_{reason_key}"] = row.get(reason_key)
-            row[reason_key] = row.get(reason_key) or "analysis_applicability_excluded"
-            count += 1
-        excluded[name] = count
-    applicability["excluded_counts"] = excluded
+            refs = [row for row in sentences if row["attempt_id"] == attempt["id"] and row["scored"]]
+            start = min((row["start_ns"] for row in refs if row["start_ns"] is not None), default=None)
+            end = max((row["end_ns"] for row in refs if row["end_ns"] is not None), default=None)
+            if start is not None and end is not None and start <= output["raw"]["t_ns"] <= end + 10_000_000_000:
+                affected.update(row["id"] for row in refs)
+        segment_ids = {output.get("quality_segment_id"), *output.get("source_quality_segment_ids", []),
+                       *output.get("unresolved_quality_segment_ids", []),
+                       *output.get("untimed_capture_quality_segment_ids", [])}
+        for identity in segment_ids:
+            segment = segment_index.get(identity)
+            if segment is not None:
+                dependencies[("quality_segments", identity)][output["id"]] = origin
+                # Unaligned display allocation is not source correspondence:
+                # its whole reference population remains uncertain.
+                if not output["alignment"]["sentence_ids"]:
+                    affected.update(member["sentence_id"] for member in segment["reference"])
+        for identity in affected:
+            source = sources.get(identity)
+            if source is None or source["config"] != output["raw"].get("config") or source["clock_session"] != output["raw"].get("clock_session"):
+                continue
+            dependencies[("sentences", identity)][output["id"]] = origin
+            for turn_id in {source.get("turn_id"), *source.get("candidate_turn_ids", [])} - {None}:
+                dependencies[("turns", turn_id)][output["id"]] = origin
+            for segment in segments:
+                if any(member["sentence_id"] == identity for member in segment["reference"]):
+                    dependencies[("quality_segments", segment["id"])][output["id"]] = origin
+
+    # An affected first-attempt population cannot be classified as a clean
+    # product success/failure. Keep its original status and incident evidence.
+    for name, rows in (("sentences", sentences), ("turns", turns), ("quality_segments", segments)):
+        for row in rows:
+            dependencies[("attempts", (row["config"], row.get("attempt_id")))].update(
+                dependencies.get((name, row["id"]), {}))
+
+    totals, counts = {}, {"direct": {}, "dependent": {}}
+    collections = (("attempts", attempts), ("sentences", sentences), ("turns", turns), ("quality_segments", segments))
+    for name, rows in collections:
+        counts["direct"][name] = counts["dependent"][name] = 0
+        for row in rows:
+            attempt_id = row["id"] if name == "attempts" else row.get("attempt_id")
+            origin = direct.get((row["config"], attempt_id))
+            dependency_key = (row["config"], attempt_id) if name == "attempts" else row["id"]
+            linked = dependencies.get((name, dependency_key), {})
+            if origin is None and not linked:
+                continue
+            kind = "direct" if origin is not None else "dependent"
+            decision = dict(origin) if origin is not None else {
+                "population": applicability["population"], "reason": "excluded_capture_output_dependency",
+                "exclusion_kind": kind}
+            if linked:
+                decision["dependent_output_ids"] = sorted(linked)
+                decision["origin_exclusions"] = list({(item["config"], item["attempt_id"]): item for item in linked.values()}.values())
+            row.update(population_eligible=False, applicability=decision)
+            if name != "attempts":
+                row["pre_applicability_eligible"] = row["eligible"]
+                row["eligible"] = False
+                if "timing_eligible" in row:
+                    row["pre_applicability_timing_eligible"] = row["timing_eligible"]
+                    row["timing_eligible"] = False
+                reason_key = "quality_eligibility_reason" if name == "quality_segments" else "eligibility_reason"
+                row[f"pre_applicability_{reason_key}"] = row.get(reason_key)
+                row[reason_key] = row.get(reason_key) or (
+                    "analysis_applicability_excluded" if kind == "direct" else "excluded_capture_output_dependency")
+            counts[kind][name] += 1
+        totals[name] = counts["direct"][name] + counts["dependent"][name]
+    applicability["excluded_counts"] = totals
+    applicability["direct_excluded_counts"] = counts["direct"]
+    applicability["dependent_excluded_counts"] = counts["dependent"]
+    applicability["excluded_output_ids"] = [row["id"] for row in outputs if row.get("population_eligible") is False]
 
 
 def isolated_results(attempts, outputs):
@@ -256,7 +329,7 @@ def isolated_results(attempts, outputs):
                 and output["raw"]["t_ns"] > deadline and (output["raw"].get("attempt") == attempt["id"] or any(str(identity).startswith(f"{attempt['id']}:") for identity in output["alignment"]["sentence_ids"]))]
         results.append({"attempt_id": attempt["id"], "test": "isolated_response_not_continuous_latency", "start_ns": start, "end_ns": end, "deadline_ns": deadline,
                         "attempt_status": attempt["state"], "outcome": attempt.get("outcome"),
-                        "measurement_eligible": attempt["state"] in ("done", "product_failure") and attempt.get("outcome") != "N/A",
+                        "measurement_eligible": attempt["state"] in ("done", "product_failure") and attempt.get("outcome") != "N/A" and attempt.get("population_eligible", True),
                         "output_ids": [row["id"] for row in selected], "late_carryover_ids": late,
                         "raw_activity_ids": [row["id"] for row in observed], "unresolved_output_ids": unresolved,
                         "carryover_uncertainty": "All in-window output associated by time only; earlier-utterance carryover may contaminate quality",
@@ -271,6 +344,9 @@ def isolated_results(attempts, outputs):
                                   "quality_score": None if unresolved else attempt.get("isolated_quality_score"), "association": "window_only_no_alignment",
                                   "eligible": results[-1]["measurement_eligible"] and not unresolved, "quality_eligibility_reason": "unresolved_output_role" if unresolved else None,
                                   "unresolved_output_ids": unresolved}
+        if attempt.get("population_eligible") is False:
+            results[-1]["applicability"] = attempt["applicability"]
+            results[-1]["quality"]["quality_eligibility_reason"] = results[-1]["quality"]["quality_eligibility_reason"] or attempt["applicability"]["reason"]
     return results
 
 
@@ -316,7 +392,7 @@ def derive(manifest_path, spec_path, output_path=None, cache_path=None, allow_do
         if not score.get("provenance"):
             raise ValueError("Quality scores require provenance")
     if applicability is not None:
-        exclude_inapplicable(sentences, turns, segments, applicability)
+        exclude_inapplicable(attempts, sentences, turns, segments, outputs, applicability)
     excluded_by_reason = defaultdict(list)
     for segment in segments:
         if not segment["eligible"]:

@@ -115,9 +115,18 @@ def output_attribution(report):
 def paired_comparisons(sentences, quality_segments, iterations, seed):
     paired = []
     indexed = defaultdict(dict)
+    primary_attempts = primary_attempt_keys(sentences)
+    seen = set()
     for row in quality_segments:
-        if row.get("shared_id") and row["reference_eligible"] and population_eligible(row) and row.get("kind") == "chunk":
-            indexed[(row["direction"], row["category"], row["config"])][row["shared_id"]] = row
+        if not (row.get("shared_id") and row["reference_eligible"] and row.get("kind") == "chunk"
+                and (row["config"], row["direction"], row["attempt_id"]) in primary_attempts):
+            continue
+        identity = (row["direction"], row["category"], row["config"], row["shared_id"])
+        if identity in seen:
+            raise ValueError(f"Duplicate reference-eligible retained-primary chunk/shared population: {identity}")
+        seen.add(identity)
+        if population_eligible(row):
+            indexed[identity[:3]][row["shared_id"]] = row
     for direction, category in sorted({(key[0], key[1]) for key in indexed}):
         configs = sorted(key[2] for key in indexed if key[:2] == (direction, category))
         for left, right in combinations(configs, 2):
@@ -126,8 +135,8 @@ def paired_comparisons(sentences, quality_segments, iterations, seed):
             points = []
             for identity in shared:
                 one, two = a[identity], b[identity]
-                s1 = [row for row in sentences if row["attempt_id"] == one["attempt_id"] and one["start"] <= row["start"] and row["end"] <= one["end"]]
-                s2 = [row for row in sentences if row["attempt_id"] == two["attempt_id"] and two["start"] <= row["start"] and row["end"] <= two["end"]]
+                s1 = [row for row in sentences if (row["config"], row["direction"], row["attempt_id"]) == (one["config"], one["direction"], one["attempt_id"]) and one["start"] <= row["start"] and row["end"] <= one["end"]]
+                s2 = [row for row in sentences if (row["config"], row["direction"], row["attempt_id"]) == (two["config"], two["direction"], two["attempt_id"]) and two["start"] <= row["start"] and row["end"] <= two["end"]]
                 v1, v2 = rate(s1, "delivery_status", {"delivered"}), rate(s2, "delivery_status", {"delivered"})
                 points.append({"session_id": one["session_id"], "shared_id": identity, "delivery_difference": v1 - v2 if v1 is not None and v2 is not None else None,
                                "common_success": one["status"] == two["status"] == "done",
@@ -152,6 +161,10 @@ def primary_sentences(sentences):
             primary_numbers[key] = min(primary_numbers.get(key, row["attempt_number"]), row["attempt_number"])
     return [row for row in sentences if row["kind"] == "chunk" and row["attempt_number"] == primary_numbers.get(
         (row["run"], row["config"], row["direction"], row["audio_sha256"], row["reference_id"], row["kind"]), row["attempt_number"])]
+
+
+def primary_attempt_keys(sentences):
+    return {(row["config"], row["direction"], row["attempt_id"]) for row in primary_sentences(sentences)}
 
 
 def aggregate(report, options):
@@ -188,7 +201,7 @@ def aggregate(report, options):
         selected_outputs = []
         selection_counts = Counter()
         for output in report["outputs"]:
-            if not is_translation(output):
+            if not is_translation(output) or not population_eligible(output):
                 continue
             population = attribution[output["id"]]
             linked = population["linked"]

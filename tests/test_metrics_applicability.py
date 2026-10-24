@@ -64,7 +64,10 @@ def test_mixed_attempt_preserves_raw_collection_and_failures_but_excludes_credit
     before = {path: path.read_bytes() for path in (manifest, spec, tmp_path / "stream.jsonl", tmp_path / "attempt.jsonl")}
     result = derive(manifest, spec, cache_path=cache, applicability_path=decision)
     assert all(path.read_bytes() == raw for path, raw in before.items())
-    assert result["outputs"] == plain["outputs"]
+    assert [row["raw"] for row in result["outputs"]] == [row["raw"] for row in plain["outputs"]]
+    assert [row["alignment"] for row in result["outputs"]] == [row["alignment"] for row in plain["outputs"]]
+    assert result["outputs"][0]["applicability"]["exclusion_kind"] == "direct"
+    assert result["outputs"][0]["population_eligible"] is False
     assert result["provenance"][:2] == plain["provenance"][:2]
     assert result["attempts"][0]["state"] == "done"
     assert result["attempts"][0]["reason"] == capture["attempts"][0]["reason"]

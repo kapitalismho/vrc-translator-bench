@@ -180,27 +180,56 @@ attempt/sentence/turn/segment counts. Native files, collection outcomes, referen
 raw packets and known failures are not rewritten. Output cannot overwrite bound
 inputs. The analysis hash is not a new capture identity.
 
-Affected attempts and source rows carry `population_eligible: false` and a distinct
-`applicability` record. Sentence/turn/quality rows preserve their previous eligibility
-and reason, then become ineligible; `analysis_applicability_excluded` supplies the
-reason where no earlier exclusion applies. Quality `reference_eligible` remains
-the native reference/status judgment. Raw delivery, FOL/LUL, source correspondence,
-text, incidents and supplied scores remain excluded diagnostic observations, not
-primary credit.
+Directly excluded attempts, source rows and captured outputs carry
+`population_eligible: false` and `applicability.exclusion_kind: "direct"`.
+An output's confirmed SOURCE correspondence is preserved; it does not establish
+the provider that produced that output. Directly mixed origins cannot supply
+pure-route delivery, timing, output-rate or quality credit through a clean source
+attempt or through an unaligned quality-segment display placement.
 
-Aggregation excludes these rows from primary delivery/latency, turn LUL, session
+Dependent source, turn, quality and relevant first-attempt populations become
+ineligible with `applicability.exclusion_kind: "dependent"`, reason
+`excluded_capture_output_dependency`, `dependent_output_ids` and the original
+hash-bound `origin_exclusions`. Unknown correspondence/display allocation retains
+uncertainty over the affected reference population. Confirmed correspondence
+limits source dependency to its confirmed sources rather than all old candidates.
+The existing isolated-window consumer also excludes a window containing a
+directly mixed origin; isolated attempts remain unavailable as direct selectors.
+Dependency propagation is seeded only by explicitly selected capture origins:
+otherwise clean output origins do not become mixed merely because their source
+attempt becomes dependency-excluded, and independent dependent-free sources
+remain usable.
+
+Sentence/turn/quality rows preserve previous eligibility/reasons (and quality
+timing eligibility), then become ineligible. `analysis_applicability_excluded`
+is the default direct reason; an existing extraction/reference reason survives.
+Quality `reference_eligible` remains the native reference/status judgment.
+Original delivery status, FOL/LUL, source links, text, incidents and supplied scores
+remain excluded diagnostic evidence. Do not rewrite an affected source as a
+missing-output failure or recalculate favorable timings from only trusted output.
+
+Aggregation excludes affected rows from delivery/latency, turn LUL, session
 bootstrap, source-population output rates, quality and first-attempt denominators.
-Explicit applicability counts/reasons expose lost coverage. An excluded first
-attempt is never replaced by a successful retry. Repeat/resume summaries and
-quality-report reaggregation use the same population gate.
+The report distinguishes `direct_excluded_counts`, `dependent_excluded_counts`,
+total `excluded_counts` and directly mixed `excluded_output_ids`. Known collection
+outcomes remain unchanged. Repeat/resume and quality joining reuse these gates.
 
 Prepare a **new quality queue root** from the derived report. Excluded segments
 remain records but create no ESA/tone/MetricX jobs or quality samples; sanity
-controls remain independent. Frozen queues reject changed report hashes. In-report
-and cross-report pairing require native reference eligibility **and** analysis
-population eligibility. `metrics-batch.pairing_exclusions` retains rejected segment
-identities and decisions, and `reports` retains source reports. An output-specific
-quality exclusion alone still does not remove an applicable delivery/latency pair.
+controls remain independent. Frozen queues reject changed report hashes.
+In-report and cross-report pairing use the retained first completed/product-failed
+primary source selection BEFORE analysis exclusions: an excluded primary is never
+replaced by a later successful retry. An earlier operational-invalid attempt does
+not block a later legitimate terminal primary. In-report duplicate retained-primary
+shared populations are rejected before applicability; `metrics-batch` retains its
+stricter rejection of every duplicate native reference-eligible chunk/shared
+population, including an excluded first attempt and a successful retry, before
+applying exclusions. Resolve the actual canonical source explicitly; exclusions
+cannot bypass duplicate or shared-source identity checks. Pairing then requires
+both native reference and analysis-population eligibility.
+`metrics-batch.pairing_exclusions` retains rejected segment identities/decisions,
+and `reports` retains all source history. An output-specific quality exclusion
+alone still does not remove an applicable delivery/latency pair.
 Global `output_population` remains raw observed translation, not a pure-route claim.
 
 ### Cost population
@@ -212,6 +241,14 @@ consistently from Index-primary component `coverage.window_ids`, free-access
 `access.window_ids` and normalized denominator `window_ids`. Bind the analysis
 hash and native attempt-to-window mapping in existing evidence/population fields.
 Derive replay duration and reference counts from that same selected subset.
+
+Carry both direct and dependent attempt exclusions into that explicit cost-window
+selection. A dependency-excluded window is not thereby a mixed provider origin;
+retain that distinction and its original collection status. If only part of a
+source window remains eligible for one measurement, the cost contract still has
+whole observed windows, not invented per-output charge allocation. Compare a
+quality/metric/cost point only on the same explicitly selected supported subset;
+otherwise retain separate populations or an unknown/partial normalized amount.
 
 Complete coverage and observed free eligibility remain necessary. A failed request,
 HTTP401 or missing fallback output does not prove zero cost. Mixed or unassignable
