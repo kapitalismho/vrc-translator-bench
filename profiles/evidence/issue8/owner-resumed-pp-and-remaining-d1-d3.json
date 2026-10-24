@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "authority": "Owner instructed: 퓨리풀리 승인하고 나머지도 해줘",
+  "decision": "Lift the temporary owner-reserved PuriPuly hold and continue the remaining first-batch D1/D3 work through supported public CLI controls. Continue other remaining work under actual availability and preserved failure rules.",
+  "superseded": "The temporary no-query/no-control/no-diagnostics/no-journal/no-cleanup PuriPuly reservation recorded in current-state.owner_pause. Preserve that reservation and observations as historical facts, not a current prohibition.",
+  "scope": ["Current PuriPuly executable/CLI/effective-state verification", "Remaining or operationally invalid D1/D3 work only, with complete original history", "The existing small PP3 standalone D1 observation if still unmeasured and actually eligible", "Actual VRCLS D3 quota recovery investigation without assuming reset", "Batch automatic scoring, cost reconciliation and local result package after timed measurement work reaches an actual terminal disposition"],
+  "preserved": ["D1/D3 only; later directions remain unmeasured in this task", "PuriPuly controls through public CLI; do not modify the PuriPuly repository", "Do not replay completed or product-failed primary work", "Preserve PP4 D1 completed capture and all PP4 D3 partial capture and route-drift uncertainty", "New app versions or effective route changes require applicable preparation and recorded freeze/amendment before new main work", "Do not claim completed peers were concurrent with later continuations", "Do not touch or inspect the game or add game-running limitation notes", "Keep tone30, Korean100 and owner-review requests removed under supplementary-scope-amendment.json", "No new account, paid fallback, tier change or silent model substitution", "No remote publication, push, merge or issue closure is added by this local continuation record"],
+  "execution_readiness": "Authorization is renewed; current app/build/state and exact unmeasured continuation boundaries still require actual verification.",
+  "new_main_started_under_this_authorization": false
+}
