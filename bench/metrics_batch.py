@@ -4,7 +4,7 @@ import hashlib
 import json
 from pathlib import Path
 
-from .metrics_stats import paired_comparisons, population_eligible
+from .metrics_stats import paired_comparisons, population_eligible, primary_attempt_keys
 from .metrics_alignment import require_current_extraction
 from .storage import atomic_json, utc_now
 
@@ -83,12 +83,9 @@ def compose(report_paths=(), output_path=None, *, quality_report_paths=(), itera
             if key in sentence_index:
                 raise ValueError(f"Duplicate source sentence identity: {source['input_path']}, run={source['run']}, identity={key}")
             sentence_index[key] = sentence
+        primary_attempts = primary_attempt_keys(report["sentences"])
         selected_attempts = set()
         for segment in report["quality_segments"]:
-            if not population_eligible(segment):
-                exclusions.append({"source_index": source_index, "run": source["run"],
-                                   **{field: segment[field] for field in ("id", "attempt_id", "config", "direction", "applicability")}})
-                continue
             if not (segment.get("shared_id") and segment["reference_eligible"] and segment.get("kind") == "chunk"):
                 continue
             location = _location(source, segment)
@@ -112,7 +109,13 @@ def compose(report_paths=(), output_path=None, *, quality_report_paths=(), itera
             if previous is not None and previous[0] != signature:
                 raise ValueError(f"Incompatible shared source identity/text/session for {shared_key}: {previous[1]} ; {location}")
             shared_sources[shared_key] = (signature, location)
+            if not population_eligible(segment):
+                exclusions.append({"source_index": source_index, "run": source["run"],
+                                   **{field: segment[field] for field in ("id", "attempt_id", "config", "direction", "applicability")}})
+                continue
             attempt = (segment["config"], segment["direction"], segment["attempt_id"])
+            if attempt not in primary_attempts:
+                continue
             selected_attempts.add(attempt)
             scope = (source_index, source["run"], *attempt)
             segments.append({**{field: segment[field] for field in ("shared_id", "reference_eligible", "kind", "direction", "category", "config", "start", "end", "session_id", "status", "eligible")},
@@ -122,7 +125,9 @@ def compose(report_paths=(), output_path=None, *, quality_report_paths=(), itera
         for sentence in report["sentences"]:
             attempt = (sentence["config"], sentence["direction"], sentence["attempt_id"])
             if attempt in selected_attempts and sentence["kind"] == "chunk":
-                sentences.append({**{field: sentence[field] for field in ("start", "end", "eligible", "delivery_status", "fol", "lul")},
+                sentences.append({**{field: sentence[field] for field in (
+                    "start", "end", "eligible", "delivery_status", "fol", "lul", "run", "config", "direction",
+                    "audio_sha256", "reference_id", "kind", "attempt_number", "status", "outcome")},
                                   "population_eligible": sentence.get("population_eligible", True),
                                   "attempt_id": (source_index, source["run"], *attempt)})
     result = {"schema_version": 1, "version": VERSION, "created_utc": utc_now(),
