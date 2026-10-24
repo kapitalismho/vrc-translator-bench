@@ -18,6 +18,59 @@ def fingerprint(path):
     return digest(path)
 
 
+def load_applicability(path, manifest_path, spec_path, attempts, provenance):
+    """Bind explicit whole-attempt exclusions without changing capture inputs."""
+    path = Path(path)
+    data = load_json(path)
+    fields = {"schema_version", "version", "population", "manifest_sha256", "spec_sha256", "exclusions"}
+    if (not isinstance(data, dict) or set(data) != fields or data["schema_version"] != 1
+            or data["version"] != "analysis-applicability-v1"):
+        raise ValueError("Applicability requires the analysis-applicability-v1 schema")
+    if not isinstance(data["population"], str) or not data["population"].strip():
+        raise ValueError("Applicability requires a named analysis population")
+    for name, source in (("manifest", manifest_path), ("spec", spec_path)):
+        if data[f"{name}_sha256"] != fingerprint(source):
+            raise ValueError(f"Applicability {name} hash binding mismatch")
+    if not isinstance(data["exclusions"], list) or not data["exclusions"]:
+        raise ValueError("Applicability requires explicit exclusions; omit the input for unchanged behavior")
+    selector_fields = ("run", "config", "direction", "attempt_id", "stage")
+    seen, selected, evidence_inputs = set(), [], []
+    for exclusion in data["exclusions"]:
+        if not isinstance(exclusion, dict) or set(exclusion) != {*selector_fields, "reason", "evidence"}:
+            raise ValueError("Applicability exclusion requires an exact run/config/direction/attempt_id/stage selector, reason and evidence")
+        if (any(not isinstance(exclusion[key], str) or not exclusion[key].strip() for key in selector_fields[:3])
+                or type(exclusion["attempt_id"]) is not int or type(exclusion["stage"]) is not int):
+            raise ValueError("Applicability selector requires string run/config/direction and integer attempt_id/stage")
+        identity = tuple(exclusion[key] for key in selector_fields)
+        if identity in seen:
+            raise ValueError(f"Duplicate applicability selector: {identity}")
+        seen.add(identity)
+        matches = [attempt for attempt in attempts
+                   if (attempt["run"], attempt["config"], attempt["direction"], attempt["id"], attempt["stage"]) == identity]
+        if len(matches) != 1 or sum((attempt["run"], attempt["config"], attempt["direction"], attempt["id"]) == identity[:4] for attempt in attempts) != 1:
+            raise ValueError(f"Applicability selector must identify exactly one native attempt/stage: {identity}")
+        attempt = matches[0]
+        if attempt["kind"] not in ("chunk", "repeat") or not attempt["reference"]["sentences"]:
+            raise ValueError("Applicability exclusions require a reference-bearing chunk or repeat attempt")
+        if not isinstance(exclusion["reason"], str) or not exclusion["reason"].strip():
+            raise ValueError("Applicability exclusion requires a distinct reason")
+        if not isinstance(exclusion["evidence"], list) or not exclusion["evidence"]:
+            raise ValueError("Applicability exclusion requires hash-bound evidence")
+        for evidence in exclusion["evidence"]:
+            if not isinstance(evidence, dict) or set(evidence) != {"path", "sha256"} or not isinstance(evidence["path"], str):
+                raise ValueError("Applicability evidence requires path and sha256")
+            source = resolve(path.parent, evidence["path"])
+            if fingerprint(source) != evidence["sha256"]:
+                raise ValueError(f"Applicability evidence checksum mismatch: {source}")
+            evidence_inputs.append({"path": str(source), "sha256": evidence["sha256"]})
+        selected.append((attempt, exclusion))
+    provenance.append({"path": str(path), "sha256": fingerprint(path)})
+    provenance.extend(evidence_inputs)
+    for attempt, exclusion in selected:
+        attempt.update(population_eligible=False, applicability={"population": data["population"], **exclusion})
+    return {"path": str(path), "sha256": fingerprint(path), **data}
+
+
 def resolve(base, path):
     value = Path(path)
     return value if value.is_absolute() else Path(base) / value

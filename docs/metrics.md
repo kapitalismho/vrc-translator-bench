@@ -137,6 +137,88 @@ Inspect proposals against the retained source/output evidence, record the corres
 
 Same-clock candidate search retains late-output possibilities through the containing-turn deadline (or sentence end when unknown) plus 120 seconds. Punctuation-only and future-source support do not establish a model proposal. Inputs exceeding 500 model wordpieces remain unknown instead of being silently truncated. These working method choices must be recorded at the main-run freeze.
 
+## Optional analysis applicability
+
+Collection completion does not establish runtime-route identity. A retained `done`
+chunk may contain mixed routes while its source, raw output and failure incidents
+remain valid observations. Derive a **new report** with an explicit population gate:
+
+```powershell
+python -m bench.cli metrics --manifest native-manifest.json --spec frozen-metrics-spec.json --applicability index-applicability.json --output index-primary.json
+```
+
+The Python entry point is `bench.metrics.derive(..., applicability_path=...)`.
+Omitting the optional input retains existing behavior; profile names, failures and
+current settings never automatically infer an exclusion.
+
+The input has exactly these top-level fields:
+
+| Field | Contract |
+| --- | --- |
+| `schema_version`, `version` | `1`, `"analysis-applicability-v1"` |
+| `population` | Nonempty analysis-population name |
+| `manifest_sha256`, `spec_sha256` | Exact original native manifest and metrics-spec hashes |
+| `exclusions` | Nonempty array of whole-attempt exclusions |
+
+Each exclusion has exactly `run`, `config`, `direction`, integer `attempt_id`,
+integer `stage`, nonempty `reason` and nonempty `evidence`. The complete native
+selector must identify one unambiguous reference-bearing `chunk` or `repeat`;
+`stage` is the zero-based plan index, not a quality-segment number. Missing,
+nonexistent, mismatched, duplicate or ambiguous selectors fail. There are no
+wildcards, retry promotion or within-chunk splits. Reference-free and isolated
+windows are outside this input's scope.
+
+Each evidence item has exactly `path` and `sha256`; relative paths resolve beside
+the applicability file. Missing or changed evidence and stale manifest/spec hashes
+fail. Record the authorized decision, observed events and attribution limits in
+the evidence. Hash binding does not authenticate authors or prove provider success,
+cause, actor, output-to-provider correspondence or billable usage.
+
+Original manifest/spec provenance remains intact; the report appends applicability
+and evidence hashes. Its `applicability` section retains the decision and excluded
+attempt/sentence/turn/segment counts. Native files, collection outcomes, references,
+raw packets and known failures are not rewritten. Output cannot overwrite bound
+inputs. The analysis hash is not a new capture identity.
+
+Affected attempts and source rows carry `population_eligible: false` and a distinct
+`applicability` record. Sentence/turn/quality rows preserve their previous eligibility
+and reason, then become ineligible; `analysis_applicability_excluded` supplies the
+reason where no earlier exclusion applies. Quality `reference_eligible` remains
+the native reference/status judgment. Raw delivery, FOL/LUL, source correspondence,
+text, incidents and supplied scores remain excluded diagnostic observations, not
+primary credit.
+
+Aggregation excludes these rows from primary delivery/latency, turn LUL, session
+bootstrap, source-population output rates, quality and first-attempt denominators.
+Explicit applicability counts/reasons expose lost coverage. An excluded first
+attempt is never replaced by a successful retry. Repeat/resume summaries and
+quality-report reaggregation use the same population gate.
+
+Prepare a **new quality queue root** from the derived report. Excluded segments
+remain records but create no ESA/tone/MetricX jobs or quality samples; sanity
+controls remain independent. Frozen queues reject changed report hashes. In-report
+and cross-report pairing require native reference eligibility **and** analysis
+population eligibility. `metrics-batch.pairing_exclusions` retains rejected segment
+identities and decisions, and `reports` retains source reports. An output-specific
+quality exclusion alone still does not remove an applicable delivery/latency pair.
+Global `output_population` remains raw observed translation, not a pure-route claim.
+
+### Cost population
+
+The [existing cost contract](costs.md#report-fields-and-denominators) requires
+explicit observed `window_ids`; the cost CLI does **not** consume applicability
+automatically. Retain the mixed window and incidents as evidence, but exclude it
+consistently from Index-primary component `coverage.window_ids`, free-access
+`access.window_ids` and normalized denominator `window_ids`. Bind the analysis
+hash and native attempt-to-window mapping in existing evidence/population fields.
+Derive replay duration and reference counts from that same selected subset.
+
+Complete coverage and observed free eligibility remain necessary. A failed request,
+HTTP401 or missing fallback output does not prove zero cost. Mixed or unassignable
+carryover cost remains unknown/partial or separately labelled diagnostic cost;
+never prorate it by elapsed time, split at an unsupported rebuild boundary or
+rewrite collection status to obtain a free-cost point.
+
 ## Report-data contract
 
 The output is one JSON object, `schema_version: 1`, calculation `version: "issue5-v1"`. Consumers must inspect `synthetic`, limitations and evidence coverage before presenting a result.

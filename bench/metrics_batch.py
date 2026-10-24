@@ -4,7 +4,7 @@ import hashlib
 import json
 from pathlib import Path
 
-from .metrics_stats import paired_comparisons
+from .metrics_stats import paired_comparisons, population_eligible
 from .metrics_alignment import require_current_extraction
 from .storage import atomic_json, utc_now
 
@@ -71,7 +71,7 @@ def compose(report_paths=(), output_path=None, *, quality_report_paths=(), itera
     sources, inputs = _reports(report_paths, quality_report_paths)
     if output_path is not None and Path(output_path).resolve() in {Path(item["path"]) for item in inputs}:
         raise ValueError("Batch output must not overwrite an input report")
-    sentences, segments, population = [], [], []
+    sentences, segments, population, exclusions = [], [], [], []
     seen_populations, shared_sources = {}, {}
     for source_index, source in enumerate(sources):
         report = source["report"]
@@ -85,6 +85,10 @@ def compose(report_paths=(), output_path=None, *, quality_report_paths=(), itera
             sentence_index[key] = sentence
         selected_attempts = set()
         for segment in report["quality_segments"]:
+            if not population_eligible(segment):
+                exclusions.append({"source_index": source_index, "run": source["run"],
+                                   **{field: segment[field] for field in ("id", "attempt_id", "config", "direction", "applicability")}})
+                continue
             if not (segment.get("shared_id") and segment["reference_eligible"] and segment.get("kind") == "chunk"):
                 continue
             location = _location(source, segment)
@@ -119,12 +123,14 @@ def compose(report_paths=(), output_path=None, *, quality_report_paths=(), itera
             attempt = (sentence["config"], sentence["direction"], sentence["attempt_id"])
             if attempt in selected_attempts and sentence["kind"] == "chunk":
                 sentences.append({**{field: sentence[field] for field in ("start", "end", "eligible", "delivery_status", "fol", "lul")},
+                                  "population_eligible": sentence.get("population_eligible", True),
                                   "attempt_id": (source_index, source["run"], *attempt)})
     result = {"schema_version": 1, "version": VERSION, "created_utc": utc_now(),
               "synthetic": sources[0]["report"]["synthetic"], "provenance": inputs, "reports": sources,
               "bootstrap": {"iterations": iterations, "seed": seed},
-              "population_policy": "Only reference-eligible chunk/shared segments; any duplicate population is rejected, including within a report. No retry selection, report-quantile averaging or new independent sessions. Original per-report summaries are retained unchanged.",
+              "population_policy": "Only reference-eligible, analysis-applicable chunk/shared segments; any duplicate population is rejected, including within a report. No retry selection, report-quantile averaging or new independent sessions. Original per-report summaries and explicit applicability exclusions are retained unchanged.",
               "pairing_population": population,
+              "pairing_exclusions": exclusions,
               "paired": paired_comparisons(sentences, segments, iterations, seed)}
     if output_path is not None:
         output_path = Path(output_path)

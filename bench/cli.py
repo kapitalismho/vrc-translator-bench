@@ -40,6 +40,7 @@ def parser():
     metrics.add_argument("--spec", type=Path, required=True)
     metrics.add_argument("--output", type=Path, required=True)
     metrics.add_argument("--alignment-cache", type=Path)
+    metrics.add_argument("--applicability", type=Path, help="Optional hash-bound whole-attempt analysis exclusions; native inputs remain unchanged")
     metrics.add_argument("--allow-model-download", action="store_true")
     batch = commands.add_parser("metrics-batch", help="Compose paired comparisons across retained metrics reports")
     batch.add_argument("--report", type=Path, action="append", default=[], help="Metrics report; repeat for each source")
@@ -102,7 +103,8 @@ def main(argv=None):
             return 0
         if args.command == "metrics":
             from .metrics import derive
-            result = derive(args.manifest, args.spec, args.output, args.alignment_cache, args.allow_model_download)
+            result = derive(args.manifest, args.spec, args.output, args.alignment_cache, args.allow_model_download,
+                            applicability_path=args.applicability)
             print(json.dumps({"report": str(args.output), "version": result["version"], "sentences": len(result["sentences"]),
                               "outputs": len(result["outputs"]), "quality_segments": len(result["quality_segments"])}, indent=2))
             return 0

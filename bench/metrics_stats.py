@@ -42,8 +42,18 @@ def clustered(rows, function, iterations, seed, unit):
                   session_values=session_values, observations=len(rows), bootstrap_iterations=iterations, seed=seed)
 
 
+def population_eligible(row):
+    return row.get("population_eligible", True)
+
+
+def applicability_counts(rows, noun):
+    excluded = [row for row in rows if not population_eligible(row)]
+    return {f"applicability_excluded_{noun}": len(excluded),
+            f"{noun}_applicability_reasons": dict(Counter(row["applicability"]["reason"] for row in excluded))} if excluded else {}
+
+
 def eligible(rows):
-    return [row for row in rows if row["eligible"]]
+    return [row for row in rows if row["eligible"] and population_eligible(row)]
 
 
 def rate(rows, key, accepted):
@@ -53,31 +63,35 @@ def rate(rows, key, accepted):
 
 def summary(rows, iterations, seed):
     values = eligible(rows)
+    population = [row for row in rows if population_eligible(row)]
     results = {"reference_sentences": len(rows), "eligible_sentences": len(values),
                "denominator_coverage": dict(Counter(row.get("eligibility_reason") or "eligible" for row in rows)),
                "delivery_status_counts": dict(Counter(row["delivery_status"] for row in rows)),
-               "delivery": clustered(rows, lambda sample: rate(sample, "delivery_status", {"delivered"}), iterations, seed, "fraction_of_eligible_sentences")}
+               **applicability_counts(rows, "sentences"),
+               "delivery": clustered(population, lambda sample: rate(sample, "delivery_status", {"delivered"}), iterations, seed, "fraction_of_eligible_sentences")}
     unknown = sum(row["delivery_status"] in ("unknown_correspondence", "incomplete_observation") for row in values)
     results["delivery"]["unresolved_sentences"] = unknown
     results["delivery"]["correspondence_bounds"] = [results["delivery"]["value"], (sum(row["delivery_status"] == "delivered" for row in values) + unknown) / len(values)] if values else None
     for name in ("fol", "lul"):
         for probability in (0.5, 0.9):
-            results[f"{name}_p{int(probability * 100)}"] = clustered(rows, lambda sample, name=name, probability=probability: quantile([row[name]["value"] for row in eligible(sample) if row[name]["value"] is not None], probability), iterations, seed, "seconds")
+            results[f"{name}_p{int(probability * 100)}"] = clustered(population, lambda sample, name=name, probability=probability: quantile([row[name]["value"] for row in eligible(sample) if row[name]["value"] is not None], probability), iterations, seed, "seconds")
     results["fol_by_duration"] = {}
     for duration in ("below_2s", "2_to_5s", "above_5s"):
-        selected = [row for row in rows if row["duration_bin"] == duration]
+        selected = [row for row in population if row["duration_bin"] == duration]
         results["fol_by_duration"][duration] = {f"p{int(p * 100)}": clustered(selected, lambda sample, p=p: quantile([row["fol"]["value"] for row in eligible(sample) if row["fol"]["value"] is not None], p), iterations, seed, "seconds") for p in (0.5, 0.9)}
     return results
 
 
 def turn_summary(rows, iterations, seed):
     values = eligible(rows)
+    population = [row for row in rows if population_eligible(row)]
     measured = [row for row in values if row["lul"]["value"] is not None]
     result = {"reference_turns": len(rows), "eligible_turns": len(values), "measurable_turns": len(measured),
+              **applicability_counts(rows, "turns"),
               "turn_denominator_coverage": dict(Counter(row.get("eligibility_reason") or ("eligible" if row["eligible"] else "unscored") for row in rows)),
               "turn_lul_unavailable_reasons": dict(Counter(row["lul"].get("reason") or "Unspecified" for row in values if row["lul"]["value"] is None))}
     for probability in (0.5, 0.9):
-        result[f"turn_lul_p{int(probability * 100)}"] = clustered(rows, lambda sample, p=probability: quantile([row["lul"]["value"] for row in eligible(sample) if row["lul"]["value"] is not None], p), iterations, seed, "seconds")
+        result[f"turn_lul_p{int(probability * 100)}"] = clustered(population, lambda sample, p=probability: quantile([row["lul"]["value"] for row in eligible(sample) if row["lul"]["value"] is not None], p), iterations, seed, "seconds")
     return result
 
 
@@ -102,7 +116,7 @@ def paired_comparisons(sentences, quality_segments, iterations, seed):
     paired = []
     indexed = defaultdict(dict)
     for row in quality_segments:
-        if row.get("shared_id") and row["reference_eligible"] and row.get("kind") == "chunk":
+        if row.get("shared_id") and row["reference_eligible"] and population_eligible(row) and row.get("kind") == "chunk":
             indexed[(row["direction"], row["category"], row["config"])][row["shared_id"]] = row
     for direction, category in sorted({(key[0], key[1]) for key in indexed}):
         configs = sorted(key[2] for key in indexed if key[:2] == (direction, category))
@@ -129,18 +143,24 @@ def paired_comparisons(sentences, quality_segments, iterations, seed):
     return paired
 
 
+def primary_sentences(sentences):
+    """Select by retained collection outcome, never promote a route-excluded retry."""
+    primary_numbers = {}
+    for row in sentences:
+        key = (row["run"], row["config"], row["direction"], row["audio_sha256"], row["reference_id"], row["kind"])
+        if row["status"] in ("done", "product_failure") and row["outcome"] != "N/A":
+            primary_numbers[key] = min(primary_numbers.get(key, row["attempt_number"]), row["attempt_number"])
+    return [row for row in sentences if row["kind"] == "chunk" and row["attempt_number"] == primary_numbers.get(
+        (row["run"], row["config"], row["direction"], row["audio_sha256"], row["reference_id"], row["kind"]), row["attempt_number"])]
+
+
 def aggregate(report, options):
     require_current_extraction(report["outputs"])
     iterations, seed = options.get("iterations", 2000), options.get("seed", 20261020)
     if not isinstance(iterations, int) or iterations < 1:
         raise ValueError("Bootstrap iterations must be a positive integer")
     sentences = report["sentences"]
-    primary_numbers = {}
-    for row in sentences:
-        key = (row["run"], row["config"], row["direction"], row["audio_sha256"], row["reference_id"], row["kind"])
-        if row["status"] in ("done", "product_failure") and row["outcome"] != "N/A":
-            primary_numbers[key] = min(primary_numbers.get(key, row["attempt_number"]), row["attempt_number"])
-    primary = [row for row in sentences if row["kind"] == "chunk" and row["attempt_number"] == primary_numbers.get((row["run"], row["config"], row["direction"], row["audio_sha256"], row["reference_id"], row["kind"]), row["attempt_number"])]
+    primary = primary_sentences(sentences)
     grouped = defaultdict(list)
     turns = report.get("turns", [])
     primary_attempts = {row["attempt_id"] for row in primary}
@@ -161,9 +181,9 @@ def aggregate(report, options):
         result = {"config": config, "direction": direction, "category": category, "view": view,
                   **summary(rows, iterations, seed), **turn_summary(grouped_turns[key], iterations, seed)}
         attempt_ids = {row["attempt_id"] for row in rows}
-        source_ids = {item["id"] for item in rows}
+        source_ids = {item["id"] for item in rows if population_eligible(item)}
         segments = [row for row in report["quality_segments"] if row.get("attempt_id") in attempt_ids and row.get("kind") == "chunk"
-                    and row["config"] == config and row["direction"] == direction and row["category"] == category and (view != "casual_only" or row["casual"] is True)]
+                    and population_eligible(row) and row["config"] == config and row["direction"] == direction and row["category"] == category and (view != "casual_only" or row["casual"] is True)]
         segment_ids = {row["id"] for row in segments}
         selected_outputs = []
         selection_counts = Counter()
@@ -198,10 +218,10 @@ def aggregate(report, options):
         result["major_error_segment_rate"]["scored_segments"] = len(scored)
         work_ids = {row["work_id"] for row in report["attempts"] if row["id"] in attempt_ids}
         attempts = [row for row in report["attempts"] if row["work_id"] in work_ids and row["number"] == 1]
-        denominator = [row for row in attempts if row["state"] in ("done", "product_failure") and row.get("outcome") != "N/A"]
+        denominator = [row for row in attempts if row["state"] in ("done", "product_failure") and row.get("outcome") != "N/A" and population_eligible(row)]
         result["first_attempt_product_failure_rate"] = metric(sum(row["state"] == "product_failure" for row in denominator) / len(denominator) if denominator else None,
                                                             None if denominator else "No eligible first attempts", "fraction_of_eligible_first_attempts", denominator=len(denominator),
-                                                            statuses=dict(Counter(row["state"] for row in attempts)))
+                                                            statuses=dict(Counter(row["state"] for row in attempts)), **applicability_counts(attempts, "attempts"))
         aggregates.append(result)
     paired = paired_comparisons(sentences, report["quality_segments"], iterations, seed)
     repeat_groups = defaultdict(list)

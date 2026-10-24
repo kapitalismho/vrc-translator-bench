@@ -24,6 +24,8 @@ def load_plan(root):
     for record in plan["records"]:
         if record["input"] is None and record["segment"].get("eligible") is True:
             raise ValueError("Frozen quality plan has an eligible record with unavailable input; prepare a new queue")
+        if record["segment"].get("population_eligible") is False and record["segment"].get("eligible") is True:
+            raise ValueError("Frozen quality plan has an analysis-inapplicable eligible segment; prepare a new queue")
     for job in plan["jobs"]:
         if job["prompt"].get("version") != plan["version"] or job.get("prompt_hash") != fingerprint(job["prompt"]):
             raise ValueError("Frozen quality job prompt version/hash mismatch")
@@ -72,6 +74,8 @@ def prepare(reports, root, seed=20261020, *, skip_tone=False, skip_korean_review
                 unavailable = bool(segment.get("unresolved_output_ids"))
                 if unavailable and segment.get("eligible") is True:
                     raise ValueError("unresolved_output_role quality segment must be ineligible; rederive metrics")
+                if segment.get("population_eligible") is False and segment.get("eligible") is True:
+                    raise ValueError("Analysis-inapplicable quality segment must be ineligible; rederive metrics")
                 data = None if unavailable else blinded_input(segment)
                 if segment.get("eligible") is True and not data["source_text"].strip():
                     raise ValueError("Eligible quality segment has no reference text")

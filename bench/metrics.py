@@ -5,7 +5,7 @@ from collections import defaultdict
 from pathlib import Path
 
 from .metrics_alignment import Alignment, cache_binding, final_outputs, interpret, is_translation
-from .metrics_inputs import VERSION, ingest, metric
+from .metrics_inputs import VERSION, ingest, load_applicability, metric
 from .storage import atomic_json, utc_now
 
 
@@ -39,6 +39,8 @@ def prepare_sentences(attempts):
                             "run": attempt["run"], "kind": attempt["kind"], "status": attempt["state"], "outcome": attempt.get("outcome"),
                             "failure_reason": attempt.get("reason"), "audio_sha256": attempt["stage_data"].get("audio_sha256"),
                             "start_ns": reference.get("start_ns"), "end_ns": reference.get("end_ns")})
+                if "applicability" in attempt:
+                    row["applicability"] = attempt["applicability"]
                 row["eligibility_reason"] = row.get("eligibility_reason") or ("unsupported" if row["outcome"] == "N/A" else "operational_invalid" if row["status"] not in ("done", "product_failure") else None)
                 if row["eligibility_reason"] is None and (row["start_ns"] is None or row["end_ns"] is None):
                     row["eligibility_reason"] = "source_timing_unavailable"
@@ -210,6 +212,29 @@ def assemble_segments(sentences, turns, outputs, scores):
     return segments
 
 
+def exclude_inapplicable(sentences, turns, segments, applicability):
+    """Keep observed results; gate only the declared analysis population."""
+    excluded = {"attempts": len(applicability["exclusions"])}
+    decisions = {(entry["config"], entry["direction"], entry["attempt_id"]): {"population": applicability["population"], **entry}
+                 for entry in applicability["exclusions"]}
+    for name, rows in (("sentences", sentences), ("turns", turns), ("quality_segments", segments)):
+        count = 0
+        for row in rows:
+            decision = decisions.get((row.get("config"), row.get("direction"), row.get("attempt_id")))
+            if decision is None:
+                continue
+            row["applicability"] = decision
+            row["population_eligible"] = False
+            row["pre_applicability_eligible"] = row["eligible"]
+            row["eligible"] = False
+            reason_key = "quality_eligibility_reason" if name == "quality_segments" else "eligibility_reason"
+            row[f"pre_applicability_{reason_key}"] = row.get(reason_key)
+            row[reason_key] = row.get(reason_key) or "analysis_applicability_excluded"
+            count += 1
+        excluded[name] = count
+    applicability["excluded_counts"] = excluded
+
+
 def isolated_results(attempts, outputs):
     results = []
     for attempt in attempts:
@@ -249,10 +274,13 @@ def isolated_results(attempts, outputs):
     return results
 
 
-def derive(manifest_path, spec_path, output_path=None, cache_path=None, allow_download=False):
+def derive(manifest_path, spec_path, output_path=None, cache_path=None, allow_download=False, *, applicability_path=None):
     from .metrics_diagnostics import diagnostics
     from .metrics_stats import aggregate
     manifest, spec, attempts, events, provenance = ingest(manifest_path, spec_path)
+    applicability = load_applicability(applicability_path, manifest_path, spec_path, attempts, provenance) if applicability_path is not None else None
+    if applicability is not None and output_path is not None and Path(output_path).resolve() in {Path(item["path"]).resolve() for item in provenance}:
+        raise ValueError("Metrics output must not overwrite an applicability or native input")
     sentences, turns = prepare_sentences(attempts)
     outputs, nontranslation = interpret(events, spec.get("rules", {}))
     attempts_by_id = {(row["id"], row["config"]): row for row in attempts}
@@ -287,10 +315,14 @@ def derive(manifest_path, spec_path, output_path=None, cache_path=None, allow_do
     for score in spec.get("quality_scores", {}).values():
         if not score.get("provenance"):
             raise ValueError("Quality scores require provenance")
+    if applicability is not None:
+        exclude_inapplicable(sentences, turns, segments, applicability)
     excluded_by_reason = defaultdict(list)
     for segment in segments:
         if not segment["eligible"]:
             reasons = [segment.get("quality_eligibility_reason"), segment.get("reason")]
+            if segment.get("population_eligible") is False:
+                reasons.append("analysis_applicability_excluded")
             if segment.get("status") and segment["status"] not in ("done", "product_failure"):
                 reasons.append(f"attempt_status:{segment['status']}")
             for reason in dict.fromkeys(reason for reason in reasons if reason):
@@ -312,6 +344,8 @@ def derive(manifest_path, spec_path, output_path=None, cache_path=None, allow_do
               "limitations": ["No actual app readiness inferred; empirical interpretation requires issue #4 evidence",
                               "OSC last update is not semantic completion", "Automatic lexical proposals are uncalibrated; full-run source correspondence requires adjudicated evidence", "No paid services are called",
                               "Prepared reference uncertainty, local-only assets and rights restrictions survive derived reports"]}
+    if applicability is not None:
+        report["applicability"] = applicability
     report["alignment_cache"] = {"schema_version": 1, "version": VERSION, "provenance": aligner.provenance,
                                  "links": {row["id"]: {**row["alignment"], "binding": cache_binding(row, sentences)} for row in outputs}}
     report.update(aggregate(report, spec.get("bootstrap", {})))

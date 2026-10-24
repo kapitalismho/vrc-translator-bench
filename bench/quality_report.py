@@ -3,7 +3,7 @@ from __future__ import annotations
 import copy
 from collections import Counter, defaultdict
 
-from .metrics_stats import aggregate, clustered
+from .metrics_stats import aggregate, applicability_counts, clustered, primary_sentences
 from .quality import load_plan, status_from
 from .quality_prompts import fingerprint
 from .quality_sampling import disagreements, korean_packet
@@ -31,6 +31,7 @@ def summary(rows, iterations=2000, seed=20261020, *, include_tone=True):
     for value in (esa, major):
         value.update({"total_segments": len(rows), "eligible_segments": len(eligible), "scored_segments": len(scored), "unscored_eligible_segments": len(eligible) - len(scored)})
     return {"esa_mean": esa, "major_error_segment_rate": major,
+            **applicability_counts([row["segment"] for row in rows], "quality_segments"),
             "supplementary_error_span_counts": dict(Counter(span["severity"] for row in scored for span in row["esa"]["spans"])),
             "span_count_limitation": "Annotations, not counts of independent real errors",
             "metricx": {"mean": mean([row["metricx"]["score"] for row in eligible if row.get("metricx") and row["metricx"].get("status") == "completed"]),
@@ -160,13 +161,7 @@ def build_report(root, output=None, review_output=None, human_notes=None, model=
                 options = {key: original_aggregate.get("major_error_segment_rate", {}).get(field, default) for key, field, default in
                            (("iterations", "bootstrap_iterations", 2000), ("seed", "seed", 20261020))}
                 report.update(aggregate(report, options))
-                primary_numbers = {}
-                for sentence in report["sentences"]:
-                    identity = tuple(sentence[key] for key in ("run", "config", "direction", "audio_sha256", "reference_id", "kind"))
-                    if sentence["status"] in ("done", "product_failure") and sentence["outcome"] != "N/A":
-                        primary_numbers[identity] = min(primary_numbers.get(identity, sentence["attempt_number"]), sentence["attempt_number"])
-                primary = [sentence for sentence in report["sentences"] if sentence["kind"] == "chunk"
-                           and sentence["attempt_number"] == primary_numbers.get(tuple(sentence[key] for key in ("run", "config", "direction", "audio_sha256", "reference_id", "kind")), sentence["attempt_number"])]
+                primary = primary_sentences(report["sentences"])
                 for population in report["aggregates"]:
                     attempt_ids = {sentence["attempt_id"] for sentence in primary if sentence["config"] == population["config"] and sentence["direction"] == population["direction"] and sentence["category"] == population["category"]}
                     selected = [row for row in index.values() if row["segment"].get("attempt_id") in attempt_ids and row["segment"].get("kind") == "chunk" and row["segment"].get("config") == population["config"] and row["segment"].get("direction") == population["direction"] and row["segment"].get("category") == population["category"] and (population["view"] != "casual_only" or row["segment"].get("casual") is True)]
