@@ -1,5 +1,14 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
+  "current_protocol": "native-output-v1",
+  "native_limitations": [
+    "R1 records independent early feasibility, not final admission. Only ordinary EN->ZH is confirmed for PP4, VRCT2, VRCS2 and VRCLS1 peer, plus VRCLT2 self. VRCS2 output occurred only early with later silence cause unknown. VRCLT2 mixed OSC display records and FINAL cross-checks remain separate with UDP completeness unknown. VRCLS1 has five translated physical-line results within 15 Desktop records, not certified multiline completeness. KIKI2 ordinary EN->ZH has an observed Unicode transport blocker; its early-gap attempt is invalid, not full-horizon no-output. Other scopes/profiles remain unverified. Historical self/OSC evidence remains history, not native admission.",
+    "R6 owns separate final quality and time admission. Missing producer timestamps do not alone establish impossibility; endpoint stage, full text, roles, clock intervals and gaps require actual evidence.",
+    "Original models, CPU-local conditions and exact concurrent W1-W4 membership are preserved. Representative family success must not promote another profile. Missing cost is unknown, not zero.",
+    "Owner authorizes bounded purposeful smoke with all existing profile service routes, including paid usage and Kikitan self live. Current provider/model/input-output validity remains unverified outside specifically confirmed scopes. Standalone NativeSink smokes do not establish Runner, continuous internal input health, final quality/time or wave admission. PP4 had accidental concurrent Kikitan self activity, so no clean exclusive-CPU/application, performance or timing condition is claimed. No new TTS/accounts/keys/payment changes or provider/model substitutions are authorized. VRChat remains permanently excluded.",
+    "Installed PuriPuly public CLI capture terms returned accepted:true at instance afb4d2c0-63d0-4c06-b0fd-f588e64eed72 revision 4; no acceptance action was needed or performed. Actual 2.9.1 PP4 peer EN->ZH evidence is scoped independently; it does not promote PP1-PP3, other languages or T1. Full original intent restoration and the original follow shutdown issue plus later zero-audio lifecycle repair are recorded in the linked PP4 evidence.",
+    "Only relevant native endpoints are port-probed. A free local bind is not runtime readiness; an occupied application WebSocket listener may be expected. Historical chatbox/control reservations are not active peer endpoints."
+  ],
   "issue": "https://github.com/kapitalismho/vrc-translator-bench/issues/4",
   "date": "2026-10-21",
   "status": "empirical_preparation_in_progress_not_frozen",
@@ -33,6 +42,14 @@
     {
       "id": "PP1",
       "application": "PuriPuly",
+      "native_protocol": {
+        "condition": {"ordinary_input": "peer", "ordinary_directions": ["en->zh", "ja->ko"], "t1_mode": "simultaneous", "roles": {"A": "peer", "B": "self"}, "t1_directions": {"A": ["en->zh", "ja->ko"], "B": ["zh->en", "ko->ja"]}, "vrchat": "excluded"},
+        "peer_asr": "gemini_transcribe",
+        "endpoint": {"transport": "cli", "path": "events follow --topic translation --include-translations", "channels": {"peer": "peer", "self": "self"}},
+        "early_feasibility": {"confirmed": [], "blockers": [], "unverified": ["ordinary/en-zh", "ordinary/ja-ko", "t1/en-zh/A", "t1/en-zh/B", "t1/ja-ko/A", "t1/ja-ko/B"]},
+        "prerequisites": ["Peer terms accepted:true at installed CLI instance afb4d2c0-63d0-4c06-b0fd-f588e64eed72 revision 4; no acceptance action needed/performed. GUI 2.9.1 open observed, not a pilot.", "Set peer_stt separately to Gemini; prove actual peer input device, fixed languages, mixed 26B/31B policy, current provider access, full translation event roles, instance/gaps and receive-clock interval under authorized bounded smoke."],
+        "final_admission": {"owner": "R6", "quality": "pending_r6", "time": "pending_r6"}
+      },
       "finding": "blocked",
       "reason": "Generic historical finding retained, not current batch exclusion. New installed2.9.1 desktop GUI with officialCLI controls passed D1/D3 source/lifecycle checks under unchanged Gemini ASR/mixed26B31B OpenRouter policy,7/2target inputs; four stages each, genuine stop. Actualsend19104/receive19201. Prior2.9.0 and GUI19101 mismatch remain history. Newbuild freeze/runtime admission required; no returned-upstream/quality/cost claim. See evidence/issue8/pp291-current-preflights.json.",
       "planned": {
@@ -101,6 +118,14 @@
     {
       "id": "PP2",
       "application": "PuriPuly",
+      "native_protocol": {
+        "condition": {"ordinary_input": "peer", "ordinary_directions": ["en->zh", "ja->ko"], "t1_mode": "simultaneous", "roles": {"A": "peer", "B": "self"}, "t1_directions": {"A": ["en->zh", "ja->ko"], "B": ["zh->en", "ko->ja"]}, "vrchat": "excluded"},
+        "peer_asr": "gemini_transcribe",
+        "endpoint": {"transport": "cli", "path": "events follow --topic translation --include-translations", "channels": {"peer": "peer", "self": "self"}},
+        "early_feasibility": {"confirmed": [], "blockers": [], "unverified": ["ordinary/en-zh", "ordinary/ja-ko", "t1/en-zh/A", "t1/en-zh/B", "t1/ja-ko/A", "t1/ja-ko/B"]},
+        "prerequisites": ["Peer terms accepted:true at installed CLI instance afb4d2c0-63d0-4c06-b0fd-f588e64eed72 revision 4; no acceptance action needed/performed. GUI 2.9.1 open observed, not a pilot.", "Set peer_stt separately to Gemini; verify original GPT 6 Luna connection, actual peer capture/languages and bidirectional event request attribution. Preserve instance, gaps and receive-clock limits."],
+        "final_admission": {"owner": "R6", "quality": "pending_r6", "time": "pending_r6"}
+      },
       "finding": "blocked",
       "reason": "Generic historical finding retained. New2.9.1 actual desktop GUI/officialCLI checks passed D1/D3 under Gemini ASR/GPT6Luna existing ChatGPT connection,9/2target inputs; four stages each and genuine stop. Actualsend19104/receive19201, no newlogin/payment/API fallback. Prior2.9.0 evidence remains history. Newbuild freeze/runtime admission required; no returned-model/main/quality/cost claim. See evidence/issue8/pp291-current-preflights.json.",
       "planned": {
@@ -169,6 +194,14 @@
     {
       "id": "PP3",
       "application": "PuriPuly",
+      "native_protocol": {
+        "condition": {"ordinary_input": "peer", "ordinary_directions": ["en->zh", "ja->ko"], "t1_mode": "simultaneous", "roles": {"A": "peer", "B": "self"}, "t1_directions": {"A": ["en->zh", "ja->ko"], "B": ["zh->en", "ko->ja"]}, "vrchat": "excluded"},
+        "peer_asr": "gemini_transcribe",
+        "endpoint": {"transport": "cli", "path": "events follow --topic translation --include-translations", "channels": {"peer": "peer", "self": "self"}},
+        "early_feasibility": {"confirmed": [], "blockers": [], "unverified": ["ordinary/en-zh", "ordinary/ja-ko", "t1/en-zh/A", "t1/en-zh/B", "t1/ja-ko/A", "t1/ja-ko/B"]},
+        "prerequisites": ["Peer terms accepted:true at installed CLI instance afb4d2c0-63d0-4c06-b0fd-f588e64eed72 revision 4; no acceptance action needed/performed. GUI 2.9.1 open observed, not a pilot.", "Set peer_stt separately to Gemini and prove difference from PP4; retain Index official route, actual languages/input, native event roles, instance/gaps and receive-clock interval."],
+        "final_admission": {"owner": "R6", "quality": "pending_r6", "time": "pending_r6"}
+      },
       "finding": "blocked",
       "reason": "Generic historical finding retained. New2.9.1 actual desktop GUI/officialCLI checks passed D1/D3 with Gemini ASR/selected Index official API,9/2target inputs; four stages each and genuine stop. Actualsend19104/receive19201. Selected Index is not returned-upstream/native-fallback attestation. Prior2.9.0 evidence remains history; fixed300s D1 standalone and main still pending newbuild freeze/runtime binding. See evidence/issue8/pp291-current-preflights.json.",
       "planned": {
@@ -237,6 +270,14 @@
     {
       "id": "PP4",
       "application": "PuriPuly",
+      "native_protocol": {
+        "condition": {"ordinary_input": "peer", "ordinary_directions": ["en->zh", "ja->ko"], "t1_mode": "simultaneous", "roles": {"A": "peer", "B": "self"}, "t1_directions": {"A": ["en->zh", "ja->ko"], "B": ["zh->en", "ko->ja"]}, "vrchat": "excluded"},
+        "peer_asr": "local_cpu_auto",
+        "endpoint": {"transport": "cli", "path": "events follow --topic translation --include-translations", "channels": {"peer": "peer", "self": "self"}},
+        "early_feasibility": {"confirmed": [{"scope": "ordinary/en-zh", "evidence": "evidence/r1/pp4-en-zh-confirmation.json"}], "blockers": [], "unverified": ["ordinary/ja-ko", "t1/en-zh/A", "t1/en-zh/B", "t1/ja-ko/A", "t1/ja-ko/B"]},
+        "prerequisites": ["Ordinary EN->ZH peer feasibility is supported by ten actual CLI translation events, separately observed local_cpu_auto peer ASR running parakeet CPU, selected Index/public_api and explicit loopback. Actual source=unknown, absent source text/producer timestamp and filtered native sequence jumps remain unaltered; selected route is not returned upstream identity.", "Other languages/T1 and final text/time admission remain unverified. Accidental concurrent Kikitan self activity precludes clean exclusive CPU/application, timing/performance or wave admission. Original follow shutdown needed owned-child cleanup; repaired lifecycle was exercised with zero audio only, without replay. Exact personal intent restoration and host preservation were point-in-time observations. Later Director observation found original host/overlay absent and capture-status CLI exit3; disappearance time/cause are unknown, with no collector/user-closure attribution or Director host termination. See linked lifecycle evidence."],
+        "final_admission": {"owner": "R6", "quality": "pending_r6", "time": "pending_r6"}
+      },
       "finding": "blocked",
       "reason": "Generic historical finding retained. New2.9.1 actual desktop GUI/officialCLI checks passed D1/D3 with CPU-auto ASR/Index official API,10/2target inputs; runningparakeet D1/qwen3 D3, four stages each and genuine stop. Actualsend19104/receive19204. Afterall8checks, freshPP4D1 settings runtime_applied/OFF withcleannewinstancejournal; appretainedstopped. Old2.9.0 observations remain history. Newbuild freeze/runtime admission required; no main/quality/FPR/cost claim. See evidence/issue8/pp291-current-preflights.json.",
       "planned": {
@@ -305,6 +346,13 @@
     {
       "id": "VRCT1",
       "application": "VRCT",
+      "native_protocol": {
+        "condition": {"ordinary_input": "peer", "ordinary_directions": ["en->zh", "ja->ko"], "t1_mode": "simultaneous", "roles": {"A": "peer", "B": "self"}, "t1_directions": {"A": ["en->zh", "ja->ko"], "B": ["zh->en", "ko->ja"]}, "vrchat": "excluded"},
+        "endpoint": {"transport": "websocket", "host": "127.0.0.1", "port": 2231, "path": "/", "channels": {"peer": "RECEIVED", "self": "SENT"}},
+        "early_feasibility": {"confirmed": [], "blockers": [], "unverified": ["ordinary/en-zh", "ordinary/ja-ko", "t1/en-zh/A", "t1/en-zh/B", "t1/ja-ko/A", "t1/ja-ko/B"]},
+        "prerequisites": ["Authorized bounded smoke must verify speaker-render loopback and reverse YOUR/TARGET languages, authenticated actual WebSocket port and Google ASR/m2m100 CPU execution.", "OCR disabled/absent proof is mandatory: WebSocket RECEIVED contains no source:ocr discriminator. Disable other external text inputs. Observe full translation arrays, roles, post-dispatch stage and receive-clock/gaps; no replay."],
+        "final_admission": {"owner": "R6", "quality": "pending_r6", "time": "pending_r6"}
+      },
       "finding": "ready",
       "reason": "Historical bounded readiness retained. Original issue8 D1 ten-second Google ASR no-match remains; new unchanged Google-ASR/CPU-M2M418M-int8 route produced5 bilingual Japanese OSC inputs under common40s retry, with genuine stop/normal close/process absence. D3 main capture already completed in A and is not replayed. Fresh D1 main runtime admission still required; no main quality or causal app-defect claim. See evidence/issue8/vrct-d1-retry-finding.json.",
       "planned": {
@@ -370,6 +418,13 @@
     {
       "id": "VRCT2",
       "application": "VRCT",
+      "native_protocol": {
+        "condition": {"ordinary_input": "peer", "ordinary_directions": ["en->zh", "ja->ko"], "t1_mode": "simultaneous", "roles": {"A": "peer", "B": "self"}, "t1_directions": {"A": ["en->zh", "ja->ko"], "B": ["zh->en", "ko->ja"]}, "vrchat": "excluded"},
+        "endpoint": {"transport": "websocket", "host": "127.0.0.1", "port": 2231, "path": "/", "channels": {"peer": "RECEIVED", "self": "SENT"}},
+        "early_feasibility": {"confirmed": [{"scope": "ordinary/en-zh", "evidence": "evidence/r1/vrct2-en-zh-confirmation.json"}], "blockers": [], "unverified": ["ordinary/ja-ko", "t1/en-zh/A", "t1/en-zh/B", "t1/ja-ko/A", "t1/ja-ko/B"]},
+        "prerequisites": ["Ordinary EN->ZH peer feasibility is supported by seven actual RECEIVED translations under observed Whisper base CPU int8/Google settings and explicit CABLE Input loopback. Other language/T1 scopes, cumulative re-recognition/duplicate suppression and final completeness/time admission remain unverified.", "Settled pre/post OCR OFF observations are bound to the independent pinned-source control chain, with no GUI/external-text activity during the controlled 40-second input plus 15.0075174-second tail. This is point-in-time exclusion plus controlled-session evidence, not continuous app/input health proof. NativeSink standalone is not Runner or wave admission; producer-event time remains unmapped. Original target/device/auto/WebSocket values were restored per the evidence."],
+        "final_admission": {"owner": "R6", "quality": "pending_r6", "time": "pending_r6"}
+      },
       "finding": "blocked",
       "reason": "Actual3.6.0 GUI selected Whisper base CPU int8 plus Google web translation, port19112 and D3 then D1 while stopped; no audio/output check. Configuration-only evidence does not prove model/provider execution. Foreground interference suspended GUI preparation. Window-closing attempt did not establish process exit; cleanup/admission remain pending, not product failure.",
       "planned": {
@@ -437,6 +492,13 @@
     {
       "id": "VRCT3",
       "application": "VRCT",
+      "native_protocol": {
+        "condition": {"ordinary_input": "peer", "ordinary_directions": ["en->zh", "ja->ko"], "t1_mode": "simultaneous", "roles": {"A": "peer", "B": "self"}, "t1_directions": {"A": ["en->zh", "ja->ko"], "B": ["zh->en", "ko->ja"]}, "vrchat": "excluded"},
+        "endpoint": {"transport": "websocket", "host": "127.0.0.1", "port": 2231, "path": "/", "channels": {"peer": "RECEIVED", "self": "SENT"}},
+        "early_feasibility": {"confirmed": [], "blockers": [], "unverified": ["ordinary/en-zh", "ordinary/ja-ko", "t1/en-zh/A", "t1/en-zh/B", "t1/ja-ko/A", "t1/ja-ko/B"]},
+        "prerequisites": ["Authorized bounded smoke must verify Google speaker ASR, current requested Gemma 26B route/access, reverse YOUR/TARGET languages and authenticated actual WebSocket.", "OCR disabled/absent proof is mandatory: WebSocket RECEIVED contains no source:ocr discriminator. Disable other external text inputs. Preserve full arrays, roles, post-dispatch stage, receive-clock intervals and gaps; no replay."],
+        "final_admission": {"owner": "R6", "quality": "pending_r6", "time": "pending_r6"}
+      },
       "finding": "blocked",
       "reason": "Generic historical finding retained, not current batch exclusion. D3 main capture already completed in A. Original D1 ten-second Google ASR no-match remains; new unchanged Google-ASR/requested-Gemma26B route produced5 bilingual Japanese OSC inputs on amended40s startup probe, with genuine cleanup. Fresh D1 admission evidence exists; new main still requires frozen grouping and fresh runtime binding. No returned-model/upstream attestation. See evidence/issue8/vrct-d1-retry-finding.json.",
       "planned": {
@@ -504,6 +566,13 @@
     {
       "id": "VRCS1",
       "application": "VRCS",
+      "native_protocol": {
+        "condition": {"ordinary_input": "peer", "ordinary_directions": ["en->zh", "ja->ko"], "t1_mode": "simultaneous", "roles": {"A": "peer", "B": "self"}, "t1_directions": {"A": ["en->zh", "ja->ko"], "B": ["zh->en", "ko->ja"]}, "vrchat": "excluded"},
+        "endpoint": {"transport": "websocket", "host": "127.0.0.1", "port": 8767, "path": "/v1/events", "channels": {"peer": "speaker", "self": "microphone"}, "event": "translation.completed"},
+        "early_feasibility": {"confirmed": [], "blockers": [], "unverified": ["ordinary/en-zh", "ordinary/ja-ko", "t1/en-zh/A", "t1/en-zh/B", "t1/ja-ko/A", "t1/ja-ko/B"]},
+        "prerequisites": ["Authorized bounded smoke must verify current Gemma access/model, speaker targets, shared ASR language auto for T1, actual Qwen 0.6B CPU model/projector and approved process-only official runtime override if needed; no security/global environment changes.", "Enable/authenticate supported External API on actual loopback port, subscribe before input, preserve completed/partial/live_updated/source_group roles and producer-clock mapping, lagged/close gaps; no replay."],
+        "final_admission": {"owner": "R6", "quality": "pending_r6", "time": "pending_r6"}
+      },
       "finding": "ready",
       "reason": "Historical bounded readiness retained. Original issue8 startup/security failures remain. Approved process-only official b11501CPU runtime override now loads exact original Qwen0.6B Q8_0 model/projector; actual D1/D3 ten-second checks each produced2 bilingual inputs and completed4 stages, with normal stop/full cleanup. D1 also had1source-only input, not translation. Future launches require the scoped override; future D1 startup uses40s. No main/quality/cost claim. See evidence/issue8/vrcs-runtime-retry-finding.json.",
       "planned": {
@@ -572,6 +641,13 @@
     {
       "id": "VRCS2",
       "application": "VRCS",
+      "native_protocol": {
+        "condition": {"ordinary_input": "peer", "ordinary_directions": ["en->zh", "ja->ko"], "t1_mode": "simultaneous", "roles": {"A": "peer", "B": "self"}, "t1_directions": {"A": ["en->zh", "ja->ko"], "B": ["zh->en", "ko->ja"]}, "vrchat": "excluded"},
+        "endpoint": {"transport": "websocket", "host": "127.0.0.1", "port": 8767, "path": "/v1/events", "channels": {"peer": "speaker", "self": "microphone"}, "event": "translation.completed"},
+        "early_feasibility": {"confirmed": [{"scope": "ordinary/en-zh", "evidence": "evidence/r1/vrcs2-en-zh-confirmation.json"}], "blockers": [], "unverified": ["ordinary/ja-ko", "t1/en-zh/A", "t1/en-zh/B", "t1/ja-ko/A", "t1/ja-ko/B"]},
+        "prerequisites": ["Ordinary EN->ZH peer feasibility is supported by three completed/four partial native translations with actual speaker source, en->zh-Hans and Gemma/OpenRouter payload metadata under observed Gemini Transcribe settings. Native timestamps/IDs remain unmapped to playback time. Only early output occurred within 7.204931 seconds; later silence cause is unknown, not complete coverage or continuous internal input health.", "Other languages/T1/shared-ASR auto behavior, full history and final quality/time remain unverified. Standalone NativeSink smoke is not Runner or W2 admission. Active settings were restored and owned process exited per Director observation; inactive model cache entry and app-managed transient server.port changed, so exact-byte/full-intent restoration is not claimed."],
+        "final_admission": {"owner": "R6", "quality": "pending_r6", "time": "pending_r6"}
+      },
       "finding": "ready",
       "reason": "Observed installed0.2.8 GUI-configured real English-to-Japanese development audio produced translated OSC without VRChat; D2 Chinese target change plus capture-resume output check also completed. Small representative readiness only: exact provider response identity, quotas/cost and D3-D6 runtime coverage remain unknown. See issue45 evidence; preserve first D1 and separate D2 traces.",
       "planned": {
@@ -639,6 +715,13 @@
     {
       "id": "VRCLS1",
       "application": "VRCLS",
+      "native_protocol": {
+        "condition": {"ordinary_input": "peer", "ordinary_directions": ["en->zh", "ja->ko"], "t1_mode": "simultaneous", "roles": {"A": "peer", "B": "self"}, "t1_directions": {"A": ["en->zh", "ja->ko"], "B": ["zh->en", "ko->ja"]}, "vrchat": "excluded"},
+        "endpoint": {"transport": "file", "path": "%APPDATA%/VRCLS/logs/vrcls-*.log", "channels": {"peer": "Desktop", "self": "Mic"}},
+        "early_feasibility": {"confirmed": [{"scope": "ordinary/en-zh", "evidence": "evidence/r1/vrcls1-en-zh-confirmation.json"}], "blockers": [], "unverified": ["ordinary/ja-ko", "t1/en-zh/A", "t1/en-zh/B", "t1/ja-ko/A", "t1/ja-ko/B"]},
+        "prerequisites": ["Ordinary EN->ZH peer feasibility is supported by five translated result lines among 15 actual Desktop physical-line records under original installed 1015 Remote/Developer settings. Fresh startup diagnostics explicitly select exact CABLE Input WASAPI loopback at 48kHz/two channels; no default-fallback inference. Actual deployed server model/checkpoint remains unknown.", "Other languages/T1, multiline/arrow boundaries, full text and final timing remain unverified. Local-wall producer clock remains unmapped; sampled process/collector state is not continuous provider/input health. Active settings were unchanged, both capture channels stopped and owned process exited. Automatic authentication refresh/expiry and lastUpdateCheckUtc changes preclude full-byte equality; secret values are omitted and obsolete credentials were not restored. Standalone NativeSink is not Runner or W4 admission."],
+        "final_admission": {"owner": "R6", "quality": "pending_r6", "time": "pending_r6"}
+      },
       "finding": "blocked",
       "reason": "Generic historical finding retained, not current batch exclusion. Original D1 default-device fallback remains operational-invalid and1017 remains unexecuted static history. The original1015 exact-name repair now has actual named capture/render startup with zero fallback warnings, D1/D3 source checks completed4done each and genuine normal full-process stop acknowledgements. Current source/rule admission is evidence/issue8/vrcls-exact-name-source-admissions.json. New VRCLS-only W4-D1 thenW4-D3 main execution requires its own freeze and fresh runtime guards; no vendor fail-closed, exact remote model, quality or cost claim.",
       "planned": {
@@ -707,6 +790,13 @@
     {
       "id": "KIKI1",
       "application": "kikitan",
+      "native_protocol": {
+        "condition": {"ordinary_input": "self", "ordinary_directions": ["en->zh", "ja->ko"], "t1_mode": "split_self", "roles": {"A": "self", "B": "self"}, "t1_directions": {"A": ["en->zh", "ja->ko"], "B": ["zh->en", "ko->ja"]}, "vrchat": "excluded"},
+        "endpoint": {"transport": "osc", "host": "127.0.0.1", "port": 7272, "path": "/microphone/translated", "channels": {"self": "self"}, "related": ["/microphone/recognized", "/microphone/final"]},
+        "early_feasibility": {"confirmed": [], "blockers": [], "unverified": ["ordinary/en-zh", "ordinary/ja-ko", "t1/en-zh/A", "t1/en-zh/B", "t1/ja-ko/A", "t1/ja-ko/B"]},
+        "prerequisites": ["Keep desktop_translation=false, send_user_data=true and exact cable microphone. Prove Bing/Google actual self directions and separate fixed A/B sessions with full original timeline, pass origins and common +15s tail.", "Bind fixed user-data 7272 before input, not historical chatbox port; preserve independent recognized/translated/final packets, empty translated hypotheses, instance/session attribution and receive-clock uncertainty. Historical native crash remains history.", "Shared serializer source risk: evidence/r1/kikitan-unicode-blocker.json records the KIKI2 installed BuildSoft.OscCore 1.2.1 string-byte narrowing diagnosis. This is a KIKI1 prerequisite risk to resolve, not copied runtime failure or an all-scope blocker; no KIKI1 new-protocol attempt is confirmed."],
+        "final_admission": {"owner": "R6", "quality": "pending_r6", "time": "pending_r6"}
+      },
       "finding": "blocked",
       "reason": "Actual installed2.0.2 native microphone-processing crash after setup/start, during direction control before output-check audio. Runner preserves direction operational invalidity; separate native ArgumentException/process exit evidence establishes product crash. Zero OSC/audio callbacks; no uncorrected retry. See evidence/issue45/kiki1-failure.json. Separately requested supported-GUI KIKI1 attempt is pending Director window visibility/control authorization after approval timeout; no new audio. This GUI prerequisite does not overwrite, repair or supersede the retained native crash.",
       "planned": {
@@ -773,6 +863,13 @@
     {
       "id": "KIKI2",
       "application": "kikitan",
+      "native_protocol": {
+        "condition": {"ordinary_input": "self", "ordinary_directions": ["en->zh", "ja->ko"], "t1_mode": "split_self", "roles": {"A": "self", "B": "self"}, "t1_directions": {"A": ["en->zh", "ja->ko"], "B": ["zh->en", "ko->ja"]}, "vrchat": "excluded"},
+        "endpoint": {"transport": "osc", "host": "127.0.0.1", "port": 7272, "path": "/microphone/translated", "channels": {"self": "self"}, "related": ["/microphone/recognized", "/microphone/final"]},
+        "early_feasibility": {"confirmed": [], "blockers": [{"scope": "ordinary/en-zh", "reason": "Observed installed user-data OSC loses non-ASCII information before receipt: retained translated argument bytes 7D 27 02 and installed BuildSoft.OscCore 1.2.1 source narrowing cannot yield reliable Chinese Unicode. Original attempt aborted on collector gap before the full horizon; invalid, not product no-output. No decoder reconstruction, GUI-output substitution or app patch adopted.", "evidence": "evidence/r1/kikitan-unicode-blocker.json"}], "unverified": ["ordinary/en-zh", "ordinary/ja-ko", "t1/en-zh/A", "t1/en-zh/B", "t1/ja-ko/A", "t1/ja-ko/B"]},
+        "prerequisites": ["Keep desktop_translation=false, send_user_data=true and exact cable microphone; preserve Gemini Live Translate model. Ordinary EN->ZH native Unicode content is blocked by the linked observed transport evidence, despite correct Chinese GUI text; other scope runtime outcomes remain unverified, not copied failures.", "A legal complete native text route remains unresolved; do not infer lost high bytes or substitute GUI/OCR. Preserve cumulative transcription/translation and gap-reset/final limitations. Any future fixed-direction A/B self sessions retain original timeline/pass origins/common +15s tail; the self exception does not establish desktop or simultaneous T1 support. Original attempt settings were restored and owned process exited per the evidence."],
+        "final_admission": {"owner": "R6", "quality": "pending_r6", "time": "pending_r6"}
+      },
       "finding": "blocked",
       "reason": "Current GUI-only execution prerequisite: Director window visibility/control unavailable and renewed approval timed out; no new audio or fresh KIKI2 GUI attestation. KIKI2 still requires Gemini selection, port19152, project-isolation evidence and real output. Existing2.0.2/key presence is not readiness; pause is not a product failure.",
       "planned": {
@@ -838,6 +935,13 @@
     {
       "id": "VRCLT1",
       "application": "VRCLT",
+      "native_protocol": {
+        "condition": {"ordinary_input": "self", "ordinary_directions": ["en->zh", "ja->ko"], "t1_mode": "split_self", "roles": {"A": "self", "B": "self"}, "t1_directions": {"A": ["en->zh", "ja->ko"], "B": ["zh->en", "ko->ja"]}, "vrchat": "excluded"},
+        "endpoint": {"transport": "osc", "host": "127.0.0.1", "port": 19131, "path": "/chatbox/input", "channels": {"self": "self"}, "cross_check": "%LOCALAPPDATA%/vrclt/logs/vrclt.log:FINAL"},
+        "early_feasibility": {"confirmed": [], "blockers": [], "unverified": ["ordinary/en-zh", "ordinary/ja-ko", "t1/en-zh/A", "t1/en-zh/B", "t1/ja-ko/A", "t1/ja-ko/B"]},
+        "prerequisites": ["Authorized bounded smoke must verify current Gemini access/model. Keep inbound OFF and safe independent raw-passthrough output, not injection cable. Freeze self fixed languages and start a distinct normal session for each T1 A/B pass; retain full original timeline, pass origins and +15s tail.", "Capture partial/final self OSC history with source-display/rolling-tail/stream/chunk/throttle settings; compare full FINAL segments for truncation without backdating text. Verify receive-clock intervals and different postqueue endpoint stage."],
+        "final_admission": {"owner": "R6", "quality": "pending_r6", "time": "pending_r6"}
+      },
       "finding": "ready",
       "reason": "Actual GUI-prepared Gemini en-to-ja D1 pilot completed real10-second output check and40-second development audio with5000callbacks and26chatbox inputs. Incremental rolling bilingual/mixed single-line output observed; finality/page relationships and quality remain unestablished. Full GUI Quit and independent owned parent+child exit confirmed. Access tier, usage and project quota isolation remain unknown.",
       "planned": {
@@ -903,6 +1007,13 @@
     {
       "id": "VRCLT2",
       "application": "VRCLT",
+      "native_protocol": {
+        "condition": {"ordinary_input": "self", "ordinary_directions": ["en->zh", "ja->ko"], "t1_mode": "split_self", "roles": {"A": "self", "B": "self"}, "t1_directions": {"A": ["en->zh", "ja->ko"], "B": ["zh->en", "ko->ja"]}, "vrchat": "excluded"},
+        "endpoint": {"transport": "osc", "host": "127.0.0.1", "port": 19131, "path": "/chatbox/input", "channels": {"self": "self"}, "cross_check": "%LOCALAPPDATA%/vrclt/logs/vrclt.log:FINAL"},
+        "early_feasibility": {"confirmed": [{"scope": "ordinary/en-zh", "evidence": "evidence/r1/vrclt2-en-zh-confirmation.json"}], "blockers": [], "unverified": ["ordinary/ja-ko", "t1/en-zh/A", "t1/en-zh/B", "t1/ja-ko/A", "t1/ja-ko/B"]},
+        "prerequisites": ["Ordinary EN->ZH self feasibility is supported by 12 actual mixed English/Chinese OSC display records and 10 separate FINAL cross-check records under existing Qwen3.8 Beijing settings, inbound OFF, text-only and safe independent Realtek passthrough. Configured source en is not enforced by Qwen3.8 auto-detect. Other languages/T1 and final completeness/time remain unverified.", "OSC translated_text stays null; mixed display_text is not silently parsed into a certified translation field. FINAL physical-line text has its own unmapped local-wall clock and is not backdated into OSC. UDP continuous=null is listener-only, not lossless packet delivery. Parsed original settings equality was observed restored; Director independently observed both GUI child 13800 and launcher 55832 absent before launching VRCLS. No Runner, wave, performance or final admission."],
+        "final_admission": {"owner": "R6", "quality": "pending_r6", "time": "pending_r6"}
+      },
       "finding": "ready",
       "reason": "Bounded D1 readiness: the supported GUI correction to the existing Beijing workspace-specific host preserved the Qwen model, region and text-only mode. One ten-second English check delivered three Japanese-bearing chatbox inputs on UDP19131; four stages completed, runner exit0, full owned launcher/runtime cleanup verified. Preserve the initial Chelsie failure on19132. Observed19131 remains usable for VRCLT1 in W1 and VRCLT2 in W3, which are not concurrent; no extra forty-second stage or obsolete-port retest is an admission requirement. Other directions, numeric quotas, usage and returned provider/model identity remain unverified.",
       "planned": {

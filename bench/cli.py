@@ -15,9 +15,9 @@ from .storage import Ledger, atomic_json, utc_now
 
 
 def parser():
-    root = argparse.ArgumentParser(prog="bench", description="Retained capture and cost infrastructure; the native-output benchmark is not implemented yet.")
+    root = argparse.ArgumentParser(prog="bench", description="Episode-native translation-output capture and evidence ledger.")
     commands = root.add_subparsers(dest="command", required=True)
-    run = commands.add_parser("run", help="Run an explicit historical self/cable-to-OSC capture plan")
+    run = commands.add_parser("run", help="Run an explicit episode/role/pass plan; clock runs are synthetic, not app admission")
     selection = run.add_mutually_exclusive_group(required=True)
     selection.add_argument("--plan", type=Path)
     selection.add_argument("--resume")
@@ -29,16 +29,16 @@ def parser():
     status.add_argument("--root", type=Path, default=Path(".data/runs"))
     calibration = commands.add_parser("calibrate")
     calibration.add_argument("--output", type=Path, default=Path(".data/calibration/cable.json"))
-    calibration.add_argument("--output-device")
-    calibration.add_argument("--input-device")
+    calibration.add_argument("--output-device", required=True)
+    calibration.add_argument("--input-device", required=True)
     playback = commands.add_parser("playback")
     playback.add_argument("audio", type=Path)
-    playback.add_argument("--output-device")
+    playback.add_argument("--output-device", required=True)
     playback.add_argument("--output", type=Path, default=Path(".data/calibration/playback.json"))
     costs = commands.add_parser("costs")
     costs.add_argument("--spec", type=Path, required=True)
     costs.add_argument("--output", type=Path, required=True)
-    profiles = commands.add_parser("profiles", help="Inspect the historical 14-profile inventory, not new-protocol readiness")
+    profiles = commands.add_parser("profiles", help="Inspect all 14 profiles' native early feasibility; R6 owns final admission")
     profiles.add_argument("--catalog", type=Path, default=Path("profiles/catalog.json"))
     profiles.add_argument("--check-ports", action="store_true")
     return root

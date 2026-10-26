@@ -1,0 +1,114 @@
+{
+  "kind": "actual_audio_native_collector_smoke",
+  "profile": "PP4",
+  "clock_session": "pp-en-zh-01",
+  "episode_id": "r1-ami-en-development-34-74",
+  "pass_id": "ordinary-peer",
+  "original_stream_sha256": "8f66d344cc652abbcbd65d06d6c02de4ce99b4f4020d148251c99365724651ee",
+  "original_trace_sha256": "92f9612da19dd77cf51e9926a9e5cfc9e80f2c4193237804a6b0c089e86cfdbf",
+  "original_report_sha256": "c919908e3b5c2fa7a0ac5e9912d3fd14c76fdba4a3fe05fad498f984161003f4",
+  "source": {
+    "sha256": "b214d5288ed05ce51e6c18a7e8b2b3101218331122a8cf19192e9dc398c33926",
+    "provenance": "AMI development-01 original timeline [34,74), CC BY 4.0 authorized development input; no new TTS.",
+    "sample_rate": 48000,
+    "channels": 1,
+    "frames": 1920000,
+    "duration_seconds": 40.0
+  },
+  "source_language": "en",
+  "target_language": "zh",
+  "exact_app_target_locale": "zh-CN",
+  "locale_binding": "Observed Simplified Chinese locale within the approved Chinese target language.",
+  "dac_start_ns": 381293620236300,
+  "playback_end_ns": 381333603294000,
+  "observation_end_ns": 381348610825700,
+  "observation_tail_seconds": 15.0075317,
+  "submitted_source_frames": 1920000,
+  "callback_count": 4000,
+  "source_frames_contiguous": true,
+  "callback_status_errors": [],
+  "first_callback": {
+    "callback_t_ns": 381293620236300,
+    "dac_t_ns": 381293620236300,
+    "portaudio_current_time": 381293.62006539997,
+    "portaudio_output_dac_time": 381293.62006539997,
+    "source_frame": 0,
+    "source_frames": 480,
+    "callback_frames": 480,
+    "scheduled_silence_frames": 0,
+    "status": ""
+  },
+  "last_callback": {
+    "callback_t_ns": 381333583294000,
+    "dac_t_ns": 381333593294000,
+    "portaudio_current_time": 381333.583275,
+    "portaudio_output_dac_time": 381333.593275,
+    "source_frame": 1919520,
+    "source_frames": 480,
+    "callback_frames": 480,
+    "scheduled_silence_frames": 0,
+    "status": ""
+  },
+  "route": {
+    "output": "CABLE Input(VB-Audio Virtual Cable)",
+    "capture": "CABLE Input(VB-Audio Virtual Cable) [Loopback]",
+    "capture_target_kind": "named_output_device",
+    "capture_target_status": "resolved",
+    "host_api": "Windows WASAPI",
+    "exclusive": false,
+    "device_auto_selection": false,
+    "physical_input_channel": "peer"
+  },
+  "observed_models": {
+    "peer_asr": {
+      "selected_provider": "local_cpu_auto",
+      "runtime_provider": "local_cpu_auto",
+      "capture_attached_provider": "local_cpu_auto",
+      "model_id": "parakeet-tdt-0.6b-v3-int8-sherpa",
+      "backend": "cpu",
+      "phase": "running",
+      "provider_live": true
+    },
+    "translation": {
+      "selected_model": "index_translate_35b",
+      "selected_connection": "public_api",
+      "selection_observed_before_and_after_input": true,
+      "returned_upstream_identity": null
+    }
+  },
+  "continuity": {
+    "app_process_alive_samples": 55,
+    "app_process_alive_all_samples": true,
+    "independent_capture_provider_samples": 5,
+    "peer_active_ready_at_all_capture_provider_samples": true,
+    "self_capture_stopped_at_all_capture_provider_samples": true,
+    "first_actual_peer_event_received_ns": 381300030411100,
+    "collector_ready_observed_ns": 381300030816900,
+    "readiness_basis": "Actual peer projected translation event, not an exposed subscription ACK; quiet pre-event stream was not claimed ready.",
+    "last_observed_collector_continuous": true,
+    "explicit_gaps": [],
+    "scope": "Collector continuity only; sampled process/provider/capture state is not uninterrupted internal PCM delivery proof."
+  },
+  "environment": {
+    "accidental_concurrent_kikitan": true,
+    "observation_basis": "Director observation after the PP4 capture",
+    "detail": "Kikitan startup self EN->JA capture was active and translated the same authorized AMI cable input; Director stopped it after discovery.",
+    "consequence": "Feasibility only; no clean exclusive-CPU/application environment, performance/timing/wave admission or replay."
+  },
+  "restoration": {
+    "full_original_intent_restored": true,
+    "initial_intent_sha256": "9e80459bd84cb10c7893b49a9352f359e33400adca850d6f500c91fe88c9f540",
+    "final_intent_sha256": "9e80459bd84cb10c7893b49a9352f359e33400adca850d6f500c91fe88c9f540",
+    "independently_observed_monotonic_ns": 382283211492500,
+    "remaining_intent_differences": 0,
+    "personal_values_omitted": true
+  },
+  "lifecycle_evidence": "evidence/r1/pp4-en-zh-lifecycle.json",
+  "limits": [
+    "Only PP4 ordinary peer EN->ZH representative feasibility; other profiles/languages/T1 remain unverified.",
+    "Direct NativeSink plus Playback, not assembled Runner or full-wave admission.",
+    "No original app event timestamp, calibrated producer-time mapping, physical capture onset or physical rendering observation.",
+    "Native CLI source was unknown; peer attribution comes from actual channel=peer, not guessed source metadata.",
+    "No quality/performance/timing/cost or R6 admission; accidental concurrent Kikitan condition is preserved."
+  ]
+}

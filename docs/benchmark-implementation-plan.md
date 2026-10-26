@@ -4,13 +4,13 @@
 
 The owner requested a reset from the work reached in historical issue 8, using [the final benchmark plan](benchmark-final-plan.md), a replacement issue set, and the existing **GPT/backend versus Claude/public-presentation** division. This document classifies the implementation and records the replacement outcomes. The final plan owns benchmark definitions; this document owns migration and delivery boundaries.
 
-**The reset at `ad53f6eb0eda28724acb3f366ebd92b25e9cb3da` is complete and integrated into local `main`; it did not implement or run the new benchmark.** The owner subsequently authorized publication of R0–R10 and deletion of all original issues, including closed ones, but not pull requests. R0 is the program umbrella, not a request to repeat the reset. Start implementation with R1; source/rights investigation in R2 can proceed alongside it.
+**The reset at `ad53f6eb0eda28724acb3f366ebd92b25e9cb3da` is complete and integrated into local `main`; that reset did not implement or run the new benchmark.** The owner subsequently authorized publication of R0–R10 and deletion of all original issues, including closed ones, but not pull requests. R0 is the program umbrella, not a request to repeat the reset. R1 implementation and bounded actual evidence are recorded below; source/rights investigation in R2 can proceed independently.
 
 Starting state: `issue8-first-batch` at `fbab10a0455d91d5419d9673499d25b7ac86c566`; fetched `origin/main` at `1a5244a04d6a62e447a6ed888893f81a9eed9cf6`. The reset integrates the unmerged historical capture work rather than rolling it back. Pre-existing local final/redesign documents are integrated as the planning authority/history. Unrelated untracked traces and terminal-recovery drafts are not staged, deleted or rewritten.
 
 ### Published issue set
 
-The owner-authorized replacement is published. **Start implementation at [R1 / #15](https://github.com/kapitalismho/vrc-translator-bench/issues/15); [R0 / #14](https://github.com/kapitalismho/vrc-translator-bench/issues/14) is the program umbrella**, not an unperformed reset step.
+The owner-authorized replacement is published. **[R1 / #15](https://github.com/kapitalismho/vrc-translator-bench/issues/15) owns native capture and early feasibility; [R0 / #14](https://github.com/kapitalismho/vrc-translator-bench/issues/14) is the program umbrella**, not an unperformed reset step.
 
 | Key | Published issue | Execution owner |
 |---|---|---|
@@ -33,6 +33,33 @@ The owner-authorized replacement is published. **Start implementation at [R1 / #
 - Because the reset code/docs have not been pushed, R0 carries the [current approved protocol and verification amendment](https://github.com/kapitalismho/vrc-translator-bench/issues/14#issuecomment-6406764791). Its LF-normalized UTF-8 SHA-256 is `957f7655ae9d19e185e25d48b0265e7c76ed3509486df016ab21cf8427401a00`. The initial source comment is explicitly historical; its original quote/hash remain intact. The current snapshot publishes this same final-plan revision, not a second independently mutable protocol.
 - This transaction publishes planning issues only. No TTS/provider call, benchmark execution, account/key change, code push or PR publication occurred. Future contract changes must reconcile the maintained plan and affected issue contracts explicitly.
 - The approved verification consolidation is applied to the eleven issue bodies and the R1/R6 titles. Live readback matched the submitted contracts; assignees, single labels, open states and Project memberships are unchanged. All ten children remain attached and no native blocking relationship was edited. `.data/verification-consolidation/` retains pre-amendment, expected and observed records. The current protocol differs only in §§6, 7 and 14 plus the opening amendment notice; source/TTS method, API-key gate, measurement definitions and weights are preserved. No product test or provider run was needed or performed for this documentation/issue change.
+- During R1 on 2026-10-26, the owner explicitly chose **Kikitan self exception** and authorized publication of the plan/issue amendment. KIKI1/KIKI2 now join VRCLT1/VRCLT2: ordinary self input and separate A/B self T1 passes, with one logical episode and unchanged models, weights and waves. Actual Kikitan desktop/peer and simultaneous-T1 obligations are superseded, not completed. VRChat remains excluded. This publication grant does not authorize code push, PR or merge.
+- The [published Kikitan amendment](https://github.com/kapitalismho/vrc-translator-bench/issues/14#issuecomment-6406954100) supplements the retained full protocol snapshot. R0/R1/R4/R5/R6/R7/R8/R9 issue bodies were updated and read back open; no issue closure or code publication occurred. R1 source inspection also corrected VRCT OCR attribution: its WebSocket omits the UI-only `source:"ocr"` field, so independent OCR-off evidence is required before attributing `RECEIVED` to peer audio.
+
+### R1 implementation and actual feasibility
+
+R1 replaces the active stage plan/runner/admission contract in place with schema-2 episodes, role timelines and derived passes. Ordinary peer, simultaneous T1, and the approved self/split exceptions retain one logical episode, independent actual origins and a common last-input-speech +15-second horizon. Mixed-family first passes share a wave round; exception B passes follow separately. Full catalog wave membership is enforced for main plans; explicit pilot subsets are not wave admission.
+
+`bench/native.py`, `native_formats.py` and `native_transports.py` implement six primary read-only collector families. `native_process.py` contains only newly launched collector CLI process trees on Windows; it does not own or terminate pre-existing translator hosts. Producer times, native identity/finality, mixed display text, physical-log-line limits and collector receipts remain distinct. App, input and collector continuity are independent; a live process, socket or silent log is not proof of complete observation.
+
+The 2026-10-26 representative pilots used the existing authorized 40-second AMI development excerpt, full PCM playback and a further 15-second observation tail. They exercised real installed applications with `NativeSink` and `Playback`, **not the assembled Runner/controller workflow or a complete wave**. Public-safe native/clock derivatives are linked by each confirmation; original task-local reports preserve failures and full callback records.
+
+| Observed profile/scope | Primary actual evidence | Boundary |
+|---|---|---|
+| [PP4 ordinary EN→ZH](../profiles/evidence/r1/pp4-en-zh-confirmation.json) | Ten peer translation CLI projections; CPU-auto/Parakeet route separately observed | Concurrent Kikitan self activity prevents isolated CPU/performance or wave claims. Original follow shutdown required owned-child cleanup; repaired containment was then exercised with the real CLI and zero audio. |
+| [VRCT2 ordinary EN→ZH](../profiles/evidence/r1/vrct2-en-zh-confirmation.json) | Seven Chinese `RECEIVED` WebSocket events on reversed peer language settings | Independent OCR-off observations and a controlled session exclude the unrelated OCR input; producer timestamps remain absent. |
+| [VRCS2 ordinary EN→ZH](../profiles/evidence/r1/vrcs2-en-zh-confirmation.json) | Three completed Chinese translations plus four partials from `speaker` | Last translation arrived about 7.2 seconds after DAC start; no later translation was observed. Cause and complete source coverage remain unknown. |
+| [VRCLT2 ordinary EN→ZH](../profiles/evidence/r1/vrclt2-en-zh-confirmation.json) | Twelve mixed English/Chinese OSC display records and ten separate FINAL-log translations | Qwen3.8 auto-detects source; UDP listener continuity is not packet completeness. FINAL file timing is not OSC or rendering time. |
+| [VRCLS1 ordinary EN→ZH](../profiles/evidence/r1/vrcls1-en-zh-confirmation.json) | Five Chinese Desktop/peer log translations; named loopback selection observed in startup diagnostics | Developer-server model identity and physical-line/multiline completeness remain unknown. |
+| [KIKI2 ordinary EN→ZH blocker](../profiles/evidence/r1/kikitan-unicode-blocker.json) | GUI Chinese and retained corrupt user-data UDP bytes; installed dependency plus pinned serializer source explain irreversible Unicode loss | Original collector-gap attempt stopped early and remains invalid, not full-horizon product no-output. No GUI substitution, decoder guess, app patch or alternate endpoint. KIKI1 has a shared static risk only. |
+
+`profiles/catalog.json` independently partitions all fourteen profiles' six scopes. Only the five observed ordinary EN→ZH scopes above are confirmed; the scoped Kikitan blocker does not turn unobserved languages, models or T1 into failures. Final quality/time admission remains `pending_r6` for every profile. Existing six-direction captures and preparation guides remain labeled history, not new admission.
+
+Owned VRCT, Kikitan, VRCS, VRCLT and VRCLS processes were closed after capture. PuriPuly's original personal intent was restored, and its pre-existing host was independently alive after the repaired collector stop. A later completion check found that host and overlay absent; the cause/time is unobserved, and neither was restarted. The earlier preservation observation is not a final-liveness claim. VRCLT's parsed settings exactly matched the original after GUI restoration. VRCS active selections were restored, but an inactive remembered model entry and its app-managed transient server port remain changed. VRCLS active settings were unchanged; automatic credential refresh and update-check metadata were preserved rather than rolled back. No app update, new account/key, TTS production or VRChat execution was performed.
+
+R6 owns full per-profile/language/type admission, broader condition checks and assembled interruption/resume verification. R4/R5 own native reconstruction/scoring and episode-normalized cost integration. These pilots do not establish quality scores, billing, sample-locked multi-device playback, continuous internal provider health or a completed evaluation pipeline. Local implementation does not authorize code push, PR publication, merge or issue closure.
+
+Local verification: the shared Windows Python 3.12 suite completed with **333 passed in 32.05 seconds**. A separate actual `bench run --audio-backend clock` invocation exercised the maintained controller fixture, UDP transport, persistence and split A/B orchestration: two completed passes, no pending/invalid/product-failure passes, and observed tails of 15.0099544/15.0072456 seconds. Its `.data/episode-core-synthetic/runs/synthetic-split-phase/` evidence is synthetic, not product admission; the earlier `synthetic-split` run remains superseded history. The real-application results above are the separate live smoke evidence.
 
 ### What “through issue #8” means
 
@@ -44,6 +71,8 @@ The owner-authorized replacement is published. **Start implementation at [R1 / #
 The investigation's private source is `.data/issue8/batch-analysis-v1/discovered-analysis-issues.md`; it is not a clean-clone prerequisite. The findings needed for implementation are recorded in final-plan §6 and the evaluation acceptance criteria below. Do not publish the private report or raw app/billing logs automatically.
 
 ## Preserve, modify, retire
+
+This table records the reset's disposition; the R1 status above supersedes its prospective capture/admission wording.
 
 | Disposition | Current surface | Decision and reason |
 |---|---|---|
@@ -66,7 +95,7 @@ Tests for removed products are retired with those products. Keep capture/resume/
 | Previous obligation | Replacement disposition |
 |---|---|
 | Six directions, 30-minute tracks and D1/D3-first accumulation | Superseded in this replacement roadmap by the final plan's two language pairs and five episode types. Unmeasured old directions are not claimed completed. |
-| Universal microphone→chatbox OSC endpoint | Superseded by app-native translation outputs, mostly peer; VRCLT self/split-T1 exception stays explicit. No screen-rendering claim. |
+| Universal microphone→chatbox OSC endpoint | Superseded by app-native translation outputs, mostly peer; VRCLT and Kikitan self/split-T1 exceptions stay explicit. No screen-rendering claim. |
 | Sentence correspondence/delivery/FOL/LUL and old ESA/MetricX | Superseded, not repaired or renamed. New episode GEMBA-ESA and semantic-wait p50/p90 require new execution evidence. |
 | Tone30, Korean100 and owner-review population gates | Already removed by the [recorded supplementary-scope amendment](../profiles/evidence/issue8/supplementary-scope-amendment.json); not completed evaluations and not restored. |
 | All 14 profiles, original concurrent-wave intent, CPU-local benchmark conditions, first-attempt/failure visibility | Preserved. New routing and runtime admission must be established; no silent profile deletion, model substitution or serialization. |
@@ -119,7 +148,7 @@ The owner approved consolidating integrated verification in R6 rather than repea
 
 ## Unresolved prerequisites and stop conditions
 
-- **Kikitan:** actual peer capture targets VRChat process audio. Earlier experiment authority excluded running VRChat. The final plan identifies this prerequisite but is not permission to launch/operate it. R1 must obtain the specific runtime authorization or record the exact blocked row; no fake executable, generic player or microphone relabeling.
+- **Kikitan:** the owner-approved R1 amendment replaces its VRChat-dependent desktop/peer and simultaneous-T1 obligation with ordinary self and separate A/B self passes. Keep `desktop_translation=false`, `send_user_data=true`, exact cable microphone and `/microphone/*` collection. Do not launch VRChat, spoof a process, patch the app or relabel self as peer. Old self/chatbox evidence does not admit the new directions/user-data collector.
 - **Collection:** full text and usable timing are separate admissions. A missing producer timestamp alone is not a reason to build invasive instrumentation; verify a useful observation interval. Real truncation, missing intermediate history, ambiguous roles and collector gaps remain substantive limits.
 - **ASCEND T1:** verify both original sides and common timing before making parents. Insufficient eligible material blocks the fixed corpus freeze; it does not authorize synthetic English/Chinese parents or arbitrary gaps.
 - **IngCrowd:** adoption is settled, but actual use-purpose/noncommercial compatibility, external-service input and public examples need rights review. Do not substitute another source silently.
@@ -165,7 +194,7 @@ Migrate the current runner/plan/profile admission in place; implement one primar
 
 ### Requirements
 
-Own the episode/role/pass, native-output, clock/gap and outcome contracts consumed downstream. Support ordinary peer input, simultaneous self/peer T1, and the approved VRCLT all-self/two-pass exception with separate origins and one logical episode. Preserve actual model/source/target/device/endpoint stages and W1–W4 concurrency intent. Keep collectors active through the common last-input-speech +15 seconds; early harness intervention is invalid, not product no-output. Preserve attempts and independent app/input/collector continuity evidence.
+Own the episode/role/pass, native-output, clock/gap and outcome contracts consumed downstream. Support ordinary peer input, simultaneous self/peer T1, and the approved VRCLT/Kikitan all-self/two-pass exceptions with separate origins and one logical episode. Preserve actual model/source/target/device/endpoint stages and W1–W4 concurrency intent. Keep collectors active through the common last-input-speech +15 seconds; early harness intervention is invalid, not product no-output. Preserve attempts and independent app/input/collector continuity evidence.
 
 ### Completion Criteria
 
@@ -173,7 +202,7 @@ Small authorized inputs demonstrate the primary native collector for each app fa
 
 ### Decisions and Evidence
 
-Final-plan §§4.7, 6 and 10 govern. PuriPuly peer ASR is separate, VRCS T1 shares ASR language, VRCT peer direction is reversed, Kikitan needs actual process audio, and VRCLT self OSC/log timing differs. Resolve Kikitan authorization before live operation. Existing self pilot evidence is reusable history, not new admission.
+Final-plan §§4.7, 6 and 10 govern. PuriPuly peer ASR is separate, VRCS T1 shares ASR language, and VRCT peer direction is reversed. Kikitan uses the owner-approved microphone/user-data self exception without VRChat; VRCLT self OSC/log timing differs. Existing self pilot evidence is reusable history, not new admission.
 
 ## R2 — [GPT] Freeze eligible natural-conversation and human-read episodes
 
@@ -251,7 +280,7 @@ R1 native examples and R2 reference/checkpoint contracts are dependencies; imple
 
 ### Background and Goal
 
-Retain useful cost processing without halving VRCLT costs by double-counting its two physical passes or treating missing bills as free.
+Retain useful cost processing without halving VRCLT or Kikitan costs by double-counting their two physical passes or treating missing bills as free.
 
 ### Scope
 
@@ -259,7 +288,7 @@ Migrate existing cost consumers to episode/role/pass/run identity and the common
 
 ### Requirements
 
-Apply final-plan §11: actual attributable app charges over the original logical episode timeline counted once, both VRCLT pass costs in the numerator, physical replay and production/judge costs separate. Preserve main/repeat/preparation/invalid-retry distinctions and product-billed retries. Accept later permitted owner logs as a separate evidence revision without changing frozen quality/time. Unknown is null/pending; usage×price is labelled calculated rather than actual billing.
+Apply final-plan §11: actual attributable app charges over the original logical episode timeline counted once, both self-pass costs in the numerator for VRCLT and Kikitan, physical replay and production/judge costs separate. Preserve main/repeat/preparation/invalid-retry distinctions and product-billed retries. Accept later permitted owner logs as a separate evidence revision without changing frozen quality/time. Unknown is null/pending; usage×price is labelled calculated rather than actual billing.
 
 ### Completion Criteria
 
@@ -279,7 +308,7 @@ Prove the assembled input→app→native history→evaluation→result path befo
 
 ### Scope
 
-Own the shared input→app→native history→quality/wait/cost→result verification and final quality/time admission for all fourteen profiles. Cover both pairs, the five types, T1 roles and VRCLT split conditions using the planned development cases and reusable R1–R5 evidence. This is not a full Cartesian rehearsal of the main population or a separate harness-certification campaign.
+Own the shared input→app→native history→quality/wait/cost→result verification and final quality/time admission for all fourteen profiles. Cover both pairs, the five types, T1 roles and VRCLT/Kikitan split conditions using the planned development cases and reusable R1–R5 evidence. This is not a full Cartesian rehearsal of the main population or a separate harness-certification campaign.
 
 ### Requirements
 
@@ -289,7 +318,7 @@ Collect existing component evidence first and run only missing checks or those a
 
 ### Completion Criteria
 
-An actual shared development path reaches the common integrated/detail result package, including quality, separate p50/p90 and cost bindings/missing states. Reuse existing component checks and inspect raw-to-result relationships for valid translation, no-output and invalid/unavailable scope. Cover required role/direction attribution, VRCLT pass clocks, output completeness/revisions, observation tail and interruption/resume preservation through applicable evidence plus only the missing/affected runs. Complete the selected judge contrast/variation checks without recalling unchanged valid judgments solely because this is R6. Report final quality and timing admission separately for every profile, including exact blocked/unverified routes; representative-family success is not all-profile evidence. Publish the freeze only after required corpus/method prerequisites and the claimed admission scope are supported. After fixes, repeat the affected checks, not the whole campaign.
+An actual shared development path reaches the common integrated/detail result package, including quality, separate p50/p90 and cost bindings/missing states. Reuse existing component checks and inspect raw-to-result relationships for valid translation, no-output and invalid/unavailable scope. Cover required role/direction attribution, VRCLT/Kikitan pass clocks, output completeness/revisions, observation tail and interruption/resume preservation through applicable evidence plus only the missing/affected runs. Complete the selected judge contrast/variation checks without recalling unchanged valid judgments solely because this is R6. Report final quality and timing admission separately for every profile, including exact blocked/unverified routes; representative-family success is not all-profile evidence. Publish the freeze only after required corpus/method prerequisites and the claimed admission scope are supported. After fixes, repeat the affected checks, not the whole campaign.
 
 ### Decisions and Evidence
 
@@ -329,7 +358,7 @@ Own public tables, filters/drilldowns, charts, methodology/limitations, first-sc
 
 ### Requirements
 
-Apply final-plan §12: unified quality/p50/p90/cost table, retained detail/audit views, quality×p90 with p50/cost choices, visible condition/endpoint differences and unknown/unmet states. Distinguish VRCLT self/split from peer/simultaneous T1; do not draw a cross-condition Pareto claim. Disclose creator interest, automatic judgment, native-output-not-rendering endpoint, input mix and source rights on the first reading path.
+Apply final-plan §12: unified quality/p50/p90/cost table, retained detail/audit views, quality×p90 with p50/cost choices, visible condition/endpoint differences and unknown/unmet states. Distinguish VRCLT/Kikitan self/split from peer/simultaneous T1; do not draw a cross-condition Pareto claim. Disclose creator interest, automatic judgment, native-output-not-rendering endpoint, input mix and source rights on the first reading path.
 
 ### Completion Criteria
 
@@ -353,7 +382,7 @@ Own reproducible renderer inputs/settings, visual design/captions, credits and s
 
 ### Requirements
 
-Use R2/R3's preselected rights-cleared clips and R7 histories on a common source clock. Preserve actual output changes, misleading revisions, missing output and timing uncertainty. Label profile/date/direction, native-output replay and VRCLT self/split conditions. Do not select flattering replacement clips after inspecting results.
+Use R2/R3's preselected rights-cleared clips and R7 histories on a common source clock. Preserve actual output changes, misleading revisions, missing output and timing uncertainty. Label profile/date/direction, native-output replay and VRCLT/Kikitan self/split conditions. Do not select flattering replacement clips after inspecting results.
 
 ### Completion Criteria
 

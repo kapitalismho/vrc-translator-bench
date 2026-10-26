@@ -1,0 +1,34 @@
+{
+  "kind": "independent_observed_gui_state",
+  "app": "VRCT 3.6.0",
+  "observations": [
+    {
+      "local_original": "omp-computer-15b4d3a27f4505db.png",
+      "sha256": "81749da9767df04b1d8c0083cd9294d519ae76b11170f2212b27edec3ca90c4f",
+      "public_image_included": false
+    },
+    {
+      "local_original": "omp-computer-15b4d3ef6b8505dc.png",
+      "sha256": "d6ca046dd88e42d9ebc6cf73385365b2b20f69897f28f39f4749b611c6ca47af",
+      "public_image_included": false
+    }
+  ],
+  "before_and_after": {
+    "translation": true,
+    "speaker_capture": true,
+    "microphone_capture": false,
+    "fourth_chat_reading_ocr_toggle": false,
+    "pending_spinner": false
+  },
+  "controlled_window": "No computer-use, typing, OCR activation or external text submissions during 40-second input and 15-second observation tail.",
+  "sources": [
+    "https://github.com/misyaguziya/VRCT/blob/7ad46876e60d7b6e053489090797e2228f320da5/locales/ko.yml#L35-L42",
+    "https://github.com/misyaguziya/VRCT/blob/7ad46876e60d7b6e053489090797e2228f320da5/src-ui/views/app/main_page/sidebar_section/main_function_switch/MainFunctionSwitch.jsx#L17-L108",
+    "https://github.com/misyaguziya/VRCT/blob/7ad46876e60d7b6e053489090797e2228f320da5/src-python/controller.py#L4305-L4316"
+  ],
+  "binding": "Fourth sidebar Korean chat-reading label is main_page.ocr. Settled toggle reflects returned ENABLE_OCR_CAPTURE state; source default is OFF, not persisted.",
+  "limits": [
+    "Point-in-time GUI evidence plus controlled session, not continuous app/input health proof.",
+    "Installed version observed; exact installed executable correspondence to pinned upstream commit not independently certified."
+  ]
+}

@@ -1,5 +1,9 @@
 # VRCT and VRCS profile findings
 
+**Current R1 contract:** use the [episode-native CLI](../cli.md), [scope catalog](../../profiles/catalog.json) and [R1 evidence boundary](../benchmark-implementation-plan.md#r1-implementation-and-actual-feasibility). VRCT2 and VRCS2 ordinary EN→ZH peer evidence uses their native WebSockets, not the historical self/chatbox route below. VRCT requires independent OCR-off evidence solely to exclude a non-audio input source; OCR is not collected or evaluated. VRCS2 produced three completed translations early in the input; later coverage remains unknown.
+
+The following preparation records are historical. Their six-direction admission, endpoints and execution instructions do not supersede schema 2 or establish new native-profile admission.
+
 Initial research date: 2026-10-20. Authority: [parent #1](https://github.com/kapitalismho/vrc-translator-bench/issues/1) and [profile preparation #4](https://github.com/kapitalismho/vrc-translator-bench/issues/4). The actual-GUI observations below supersede runtime-absence claims in the historical [source findings](../../profiles/findings/vrct-vrcs.json). Source/configuration procedures below remain reference material, not the control method authorized for the current GUI-only execution.
 
 ## Actual GUI development pilots

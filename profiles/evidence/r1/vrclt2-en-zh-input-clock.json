@@ -1,0 +1,97 @@
+{
+  "kind": "actual_audio_native_collector_smoke",
+  "profile": "VRCLT2",
+  "clock_session": "vrclt2-en-zh-01",
+  "original_report_sha256": "d68bb01fc3f7da30176931f3966fd7f9d384fc5192762ec69ec01136434be1ad",
+  "original_stream_sha256": "400129022ac1467194f63d318076bd8134a08ee62247b87e7e4d0f664c300cf9",
+  "source": {
+    "sha256": "b214d5288ed05ce51e6c18a7e8b2b3101218331122a8cf19192e9dc398c33926",
+    "provenance": "AMI development-01 original timeline [34,74), CC BY 4.0 authorized development input; no new TTS.",
+    "sample_rate": 48000,
+    "channels": 1,
+    "frames": 1920000,
+    "duration_seconds": 40.0
+  },
+  "dac_start_ns": 383117449884000,
+  "playback_end_ns": 383157434488200,
+  "observation_end_ns": 383172442799400,
+  "observation_tail_seconds": 15.0083112,
+  "submitted_source_frames": 1920000,
+  "callback_count": 4000,
+  "callback_status_errors": [],
+  "first_callback": {
+    "callback_t_ns": 383117449884000,
+    "dac_t_ns": 383117449884000,
+    "portaudio_current_time": 383117.449713,
+    "portaudio_output_dac_time": 383117.449713,
+    "source_frame": 0,
+    "source_frames": 480,
+    "callback_frames": 480,
+    "scheduled_silence_frames": 0,
+    "status": ""
+  },
+  "last_callback": {
+    "callback_t_ns": 383157414488200,
+    "dac_t_ns": 383157424488200,
+    "portaudio_current_time": 383157.4144688,
+    "portaudio_output_dac_time": 383157.4244688,
+    "source_frame": 1919520,
+    "source_frames": 480,
+    "callback_frames": 480,
+    "scheduled_silence_frames": 0,
+    "status": ""
+  },
+  "route": {
+    "output": "CABLE Input(VB-Audio Virtual Cable)",
+    "microphone": "CABLE Output(VB-Audio Virtual Cable)",
+    "safe_independent_passthrough_output": "Realtek Digital Output(Realtek USB Audio)",
+    "input_channel": "self",
+    "host_api": "Windows WASAPI",
+    "text_only": true,
+    "voice_output": false,
+    "inbound_subtitles": false
+  },
+  "settings_observation": {
+    "basis": "Director actual GUI preparation and retained report",
+    "context_reset": "Supported GUI Save and Restart before capture",
+    "provider": "qwen",
+    "model": "qwen3.8-livetranslate-flash-realtime",
+    "region": "beijing",
+    "configured_source_language": "en",
+    "effective_source_language": "Qwen3.8 auto-detect; configured source not enforced",
+    "target_language": "zh-Hans",
+    "translation_enabled_before_input": true
+  },
+  "continuity": {
+    "sample_count": 55,
+    "sample_interval_seconds": 1,
+    "app_alive_all_samples": true,
+    "collector_continuous": null,
+    "transport_completeness": "unknown",
+    "listener_uninterrupted_all_samples": true,
+    "explicit_gap_count": 0,
+    "scope": "Listener only, not lossless UDP or continuous internal app/input health"
+  },
+  "observation": {
+    "native_events": 44,
+    "osc_input_display_records": 12,
+    "osc_typing_records": 22,
+    "separate_final_log_records": 10
+  },
+  "restoration": {
+    "basis": "Director actual GUI parsed configuration comparison",
+    "parsed_original_equal": true,
+    "changed_leaf_paths": [],
+    "owned_gui_pid_13800_exited": true,
+    "launcher_pid_55832_exit": "Director independently observed process_alive=false for launcher 55832 and GUI child 13800 before launching VRCLS",
+    "private_original_values_omitted": true
+  },
+  "limits": [
+    "Only VRCLT2 ordinary self EN->ZH early feasibility; other scopes and profiles remain unverified.",
+    "Primary OSC preserves mixed English/Chinese display_text with translated_text=null. Separate FINAL file records have translated_text and physical-line-only completeness; they are not substitutions for or backdated into OSC.",
+    "UDP continuous=null and transport completeness unknown; listener continuity does not prove lossless packet delivery or uninterrupted app/input health.",
+    "FINAL local-wall timestamps have unverified timezone and no playback-clock mapping; no final quality/time, performance, cost, Runner or wave admission.",
+    "Configured source en is not enforced by Qwen3.8 auto-detection; native FINAL language auto remains actual metadata.",
+    "Original application log path, workspace and secret configuration are omitted. No replay or new provider call performed by evidence author."
+  ]
+}

@@ -34,11 +34,16 @@ def read_observation(path):
     if observation.get("basis") != "actual_visible_gui" or not observation.get("evidence"):
         raise ValueError("Actual GUI observation and evidence paths required")
     state = observation["state"]
-    for field in ("microphone", "voice_output", "osc_host", "osc_port", "direction", "running"):
+    for field in ("voice_output", "channels", "running"):
         if field not in state:
-            raise ValueError("Incomplete GUI-observed state")
+            raise ValueError("Incomplete GUI-observed episode state")
     if not isinstance(state["running"], bool):
         raise ValueError("GUI must establish actual capture state")
+    if not isinstance(state["channels"], dict) or set(state["channels"]) - {"self", "peer"}:
+        raise ValueError("GUI must identify actual self/peer routes")
+    for channel in state["channels"].values():
+        if any(field not in channel for field in ("role", "input_device", "output_device", "source_language", "target_language")):
+            raise ValueError("Incomplete GUI-observed channel binding")
     return observation
 
 
@@ -125,22 +130,31 @@ class GuiOperator:
             if not process_alive(self.pid):
                 raise RuntimeError("Application process exited; previous GUI observation invalid")
             state = self.observed()
-            if "CABLE Output" not in state["microphone"] or state["voice_output"] is not False:
-                raise ValueError("GUI must establish safe cable-only input/output before capture")
+            if state["voice_output"] is not False:
+                raise ValueError("GUI must establish voice_output false before capture")
             return {"ready": True, "metadata": state["metadata"]}
-        if method == "set_direction" and self.observed()["direction"] == params["direction"]:
-            return self.observed()
         if method == "stop" and not process_alive(self.pid):
             state = self.observed(allow_pending=True)
             state["metadata"]["stop_basis"] = "owned process exit independently observed"
             return state
-        if method in ("start", "stop", "configure", "set_direction"):
+        if method == "reset_session":
+            self.operator(method, params)
+            reset = read_observation(self.directory / "observation.json").get("session_reset", {})
+            if (reset.get("episode_id"), reset.get("pass_id")) != (params["episode_id"], params["pass_id"]):
+                raise ValueError("Reset evidence belongs to another episode/pass")
+            if reset.get("basis") not in ("product_new_conversation", "verified_application_restart") or not reset.get("evidence"):
+                raise ValueError("Genuine conversation reset evidence required; screen clear is insufficient")
+            return {**reset, "reset": True}
+        if method in ("start", "stop", "configure"):
             return self.operator(method, params)
-        if method == "osc_identity":
+        if method == "identity":
             return {"pid": self.pid, "application": "GUI-prepared installed translator"}
         if method == "liveness":
-            return {"alive": process_alive(self.pid)}
-        if method == "begin_stage":
+            alive = process_alive(self.pid)
+            unknown = {"continuous": None, "evidence": [], "gaps": []}
+            return {"alive": alive, "app_continuity": unknown, "input_continuity": unknown,
+                    "process_observation": {"pid": self.pid, "alive": alive, "basis": "process query only"}}
+        if method == "begin_pass":
             return {}
         raise ValueError("Unsupported GUI operator method")
 

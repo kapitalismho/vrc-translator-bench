@@ -1,5 +1,9 @@
 # VRCLT: VRCLT1 and VRCLT2
 
+**Current R1 contract:** use the [episode-native CLI](../cli.md), [scope catalog](../../profiles/catalog.json) and [R1 evidence boundary](../benchmark-implementation-plan.md#r1-implementation-and-actual-feasibility). VRCLT2 ordinary EN→ZH self evidence retains mixed OSC display text and a separate FINAL-log crosscheck. Qwen3.8 auto-detects source language; a configured source is not an enforced provider constraint. Dashboard `translation_on`, not `outbound.enabled`, controls translation; OFF remains raw passthrough, not microphone mute.
+
+The following six-direction preparation and extraction rules are historical, not a second schema-2 collector or new admission.
+
 Initial source preparation was recorded on **2026-10-20** for [issue #4](https://github.com/kapitalismho/vrc-translator-bench/issues/4), under the [parent protocol](https://github.com/kapitalismho/vrc-translator-bench/issues/1). The actual-GUI observations below supersede historical absence/current-setting claims in [`profiles/findings/vrclt.json`](../../profiles/findings/vrclt.json).
 
 ## Current D1/D3 short preflights

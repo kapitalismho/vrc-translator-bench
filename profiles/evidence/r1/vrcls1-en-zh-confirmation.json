@@ -1,0 +1,63 @@
+{
+  "protocol": "native-output-v1",
+  "profile": "VRCLS1",
+  "scope": "ordinary/en-zh",
+  "condition": {
+    "ordinary_input": "peer",
+    "ordinary_directions": [
+      "en->zh",
+      "ja->ko"
+    ],
+    "t1_mode": "simultaneous",
+    "roles": {
+      "A": "peer",
+      "B": "self"
+    },
+    "t1_directions": {
+      "A": [
+        "en->zh",
+        "ja->ko"
+      ],
+      "B": [
+        "zh->en",
+        "ko->ja"
+      ]
+    },
+    "vrchat": "excluded"
+  },
+  "endpoint": {
+    "transport": "file",
+    "path": "%APPDATA%/VRCLS/logs/vrcls-*.log",
+    "channels": {
+      "peer": "Desktop",
+      "self": "Mic"
+    }
+  },
+  "models": {
+    "asr": "Developer server",
+    "translation": "Developer server"
+  },
+  "kind": "input_to_native_translation",
+  "app_version": "0.7.0-20260913 /0.7.0.1015",
+  "instance": "Observed owned GUI process2504; no producer instance field",
+  "translated_text": "那只小猫，看起来很开心。",
+  "input_evidence": "evidence/r1/vrcls1-en-zh-input-clock.json",
+  "raw_evidence": "evidence/r1/vrcls1-en-zh-native.jsonl",
+  "clock_evidence": "evidence/r1/vrcls1-en-zh-input-clock.json",
+  "observed_native_event_count": 15,
+  "observed_translated_result_lines": 5,
+  "actual_server_model": "unknown; observed Remote/Developer route is not a checkpoint identity",
+  "limits": [
+    "Only VRCLS1 ordinary peer EN->ZH early feasibility; other scopes/profiles remain unverified.",
+    "Fifteen Desktop physical-line records contain five translated result lines; source/status lines are not additional translations. Multiline and arrow-boundary uncertainty remains explicit.",
+    "Installed original1015 Remote/Developer route is observed; actual deployed server model/checkpoint and downstream identity remain unknown.",
+    "Local-wall producer times have unverified timezone and no calibrated playback-clock mapping. Collector continuity and process samples are not continuous provider/input health.",
+    "Standalone NativeSink plus Playback, not Runner, W4 concurrency, final quality/time, performance or cost admission.",
+    "No full-byte configuration equality claimed: automatic authentication refresh/expiry and last-update-check state changed on normal lifecycle. Secret values are omitted and obsolete credentials were not restored."
+  ],
+  "evidence_sha256": {
+    "raw_evidence": "ed7bb36c47ff82aff611131e95903ec3f8a45b5371cf6d1ecd57d740e32301f0",
+    "input_evidence": "67b8c8741851df371037b6d732d11d790027693dec80408521a4f7c98bd566a0",
+    "clock_evidence": "67b8c8741851df371037b6d732d11d790027693dec80408521a4f7c98bd566a0"
+  }
+}

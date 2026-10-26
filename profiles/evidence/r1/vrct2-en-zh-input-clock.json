@@ -1,0 +1,71 @@
+{
+  "kind": "actual_audio_native_collector_smoke",
+  "profile": "VRCT2",
+  "clock_session": "vrct2-en-zh-01",
+  "original_stream_sha256": "65e7671dea4913c58bb5d18a5e6eefcb03abc3b6b5d512f24ddfd9bc668affb7",
+  "original_trace_sha256": "d06f64b6ecc6b035432f752b4277c060db2b733f32daac2a5a3f1399f7e2baaa",
+  "source": {
+    "sha256": "b214d5288ed05ce51e6c18a7e8b2b3101218331122a8cf19192e9dc398c33926",
+    "provenance": "AMI development-01 original timeline [34,74), CC BY 4.0 development input; no new TTS.",
+    "repository_reference": "corpus/english/timelines/development-01.json",
+    "sample_rate": 48000,
+    "channels": 1,
+    "frames": 1920000,
+    "duration_seconds": 40.0
+  },
+  "dac_start_ns": 380686141313200,
+  "playback_end_ns": 380726125917300,
+  "observation_end_ns": 380741133434700,
+  "observation_tail_seconds": 15.0075174,
+  "submitted_source_frames": 1920000,
+  "callback_status_errors": [],
+  "first_callback": {
+    "callback_t_ns": 380686141313200,
+    "dac_t_ns": 380686141313200,
+    "portaudio_current_time": 380686.1411573,
+    "portaudio_output_dac_time": 380686.1411573,
+    "source_frame": 0,
+    "source_frames": 480,
+    "callback_frames": 480,
+    "scheduled_silence_frames": 0,
+    "status": ""
+  },
+  "last_callback": {
+    "callback_t_ns": 380726105917300,
+    "dac_t_ns": 380726115917300,
+    "portaudio_current_time": 380726.1058829,
+    "portaudio_output_dac_time": 380726.1158829,
+    "source_frame": 1919520,
+    "source_frames": 480,
+    "callback_frames": 480,
+    "scheduled_silence_frames": 0,
+    "status": ""
+  },
+  "route": {
+    "output": "CABLE Input(VB-Audio Virtual Cable)",
+    "capture": "CABLE Input(VB-Audio Virtual Cable) [Loopback]",
+    "host_api": "Windows WASAPI",
+    "speaker_auto_selection": false
+  },
+  "continuity": {
+    "sample_interval_seconds": 1,
+    "app_process_alive_all_samples": true,
+    "collector_continuous_all_samples": true,
+    "app_and_input_continuity": "unknown; process life is not provider/input health"
+  },
+  "limits": [
+    "Direct NativeSink + Playback smoke, not assembled Runner or full-wave admission.",
+    "No calibrated producer-time mapping or physical rendering measurement.",
+    "Final console print failed cp949 encoding after artifacts were finalized; capture_completed artifacts and Chinese events survived; no replay used.",
+    "Focused worker checks may have overlapped preparation; no performance/admission claim."
+  ],
+  "restoration": {
+    "translation_capture": false,
+    "speaker_capture": false,
+    "target_language": "Korean (South Korea)",
+    "speaker_device": "1 - TFG32Q07P(AMD High Definition Audio Device) [Loopback]",
+    "speaker_auto_selection": true,
+    "websocket_server": false,
+    "owned_pid_47708_exited": true
+  }
+}

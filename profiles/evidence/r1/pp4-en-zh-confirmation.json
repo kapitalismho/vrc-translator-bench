@@ -1,0 +1,131 @@
+{
+  "protocol": "native-output-v1",
+  "profile": "PP4",
+  "scope": "ordinary/en-zh",
+  "condition": {
+    "ordinary_input": "peer",
+    "ordinary_directions": [
+      "en->zh",
+      "ja->ko"
+    ],
+    "t1_mode": "simultaneous",
+    "roles": {
+      "A": "peer",
+      "B": "self"
+    },
+    "t1_directions": {
+      "A": [
+        "en->zh",
+        "ja->ko"
+      ],
+      "B": [
+        "zh->en",
+        "ko->ja"
+      ]
+    },
+    "vrchat": "excluded"
+  },
+  "endpoint": {
+    "transport": "cli",
+    "path": "events follow --topic translation --include-translations",
+    "channels": {
+      "peer": "peer",
+      "self": "self"
+    }
+  },
+  "models": {
+    "asr": "CPU-auto-selected local ASR",
+    "translation": "Index Translator"
+  },
+  "peer_asr": "local_cpu_auto",
+  "kind": "input_to_native_translation",
+  "app_version": "2.9.1",
+  "instance": "afb4d2c0-63d0-4c06-b0fd-f588e64eed72",
+  "translated_text": "好的。我想我得亲眼看看我最喜欢的动物才行。",
+  "input_evidence": "evidence/r1/pp4-en-zh-input-clock.json",
+  "raw_evidence": "evidence/r1/pp4-en-zh-native.jsonl",
+  "clock_evidence": "evidence/r1/pp4-en-zh-input-clock.json",
+  "lifecycle_evidence": "evidence/r1/pp4-en-zh-lifecycle.json",
+  "observed_native_translation_events": 10,
+  "observed_build": {
+    "version": "2.9.1",
+    "instance_id": "afb4d2c0-63d0-4c06-b0fd-f588e64eed72",
+    "observed_host_pid": 67656,
+    "cli_sha256": "83fae3185015ee8562a99df416218b8d935fe58d78bd056c1198424fdd9a5cb1",
+    "host_executable_sha256": "32e496085be14372c71dd28db24fa90096b3912e33f44468f037421ce30a019b",
+    "public_cli_contract_commit": "55377ed15768faa42ff6fa15b6a83df570e696bd",
+    "exact_binary_to_public_commit_equivalence": "unestablished"
+  },
+  "observed_models": {
+    "peer_asr": {
+      "selected_provider": "local_cpu_auto",
+      "runtime_provider": "local_cpu_auto",
+      "capture_attached_provider": "local_cpu_auto",
+      "model_id": "parakeet-tdt-0.6b-v3-int8-sherpa",
+      "backend": "cpu",
+      "phase": "running",
+      "provider_live": true
+    },
+    "translation": {
+      "selected_model": "index_translate_35b",
+      "selected_connection": "public_api",
+      "selection_observed_before_and_after_input": true,
+      "returned_upstream_identity": null
+    }
+  },
+  "observed_languages": {
+    "source": "en",
+    "target": "zh",
+    "app_target_locale": "zh-CN"
+  },
+  "native_event_fields": {
+    "channel": "peer",
+    "role": "A",
+    "endpoint_stage": "peer_post_overlay_projection",
+    "source_values": [
+      "unknown"
+    ],
+    "source_text": null,
+    "producer_timestamp": null,
+    "source_note": "Actual source=unknown is retained; role follows actual channel=peer and fixed manifest binding.",
+    "raw_source_note": "Each raw_evidence.sha256/byte_count identifies the original CLI line, not the exported JSON. original_not_persisted=true remains explicit; only its allowlisted projection is published.",
+    "native_sequence_note": "Sequence is publication order, not event time/revision; filtered jumps alone are not loss."
+  },
+  "evidence_sha256": {
+    "input_evidence": "3a14418a7bc80c3605dd95a29edd63fd21bd3e0c2851c372e55e0f09c6632a60",
+    "raw_evidence": "e60d361aa33c402ee5c04586e6b978a41dc2cebb97c6d1388d1be3085c9836d8",
+    "clock_evidence": "3a14418a7bc80c3605dd95a29edd63fd21bd3e0c2851c372e55e0f09c6632a60",
+    "lifecycle_evidence": "7563354e2111a3be20d1570d9a4a800496f72899d3b6a6b9349195b666303ff2"
+  },
+  "environment": {
+    "accidental_concurrent_kikitan": true,
+    "observation_basis": "Director observation after the PP4 capture",
+    "detail": "Kikitan startup self EN->JA capture was active and translated the same authorized AMI cable input; Director stopped it after discovery.",
+    "consequence": "Feasibility only; no clean exclusive-CPU/application environment, performance/timing/wave admission or replay."
+  },
+  "restoration": {
+    "full_original_intent_restored": true,
+    "initial_intent_sha256": "9e80459bd84cb10c7893b49a9352f359e33400adca850d6f500c91fe88c9f540",
+    "final_intent_sha256": "9e80459bd84cb10c7893b49a9352f359e33400adca850d6f500c91fe88c9f540",
+    "independently_observed_monotonic_ns": 382283211492500,
+    "remaining_intent_differences": 0,
+    "personal_values_omitted": true
+  },
+  "privacy": {
+    "basis": [
+      "../docs/benchmark-final-plan.md#62-시계역할원시-증거-계약",
+      "../docs/profiles.md#short-checks-and-measured-run-boundary"
+    ],
+    "selection": "Explicit native-output, benchmark build/model/route, input clocks and lifecycle field allowlists; private originals retained locally.",
+    "omitted": "Private paths, tokens, account identifiers, whole settings/logs, personal original provider selections, coordinates, screenshots and arbitrary diagnostics."
+  },
+  "limits": [
+    "Only PP4 ordinary EN->ZH peer early feasibility; condition/endpoint/model bindings preserve the catalogue, not proof of all listed directions or T1.",
+    "No Runner, simultaneous/wave, final quality/time, performance or cost admission; R6 remains pending.",
+    "Accidental concurrent Kikitan prevents a clean exclusive CPU/application environment; actual feasibility retained, no replay.",
+    "Selected Index/public_api route is not returned upstream model identity.",
+    "Installed binary-to-public-commit equivalence unestablished.",
+    "Original audio collector required owned-child shutdown cleanup; repaired follow lifecycle was independently exercised with zero audio only.",
+    "Later completion observation found original host/overlay absent and supported capture-status CLI exit3, without retry/restart. Disappearance time/cause are unknown; no collector/user termination attribution. Earlier preservation/restoration are point-in-time, not final liveness."
+  ]
+}

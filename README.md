@@ -2,32 +2,32 @@
 
 A community benchmark for conversation translation. The approved [final plan](docs/benchmark-final-plan.md) replaces the original six-direction microphone-to-OSC evaluation with a peer-centered EN→ZH / JA→KO comparison, episode-level GEMBA-ESA quality, separate semantic-wait p50/p90, and evidence-bound costs.
 
-**Current state: protocol reset, not a completed new benchmark.** Native-output collectors, the new corpus, synchronized T1 playback, two-stage judging and public results remain implementation work. The [migration classification and replacement issue drafts](docs/benchmark-implementation-plan.md) define that work and preserve the GPT/backend versus Claude/presentation split. GitHub issues have not been deleted or replaced by this local reset.
+**Current state: native-capture implementation and early feasibility, not a completed benchmark.** R1 migrates collection and episode/role/pass execution in place. Corpus production, two-stage judging, final all-profile admission and public results remain separate work. The [implementation plan and published R0–R10 issues](docs/benchmark-implementation-plan.md) preserve the GPT/backend versus Claude/presentation split.
 
 ## What remains usable
 
-- Windows WASAPI playback/calibration, ordered raw chatbox OSC capture, durable attempt history, interruption/resume and owned-process cleanup.
-- All 14 application profiles and historical configuration, capture, failure and source evidence.
+- Windows WASAPI playback/calibration, episode/role/pass routing, app-native output collection, durable attempt history, interruption/resume and owned-process cleanup.
+- All 14 application profiles, independent native feasibility scopes and retained historical configuration, capture, failure and source evidence.
 - GPT 6 Astra / Sign in with ChatGPT transport, Windows child containment and low-level durable call storage. There is currently **no scoring CLI**.
 - Local cost-log ingestion, attribution, Decimal arithmetic, subscription/free/unknown treatment and original-evidence protection. New episode/pass normalization is not implemented.
 - Separate path-redacted capture exports; publication still needs content and rights inspection.
 
-The retained runner still accepts the **old single-input self/cable→OSC plan**. It does not implement peer collection, two-route T1, VRCLT split passes or the new observation-completeness contract. Historical profile readiness is not new-protocol admission.
+The runner accepts **episode schema 2**, not historical stage plans. Ordinary inputs are peer; T1 uses simultaneous peer/self. The owner-approved VRCLT and Kikitan exceptions use self for ordinary cases and separate A/B self passes for T1, with one logical episode. Native receipt clocks do not certify producer completion or screen rendering. Historical profile readiness is not new-protocol admission.
 
 ## Install and inspect
 
-Use Python 3.11+; actual audio additionally requires Windows WASAPI and `.[audio]`.
+Use Python 3.11+; actual audio requires Windows WASAPI and `.[audio]`. WebSocket collectors require `.[native]`.
 
 ```powershell
-python -m pip install -e ".[test]"
+python -m pip install -e ".[audio,native,test]"
 python -m pytest -q
 python -m bench.cli --help
 python -m bench.cli profiles --catalog profiles/catalog.json
 ```
 
-`profiles` reports `historical_status`, `historical_ready_profiles` and `new_protocol_status: unverified`. It does not launch apps. `--check-ports` optionally probes and releases the historical loopback UDP ports; it is not future reservation or native-output readiness.
+`profiles` reports each profile's confirmed, blocked and unverified native condition scopes, separately from R6's pending final quality/time admission. It does not launch apps. `--check-ports` probes and releases relevant native loopback ports; availability is not collection or translation evidence.
 
-[Capture CLI documentation](docs/cli.md) describes the retained explicit-plan runner. Calibration, playback and real runs operate audio/app resources and require their applicable execution authority; this reset did not run them against translators.
+[Capture CLI documentation](docs/cli.md) defines the episode plan, native collectors, adapter lifecycle and clock/outcome boundaries. Real runs require explicit device selection and scoped app/service authority. No new corpus or TTS production is implied by a small development smoke.
 
 ## Reconcile local cost evidence
 
@@ -42,13 +42,13 @@ The first input is synthetic arithmetic. The second binds a historical VRCS2 cap
 
 The previous implementation is retained at commit [`fbab10a0455d91d5419d9673499d25b7ac86c566`](https://github.com/kapitalismho/vrc-translator-bench/tree/fbab10a0455d91d5419d9673499d25b7ac86c566). Old corpus preparation, sentence-alignment/delivery/FOL/LUL analysis, single-call ESA, MetricX and supplementary sampling commands have been removed from the current package, not renamed into the new protocol.
 
-`corpus/`, `profiles/catalog.json`, `profiles/findings/`, `profiles/evidence/` and ignored `.data/` assets retain their existing identities. Do not regenerate or rewrite their hashes to accept the reset. The old D1/D3 analysis has an integrity/acceptance hold; captured output is evidence, not an approved ranking. This reset neither repairs old scores nor completes issue #8.
+`corpus/`, historical fields in `profiles/catalog.json`, `profiles/findings/`, `profiles/evidence/` and ignored `.data/` assets retain their evidence identities. Do not regenerate or rewrite historical hashes. The old D1/D3 analysis has an integrity/acceptance hold; captured output is evidence, not an approved ranking. R1 does not repair old scores or complete the retired issue #8.
 
 Historical corpus/metric/quality guides remain explicitly marked as historical. Use the pinned revision to inspect their former implementation; do not resume old measurements or queues using this checkout.
 
 ## Contracts and rights
 
-- [Implementation sequence, retained/retired inventory and issue drafts](docs/benchmark-implementation-plan.md)
+- [Implementation sequence, retained/retired inventory and published issues](docs/benchmark-implementation-plan.md)
 - [Approved benchmark contract](docs/benchmark-final-plan.md)
 - [Architecture and current boundaries](docs/architecture.md)
 - [Capture CLI and adapter contracts](docs/cli.md)

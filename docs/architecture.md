@@ -1,17 +1,17 @@
 # Architecture
 
-The [final benchmark plan](benchmark-final-plan.md) owns the intended protocol. The [implementation plan](benchmark-implementation-plan.md) owns the reset classification and future outcome boundaries. This checkout preserves reusable infrastructure; it does not yet execute the native-output benchmark.
+The [final benchmark plan](benchmark-final-plan.md) and its [Kikitan amendment](https://github.com/kapitalismho/vrc-translator-bench/issues/14#issuecomment-6406954100) own the protocol. The [implementation plan](benchmark-implementation-plan.md) owns outcome boundaries. Native capture is a component, not an implemented or admitted end-to-end evaluation pipeline.
 
 ## Retained executable surfaces
 
 | Surface | Current responsibility | Boundary before new measurement |
 |---|---|---|
-| `bench/audio.py` | WASAPI PCM playback, callback/DAC mapping, measured cable correction; explicitly synthetic clock backend | One cable route, not synchronized role streams or every app's peer input |
-| `bench/adapter.py`, `gui_operator_adapter.py` | Subprocess lifecycle, observed state, identity/session-bound operator acknowledgements | Self/OSC fields are historical; source inspection is not effective app readiness |
-| `bench/plan.py`, `runner.py` | Frozen explicit plans, per-profile attempts, owned capture, resume, failure history | Old stage/direction/single-WAV contract and watchdog; no episode/pass or new observation-completeness guarantee |
-| `bench/osc.py` | Ordered raw `/chatbox/input` and `/chatbox/typing`, continuous stream and receipt clock | Not a universal peer collector; receipt is not producer completion or screen rendering |
-| `bench/storage.py`, `activity.py` | Atomic artifacts, hashes, journal, run ledger, OS locks | Keep original evidence immutable; callers must acquire the appropriate lock |
-| `bench/profiles.py` | Validate the 14-profile historical inventory, linked evidence and static wave constraints | Returns historical findings, not new-protocol admission |
+| `bench/audio.py` | Explicit WASAPI PCM routes, callback/DAC mapping, scheduled role starts and measured path correction; explicitly synthetic clock backend | Distinct devices retain actual origins/skew; no sample-accurate shared-hardware-clock claim |
+| `bench/adapter.py`, `gui_operator_adapter.py` | Subprocess lifecycle, independently observed state, identity/session-bound operator acknowledgements | Manual GUI state and process liveness do not establish continuous input/provider health |
+| `bench/plan.py`, `runner.py` | Schema-2 episodes, physical channel/logical role/pass bindings, owned lifecycle and immutable attempts | Historical stage plans are rejected; final profile admission belongs to R6 |
+| `bench/native.py`, `native_formats.py`, `native_transports.py`, `osc.py` | Read-only CLI/WebSocket/UDP/file collection, allowlisted native events, raw evidence, receipt clocks and gaps | Missing producer time, IDs, revision links or finality remain unknown; receipt is not rendering |
+| `bench/storage.py`, `activity.py` | Atomic artifacts, hashes, journal, episode/pass ledger and OS locks | Keep original evidence immutable; callers must acquire the appropriate lock |
+| `bench/profiles.py` | All 14 profiles' independent native feasibility scopes and fixed wave constraints | Historical self findings never promote a new scope; R1 cannot grant R6 final admission |
 | `bench/quality_store.py` | Durable call/raw-response/cache/recovery ledger | Not a scheduler, rubric, result validator or two-stage evaluation implementation |
 | `bench/quality_transport.py`, `quality_process.py`, `quality_judge.py`, `quality_bridge.mjs` | Selected Astra subscription transport, isolated request payload, observed identity and owned Windows process tree | No public scoring command or paid/model fallback; future orchestration must acquire activity exclusion and validate judgments |
 | `bench/cost_inputs.py`, `costs.py` | Selected local usage records, attribution, dated Decimal calculations, partial/unknown/subscription conditions | Existing run/chunk normalization, not logical episode + role/pass cost binding |
@@ -19,13 +19,13 @@ The [final benchmark plan](benchmark-final-plan.md) owns the intended protocol. 
 
 The public CLI retains `run`, `status`, `calibrate`, `playback`, `profiles`, and `costs`. Obsolete `metrics`, `metrics-batch`, `quality`, `prepare-english`, corpus builders and generated-pilot commands have no compatibility aliases.
 
-## Intended cutover
+## Episode-native boundary
 
-Implement one episode-native path, not a parallel legacy evaluator. The native-input/collector outcome first owns the shared episode, role/pass, native output, clock/gap and outcome contracts. Small permitted development inputs are sufficient for that feasibility pilot; full corpus/TTS production waits for its findings.
+One episode preserves source identity and role WAVs on the original common timeline. Physical input channels are distinct from logical A/B roles. VRCLT and Kikitan use two separately originated self passes for T1; the other families retain simultaneous peer/self. Mixed-family first passes within a wave share a scheduled execution round; exception B passes follow separately. Actual concurrency admission still requires runtime evidence.
 
-Later outcomes supply frozen corpus/checkpoints, faithful native-output reconstruction, independent GEMBA-ESA error and score calls, weighted semantic-wait CDFs, logical-episode cost binding, and a versioned report consumed by Claude's presentation. Preserve unknown native fields rather than inventing IDs/finality. Preserve invalid/unsupported/indeterminate scope instead of renormalizing it away.
+Collectors begin before measured input and remain active through the common last-input-speech +15-second horizon. App, input and collector continuity are separate facts. A connected socket, living controller or silent OSC listener is not sufficient proof of a product no-output outcome. Early harness interruption is invalid. Product failures and unknown observation opportunity remain distinct; unplayed future work is not filled with zero scores or synthetic product failures.
 
-The old runner, profile inspector and cost normalization are **scheduled for in-place migration**, not certified as already compatible. No old D1–D6 identifier, OSC timestamp, correspondence score or cached judgment receives a new meaning silently. The new runtime must reject incompatible historical input rather than route through a shim.
+Later outcomes supply frozen corpus/checkpoints, native-output reconstruction, independent GEMBA-ESA error and score calls, weighted semantic-wait CDFs, logical-episode cost binding, and a common report consumed by Claude's presentation. The existing cost path remains historical run/chunk accounting until R5; do not pass new episodes through it as if normalization had migrated. No legacy evaluator or renamed score is retained.
 
 ## Evidence and ownership
 

@@ -32,6 +32,15 @@ def redact(value):
 
 
 class Adapter:
+    """JSON-line controller, not a translation collector.
+
+    Episode protocol: preflight, read_state, stop, reset_session, configure,
+    identity, start, begin_pass and liveness. reset_session requires real
+    conversation/reset evidence. liveness reports app_continuity and
+    input_continuity independently; process alive alone establishes neither.
+    Configured channel languages/models must not be reported as detected ones.
+    """
+
     def __init__(self, profile, root, session):
         self.profile = profile
         self.counter = 0

@@ -2,21 +2,24 @@ from __future__ import annotations
 
 import json
 import socket
-import sqlite3
 import struct
 import subprocess
 import sys
+import threading
 import time
 import wave
 from pathlib import Path
 
 import pytest
 
-from bench.runner import speech_timeout
+import bench.audio as audio_module
+import bench.runner as runner_module
+from bench.adapter import OperationalError, ProductError
+from bench.audio import ClockPlayback
 from bench.osc import decode, encode
 from bench.plan import load_plan
-from bench.storage import Journal, Ledger, digest
-
+from bench.runner import Runner
+from bench.storage import Journal, Ledger, atomic_json, digest
 
 REPO = Path(__file__).resolve().parents[1]
 ADAPTER = REPO / "tests" / "fixtures" / "controlled_adapter.py"
@@ -28,35 +31,36 @@ def free_port():
         return sock.getsockname()[1]
 
 
-def make_plan(root, scenarios=None, durations=(0.12, 0.12), tail=0.08):
+def make_plan(root, families=None, kinds=("P1", "T1"), duration=0.12, scenarios=None):
     root.mkdir(parents=True, exist_ok=True)
-    scenarios = scenarios or {"P1": {}}
+    families = families or {"P1": "kikitan"}
     profiles = []
-    for name, scenario in scenarios.items():
-        scenario_path = root / f"{name}-scenario.json"
-        scenario_path.write_text(json.dumps(scenario), encoding="utf-8")
-        port = free_port()
-        profiles.append({"id": name, "adapter": [sys.executable, str(ADAPTER), "--state", str(root / f"{name}-state.json"), "--scenario", str(scenario_path)],
-                         "quota_scope": "shared" if len(scenarios) > 1 else name,
-                         "osc": {"host": "127.0.0.1", "port": port},
-                         "expected_state": {"microphone": "CABLE Output (synthetic)", "voice_output": False, "osc_host": "127.0.0.1", "osc_port": port},
-                         "metadata": {"version": "synthetic-fixture", "provider": None, "model": None}, "key_aliases": []})
-    def audio(name, duration):
-        path = root / f"{name}.wav"
-        with wave.open(str(path), "wb") as target:
-            target.setnchannels(1)
-            target.setsampwidth(2)
-            target.setframerate(48000)
-            target.writeframes(b"\0\0" * round(duration * 48000))
-        return str(path)
-    check = {"audio": audio("check", 0.1), "tail_seconds": 0.04}
-    stages = [{"kind": "chunk", "wave": "W1", "direction": "D1", "chunk": f"c{index + 1}",
-               "audio": audio(f"c{index + 1}", duration), "profiles": list(scenarios), "tail_seconds": tail,
-               "speech_intervals": [[0, duration]]} for index, duration in enumerate(durations)]
-    plan = {"synthetic": True, "frozen_rule_revision": "test-rules-only", "price_table_version": "not-applicable-synthetic",
-            "profiles": profiles, "output_check": check, "stages": stages}
+    for name, family in families.items():
+        scenario = root / f"{name}-scenario.json"
+        atomic_json(scenario, (scenarios or {}).get(name, {}))
+        log = root / f"{name}.log"
+        log.touch()
+        profiles.append({"id": name, "adapter": [sys.executable, str(ADAPTER), "--state", str(root / f"{name}-state.json"), "--scenario", str(scenario)],
+                         "collector": {"family": family, "host": "127.0.0.1", "port": free_port(), "log_path": str(log)},
+                         "routes": {channel: {"output_device": f"synthetic-{name}-{channel}", "input_device": f"synthetic-{name}-{channel}-capture"} for channel in ("self", "peer")},
+                         "expected_state": {"voice_output": False}, "metadata": {"model": "configured-test-model", "detected_language": None}})
+    episodes = []
+    for index, kind in enumerate(kinds):
+        roles = {}
+        for role in (("A", "B") if kind == "T1" else ("A",)):
+            filename = root / f"e{index + 1}-{role}.wav"
+            with wave.open(str(filename), "wb") as target:
+                target.setnchannels(1)
+                target.setsampwidth(2)
+                target.setframerate(48000)
+                target.writeframes((b"\1\0" if role == "A" else b"\2\0") * round(duration * 48000))
+            roles[role] = {"audio": str(filename), "source_language": "en" if role == "A" else "zh",
+                           "target_language": "zh" if role == "A" else "en",
+                           "speech_intervals": [] if kind == "C1" else [[0, duration if role == "B" or kind != "T1" else duration / 2]]}
+        episodes.append({"episode_id": f"e{index + 1}", "kind": kind, "wave": "W1", "language_pair": "en-zh", "profiles": list(families), "roles": roles})
     path = root / "input-plan.json"
-    path.write_text(json.dumps(plan), encoding="utf-8")
+    atomic_json(path, {"schema_version": 2, "synthetic": True, "frozen_rule_revision": "synthetic-only", "price_table_version": "not-applicable",
+                       "execution_scope": {"kind": "synthetic"}, "profiles": profiles, "episodes": episodes})
     return path
 
 
@@ -66,7 +70,7 @@ def command(root, plan=None, resume=False):
 
 
 def execute(args, root, label):
-    result = subprocess.run(args, cwd=REPO, capture_output=True, text=True, timeout=30)
+    result = subprocess.run(args, cwd=REPO, capture_output=True, text=True, timeout=90)
     (root / f"{label}-stdout.txt").write_text(result.stdout, encoding="utf-8")
     (root / f"{label}-stderr.txt").write_text(result.stderr, encoding="utf-8")
     return result
@@ -76,19 +80,12 @@ def report(root):
     return json.loads((root / "runs" / "smoke" / "manifest.json").read_text(encoding="utf-8"))
 
 
-def events(root):
-    result = []
-    for path in (root / "runs" / "smoke").glob("stream-*.jsonl"):
-        result.extend(json.loads(line) for line in path.read_text(encoding="utf-8").splitlines())
-    return sorted((item for item in result if "recv_seq" in item), key=lambda item: item["recv_seq"])
-
-
 def wait_until(predicate, seconds=10):
     deadline = time.monotonic() + seconds
     while time.monotonic() < deadline:
         try:
             value = predicate()
-        except (OSError, ValueError, sqlite3.Error):
+        except (OSError, ValueError):
             value = None
         if value:
             return value
@@ -96,314 +93,363 @@ def wait_until(predicate, seconds=10):
     raise AssertionError("Expected externally visible state was not reached")
 
 
-def test_cli_order_tail_cross_chunk_and_durable_status(tmp_path):
-    scenario = {"chunks": {"c1": {"events": [
-        {"delay": 0.025, "address": "/chatbox/typing", "args": [True]},
-        {"delay": 0.04, "address": "/chatbox/input", "args": ["first", True, False]},
-        {"delay": 0.16, "address": "/chatbox/input", "args": ["tail", True, False]},
-        {"delay": 0.27, "address": "/chatbox/input", "args": ["late-c1", True, False]}]}}}
-    plan = make_plan(tmp_path, {"P1": scenario})
-    completed = execute(command(tmp_path, plan), tmp_path, "run")
-    assert completed.returncode == 0, completed.stderr
-    capture = events(tmp_path)
-    assert [item["recv_seq"] for item in capture] == list(range(1, len(capture) + 1))
-    assert [item["args"][0] for item in capture if item["chunk"] == "c1" and item["address"] == "/chatbox/input"] == ["c1 translation", "first", "tail"]
-    late = next(item for item in capture if item["args"][0] == "late-c1")
-    assert late["chunk"] == "c2"
-    assert any(item["chunk"] == "c1" for item in late["source_candidate_provenance"])
-    tail_event = next(item for item in capture if item["args"][0] == "tail")
-    source = tail_event["source_candidate_provenance"][-1]
-    assert source["playback_end_ns"] < tail_event["t_ns"] < source["observation_end_ns"]
-    manifest = report(tmp_path)
-    assert manifest["counts"] == {"pending": 0, "running": 0, "done": 5, "product_failure": 0, "invalid": 0}
-    assert manifest["plan"]["calibration"]["status"] == "absent"
-    assert manifest["plan"]["calibration"]["offset_ns"] is None
-    for attempt in manifest["attempts"]:
-        path = tmp_path / "runs" / "smoke" / attempt["trace"]
-        assert digest(path) == attempt["checksum"]
-        assert attempt["end_wall"] and attempt["end_ns"]
-    state = json.loads((tmp_path / "P1-state.json").read_text())
-    assert state["starts"] == 1
-    assert state["stops"] == 1
-    status = execute([sys.executable, "-m", "bench.cli", "status", "smoke", "--root", str(tmp_path / "runs")], tmp_path, "status")
-    assert status.returncode == 0
-    assert json.loads(status.stdout)["estimated_remaining_seconds"] == 0
+def trace(root, attempt):
+    return [json.loads(line) for line in (root / attempt["trace"]).read_text(encoding="utf-8").splitlines()]
 
 
-def test_hard_interruption_resume_preserves_history_and_replays_only_unfinished(tmp_path):
-    plan = make_plan(tmp_path, durations=(0.12, 0.7))
-    args = command(tmp_path, plan)
-    process = subprocess.Popen(args, cwd=REPO, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+class VirtualClock:
+    def __init__(self):
+        self.now = 10_000_000_000
+        self.hooks = []
+
+    def perf_counter_ns(self):
+        return self.now
+
+    def sleep(self, seconds):
+        self.now += round(seconds * 1e9)
+        for hook in self.hooks:
+            hook(self.now)
+
+
+class FakeSink:
+    instances = []
+    output = False
+    continuity_value = True
+    fail_at = None
+
+    def __init__(self, root, run_id, session, profiles):
+        self.root, self.session = Path(root), session
+        self.lock = threading.RLock()
+        self.last_output, self.attempt_last_output = {}, {}
+        self.context, self.targets, self.active, self.lifecycle = {}, {}, set(), []
+        self.origins = {}
+        self.journal = Journal(self.root / f"stream-{session}.tmp")
+        self.__class__.instances.append(self)
+
+    def attach(self, profile, context, journal):
+        self.context[profile], self.targets[profile] = context, journal
+        self.attempt_last_output[profile] = None
+        self.origins.pop(profile, None)
+
+    def detach(self, profile):
+        self.targets.pop(profile, None)
+
+    def start(self, profile):
+        self.active.add(profile)
+        self.lifecycle.append(("start", profile, runner_module.time.perf_counter_ns()))
+
+    def stop(self, profile):
+        if profile in self.active:
+            self.lifecycle.append(("stop", profile, runner_module.time.perf_counter_ns()))
+        self.active.discard(profile)
+
+    def identity(self, *args):
+        pass
+
+    def source(self, profile, value):
+        self.origins[profile] = value["playback_dac_start_ns"]
+        self.record(value)
+
+    def record(self, value):
+        self.journal.append(value)
+
+    def phase(self, profiles, phase, **details):
+        for profile in profiles:
+            self.context[profile].update(capture_phase=phase, **details)
+
+    def continuity(self, profile):
+        return {"continuous": self.continuity_value, "evidence": ["fake collector interval"], "gaps": []}
+
+    def check(self, profile=None):
+        now = runner_module.time.perf_counter_ns()
+        if self.fail_at is not None and now >= self.fail_at:
+            raise OperationalError("synthetic collector disconnected")
+        for name in self.active:
+            if (self.output and self.context[name].get("capture_phase") == "input" and self.attempt_last_output[name] is None
+                    and name in self.origins and now >= self.origins[name]):
+                self.last_output[name] = self.attempt_last_output[name] = now
+                channel = next(iter(self.context[name]["roles"]))
+                self.targets[name].append({"record": "native_output_event", "input_channel": channel,
+                                           "translated_text": "fake translation", "collector_received_monotonic": now, **self.context[name]})
+
+    def close(self):
+        return self.journal.finalize()
+
+
+class FakeAdapter:
+    instances = {}
+    failure = None
+    continuous = True
+    refuse = False
+    bad_reset = False
+    start_error = False
+
+    def __init__(self, profile, root, session):
+        self.profile = profile["id"]
+        self.state = {"running": False}
+        self.calls = []
+        self.failed = False
+        self.log = Journal(Path(root) / f"diagnostic-{self.profile}-{session}.tmp")
+        self.__class__.instances[self.profile] = self
+
+    def observe(self):
+        pass
+
+    def call(self, method, **params):
+        self.calls.append((method, params, runner_module.time.perf_counter_ns()))
+        if method == "preflight":
+            return {"ready": True, "metadata": {"model": "actually-observed-model", "detected_language": None}}
+        if method == "reset_session":
+            return {"reset": not self.bad_reset, "basis": "fake test reset", "evidence": ["fake generation"]}
+        if method == "configure" and not self.refuse:
+            self.state.update(params["requested_state"])
+        if method == "read_state":
+            return dict(self.state)
+        if method in ("start", "stop"):
+            self.state["running"] = method == "start"
+            if method == "start" and self.start_error:
+                raise OperationalError("applied before missing start acknowledgement")
+            return {"running": self.state["running"]}
+        if method == "liveness":
+            if self.failure and not self.failed:
+                self.failed = True
+                raise ProductError(self.failure, "controlled product failure", "shared")
+            continuity = {"continuous": self.continuous, "evidence": ["fake independently observed interval"], "gaps": []}
+            return {"alive": True, "app_continuity": continuity, "input_continuity": continuity}
+        return {}
+
+    def close(self):
+        return self.log.finalize()
+
+
+@pytest.fixture
+def runtime(tmp_path, monkeypatch):
+    clock = VirtualClock()
+    FakeSink.instances, FakeSink.output, FakeSink.continuity_value, FakeSink.fail_at = [], False, True, None
+    FakeAdapter.instances, FakeAdapter.failure, FakeAdapter.continuous = {}, None, True
+    FakeAdapter.refuse, FakeAdapter.bad_reset, FakeAdapter.start_error = False, False, False
+    monkeypatch.setattr(runner_module, "time", clock)
+    monkeypatch.setattr(audio_module, "time", clock)
+    monkeypatch.setattr(runner_module, "NativeSink", FakeSink)
+    monkeypatch.setattr(runner_module, "Adapter", FakeAdapter)
+    def run(path, resume=False, plan=None):
+        plan = plan or load_plan(path, "unit")
+        root = tmp_path / "unit-run"
+        root.mkdir(exist_ok=True)
+        runner = Runner(root, plan, plan["synthetic"], resume)
+        result = runner.run()
+        return root, result
+    return clock, run
+
+
+def test_episode_schema_role_bindings_and_approved_self_exceptions(tmp_path):
+    plan = load_plan(make_plan(tmp_path, {"PP": "puripuly", "LT": "vrclt", "K": "kikitan"}), "schema")
+    assert "stages" not in plan
+    ordinary_peer, ordinary_self, simultaneous, a, b = plan["passes"]
+    assert ordinary_peer["profiles"] == ["PP"] and ordinary_peer["roles"]["peer"]["role"] == "A"
+    assert ordinary_self["profiles"] == ["LT", "K"] and ordinary_self["roles"]["self"]["source_language"] == "en"
+    assert simultaneous["roles"] == {"peer": {"role": "A", "source_language": "en", "target_language": "zh"}, "self": {"role": "B", "source_language": "zh", "target_language": "en"}}
+    assert a["episode_id"] == b["episode_id"] == "e2"
+    assert a["pass_id"] == "A" and b["pass_id"] == "B"
+    assert a["roles"]["self"]["role"] == "A" and b["roles"]["self"]["role"] == "B"
+    assert a["common_last_speech_seconds"] == b["common_last_speech_seconds"] == .12
+    assert all(item["tail_seconds"] == 15 for item in plan["passes"])
+
+
+@pytest.mark.parametrize("mutation,match", [
+    (lambda p: p.update(schema_version=1, stages=[]), "legacy"),
+    (lambda p: p["profiles"][0]["routes"]["self"].pop("output_device"), "explicit output_device"),
+    (lambda p: p.update(synthetic=False, execution_scope={"kind": "pilot", "reason": "calibration negative test"}), "absent offset is not zero"),
+    (lambda p: p["episodes"][1]["roles"]["B"].update(source_language="en"), "fixed directions"),
+    (lambda p: p["episodes"][1]["roles"]["B"].update(audio=p["episodes"][0]["roles"]["A"]["audio"], speech_intervals=[[0, 1]]), "within the common timeline"),
+])
+def test_plan_rejects_legacy_and_unproven_inputs(tmp_path, mutation, match):
+    path = make_plan(tmp_path)
+    plan = json.loads(path.read_text())
+    mutation(plan)
+    atomic_json(path, plan)
+    with pytest.raises(ValueError, match=match):
+        load_plan(path, "invalid")
+
+
+@pytest.mark.parametrize("family,passes", [("puripuly", 1), ("vrclt", 2), ("kikitan", 2)])
+def test_fixed_roles_full_common_horizon_and_reset_only_per_pass(tmp_path, runtime, family, passes):
+    clock, run = runtime
+    path = make_plan(tmp_path, {"P1": family}, kinds=("T1",), duration=2)
+    root, result = run(path)
+    assert result["counts"]["done"] == passes
+    adapter = FakeAdapter.instances["P1"]
+    assert sum(method == "reset_session" for method, _, _ in adapter.calls) == passes
+    assert sum(method == "start" for method, _, _ in adapter.calls) == passes
+    for attempt in result["attempts"]:
+        rows = trace(root, attempt)
+        detail = json.loads(attempt["detail"])
+        assert detail["common_last_speech_seconds"] == 2  # A's own speech ends at 1, still waits for original B.
+        assert detail["observation_end_ns"] >= detail["observation_deadline_ns"]
+        for source in (row for row in rows if row.get("record") == "source_playback"):
+            assert detail["role_horizons_ns"][source["input_channel"]] == source["playback_dac_start_ns"] + 17_000_000_000
+            assert source["input_origin_ns"] is None and not source["actual_dac_observed"]
+            assert source["capture_phase"] == "input"
+        assert attempt["checksum"] == digest(root / attempt["trace"])
+        assert not detail["opportunity_established"]
+    sink = FakeSink.instances[-1]
+    for _, _, stopped in (entry for entry in sink.lifecycle if entry[0] == "stop"):
+        assert any(json.loads(a["detail"])["observation_deadline_ns"] <= stopped for a in result["attempts"])
+    assert all(work["outcome"] == "unknown_no_output" for work in result["work"])
+
+
+def test_no_sixty_second_watchdog_and_no_future_failure_filling(tmp_path, runtime):
+    _, run = runtime
+    path = make_plan(tmp_path, {"P1": "puripuly"}, kinds=("P3", "P1"), duration=90)
+    FakeAdapter.failure = "limit"
+    plan = load_plan(path, "unit")
+    plan["profiles"][0]["quota_scope"] = "shared"
+    root, result = run(path, plan=plan)
+    assert result["counts"]["product_failure"] == 1
+    assert result["counts"]["pending"] == 1 and result["pending_passes"] == [1]
+    detail = json.loads(result["attempts"][0]["detail"])
+    assert detail["playback"]["peer"]["complete"]
+    assert detail["observation_end_ns"] >= detail["playback"]["peer"]["end_ns"] + 15_000_000_000
+    assert not detail["opportunity_established"]
+
+
+@pytest.mark.parametrize("failure", ["collector", "settings", "reset", "start"])
+def test_harness_invalidity_stays_invalid_and_cleans_capture(tmp_path, runtime, failure):
+    _, run = runtime
+    path = make_plan(tmp_path, kinds=("P1",))
+    if failure == "collector":
+        FakeSink.fail_at = 11_000_000_000
+    elif failure == "settings":
+        FakeAdapter.refuse = True
+    elif failure == "reset":
+        FakeAdapter.bad_reset = True
+    else:
+        FakeAdapter.start_error = True
+    with pytest.raises(OperationalError):
+        run(path)
+    root = tmp_path / "unit-run"
+    manifest = json.loads((root / "manifest.json").read_text())
+    assert manifest["counts"]["invalid"] == 1 and manifest["counts"]["product_failure"] == 0
+    assert manifest["work"][0]["outcome"] == "invalid"
+    assert FakeAdapter.instances["P1"].state["running"] is False
+
+
+def test_independent_continuity_and_partial_role_output(tmp_path, runtime):
+    _, run = runtime
+    FakeSink.output = True
+    FakeAdapter.continuous = None
+    root, result = run(make_plan(tmp_path, {"P1": "puripuly"}, kinds=("T1",)))
+    detail = json.loads(result["attempts"][0]["detail"])
+    assert detail["continuity_established"] == {"app": False, "input": False, "collector": True}
+    assert detail["role_outcomes"]["A"]["status"] == "output_observed"
+    assert detail["role_outcomes"]["B"]["status"] == "unknown_no_output"
+    assert result["work"][0]["outcome"] == "mixed_role_outcomes"
+
+
+def test_wave_concurrency_and_model_observations_are_preserved(tmp_path, runtime):
+    _, run = runtime
+    path = make_plan(tmp_path, {"P1": "puripuly", "P2": "vrct"}, kinds=("T1",))
+    root, result = run(path)
+    sources = [row for attempt in result["attempts"] for row in trace(root, attempt) if row.get("record") == "source_playback"]
+    assert len({row["playback_dac_start_ns"] for row in sources}) == 1
+    assert {row["profile"] for row in sources} == {"P1", "P2"}
+    metadata = [json.loads(record["detail"])["metadata"] for record in result["records"] if record["kind"] == "profile_metadata"]
+    assert all(row["model"] == "actually-observed-model" and row["detected_language"] is None for row in metadata)
+
+
+def test_trace_finalized_before_terminal_and_attempts_immutable(tmp_path):
+    plan = load_plan(make_plan(tmp_path / "input", kinds=("P1",)), "atomic")
+    ledger = Ledger(tmp_path)
     try:
-        def second_running():
-            state = json.loads((tmp_path / "P1-state.json").read_text())
-            return state.get("last_stage", {}).get("chunk") == "c2"
-        wait_until(second_running)
-        time.sleep(0.07)
-        process.terminate()
-        stdout, stderr = process.communicate(timeout=10)
-        (tmp_path / "interrupted-stdout.txt").write_text(stdout)
-        (tmp_path / "interrupted-stderr.txt").write_text(stderr)
+        ledger.seed(plan["passes"])
+        attempt = ledger.begin(ledger.work(0)[0], False)
+        journal = Journal(tmp_path / attempt["trace"])
+        journal.append({"partial": True})
+        assert ledger.work(0)[0]["state"] == "running"
+        filename, checksum = journal.finalize()
+        ledger.finish(attempt, "done", None, filename, checksum)
+        with pytest.raises(RuntimeError, match="immutable"):
+            ledger.finish(attempt, "invalid", "rewrite", filename, checksum)
     finally:
-        if process.poll() is None:
-            process.kill()
-            process.wait()
-    database = tmp_path / "runs" / "smoke" / "ledger.sqlite"
-    with sqlite3.connect(database) as db:
-        before = db.execute("SELECT id,state,trace,checksum FROM attempts WHERE state='done' ORDER BY id").fetchall()
-        assert db.execute("SELECT COUNT(*) FROM attempts WHERE state='running'").fetchone()[0] == 1
-    state_path = tmp_path / "P1-state.json"
-    changed_state = json.loads(state_path.read_text())
-    changed_state["microphone"] = "wrong-device-after-interruption"
-    state_path.write_text(json.dumps(changed_state))
-    resumed = execute(command(tmp_path, resume=True), tmp_path, "resume")
-    assert resumed.returncode == 0, resumed.stderr
-    manifest = report(tmp_path)
-    invalid = [item for item in manifest["attempts"] if item["state"] == "invalid"]
-    assert len(invalid) == 1 and invalid[0]["reason"] == "interrupted"
-    retried = [item for item in manifest["attempts"] if item["work_id"] == invalid[0]["work_id"]]
-    assert [item["number"] for item in retried] == [1, 2]
-    assert retried[1]["resumed"] == 1 and retried[1]["state"] == "done"
-    for identity, state, trace, checksum in before:
-        current = next(item for item in manifest["attempts"] if item["id"] == identity)
-        assert (current["state"], current["trace"], current["checksum"]) == (state, trace, checksum)
-    assert any(item["kind"] == "resume_check" for item in manifest["work"])
-    assert manifest["counts"]["pending"] == manifest["counts"]["invalid"] == 0
-    capture = events(tmp_path)
-    assert any(item.get("stage") == "resume_setup" and item.get("corrected") for item in manifest["application_observations"])
-    assert len({item["recv_seq"] for item in capture}) == len(capture)
-    assert any(item["source_candidate_provenance"] and len({entry["clock_session"] for entry in item["source_candidate_provenance"]}) > 1 for item in capture)
-
-
-@pytest.mark.parametrize("reason,starts", [("provider", 1), ("crash", 2)])
-def test_product_failure_is_retained_and_only_crash_restarts_next_chunk(tmp_path, reason, starts):
-    plan = make_plan(tmp_path, {"P1": {"chunks": {"c1": {"events": [{"delay": 0.04, "failure": {"reason": reason, "message": "controlled failure"}}]}}}})
-    result = execute(command(tmp_path, plan), tmp_path, "product")
-    assert result.returncode == 1, result.stderr
-    manifest = report(tmp_path)
-    failures = [item for item in manifest["attempts"] if item["state"] == "product_failure"]
-    assert len(failures) == 1 and failures[0]["reason"] == reason
-    assert not [item for item in manifest["attempts"] if item["state"] == "invalid"]
-    state = json.loads((tmp_path / "P1-state.json").read_text())
-    assert state["starts"] == starts
-    original = failures[0]
-    result = execute(command(tmp_path, resume=True), tmp_path, "product-resume")
-    assert result.returncode == 1
-    assert next(item for item in report(tmp_path)["attempts"] if item["id"] == original["id"]) == original
-
-
-def test_quota_propagates_without_replacing_completed_profile_work(tmp_path):
-    limit = {"chunks": {"c2": {"events": [{"delay": 0.04, "failure": {"reason": "limit", "scope": "shared", "message": "controlled quota"}}]}}}
-    plan = make_plan(tmp_path, {"P1": limit, "P2": {}}, durations=(0.12, 0.12, 0.12))
-    result = execute(command(tmp_path, plan), tmp_path, "quota")
-    assert result.returncode == 1, result.stderr
-    manifest = report(tmp_path)
-    for work in manifest["work"]:
-        stage = manifest["plan"]["stages"][work["stage"]]
-        if stage["kind"] == "chunk":
-            assert work["state"] == ("done" if stage["chunk"] == "c1" else "product_failure")
-    failed = [item for item in manifest["attempts"] if item["state"] == "product_failure"]
-    assert len(failed) == 4 and {item["reason"] for item in failed} == {"limit"}
-    assert all(json.loads(item["detail"])["reached_wall"] for item in failed)
-    assert not manifest["pending_stages"]
-
-
-def test_unsupported_is_na_and_settings_mismatch_is_operational_invalid(tmp_path):
-    unsupported = tmp_path / "unsupported"
-    plan = make_plan(unsupported, {"P1": {"unsupported": ["D1"]}})
-    result = execute(command(unsupported, plan), unsupported, "na")
-    assert result.returncode == 0
-    assert {item["outcome"] for item in report(unsupported)["work"]} == {"N/A"}
-    invalid = tmp_path / "invalid"
-    plan = make_plan(invalid, {"P1": {"refuse_configuration": True}})
-    result = execute(command(invalid, plan), invalid, "invalid")
-    assert result.returncode == 2
-    manifest = report(invalid)
-    assert manifest["counts"]["invalid"] == 1
-    assert manifest["counts"]["product_failure"] == 0
-    assert "mismatch" in manifest["attempts"][0]["reason"]
-
-
-def test_typing_never_satisfies_output_check(tmp_path):
-    plan = make_plan(tmp_path, {"P1": {"check": {"events": [{"delay": 0.025, "address": "/chatbox/typing", "args": [True]}]}}})
-    result = execute(command(tmp_path, plan), tmp_path, "typing")
-    assert result.returncode == 2
-    assert report(tmp_path)["attempts"][-1]["reason"] == "output_check_no_output"
-    assert events(tmp_path)[0]["address"] == "/chatbox/typing"
-
-
-def test_trace_finalized_before_terminal_state_and_immutable(tmp_path):
-    plan_path = make_plan(tmp_path)
-    plan = load_plan(plan_path, "atomic")
-    root = tmp_path / "ledger"
-    root.mkdir()
-    ledger = Ledger(root)
-    ledger.seed(plan["stages"])
-    work = ledger.work(0)[0]
-    attempt = ledger.begin(work, False)
-    journal = Journal(root / attempt["trace"])
-    journal.append({"partial": True})
-    assert ledger.work(0)[0]["state"] == "running"
-    trace, checksum = journal.finalize()
-    assert (root / trace).exists() and not (root / attempt["trace"]).exists()
-    ledger.finish(attempt, "done", None, trace, checksum)
-    with pytest.raises(RuntimeError, match="immutable"):
-        ledger.finish(attempt, "invalid", "not_allowed", trace, checksum)
-    ledger.close()
+        ledger.close()
 
 
 def test_osc_bundle_wire_order_and_malformed_rejection():
-    first = encode("/chatbox/typing", [True])
-    second = encode("/chatbox/input", ["translated", True, False])
-    packet = b"#bundle\0" + b"\0" * 8 + struct.pack(">I", len(first)) + first + struct.pack(">I", len(second)) + second
+    packets = [encode("/chatbox/typing", [True]), encode("/chatbox/input", ["translated", True, False])]
+    packet = b"#bundle\0" + b"\0" * 8 + b"".join(struct.pack(">I", len(part)) + part for part in packets)
     assert decode(packet) == [("/chatbox/typing", [True]), ("/chatbox/input", ["translated", True, False])]
     with pytest.raises(ValueError):
         decode(packet[:-2])
 
 
-def test_real_run_rejects_missing_measured_calibration(tmp_path):
-    path = make_plan(tmp_path)
+@pytest.mark.parametrize("kind", ["P1", "T1"])
+def test_mixed_family_first_passes_share_one_concurrent_round(tmp_path, runtime, kind):
+    _, run = runtime
+    path = make_plan(tmp_path, {"PP4": "puripuly", "VRCT3": "vrct", "VRCLT1": "vrclt", "KIKI2": "kikitan"}, kinds=(kind,))
+    plan = load_plan(path, "mixed")
+    assert len(plan["rounds"]) == (2 if kind == "T1" else 1)
+    assert {name for index in plan["rounds"][0]["pass_indices"] for name in plan["passes"][index]["profiles"]} == {"PP4", "VRCT3", "VRCLT1", "KIKI2"}
+    root, result = run(path)
+    by_profile = {}
+    for attempt in result["attempts"]:
+        work = next(work for work in result["work"] if work["id"] == attempt["work_id"])
+        sources = [row for row in trace(root, attempt) if row.get("record") == "source_playback"]
+        by_profile.setdefault(work["profile"], []).append((work["pass_id"], sources))
+    origins = {entries[0][1][0]["playback_dac_start_ns"] for entries in by_profile.values()}
+    assert len(origins) == 1
+    assert by_profile["PP4"][0][1][0]["input_channel"] == "peer"
+    assert by_profile["VRCLT1"][0][1][0]["input_channel"] == by_profile["KIKI2"][0][1][0]["input_channel"] == "self"
+    if kind == "T1":
+        assert len(by_profile["PP4"]) == len(by_profile["VRCT3"]) == 1
+        assert [entry[0] for entry in by_profile["KIKI2"]] == ["A", "B"]
+        assert by_profile["KIKI2"][1][1][0]["playback_dac_start_ns"] >= next(iter(origins)) + 15_120_000_000
+
+
+def test_incompatible_role_buffers_on_same_device_are_invalid(tmp_path, runtime):
+    _, run = runtime
+    path = make_plan(tmp_path, {"PP4": "puripuly", "KIKI2": "kikitan"}, kinds=("T1",))
     plan = json.loads(path.read_text())
-    plan["synthetic"] = False
-    path.write_text(json.dumps(plan))
-    with pytest.raises(ValueError, match="absent offset is not zero"):
-        load_plan(path, "missing-calibration")
-
-
-def test_shared_wave_resume_never_replays_product_failed_profile(tmp_path):
-    scenario = {"chunks": {"c2": {"events": [{"delay": 0.04, "failure": {"reason": "provider", "message": "retained-first-attempt"}}]}}}
-    plan = make_plan(tmp_path, {"P1": scenario, "P2": {}}, durations=(0.12, 0.7))
-    process = subprocess.Popen(command(tmp_path, plan), cwd=REPO, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-    database = tmp_path / "runs" / "smoke" / "ledger.sqlite"
-    try:
-        def partly_finished():
-            with sqlite3.connect(database) as db:
-                return db.execute("SELECT COUNT(*) FROM attempts WHERE state='product_failure'").fetchone()[0] == 1 and db.execute("SELECT COUNT(*) FROM attempts WHERE state='running'").fetchone()[0] == 1
-        wait_until(partly_finished)
-        process.terminate()
-        stdout, stderr = process.communicate(timeout=10)
-        (tmp_path / "interrupted-stdout.txt").write_text(stdout)
-        (tmp_path / "interrupted-stderr.txt").write_text(stderr)
-    finally:
-        if process.poll() is None:
-            process.kill()
-            process.wait()
-    with sqlite3.connect(database) as db:
-        p1_before = db.execute("SELECT a.id,a.state,a.trace,a.checksum FROM attempts a JOIN work w ON a.work_id=w.id WHERE w.profile='P1' ORDER BY a.id").fetchall()
-    result = execute(command(tmp_path, resume=True), tmp_path, "shared-resume")
-    assert result.returncode == 1, result.stderr
-    with sqlite3.connect(database) as db:
-        assert db.execute("SELECT a.id,a.state,a.trace,a.checksum FROM attempts a JOIN work w ON a.work_id=w.id WHERE w.profile='P1' ORDER BY a.id").fetchall() == p1_before
-    manifest = report(tmp_path)
-    assert not manifest["pending_stages"]
-    assert all(work["profile"] == "P2" for work in manifest["work"] if work["kind"] in ("resume_setup", "resume_check"))
-    assert json.loads((tmp_path / "P1-state.json").read_text())["starts"] == 1
-
-
-def test_continuing_speech_timeout_preserves_progress_and_silence():
-    second = 1_000_000_000
-    assert not speech_timeout(59 * second, 0, 0, [[0, 120]], None)
-    assert speech_timeout(60 * second, 0, 0, [[0, 120]], None)
-    assert not speech_timeout(61 * second, 0, 0, [[0, 120]], 5 * second)
-    assert not speech_timeout(80 * second, 0, 0, [[0, 50], [100, 180]], None)
-    assert not speech_timeout(150 * second, 0, 0, [[100, 180]], None)
-    assert speech_timeout(161 * second, 0, second, [[100, 180]], None)
-
-
-def test_stage_kinds_direction_change_and_source_port_fallback(tmp_path):
-    scenarios = {"P1": {"source_port": free_port()}, "P2": {"source_port": free_port()}}
-    path = make_plan(tmp_path, scenarios, durations=(0.12, 0.12, 0.12))
-    plan = json.loads(path.read_text())
-    destination = plan["profiles"][0]["osc"]["port"]
     for profile in plan["profiles"]:
-        profile["osc"]["port"] = destination
-        profile["osc"]["source_port"] = scenarios[profile["id"]]["source_port"]
-        profile["expected_state"]["osc_port"] = destination
-    plan["stages"][0]["kind"] = "isolated"
-    plan["stages"][1]["kind"] = "nonspeech"
-    plan["stages"][1].pop("speech_intervals")
-    plan["stages"][2]["kind"] = "repeat"
-    plan["stages"][2]["direction"] = "D2"
-    path.write_text(json.dumps(plan))
-    result = execute(command(tmp_path, path), tmp_path, "stages")
-    assert result.returncode == 0, result.stderr
-    manifest = report(tmp_path)
-    assert {"isolated", "nonspeech", "repeat", "direction", "setup", "output_check"} <= {item["kind"] for item in manifest["work"]}
-    capture = events(tmp_path)
-    assert {item["config"] for item in capture} == {"P1", "P2"}
-    assert all(item["source_port"] == scenarios[item["config"]]["source_port"] for item in capture)
-    assert any(item["direction"] == "D2" for item in capture)
-    assert all(json.loads((tmp_path / f"{profile}-state.json").read_text())["starts"] == 1 for profile in scenarios)
+        profile["routes"]["self"]["output_device"] = "same-device"
+    atomic_json(path, plan)
+    with pytest.raises(OperationalError, match="Different role buffers"):
+        run(path)
 
 
-def test_wave_transition_stops_leaving_retains_shared_and_starts_entering(tmp_path):
-    late = {"chunks": {"c1": {"events": [
-        {"delay": 0.04, "address": "/chatbox/input", "args": ["first-wave", True, False]},
-        {"delay": 0.65, "address": "/chatbox/input", "args": ["delayed-first-wave", True, False]}]}}}
-    path = make_plan(tmp_path, {"P1": late, "P2": {}, "P3": {}}, durations=(0.12, 0.12, 0.5))
+def test_route_audio_length_must_preserve_common_timeline(tmp_path):
+    path = make_plan(tmp_path, kinds=("P1", "T1"), duration=1)
     plan = json.loads(path.read_text())
-    plan["stages"][0]["profiles"] = ["P1", "P2"]
-    plan["stages"][1]["profiles"] = ["P2"]
-    plan["stages"][2]["profiles"] = ["P2", "P3"]
-    plan["stages"][2]["wave"] = "W2"
-    path.write_text(json.dumps(plan))
-    result = execute(command(tmp_path, path), tmp_path, "waves")
-    assert result.returncode == 0, result.stderr
-    states = {profile: json.loads((tmp_path / f"{profile}-state.json").read_text()) for profile in ("P1", "P2", "P3")}
-    assert all(item["starts"] == item["stops"] == 1 for item in states.values())
-    first_stop = next(item["t_ns"] for item in states["P1"]["lifecycle"] if item["action"] == "stop")
-    entering_start = next(item["t_ns"] for item in states["P3"]["lifecycle"] if item["action"] == "start")
-    retained_stop = next(item["t_ns"] for item in states["P2"]["lifecycle"] if item["action"] == "stop")
-    assert first_stop < entering_start < retained_stop
-    manifest = report(tmp_path)
-    transitions = [json.loads(item["detail"]) for item in manifest["records"] if item["kind"] == "wave_enter"]
-    assert transitions[-1]["retained"] == ["P2"]
-    delayed = next(item for item in events(tmp_path) if item["args"][0] == "delayed-first-wave")
-    assert delayed["config"] == "P1" and any(item["chunk"] == "c1" for item in delayed["source_candidate_provenance"])
+    shorter = Path(plan["episodes"][0]["roles"]["A"]["audio"])
+    with wave.open(str(shorter), "wb") as target:
+        target.setnchannels(1)
+        target.setsampwidth(2)
+        target.setframerate(48000)
+        target.writeframes(b"\0\0" * 4800)
+    plan["episodes"][1]["roles"]["A"].update(audio=str(shorter), speech_intervals=[[0, .1]])
+    plan["episodes"] = [plan["episodes"][1]]
+    atomic_json(path, plan)
+    with pytest.raises(ValueError, match="common timeline"):
+        load_plan(path, "length")
 
 
-def test_exited_adapter_is_invalid_and_diagnostics_are_finalized(tmp_path):
-    path = make_plan(tmp_path)
+def test_main_wave_membership_and_explicit_pilot_subset(tmp_path, monkeypatch):
+    import bench.plan as plan_module
+    monkeypatch.setattr(plan_module, "_calibration", lambda *args: {"status": "measured", "offset_ns": 0})
+    path = make_plan(tmp_path, {"PP4": "puripuly", "KIKI2": "kikitan", "VRCLT1": "vrclt", "VRCT3": "vrct"}, kinds=("T1",))
     plan = json.loads(path.read_text())
-    plan["profiles"][0]["adapter"] = [sys.executable, "-c", "import sys; print('not protocol JSON', flush=True); sys.exit(7)"]
-    path.write_text(json.dumps(plan))
-    result = execute(command(tmp_path, path), tmp_path, "adapter-exit")
-    assert result.returncode == 2
-    manifest = report(tmp_path)
-    assert manifest["counts"]["invalid"] == 1 and manifest["counts"]["product_failure"] == 0
-    diagnostic = next(json.loads(item["detail"]) for item in manifest["records"] if item["kind"] == "diagnostic_artifact")
-    assert digest(tmp_path / "runs" / "smoke" / diagnostic["path"]) == diagnostic["sha256"]
-
-
-def test_resume_preparation_does_not_start_future_wave_early(tmp_path):
-    path = make_plan(tmp_path, {"P1": {}, "P2": {}}, durations=(0.7, 0.12))
-    plan = json.loads(path.read_text())
-    plan["stages"][0]["profiles"] = ["P1"]
-    plan["stages"][1]["profiles"] = ["P2"]
-    plan["stages"][1]["wave"] = "W2"
-    path.write_text(json.dumps(plan))
-    process = subprocess.Popen(command(tmp_path, path), cwd=REPO, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-    try:
-        def source_running():
-            state = json.loads((tmp_path / "P1-state.json").read_text())
-            return state.get("last_stage", {}).get("kind") == "chunk"
-        wait_until(source_running)
-        assert not (tmp_path / "P2-state.json").exists()
-        process.terminate()
-        stdout, stderr = process.communicate(timeout=10)
-        (tmp_path / "interrupted-stdout.txt").write_text(stdout)
-        (tmp_path / "interrupted-stderr.txt").write_text(stderr)
-    finally:
-        if process.poll() is None:
-            process.kill()
-            process.wait()
-    resumed = execute(command(tmp_path, resume=True), tmp_path, "wave-resume")
-    assert resumed.returncode == 0, resumed.stderr
-    first = json.loads((tmp_path / "P1-state.json").read_text())
-    second = json.loads((tmp_path / "P2-state.json").read_text())
-    stopped = max(item["t_ns"] for item in first["lifecycle"] if item["action"] == "stop")
-    started = min(item["t_ns"] for item in second["lifecycle"] if item["action"] == "start")
-    assert stopped < started
-    manifest = report(tmp_path)
-    assert {manifest["plan"]["stages"][work["stage"]]["wave"] for work in manifest["work"] if work["kind"] == "resume_check"} == {"W1", "W2"}
-    assert not manifest["pending_stages"]
+    plan.update(synthetic=False, execution_scope={"kind": "main"})
+    atomic_json(path, plan)
+    frozen = load_plan(path, "wave")
+    assert frozen["wave_catalog"]["sha256"] == digest(REPO / "profiles" / "catalog.json")
+    assert len(frozen["rounds"]) == 2
+    plan["episodes"][0]["profiles"].remove("KIKI2")
+    atomic_json(path, plan)
+    with pytest.raises(ValueError, match="exact catalog wave membership"):
+        load_plan(path, "invalid-wave")
+    plan["execution_scope"] = {"kind": "pilot"}
+    atomic_json(path, plan)
+    with pytest.raises(ValueError, match="explicit reason"):
+        load_plan(path, "invalid-pilot")
+    plan["execution_scope"]["reason"] = "bounded route check, not concurrent-wave admission"
+    atomic_json(path, plan)
+    assert load_plan(path, "pilot")["execution_scope"]["kind"] == "pilot"

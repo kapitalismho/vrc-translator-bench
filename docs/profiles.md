@@ -1,6 +1,16 @@
 # Application profile preparation
 
-This is the **historical self/OSC profile and issue #8 execution record**. All 14 profiles, configuration findings, failures and linked evidence are preserved. References below to “current”, remaining work, readiness or execution permission describe their recorded historical stage, not present app state or a new execution grant. The [final plan §6](benchmark-final-plan.md#6-실제-관측과-기존-분석-결함의-차단) owns the new native-output investigation; the [implementation plan](benchmark-implementation-plan.md) owns its migration. No historical self preflight establishes peer/T1 or VRCLT split-pass admission.
+## Current native feasibility
+
+`bench profiles --catalog profiles/catalog.json` reports `native-output-v1` feasibility independently for all fourteen profiles. Each has six scopes: ordinary EN→ZH and JA→KO, plus T1 A/B for each pair. Confirmations require actual input/native text/build/instance/clock evidence; unresolved prerequisites and unverified conditions remain visible. Final quality/time admission belongs to R6 and remains separate.
+
+Ordinary inputs are peer and T1 is simultaneous peer/self, except **VRCLT and Kikitan**: ordinary self and separate A/B self passes, without VRChat. Both passes preserve the original timeline and one logical episode. Follow the [final plan](benchmark-final-plan.md) and [capture CLI contract](cli.md), not historical operating instructions below. Fixed model comparisons and W1–W4 membership remain unchanged.
+
+Actual early evidence is stored under `profiles/evidence/r1/` and bound by each confirmed catalog scope. A native event collector's connection alone is insufficient. Representative success never promotes another model, language, type, full wave, quality score or latency admission. Missing producer timestamps, UDP completeness and GUI-only continuous-state uncertainty remain explicit.
+
+## Historical self/OSC record
+
+The remainder is the **historical self/OSC profile and issue #8 execution record**. All fourteen configurations, findings, failures and linked evidence are preserved. References below to “current”, remaining work, readiness or execution permission describe their recorded historical stage, not present app state or a new execution grant. No historical self preflight establishes peer/T1 or VRCLT/Kikitan split-pass admission.
 
 ## GUI preparation of installed applications
 

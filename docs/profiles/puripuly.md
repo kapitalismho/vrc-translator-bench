@@ -1,5 +1,9 @@
 # PuriPuly profiles: PP1–PP4
 
+**Current R1 contract:** use the [episode-native CLI](../cli.md), [scope catalog](../../profiles/catalog.json) and [R1 evidence boundary](../benchmark-implementation-plan.md#r1-implementation-and-actual-feasibility). PP4 ordinary EN→ZH peer evidence uses the supported translation CLI projection with separately observed CPU-auto/Parakeet ASR. Accidental concurrent Kikitan activity excludes isolated CPU/performance and wave claims. CLI follow-process containment was repaired and exercised separately without replaying the audio or terminating the pre-existing host.
+
+The following six-direction preparation records are historical; their admission and execution instructions do not replace schema 2.
+
 ## Finding and version boundary
 
 Retained **PuriPuly2.9.1** [actual CLI-driven source/lifecycle checks](../../profiles/evidence/issue8/pp291-current-preflights.json) cover PP1–PP4 in D1/D3. The old owned host was normally closed, then the supported product command-line `run-gui` entrypoint actually launched a fresh desktop GUI host; all settings/capture/status/stop used the public `puripuly` CLI. Do not substitute `puripuly app start/restart`: those commands launch headless. The [installed-build amendment](../../profiles/evidence/issue8/pp291-installed-build-amendment.json) records the prelaunch identity change and zero-main R hold. The earlier [2.9.0 GUI checks and full cleanup](../../profiles/evidence/issue8/pp-restored-v1/current-preflights.json), older PP4 captures and2.8.2 isolated control observations remain history, not new-build admission. Startup checks do not establish main quality or cost; the installed release commit remains unattested.

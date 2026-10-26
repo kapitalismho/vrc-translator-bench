@@ -1,6 +1,10 @@
 # kikitan and VRCLS profile preparation
 
-Discovery date: 2026-10-20. Authority: [parent #1](https://github.com/kapitalismho/vrc-translator-bench/issues/1), [profile issue #4](https://github.com/kapitalismho/vrc-translator-bench/issues/4), and the [runner protocol](../cli.md#application-adapter-protocol). Machine-readable companion: [findings](../../profiles/findings/kikitan-vrcls.json).
+**Current R1 contract:** use the [episode-native CLI](../cli.md), [scope catalog](../../profiles/catalog.json) and [R1 evidence boundary](../benchmark-implementation-plan.md#r1-implementation-and-actual-feasibility). Kikitan uses the owner-approved self/user-data exception, not desktop/peer or VRChat. Its 2.0.2 user-data OSC dependency loses Unicode before transmission: KIKI2 ordinary EN→ZH is blocked, with the original early collector-gap attempt retained as invalid, not product no-output. KIKI1 shares a static serializer risk, not a copied runtime failure. VRCLS1 ordinary EN→ZH uses the actual Desktop/peer log route with an opaque server model.
+
+All preparation records below are historical, including Kikitan instructions to disable user-data output and former six-direction admission. They are not an alternative schema-2 configuration.
+
+Discovery date: 2026-10-20. Historical authority: [parent #1](https://github.com/kapitalismho/vrc-translator-bench/issues/1), [profile issue #4](https://github.com/kapitalismho/vrc-translator-bench/issues/4). Current [controller protocol](../cli.md#application-controller-protocol). Machine-readable historical companion: [findings](../../profiles/findings/kikitan-vrcls.json).
 
 **Retained GUI preparation:** KIKI1 and VRCLS1 were saved through the GUI with CABLE Output, en→ja and OSC ports 19151/19141. VRCLS microphone/control autostarts were disabled and TTS stayed off. kikitan's initial automatic running state was stopped; absence of startup provider activity was not established. Both apps were closed after that preparation. [GUI evidence](../../profiles/evidence/gui-preparation.json) remains historical; the current Kikitan audio preflights below supersede its missing-output boundary.
 

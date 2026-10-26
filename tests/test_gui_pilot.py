@@ -11,8 +11,9 @@ from bench.gui_operator_adapter import GuiOperator, read_observation
 def observation(pid=123, running=False):
     return {"basis": "actual_visible_gui", "observed_at_utc": datetime.now(timezone.utc).isoformat(), "pid": pid,
             "profile": "VRCS2", "session": "test-session", "evidence": ["safe-gui-state.png"],
-            "state": {"microphone": "CABLE Output(VB-Audio Virtual Cable)", "voice_output": False,
-                      "osc_host": "127.0.0.1", "osc_port": 19122, "direction": "D1", "running": running}}
+            "state": {"voice_output": False, "running": running,
+                      "channels": {"peer": {"role": "A", "input_device": "named loopback", "output_device": "named render",
+                                            "source_language": "en", "target_language": "zh"}}}}
 
 
 def save_observation(directory, record):
@@ -30,10 +31,11 @@ def test_gui_observation_requires_actual_evidence(tmp_path):
 def test_bridge_returns_observed_state_not_requested_echo(tmp_path):
     save_observation(tmp_path, observation())
     bridge = GuiOperator(tmp_path, 123, "VRCS2", "test-session")
-    state = bridge.call("read_state", {"requested_state": {"osc_port": 9000, "running": True}})
-    assert state["osc_port"] == 19122
+    state = bridge.call("read_state", {"requested_state": {"voice_output": True, "running": True}})
+    assert state["voice_output"] is False
+    assert state["channels"]["peer"]["source_language"] == "en"
     assert state["running"] is False
-    assert bridge.call("set_direction", {"direction": "D1"})["direction"] == "D1"
+    assert bridge.call("identity", {})["pid"] == 123
     assert not (tmp_path / "request-0001.json").exists()
 
 
@@ -49,7 +51,10 @@ def test_bridge_rejects_unrelated_instance_and_dead_running_process(tmp_path, mo
     assert state["metadata"]["observation_valid"] is False
     with pytest.raises(RuntimeError, match="exited"):
         bridge.call("preflight", {})
-    assert bridge.call("liveness", {}) == {"alive": False}
+    health = bridge.call("liveness", {})
+    assert health["alive"] is False
+    assert health["app_continuity"]["continuous"] is None
+    assert health["input_continuity"]["continuous"] is None
 
 
 def test_stop_needs_independent_stopped_gui_observation(tmp_path, monkeypatch):
@@ -93,3 +98,30 @@ def test_retired_observation_cannot_ready_running_or_rebind_after_external_mutat
     assert restarted.call("stop", {})["running"] is False
     assert restarted.call("read_state", {})["running"] is False
     assert restarted.call("read_state", {})["metadata"]["observation_valid"] is False
+
+
+@pytest.mark.parametrize("basis,accepted", [("screen_clear", False), ("product_new_conversation", True), ("verified_application_restart", True)])
+def test_reset_requires_fresh_genuine_conversation_evidence(tmp_path, monkeypatch, basis, accepted):
+    monkeypatch.setattr("bench.gui_operator_adapter.process_alive", lambda pid: True)
+    save_observation(tmp_path, observation())
+    bridge = GuiOperator(tmp_path, 123, "VRCS2", "test-session")
+    def respond():
+        wait = time.monotonic() + 5
+        while not (tmp_path / "request-0001.json").exists() and time.monotonic() < wait:
+            time.sleep(.01)
+        fresh = observation()
+        fresh["session_reset"] = {"episode_id": "e1", "pass_id": "A", "basis": basis, "evidence": ["test-only reset proof"]}
+        path = tmp_path / "reset-observation.json"
+        path.write_text(json.dumps(fresh))
+        bridge.record(path, 1)
+    worker = threading.Thread(target=respond)
+    worker.start()
+    try:
+        if accepted:
+            result = bridge.call("reset_session", {"episode_id": "e1", "pass_id": "A"})
+            assert result["reset"] is True and result["basis"] == basis
+        else:
+            with pytest.raises(ValueError, match="screen clear"):
+                bridge.call("reset_session", {"episode_id": "e1", "pass_id": "A"})
+    finally:
+        worker.join(5)
