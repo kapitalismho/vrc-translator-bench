@@ -15,12 +15,12 @@ The owner-authorized replacement is published. **Start implementation at [R1 / #
 | Key | Published issue | Execution owner |
 |---|---|---|
 | R0 | [#14 — Integrated benchmark program](https://github.com/kapitalismho/vrc-translator-bench/issues/14) | GPT |
-| R1 | [#15 — Native input/output and fourteen-profile comparability](https://github.com/kapitalismho/vrc-translator-bench/issues/15) | GPT |
+| R1 | [#15 — Native collection and early feasibility](https://github.com/kapitalismho/vrc-translator-bench/issues/15) | GPT |
 | R2 | [#16 — Natural conversation, reading and EN/ZH T1 parents](https://github.com/kapitalismho/vrc-translator-bench/issues/16) | GPT |
 | R3 | [#17 — Reviewed JA/KO T1 reconstruction](https://github.com/kapitalismho/vrc-translator-bench/issues/17) | GPT |
 | R4 | [#18 — Quality, semantic waiting and report data](https://github.com/kapitalismho/vrc-translator-bench/issues/18) | GPT |
 | R5 | [#19 — Logical-episode costs and billing revisions](https://github.com/kapitalismho/vrc-translator-bench/issues/19) | GPT |
-| R6 | [#20 — Integrated pilot and production freeze](https://github.com/kapitalismho/vrc-translator-bench/issues/20) | GPT |
+| R6 | [#20 — Integrated verification, final admission and freeze](https://github.com/kapitalismho/vrc-translator-bench/issues/20) | GPT |
 | R7 | [#21 — Dated comparison and public-safe evidence](https://github.com/kapitalismho/vrc-translator-bench/issues/21) | GPT |
 | R8 | [#22 — Unified scorecard, charts and methodology](https://github.com/kapitalismho/vrc-translator-bench/issues/22) | Claude |
 | R9 | [#23 — Recorded-output comparison video](https://github.com/kapitalismho/vrc-translator-bench/issues/23) | Claude |
@@ -29,9 +29,10 @@ The owner-authorized replacement is published. **Start implementation at [R1 / #
 - All eleven titles/bodies, open states, self-assignment to `kapitalismho` and exactly one existing label were read back. R9 uses `documentation`; the other outcomes use `enhancement`. No Project membership was returned and no implementation-start or completion transition was applied.
 - All ten children are native sub-issues of R0. Twenty native blocking relationships match the completion-artifact map below; they do not prohibit earlier independent investigation or interface development. R8/R9 remain siblings; R10 is not a first-release blocker.
 - Original issues **1–11, including previously closed issues, were deleted**, not merely closed. The all-state issue inventory contains only the replacement set, and all eleven original node identities return `NOT_FOUND`/null. Merged PRs **12 and 13 remain unchanged**.
-- Original bodies, eleven comments and metadata are preserved only in `.data/issue-migration-native-output/original-issues.json`; the verification/relationship record is `.data/issue-migration-native-output/publication.json`. These local records are not published assets. Historical issue numbers elsewhere in this document identify the retired work, not executable dependencies.
-- Because the reset code/docs have not been pushed, R0 carries a [complete approved protocol source snapshot](https://github.com/kapitalismho/vrc-translator-bench/issues/14#issuecomment-6406410375), including the owner-local API-key gate before any TTS request. Its LF-normalized UTF-8 SHA-256 is `6b6c21b91af1e8a66b57a12c317ef5042f53df905adc23efc1ef3dc5b37aeea8`. This publishes the same final-plan revision, not a second independently mutable protocol.
+- Original bodies, eleven comments and metadata are preserved only in `.data/issue-migration-native-output/original-issues.json`; the initial-publication record is `.data/issue-migration-native-output/publication.json`. These local records are not published assets. Historical issue numbers elsewhere in this document identify the retired work, not executable dependencies.
+- Because the reset code/docs have not been pushed, R0 carries the [current approved protocol and verification amendment](https://github.com/kapitalismho/vrc-translator-bench/issues/14#issuecomment-6406764791). Its LF-normalized UTF-8 SHA-256 is `957f7655ae9d19e185e25d48b0265e7c76ed3509486df016ab21cf8427401a00`. The initial source comment is explicitly historical; its original quote/hash remain intact. The current snapshot publishes this same final-plan revision, not a second independently mutable protocol.
 - This transaction publishes planning issues only. No TTS/provider call, benchmark execution, account/key change, code push or PR publication occurred. Future contract changes must reconcile the maintained plan and affected issue contracts explicitly.
+- The approved verification consolidation is applied to the eleven issue bodies and the R1/R6 titles. Live readback matched the submitted contracts; assignees, single labels, open states and Project memberships are unchanged. All ten children remain attached and no native blocking relationship was edited. `.data/verification-consolidation/` retains pre-amendment, expected and observed records. The current protocol differs only in §§6, 7 and 14 plus the opening amendment notice; source/TTS method, API-key gate, measurement definitions and weights are preserved. No product test or provider run was needed or performed for this documentation/issue change.
 
 ### What “through issue #8” means
 
@@ -48,7 +49,7 @@ The investigation's private source is `.data/issue8/batch-analysis-v1/discovered
 |---|---|---|
 | Preserve infrastructure | `bench/audio.py`, `storage.py`, `activity.py`, `adapter.py`, `gui_operator_adapter.py`, `osc.py` | Reuse actual playback/callback clocks, raw wire history, durable attempts, hashes, locks and process/observation ownership. OSC remains one transport, not the universal peer endpoint. |
 | Preserve, then migrate in R1 | `bench/plan.py`, `runner.py` | Existing single-WAV/microphone/OSC stages are not episodes, synchronized T1 or split passes. Keep working infrastructure now; replace its old contract in place when the native path is implemented. The old watchdog is not new observation-opportunity proof. |
-| Preserve evidence; migrate admission in R1 | `profiles/catalog.json`, `profiles/findings/`, `profiles/evidence/`, `profiles/output-checks.json` | Keep all 14 profile identities and historical bytes. Do not reset old failures or promote self readiness into peer readiness. The current inspector labels its findings historical and returns new-protocol unverified. |
+| Preserve evidence; migrate admission state in R1, finalize in R6 | `profiles/catalog.json`, `profiles/findings/`, `profiles/evidence/`, `profiles/output-checks.json` | Keep all 14 profile identities and historical bytes. R1 records observed scope/blockers without promoting representatives to all-profile readiness; R6 owns final quality/time admission. |
 | Preserve foundations; new orchestration in R4 | `quality_store.py`, `quality_transport.py`, `quality_process.py`, `quality_judge.py`, `quality_bridge.mjs` | Keep call/raw-response/cache/recovery storage and selected subscription transport/containment. Remove MetricX-specific store logic. These primitives are not a complete queue scheduler or new judge. |
 | Preserve, then migrate in R5 | `bench/cost_inputs.py`, `costs.py` | Keep allowlisted log ingestion, attribution, dated Decimal prices, component completeness and unknown/subscription states. Replace old run/chunk/sentence denominators with episode/pass binding before new publication. |
 | Preserve utility | `tools/export_pilot_evidence.py` | Keep separate derivative/hash/path-redaction export. It does not clear rights or sanitize arbitrary secrets. |
@@ -80,20 +81,41 @@ The owner explicitly authorized replacement publication and deletion of the orig
 | Key | Owner | Observable outcome | Required input for completion |
 |---|---|---|---|
 | R0 | GPT | Integrated native-output benchmark program | R1–R9 for first release; R10 tracked separately |
-| R1 | GPT | Usable native input/collection path and per-profile comparability decisions | Current profile/source evidence, small permitted development inputs, scoped runtime access |
-| R2 | GPT | Frozen eligible natural-conversation/reading episodes and EN/ZH T1 parents | R1's actual input/output contracts before production |
-| R3 | GPT | Reviewed JA/KO T1 reconstruction and production-cost report | R1 feasibility, R2 eligible parents, owner-configured API key and scoped usage approval, rights/review prerequisites |
+| R1 | GPT | Working native collection and representative early feasibility | Current profile/source evidence, small permitted inputs, scoped runtime access; final all-profile admission belongs to R6 |
+| R2 | GPT | Frozen eligible natural-conversation/reading episodes and EN/ZH T1 parents | R1 input/output contracts and early feasibility, not R6 final admission |
+| R3 | GPT | Reviewed JA/KO T1 reconstruction and production-cost report | R1 early feasibility, R2 eligible parents, owner-configured API key and scoped usage approval, rights/review prerequisites |
 | R4 | GPT | Auditable reconstruction, two-stage quality, semantic waiting and report data | R1 native examples/contracts; R2 representative references/checkpoints |
 | R5 | GPT | Logical-episode costs and later evidence revisions | R1 episode/pass/run bindings; coordinate report contract with R4 |
-| R6 | GPT | Actual integrated development pilot and production freeze | R1–R5, with pending billing allowed but no fabricated amounts |
+| R6 | GPT | Shared integrated verification, final per-profile admission and production freeze | R1–R5 artifacts and reusable evidence; pending billing allowed but no fabricated amounts |
 | R7 | GPT | Dated main/repeat result package | R6 freeze and actual profile admission |
 | R8 | Claude | Unified public report, audit views, two-axis charts and methodology | R4/R5 schema for development; actual R7 package for release |
 | R9 | Claude | Chronological recorded-output comparison video | Preselected cleared R2/R3 clips and R7 histories |
 | R10 | GPT | Separately dated reruns and bounded development experiments | An accepted R7 baseline; not a first-release blocker |
 
-R1 is not a request to finish the entire corpus first. Resolve the minimum episode/role/pass/output/clock/outcome contracts there and exercise them on small permitted samples. R2 rights/source investigation can proceed in parallel, but main corpus and TTS production wait for the collection feasibility decision. R4/R5 can develop against bounded evidence while R3 completes. Do not split every parser/schema into a separate issue or add a standalone harness-certification program.
+R1 resolves the minimum episode/role/pass/output/clock/outcome contracts and exercises representative real routes on small permitted samples; it does not finish the corpus or certify all profiles. R2 rights/source investigation can proceed alongside it. Corpus/TTS production needs that early feasibility evidence and disclosed blockers, not final R6 admission; do not add a reverse dependency that would make production and R6 wait on each other. R4/R5 reuse bounded evidence while R3 completes.
 
-R1 owns shared capture contracts; R2 owns source/checkpoint definitions; R4 owns evaluated result fields/weights; R5 owns cost bindings/revisions. R8/R9 consume those contracts without recalculating them. Each implementing outcome updates its maintained docs and all affected callers. Frozen historical evidence is never a mutable implementation surface.
+R1 owns shared capture contracts and early findings; R2 owns source/checkpoint definitions; R4 owns evaluated result fields/weights; R5 owns cost bindings/revisions; R6 owns assembled-path verification and final quality/time admission for all 14 profiles. R8/R9 consume those contracts without recalculating them. Each outcome updates affected callers and maintained docs. Frozen historical evidence is never a mutable implementation surface.
+
+## Verification ownership and evidence reuse
+
+The owner approved consolidating integrated verification in R6 rather than repeating a full check package at each issue boundary. This reallocates evidence ownership; it does not waive required behavior, regressions or unknown-state reporting.
+
+| Stage | Evidence owned here | Not repeated here |
+|---|---|---|
+| R1 | Representative actual input→native collection, roles/clocks and early access/input blockers; changed-path checks | Final all-profile admission, full condition matrix or complete backend pipeline |
+| R2 | Actual source/reference/timeline/rights and development/main separation | Per-app replay for corpus acceptance |
+| R3 | Owner key/usage gate, approved TTS pilot, bilingual content/boundary review and production costs | Benchmark-app tests or regeneration merely for another issue |
+| R4/R5 | Small calculation/reconstruction cases, local processing of retained logs, minimal actual two-stage judge operation and cost arithmetic/unknown states | Relaunching apps to demonstrate the complete pipeline |
+| R6 | Shared end-to-end verification, remaining judge contrast/variation checks, final per-profile quality/time admission and freeze | Re-proving applicable earlier evidence or a full Cartesian rehearsal of the main benchmark |
+| R7 | Actual main-run omissions/failures/settings changes and result-package spot checks | Repeating the R6 pilot or certifying the harness again |
+| R8/R9 | Actual public surface values/links and rendered content/synchronization | App replay, judge recalls or backend revalidation solely for presentation acceptance |
+
+- Pass the same development inputs, raw histories, judge responses and results forward with their existing version/input/configuration identities. An issue or reviewer transition alone is not a reason to rerun.
+- Repeat only to resolve a changed code/input/app/model/prompt condition, a new failure/conflicting result, or a requirement the existing evidence does not establish. Name the affected relationship and check that scope; old self/OSC evidence does not become new peer evidence.
+- During implementation, exercise the changed behavior and relevant regression risks. Do not attach full-suite runs, live pilots and whole-system re-review to every issue by default. Keep applicable repository review gates; use R6 for assembled-path claims.
+- R6 combines existing evidence with only missing/affected checks on the planned development cases. Do not add a generalized validation framework or a separate certification campaign. After a repair, recheck its impact rather than restarting every combination.
+- Keep required source/rights review before production, the owner-local API-key/usage gate before any TTS request, and TTS input review before adoption. These prevent bad or unauthorized inputs; they are not redundant app integration checks.
+- Planned main-measurement repetitions, R8/R9 final-artifact inspection and R10's separately dated experiments remain in scope. R1–R5 completion is component acceptance, not an integrated measurement pass.
 
 ## Unresolved prerequisites and stop conditions
 
@@ -121,6 +143,8 @@ Own shared scope, dependency/decision accounting and integrated acceptance. The 
 
 Use the R1–R10 index above. Preserve all 14 profiles, native-output/no-modification/no-screen-capture measurement, two language pairs, required T1 and reading, GEMBA-ESA, separate p50/p90 and evidence-bound costs. Do not silently restore superseded six-direction or supplementary-evaluation obligations.
 
+Apply the Verification ownership and evidence reuse section above: R1–R5 own bounded component checks, R6 owns final admission and shared integration, and R7–R9 inspect their new artifacts without repeating the upstream campaign. Do not treat issue boundaries as fresh evidence requirements.
+
 ### Completion Criteria
 
 First release has an actual dated R7 package, R8 public report and R9 cleared video, with reported coverage, failures, method limits and cost status traceable to common evidence. Missing required weight prevents a complete integrated-score claim. Child closure alone is not integrated acceptance. R10 remains visible until separately completed.
@@ -129,11 +153,11 @@ First release has an actual dated R7 package, R8 public report and R9 cleared vi
 
 The reset classification above distinguishes reusable infrastructure from accepted measurements. Historical issue 8 evidence retains its integrity/billing hold regardless of deletion of its issue page. The owner authorized publication of this set and deletion of the original issues; paid runs, credential/account changes, source-rights clearance and remote code push remain separately scoped.
 
-## R1 — [GPT] Establish native-output comparability for all fourteen profiles
+## R1 — [GPT] Implement native collection and establish early feasibility
 
 ### Background and Goal
 
-The retained runner captures one self input and chatbox OSC. Deliver actual episode-native input/collection and a defensible admission decision for each profile before expensive corpus production.
+The retained runner captures one self input and chatbox OSC. Deliver episode-native input/collection and representative actual feasibility evidence before expensive input production. Record all fourteen profiles' known scope and blockers; final quality/time admission belongs to R6.
 
 ### Scope
 
@@ -145,7 +169,7 @@ Own the episode/role/pass, native-output, clock/gap and outcome contracts consum
 
 ### Completion Criteria
 
-Small actual authorized inputs establish per-profile text completeness, revisions/repetition, roles, silence/tail behavior and timing limits for both pairs and required directions. Exercise a real supported positive path and relevant incomplete/invalid paths; connection or one packet is insufficient. Publish quality/time admission separately for every profile, with exact blockers. Verify restart/resume preserves original evidence and no same-role audio is time-compressed. Unavailable required route/access remains blocked, not a fabricated pilot pass.
+Small authorized inputs demonstrate the primary native collector for each app family where accessible: the intended audio reaches the correct input, actual translation text is captured, and roles/clocks are attributable. Add checks only for materially different routes/settings or changed behavior; a connection or one packet is not enough. Record confirmed, blocked and still-unverified scope for all fourteen profiles without copying representative success to unobserved profiles. Keep relevant local regression checks, but transfer final per-profile text/time admission, the broader condition checks and assembled interruption/resume verification to R6. R1 does not require a full profile×language×type pilot or a completed evaluation pipeline.
 
 ### Decisions and Evidence
 
@@ -168,6 +192,8 @@ Implement final-plan §§2–5 selection, fixed cell counts/weights, audible ref
 ### Completion Criteria
 
 Inspect actual representative WAV/EAF/transcript content and source-to-playback mappings, not only manifest shape. Verify sample positions/gaps, decoded hashes, no unintended role leakage or duplicate main/development ancestry, and all required natural/read cells. Publish rights/review levels and exact unavailable cells. Insufficient source eligibility or use rights blocks production freeze without replacing material or redistributing weight.
+
+Pass the selected source artifacts and review evidence forward unchanged. Corpus acceptance does not require launching/replaying every translation app; R6 owns input-to-app integration.
 
 ### Decisions and Evidence
 
@@ -193,6 +219,8 @@ Before the first live TTS request, including the four-dialogue development pilot
 
 Record secret-free owner setup confirmation and usage authorization before any generation. Actual JA and KO content/listening and boundary review supports the adopted method before nine main reconstructions are frozen. Show role-buffer sum/sample integrity and genuine speaker/content assignment separately. Report first-pass/rejected/adopted outcomes, API consumption, cash/credit, review work and unknown costs. Unavailable credentials, generation authority or bilingual review remain explicit prerequisites, not synthetic-quality passes.
 
+Retain the approved four-dialogue method pilot and adopted-input review; they prevent invalid benchmark inputs and are not postponed to R6. Hand the actual audio, scripts and review/cost evidence to R6 without regenerating speech or launching benchmark apps solely to close this issue.
+
 ### Decisions and Evidence
 
 R2 eligible parents and rights precede production; R1 feasibility precedes corpus spending. Model choice is approved, but spending/account/terms actions need their scoped authorization. Independent ASR is advisory and does not certify pronunciation/naturalness.
@@ -213,7 +241,7 @@ Apply final-plan §§6–10 and 13. Preserve supported append/replace/clear hist
 
 ### Completion Criteria
 
-Hand-worked positive/negative cases cover correct paraphrase, important omission/negation/number reversal, wrong language, genuine repetition versus cumulative revision, earlier pages, audible other-speaker context, late correction, clock uncertainty and early app interruption. Actual selected-route two-stage judging separates obvious contrasts and records bounded repeat variation. A small real native history traces through reconstruction and checkpoints to report fields. Missing roles/weights cannot produce a complete aggregate; an actual fully observed no-output can receive protocol-defined zero without pretending a model returned it.
+Use small local cases to check paraphrase versus important omission/negation/number reversal, wrong language, genuine repetition versus cumulative revision, earlier pages, audible other-speaker context, late correction, clock uncertainty and early interruption. Replay retained native histories locally and exercise a minimal actual selected-route two-stage judgment with its stored raw/result identities; do not relaunch apps to obtain another integration sample. Missing roles/weights must remain incomplete, and protocol-defined no-output zero must not masquerade as a judge response. R6 owns the assembled live history→evaluation→report path and remaining contrast/repeat-variation confirmation; reuse applicable earlier judge results instead of repeating them.
 
 ### Decisions and Evidence
 
@@ -237,11 +265,13 @@ Apply final-plan §11: actual attributable app charges over the original logical
 
 Run local reconciliation examples that demonstrate two-pass cost over one timeline, incomplete components, ambiguous coarse usage, subscription and pending billing. Existing capture-bound missing evidence remains null. A supplied attributable real export is reconciled when available; otherwise retain its exact evidence gap and usable later-update path, not a claim of measured billing.
 
+Use retained records and small local examples; do not launch apps or manufacture provider usage solely to verify cost plumbing. R6 checks the assembled episode/pass/result binding. Later owner billing evidence is reconciled once when supplied, separately from frozen quality/time.
+
 ### Decisions and Evidence
 
 R1 owns pass/window identity and R4 the report interface. Current `costs-v1` normalization is not accepted for new T1 results unchanged. The owner intends to provide billing logs later; that does not block implementation or require a fabricated numeric release.
 
-## R6 — [GPT] Demonstrate the integrated development pilot and freeze production
+## R6 — [GPT] Verify the integrated benchmark, finalize admission and freeze production
 
 ### Background and Goal
 
@@ -249,15 +279,17 @@ Prove the assembled input→app→native history→evaluation→result path befo
 
 ### Scope
 
-Integrate R1–R5 across both pairs and all five types, with T1 roles and VRCLT split conditions explicit. Own the production freeze and reproducible operating guidance, not a separate harness-certification campaign.
+Own the shared input→app→native history→quality/wait/cost→result verification and final quality/time admission for all fourteen profiles. Cover both pairs, the five types, T1 roles and VRCLT split conditions using the planned development cases and reusable R1–R5 evidence. This is not a full Cartesian rehearsal of the main population or a separate harness-certification campaign.
 
 ### Requirements
 
 Freeze protocol, corpus/groups, TTS method/review, role languages/devices/timelines, checkpoints, weights, observation opportunities, app versions/routes/waves, collector stages/clocks/gaps, upstream judge/prompts and preselected repeats/examples. Keep timed app work separate from generation/judging. Do not substitute new output stages or change weights after seeing main results.
 
+Collect existing component evidence first and run only missing checks or those affected by changed conditions. Retain exact input/app/collector/judge identities so reused evidence applies to the assembled candidate. R1–R5 need not pre-complete this issue's integration criteria, and final R6 admission is not a prerequisite for R2/R3 preparation.
+
 ### Completion Criteria
 
-An actual development run reaches the common integrated/detail result package with raw-to-table checks of valid translation, no-output and invalid/unavailable scope. Observe both T1 directions, separate-pass clock handling, final observation tail and interruption/resume evidence preservation. Every profile has its admission/blocked status; no missing prerequisite is reported as a pass. Publish the freeze only after required corpus cells and method prerequisites are satisfied.
+An actual shared development path reaches the common integrated/detail result package, including quality, separate p50/p90 and cost bindings/missing states. Reuse existing component checks and inspect raw-to-result relationships for valid translation, no-output and invalid/unavailable scope. Cover required role/direction attribution, VRCLT pass clocks, output completeness/revisions, observation tail and interruption/resume preservation through applicable evidence plus only the missing/affected runs. Complete the selected judge contrast/variation checks without recalling unchanged valid judgments solely because this is R6. Report final quality and timing admission separately for every profile, including exact blocked/unverified routes; representative-family success is not all-profile evidence. Publish the freeze only after required corpus/method prerequisites and the claimed admission scope are supported. After fixes, repeat the affected checks, not the whole campaign.
 
 ### Decisions and Evidence
 
@@ -279,7 +311,7 @@ Use R6 freeze, all 14 profiles and final-plan population. Preserve first product
 
 ### Completion Criteria
 
-Actual run outcomes or precise blockers account for every planned profile. A small raw→history→judgment/checkpoint→weighted report reconciliation includes missing-role and failed/invalid cases. Required missing weights remain incomplete/N/A; do not present a silently narrowed full result. Deliver permitted evidence and preselected rights-cleared clips to R8/R9, with dates, versions, synthesis limits and actual review levels.
+Actual main-run outcomes or precise blockers account for every planned profile. Inspect actual omissions, failures, setting/version drift and a small sample of the resulting raw→stored result→published-package links, including missing-role and invalid cases. Reuse R6's algorithm/integration evidence; do not rerun its development pilot or harness checks solely for this issue. New changes or contradictory evidence trigger only affected verification before the relevant claim. Required missing weights remain incomplete/N/A. Deliver permitted evidence and preselected rights-cleared clips to R8/R9 with dates, versions, synthesis limits and actual review levels. The planned main subset repetitions remain measurements, not redundant verification.
 
 ### Decisions and Evidence
 
@@ -303,6 +335,8 @@ Apply final-plan §12: unified quality/p50/p90/cost table, retained detail/audit
 
 Inspect an actual populated dated report at desktop and narrow widths; spot-check displayed values and evidence links against the backend package. Show partial/missing/pending states without fabricated zero, 15-second or free-cost points. Provide accessible methodology and correction route. Labelled fixtures may support development but not published measured findings.
 
+Use R7's stored outputs and accepted backend evidence. Do not replay source audio through apps or recall the judge solely for frontend acceptance; a concrete displayed-data discrepancy is investigated at its affected boundary.
+
 ### Decisions and Evidence
 
 Use schema fixtures before R7 if useful; release requires actual R7 evidence. R9 is a sibling, not a frontend dependency. Preserve the existing planned earlier-benchmark repository link using its established source when available; do not modify that external repository.
@@ -324,6 +358,8 @@ Use R2/R3's preselected rights-cleared clips and R7 histories on a common source
 ### Completion Criteria
 
 Watch the complete rendered artifact and spot-check text/audio/event timing/provenance against retained records. All included media has usable rights and source attribution. Missing trace/rights evidence is an explicit clip blocker, not permission to fabricate output or call a reconstruction app footage.
+
+Use the retained media and histories without a new app run, judge call or TTS take merely for video acceptance. This checks a new rendered artifact, not the upstream measurement pipeline again.
 
 ### Decisions and Evidence
 
