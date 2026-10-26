@@ -100,9 +100,10 @@ def test_retired_observation_cannot_ready_running_or_rebind_after_external_mutat
     assert restarted.call("read_state", {})["metadata"]["observation_valid"] is False
 
 
-@pytest.mark.parametrize("basis,accepted", [("screen_clear", False), ("product_new_conversation", True), ("verified_application_restart", True)])
-def test_reset_requires_fresh_genuine_conversation_evidence(tmp_path, monkeypatch, basis, accepted):
-    monkeypatch.setattr("bench.gui_operator_adapter.process_alive", lambda pid: True)
+def test_new_conversation_reset_keeps_owned_process_and_session(tmp_path, monkeypatch):
+    identity = {"pid": 123, "creation_filetime_100ns": 1, "clock": "windows_filetime_utc", "executable": "fixture.exe"}
+    monkeypatch.setattr("bench.gui_operator_adapter.process_alive", lambda pid: pid == 123)
+    monkeypatch.setattr("bench.gui_operator_adapter.process_identity", lambda pid: identity)
     save_observation(tmp_path, observation())
     bridge = GuiOperator(tmp_path, 123, "VRCS2", "test-session")
     def respond():
@@ -110,18 +111,134 @@ def test_reset_requires_fresh_genuine_conversation_evidence(tmp_path, monkeypatc
         while not (tmp_path / "request-0001.json").exists() and time.monotonic() < wait:
             time.sleep(.01)
         fresh = observation()
-        fresh["session_reset"] = {"episode_id": "e1", "pass_id": "A", "basis": basis, "evidence": ["test-only reset proof"]}
+        fresh["session_reset"] = {"episode_id": "e1", "pass_id": "A", "basis": "product_new_conversation", "evidence": ["test-only reset proof"]}
         path = tmp_path / "reset-observation.json"
         path.write_text(json.dumps(fresh))
         bridge.record(path, 1)
     worker = threading.Thread(target=respond)
     worker.start()
     try:
-        if accepted:
-            result = bridge.call("reset_session", {"episode_id": "e1", "pass_id": "A"})
-            assert result["reset"] is True and result["basis"] == basis
-        else:
-            with pytest.raises(ValueError, match="screen clear"):
-                bridge.call("reset_session", {"episode_id": "e1", "pass_id": "A"})
+        assert bridge.call("reset_session", {"episode_id": "e1", "pass_id": "A"})["reset"] is True
+        assert bridge.call("identity", {})["pid"] == 123 and bridge.session == "test-session"
     finally:
         worker.join(5)
+
+
+def restart_fixture(tmp_path, monkeypatch):
+    from bench.gui_operator_adapter import _filetime_utc
+    alive = {123: True, 456: False, 789: True}
+    identities = {pid: {"pid": pid, "creation_filetime_100ns": 1, "clock": "windows_filetime_utc", "executable": "fixture.exe"} for pid in alive}
+    monkeypatch.setattr("bench.gui_operator_adapter.process_alive", lambda pid: alive.get(pid, False))
+    monkeypatch.setattr("bench.gui_operator_adapter.process_identity", lambda pid: dict(identities[pid]))
+    save_observation(tmp_path, observation())
+    bridge = GuiOperator(tmp_path, 123, "VRCS2", "test-session", timeout=5)
+    def successor(request):
+        alive[123], alive[456] = False, True
+        identities[456]["creation_filetime_100ns"] = _filetime_utc(request["requested_at_utc"]) + 10
+        fresh = observation(pid=456)
+        fresh["session"] = "successor-session"
+        fresh["process_identity"] = dict(identities[456])
+        fresh["session_reset"] = {"episode_id": "e1", "pass_id": "A", "basis": "verified_application_restart",
+                                  "evidence": ["test-only supported restart"],
+                                  "successor": {"previous_pid": 123, "previous_session": "test-session",
+                                                "pid": 456, "session": "successor-session", "evidence": ["owned successor fixture"]}}
+        return fresh
+    return bridge, alive, identities, successor
+
+
+def test_verified_restart_adopts_successor_for_following_controls(tmp_path, monkeypatch):
+    bridge, alive, identities, successor = restart_fixture(tmp_path, monkeypatch)
+    requests = []
+    errors = []
+    def respond():
+        try:
+            for sequence, method in ((1, "reset_session"), (2, "start"), (3, "stop")):
+                path = tmp_path / f"request-{sequence:04d}.json"
+                wait = time.monotonic() + 5
+                while not path.exists() and time.monotonic() < wait:
+                    time.sleep(.01)
+                request = json.loads(path.read_text())
+                requests.append(request)
+                assert request["method"] == method
+                if sequence == 1:
+                    fresh = successor(request)
+                else:
+                    assert request["pid"] == 456 and request["session"] == "successor-session"
+                    fresh = observation(pid=456, running=method == "start")
+                    fresh.update(session="successor-session", process_identity=dict(identities[456]))
+                record = tmp_path / f"fresh-{sequence}.json"
+                record.write_text(json.dumps(fresh))
+                bridge.record(record, sequence)
+        except BaseException as error:
+            errors.append(error)
+    worker = threading.Thread(target=respond)
+    worker.start()
+    try:
+        assert bridge.call("reset_session", {"episode_id": "e1", "pass_id": "A"})["reset"] is True
+        assert (bridge.pid, bridge.session) == (456, "successor-session")
+        assert bridge.call("identity", {})["process_identity"] == identities[456]
+        assert bridge.call("liveness", {})["process_observation"]["pid"] == 456
+        assert bridge.call("read_state", {})["metadata"]["observation_valid"] is True
+        assert bridge.call("start", {})["running"] is True
+        assert bridge.call("stop", {})["running"] is False
+    finally:
+        worker.join(5)
+    assert not errors and len(requests) == 3
+    assert not alive[123] and alive[456] and alive[789]  # Bystander remains outside ownership.
+
+
+@pytest.mark.parametrize("invalid", ["old_alive", "successor_dead", "stale_observation", "preexisting_process",
+                                     "wrong_executable", "missing_identity", "identity_mismatch", "wrong_previous",
+                                     "wrong_profile", "reused_session", "ambiguous_successor", "same_pid",
+                                     "wrong_episode", "wrong_pending", "screen_clear", "restart_without_successor"])
+def test_restart_rejects_unowned_stale_or_ambiguous_successor(tmp_path, monkeypatch, invalid):
+    bridge, alive, identities, successor = restart_fixture(tmp_path, monkeypatch)
+    request = {"sequence": 1, "method": "reset_session", "params": {"episode_id": "e1", "pass_id": "A"},
+               "pid": 123, "profile": "VRCS2", "session": "test-session", "requested_at_ns": time.perf_counter_ns(),
+               "requested_at_utc": datetime.now(timezone.utc).isoformat(), "owned_process": dict(identities[123])}
+    fresh = successor(request)
+    if invalid == "old_alive":
+        alive[123] = True
+    elif invalid == "successor_dead":
+        alive[456] = False
+    elif invalid == "stale_observation":
+        fresh["observed_at_utc"] = "2000-01-01T00:00:00+00:00"
+    elif invalid == "preexisting_process":
+        identities[456]["creation_filetime_100ns"] = 1
+        fresh["process_identity"] = dict(identities[456])
+    elif invalid == "wrong_executable":
+        identities[456]["executable"] = "unrelated.exe"
+        fresh["process_identity"] = dict(identities[456])
+    elif invalid == "missing_identity":
+        fresh.pop("process_identity")
+    elif invalid == "identity_mismatch":
+        fresh["process_identity"]["creation_filetime_100ns"] += 1
+    elif invalid == "wrong_previous":
+        fresh["session_reset"]["successor"]["previous_pid"] = 999
+    elif invalid == "wrong_profile":
+        fresh["profile"] = "unrelated"
+    elif invalid == "reused_session":
+        fresh["session"] = fresh["session_reset"]["successor"]["session"] = "test-session"
+    elif invalid == "ambiguous_successor":
+        fresh["session_reset"]["successor"] = [fresh["session_reset"]["successor"]]
+    elif invalid == "same_pid":
+        fresh["pid"] = fresh["session_reset"]["successor"]["pid"] = 123
+    elif invalid == "wrong_episode":
+        fresh["session_reset"]["episode_id"] = "another-episode"
+    elif invalid == "screen_clear":
+        fresh["session_reset"]["basis"] = "screen_clear"
+    elif invalid == "restart_without_successor":
+        fresh.update(pid=123, session="test-session")
+        fresh["session_reset"].pop("successor")
+    for filename in ("request-0001.json", "pending.json"):
+        (tmp_path / filename).write_text(json.dumps(request))
+    if invalid == "wrong_pending":
+        (tmp_path / "pending.json").write_text(json.dumps({**request, "sequence": 2}))
+    path = tmp_path / "rejected.json"
+    path.write_text(json.dumps(fresh))
+    original = (tmp_path / "observation.json").read_bytes()
+    with pytest.raises(ValueError):
+        bridge.record(path, 1)
+    assert (bridge.pid, bridge.session) == (123, "test-session")
+    assert (tmp_path / "observation.json").read_bytes() == original
+    assert not (tmp_path / "response-0001.json").exists()

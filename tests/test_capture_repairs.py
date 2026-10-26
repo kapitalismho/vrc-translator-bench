@@ -332,3 +332,44 @@ def test_preparation_quota_retains_actual_failure_and_leaves_all_unplayed_work_p
     assert not any(row.get("record") == "source_playback" for row in trace(root, failure))
     assert result["work"][0]["outcome"] == "unknown"
     assert all(work["state"] == "pending" for work in result["work"][1:])
+
+
+@pytest.mark.parametrize("receipt_ns,expected", [(25_700_000_000, "output_observed"), (26_500_000_000, "product_no_output")])
+def test_simultaneous_roles_use_common_actual_cutoff_with_independent_origins(tmp_path, runtime, monkeypatch, receipt_ns, expected):
+    clock, run = runtime
+    path = make_plan(tmp_path, {"P1": "puripuly"}, kinds=("T1",), duration=20)
+    plan = load_plan(path, "unit")
+    plan["synthetic"] = False
+    plan["passes"][0]["common_last_speech_seconds"] = .12
+    for source in plan["episodes"][0]["roles"].values():
+        source["speech_intervals"] = [[0, .12]]
+    for channel, route in plan["profiles"][0]["routes"].items():
+        route["calibration"] = {"status": "measured", "offset_ns": 0,
+                                "devices": {"output": [channel, {"name": route["output_device"]}]}}
+    class SkewedPlayback(ClockPlayback):
+        def __init__(self, path, device):
+            super().__init__(path, device)
+            self.channel = "self" if device.endswith("self") else "peer"
+            self.devices = {"output": [self.channel, {"name": device}]}
+        def start(self, scheduled_start_ns=None):
+            super().start(scheduled_start_ns + (1_000_000_000 if self.channel == "self" else 0))
+    monkeypatch.setattr(runner_module, "Playback", SkewedPlayback)
+    injected = []
+    def output(now):
+        if not injected and now >= receipt_ns:
+            injected.append(now)
+            sink = FakeSink.instances[-1]
+            sink.targets["P1"].append({"record": "native_output_event", **sink.context["P1"],
+                                      "input_channel": "peer", "collector_received_monotonic": now,
+                                      "translated_text": "peer output near common boundary"})
+    clock.hooks.append(output)
+    root, result = run(path, plan=plan)
+    detail = json.loads(result["attempts"][0]["detail"])
+    assert detail["role_horizons_ns"] == {"peer": 25_320_000_000, "self": 26_320_000_000}
+    assert detail["output_windows_ns"] == {"peer": [10_200_000_000, 26_320_000_000], "self": [11_200_000_000, 26_320_000_000]}
+    window, = [row for row in trace(root, result["attempts"][0]) if row.get("record") == "observation_window"]
+    assert window["observation_end_ns"] == 26_320_000_000 and window["role_horizons_ns"] == detail["role_horizons_ns"]
+    assert detail["role_outcomes"]["A"]["status"] == expected
+    assert detail["opportunity_established"] and all(value["complete"] for value in detail["playback"].values())
+    native = [row for row in trace(root, result["attempts"][0]) if row.get("record") == "native_output_event"]
+    assert len(native) == 1 and native[0]["collector_received_monotonic"] == receipt_ns

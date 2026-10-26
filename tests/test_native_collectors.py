@@ -187,6 +187,16 @@ def test_vrcs_actual_bearer_subscribe_ack_partial_gap_disconnect(tmp_path, monke
     monkeypatch.setenv("NATIVE_TEST_TOKEN", token)
     ack = threading.Event()
     emit = threading.Event()
+    start_returned = threading.Event()
+    start_errors = []
+    def start():
+        try:
+            sink.start("P")
+        except Exception as error:
+            start_errors.append(error)
+        finally:
+            start_returned.set()
+    starter = threading.Thread(target=start, daemon=True)
     requests = []
     def auth(connection, request):
         assert request.path == "/v1/events"
@@ -206,12 +216,16 @@ def test_vrcs_actual_bearer_subscribe_ack_partial_gap_disconnect(tmp_path, monke
     sink = NativeSink(tmp_path, "run", "s", [profile("vrcs", url=f"ws://127.0.0.1:{peer.port}/v1/events", token_env="NATIVE_TEST_TOKEN")])
     journal = attach(sink, tmp_path)
     try:
-        sink.start("P")
+        starter.start()
         wait_for(lambda: requests)
         assert sink.continuity("P")["continuous"] is False
+        # The server has the subscribe request, but its ACK is still gated.
+        # Startup must remain pending; no application/input may follow it yet.
+        assert not start_returned.wait(0.05)
         assert requests == [{"type": "subscribe", "events": list(VRCS_EVENTS)}]
         ack.set()
-        wait_for(lambda: sink.continuity("P")["continuous"] is True)
+        assert start_returned.wait(5) and not start_errors
+        assert sink.continuity("P")["continuous"] is True
         emit.set()
         wait_for(lambda: len(outputs(tmp_path)) == 2)
         wait_for(lambda: sink.continuity("P")["connection"] == "disconnected")
@@ -222,6 +236,8 @@ def test_vrcs_actual_bearer_subscribe_ack_partial_gap_disconnect(tmp_path, monke
         assert {g["loss_or_gap"] for g in sink.continuity("P")["gaps"]} >= {"producer_lagged", "collector_disconnected"}
     finally:
         ack.set(); emit.set()
+        if starter.ident is not None:
+            starter.join(timeout=5)
         sink.close()
         journal.finalize()
         peer.close()
@@ -447,8 +463,8 @@ def test_vrcs_wrong_connection_ack_never_claims_ready(tmp_path, monkeypatch):
     peer = Peer(handler)
     sink = NativeSink(tmp_path, "run", "s", [profile("vrcs", url=f"ws://127.0.0.1:{peer.port}/v1/events", token_env="NATIVE_TEST_TOKEN")])
     try:
-        sink.start("P")
-        wait_for(lambda: sink.continuity("P")["connection"] == "disconnected")
+        with pytest.raises(OperationalError, match="start failed"):
+            sink.start("P")
         assert sink.continuity("P")["continuous"] is False
         assert not any(e.get("kind") == "collector_ready" for e in rows(tmp_path))
     finally:
@@ -538,3 +554,93 @@ def test_whitespace_evidence_does_not_restart_quiet_or_attempt_output(tmp_path, 
     assert "output_classification" not in outputs(tmp_path)[-1]
     sink.close()
     journal.finalize()
+
+
+def test_vrcs_start_returns_ready_without_losing_ack_adjacent_or_subsequent_text(tmp_path):
+    input_allowed = threading.Event()
+    release = threading.Event()
+    def handler(ws):
+        ws.send(json.dumps(envelope("system.connected", {"connection_id": "connection"}, "system")))
+        ws.recv(timeout=5)
+        ws.send(json.dumps(envelope("system.subscribed", {"events": list(VRCS_EVENTS)}, "system")))
+        first = envelope("translation.completed", {"translation": {"text": "ACK-adjacent text", "target_language": "zh"}})
+        first["event_id"] = "synthetic-first"
+        ws.send(json.dumps(first))
+        input_allowed.wait(5)
+        second = envelope("translation.completed", {"translation": {"text": "subsequent text", "target_language": "zh"}})
+        second["event_id"] = "synthetic-second"
+        ws.send(json.dumps(second))
+        release.wait(5)
+    peer = Peer(handler)
+    sink = NativeSink(tmp_path, "run", "s", [profile("vrcs", url=f"ws://127.0.0.1:{peer.port}/v1/events")])
+    try:
+        sink.start("P")
+        # This is synchronous evidence at the public startup return boundary.
+        assert sink.continuity("P")["continuous"] is True
+        input_allowed.set()
+        wait_for(lambda: len(outputs(tmp_path)) == 2)
+        assert [event["translated_text"] for event in outputs(tmp_path)] == ["ACK-adjacent text", "subsequent text"]
+        assert [event["native_event_id"] for event in outputs(tmp_path)] == ["synthetic-first", "synthetic-second"]
+    finally:
+        input_allowed.set(); release.set()
+        sink.close()
+        peer.close()
+
+
+def test_vrcs_rejected_subscription_fails_start_instead_of_permitting_input(tmp_path):
+    def handler(ws):
+        ws.send(json.dumps(envelope("system.connected", {"connection_id": "connection"}, "system")))
+        ws.recv(timeout=5)
+        ws.send(json.dumps(envelope("system.error", {"code": "unknown_event_pattern"}, "system")))
+    peer = Peer(handler)
+    sink = NativeSink(tmp_path, "run", "s", [profile("vrcs", url=f"ws://127.0.0.1:{peer.port}/v1/events")])
+    try:
+        with pytest.raises(OperationalError, match="start failed"):
+            sink.start("P")
+        assert sink.continuity("P")["continuous"] is False
+        assert not sink.transports
+        assert not any(event.get("kind") == "collector_ready" for event in rows(tmp_path))
+    finally:
+        sink.close()
+        peer.close()
+
+
+def test_vrcs_missing_ack_fails_start_at_bounded_subscription_deadline(tmp_path):
+    from websockets.exceptions import ConnectionClosed
+    requested = threading.Event()
+    disconnected = threading.Event()
+    returned = threading.Event()
+    errors = []
+    def handler(ws):
+        ws.send(json.dumps(envelope("system.connected", {"connection_id": "connection"}, "system")))
+        ws.recv(timeout=5)
+        requested.set()
+        try:
+            ws.recv(timeout=10)
+        except ConnectionClosed:
+            disconnected.set()
+    peer = Peer(handler)
+    sink = NativeSink(tmp_path, "run", "s", [profile("vrcs", url=f"ws://127.0.0.1:{peer.port}/v1/events")])
+    def start():
+        try:
+            sink.start("P")
+        except Exception as error:
+            errors.append(error)
+        finally:
+            returned.set()
+    starter = threading.Thread(target=start, daemon=True)
+    started = time.monotonic()
+    try:
+        starter.start()
+        assert requested.wait(5)
+        assert returned.wait(7)
+        assert time.monotonic() - started >= 4.9
+        assert len(errors) == 1 and isinstance(errors[0], OperationalError)
+        assert "TimeoutError" in str(errors[0])
+        assert disconnected.wait(5)
+        assert not sink.transports and sink.continuity("P")["continuous"] is False
+        assert not any(event.get("kind") == "collector_ready" for event in rows(tmp_path))
+    finally:
+        starter.join(timeout=5)
+        sink.close()
+        peer.close()

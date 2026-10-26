@@ -100,10 +100,15 @@ def load_plan(path, run_id):
     if scope["kind"] == "pilot" and not scope.get("reason"):
         raise ValueError("Pilot subsets require an explicit reason; they do not establish wave admission")
     catalog = None
-    if scope["kind"] == "main":
+    canonical_profiles = {}
+    if not synthetic:
         filename = Path(__file__).resolve().parent.parent / "profiles" / "catalog.json"
-        catalog = json.loads(filename.read_text(encoding="utf-8"))
-        plan["wave_catalog"] = {"path": str(filename), "sha256": digest(filename), "waves": catalog["waves"]}
+        canonical_catalog = json.loads(filename.read_text(encoding="utf-8"))
+        canonical_profiles = {profile["id"]: profile for profile in canonical_catalog["profiles"]}
+        plan["profile_catalog"] = {"path": str(filename), "sha256": digest(filename)}
+        if scope["kind"] == "main":
+            catalog = canonical_catalog
+            plan["wave_catalog"] = {**plan["profile_catalog"], "waves": catalog["waves"]}
     profiles = {}
     for profile in plan["profiles"]:
         identity = _identifier(profile["id"], "Profile ID")
@@ -114,6 +119,16 @@ def load_plan(path, run_id):
         family = profile.get("collector", {}).get("family")
         if family not in ("puripuly", "vrct", "vrcs", "vrclt", "kikitan", "vrcls"):
             raise ValueError("Profile requires a native collector family")
+        canonical = canonical_profiles.get(identity)
+        if canonical is not None and family != canonical["application"].lower():
+            raise ValueError(f"Canonical profile {identity} requires collector.family={canonical['application'].lower()}")
+        condition = (canonical["native_protocol"]["condition"] if canonical is not None else {
+            "ordinary_input": "self" if family in {"vrclt", "kikitan"} else "peer",
+            "t1_mode": "split_self" if family in {"vrclt", "kikitan"} else "simultaneous",
+            "roles": {"A": "self", "B": "self"} if family in {"vrclt", "kikitan"} else {"A": "peer", "B": "self"}})
+        if "condition" in profile and profile["condition"] != condition:
+            raise ValueError(f"Profile {identity} cannot override its approved measurement condition")
+        profile["condition"] = copy.deepcopy(condition)
         if not isinstance(profile.get("expected_state"), dict) or profile["expected_state"].get("voice_output") is not False:
             raise ValueError("Profiles require explicit expected_state with voice_output false")
         if not profile.get("routes") or set(profile["routes"]) - {"self", "peer"}:
@@ -182,10 +197,10 @@ def load_plan(path, run_id):
                 raise ValueError("quiet_max_wait_seconds must be at least quiet_seconds")
         groups = {}
         for name in names:
-            split = profiles[name]["collector"]["family"] in {"vrclt", "kikitan"}
-            bindings = ([("A", {"self": "A"}), ("B", {"self": "B"})] if kind == "T1" and split
-                        else [("simultaneous", {"peer": "A", "self": "B"})] if kind == "T1"
-                        else [("ordinary-self" if split else "ordinary-peer", {"self" if split else "peer": "A"})])
+            condition = profiles[name]["condition"]
+            bindings = ([("A", {"self": "A"}), ("B", {"self": "B"})] if kind == "T1" and condition["t1_mode"] == "split_self"
+                        else [("simultaneous", {channel: role for role, channel in condition["roles"].items()})] if kind == "T1"
+                        else [("ordinary-" + condition["ordinary_input"], {condition["ordinary_input"]: "A"})])
             for pass_id, channels in bindings:
                 if set(channels) - profiles[name]["routes"].keys():
                     raise ValueError(f"{name} lacks the required physical routes")

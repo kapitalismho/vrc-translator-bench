@@ -344,14 +344,18 @@ class Runner:
                         speech_end = player.source_time_ns(item["common_last_speech_seconds"])
                         if speech_end is not None and (profile, channel) not in horizons:
                             horizons[(profile, channel)] = speech_end + offset + 15_000_000_000
-                            self._record(profile, {"record": "observation_window", "input_channel": channel,
+                            self._record(profile, {"record": "role_horizon", "input_channel": channel,
                                                    "common_last_speech_seconds": item["common_last_speech_seconds"],
                                                    "common_speech_end_dac_ns": speech_end,
                                                    "calibration_offset_ns": None if self.synthetic else offset,
-                                                   "observation_end_ns": horizons[(profile, channel)],
+                                                   "role_horizon_ns": horizons[(profile, channel)],
                                                    "synthetic": self.synthetic})
-                if len(horizons) == sum(len(value) for value in bindings.values()):
+                if deadline is None and len(horizons) == sum(len(value) for value in bindings.values()):
                     deadline = max(horizons.values())
+                    for profile in active:
+                        self._record(profile, {"record": "observation_window", "observation_end_ns": deadline,
+                                               "role_horizons_ns": {channel: horizons[(profile, channel)] for channel in bindings[profile]},
+                                               "synthetic": self.synthetic})
                 if now >= next_health:
                     self._health(active, observations, errors)
                     next_health = time.perf_counter_ns() + 1_000_000_000
@@ -367,7 +371,7 @@ class Runner:
                 continuity = {kind: _established([entry[kind] for entry in observations[profile]])
                               for kind in ("app", "input", "collector")}
                 windows = {channel: (players[key].first_dac_ns + (0 if self.synthetic else route["calibration"]["offset_ns"]),
-                                     horizons[(profile, channel)]) for channel, (key, route, _) in bindings[profile].items()}
+                                     deadline) for channel, (key, route, _) in bindings[profile].items()}
                 channels_with_output, attribution_unknown = self.open_attempts[profile][1].outputs_between(windows)
                 opportunity = (all(continuity.values()) and not self.synthetic and not attribution_unknown
                                and not (quiet and not quiet["quiet_precondition_met"]))
@@ -383,6 +387,7 @@ class Runner:
                           "synthetic": self.synthetic, "observation_deadline_ns": deadline, "observation_end_ns": ended,
                           "common_last_speech_seconds": item["common_last_speech_seconds"], "tail_seconds": 15,
                           "role_horizons_ns": {channel: horizons[(profile, channel)] for channel in bindings[profile]},
+                          "output_windows_ns": windows,
                           "role_outcomes": role_outcomes,
                           "product_errors": errors[profile], "quiet": quiet,
                           "playback": {channel: {"dac_start_ns": players[key].first_dac_ns,

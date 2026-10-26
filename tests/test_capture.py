@@ -435,13 +435,24 @@ def test_route_audio_length_must_preserve_common_timeline(tmp_path):
 def test_main_wave_membership_and_explicit_pilot_subset(tmp_path, monkeypatch):
     import bench.plan as plan_module
     monkeypatch.setattr(plan_module, "_calibration", lambda *args: {"status": "measured", "offset_ns": 0})
-    path = make_plan(tmp_path, {"PP4": "puripuly", "KIKI2": "kikitan", "VRCLT1": "vrclt", "VRCT3": "vrct"}, kinds=("T1",))
+    path = make_plan(tmp_path, {"PP4": "puripuly", "KIKI2": "kikitan", "VRCLT1": "vrclt", "VRCT3": "vrct"}, kinds=("P1", "T1"))
     plan = json.loads(path.read_text())
     plan.update(synthetic=False, execution_scope={"kind": "main"})
     atomic_json(path, plan)
     frozen = load_plan(path, "wave")
     assert frozen["wave_catalog"]["sha256"] == digest(REPO / "profiles" / "catalog.json")
-    assert len(frozen["rounds"]) == 2
+    assert len(frozen["rounds"]) == 3
+    for profile in ("PP4", "VRCT3"):
+        assigned = [item for item in frozen["passes"] if profile in item["profiles"]]
+        assert [(item["pass_id"], item["roles"]) for item in assigned] == [
+            ("ordinary-peer", {"peer": {"role": "A", "source_language": "en", "target_language": "zh"}}),
+            ("simultaneous", {"peer": {"role": "A", "source_language": "en", "target_language": "zh"},
+                              "self": {"role": "B", "source_language": "zh", "target_language": "en"}})]
+    for profile in ("KIKI2", "VRCLT1"):
+        assigned = [item for item in frozen["passes"] if profile in item["profiles"]]
+        assert [item["pass_id"] for item in assigned] == ["ordinary-self", "A", "B"]
+        assert all(set(item["roles"]) == {"self"} for item in assigned)
+        assert [item["roles"]["self"]["role"] for item in assigned] == ["A", "A", "B"]
     plan["episodes"][0]["profiles"].remove("KIKI2")
     atomic_json(path, plan)
     with pytest.raises(ValueError, match="exact catalog wave membership"):
@@ -453,3 +464,21 @@ def test_main_wave_membership_and_explicit_pilot_subset(tmp_path, monkeypatch):
     plan["execution_scope"]["reason"] = "bounded route check, not concurrent-wave admission"
     atomic_json(path, plan)
     assert load_plan(path, "pilot")["execution_scope"]["kind"] == "pilot"
+
+
+@pytest.mark.parametrize("scope", ["main", "pilot"])
+def test_canonical_ids_cannot_change_family_or_measurement_condition(tmp_path, monkeypatch, scope):
+    import bench.plan as plan_module
+    monkeypatch.setattr(plan_module, "_calibration", lambda *args: {"status": "measured", "offset_ns": 0})
+    path = make_plan(tmp_path, {"PP4": "vrclt", "KIKI2": "vrclt", "VRCLT1": "vrclt", "VRCT3": "vrclt"}, kinds=("T1",))
+    plan = json.loads(path.read_text())
+    plan.update(synthetic=False, execution_scope={"kind": scope, "reason": "bounded family-admission check"})
+    atomic_json(path, plan)
+    with pytest.raises(ValueError, match="Canonical profile PP4 requires collector.family=puripuly"):
+        load_plan(path, "family")
+    for profile in plan["profiles"]:
+        profile["collector"]["family"] = {"PP4": "puripuly", "KIKI2": "kikitan", "VRCLT1": "vrclt", "VRCT3": "vrct"}[profile["id"]]
+    plan["profiles"][0]["condition"] = {"ordinary_input": "self", "t1_mode": "split_self", "roles": {"A": "self", "B": "self"}}
+    atomic_json(path, plan)
+    with pytest.raises(ValueError, match="cannot override its approved measurement condition"):
+        load_plan(path, "condition")

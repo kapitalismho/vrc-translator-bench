@@ -12,6 +12,7 @@ from pathlib import Path
 from urllib.parse import urlencode, urlsplit, urlunsplit
 
 from .native_formats import LOG_TIME, VRCS_EVENTS
+from .native_file import open_log_readonly
 from .native_process import CLIProcess
 
 
@@ -63,6 +64,8 @@ class WebSocket(Transport):
         family = config["family"]
         if family == "vrcs" and url.path != "/v1/events":
             raise ValueError("VRCS collector requires /v1/events")
+        self.startup_done = threading.Event()
+        self.startup_error = None
         token_env = config.get("token_env")
         token = None
         if family == "vrct" or "token_env" in config:
@@ -88,12 +91,27 @@ class WebSocket(Transport):
         else:
             self.connected = None
             self.subscribed = False
+            self.startup_deadline = time.monotonic() + 5
             self.socket.send(json.dumps({"type": "subscribe", "events": list(VRCS_EVENTS)}))
         self.thread(self.receive)
+        if family == "vrcs":
+            if not self.startup_done.wait(max(0, self.startup_deadline - time.monotonic())):
+                raise TimeoutError("VRCS subscription acknowledgement missing")
+            if self.startup_error is not None or not self.subscribed:
+                raise ConnectionError("VRCS subscription did not become ready")
+            self.sink.check(self.profile)
 
     def receive(self):
+        try:
+            self._receive()
+        except Exception as error:
+            self.startup_error = type(error).__name__
+            self.startup_done.set()
+            raise
+
+    def _receive(self):
         family = self.config["family"]
-        deadline = time.monotonic() + 5
+        deadline = getattr(self, "startup_deadline", None)
         while not self.stopping.is_set():
             try:
                 with self.sink.lock:
@@ -122,6 +140,7 @@ class WebSocket(Transport):
                             raise ValueError("VRCS subscription rejected")
                         if self.connected and self.subscribed:
                             self.sink.ready(self.profile, "authenticated_subscription_acknowledged")
+                            self.startup_done.set()
             except TimeoutError:
                 if family == "vrcs" and not self.subscribed and time.monotonic() > deadline:
                     raise TimeoutError("VRCS subscription acknowledgement missing")
@@ -259,17 +278,22 @@ class FileTail(Transport):
 
     def _open(self, initial=False):
         path = self.candidate()
-        source = path.open("rb")
-        stat = os.fstat(source.fileno())
-        self.path, self.file = path, source
-        self.file_identity = (stat.st_dev, stat.st_ino)
-        self.offset = stat.st_size if initial else 0
-        # A restart is a new observation segment, never implicit history replay.
-        source.seek(self.offset)
-        self.pending_offset = self.offset
-        self.pending = b""
-        self.current_role = None
-        self._fingerprint()
+        source = open_log_readonly(path)
+        try:
+            stat = os.fstat(source.fileno())
+            self.path, self.file = path, source
+            self.file_identity = (stat.st_dev, stat.st_ino)
+            self.offset = stat.st_size if initial else 0
+            # A restart is a new observation segment, never implicit history replay.
+            source.seek(self.offset)
+            self.pending_offset = self.offset
+            self.pending = b""
+            self.current_role = None
+            self._fingerprint()
+        except BaseException:
+            source.close()
+            self.file = None
+            raise
 
     def _fingerprint(self):
         position = self.file.tell()
