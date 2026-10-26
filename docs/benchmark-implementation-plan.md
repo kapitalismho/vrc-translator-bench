@@ -2,15 +2,40 @@
 
 ## Authority and current checkpoint
 
-The owner requested a reset from the work reached in issue #8, using [the final benchmark plan](benchmark-final-plan.md), a replacement issue set, and the existing **GPT/backend versus Claude/public-presentation** division. This document classifies the current implementation and drafts the replacement outcomes. The final plan owns benchmark definitions; this document owns migration and delivery boundaries.
+The owner requested a reset from the work reached in historical issue 8, using [the final benchmark plan](benchmark-final-plan.md), a replacement issue set, and the existing **GPT/backend versus Claude/public-presentation** division. This document classifies the implementation and records the replacement outcomes. The final plan owns benchmark definitions; this document owns migration and delivery boundaries.
 
-**This checkpoint retires obsolete implementation and preserves reusable foundations. It does not implement or run the new benchmark.** Issue publication/deletion is not part of this checkpoint. `R0`–`R10` below are draft keys, not GitHub issue numbers or existing native relationships.
+**The reset at `ad53f6eb0eda28724acb3f366ebd92b25e9cb3da` is complete and integrated into local `main`; it did not implement or run the new benchmark.** The owner subsequently authorized publication of R0–R10 and deletion of all original issues, including closed ones, but not pull requests. R0 is the program umbrella, not a request to repeat the reset. Start implementation with R1; source/rights investigation in R2 can proceed alongside it.
 
 Starting state: `issue8-first-batch` at `fbab10a0455d91d5419d9673499d25b7ac86c566`; fetched `origin/main` at `1a5244a04d6a62e447a6ed888893f81a9eed9cf6`. The reset integrates the unmerged historical capture work rather than rolling it back. Pre-existing local final/redesign documents are integrated as the planning authority/history. Unrelated untracked traces and terminal-recovery drafts are not staged, deleted or rewritten.
 
+### Published issue set
+
+The owner-authorized replacement is published. **Start implementation at [R1 / #15](https://github.com/kapitalismho/vrc-translator-bench/issues/15); [R0 / #14](https://github.com/kapitalismho/vrc-translator-bench/issues/14) is the program umbrella**, not an unperformed reset step.
+
+| Key | Published issue | Execution owner |
+|---|---|---|
+| R0 | [#14 — Integrated benchmark program](https://github.com/kapitalismho/vrc-translator-bench/issues/14) | GPT |
+| R1 | [#15 — Native input/output and fourteen-profile comparability](https://github.com/kapitalismho/vrc-translator-bench/issues/15) | GPT |
+| R2 | [#16 — Natural conversation, reading and EN/ZH T1 parents](https://github.com/kapitalismho/vrc-translator-bench/issues/16) | GPT |
+| R3 | [#17 — Reviewed JA/KO T1 reconstruction](https://github.com/kapitalismho/vrc-translator-bench/issues/17) | GPT |
+| R4 | [#18 — Quality, semantic waiting and report data](https://github.com/kapitalismho/vrc-translator-bench/issues/18) | GPT |
+| R5 | [#19 — Logical-episode costs and billing revisions](https://github.com/kapitalismho/vrc-translator-bench/issues/19) | GPT |
+| R6 | [#20 — Integrated pilot and production freeze](https://github.com/kapitalismho/vrc-translator-bench/issues/20) | GPT |
+| R7 | [#21 — Dated comparison and public-safe evidence](https://github.com/kapitalismho/vrc-translator-bench/issues/21) | GPT |
+| R8 | [#22 — Unified scorecard, charts and methodology](https://github.com/kapitalismho/vrc-translator-bench/issues/22) | Claude |
+| R9 | [#23 — Recorded-output comparison video](https://github.com/kapitalismho/vrc-translator-bench/issues/23) | Claude |
+| R10 | [#24 — PuriPuly reruns and bounded development experiments](https://github.com/kapitalismho/vrc-translator-bench/issues/24) | GPT |
+
+- All eleven titles/bodies, open states, self-assignment to `kapitalismho` and exactly one existing label were read back. R9 uses `documentation`; the other outcomes use `enhancement`. No Project membership was returned and no implementation-start or completion transition was applied.
+- All ten children are native sub-issues of R0. Twenty native blocking relationships match the completion-artifact map below; they do not prohibit earlier independent investigation or interface development. R8/R9 remain siblings; R10 is not a first-release blocker.
+- Original issues **1–11, including previously closed issues, were deleted**, not merely closed. The all-state issue inventory contains only the replacement set, and all eleven original node identities return `NOT_FOUND`/null. Merged PRs **12 and 13 remain unchanged**.
+- Original bodies, eleven comments and metadata are preserved only in `.data/issue-migration-native-output/original-issues.json`; the verification/relationship record is `.data/issue-migration-native-output/publication.json`. These local records are not published assets. Historical issue numbers elsewhere in this document identify the retired work, not executable dependencies.
+- Because the reset code/docs have not been pushed, R0 carries a [complete approved protocol source snapshot](https://github.com/kapitalismho/vrc-translator-bench/issues/14#issuecomment-6406410375), including the owner-local API-key gate before any TTS request. Its LF-normalized UTF-8 SHA-256 is `6b6c21b91af1e8a66b57a12c317ef5042f53df905adc23efc1ef3dc5b37aeea8`. This publishes the same final-plan revision, not a second independently mutable protocol.
+- This transaction publishes planning issues only. No TTS/provider call, benchmark execution, account/key change, code push or PR publication occurred. Future contract changes must reconcile the maintained plan and affected issue contracts explicitly.
+
 ### What “through issue #8” means
 
-- Issues #2–#7 are closed on their respective amended preparation/implementation scopes. #1, #8 and #9–#11 were open when inspected. No linked Project items or repository Actions workflows were returned.
+- Before replacement, issues #2–#7 were closed on their respective amended preparation/implementation scopes, while #1, #8 and #9–#11 were open. No linked Project items or repository Actions workflows were returned. The publication record above supersedes their page-existence/status information, not the historical implementation facts.
 - The D1/D3 batch has substantial real capture and calculation evidence. The local state explicitly records `measurement_artifacts_complete__integrity_repair_required__owner_billing_pending` and `final_result_acceptance_hold: true`.
 - Confirmed old analysis defects include incorrect source/output links, cumulative-output duplication, missing audible-speaker context, output-dependent scoring populations, and early harness intervention misrepresented as complete observation. Raw capture consistency does not validate those derived scores. Real product errors also remain; this is not a finding that every low score was a harness error.
 - Preserve existing captures, scores, unavailable cases and the acceptance/billing hold. This reset does not fix historical scores, complete #8 or establish a new baseline.
@@ -48,16 +73,16 @@ Tests for removed products are retired with those products. Keep capture/resume/
 | GPT PuriPuly reruns and bounded ASR/segmentation development | Preserved as R10 follow-up, not a first-release gate and not authority to modify PuriPuly. |
 | Historical rights, privacy, access and billing limitations | Preserved. Source selection is not rights-holder permission; a merge is not a paid-run or account-change grant. |
 
-The old GitHub issue pages remain unchanged in this checkpoint. When replacement publication is authorized, record the superseded/preserved mapping before retiring old open planning issues; do not label unperformed old criteria completed. The owner's “delete and replace” assumption does not require destroying linked evidence or Git history. The new issue set should use the established `[GPT]`/`[Claude]` title/body ownership convention and one existing type label per issue.
+The owner explicitly authorized replacement publication and deletion of the original issue pages, not marking unmet work completed. Preserve their bodies, requirement-bearing comments and metadata in a local pre-deletion record; preserve linked artifacts and Git history. Publish the replacement set and record its actual relationships before deleting only the captured original issue IDs. Use the established `[GPT]`/`[Claude]` ownership convention, self-assignment and one existing type label per issue. Remote code push is separate from this issue-publication authority.
 
 ## Execution order and shared ownership
 
-| Draft | Owner | Observable outcome | Required input for completion |
+| Key | Owner | Observable outcome | Required input for completion |
 |---|---|---|---|
 | R0 | GPT | Integrated native-output benchmark program | R1–R9 for first release; R10 tracked separately |
 | R1 | GPT | Usable native input/collection path and per-profile comparability decisions | Current profile/source evidence, small permitted development inputs, scoped runtime access |
 | R2 | GPT | Frozen eligible natural-conversation/reading episodes and EN/ZH T1 parents | R1's actual input/output contracts before production |
-| R3 | GPT | Reviewed JA/KO T1 reconstruction and production-cost report | R1 feasibility, R2 eligible parents, generation/rights/review prerequisites |
+| R3 | GPT | Reviewed JA/KO T1 reconstruction and production-cost report | R1 feasibility, R2 eligible parents, owner-configured API key and scoped usage approval, rights/review prerequisites |
 | R4 | GPT | Auditable reconstruction, two-stage quality, semantic waiting and report data | R1 native examples/contracts; R2 representative references/checkpoints |
 | R5 | GPT | Logical-episode costs and later evidence revisions | R1 episode/pass/run bindings; coordinate report contract with R4 |
 | R6 | GPT | Actual integrated development pilot and production freeze | R1–R5, with pending billing allowed but no fabricated amounts |
@@ -76,11 +101,11 @@ R1 owns shared capture contracts; R2 owns source/checkpoint definitions; R4 owns
 - **Collection:** full text and usable timing are separate admissions. A missing producer timestamp alone is not a reason to build invasive instrumentation; verify a useful observation interval. Real truncation, missing intermediate history, ambiguous roles and collector gaps remain substantive limits.
 - **ASCEND T1:** verify both original sides and common timing before making parents. Insufficient eligible material blocks the fixed corpus freeze; it does not authorize synthetic English/Chinese parents or arbitrary gaps.
 - **IngCrowd:** adoption is settled, but actual use-purpose/noncommercial compatibility, external-service input and public examples need rights review. Do not substitute another source silently.
-- **Gemini 3.8 Flash TTS:** generation/spend/account/terms actions need scoped authority; both JA and KO require actual content/listening/role-boundary review. ASR or buffer arithmetic alone does not certify pronunciation or naturalness.
+- **Gemini 3.8 Flash TTS:** before any live request, including development generation, ask the owner to configure an appropriate Google Gemini API key locally for the selected model. Specify the actual configuration location, required project/model/billing access and proposed bounded usage. Wait for setup confirmation and scoped usage authorization; never request or expose the secret value in issues/chat/source/logs, borrow another app's credentials or substitute a provider. Both JA and KO still require actual content/listening/role-boundary review.
 - **Judge:** use the selected existing Astra subscription route; no paid fallback. Real two-stage discrimination and bounded variability remain unmeasured.
 - **Billing:** the owner will provide permitted logs later. Implement bindings now; retain pending/unknown cost without delaying otherwise valid quality/time reporting or inventing zero.
 
-# Replacement issue drafts
+# Replacement issue contracts
 
 ## R0 — [GPT] Deliver the native-output conversation translation comparison
 
@@ -90,7 +115,7 @@ Replace the old six-direction OSC experiment with the approved peer-centered con
 
 ### Scope
 
-Own shared scope, dependency/decision accounting and integrated acceptance. The [final plan](benchmark-final-plan.md) is the sole authority for dataset choices, weights, channel exceptions, methodology and public claims. Preserve R10 as a separately tracked follow-up.
+Own shared scope, dependency/decision accounting and integrated acceptance. The [final plan](benchmark-final-plan.md) is the sole authority for dataset choices, weights, channel exceptions, methodology and public claims. Preserve R10 as a separately tracked follow-up. The reset is already complete on local `main`; R0 coordinates the remaining work and R1 is the implementation entry point.
 
 ### Requirements
 
@@ -102,7 +127,7 @@ First release has an actual dated R7 package, R8 public report and R9 cleared vi
 
 ### Decisions and Evidence
 
-The reset classification above distinguishes reusable infrastructure from accepted measurements. Existing issue #8 remains historical with an integrity/billing hold. No issue deletion, publication, paid run or source-rights clearance is implied by these drafts.
+The reset classification above distinguishes reusable infrastructure from accepted measurements. Historical issue 8 evidence retains its integrity/billing hold regardless of deletion of its issue page. The owner authorized publication of this set and deletion of the original issues; paid runs, credential/account changes, source-rights clearance and remote code push remain separately scoped.
 
 ## R1 — [GPT] Establish native-output comparability for all fourteen profiles
 
@@ -162,9 +187,11 @@ Use **Gemini 3.8 Flash TTS only** for JA/KO T1. Own scripts, actual generation, 
 
 Follow final-plan §§4.3–4.6 and 11.3: whole-dialogue request per episode first, two stock voices, four separate development dialogues and bounded method checks, documented complete-turn fallback only when necessary. Preserve negation/numbers/conditions/repair, parent identity, failed takes and regeneration causes. Use actual generated timing, equal-length role buffers and frozen hashes; do not concatenate WAV file bytes or compress silent role intervals.
 
+Before the first live TTS request, including the four-dialogue development pilot, ask the owner to configure an appropriate Google Gemini API key locally for `gemini-3.8-flash-tts`. State the exact environment variable or secret-setting location used by the implementation, required model/project/billing access, proposed calls and cost cap. Wait for the owner's setup confirmation and scoped usage approval. Never request the key value in issues or chat, commit/log it, reuse another app's credentials without approval, or silently change provider. Missing configuration/access blocks generation, not independent script preparation.
+
 ### Completion Criteria
 
-Actual JA and KO content/listening and boundary review supports the adopted method before nine main reconstructions are frozen. Show role-buffer sum/sample integrity and genuine speaker/content assignment separately. Report first-pass/rejected/adopted outcomes, API consumption, cash/credit, review work and unknown costs. Unavailable generation authority or bilingual review remains an explicit prerequisite, not a synthetic-quality pass.
+Record secret-free owner setup confirmation and usage authorization before any generation. Actual JA and KO content/listening and boundary review supports the adopted method before nine main reconstructions are frozen. Show role-buffer sum/sample integrity and genuine speaker/content assignment separately. Report first-pass/rejected/adopted outcomes, API consumption, cash/credit, review work and unknown costs. Unavailable credentials, generation authority or bilingual review remain explicit prerequisites, not synthetic-quality passes.
 
 ### Decisions and Evidence
 
