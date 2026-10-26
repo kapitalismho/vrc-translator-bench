@@ -6,6 +6,7 @@ from datetime import datetime, timezone
 import pytest
 
 from bench.gui_operator_adapter import GuiOperator, read_observation
+from test_capture import runtime
 
 
 def observation(pid=123, running=False):
@@ -180,7 +181,10 @@ def test_verified_restart_adopts_successor_for_following_controls(tmp_path, monk
         assert bridge.call("liveness", {})["process_observation"]["pid"] == 456
         assert bridge.call("read_state", {})["metadata"]["observation_valid"] is True
         assert bridge.call("start", {})["running"] is True
-        assert bridge.call("stop", {})["running"] is False
+        reconstructed = GuiOperator(tmp_path, 123, "VRCS2", "test-session", timeout=5)
+        assert reconstructed.call("read_state", {})["running"] is True
+        assert reconstructed.call("identity", {})["pid"] == 456
+        assert reconstructed.call("stop", {})["running"] is False
     finally:
         worker.join(5)
     assert not errors and len(requests) == 3
@@ -242,3 +246,240 @@ def test_restart_rejects_unowned_stale_or_ambiguous_successor(tmp_path, monkeypa
     assert (bridge.pid, bridge.session) == (123, "test-session")
     assert (tmp_path / "observation.json").read_bytes() == original
     assert not (tmp_path / "response-0001.json").exists()
+
+
+def persisted_successor(tmp_path, monkeypatch):
+    tmp_path.mkdir(parents=True, exist_ok=True)
+    bridge, alive, identities, successor = restart_fixture(tmp_path, monkeypatch)
+    request = {"sequence": 1, "method": "reset_session", "params": {"episode_id": "e1", "pass_id": "A"},
+               "pid": 123, "profile": "VRCS2", "session": "test-session", "requested_at_ns": time.perf_counter_ns(),
+               "requested_at_utc": datetime.now(timezone.utc).isoformat(), "owned_process": dict(identities[123])}
+    fresh = successor(request)
+    for filename in ("request-0001.json", "pending.json"):
+        (tmp_path / filename).write_text(json.dumps(request))
+    path = tmp_path / "successor.json"
+    path.write_text(json.dumps(fresh))
+    bridge.record(path, 1)
+    recorder = GuiOperator(tmp_path, 123, "VRCS2", "test-session", timeout=5)
+    start = {"sequence": 2, "method": "start", "params": {}, "pid": 456, "profile": "VRCS2",
+             "session": "successor-session", "requested_at_utc": datetime.now(timezone.utc).isoformat()}
+    for filename in ("request-0002.json", "pending.json"):
+        (tmp_path / filename).write_text(json.dumps(start))
+    current = observation(pid=456, running=True)
+    current.update(session="successor-session", process_identity=dict(identities[456]))
+    path = tmp_path / "started.json"
+    path.write_text(json.dumps(current))
+    recorder.record(path, 2)
+    return alive, identities
+
+
+@pytest.mark.parametrize("tail_exited", [False, True])
+def test_original_argv_recovers_successor_without_owning_reused_predecessor(tmp_path, monkeypatch, tail_exited):
+    alive, identities = persisted_successor(tmp_path, monkeypatch)
+    alive[123] = True
+    identities[123].update(creation_filetime_100ns=999, executable="unrelated-bystander.exe")
+    alive[456] = not tail_exited
+    queried = []
+    def identity(pid):
+        queried.append(pid)
+        assert pid == 456  # Historical PID123 may now belong to somebody else.
+        return dict(identities[pid])
+    monkeypatch.setattr("bench.gui_operator_adapter.process_identity", identity)
+    fresh = GuiOperator(tmp_path, 123, "VRCS2", "test-session")
+    assert (fresh.pid, fresh.session) == (456, "successor-session")
+    assert fresh.call("read_state", {})["running"] == (not tail_exited)
+    if tail_exited:
+        assert fresh.call("stop", {})["running"] is False
+        assert fresh.call("identity", {})["process_identity"] is None
+        assert not (tmp_path / "request-0003.json").exists() and not queried
+    else:
+        assert fresh.call("identity", {})["process_identity"] == identities[456]
+    assert alive[123] and alive[789]
+
+
+@pytest.mark.parametrize("invalid", ["missing_transition", "missing_ack", "missing_request", "changed_request",
+                                     "changed_birth", "changed_executable", "stale_observation", "unrelated_observation",
+                                     "wrong_root", "wrong_profile", "branched_previous", "broken_link",
+                                     "ambiguous_ack", "unrelated_argv"])
+def test_recovery_rejects_incomplete_unrelated_or_identity_changed_history(tmp_path, monkeypatch, invalid):
+    from bench.storage import atomic_json, digest
+    alive, identities = persisted_successor(tmp_path, monkeypatch)
+    if invalid == "missing_transition":
+        (tmp_path / "ownership-0001.json").unlink()
+    elif invalid == "missing_ack":
+        (tmp_path / "response-0001.json").unlink()
+    elif invalid == "missing_request":
+        (tmp_path / "request-0001.json").unlink()
+    elif invalid == "changed_request":
+        path = tmp_path / "request-0001.json"
+        value = json.loads(path.read_text())
+        value["params"]["episode_id"] = "unrelated"
+        atomic_json(path, value)
+    elif invalid == "changed_birth":
+        identities[456]["creation_filetime_100ns"] += 1
+    elif invalid == "changed_executable":
+        identities[456]["executable"] = "unrelated.exe"
+    elif invalid in ("stale_observation", "unrelated_observation"):
+        path = tmp_path / "observation.json"
+        value = json.loads(path.read_text())
+        if invalid == "stale_observation":
+            value["observed_at_utc"] = "2000-01-01T00:00:00+00:00"
+        else:
+            value["pid"] = 789
+        atomic_json(path, value)
+    elif invalid in ("wrong_root", "wrong_profile", "branched_previous", "broken_link"):
+        path = tmp_path / "ownership-0001.json"
+        value = json.loads(path.read_text())
+        if invalid == "wrong_root":
+            value["directory"] = str(tmp_path / "another-directory")
+        elif invalid == "wrong_profile":
+            value["profile"] = "unrelated"
+        elif invalid == "branched_previous":
+            value["anchor"]["pid"] = 789
+        else:
+            value["previous_transition_sha256"] = "not-the-previous-transition"
+        atomic_json(path, value)
+        response = tmp_path / "response-0001.json"
+        ack = json.loads(response.read_text())
+        ack["ownership_sha256"] = digest(path)
+        atomic_json(response, ack)
+    elif invalid == "ambiguous_ack":
+        (tmp_path / "response-9999.json").write_bytes((tmp_path / "response-0001.json").read_bytes())
+    pid, session = (789, "unrelated") if invalid == "unrelated_argv" else (123, "test-session")
+    with pytest.raises((ValueError, OSError)):
+        GuiOperator(tmp_path, pid, "VRCS2", session)
+    assert alive[456] and alive[789]
+
+
+@pytest.mark.parametrize("failed_write", ["ownership-0001.json", "observation.json", "response-0001.json"])
+def test_restart_persistence_failure_never_confirms_dead_predecessor_cleanup(tmp_path, monkeypatch, failed_write):
+    import bench.gui_operator_adapter as module
+    bridge, alive, identities, successor = restart_fixture(tmp_path, monkeypatch)
+    request = {"sequence": 1, "method": "reset_session", "params": {"episode_id": "e1", "pass_id": "A"},
+               "pid": 123, "profile": "VRCS2", "session": "test-session",
+               "requested_at_utc": datetime.now(timezone.utc).isoformat(), "owned_process": dict(identities[123])}
+    fresh = successor(request)
+    for filename in ("request-0001.json", "pending.json"):
+        (tmp_path / filename).write_text(json.dumps(request))
+    path = tmp_path / "fresh.json"
+    path.write_text(json.dumps(fresh))
+    original = module.atomic_json
+    def fail(path, value):
+        if path.name == failed_write:
+            raise OSError("controlled durable write failure")
+        return original(path, value)
+    monkeypatch.setattr(module, "atomic_json", fail)
+    with pytest.raises(OSError, match="controlled durable write failure"):
+        bridge.record(path, 1)
+    try:
+        recovered = GuiOperator(tmp_path, 123, "VRCS2", "test-session")
+    except (ValueError, OSError):
+        recovered = None
+    if recovered is not None:
+        with pytest.raises(ValueError, match="pending|unresolved"):
+            recovered.call("read_state", {})
+        with pytest.raises(ValueError, match="pending|unresolved"):
+            recovered.call("stop", {})
+    assert alive[456] and alive[789]
+
+
+def test_multiple_transitions_validate_history_without_querying_reused_predecessors(tmp_path, monkeypatch):
+    from bench.gui_operator_adapter import _filetime_utc
+    alive, identities = persisted_successor(tmp_path, monkeypatch)
+    recorder = GuiOperator(tmp_path, 123, "VRCS2", "test-session")
+    request = {"sequence": 3, "method": "reset_session", "params": {"episode_id": "e2", "pass_id": "B"},
+               "pid": 456, "profile": "VRCS2", "session": "successor-session",
+               "requested_at_utc": datetime.now(timezone.utc).isoformat(), "owned_process": dict(identities[456])}
+    alive[456], alive[567] = False, True
+    identities[567] = {"pid": 567, "clock": "windows_filetime_utc", "executable": "fixture.exe",
+                       "creation_filetime_100ns": _filetime_utc(request["requested_at_utc"]) + 10}
+    fresh = observation(pid=567)
+    fresh.update(session="second-successor", process_identity=dict(identities[567]))
+    fresh["session_reset"] = {"episode_id": "e2", "pass_id": "B", "basis": "verified_application_restart",
+                              "evidence": ["second owned replacement"],
+                              "successor": {"previous_pid": 456, "previous_session": "successor-session",
+                                            "pid": 567, "session": "second-successor", "evidence": ["owned fixture"]}}
+    for filename in ("request-0003.json", "pending.json"):
+        (tmp_path / filename).write_text(json.dumps(request))
+    path = tmp_path / "second-successor.json"
+    path.write_text(json.dumps(fresh))
+    recorder.record(path, 3)
+    for pid in (123, 456):
+        alive[pid] = True
+        identities[pid].update(executable="unrelated-bystander.exe", creation_filetime_100ns=999)
+    def identity(pid):
+        assert pid == 567
+        return dict(identities[pid])
+    monkeypatch.setattr("bench.gui_operator_adapter.process_identity", identity)
+    recovered = GuiOperator(tmp_path, 123, "VRCS2", "test-session")
+    assert recovered.call("identity", {})["pid"] == 567
+    assert alive[123] and alive[456] and alive[789]
+    (tmp_path / "ownership-0001.json").unlink()
+    with pytest.raises((ValueError, OSError)):
+        GuiOperator(tmp_path, 123, "VRCS2", "test-session")
+
+
+def test_runner_resume_reconciles_persisted_gui_successor_from_original_argv(tmp_path, monkeypatch, runtime):
+    import sys
+    import bench.runner as runner_module
+    from bench.plan import load_plan
+    from bench.runner import Runner
+    from bench.storage import Journal, Ledger
+    from test_capture import make_plan
+    operator_root = tmp_path / "operator"
+    alive, identities = persisted_successor(operator_root, monkeypatch)
+    plan = load_plan(make_plan(tmp_path / "input", {"VRCS2": "vrcs"}, kinds=("P1",)), "resume")
+    plan["profiles"][0]["adapter"] = [sys.executable, "-m", "bench.gui_operator_adapter", "--directory", str(operator_root),
+                                       "--owned-pid", "123", "--profile", "VRCS2", "--session", "test-session"]
+    root = tmp_path / "runner"
+    root.mkdir()
+    ledger = Ledger(root)
+    ledger.seed(plan["passes"])
+    attempt = ledger.begin(ledger.work(0)[0], False)
+    journal = Journal(root / attempt["trace"])
+    journal.append({"record": "prior_completed_synthetic_work"})
+    name, checksum = journal.finalize()
+    ledger.finish(attempt, "done", None, name, checksum)
+    ledger.record("capture_ownership", {"profile": "VRCS2", "owned": True, "reason": "surviving synthetic successor"})
+    original = ledger.export(plan)["attempts"]
+    ledger.close()
+    calls, errors = [], []
+    class GuiBackedAdapter:
+        def __init__(self, profile, output_root, session):
+            argv = profile["adapter"]
+            self.bridge = GuiOperator(argv[argv.index("--directory") + 1], int(argv[argv.index("--owned-pid") + 1]),
+                                      profile["id"], argv[argv.index("--session") + 1], timeout=5)
+            self.log = Journal(output_root / f"diagnostic-{profile['id']}-{session}.tmp")
+        def call(self, method, **params):
+            calls.append(method)
+            return self.bridge.call(method, params)
+        def close(self):
+            return self.log.finalize()
+    monkeypatch.setattr(runner_module, "Adapter", GuiBackedAdapter)
+    def acknowledge_stop():
+        try:
+            request_path = operator_root / "request-0003.json"
+            deadline = time.monotonic() + 5
+            while not request_path.exists() and time.monotonic() < deadline:
+                time.sleep(.01)
+            request = json.loads(request_path.read_text())
+            assert (request["method"], request["pid"], request["session"]) == ("stop", 456, "successor-session")
+            fresh = observation(pid=456, running=False)
+            fresh.update(session="successor-session", process_identity=dict(identities[456]))
+            path = operator_root / "stopped.json"
+            path.write_text(json.dumps(fresh))
+            GuiOperator(operator_root, 123, "VRCS2", "test-session").record(path, 3)
+        except BaseException as error:
+            errors.append(error)
+    worker = threading.Thread(target=acknowledge_stop)
+    worker.start()
+    try:
+        report = Runner(root, plan, synthetic=True, resume=True).run()
+    finally:
+        worker.join(5)
+    assert not errors and calls == ["read_state", "stop", "read_state"]
+    assert report["attempts"] == original
+    ownership = [json.loads(row["detail"]) for row in report["records"] if row["kind"] == "capture_ownership"]
+    assert ownership[-1]["owned"] is False
+    assert json.loads((operator_root / "observation.json").read_text())["state"]["running"] is False
+    assert alive[456] and alive[789]

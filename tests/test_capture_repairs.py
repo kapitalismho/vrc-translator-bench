@@ -373,3 +373,57 @@ def test_simultaneous_roles_use_common_actual_cutoff_with_independent_origins(tm
     assert detail["opportunity_established"] and all(value["complete"] for value in detail["playback"].values())
     native = [row for row in trace(root, result["attempts"][0]) if row.get("record") == "native_output_event"]
     assert len(native) == 1 and native[0]["collector_received_monotonic"] == receipt_ns
+
+
+@pytest.mark.parametrize("kind", ["P1", "T1"])
+@pytest.mark.parametrize("receipt_ns,p1_status,p2_status", [
+    (25_100_000_000, "output_observed", "output_observed"),
+    (25_700_000_000, "product_no_output", "output_observed"),
+    (26_500_000_000, "product_no_output", "product_no_output"),
+])
+def test_round_collection_does_not_extend_another_profiles_output_cutoff(tmp_path, runtime, monkeypatch, kind, receipt_ns, p1_status, p2_status):
+    clock, run = runtime
+    path = make_plan(tmp_path, {"P1": "puripuly", "P2": "vrct"}, kinds=(kind,), duration=20)
+    plan = load_plan(path, "unit")
+    plan["synthetic"] = False
+    for item in plan["passes"]:
+        item["common_last_speech_seconds"] = .12
+    for source in plan["episodes"][0]["roles"].values():
+        source["speech_intervals"] = [[0, .12]]
+    for profile in plan["profiles"]:
+        for route in profile["routes"].values():
+            route["calibration"] = {"status": "measured", "offset_ns": 0,
+                                    "devices": {"output": [route["output_device"], {"name": route["output_device"]}]}}
+    class ProfileSkewedPlayback(ClockPlayback):
+        def __init__(self, path, device):
+            super().__init__(path, device)
+            self.device = device
+            self.devices = {"output": [device, {"name": device}]}
+        def start(self, scheduled_start_ns=None):
+            super().start(scheduled_start_ns + (1_000_000_000 if "-P2-" in self.device else 0))
+    monkeypatch.setattr(runner_module, "Playback", ProfileSkewedPlayback)
+    injected = []
+    def output(now):
+        if not injected and now >= receipt_ns:
+            injected.append(now)
+            sink = FakeSink.instances[-1]
+            for profile in ("P1", "P2"):
+                sink.targets[profile].append({"record": "native_output_event", **sink.context[profile],
+                                              "input_channel": "peer", "collector_received_monotonic": now,
+                                              "translated_text": "same receipt, independently bounded profiles"})
+    clock.hooks.append(output)
+    root, result = run(path, plan=plan)
+    for work, attempt in zip(result["work"], result["attempts"]):
+        detail = json.loads(attempt["detail"])
+        cutoff = 25_320_000_000 if work["profile"] == "P1" else 26_320_000_000
+        expected = p1_status if work["profile"] == "P1" else p2_status
+        assert detail["observation_deadline_ns"] == cutoff
+        assert detail["round_collection_deadline_ns"] == 26_320_000_000
+        assert all(window[1] == cutoff for window in detail["output_windows_ns"].values())
+        assert detail["role_outcomes"]["A"]["status"] == expected
+        assert detail["opportunity_established"] and all(value["complete"] for value in detail["playback"].values())
+        rows = trace(root, attempt)
+        window, = [row for row in rows if row.get("record") == "observation_window"]
+        assert window["observation_end_ns"] == cutoff and window["round_collection_deadline_ns"] == 26_320_000_000
+        event, = [row for row in rows if row.get("record") == "native_output_event"]
+        assert event["collector_received_monotonic"] == receipt_ns

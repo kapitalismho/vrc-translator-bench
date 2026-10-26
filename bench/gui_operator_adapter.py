@@ -10,7 +10,7 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 
-from .storage import atomic_json
+from .storage import atomic_json, digest
 
 
 def process_alive(pid):
@@ -95,15 +95,98 @@ class GuiOperator:
         self.session = session
         self.timeout = timeout
         self.sequence = max((int(path.stem.split("-")[1]) for path in self.directory.glob("request-*.json")), default=0)
+        self._argv_owner = (pid, session)
+        self._owned_identity = None
+        self._ownership = []
+        self._ownership_checksum = None
+        self._recover_ownership()
+
+    def _check_owned_process(self):
+        if self._owned_identity is not None and process_alive(self.pid) and process_identity(self.pid) != self._owned_identity:
+            raise ValueError("Current owned successor PID was reused or its process identity changed")
+
+    def _recover_ownership(self):
+        paths = sorted(self.directory.glob("ownership-*.json"))
+        acknowledged = {}
+        for path in self.directory.glob("response-*.json"):
+            response = json.loads(path.read_text(encoding="utf-8"))
+            if "ownership_sha256" in response:
+                sequence = response["sequence"]
+                if path.name != f"response-{sequence:04d}.json" or sequence in acknowledged or response.get("error"):
+                    raise ValueError("Successor ownership acknowledgment is ambiguous or invalid")
+                acknowledged[sequence] = response
+        if not paths:
+            if acknowledged or self._ownership:
+                raise ValueError("Validated successor ownership history is missing")
+            return
+        transitions, checksums, owners = [], [], set()
+        expected, anchor = None, None
+        for path in paths:
+            transition = json.loads(path.read_text(encoding="utf-8"))
+            request = transition["request"]
+            sequence = request["sequence"]
+            checksum = digest(path)
+            if (transition.get("schema_version") != 1 or transition.get("profile") != self.profile
+                    or os.path.normcase(transition.get("directory", "")) != os.path.normcase(str(self.directory.resolve()))
+                    or path.name != f"ownership-{sequence:04d}.json"
+                    or transition.get("previous_transition_sha256") != (checksums[-1] if checksums else None)
+                    or digest(self.directory / f"request-{sequence:04d}.json") != transition["request_sha256"]
+                    or json.loads((self.directory / f"request-{sequence:04d}.json").read_text(encoding="utf-8")) != request
+                    or acknowledged.get(sequence, {}).get("ownership_sha256") != checksum):
+                raise ValueError("Successor ownership history is incomplete or does not match its request/acknowledgment")
+            if anchor is None:
+                anchor = transition["anchor"]
+                expected = anchor
+                owners.add((anchor["pid"], anchor["session"]))
+            if (transition["anchor"] != anchor or (request["pid"], request["session"]) != (expected["pid"], expected["session"])
+                    or request.get("owned_process") != expected["process_identity"]):
+                raise ValueError("Successor ownership history branches or has unrelated previous ownership")
+            self._validate_ack(transition["successor_observation"], request, transition["previous_observation"], live=False)
+            successor = transition["successor_observation"]
+            expected = {"pid": successor["pid"], "session": successor["session"], "process_identity": successor["process_identity"]}
+            owners.add((expected["pid"], expected["session"]))
+            transitions.append(transition)
+            checksums.append(checksum)
+        if set(acknowledged) != {transition["request"]["sequence"] for transition in transitions} or self._argv_owner not in owners:
+            raise ValueError("Original controller identity is not bound to this complete successor ownership chain")
+        current = read_observation(self.directory / "observation.json")
+        if ((current["pid"], current["profile"], current["session"]) != (expected["pid"], self.profile, expected["session"])
+                or current.get("process_identity") != expected["process_identity"]
+                or _utc(current["observed_at_utc"]) < _utc(transitions[-1]["successor_observation"]["observed_at_utc"])):
+            raise ValueError("Current observation is stale or unrelated to validated successor ownership")
+        if (self.directory / "invalidated.json").exists():
+            raise ValueError("Retired GUI session cannot recover successor ownership")
+        # Historical predecessors may now be dead or reused. Only the current
+        # tail is queried; an exited tail is owned-but-stopped, not a new owner.
+        if process_alive(expected["pid"]) and process_identity(expected["pid"]) != expected["process_identity"]:
+            raise ValueError("Current successor live process identity changed")
+        self.pid, self.session = expected["pid"], expected["session"]
+        self._owned_identity = expected["process_identity"]
+        self._ownership, self._ownership_checksum = transitions, checksums[-1]
+
+    def _persist_successor(self, request, previous, successor):
+        anchor = (self._ownership[0]["anchor"] if self._ownership else
+                  {"pid": request["pid"], "session": request["session"], "process_identity": request["owned_process"]})
+        transition = {"schema_version": 1, "directory": str(self.directory.resolve()), "profile": self.profile,
+                      "anchor": anchor, "previous_transition_sha256": self._ownership_checksum,
+                      "request": request, "request_sha256": digest(self.directory / f"request-{request['sequence']:04d}.json"),
+                      "previous_observation": previous, "successor_observation": successor}
+        path = self.directory / f"ownership-{request['sequence']:04d}.json"
+        if path.exists():
+            raise ValueError("Successor ownership transition already exists; do not overwrite history")
+        atomic_json(path, transition)
+        return digest(path)
 
     def observed(self, allow_pending=False):
         if not allow_pending and (self.directory / "invalidated.json").exists():
             raise ValueError("GUI observation retired after external configuration change or application restart; use a fresh session")
-        if not allow_pending and (self.directory / "pending.json").exists():
-            raise ValueError("GUI observation invalidated by pending configuration/capture mutation")
+        pending = self.directory / "pending.json"
+        if pending.exists() and (not allow_pending or json.loads(pending.read_text(encoding="utf-8")).get("method") == "reset_session"):
+            raise ValueError("GUI observation invalidated by pending configuration/capture mutation or unresolved reset")
         observation = read_observation(self.directory / "observation.json")
         if observation["pid"] != self.pid or observation["profile"] != self.profile or observation["session"] != self.session:
             raise ValueError("Observation belongs to another application instance or pilot session")
+        self._check_owned_process()
         alive = process_alive(self.pid)
         return {**observation["state"], "running": observation["state"]["running"] and alive,
                 "metadata": {**observation.get("metadata", {}), "observation_valid": alive,
@@ -111,7 +194,7 @@ class GuiOperator:
                 "continuous_effective_state_observation": False,
                 "gui_observation": {key: observation[key] for key in ("basis", "observed_at_utc", "evidence", "profile", "session")}}}
 
-    def _validate_ack(self, observation, request, previous):
+    def _validate_ack(self, observation, request, previous, live=True):
         owned = (request["pid"], request["profile"], request["session"])
         if (previous["pid"], previous["profile"], previous["session"]) != owned or request["profile"] != self.profile:
             raise ValueError("Operator request does not match previous owned application/session")
@@ -129,7 +212,7 @@ class GuiOperator:
             if request["method"] == "reset_session":
                 if reset["basis"] == "verified_application_restart":
                     raise ValueError("Verified application restart requires an explicit owned successor")
-                if not process_alive(request["pid"]) or process_identity(request["pid"]) != request["owned_process"]:
+                if live and (not process_alive(request["pid"]) or process_identity(request["pid"]) != request["owned_process"]):
                     raise ValueError("Original owned process identity changed during conversation reset")
         else:
             successor = reset.get("successor")
@@ -144,11 +227,12 @@ class GuiOperator:
                     or not isinstance(observation["session"], str) or not observation["session"]):
                 raise ValueError("Restart requires a distinct successor PID and fresh session")
             for path in self.directory.glob("request-*.json"):
-                if json.loads(path.read_text(encoding="utf-8"))["session"] == observation["session"]:
+                prior = json.loads(path.read_text(encoding="utf-8"))
+                if prior["sequence"] <= request["sequence"] and prior["session"] == observation["session"]:
                     raise ValueError("Successor session was already used")
-            if process_alive(request["pid"]) or not process_alive(observation["pid"]):
+            if live and (process_alive(request["pid"]) or not process_alive(observation["pid"])):
                 raise ValueError("Previous owned process must exit and successor must be alive")
-            identity = process_identity(observation["pid"])
+            identity = process_identity(observation["pid"]) if live else observation.get("process_identity", {})
             old = request.get("owned_process", {})
             if (identity != observation.get("process_identity") or old.get("pid") != request["pid"]
                     or identity.get("clock") != "windows_filetime_utc" or old.get("clock") != "windows_filetime_utc"
@@ -164,6 +248,7 @@ class GuiOperator:
         if (self.directory / "invalidated.json").exists():
             raise ValueError("Retired GUI session cannot accept fresh observations; prepare a new session")
         observation = read_observation(path)
+        ownership_checksum = None
         if sequence is None:
             if (observation["pid"], observation["profile"], observation["session"]) != (self.pid, self.profile, self.session):
                 raise ValueError("Observation belongs to another application instance or pilot session")
@@ -178,12 +263,18 @@ class GuiOperator:
                 raise ValueError("Acknowledgment does not match the current pending operator request")
             previous = read_observation(self.directory / "observation.json")
             self._validate_ack(observation, request, previous)
+            if (observation["pid"], observation["session"]) != (request["pid"], request["session"]):
+                ownership_checksum = self._persist_successor(request, previous, observation)
         atomic_json(self.directory / "observation.json", observation)
         if sequence is not None:
             (self.directory / "pending.json").unlink()
-            atomic_json(self.directory / f"response-{sequence:04d}.json", {"sequence": sequence})
+            response = {"sequence": sequence}
+            if ownership_checksum is not None:
+                response["ownership_sha256"] = ownership_checksum
+            atomic_json(self.directory / f"response-{sequence:04d}.json", response)
 
     def operator(self, method, params):
+        self._check_owned_process()
         previous = (self.directory / "observation.json").read_bytes()
         self.sequence += 1
         request = {"sequence": self.sequence, "method": method, "params": params,
@@ -209,7 +300,9 @@ class GuiOperator:
                     raise ValueError("Fresh GUI observation required after operator action")
                 fresh = read_observation(self.directory / "observation.json")
                 self._validate_ack(fresh, request, json.loads(previous))
-                self.pid, self.session = fresh["pid"], fresh["session"]
+                self._recover_ownership()
+                if (self.pid, self.session) != (fresh["pid"], fresh["session"]):
+                    raise ValueError("Fresh controller identity requires complete persisted successor ownership")
                 state = self.observed()
                 if method in ("start", "stop") and state["running"] != (method == "start"):
                     raise ValueError("GUI observation does not establish requested capture transition")
@@ -218,6 +311,7 @@ class GuiOperator:
         raise TimeoutError("GUI operator response unavailable; do not infer a completed operation")
 
     def call(self, method, params):
+        self._check_owned_process()
         if method == "read_state":
             return self.observed(allow_pending=not process_alive(self.pid))
         if method == "preflight":

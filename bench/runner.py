@@ -311,7 +311,7 @@ class Runner:
             for player in players.values():
                 player.start(scheduled)
             positions = {key: 0 for key in players}
-            sources_sent, horizons = set(), {}
+            sources_sent, horizons, profile_deadlines = set(), {}, {}
             next_health, deadline = 0, None
             while True:
                 now = time.perf_counter_ns()
@@ -353,7 +353,9 @@ class Runner:
                 if deadline is None and len(horizons) == sum(len(value) for value in bindings.values()):
                     deadline = max(horizons.values())
                     for profile in active:
-                        self._record(profile, {"record": "observation_window", "observation_end_ns": deadline,
+                        profile_deadlines[profile] = max(horizons[(profile, channel)] for channel in bindings[profile])
+                        self._record(profile, {"record": "observation_window", "observation_end_ns": profile_deadlines[profile],
+                                               "round_collection_deadline_ns": deadline,
                                                "role_horizons_ns": {channel: horizons[(profile, channel)] for channel in bindings[profile]},
                                                "synthetic": self.synthetic})
                 if now >= next_health:
@@ -371,7 +373,7 @@ class Runner:
                 continuity = {kind: _established([entry[kind] for entry in observations[profile]])
                               for kind in ("app", "input", "collector")}
                 windows = {channel: (players[key].first_dac_ns + (0 if self.synthetic else route["calibration"]["offset_ns"]),
-                                     deadline) for channel, (key, route, _) in bindings[profile].items()}
+                                     profile_deadlines[profile]) for channel, (key, route, _) in bindings[profile].items()}
                 channels_with_output, attribution_unknown = self.open_attempts[profile][1].outputs_between(windows)
                 opportunity = (all(continuity.values()) and not self.synthetic and not attribution_unknown
                                and not (quiet and not quiet["quiet_precondition_met"]))
@@ -384,7 +386,8 @@ class Runner:
                 outcome = next(iter(statuses)) if len(statuses) == 1 else "mixed_role_outcomes"
                 detail = {"continuity_established": continuity, "opportunity_established": opportunity,
                           "output_attribution_unknown": attribution_unknown,
-                          "synthetic": self.synthetic, "observation_deadline_ns": deadline, "observation_end_ns": ended,
+                          "synthetic": self.synthetic, "observation_deadline_ns": profile_deadlines[profile],
+                          "round_collection_deadline_ns": deadline, "observation_end_ns": ended,
                           "common_last_speech_seconds": item["common_last_speech_seconds"], "tail_seconds": 15,
                           "role_horizons_ns": {channel: horizons[(profile, channel)] for channel in bindings[profile]},
                           "output_windows_ns": windows,
