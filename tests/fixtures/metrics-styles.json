@@ -1,5 +1,0 @@
-{
-  "append": {"version": "synthetic-append-v1", "evidence": ["synthetic fixture, not an observed app"], "style": "append", "supports": {"resend": false}},
-  "revision": {"version": "synthetic-revision-v1", "evidence": ["synthetic fixture with explicit parent IDs"], "style": "revision", "supports": {"revision": true, "erasure": true}, "relationships": {"clock:1": {"relation": "new"}, "clock:2": {"relation": "revision", "parent_id": "clock:1"}}},
-  "pagination": {"version": "synthetic-pagination-v1", "evidence": ["synthetic fixture with explicit page IDs"], "style": "pagination", "relationships": {"clock:1": {"relation": "new"}, "clock:2": {"relation": "pagination", "parent_id": "clock:1"}}}
-}

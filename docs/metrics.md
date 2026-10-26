@@ -1,4 +1,6 @@
-# Derived OSC measurements
+# Historical OSC measurements
+
+> **Retired evaluation contract.** `bench metrics`, `metrics-batch`, all `bench/metrics*.py` modules and their old alignment dependencies have been removed. Definitions, commands and observations below explain retained historical artifacts at [the pre-reset revision](https://github.com/kapitalismho/vrc-translator-bench/tree/fbab10a0455d91d5419d9673499d25b7ac86c566); they are not active instructions or accepted new-benchmark results. The old analysis remains under an integrity hold. Episode quality and separate weighted semantic-wait p50/p90 are specified in [the final plan §§7–10](benchmark-final-plan.md) and remain [implementation work](benchmark-implementation-plan.md). No old delivery/FOL/LUL field is a new metric alias.
 
 This is the calculation and report-data layer for [issue #5](https://github.com/kapitalismho/vrc-translator-bench/issues/5). It consumes prepared references from [#2](https://github.com/kapitalismho/vrc-translator-bench/issues/2) and captured endpoint records from [#3](https://github.com/kapitalismho/vrc-translator-bench/issues/3). Application-specific interpretation evidence belongs to [#4](https://github.com/kapitalismho/vrc-translator-bench/issues/4); judging belongs to [#6](https://github.com/kapitalismho/vrc-translator-bench/issues/6). These measurements are not a public scorecard, a semantic-completion detector, or a single overall score.
 

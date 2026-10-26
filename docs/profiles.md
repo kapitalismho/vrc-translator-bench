@@ -1,6 +1,6 @@
 # Application profile preparation
 
-This is profile preparation for [issue #4](https://github.com/kapitalismho/vrc-translator-bench/issues/4) and the first D1/D3 batch of [issue #8](https://github.com/kapitalismho/vrc-translator-bench/issues/8), not a completed comparison. The cumulative catalogue preserves five ready and nine blocked **historical** findings; current batch admission follows the owner amendments and source-specific observations below, not that historical status alone. Configuration, engine availability and account presence do not establish runtime delivery. No profile is declared unsupported merely because access or a valid preflight is missing.
+This is the **historical self/OSC profile and issue #8 execution record**. All 14 profiles, configuration findings, failures and linked evidence are preserved. References below to “current”, remaining work, readiness or execution permission describe their recorded historical stage, not present app state or a new execution grant. The [final plan §6](benchmark-final-plan.md#6-실제-관측과-기존-분석-결함의-차단) owns the new native-output investigation; the [implementation plan](benchmark-implementation-plan.md) owns its migration. No historical self preflight establishes peer/T1 or VRCLT split-pass admission.
 
 ## GUI preparation of installed applications
 
@@ -105,15 +105,13 @@ At that earlier read-only inspection, no matching named application processes we
 
 ```powershell
 python -m pip install -e ".[audio]"
-python -m tools.prepare_profile_checks
 bench profiles
 bench profiles --check-ports
-bench profiles --require-ready
 ```
 
 `bench profiles` inspects the tracked catalogue, not private app state. It checks all 14 IDs and six directions, linked files, unique wave membership, same-app exclusion, at most one CPU-local ASR/translation workload, conflicting assigned OSC send/receive ports and explicitly exclusive quota scopes. `--check-ports` attempts exclusive loopback UDP binds and releases them before exit; it cannot reserve ports for a later app, discover dynamic listeners or check TCP control ports. Use before launching the owned apps. A known occupied port is reported as unavailable, not silently reassigned.
 
-Ordinary inspection exits 0 for a valid catalogue even if findings are blocked. `--require-ready` exits 2 unless all profiles have readiness evidence and any requested port check passes. Invalid catalogues exit 2. Ready admission requires observed version/route, effective state evidence, verified microphone/TTS routing, at least one verified direction and an actual no-VRChat audio-to-OSC evidence path. A manual-text OSC trace or source-supported route cannot satisfy it. This is an evidence-presence guard, not automatic certification of the content of an operator record.
+Ordinary inspection exits 0 for a valid catalogue even if historical findings are blocked; invalid catalogues exit 2. The CLI now scopes the old results as `historical_status` and `historical_ready_profiles`, with `new_protocol_status: unverified`. The former `--require-ready` option is removed. Existing evidence checks still reject manual-text probes or missing state/audio records as historical audio readiness; they do not certify new-protocol readiness.
 
 The catalogue is **not** a `bench run` plan. Do not replace its null adapter/state fields with fake control acknowledgements. The runner's [long-lived adapter protocol](cli.md#application-adapter-protocol) requires genuine lifecycle observations. The [GUI operator bridge](cli.md#actual-gui-development-pilots) now connects actual GUI actions and explicit manual-state evidence to that protocol; it is not an automated continuous application-state observer. No competing application or PuriPuly source was changed.
 

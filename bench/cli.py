@@ -15,9 +15,9 @@ from .storage import Ledger, atomic_json, utc_now
 
 
 def parser():
-    root = argparse.ArgumentParser(prog="bench")
+    root = argparse.ArgumentParser(prog="bench", description="Retained capture and cost infrastructure; the native-output benchmark is not implemented yet.")
     commands = root.add_subparsers(dest="command", required=True)
-    run = commands.add_parser("run")
+    run = commands.add_parser("run", help="Run an explicit historical self/cable-to-OSC capture plan")
     selection = run.add_mutually_exclusive_group(required=True)
     selection.add_argument("--plan", type=Path)
     selection.add_argument("--resume")
@@ -35,65 +35,18 @@ def parser():
     playback.add_argument("audio", type=Path)
     playback.add_argument("--output-device")
     playback.add_argument("--output", type=Path, default=Path(".data/calibration/playback.json"))
-    metrics = commands.add_parser("metrics")
-    metrics.add_argument("--manifest", type=Path, required=True)
-    metrics.add_argument("--spec", type=Path, required=True)
-    metrics.add_argument("--output", type=Path, required=True)
-    metrics.add_argument("--alignment-cache", type=Path)
-    metrics.add_argument("--applicability", type=Path, help="Optional hash-bound whole-attempt analysis exclusions; native inputs remain unchanged")
-    metrics.add_argument("--allow-model-download", action="store_true")
-    batch = commands.add_parser("metrics-batch", help="Compose paired comparisons across retained metrics reports")
-    batch.add_argument("--report", type=Path, action="append", default=[], help="Metrics report; repeat for each source")
-    batch.add_argument("--quality-report", type=Path, action="append", default=[], help="Quality report containing joined_metrics_reports; repeat as needed")
-    batch.add_argument("--output", type=Path, required=True)
-    batch.add_argument("--iterations", type=int, default=2000)
-    batch.add_argument("--seed", type=int, default=20261020)
     costs = commands.add_parser("costs")
     costs.add_argument("--spec", type=Path, required=True)
     costs.add_argument("--output", type=Path, required=True)
-    profiles = commands.add_parser("profiles")
+    profiles = commands.add_parser("profiles", help="Inspect the historical 14-profile inventory, not new-protocol readiness")
     profiles.add_argument("--catalog", type=Path, default=Path("profiles/catalog.json"))
     profiles.add_argument("--check-ports", action="store_true")
-    profiles.add_argument("--require-ready", action="store_true")
-    quality = commands.add_parser("quality")
-    operations = quality.add_subparsers(dest="quality_command", required=True)
-    prepare = operations.add_parser("prepare")
-    prepare.add_argument("--report", type=Path, action="append", required=True)
-    prepare.add_argument("--root", type=Path, required=True)
-    prepare.add_argument("--seed", type=int, default=20261020)
-    prepare.add_argument("--skip-tone", action="store_true", help="Freeze this queue without supplementary tone sampling/jobs")
-    prepare.add_argument("--skip-korean-review", action="store_true", help="Freeze this queue without Korean review packets")
-    score = operations.add_parser("score")
-    score.add_argument("--root", type=Path, required=True)
-    score.add_argument("--transport-spec", type=Path)
-    score.add_argument("--model", default="gpt-6-astra")
-    score.add_argument("--limit", type=int)
-    score.add_argument("--retry-unresolved", action="store_true")
-    score.add_argument("--calibration-only", action="store_true")
-    score.add_argument("--measurements-ended", action="store_true")
-    score.add_argument("--capture-root", type=Path, action="append")
-    score.add_argument("--sanity-limitation")
-    score.add_argument("--metricx", action="store_true")
-    score.add_argument("--metricx-only", action="store_true")
-    score.add_argument("--metricx-model-path", type=Path)
-    score.add_argument("--metricx-device", default="cpu")
-    score.add_argument("--allow-model-download", action="store_true")
-    quality_status = operations.add_parser("status")
-    quality_status.add_argument("--root", type=Path, required=True)
-    quality_report = operations.add_parser("report")
-    quality_report.add_argument("--root", type=Path, required=True)
-    quality_report.add_argument("--output", type=Path, required=True)
-    quality_report.add_argument("--review-output", type=Path)
-    quality_report.add_argument("--human-notes", type=Path)
-    quality_report.add_argument("--model")
     return root
 
 
 def main(argv=None):
     args = parser().parse_args(argv)
     try:
-        if args.command == "quality":
-            return quality_main(args)
         if args.command == "costs":
             from .costs import derive
             result = derive(args.spec, args.output)
@@ -101,23 +54,10 @@ def main(argv=None):
                               "components": len(result["components"]), "records": len(result["records"]),
                               "unknown_profiles": sum(row["cost"] is None for row in result["profiles"])}, indent=2))
             return 0
-        if args.command == "metrics":
-            from .metrics import derive
-            result = derive(args.manifest, args.spec, args.output, args.alignment_cache, args.allow_model_download,
-                            applicability_path=args.applicability)
-            print(json.dumps({"report": str(args.output), "version": result["version"], "sentences": len(result["sentences"]),
-                              "outputs": len(result["outputs"]), "quality_segments": len(result["quality_segments"])}, indent=2))
-            return 0
-        if args.command == "metrics-batch":
-            from .metrics_batch import compose
-            result = compose(args.report, args.output, quality_report_paths=args.quality_report, iterations=args.iterations, seed=args.seed)
-            print(json.dumps({"report": str(args.output), "version": result["version"], "reports": len(result["reports"]),
-                              "pairing_segments": len(result["pairing_population"]), "paired": len(result["paired"])}, indent=2))
-            return 0
         if args.command == "profiles":
             result = inspect_catalog(args.catalog, check_ports=args.check_ports)
             print(json.dumps(result, indent=2, ensure_ascii=False))
-            return 2 if args.require_ready and result["status"] != "ready" else 0
+            return 0
         if args.command == "calibrate":
             result = calibrate(args.output, args.output_device, args.input_device)
             print(json.dumps({"status": result["status"], "offset_ns": result["offset_ns"], "artifact": str(args.output)}, indent=2))
@@ -172,53 +112,6 @@ def main(argv=None):
         return 2
 
 
-def quality_main(args):
-    from .quality import prepare, score, status
-    if args.quality_command == "prepare":
-        result = prepare(args.report, args.root, args.seed, skip_tone=args.skip_tone, skip_korean_review=args.skip_korean_review)
-        print(json.dumps({"root": str(args.root), "version": result["version"], "segments": len(result["records"]),
-                          "jobs": len(result["jobs"]), "samples": result["samples"], "synthetic": result["synthetic"],
-                          "evaluation_scope": result.get("evaluation_scope", {"tone": True, "korean_review": True})}, indent=2))
-        return 0
-    if args.quality_command == "status":
-        print(json.dumps(status(args.root), indent=2, ensure_ascii=False))
-        return 0
-    if args.quality_command == "report":
-        from .quality_report import build_report
-        from .quality import load_plan
-        if (args.review_output or args.human_notes) and not load_plan(args.root).get("evaluation_scope", {}).get("korean_review", True):
-            raise ValueError("--review-output and --human-notes are unavailable: Korean review disabled in frozen evaluation scope")
-        notes = json.loads(args.human_notes.read_text(encoding="utf-8")) if args.human_notes else None
-        result = build_report(args.root, args.output, args.review_output, notes, args.model)
-        summary = {"report": str(args.output), "review": str(args.review_output) if args.review_output else None,
-                   "segments": len(result["records"]), "disagreements": len(result["disagreements"])}
-        if "korean_review" in result:
-            summary.update(korean_review_selected=result["korean_review"]["selected"],
-                           human_review_performed=result["korean_review"]["human_review"]["performed"])
-        print(json.dumps(summary, indent=2))
-        return 0
-    if args.limit is not None and args.limit < 1:
-        raise ValueError("--limit must be positive")
-    if args.sanity_limitation is not None and not args.sanity_limitation.strip():
-        raise ValueError("--sanity-limitation requires a nonempty explanation")
-    from .quality_transport import load_transport
-    if args.transport_spec:
-        transport = load_transport(args.transport_spec)
-    elif args.metricx_only:
-        from types import SimpleNamespace
-        transport = SimpleNamespace(synthetic=False, provenance={"kind": "metricx-only", "synthetic": False})
-    else:
-        raise ValueError("--transport-spec is required unless --metricx-only")
-    metricx = None
-    if args.metricx or args.metricx_only:
-        from .quality_metricx import MetricX
-        metricx = MetricX(args.metricx_model_path, args.metricx_device, args.allow_model_download)
-    result = score(args.root, transport, args.model, args.limit, args.retry_unresolved, args.calibration_only,
-                   args.measurements_ended, [Path(".data/runs"), *(args.capture_root or [])], metricx, args.metricx_only, args.sanity_limitation)
-    print(json.dumps({key: result[key] for key in ("root", "model", "jobs", "completed_for_model", "pending_or_unresolved_for_model", "call_states", "actual_models", "paused", "metricx_outcomes")}, indent=2))
-    if args.metricx_only:
-        return 2 if any(state != "completed" and count for state, count in result["metricx_outcomes"].items()) else 0
-    return 2 if result["paused"] or result["blocked_for_model"] or args.limit is None and result["pending_or_unresolved_for_model"] else 0
 
 
 if __name__ == "__main__":

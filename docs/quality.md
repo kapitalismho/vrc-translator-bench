@@ -1,4 +1,16 @@
-# Blinded translation-quality scoring
+# Judge foundations and historical quality scoring
+
+## Current retained foundation
+
+The reset retains `quality_store.QualityStore` (durable calls, raw responses, model-bound cache and unresolved recovery), `quality_transport`, `quality_process`, `quality_judge`, and the packaged `quality_bridge.mjs`. The selected route remains **GPT 6 Astra / Sign in with ChatGPT**, with no paid/model fallback. Windows process containment and payload/actual-model evidence are independent of the retired rubric.
+
+There is currently **no `bench quality` command, prompt/rubric, scheduler or quality report generator**. The single-call ESA, tone/Korean sampling and MetricX runtime were removed. The two independent GEMBA-ESA stages, quote validation, episode/role input binding, new cache identities and semantic checkpoints remain [implementation work](benchmark-implementation-plan.md) under [the final plan §§7–9](benchmark-final-plan.md). Do not open or mutate a historical queue as a migration operation.
+
+The low-level store and transport do not acquire measurement exclusion or validate a new judgment by themselves. A future orchestration caller must acquire `activity.exclusive_activity()`, establish that timed measurements have ended, validate stage/model/input/prompt identity and preserve unknown/failed calls. Stored old prompt hashes must never be reused for a new methodology.
+
+## Historical scoring reference
+
+Everything below records the [pre-reset implementation](https://github.com/kapitalismho/vrc-translator-bench/tree/fbab10a0455d91d5419d9673499d25b7ac86c566). Its commands/extras are no longer available in this checkout, and its successful observations do not validate the new methodology. The selected transport configuration and safety principles remain useful; references to a scorer acquiring locks or validating results describe the removed orchestration, not automatic guarantees of the retained low-level modules.
 
 This is the automatic quality layer for [issue #6](https://github.com/kapitalismho/vrc-translator-bench/issues/6). It consumes the [issue #5 report contract](metrics.md), not application ASR as reference text. Scoring infrastructure and synthetic checks do not establish a completed application comparison. The planned judge is **GPT 6 Astra through Sign in with ChatGPT**; no API-paid fallback is provided.
 

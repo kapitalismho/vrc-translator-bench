@@ -2,6 +2,8 @@
 
 `bench costs` implements local cost processing for [issue #7](https://github.com/kapitalismho/vrc-translator-bench/issues/7). It reads permitted selected usage records, PuriPuly diagnostic logs and observed run windows, then writes a separate JSON report. It never calls a provider, opens billing accounts, runs applications or changes raw captures. Public chart presentation and the full dated comparison remain downstream work.
 
+**Reset boundary:** this executable `costs-v1` format is retained, including its historical run/chunk and sentence denominators. It does **not** implement the new logical-episode/role/pass binding. Before using it for the [final plan §11](benchmark-final-plan.md), [the cost migration outcome](benchmark-implementation-plan.md) must count each T1 conversation timeline once, sum both VRCLT self-pass costs, separate physical replay time and TTS/judge production ledgers, and support later evidence revisions without changing quality/timing originals. Do not feed split passes into the old denominator and publish the result as the new benchmark cost.
+
 ## Run
 
 Python 3.11+ and the standard library are sufficient. From the repository root:

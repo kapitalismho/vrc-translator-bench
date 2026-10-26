@@ -1,97 +1,39 @@
 # Architecture
 
-This repository implements local corpus preparation for issue #2, reusable Windows audio-to-OSC capture infrastructure for issue #3, application-profile preparation and observed development pilots for issue #4, derived measurement/report data for issue #5, blinded automatic quality scoring for issue #6, and evidence-bound local usage-cost processing for issue #7. Routines and bounded pilots do not establish full-profile readiness, billing completeness or a completed comparison.
+The [final benchmark plan](benchmark-final-plan.md) owns the intended protocol. The [implementation plan](benchmark-implementation-plan.md) owns the reset classification and future outcome boundaries. This checkout preserves reusable infrastructure; it does not yet execute the native-output benchmark.
 
-## Data flow
+## Retained executable surfaces
 
-1. Language-specific scripts acquire pinned original corpora or identified dataset revisions into ignored `.data/<language>/`.
-2. Selection records retain fixed seeds, original sessions, source/channel choices, categories and holdout membership before application results.
-3. Rendering produces normalized 48 kHz mono PCM16 waveforms. Reference generation/transformations retain source-to-playback mappings and explicit uncertainty.
-4. Per-language manifests identify actual local audio and references with hashes and licenses. Japanese full speech text and timelines stay local because video-specific release rights are unresolved.
-5. `tools/index_corpus.py` produces `corpus/manifest.json` from those actual artifacts. `tools/check_corpus.py` checks the index against local files. The index is an integration view, not a second annotation source.
-6. `bench` materializes a requested run plan, starts profile-owned adapter subprocesses and keeps an ordered UDP sink active across real-time playback and observation tails.
-7. Per-profile SQLite attempts and atomic JSONL finalization retain completed, product-failed and interrupted work. Resume compares effective application state and performs an output check before replaying unfinished work.
-8. Raw OSC streams, callback/DAC timing, measured cable correction and separate diagnostics supply downstream metrics. Source grouping/alignment is not inferred by the capture runner.
-9. `bench metrics` reads immutable capture artifacts and explicit reference/rule inputs, normalizes source coordinates, and derives separately identified output relationships and source correspondence.
-10. Sentence/turn measurements, isolated responses, quality segments and diagnostics feed report-data summaries. Session clustering preserves original recording identity; external quality scores and internal application diagnostics retain separate provenance.
-11. `bench quality prepare` freezes source-based quality inputs, blinded prompts, interleaved order, tone and judge-calibration samples. A separate durable scoring queue retains independent judge calls, raw responses, failures and actual model provenance.
-12. ESA and context-free MetricX results join the original metric reports without replacing missing values or reference limitations. Disagreement selection prepares a separate Korean reference-review packet; human observations never overwrite automatic scores.
-13. `bench costs` joins selected permitted usage evidence to observed wall-clock windows, reconciles provider charges with separately labelled usage calculations, and retains subscription, free-access, coarse-attribution and missing-evidence conditions without manufacturing numeric totals.
+| Surface | Current responsibility | Boundary before new measurement |
+|---|---|---|
+| `bench/audio.py` | WASAPI PCM playback, callback/DAC mapping, measured cable correction; explicitly synthetic clock backend | One cable route, not synchronized role streams or every app's peer input |
+| `bench/adapter.py`, `gui_operator_adapter.py` | Subprocess lifecycle, observed state, identity/session-bound operator acknowledgements | Self/OSC fields are historical; source inspection is not effective app readiness |
+| `bench/plan.py`, `runner.py` | Frozen explicit plans, per-profile attempts, owned capture, resume, failure history | Old stage/direction/single-WAV contract and watchdog; no episode/pass or new observation-completeness guarantee |
+| `bench/osc.py` | Ordered raw `/chatbox/input` and `/chatbox/typing`, continuous stream and receipt clock | Not a universal peer collector; receipt is not producer completion or screen rendering |
+| `bench/storage.py`, `activity.py` | Atomic artifacts, hashes, journal, run ledger, OS locks | Keep original evidence immutable; callers must acquire the appropriate lock |
+| `bench/profiles.py` | Validate the 14-profile historical inventory, linked evidence and static wave constraints | Returns historical findings, not new-protocol admission |
+| `bench/quality_store.py` | Durable call/raw-response/cache/recovery ledger | Not a scheduler, rubric, result validator or two-stage evaluation implementation |
+| `bench/quality_transport.py`, `quality_process.py`, `quality_judge.py`, `quality_bridge.mjs` | Selected Astra subscription transport, isolated request payload, observed identity and owned Windows process tree | No public scoring command or paid/model fallback; future orchestration must acquire activity exclusion and validate judgments |
+| `bench/cost_inputs.py`, `costs.py` | Selected local usage records, attribution, dated Decimal calculations, partial/unknown/subscription conditions | Existing run/chunk normalization, not logical episode + role/pass cost binding |
+| `tools/export_pilot_evidence.py` | Separate capture derivatives with original/export hashes and path redaction | Not a generic secret scrubber or permission to publish transcripts/logs |
 
-## Owned surfaces
+The public CLI retains `run`, `status`, `calibrate`, `playback`, `profiles`, and `costs`. Obsolete `metrics`, `metrics-batch`, `quality`, `prepare-english`, corpus builders and generated-pilot commands have no compatibility aliases.
 
-| Surface | Responsibility |
-|---|---|
-| `tools/prepare_english.py` | AMI acquisition/selection, headset transformation, manual-DA reference mapping, isolated/repeat/common selections, artifact checks |
-| `tools/prepare_chinese.py` | Original AliMeeting Eval acquisition, headset selection, human-text forced alignment, transformed references and local checksums |
-| `tools/prepare_japanese.py` | Pinned YODAS2 acquisition, selection/rendering, local orchestration, heldout clips, checks and public-safe metadata export |
-| `tools/japanese_reference.py` | Actual independent automatic ASR, acoustic alignment, estimated speakers and insertion-only punctuation |
-| `tools/japanese_budget.py` | Word/voice-safe source trimming and remapping to exact elapsed budgets |
-| `tools/japanese_alignment.py`, `tools/japanese_pronunciation.py` | Covering raw dedicated-model and dictionary-pronunciation CTC timing for retained unsupported words; source/hash/prediction audits |
-| `tools/prepare_nonspeech.py` | Recorded keyboard/nonverbal assets, separate background conversation and two scoring intervals |
-| `tools/index_corpus.py`, `tools/check_corpus.py` | Six-direction reuse index, actual file/hash/frame checks and D1 repeat identity |
-| `corpus/` | Permitted selection, reference, provenance, license and checksum records; no audio |
-| `bench/cli.py`, `bench/plan.py` | Operator commands and frozen run/profile/stage inputs |
-| `bench/runner.py`, `bench/storage.py` | Stage orchestration, per-profile durable attempts, failure handling, resume, manifest and status |
-| `bench/audio.py` | Shared-mode WASAPI playback, callback/DAC clock mapping and bounded measured cable correction |
-| `bench/osc.py` | Ordered raw UDP/OSC capture across chunks and observation tails |
-| `bench/adapter.py` | Long-lived subprocess JSON control boundary; application-specific implementations belong to issue #4 |
-| `bench/gui_operator_adapter.py`, `tools/prepare_gui_pilot.py` | GUI-operator attestation through the existing subprocess adapter boundary, session-bound action acknowledgements and source-bound development pilot plans; no hidden application API control |
-| `tools/export_pilot_evidence.py` | Separate sanitized pilot exports with original/derived checksums and provenance; never replaces authoritative raw captures |
-| `docs/cli.md` | Runner CLI, plan, adapter, raw timing and persistence contracts |
-| `bench/metrics_inputs.py` | Native corpus normalization, capture identity/checksums and cable-corrected source-clock mapping |
-| `bench/metrics_alignment.py` | Versioned output interpretation, input-bound alignment cache and optional pinned SimAlign |
-| `bench/metrics.py` | Timing/delivery, isolated windows, quality-segment assembly and report orchestration |
-| `bench/metrics_diagnostics.py`, `bench/metrics_stats.py` | Evidence-gated diagnostics and original-session statistical summaries |
-| `docs/metrics.md` | Working calculation definitions, report-data contract and verification limits |
-| `bench/profiles.py`, `profiles/catalog.json` | Fourteen-profile findings, evidence-presence admission and static wave/app/CPU/OSC-port checks; not an application state observer |
-| `tools/prepare_profile_checks.py`, `profiles/output-checks.json` | Checksummed ten-second development excerpts for source-specific output checks; local audio only |
-| `profiles/findings/`, `profiles/evidence/`, `docs/profiles/` | Source-backed app-specific control/access findings, real GUI/audio/OSC observations, sanitized derivatives with original hashes and bounded interpretation rules |
-| `bench/quality*.py`, `bench/quality_bridge.mjs` | Blinded prompts, durable scoring, subscription judge transport, MetricX QE, report joins and separate review packets |
-| `bench/activity.py` | Shared OS lock excluding managed capture and scoring across worktrees for the same user |
-| `docs/quality.md` | Judge setup, scoring choices, provenance/cache, sampling, operator commands and evidence limits |
-| `bench/cost_inputs.py`, `bench/costs.py`, `docs/costs.md` | Selected provider/PP usage ingestion, actual playback-window derivation, dated usage calculations, attribution/reconciliation and report coverage; no provider calls or account access |
-| `.data/` | Local source/audio/models/environments and unresolved Japanese derived content; never staged for Git |
+## Intended cutover
 
-Language-specific preparation remains explicit because the sources have materially different annotations and rights. There is no generic corpus-provider framework. Heavy model dependencies are isolated from the lightweight integration/test environment.
+Implement one episode-native path, not a parallel legacy evaluator. The native-input/collector outcome first owns the shared episode, role/pass, native output, clock/gap and outcome contracts. Small permitted development inputs are sufficient for that feasibility pilot; full corpus/TTS production waits for its findings.
 
-## Consumer contracts
+Later outcomes supply frozen corpus/checkpoints, faithful native-output reconstruction, independent GEMBA-ESA error and score calls, weighted semantic-wait CDFs, logical-episode cost binding, and a versioned report consumed by Claude's presentation. Preserve unknown native fields rather than inventing IDs/finality. Preserve invalid/unsupported/indeterminate scope instead of renormalizing it away.
 
-- Direction `source_group` is one of `en`, `zh`, `ja`; D1/D2, D3/D5 and D4/D6 each share the group's exact main audio object. Six directions represent only three independent source tracks.
-- Each main track is exactly 1,800 elapsed seconds: general 1,200 and stress 600 with disclosed two-second-separator allocation. Development is separately 300 seconds per source group. Speaking time, original source span and elapsed playback are different quantities.
-- Root audio records use integer `frames` at 48 kHz and `duration_seconds`. File paths are repository-relative local paths, not release URLs.
-- Corpus metadata and published profile evidence are checksummed as file bytes. `.gitattributes` disables Git newline conversion under `corpus/` and `profiles/`, preserving measured bytes in commits and fresh checkouts. Regenerating metadata requires rebuilding the corresponding index/provenance; do not normalize or reformat hashed records independently.
-- English reference coordinates are **integer 48 kHz samples**. Chinese and Japanese reference coordinates are **seconds**. Use each group's `timeline_units`; never infer units from a generic `start` field.
-- English DA units, Chinese punctuation-completed units and Japanese automatic sentence-like units retain their different evidence levels. Do not present them as uniformly human-verified sentences.
-- Japanese word IDs are local to a chunk. Join with `(chunk_id, word_id)`. Final preparation rejects missing/nonfinite word or sentence bounds, while low acoustic scores, overlapping model estimates and dictionary-reading uncertainty remain explicit. Numeric timing completeness does not establish accuracy; estimated speaker labels are not person identities.
-- Original session identities, selected-speaker scoring and unscored earlier context stay in language manifests. Session clustering cannot treat chopped clips or target-language reuse as independent recordings.
-- General and deliberate stress populations remain separate. Common shortlists precede results; the full comparison freeze is not performed by this preparation code.
-- Capture uses `perf_counter_ns` within an explicit clock session; UTC windows serve provider-usage attribution, not latency. Positive cable correction adds capture-path delay to source playback time.
-- An event's current chunk is capture context, not source alignment. Continuous streams retain late events after attempt finalization, with earlier playback provenance. Downstream consumers must not interpret a finalized per-attempt trace as the entire future observation window.
-- Typing is retained but never translation output. Product failure, operational invalidity and unsupported N/A remain distinct; resume preserves terminal history and marks replayed attempts.
-- Adapters own actual application readiness, effective state and startup isolation. A control acknowledgement or synthetic UDP output is not evidence of a configured real translator. No ordinary chunk-boundary application restart is introduced.
-- GUI-operated pilots require actual visible state evidence before acknowledging actions. Process liveness is observed independently; GUI state is not continuously monitored during timed playback. Retire the observation session after external configuration changes or application restart. A translation-off toggle does not establish stopped microphone capture in an application that retains raw passthrough; fully quit that owned application and verify its complete identified runtime, not just one window/PID. Shared launcher ancestors and unrelated user processes are outside cleanup ownership.
-- Metrics never overwrite raw capture or native references. Unaligned outputs remain in quality inputs; missing, late, operationally invalid and unsupported evidence are distinct.
-- App-dependent revisions/final reconstruction and source CER require applicable evidence. A current capture chunk, typing signal or text similarity alone is not source/finality proof.
-- Reference ambiguity reduces the metric claim: partial units and ambiguous containing turns retain explicit reasons and population accounting. Quality context is two preceding reference turns, not scored source.
-- Metric reports inherit source-content restrictions, including local-only Japanese speech. Public presentation and main-run freeze are downstream responsibilities.
-- Profile catalogues separate planned routes, source support and observed effective state. Null runtime/OSC evidence remains blocked. Documented manual/configuration procedures do not pretend to implement the runner's subprocess control protocol.
-- ESA sees source references and earlier unscored turns, not measured ASR. MetricX uses the same source/output but no conversation context. Prompt metadata is blinded; PP2's judge-family relationship remains reporting metadata.
-- New ESA prompts identify exact quotes and occurrence numbers; Python derives normalized Unicode-codepoint span offsets without changing raw responses. Stored v1 plans retain their original strict offset protocol for inspection and resume; new v2 plans use separate prompt/cache identities rather than rewriting frozen evidence.
-- Cache identity requires exact inputs/prompt and actual model evidence. Missing, malformed, oversized, interrupted or unproven responses remain missing with reasons. Prior responses and mixed-version/calibration limitations survive model changes.
-- Managed capture and scoring share a per-user OS lock. Windows judge children enter a kill-on-close Job Object before request admission, containing descendants even when only the scoring parent dies. This does not prove provider-side cancellation. Real subscription dispatch on other platforms fails closed. Operator measurement-ended confirmation covers unmanaged activity; it is not an all-process detector. No paid API fallback is introduced.
-- Costs use request start through playback end plus 30 seconds, retaining overlapping candidates and native provider granularity. Account isolation, observed free eligibility and complete usage coverage need explicit evidence. PP2 subscription is not API-priced actual cost; missing components remain unknown. Capture-derived UTC windows and completion-derived PP start times disclose their approximation. Selected evidence and aliases require operator privacy inspection before publication.
+The old runner, profile inspector and cost normalization are **scheduled for in-place migration**, not certified as already compatible. No old D1–D6 identifier, OSC timestamp, correspondence score or cached judgment receives a new meaning silently. The new runtime must reject incompatible historical input rather than route through a shim.
 
-## Verification boundary
+## Evidence and ownership
 
-Deterministic tests cover mapping/word boundaries, pause preservation, lexical preservation, CTC paths, overlap, isolated boundaries, safe metadata export and clean-checkout smoke gating. Real preparation commands produced the local waveforms. Source-aligned PCM comparisons and emitted-frame/hash checks support the transformation claims, not independent transcription correctness or listening-based eligibility.
+- Frozen `corpus/` and `profiles/` records retain paths and bytes; `.gitattributes` preserves their checksum semantics. Local `.data/` audio, logs, ledgers and historical scripts are not cleanup targets.
+- Issue #8 continuation/materialization helpers are task-local historical execution records. Do not update their pinned hashes to make them accept the new checkout.
+- Capture collector lifetime and application translation opportunity are separate. Known early-stop and reconstruction findings remain unresolved for the historical comparison; this reset removes the obsolete evaluator, not the evidence or its acceptance hold.
+- Preserve the established W1–W4 concurrency intent. New peer/T1 routing, same-app isolation and actual resource/clock conditions must be verified before a new schedule is frozen; do not silently serialize it.
+- GPT owns backend contracts, data, measurement, judging, costs and experimental evidence. Claude owns public tables/charts/methodology presentation and chronological example rendering. Both consume the same versioned report; the frontend does not recalculate scores.
+- A static adapter, passing unit test or successful historical self capture does not establish a new actual-app peer/T1 result. Live acceptance belongs to the affected implementation outcome under scoped app/service authority.
 
-The owner-delegated practical method is recorded in `corpus/practical-assessment.json` and the linked issue decision. It adds bounded inspection of original source content, actual ASR/caption disagreements and ten emitted excerpts; it does not claim human listening or replace timing/utterance correctness checks.
-
-No private account, live translation service, microphone capture, VRChat process or OSC destination is used by routine corpus checks. Public dependency installation may use the normal pip cache; corpus/model payloads remain in `.data/`. Do not delete shared caches as cleanup.
-
-Capture behavior checks use isolated controlled adapters, synthetic WAVs and loopback UDP. Actual Windows shared-mode cable calibration and playback were observed separately. Issue #4 has real GUI-operated VRCT CPU-M2M translation, VRCS cloud-ASR/CPU-Qwen-ASR captures, a VRCS direction-change/capture-resume check, and VRCLT1 all-in-one rolling bilingual output. Failed VRCLT2 and pre-playback KIKI1 attempts remain separate evidence. These streams and source-bound derived measurements are distinct from earlier control-only PuriPuly observations. The owner reported PuriPuly updated and removed its execution deferral; post-update runtime evidence remains pending. See `docs/cli.md`, `docs/profiles.md` and `profiles/evidence/issue45/` for exact boundaries and outstanding profiles. Application settings and minimal OSCQuery/mute dependencies remain with profile preparation; no speculative signaling was added to the runner.
-
-## Release boundary
-
-The owner-approved local-only amendment is linked in `docs/corpus.md`. Local acceptance does not grant redistribution rights or create a retrievable HF revision. Japanese release is held until original-video attribution and permission are resolved. Chinese ShareAlike obligations survive future audio/video adaptation. MIT applies to code/documentation only, not imported or derived corpus content.
+Historical implementation and detailed prior architecture remain at [the pre-reset revision](https://github.com/kapitalismho/vrc-translator-bench/blob/fbab10a0455d91d5419d9673499d25b7ac86c566/docs/architecture.md). No old results are migrated into a new ranking by this change.

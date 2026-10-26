@@ -66,7 +66,9 @@ def test_manual_osc_is_not_audio_readiness(catalog, tmp_path):
         inspect_catalog(save())
     profile["osc_example"]["kind"] = "audio_to_osc"
     profile["directions"]["D1"] = "verified"
-    assert inspect_catalog(save())["ready_profiles"] == [profile["id"]]
+    result = inspect_catalog(save())
+    assert result["historical_ready_profiles"] == [profile["id"]]
+    assert result["new_protocol_status"] == "unverified"
     profile["observed"]["state_evidence"] = "missing-state.json"
     with pytest.raises(ValueError, match="missing readiness evidence"):
         inspect_catalog(save())
@@ -87,7 +89,7 @@ def test_cpu_local_profiles_cannot_share_wave(catalog):
         inspect_catalog(save())
     value["waves"][0]["profiles"] = ["PP4"]
     value["waves"].append({"id": "separate-local", "profiles": ["VRCT1"]})
-    assert inspect_catalog(save())["status"] == "blocked"
+    assert inspect_catalog(save())["historical_status"] == "blocked"
 
 
 def test_capture_and_control_ports_cannot_overlap_in_wave(catalog):
@@ -100,7 +102,7 @@ def test_capture_and_control_ports_cannot_overlap_in_wave(catalog):
         inspect_catalog(save())
     value["waves"][0]["profiles"] = [first]
     value["waves"].append({"id": "separate-ports", "profiles": [second]})
-    assert inspect_catalog(save())["status"] == "blocked"
+    assert inspect_catalog(save())["historical_status"] == "blocked"
 
 
 def test_shared_ip_limited_service_requires_separate_wave(catalog):
@@ -116,7 +118,7 @@ def test_shared_ip_limited_service_requires_separate_wave(catalog):
         inspect_catalog(save())
     value["waves"][0]["profiles"] = [first]
     value["waves"].append({"id": "separate-quota", "profiles": [second]})
-    assert inspect_catalog(save())["status"] == "blocked"
+    assert inspect_catalog(save())["historical_status"] == "blocked"
 
 
 def test_port_probe_reports_occupied_socket_without_reserving_ports(catalog):
@@ -126,7 +128,7 @@ def test_port_probe_reports_occupied_socket_without_reserving_ports(catalog):
         occupied.bind(("127.0.0.1", port))
         result = inspect_catalog(save(), check_ports=True)
         assert next(row for row in result["port_observations"] if row["port"] == port)["available"] is False
-        assert result["status"] == "blocked"
+        assert result["historical_status"] == "blocked"
         available = [row["port"] for row in result["port_observations"] if row["available"]]
         assert available
         for checked_port in available:

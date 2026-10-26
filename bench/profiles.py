@@ -110,6 +110,8 @@ def inspect_catalog(path, *, check_ports=False):
                 sock.close()
     findings = [{"id": identity, "finding": profile["finding"], "reason": profile["reason"]} for identity, profile in profiles.items()]
     ready = [row["id"] for row in findings if row["finding"] == "ready"]
-    return {"catalog": str(path), "status": "ready" if len(ready) == len(PROFILE_IDS) and all(row["available"] for row in port_observations) else "blocked",
-            "ready_profiles": ready, "findings": findings, "waves": catalog["waves"], "port_observations": port_observations,
+    return {"catalog": str(path), "scope": "historical-self-osc",
+            "historical_status": "ready" if len(ready) == len(PROFILE_IDS) and all(row["available"] for row in port_observations) else "blocked",
+            "historical_ready_profiles": ready, "new_protocol_status": "unverified",
+            "findings": findings, "waves": catalog["waves"], "port_observations": port_observations,
             "limits": catalog["limitations"], "port_check_scope": "instantaneous loopback UDP bind only; not future reservation or app readiness"}

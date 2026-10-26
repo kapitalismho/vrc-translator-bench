@@ -1,5 +1,4 @@
 import json
-import wave
 import threading
 import time
 from datetime import datetime, timezone
@@ -7,7 +6,6 @@ from datetime import datetime, timezone
 import pytest
 
 from bench.gui_operator_adapter import GuiOperator, read_observation
-from tools.prepare_gui_pilot import prepare, render_slice
 
 
 def observation(pid=123, running=False):
@@ -74,70 +72,6 @@ def test_stop_needs_independent_stopped_gui_observation(tmp_path, monkeypatch):
     responder.start()
     assert bridge.call("stop", {})["running"] is False
     responder.join()
-
-
-def test_rendered_slice_copies_source_pcm_without_resynthesis(tmp_path):
-    source = tmp_path / "source.wav"
-    pcm = bytes(range(256)) * 1500
-    with wave.open(str(source), "wb") as writer:
-        writer.setnchannels(1)
-        writer.setsampwidth(2)
-        writer.setframerate(48000)
-        writer.writeframes(pcm)
-    destination = tmp_path / "slice.wav"
-    provenance = render_slice(source, destination, 1, 2)
-    with wave.open(str(destination), "rb") as reader:
-        assert reader.getnframes() == 48000
-        assert reader.readframes(48000) == pcm[96000:192000]
-    assert provenance["source_start_frame"] == 48000
-    assert provenance["source_end_frame"] == 96000
-    assert provenance["frames"] == 48000
-
-
-def test_plan_uses_native_lexical_intervals_and_retains_gaps(tmp_path):
-    audio = tmp_path / ".data/english/audio"
-    audio.mkdir(parents=True)
-    source = audio / "development-01.wav"
-    with wave.open(str(source), "wb") as writer:
-        writer.setnchannels(1)
-        writer.setsampwidth(2)
-        writer.setframerate(48000)
-        writer.writeframes(b"\0\0" * 48000 * 75)
-    reference = tmp_path / "corpus/english/timelines"
-    reference.mkdir(parents=True)
-    words = [{"scored": True, "kind": "w", "punctuation": False, "playback_start": 34 * 48000 + 10080,
-              "playback_end": 34 * 48000 + 71520},
-             {"scored": True, "kind": "w", "punctuation": False, "playback_start": 48 * 48000,
-              "playback_end": 49 * 48000},
-             {"scored": False, "kind": "w", "punctuation": False, "playback_start": 40 * 48000,
-              "playback_end": 44 * 48000}]
-    (reference / "development-01.json").write_text(json.dumps({"words_and_events": words}), encoding="utf-8")
-    path = prepare(tmp_path, "VRCS2", 123, 19122)
-    plan = json.loads(path.read_text())
-    intervals = plan["stages"][0]["speech_intervals"]
-    assert intervals[0] == pytest.approx([0.21, 1.49])
-    assert intervals[1] == [14, 15]
-    assert len(intervals) == 2
-    assert plan["profiles"][0]["expected_state"]["osc_port"] == 19122
-    assert plan["stages"][0]["tail_seconds"] == 20
-    assert plan["stages"][0]["direction"] == "D1"
-
-
-def test_direction_resume_plan_plays_only_check_and_unscored_silence(tmp_path):
-    path = prepare(tmp_path, "VRCS2", 123, 19122, direction="D2", check_only=True)
-    plan = json.loads(path.read_text())
-    stage = plan["stages"][0]
-    assert stage["direction"] == "D2"
-    assert stage["kind"] == "nonspeech"
-    assert stage["speech_intervals"] == []
-    with wave.open(stage["audio"], "rb") as reader:
-        assert reader.getnframes() == 48000
-        assert reader.readframes(48000) == b"\0\0" * 48000
-    assert plan["output_check"]["audio"].endswith("en-output-check.wav")
-    provenance = json.loads((path.parent / "provenance.json").read_text())
-    assert provenance["scored_source"] is False
-    with pytest.raises(ValueError, match="source-matching"):
-        prepare(tmp_path, "VRCS2", 123, 19122, direction="D3")
 
 
 def test_retired_observation_cannot_ready_running_or_rebind_after_external_mutation(tmp_path, monkeypatch):

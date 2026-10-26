@@ -1,4 +1,6 @@
-# Corpus preparation
+# Historical corpus preparation
+
+> **Historical reference only.** The AMI/AliMeeting/YODAS2 preparation, six-direction index/check and old control-track builder have been removed from the current package. Commands and completion records below describe the [pre-reset implementation](https://github.com/kapitalismho/vrc-translator-bench/tree/fbab10a0455d91d5419d9673499d25b7ac86c566), not available current commands. Frozen `corpus/` metadata and local audio/reference bytes are preserved. The [final plan §§3–5](benchmark-final-plan.md) selects ASCEND, IngCrowd, FLEURS and the bounded JA/KO T1 reconstruction; [new preparation work](benchmark-implementation-plan.md) must not overwrite or relabel this historical index.
 
 Authority: [issue #2](https://github.com/kapitalismho/vrc-translator-bench/issues/2) and [parent #1](https://github.com/kapitalismho/vrc-translator-bench/issues/1).
 

@@ -4,11 +4,14 @@ import json
 import sqlite3
 from pathlib import Path
 
-from .quality_prompts import canonical, fingerprint
 from .storage import utc_now
 
 
 CALL_METADATA = "id,job,input_hash,prompt_hash,expected_model,actual_model,state,started_utc,ended_utc,response_date,result,reason,transport"
+
+
+def canonical(value):
+    return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"), allow_nan=False)
 
 
 class QualityStore:
@@ -27,12 +30,6 @@ class QualityStore:
                 response_date TEXT, raw TEXT, result TEXT, reason TEXT, transport TEXT NOT NULL
             );
             CREATE INDEX IF NOT EXISTS cache ON calls(prompt_hash, actual_model, state);
-            CREATE TABLE IF NOT EXISTS metricx (
-                id INTEGER PRIMARY KEY, input_hash TEXT NOT NULL, identity_hash TEXT,
-                state TEXT NOT NULL, started_utc TEXT NOT NULL, ended_utc TEXT,
-                result TEXT, reason TEXT
-            );
-            CREATE INDEX IF NOT EXISTS metricx_cache ON metricx(input_hash, identity_hash, state);
             CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value TEXT NOT NULL);
         """)
         self.db.commit()
@@ -51,7 +48,6 @@ class QualityStore:
     def recover(self):
         with self.db:
             self.db.execute("UPDATE calls SET state='unresolved',reason='Process ended without durable terminal response',ended_utc=? WHERE state='running'", (utc_now(),))
-            self.db.execute("UPDATE metricx SET state='unresolved',reason='Process ended without durable result',ended_utc=? WHERE state='running'", (utc_now(),))
 
     def cached(self, job, model):
         row = self.db.execute(f"SELECT {CALL_METADATA} FROM calls WHERE prompt_hash=? AND actual_model=? AND state='completed' ORDER BY id DESC LIMIT 1",
@@ -72,8 +68,6 @@ class QualityStore:
     def has_attempt(self, job, model):
         return self.db.execute("SELECT 1 FROM calls WHERE prompt_hash=? AND expected_model=? LIMIT 1", (job["prompt_hash"], model)).fetchone() is not None
 
-    def has_unresolved_metricx(self, input_hash):
-        return self.db.execute("SELECT 1 FROM metricx WHERE input_hash=? AND state='unresolved' LIMIT 1", (input_hash,)).fetchone() is not None
 
     @staticmethod
     def decode(row):
@@ -102,25 +96,3 @@ class QualityStore:
                             (state, envelope.get("actual_model"), envelope.get("response_date"), utc_now(),
                              canonical(result) if result is not None else None, reason, call))
 
-    def metricx_history(self):
-        return [self.decode(row) for row in self.db.execute("SELECT * FROM metricx ORDER BY id")]
-
-    def metricx_cached(self, input_hash, identity):
-        if identity is None:
-            return None
-        row = self.db.execute("SELECT * FROM metricx WHERE input_hash=? AND identity_hash=? AND state='completed' ORDER BY id DESC LIMIT 1",
-                              (input_hash, fingerprint(identity))).fetchone()
-        return self.decode(row)
-
-    def metricx_start(self, input_hash, identity):
-        with self.db:
-            cursor = self.db.execute("INSERT INTO metricx(input_hash,identity_hash,state,started_utc) VALUES (?,?,?,?)",
-                                     (input_hash, fingerprint(identity) if identity is not None else None, "running", utc_now()))
-        return cursor.lastrowid
-
-    def metricx_finish(self, call, result):
-        identity = result.get("provenance", {}).get("cache_identity")
-        state = result["status"]
-        with self.db:
-            self.db.execute("UPDATE metricx SET state=?,identity_hash=?,ended_utc=?,result=?,reason=? WHERE id=?",
-                            (state, fingerprint(identity) if identity is not None else None, utc_now(), canonical(result), result.get("reason"), call))

@@ -1,6 +1,6 @@
 # Capture runner
 
-The runner implements [issue #3](https://github.com/kapitalismho/vrc-translator-bench/issues/3). Application-specific adapters, prepared settings and readiness findings belong to [issue #4](https://github.com/kapitalismho/vrc-translator-bench/issues/4). No translator is bundled. Follow the applicable owner-approved batch admission and routing requirements; the [continuation-only amendment](../profiles/evidence/issue8/continuation-only-amendment.json) governs remaining D1/D3 measurements without replaying or changing original frozen outcomes.
+This documents the retained **single-input self/cable-to-OSC runner**, not the new benchmark. The [final plan](benchmark-final-plan.md) and [implementation sequence](benchmark-implementation-plan.md) supersede the old issue #8 continuation workflow. No translator is bundled. Existing plans, raw evidence and historical operating records remain identifiable; do not resume old main measurements or scoring in the reset checkout. Peer collectors, episode/role/pass routing and the new observation-opportunity rules still require implementation.
 
 ## Install and operate
 
@@ -19,7 +19,7 @@ bench run --resume pilot
 
 `run` and `status` accept `--root`, default `.data/runs`. A new run requires `--plan`; `--run-id` is optional. Resume uses the stored plan and does not replace it. `--audio-backend clock` is restricted to plans explicitly marked `synthetic: true`; synthetic audio/OSC does not establish real translation behavior.
 
-Capture and quality scoring share a per-user OS activity lock across worktrees and run roots. A competing managed operation exits before capture starts. The lock releases on process exit; resume remains available after the competing operation finishes. This conservatively prevents all managed capture/scoring overlap, including PP2 judging contention. See [quality measurement exclusion](quality.md#measurement-exclusion) for unmanaged-process limits.
+Capture acquires the retained per-user OS activity lock across worktrees and run roots. Future judging must acquire the same lock; the low-level transport/store do not acquire it automatically, and there is no scoring command in this checkout. The lock releases on process exit. It does not detect arbitrary unmanaged applications; see [measurement exclusion](quality.md#measurement-exclusion).
 
 `status` prints JSON with progress counts, pending stages, attempt history, failure/invalid reasons, checksums and artifact locations. Remaining seconds are explicitly **estimated** and exclude setup, restart and retries. Exit codes:
 
@@ -34,41 +34,33 @@ Capture and quality scoring share a per-user OS activity lock across worktrees a
 
 ## Profile preparation commands
 
-`bench profiles --catalog profiles/catalog.json` inspects all 14 recorded findings and the working waves. Add `--check-ports` for an instantaneous loopback UDP availability probe and `--require-ready` to return 2 when real readiness evidence is missing. A valid blocked catalogue otherwise exits 0 for inspection. These commands do not start/configure translators or certify the contents of operator evidence.
+`bench profiles --catalog profiles/catalog.json` inspects all 14 **historical** findings and wave constraints. It returns `scope: historical-self-osc`, `historical_status`, `historical_ready_profiles`, and `new_protocol_status: unverified`. Add `--check-ports` for an instantaneous loopback UDP availability probe. Valid inspection exits 0 even with blocked historical findings; malformed catalogues exit 2. The old `--require-ready` option is removed rather than promoting historical self evidence into new admission.
 
-`python -m tools.prepare_profile_checks` prepares three ten-second development-audio checks and `profiles/output-checks.json`. Use source-language-specific run plans because `output_check.audio` is currently a single clip per plan. See [profile control procedures, access findings and observed limits](profiles.md). The catalogue is not a runner plan, and documented manual preparation is not a fabricated subprocess adapter.
+The old corpus-bound profile-check generator has been removed. Supply an explicit source-appropriate `output_check.audio` in a retained-format plan. `profiles/output-checks.json` remains historical provenance, not new-protocol input. See [profile findings](profiles.md); the catalogue is not a runner plan.
 
 ### PuriPuly public-CLI continuation
 
-For issue8 continuation and its subsequent [repair-and-retry amendment](../profiles/evidence/issue8/repair-retry-amendment.json), the [owner's PuriPuly control amendment](../profiles/evidence/issue8/puripuly-cli-control-amendment.json) selects a task-local public-CLI adapter implementing the unchanged [stdio protocol](#application-adapter-protocol). Bind original configuration, CLI executable identity and actual host PID/instance. Do not clone settings/secrets, automatically substitute a host, or fabricate `actual_visible_gui` observations/manual ACKs. Other applications retain the GUI bridge, except the approved [VRCS1 process-only startup override](../profiles/evidence/issue8/vrcs-runtime-launch-amendment.json); its settings/capture/cleanup remain GUI-controlled. Group membership follows the current frozen recipe, not the superseded unexecuted C schedule.
+The [PuriPuly control amendment](../profiles/evidence/issue8/puripuly-cli-control-amendment.json), [build-admission amendment](../profiles/evidence/issue8/pp291-installed-build-amendment.json), and [CLI-driven checks](../profiles/evidence/issue8/pp291-current-preflights.json) record the former D1/D3 workflow. Its task-local adapters and materializers are bound to historical source/configuration hashes. They are **not active reset instructions**; do not refresh their hashes or turn their self capture into nominal peer capture.
 
-Settings transactions use the observed revision, require terminal runtime-applied completion and then read back state. Capture admission is distinct from effective running state. Stop owned self capture and translation and confirm both OFF; normal owned-app shutdown may follow outside timed work. Ordinary chunk boundaries do not restart capture. The [single PP4 control lifecycle](../profiles/evidence/issue8/pp-cli-lifecycle-check.json) exercised real stdio start/stop without benchmark audio; it is not a main result or another output check. New materialization requires the amended freeze and fresh runtime bindings.
-
-After the installed PuriPuly build changed to2.9.1, the [new-build amendment](../profiles/evidence/issue8/pp291-installed-build-amendment.json) required a fresh desktop GUI host and eight new source checks without replaying completed main work. Normal `puripuly app stop` was followed by the supported product command-line `run-gui` entrypoint; `puripuly app start/restart` would launch headless and is not equivalent. Actual forwarding/new-host identity and all eight [CLI-driven checks](../profiles/evidence/issue8/pp291-current-preflights.json) were observed. Preserve old journals/freezes; bind new identities rather than substituting hashes into old evidence. The adapter's voice-output flag is [current-source-derived unsupported-route metadata](../profiles/evidence/issue8/pp291-voice-output-basis.json), not a queried TTS state.
+Retain the general ownership discipline: bind the actual executable/process/instance; distinguish accepted requests from effective state; verify supported stop/cleanup; never fabricate GUI acknowledgements or clone private settings. The new native collection outcome will reuse these principles with actual role-specific contracts.
 
 ### Actual-GUI development pilots
 
-`tools.prepare_gui_pilot` prepares the bounded English development pilot used in `profiles/evidence/issue45/`, not a main comparison:
+`bench.gui_operator_adapter` remains available for an explicitly supplied plan. The old AMI-specific `tools.prepare_gui_pilot` generator was removed; the captures it produced remain under `profiles/evidence/issue45/`.
 
-```powershell
-python -m tools.prepare_gui_pilot --root . --profile VRCS1 --owned-pid 12345 --port 19121
-```
+Create a fresh operator directory/session for the actually owned app, and use the same identity in the adapter arguments and observation. The bridge waits for an operator rather than calling a hidden application API. Prepare the app through its actual GUI, then record an observation file with:
 
-Replace the PID with the actual owned GUI process. The command prints the plan path and creates a unique operator session under `.data/issue45/gui/<profile>/`. It requires the prepared English audio/output-check files and the measured `.data/issue3/calibration/cable.json`; it does not launch or configure an app. D1/D2 are supported for this English-only helper. The default measured excerpt is original PCM `[34,74)` seconds of `development-01`, with a separate ten-second output check. `--direction D2 --check-only` uses the output check plus a one-second silent lifecycle stage: this is not a scored dialogue or the full nonspeech protocol.
-
-The plan starts `bench.gui_operator_adapter`, which waits for an operator rather than calling a hidden application API. Prepare the app through its actual GUI, then record an observation file with:
-
-- `basis: "actual_visible_gui"`, actual `pid`, `profile`, the generated `session`, UTC `observed_at_utc`, and nonempty `evidence` paths to the inspected GUI observations.
+- `basis: "actual_visible_gui"`, actual `pid`, `profile`, the unique `session`, UTC `observed_at_utc`, and nonempty `evidence` paths to the inspected GUI observations.
 - `state` containing actual `microphone`, boolean `voice_output`, `osc_host`, integer `osc_port`, direction ID and boolean `running`.
 - Optional `metadata` for actual version/model/provider, CPU evidence, capture semantics, access limits and observation uncertainty. Never include credentials.
 
-Register that file using the same PID/profile/session arguments as the generated plan:
+Register that file using the same PID/profile/session arguments as the supplied plan:
 
 ```powershell
 python -m bench.gui_operator_adapter --directory OPERATOR_DIRECTORY --owned-pid 12345 --profile VRCS1 --session SESSION --record-observation OBSERVATION_JSON
 ```
 
-Then run the printed plan with the normal `bench run` command. A required start/stop/configuration action creates `request-NNNN.json`. Inspect the request, perform the actual GUI action outside timed playback, verify its result, and record a **fresh** observation using the same command plus `--ack-sequence N`. An observation predating the request, another PID/session or an unconfirmed capture transition is rejected. Pending changes invalidate prior state; an acknowledgement alone is not an application observation.
+Run the supplied plan with `bench run`. A required start/stop/configuration action creates `request-NNNN.json`. Inspect the request, perform the actual GUI action outside timed playback, verify its result, and record a **fresh** observation using the same command plus `--ack-sequence N`. An observation predating the request, another PID/session or an unconfirmed capture transition is rejected. Pending changes invalidate prior state; an acknowledgement alone is not an application observation.
 
 Once playback begins, stop all computer-use screenshots/input and unrelated CPU-heavy checks until the runner requests cleanup. GUI state is manually observed, not continuously polled; independent process liveness does not prove continuous capture or translation health. Preserve raw output and any provider/application errors.
 
@@ -187,13 +179,13 @@ A positive cable offset means capture sees the frame later. Calibration cross-co
 
 Raw `/chatbox/input` and `/chatbox/typing` events carry `t_ns`, `run`, `wave`, `config`, `direction`, `chunk`, `attempt`, `observer`, `address`, `args`, `recv_seq`, source host/port, available process identity and clock session. A single receiver preserves receive order and OSC bundle wire order. Typing never counts as translation output. Invalid datagrams remain diagnostic packet records; unassigned packets remain in the continuous stream.
 
-The sink stays open across chunks and observation tails. A delayed earlier-chunk output received during the next chunk carries the **current capture context**, not an asserted source alignment. `source_candidate_provenance` retains actual earlier playback identities/times. The continuous stream remains authoritative after individual attempt traces finalize; historical traces are not rewritten. [Issue #5](https://github.com/kapitalismho/vrc-translator-bench/issues/5) owns separate estimated grouping/alignment, observation deadlines and unaligned/late-output treatment.
+The sink stays open across chunks and observation tails. A delayed earlier-chunk output received during the next chunk carries the **current capture context**, not an asserted source alignment. `source_candidate_provenance` retains actual earlier playback identities/times. The continuous stream remains authoritative after individual attempt traces finalize; historical traces are not rewritten.
 
-Use `bench metrics --manifest RUN/manifest.json --spec metrics-spec.json --output report.json` to derive measurements without changing captured observations. See [metric definitions and report-data inputs](metrics.md). The metrics specification supplies versioned per-app interpretation rules and explicit prepared-reference paths; capture context alone does not establish source correspondence.
-
-Use `bench quality prepare`, `score`, `status`, and `report` on those derived reports for blinded ESA, supplementary MetricX, durable scoring resume and Korean reference-review preparation. See the [scoring contract](quality.md); missing responses and unavailable models remain missing scores, not successful judgments.
+The old `metrics`, `metrics-batch` and `quality` commands are removed. Their [historical definitions](metrics.md) and [scoring records](quality.md) explain old artifacts only. New native reconstruction, two-stage GEMBA-ESA and semantic-wait aggregation are pending; raw OSC receipt must not be renamed into those results.
 
 ## Persistence and failure semantics
+
+These are the retained runner's historical semantics, **not the approved new episode contract**. In particular, the old no-output watchdog and terminal work accounting do not prove that an application retained its full translation opportunity. The new runner outcome must implement episode-last-speech +15 seconds, actual app/input/collector continuity, T1 roles/passes and invalidity for early harness intervention before any new main measurement.
 
 A run directory contains:
 
