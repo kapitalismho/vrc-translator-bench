@@ -35,6 +35,8 @@ python -m bench.cli profiles --catalog profiles/catalog.json
 
 [Capture CLI documentation](docs/cli.md) defines the episode plan, native collectors, adapter lifecycle and clock/outcome boundaries. Real runs require explicit device selection and scoped app/service authority. No new corpus or TTS production is implied by a small development smoke.
 
+Local data belongs to the primary checkout's `.data/`, shared across code worktrees. CLI `.data/...` paths resolve there; writes into linked checkouts are rejected. Absolute historical inputs and immutable artifact bindings are not rewritten. See [durable local data](docs/cli.md#durable-local-data) for relocation and backup boundaries.
+
 ## Reconcile local cost evidence
 
 ```powershell

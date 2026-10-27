@@ -300,7 +300,7 @@ def materialize(catalogue, retained, historical_control, output, ffmpeg="ffmpeg"
     return report
 
 
-def main():
+def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--catalogue", type=Path, default=Path("corpus/r2/read-controls.json"))
     parser.add_argument("--retained", type=Path, required=True, help="Pinned source research directory; read-only")
@@ -308,7 +308,23 @@ def main():
     parser.add_argument("--output", type=Path, default=Path(".data/r2/read-controls/accepted-v2"))
     parser.add_argument("--ffmpeg", default="ffmpeg")
     parser.add_argument("--acceptance", type=Path, help="Pinned local source review; otherwise use the catalogue-relative acceptance path")
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
+    if __package__ in (None, ""):
+        sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+    from bench.paths import DataPathError, DataPaths
+    paths = DataPaths()
+    try:
+        args.output = paths.output(args.output)
+        for name in ("catalogue", "retained", "historical_control"):
+            setattr(args, name, paths.input(getattr(args, name)))
+        if args.acceptance is not None:
+            args.acceptance = paths.input(args.acceptance)
+        else:
+            record = json.loads(args.catalogue.read_text(encoding="utf-8"))
+            if record.get("source_acceptance"):
+                args.acceptance = paths.input(record["source_acceptance"]["path"], base=args.catalogue.parent)
+    except DataPathError as error:
+        parser.error(str(error))
     report = materialize(args.catalogue, args.retained, args.historical_control, args.output, args.ffmpeg, args.acceptance)
     print(json.dumps({"status": report["status"], "p4": len(report["p4"]), "c1": len(report["c1"]),
                       "output": str(args.output)}, ensure_ascii=False))

@@ -5,7 +5,12 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import sys
 
+if __package__ in (None, ""):
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+from bench.paths import DataPathError, DataPaths
 from bench.storage import atomic_json
 
 
@@ -82,12 +87,18 @@ def export(run_directory, output, repository):
     return provenance
 
 
-def main():
+def main(argv=None):
     parser = argparse.ArgumentParser()
     parser.add_argument("--run-directory", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--repository", type=Path, default=Path.cwd())
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
+    paths = DataPaths()
+    try:
+        args.output = paths.output(args.output)
+        args.run_directory = paths.input(args.run_directory)
+    except DataPathError as error:
+        parser.error(str(error))
     result = export(args.run_directory, args.output, args.repository)
     print(json.dumps({"files": len(result["files"]), "output": str(args.output)}))
 

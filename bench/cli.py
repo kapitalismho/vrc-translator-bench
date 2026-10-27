@@ -9,6 +9,7 @@ from pathlib import Path
 from .adapter import OperationalError
 from .audio import Playback, calibrate
 from .plan import IDENTIFIER, load_plan
+from .paths import DataPaths
 from .runner import Runner
 from .profiles import inspect_catalog
 from .storage import Ledger, atomic_json, utc_now
@@ -51,6 +52,19 @@ def parser():
 def main(argv=None):
     args = parser().parse_args(argv)
     try:
+        paths = DataPaths()
+        if hasattr(args, "output"):
+            args.output = paths.output(args.output)
+        if args.command == "quality":
+            paths.output(str(args.output) + ".store")
+        if args.command == "calibrate":
+            paths.output(args.output.with_suffix(".npz"))
+        if hasattr(args, "root"):
+            args.root = paths.output(args.root)
+        for name in ("spec", "transport", "catalog", "plan", "audio"):
+            value = getattr(args, name, None)
+            if value is not None:
+                setattr(args, name, paths.input(value))
         if args.command == "quality":
             from .quality import evaluate
             result = evaluate(args.spec, args.output, transport_path=args.transport)
@@ -94,7 +108,7 @@ def main(argv=None):
         run_id = args.run_id if args.command == "status" else args.resume or args.run_id or time.strftime("%Y%m%dT%H%M%S")
         if not IDENTIFIER.fullmatch(run_id):
             raise ValueError("Run ID must be a safe identifier")
-        root = args.root.resolve() / run_id
+        root = paths.output(args.root / run_id)
         if args.command == "status":
             plan = json.loads((root / "execution-plan.json").read_text(encoding="utf-8"))
             ledger = Ledger(root)

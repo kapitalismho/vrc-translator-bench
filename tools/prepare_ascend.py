@@ -17,6 +17,7 @@ from pathlib import Path
 import re
 import shutil
 import tarfile
+import sys
 import wave
 
 
@@ -519,7 +520,7 @@ def materialize(catalogue, cache, evidence_path, findings_path, output, curation
     return report
 
 
-def main():
+def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--catalogue", default="corpus/r2/ascend.json")
     parser.add_argument("--cache", required=True)
@@ -527,7 +528,21 @@ def main():
     parser.add_argument("--findings", default=".data/r2/ascend/research-findings.json")
     parser.add_argument("--curation", help="Override the pinned task-local review/checkpoint record path")
     parser.add_argument("--output", required=True)
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
+    if __package__ in (None, ""):
+        sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+    from bench.paths import DataPathError, DataPaths
+    paths = DataPaths()
+    try:
+        args.output = paths.output(args.output)
+        for name in ("catalogue", "cache", "evidence", "findings"):
+            setattr(args, name, paths.input(getattr(args, name)))
+        curation = args.curation
+        if curation is None:
+            curation = json.loads(args.catalogue.read_text(encoding="utf-8"))["curation"]["path"]
+        args.curation = paths.input(curation)
+    except DataPathError as error:
+        parser.error(str(error))
     report = materialize(args.catalogue, args.cache, args.evidence, args.findings, args.output, args.curation)
     print(json.dumps({"status": report["status"], "episodes": len(report["candidates"]),
                       "source_clips": report["selected_source_clips"],

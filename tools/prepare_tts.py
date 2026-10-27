@@ -684,7 +684,19 @@ def main(argv=None):
     for name in ("wav", "review", "output"):
         splitting.add_argument("--" + name, required=True)
     args = parser.parse_args(argv)
+    if __package__ in (None, ""):
+        sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+    from bench.paths import DataPathError, DataPaths
+    paths = DataPaths()
     try:
+        if args.command in ("generate", "reconcile"):
+            args.run = paths.output(args.run)
+        else:
+            args.output = paths.output(args.output)
+        for name in ("scripts", "parents", "source_cache", "catalogue", "approval", "pilot_method", "wav", "review"):
+            value = getattr(args, name, None)
+            if value is not None:
+                setattr(args, name, paths.input(value))
         if args.command == "prepare":
             result = prepare(args.scripts, args.parents, args.source_cache, args.output, args.catalogue, args.split)
         elif args.command == "generate":
@@ -693,6 +705,9 @@ def main(argv=None):
             result = reconcile(args.run, args.call, args.env_file)
         else:
             result = split(args.wav, args.review, args.output)
+    except DataPathError as error:
+        print(f"R3 operation blocked: {error}", file=sys.stderr)
+        return 1
     except (ValueError, OSError, KeyError, TypeError):
         print("R3 operation blocked or failed; no automatic retry was made. Inspect retained state and required inputs/authorization.", file=sys.stderr)
         return 1
