@@ -52,9 +52,13 @@ unclassified explanations and planned repeats add no weight.
   added silence or individual-track isolation claim. Dialogue 10 is development;
   main uses dialogues 01–04 and 06–09. Known links are retained and unknown
   recurring speakers are not certified independent. Bounded no-hints Reazon
-  views corroborate core meanings for five main and one development candidate;
-  15 have specific unresolved content/boundary observations. Core corroboration
-  is not full-fidelity or precise-endpoint certification.
+  and a targeted Qwen addendum corroborate core meanings for 11 main and two
+  development candidates; eight retain specific content/boundary holds.
+  The addendum observed 24 views of only the 15 previously held cases, including
+  the complete primary request on its unchanged 3.66-second crop. A repetitive
+  Qwen tail remains an explicitly partial failed observation, not a valid full
+  transcript. Core corroboration is not full-fidelity or precise-endpoint
+  certification; no original reference, playback or selection was changed.
 - **[FLEURS](../corpus/r2/read-controls.json):** main sentence IDs
   1980/1914/1771 and development ID 151 are joined across EN/JA by sentence ID,
   not row order. The six main recordings have three shared text-dependence

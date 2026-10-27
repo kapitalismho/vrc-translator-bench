@@ -152,7 +152,7 @@
     },
     {
       "path": "corpus/r2/ingcrowd.json",
-      "sha256": "8fd781de64d4133aac56d85319a42c4cfe15c2e0861847158f8e43156df13341"
+      "sha256": "1e2a38fc4ae88928f82672df40d50d958e6891a4c68e52cc777200e3401b4302"
     },
     {
       "path": "corpus/r2/read-controls.json",
@@ -185,6 +185,14 @@
         "sha256": "07b54eaa088e09553fb333e6d653892d23a4fec39473538d7b73a67b4ba4657e"
       },
       {
+        "path": ".data/r2/ingcrowd/terminal-review-v1/review-addendum.json",
+        "sha256": "e52232d3010b3b7d1f9e08c64dfb570883f993dcb4b74a9c6fb540db2c1bd776"
+      },
+      {
+        "path": ".data/r2/ingcrowd/terminal-review-v1/qwen-output/batch.json",
+        "sha256": "f4456648d247e4c70fd88aa9a0bfbce12ca599a5a07566a2927f6fd88693c6e8"
+      },
+      {
         "path": ".data/r2/read-controls/review/source-review.json",
         "sha256": "f8249f707f0840016994fcdd90296a39d11006730d223423f2ab49635ce91efc"
       },
@@ -201,7 +209,7 @@
   },
   "source_review_summary": {
     "ASCEND": "Four P1 references automatically corroborated with source-only no-hints ASR and separate 80-ms-grid endpoint proposals; development endpoint is near file edge. Three compact explanations are unclassified. P2/P3/T1 continuity and T1 role buffers remain unaccepted.",
-    "IngCrowd": "21 exact mixed-track crops,54 pre-result checkpoint candidates; bounded independent ASR supports core meanings for5 main and1 development candidates, with15 specific content/boundary holds. Whole-dialogue separation and known links applied; unknown participant recurrence not certified independent.",
+    "IngCrowd": "21 exact mixed-track crops,54 pre-result checkpoint candidates. Bounded Reazon plus24 targeted no-hints Qwen views of15 previously held cases support core meanings for11 main and2 development candidates;8 specific content/boundary holds remain. The primary request is corroborated on the unchanged3.66s crop. A repetitive Qwen tail is retained as partial observation failure. Core support is not full-fidelity/precise-endpoint or production acceptance. Whole-dialogue separation and known links applied; unknown participant recurrence not certified independent.",
     "FLEURS": "Eight real source/read inputs with shared-sentence groups. Automatic preparation passes: p4-en-1980,p4-en-1771,p4-ja-1771,p4-en-151. Holds: p4-en-1914 endpoint320ms disagreement,p4-ja-1980 driver-word disagreement,p4-ja-1914 clipping/lexical detail,p4-ja-151 named-group disagreement.",
     "C1": "Exact zero60s supported at digital signal boundary. Nonverbal60s candidate preserves original events/gaps, incidental speech unresolved. Historical AMI speech minute excluded; runtime quiet/reset remains R6-owned.",
     "level": "Automatic source/transcript/waveform/ASR inspection, not human listening. Forced alignment is not independent transcript proof; model-family independence and calibrated phonetic accuracy are not claimed."
