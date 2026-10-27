@@ -1,0 +1,74 @@
+{
+  "kind": "actual_public_cli_collector_lifecycle",
+  "profile": "PP4",
+  "instance_id": "afb4d2c0-63d0-4c06-b0fd-f588e64eed72",
+  "original_audio_collection": {
+    "status": "capture_completed",
+    "all_source_frames_and_observation_tail_recorded_before_stop_completed": true,
+    "original_stream_sha256": "8f66d344cc652abbcbd65d06d6c02de4ce99b4f4020d148251c99365724651ee",
+    "original_trace_sha256": "92f9612da19dd77cf51e9926a9e5cfc9e80f2c4193237804a6b0c089e86cfdbf",
+    "shutdown_failure": "Driver remained blocked during collector stop after durable actual_playback record.",
+    "owned_follow_cleanup": "Only the unique exact-command follow child was identity-checked and terminated; the smoke driver then finalized and exited 0.",
+    "host_stopped_or_restarted": false,
+    "audio_replayed": false,
+    "root_cause": "[INFERENCE] Installed launcher exit left its child holding inherited pipes, blocking buffered close; source-based diagnosis, no runtime stack or pipe-handle capture.",
+    "capture_source_file_sha256": {
+      "../bench/native.py": "061d25848eaf6696bbdeee5007582be4aca725e3fd13b09eca18729ef891f107",
+      "../bench/native_formats.py": "f522c04ffdc7162b752f4400a9aa5517b368674092a4f97c2ac1743cba66d51f",
+      "../bench/native_transports.py": "f62d36de10bef1116eb0ca8f9ed7b3112365fa734d760841b5bb27e139b764a9",
+      "../bench/audio.py": "c698e1617729f606717e3d8be9496693a4667fcf5ee3c2a0c1a1e2e7b10195c0"
+    }
+  },
+  "postrepair_zero_audio_follow": {
+    "status": "completed",
+    "started_utc": "2026-10-26T03:07:47.424224+00:00",
+    "completed_utc": "2026-10-26T03:07:48.748433+00:00",
+    "original_report_sha256": "c58880fce68ec936e70ae910bd217a7a0e7244eb46cd715543205980b93a7ad3",
+    "original_stream_sha256": "e4f9c5ce76792d654f4b51f84fdc2358ba8633f2412f43acdaee2a49fcd7fb29",
+    "stop_elapsed_ns": 3988100,
+    "owned_launchers_exited": true,
+    "reader_threads_exited": true,
+    "before_and_after": {
+      "same_original_host_pid": true,
+      "same_original_instance": true,
+      "translation_disabled": true,
+      "self_and_peer_capture_stopped": true
+    },
+    "actual_event_readiness_claimed": false,
+    "before_stop_connection": "starting",
+    "audio_capture_provider_enable_performed": false,
+    "source_file_sha256": {
+      "../bench/native.py": "519f01ffa63480a363e9aeacdcbfb57b05390f6ec4c31282dd4906d09c334574",
+      "../bench/native_formats.py": "f522c04ffdc7162b752f4400a9aa5517b368674092a4f97c2ac1743cba66d51f",
+      "../bench/native_process.py": "e911bcfff72578d62b4f2ca3cd6d659ad7c9272d23884c7c6b3fe87a8dc36627",
+      "../bench/native_transports.py": "c97d64389a6c3cf9c8435ce35743acab71d0ca8f69efd8ef87b51e928d21f36f",
+      "../bench/quality_process.py": "b9ae92cd3b8e3631318370860165f7e8a3d8eb46d4e6540a2c596f72f63b74e1"
+    }
+  },
+  "restoration": {
+    "full_original_intent_restored": true,
+    "initial_intent_sha256": "9e80459bd84cb10c7893b49a9352f359e33400adca850d6f500c91fe88c9f540",
+    "final_intent_sha256": "9e80459bd84cb10c7893b49a9352f359e33400adca850d6f500c91fe88c9f540",
+    "independently_observed_monotonic_ns": 382283211492500,
+    "remaining_intent_differences": 0,
+    "personal_values_omitted": true
+  },
+  "later_completion_observation": {
+    "basis": "Director read-only supported CLI attempt and independent process/window observations after the earlier restoration and zero-audio lifecycle checks",
+    "capture_status_cli_exit": 3,
+    "retry_or_host_restart_performed": false,
+    "original_host_pid_67656_alive": false,
+    "overlay_pid_42180_alive": false,
+    "puripuly_windows_present": false,
+    "disappearance_time": "unobserved",
+    "disappearance_cause": "unknown",
+    "director_host_termination_performed": false,
+    "attribution": "No collector-caused or user-closed attribution established. Earlier host-alive preservation and exact intent restoration remain point-in-time observations, not final host liveness."
+  },
+  "limits": [
+    "Lifecycle stop duration concerns owned collector shutdown only, not translation latency/performance.",
+    "No quiet-stream subscription ACK or translation readiness was inferred.",
+    "Original live audio was not replayed after the shutdown repair.",
+    "Personal original settings values, unrelated providers, private snapshots and arbitrary diagnostics are omitted."
+  ]
+}

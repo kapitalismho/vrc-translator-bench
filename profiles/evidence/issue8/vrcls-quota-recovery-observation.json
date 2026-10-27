@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "scope": "Renewed D1/D3 authority; same original1015, account, Free entitlement and recognition/Developer translation routes. No D3 main playback or new capture denominator.",
+  "historical_first_limit": {
+    "native_rule": "10/minute;10 per1minute",
+    "service": "recognition",
+    "installed_client_status": 430,
+    "pinned_D1_log_slice_sha256": "2ddeee753a9a81e98ca67a6193efd41a1b7546a9e63b71b4cfe5a6bcebf5bcaa",
+    "slice_byte_start": 313374,
+    "slice_byte_end_exclusive": 888097,
+    "safe_log_classification": {"send_POST_entries":387,"recognition_success_entries":209,"recognition_430_entries":178,"success_entries_after_first_430":204,"adjacent_430_to_success_transitions":69},
+    "meaning": "The same D1 process intermittently accepted recognition after rate rejection. Counts are client log classifications, not independently observed unique requests, billed operations or translated OSC. This was not an uninterrupted denial or a proven client latch; the10/minute rule repeatedly recurred. Original capture/failures remain unchanged."
+  },
+  "fresh_native_observation": {
+    "refresh_requested_at_utc": "2026-10-24T15:27:29.088Z",
+    "refresh_observed_at_utc": "2026-10-24T15:27:29.543Z",
+    "surface": "Original1015 native Settings > User Center > Quota & Usage > Refresh data",
+    "plan": "Free",
+    "account_expiration": "Permanent",
+    "remaining_today":569,
+    "daily_limit_display":1000,
+    "resource_usage_display":431,
+    "resource_limit_display":1000,
+    "server_reported_today_requests_before":229,
+    "server_reported_today_requests_after":231,
+    "freshness": "The supported refresh changed the native account-summary counter. The original installed refresh method applies a valid non-test usage payload; no stale preexisting value alone is treated as a fresh response.",
+    "attribution": "These are account quota/status values, not benchmark-attributable usage, unique recognition requests or costs.",
+    "unexposed": ["current minute-bucket remainder", "guaranteed reset time", "quota-key/account/IP independence", "a changed10/minute maximum"]
+  },
+  "actual_safety_and_cleanup": {
+    "all_six_original_binary_hashes_unchanged":true,
+    "saved_named_routes_direction_OSC_TTS_unchanged":true,
+    "microphone_and_desktop_auto_start_disabled":true,
+    "native_microphone_and_desktop_indicators_observed_off":true,
+    "recognition_start_requested":false,
+    "benchmark_audio_played":false,
+    "new_main_source_frames":0,
+    "update_page_declined":true,
+    "account_tier_or_model_changed":false,
+    "owned_PID63624_normal_native_exit_observed":true,
+    "UDP19141_exclusive_bind_and_release_succeeded":true,
+    "force_termination":false,
+    "cleanup_observed_at_utc":"2026-10-24T15:36:57.868977+00:00"
+  },
+  "D3_disposition": {
+    "status":"quota_stopped_for_current_first_batch_configuration",
+    "main_started":false,
+    "main_admitted":false,
+    "registered_as_capture":false,
+    "reason":"Daily headroom and permanent Free status rule against an observed exhausted-daily/expired-account explanation, but do not release the carried recognition10/minute first-limit condition. No supported current minute-capacity/reset observation or changed applicable allowance was established. A short success would repeat acceptance already observed during D1 without resolving that capacity boundary. Do not replay preparation until success, alter segmentation/input speed, restart to reset quota, or purchase a different entitlement.",
+    "next_batch_action":"Treat this as an explicit unavailable D3 main population, not indefinite active waiting, zero delivery or a completed measurement. Continue ready PuriPuly work; once runnable timed work is terminal, include this disposition in the labelled first-batch package."
+  },
+  "local_evidence": [".data/issue8/vrcls-quota-recovery-observation-v1/guard.json", ".data/issue8/vrcls-quota-recovery-observation-v1/native-account-observation.json", ".data/issue8/vrcls-quota-recovery-observation-v1/cleanup.json", ".data/issue8/vrcls-quota-recovery-observation-v1/recognition-disabled.png"],
+  "original_D1_and_D3_records_rewritten":false,
+  "remote_publication_performed":false
+}

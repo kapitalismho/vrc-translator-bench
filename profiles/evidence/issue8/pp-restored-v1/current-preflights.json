@@ -1,0 +1,679 @@
+{
+  "schema_version": 1,
+  "cohort": "B-pp-restored-v1",
+  "status": "eight_actual_source_bound_preflights_complete_and_normal_full_cleanup_proven",
+  "created_at_utc": "2026-10-22T07:02:58.019383+00:00",
+  "execution_order": [
+    "PP4/D1",
+    "PP4/D3",
+    "PP1/D1",
+    "PP1/D3",
+    "PP2/D1",
+    "PP2/D3",
+    "PP3/D1",
+    "PP3/D3"
+  ],
+  "application": {
+    "normal_installed_GUI": true,
+    "exe_basename": "PuriPulyHeart.exe",
+    "FileVersion": "2.9.0",
+    "ProductVersion": "2.9.0",
+    "exe_sha256": "2f9b9938e0b7e03731f7cfa57056a68f78d05eb099312f6c07e9b71a8440ac31",
+    "actual_packaged_python_zip_sha256": "b02cda0f64577d8efd442904c1ccb0fcded69be42450691c7591945a0fc03d50",
+    "loose_sources_not_assumed_equal_to_packaged_runtime": true,
+    "source_commit_or_returned_LLM_runtime_attestation": false
+  },
+  "selected_translation_routes": {
+    "PP4": {
+      "ASR": "local_cpu_auto",
+      "D1_actual_CPU_model": "parakeet-tdt-0.6b-v3-int8-sherpa",
+      "D3_actual_CPU_model": "qwen3-asr-0.6b-int8-sherpa",
+      "LLM_selection": "index_translate_35b",
+      "connection": "public_api"
+    },
+    "PP1": {
+      "ASR": "gemini_transcribe / gemini-3.5-transcribe-live",
+      "LLM_selection": "gemma4_26b_31b",
+      "connection": "openrouter",
+      "mixed_26B_31B_not_single_26B": true
+    },
+    "PP2": {
+      "ASR": "gemini_transcribe / gemini-3.5-transcribe-live",
+      "LLM_selection": "gpt_6_luna",
+      "connection": "chatgpt",
+      "existing_connected_account_only": true,
+      "new_login_account_tier_payment_or_usage_fetch": false
+    },
+    "PP3": {
+      "ASR": "gemini_transcribe / gemini-3.5-transcribe-live",
+      "LLM_selection": "index_translate_35b",
+      "connection": "public_api"
+    }
+  },
+  "model_fallback_scope": "Native Index selection was observed retained in post-check GUI/safe intent; no returned-model or internal/server fallback attestation. An unobserved backend identity is not labeled as proven Index. No fallback was manually suppressed or selected.",
+  "device_and_calibration": {
+    "microphone": "CABLE Output(VB-Audio Virtual Cable)",
+    "playback_output_device_string": "CABLE Input(VB-Audio Virtual Cable)",
+    "ASR_saved_host_API": "Windows WASAPI (Compatibility Mode)",
+    "actual_host_API": "Windows WASAPI",
+    "current_passive_WASAPI_playback_index": 19,
+    "current_passive_WASAPI_capture_index": 20,
+    "indices_are_observations_not_reusable_selectors": true,
+    "sample_rate": 48000,
+    "shared": true,
+    "exact_unique_named_endpoint_resolution_rechecked_at_each_preparation": true,
+    "no_default_private_input_or_In16ch_route": true,
+    "calibration": {
+      "path": ".data/issue3/calibration/cable.json",
+      "sha256": "ff8c74a66eff13e838c27772287b0050463f56c207edc1b64ae83a71f3d70550"
+    },
+    "calibration_offset_ns": 113409500,
+    "new_calibration_probe": false
+  },
+  "real_execution_contract": {
+    "capture_python": ".data/check-venv/Scripts/python.exe",
+    "CLI_form_repo_relative": "<python> -m bench.cli run --plan <slot>/plan.json --run-id <actual run_id> --root <slot>/runs --audio-backend wasapi",
+    "full_actual_argv_and_numeric_exits": "Retained in each private runner-terminal-receipt.json and original binary CLI logs, referenced by inventory index.",
+    "bounded_wrapper": {
+      "path": ".data/issue8/puripuly-restored-preflights/run_preflight_with_receipt.py",
+      "sha256": "47762f7b38f49a353ce28a48f8264b24ee1b00bae4692b6880449a401a4cd772"
+    },
+    "wrapper_scope": "Receipt/log retention only; existing prepare_gui_pilot-derived plans, bench.cli and bench.gui_operator_adapter own all timing, audio and operator protocol.",
+    "shell_deadline": "timeout0 / async; finite preflight, no short shell deadline",
+    "check_seconds": 10,
+    "check_tail_seconds": 15,
+    "silent_lifecycle_seconds": 1,
+    "silent_lifecycle_tail_seconds": 2,
+    "no_timed_GUI_screenshot_computer_inference_or_model_scoring": true,
+    "failed_product_replay_or_extra_audio_probe": false
+  },
+  "slots": [
+    {
+      "profile": "PP4",
+      "direction": "D1",
+      "status": "passed",
+      "basis": "actual_preflight_finding",
+      "run_id": "issue8-pp-restored-PP4-D1-20261022T045710Z",
+      "private_capture_root": ".data/issue8/puripuly-restored-preflights/PP4-D1-20261022T045710Z/runs/issue8-pp-restored-PP4-D1-20261022T045710Z",
+      "actual_CLI_exit": 0,
+      "actual_counts": {
+        "pending": 0,
+        "running": 0,
+        "done": 4,
+        "product_failure": 0,
+        "invalid": 0
+      },
+      "callback_count": 1100,
+      "callback_frames": 528000,
+      "check_OSC_events": 9,
+      "check_target_inputs": 3,
+      "input_receive_sequences": [
+        2,
+        5,
+        8
+      ],
+      "silent_lifecycle_OSC_events": 0,
+      "outside_timed_attempt_OSC_events": 0,
+      "reported_ASR_model": "parakeet-tdt-0.6b-v3-int8-sherpa",
+      "source_binding_checked": true,
+      "actual_send_port": 19104,
+      "actual_receive_port": 19204,
+      "format_trace_ids": [
+        {
+          "run": "issue8-pp-restored-PP4-D1-20261022T045710Z",
+          "clock_session": "6e15e25b37ae41c0af147e8625301b5a",
+          "recv_seq": 2,
+          "text_utf8_sha256": "056a662f428fe0e6929291a297547b73a8a09efefa7a977f76dcb20514039e94"
+        },
+        {
+          "run": "issue8-pp-restored-PP4-D1-20261022T045710Z",
+          "clock_session": "6e15e25b37ae41c0af147e8625301b5a",
+          "recv_seq": 5,
+          "text_utf8_sha256": "6e1ac52d3afd9d3d4bcf8f4d066e4cd0079a90c1be0d1c051fbd9c907dc15b1f"
+        },
+        {
+          "run": "issue8-pp-restored-PP4-D1-20261022T045710Z",
+          "clock_session": "6e15e25b37ae41c0af147e8625301b5a",
+          "recv_seq": 8,
+          "text_utf8_sha256": "efa90e81dfd8789fdc49a8a74fe2c07b255422e5984ba92403cf77c29fd4181c"
+        }
+      ],
+      "safe_finding": {
+        "path": "profiles/evidence/issue8/pp-restored-v1/pp4-d1-preflight.json",
+        "sha256": "cb54cc67f670498869bae68fabba3f855e92ffdd926f52d114572b1be9034ad9"
+      },
+      "actual_rule_binding": {
+        "path": "profiles/evidence/issue8/pp-restored-v1/pp4-d1-rule.json",
+        "sha256": "246e9ff6fdf0b2e61c9620a69fe65f6d2cfe27fe15239b40b0dac41ca29303a2",
+        "pointer": "/rule"
+      },
+      "key_aliases": [],
+      "quota_scope": "index-public-ip",
+      "capture_inventory": {
+        "path": ".data/issue8/puripuly-restored-preflights/PP4-D1-20261022T045710Z/capture-inventory.json",
+        "sha256": "7a23585383059aa9cc6309de32969ac44c2590a46e8210129711d48caa21dd37"
+      }
+    },
+    {
+      "profile": "PP4",
+      "direction": "D3",
+      "status": "passed",
+      "basis": "actual_preflight_finding",
+      "run_id": "issue8-pp-restored-PP4-D3-20261022T053145Z",
+      "private_capture_root": ".data/issue8/puripuly-restored-preflights/PP4-D3-20261022T053145Z/runs/issue8-pp-restored-PP4-D3-20261022T053145Z",
+      "actual_CLI_exit": 0,
+      "actual_counts": {
+        "pending": 0,
+        "running": 0,
+        "done": 4,
+        "product_failure": 0,
+        "invalid": 0
+      },
+      "callback_count": 1100,
+      "callback_frames": 528000,
+      "check_OSC_events": 6,
+      "check_target_inputs": 2,
+      "input_receive_sequences": [
+        2,
+        5
+      ],
+      "silent_lifecycle_OSC_events": 0,
+      "outside_timed_attempt_OSC_events": 0,
+      "reported_ASR_model": "qwen3-asr-0.6b-int8-sherpa",
+      "source_binding_checked": true,
+      "actual_send_port": 19104,
+      "actual_receive_port": 19204,
+      "format_trace_ids": [
+        {
+          "run": "issue8-pp-restored-PP4-D3-20261022T053145Z",
+          "clock_session": "df8caf0b5a3744c69ba83ce0894f1ac8",
+          "recv_seq": 2,
+          "text_utf8_sha256": "7a300d346e5c55ffa63f32183e96d89bd8119442e6df3a4ffaa8ebd14cd510a4"
+        },
+        {
+          "run": "issue8-pp-restored-PP4-D3-20261022T053145Z",
+          "clock_session": "df8caf0b5a3744c69ba83ce0894f1ac8",
+          "recv_seq": 5,
+          "text_utf8_sha256": "15c28f65722a2f792e54853b45664c5cea0e877df8354f9eb78551f356eaf91e"
+        }
+      ],
+      "safe_finding": {
+        "path": "profiles/evidence/issue8/pp-restored-v1/pp4-d3-preflight.json",
+        "sha256": "af55bb325bc3fc456a6ea73ac510aaa7a0154fbb02dd4a2ecb9ea92a51fd223b"
+      },
+      "actual_rule_binding": {
+        "path": "profiles/evidence/issue8/pp-restored-v1/pp4-d3-rule.json",
+        "sha256": "7656a950f548d4c2fe118f8b73437cf8d9f3ca1870729c5bb2cb3ee0eeddf1df",
+        "pointer": "/rule"
+      },
+      "key_aliases": [],
+      "quota_scope": "index-public-ip",
+      "capture_inventory": {
+        "path": ".data/issue8/puripuly-restored-preflights/PP4-D3-20261022T053145Z/capture-inventory.json",
+        "sha256": "f383954749b73399098a9dd640ab08e40068f78662a8a7e50223e5f8f9520cea"
+      }
+    },
+    {
+      "profile": "PP1",
+      "direction": "D1",
+      "status": "passed",
+      "basis": "actual_preflight_finding",
+      "run_id": "issue8-pp-restored-PP1-D1-20261022T060827Z",
+      "private_capture_root": ".data/issue8/puripuly-restored-preflights/PP1-D1-20261022T060827Z/runs/issue8-pp-restored-PP1-D1-20261022T060827Z",
+      "actual_CLI_exit": 0,
+      "actual_counts": {
+        "pending": 0,
+        "running": 0,
+        "done": 4,
+        "product_failure": 0,
+        "invalid": 0
+      },
+      "callback_count": 1100,
+      "callback_frames": 528000,
+      "check_OSC_events": 6,
+      "check_target_inputs": 2,
+      "input_receive_sequences": [
+        2,
+        5
+      ],
+      "silent_lifecycle_OSC_events": 0,
+      "outside_timed_attempt_OSC_events": 0,
+      "reported_ASR_model": "gemini-3.5-transcribe-live",
+      "source_binding_checked": true,
+      "actual_send_port": 19104,
+      "actual_receive_port": 19201,
+      "format_trace_ids": [
+        {
+          "run": "issue8-pp-restored-PP1-D1-20261022T060827Z",
+          "clock_session": "3749b84334f34ee8b2181a216ca53c8a",
+          "recv_seq": 2,
+          "text_utf8_sha256": "720c778774ce8cb49203f199b2fccb4a5b7dd07fbeec4be37c47409f68b6c513"
+        },
+        {
+          "run": "issue8-pp-restored-PP1-D1-20261022T060827Z",
+          "clock_session": "3749b84334f34ee8b2181a216ca53c8a",
+          "recv_seq": 5,
+          "text_utf8_sha256": "8ff460322e50a52f350e17671e9a7f2ac396629e6949d777bbe2c92966f929cb"
+        }
+      ],
+      "safe_finding": {
+        "path": "profiles/evidence/issue8/pp-restored-v1/pp1-d1-preflight.json",
+        "sha256": "1536b116295d32489cf366920bdea25362467a0d54097267e9c72ec9523c2f9d"
+      },
+      "actual_rule_binding": {
+        "path": "profiles/evidence/issue8/pp-restored-v1/pp1-d1-rule.json",
+        "sha256": "ef7331b4841ceb37fc5c8587377edbab91d618d6d28a85ae83a2936afaada0a4",
+        "pointer": "/rule"
+      },
+      "key_aliases": [
+        "Google-A"
+      ],
+      "quota_scope": "PP1",
+      "capture_inventory": {
+        "path": ".data/issue8/puripuly-restored-preflights/PP1-D1-20261022T060827Z/capture-inventory.json",
+        "sha256": "7ca66f6a303e305249e2af8e7547a02bce056f0a3ec06be6dfc9be94bf029f48"
+      }
+    },
+    {
+      "profile": "PP1",
+      "direction": "D3",
+      "status": "passed",
+      "basis": "actual_preflight_finding",
+      "run_id": "issue8-pp-restored-PP1-D3-20261022T061913Z",
+      "private_capture_root": ".data/issue8/puripuly-restored-preflights/PP1-D3-20261022T061913Z/runs/issue8-pp-restored-PP1-D3-20261022T061913Z",
+      "actual_CLI_exit": 0,
+      "actual_counts": {
+        "pending": 0,
+        "running": 0,
+        "done": 4,
+        "product_failure": 0,
+        "invalid": 0
+      },
+      "callback_count": 1100,
+      "callback_frames": 528000,
+      "check_OSC_events": 6,
+      "check_target_inputs": 2,
+      "input_receive_sequences": [
+        2,
+        5
+      ],
+      "silent_lifecycle_OSC_events": 0,
+      "outside_timed_attempt_OSC_events": 0,
+      "reported_ASR_model": "gemini-3.5-transcribe-live",
+      "source_binding_checked": true,
+      "actual_send_port": 19104,
+      "actual_receive_port": 19201,
+      "format_trace_ids": [
+        {
+          "run": "issue8-pp-restored-PP1-D3-20261022T061913Z",
+          "clock_session": "3e31f6e87d4c46c19a19402dff63ea34",
+          "recv_seq": 2,
+          "text_utf8_sha256": "aaf2e1500e4bcae653a85eb2c24f55e5677795a449ee7cb72f1730cd7ef5393e"
+        },
+        {
+          "run": "issue8-pp-restored-PP1-D3-20261022T061913Z",
+          "clock_session": "3e31f6e87d4c46c19a19402dff63ea34",
+          "recv_seq": 5,
+          "text_utf8_sha256": "950c0b08e4784a2f26720337b20283b2ca4500e276233d9a17736fb22ba03874"
+        }
+      ],
+      "safe_finding": {
+        "path": "profiles/evidence/issue8/pp-restored-v1/pp1-d3-preflight.json",
+        "sha256": "4912d56102818e322ff50be416c694a64a455fdd6873f07db7ce729a1dc625df"
+      },
+      "actual_rule_binding": {
+        "path": "profiles/evidence/issue8/pp-restored-v1/pp1-d3-rule.json",
+        "sha256": "8aa7be5467aeb7033f00a19a8110fedf16cd9b650d8cb8b5393bdc41361e0f28",
+        "pointer": "/rule"
+      },
+      "key_aliases": [
+        "Google-A"
+      ],
+      "quota_scope": "PP1",
+      "capture_inventory": {
+        "path": ".data/issue8/puripuly-restored-preflights/PP1-D3-20261022T061913Z/capture-inventory.json",
+        "sha256": "779444e8e883351054abb5830c5d3ce2441de3941d5687e661e368f5bf349a63"
+      }
+    },
+    {
+      "profile": "PP2",
+      "direction": "D1",
+      "status": "passed",
+      "basis": "actual_preflight_finding",
+      "run_id": "issue8-pp-restored-PP2-D1-20261022T062658Z",
+      "private_capture_root": ".data/issue8/puripuly-restored-preflights/PP2-D1-20261022T062658Z/runs/issue8-pp-restored-PP2-D1-20261022T062658Z",
+      "actual_CLI_exit": 0,
+      "actual_counts": {
+        "pending": 0,
+        "running": 0,
+        "done": 4,
+        "product_failure": 0,
+        "invalid": 0
+      },
+      "callback_count": 1100,
+      "callback_frames": 528000,
+      "check_OSC_events": 7,
+      "check_target_inputs": 3,
+      "input_receive_sequences": [
+        2,
+        4,
+        6
+      ],
+      "silent_lifecycle_OSC_events": 0,
+      "outside_timed_attempt_OSC_events": 0,
+      "reported_ASR_model": "gemini-3.5-transcribe-live",
+      "source_binding_checked": true,
+      "actual_send_port": 19104,
+      "actual_receive_port": 19201,
+      "format_trace_ids": [
+        {
+          "run": "issue8-pp-restored-PP2-D1-20261022T062658Z",
+          "clock_session": "536821183cc74e8eb370ea1f6cbc4224",
+          "recv_seq": 2,
+          "text_utf8_sha256": "3afe416ef21b655f08dbd70bd6570d848979d6f4c61d4e25344d13cb0093c584"
+        },
+        {
+          "run": "issue8-pp-restored-PP2-D1-20261022T062658Z",
+          "clock_session": "536821183cc74e8eb370ea1f6cbc4224",
+          "recv_seq": 4,
+          "text_utf8_sha256": "f132bf0bb4ae988ac71fa91b0558df07875d25d7e5b6eb273ca0c4a9fb36a652"
+        },
+        {
+          "run": "issue8-pp-restored-PP2-D1-20261022T062658Z",
+          "clock_session": "536821183cc74e8eb370ea1f6cbc4224",
+          "recv_seq": 6,
+          "text_utf8_sha256": "29dd869d334ad364faa6d3dde6ad52552583b29214c61c548b49a6b354c786eb"
+        }
+      ],
+      "safe_finding": {
+        "path": "profiles/evidence/issue8/pp-restored-v1/pp2-d1-preflight.json",
+        "sha256": "c3f909f0106c3221829172539836bf869381f8bb54cf3418dd186d0f1893f380"
+      },
+      "actual_rule_binding": {
+        "path": "profiles/evidence/issue8/pp-restored-v1/pp2-d1-rule.json",
+        "sha256": "9fcca7a0572f919db65f03d1f270d8c969d230b00c33e1b2aabaf53656d8c60a",
+        "pointer": "/rule"
+      },
+      "key_aliases": [
+        "Google-A"
+      ],
+      "quota_scope": "PP2",
+      "capture_inventory": {
+        "path": ".data/issue8/puripuly-restored-preflights/PP2-D1-20261022T062658Z/capture-inventory.json",
+        "sha256": "ed1a6a216dc5be603163c57059b14422121e851c1bd026fe444546ff73d21af2"
+      }
+    },
+    {
+      "profile": "PP2",
+      "direction": "D3",
+      "status": "passed",
+      "basis": "actual_preflight_finding",
+      "run_id": "issue8-pp-restored-PP2-D3-20261022T063509Z",
+      "private_capture_root": ".data/issue8/puripuly-restored-preflights/PP2-D3-20261022T063509Z/runs/issue8-pp-restored-PP2-D3-20261022T063509Z",
+      "actual_CLI_exit": 0,
+      "actual_counts": {
+        "pending": 0,
+        "running": 0,
+        "done": 4,
+        "product_failure": 0,
+        "invalid": 0
+      },
+      "callback_count": 1100,
+      "callback_frames": 528000,
+      "check_OSC_events": 3,
+      "check_target_inputs": 1,
+      "input_receive_sequences": [
+        2
+      ],
+      "silent_lifecycle_OSC_events": 0,
+      "outside_timed_attempt_OSC_events": 0,
+      "reported_ASR_model": "gemini-3.5-transcribe-live",
+      "source_binding_checked": true,
+      "actual_send_port": 19104,
+      "actual_receive_port": 19201,
+      "format_trace_ids": [
+        {
+          "run": "issue8-pp-restored-PP2-D3-20261022T063509Z",
+          "clock_session": "78964b58165f47dc983f9e4485b58143",
+          "recv_seq": 2,
+          "text_utf8_sha256": "7a3bdfb5e47b9c294ae8f51487d2cff909667f1c17a1c1d8db73451ec95718e2"
+        }
+      ],
+      "safe_finding": {
+        "path": "profiles/evidence/issue8/pp-restored-v1/pp2-d3-preflight.json",
+        "sha256": "ef4b0301ce0d2dcf92a4df144e55bd647121ad65f5fefd5b8d78c5ecb0fd921c"
+      },
+      "actual_rule_binding": {
+        "path": "profiles/evidence/issue8/pp-restored-v1/pp2-d3-rule.json",
+        "sha256": "4bbdebc4f1c6f37669f901f16bf9dc82225c6ef7dad06667524d92435ffc2400",
+        "pointer": "/rule"
+      },
+      "key_aliases": [
+        "Google-A"
+      ],
+      "quota_scope": "PP2",
+      "capture_inventory": {
+        "path": ".data/issue8/puripuly-restored-preflights/PP2-D3-20261022T063509Z/capture-inventory.json",
+        "sha256": "94d50c9b68d2251b59224287073ba883c5c4ffe1fa201b751513a6774dcc0cb6"
+      }
+    },
+    {
+      "profile": "PP3",
+      "direction": "D1",
+      "status": "passed",
+      "basis": "actual_preflight_finding",
+      "run_id": "issue8-pp-restored-PP3-D1-20261022T064017Z",
+      "private_capture_root": ".data/issue8/puripuly-restored-preflights/PP3-D1-20261022T064017Z/runs/issue8-pp-restored-PP3-D1-20261022T064017Z",
+      "actual_CLI_exit": 0,
+      "actual_counts": {
+        "pending": 0,
+        "running": 0,
+        "done": 4,
+        "product_failure": 0,
+        "invalid": 0
+      },
+      "callback_count": 1100,
+      "callback_frames": 528000,
+      "check_OSC_events": 9,
+      "check_target_inputs": 3,
+      "input_receive_sequences": [
+        2,
+        5,
+        8
+      ],
+      "silent_lifecycle_OSC_events": 0,
+      "outside_timed_attempt_OSC_events": 0,
+      "reported_ASR_model": "gemini-3.5-transcribe-live",
+      "source_binding_checked": true,
+      "actual_send_port": 19104,
+      "actual_receive_port": 19201,
+      "format_trace_ids": [
+        {
+          "run": "issue8-pp-restored-PP3-D1-20261022T064017Z",
+          "clock_session": "667db451f3aa4ff5bffbac7219fd2a06",
+          "recv_seq": 2,
+          "text_utf8_sha256": "056a662f428fe0e6929291a297547b73a8a09efefa7a977f76dcb20514039e94"
+        },
+        {
+          "run": "issue8-pp-restored-PP3-D1-20261022T064017Z",
+          "clock_session": "667db451f3aa4ff5bffbac7219fd2a06",
+          "recv_seq": 5,
+          "text_utf8_sha256": "392d022259ea9d2947e39b5b197f7684ccc121b243ca61fa224f0c4e08a79e84"
+        },
+        {
+          "run": "issue8-pp-restored-PP3-D1-20261022T064017Z",
+          "clock_session": "667db451f3aa4ff5bffbac7219fd2a06",
+          "recv_seq": 8,
+          "text_utf8_sha256": "8dba4d7bfca8336eb9ff535772366d5faea3050cfd8f1d75092a10cd8895dcd0"
+        }
+      ],
+      "safe_finding": {
+        "path": "profiles/evidence/issue8/pp-restored-v1/pp3-d1-preflight.json",
+        "sha256": "eea31da8f09b0447a842ced23013246b307d1f79f396871f49dd5faf111358d5"
+      },
+      "actual_rule_binding": {
+        "path": "profiles/evidence/issue8/pp-restored-v1/pp3-d1-rule.json",
+        "sha256": "666c90acf9a3adf177eaf6191780e41e03a88dc3feebfe470aa75fbfd85eae53",
+        "pointer": "/rule"
+      },
+      "key_aliases": [
+        "Google-A"
+      ],
+      "quota_scope": "index-public-ip",
+      "capture_inventory": {
+        "path": ".data/issue8/puripuly-restored-preflights/PP3-D1-20261022T064017Z/capture-inventory.json",
+        "sha256": "1092b45f4db259b671fa6f119224aeaa3ded73cfb7987e01dfc1f40d783850ec"
+      }
+    },
+    {
+      "profile": "PP3",
+      "direction": "D3",
+      "status": "passed",
+      "basis": "actual_preflight_finding",
+      "run_id": "issue8-pp-restored-PP3-D3-20261022T064539Z",
+      "private_capture_root": ".data/issue8/puripuly-restored-preflights/PP3-D3-20261022T064539Z/runs/issue8-pp-restored-PP3-D3-20261022T064539Z",
+      "actual_CLI_exit": 0,
+      "actual_counts": {
+        "pending": 0,
+        "running": 0,
+        "done": 4,
+        "product_failure": 0,
+        "invalid": 0
+      },
+      "callback_count": 1100,
+      "callback_frames": 528000,
+      "check_OSC_events": 6,
+      "check_target_inputs": 2,
+      "input_receive_sequences": [
+        2,
+        5
+      ],
+      "silent_lifecycle_OSC_events": 0,
+      "outside_timed_attempt_OSC_events": 0,
+      "reported_ASR_model": "gemini-3.5-transcribe-live",
+      "source_binding_checked": true,
+      "actual_send_port": 19104,
+      "actual_receive_port": 19201,
+      "format_trace_ids": [
+        {
+          "run": "issue8-pp-restored-PP3-D3-20261022T064539Z",
+          "clock_session": "05a4089880124b30b54fea5d5133cbc1",
+          "recv_seq": 2,
+          "text_utf8_sha256": "7a300d346e5c55ffa63f32183e96d89bd8119442e6df3a4ffaa8ebd14cd510a4"
+        },
+        {
+          "run": "issue8-pp-restored-PP3-D3-20261022T064539Z",
+          "clock_session": "05a4089880124b30b54fea5d5133cbc1",
+          "recv_seq": 5,
+          "text_utf8_sha256": "a8e764028bd882af08609420a05e30aca4ed2122f9f5feeb9cff81715a65829c"
+        }
+      ],
+      "safe_finding": {
+        "path": "profiles/evidence/issue8/pp-restored-v1/pp3-d3-preflight.json",
+        "sha256": "3f18a6cda2e299587c6a6ab8aae1d75d0254c5de649862bc44032f4347a85104"
+      },
+      "actual_rule_binding": {
+        "path": "profiles/evidence/issue8/pp-restored-v1/pp3-d3-rule.json",
+        "sha256": "adf8037ff3842cc44be314127d66f82bb09da11d6433fb94786a44dc17edd33d",
+        "pointer": "/rule"
+      },
+      "key_aliases": [
+        "Google-A"
+      ],
+      "quota_scope": "index-public-ip",
+      "capture_inventory": {
+        "path": ".data/issue8/puripuly-restored-preflights/PP3-D3-20261022T064539Z/capture-inventory.json",
+        "sha256": "dc91ddfb58b22272e8722614d61b6a6fad263f3719b6d1658bb1c305d20ba646"
+      }
+    }
+  ],
+  "aggregate_observed": {
+    "bench_CLI_exits": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "done": 32,
+    "product_failure": 0,
+    "invalid": 0,
+    "callbacks": 8800,
+    "frames": 4224000,
+    "check_OSC_events": 52,
+    "target_candidate_inputs": 18,
+    "silent_lifecycle_OSC_events": 0,
+    "outside_timed_attempt_OSC_events": 0
+  },
+  "interpretation_limits": {
+    "done_is_not_translation_success": true,
+    "preflight_pass_is_source_binding_and_safe_operational_admission_only": true,
+    "one_second_silent_lifecycle_zero_is_not_healthy_main_FPR_zero": true,
+    "output_style": "unknown",
+    "revision_erasure_resend_relationships_attested": false,
+    "relationships": {},
+    "typing_false_is_not_finality": true,
+    "valid_UDP_wire_binary_not_recorded_by_existing_sink": true,
+    "all_decoded_payload_order_and_exact_trace_journal_hashes_retained": true,
+    "UDP_source_127_0_0_1_59185_kernel_owner_47612_observed_post_checks": "Endpoint/context attribution, not per-packet kernel attestation.",
+    "quality_ranking_costs_or_main_measurement_performed": false
+  },
+  "configuration_finding": {
+    "actual_send19104_for_all_nonconcurrent_PP_profiles": true,
+    "receive_PP4": 19204,
+    "receive_PP1_PP2_PP3": 19201,
+    "PP1_GUI_display19101_was_not_effective": true,
+    "two_bounded_failed_normal_GUI_commits_preserved": true,
+    "no_product_callback_fix_or_further_failed_commit_attempts": true,
+    "decision": {
+      "path": "profiles/evidence/issue8/pp-restored-v1/actual-osc-port-decision.json",
+      "sha256": "9ab8ebc4e19577244fd334d0aa9c41a61b5ac6c64d3d978abc3bacbebcaa71ba"
+    },
+    "exact_existing_private_diagnostic": {
+      "path": ".data/issue8/puripuly-restored-preflights/PP1-D1-routing-20261022T055306Z/safe-routing-diagnostic.json",
+      "sha256": "8753db224d8a3c2eb12bbe41273691934c7662f6ebec066719b76a18a3371018"
+    },
+    "source_only_proof": [
+      "app/python.zip:puripuly_heart/ui/views/settings.py:6522-6548 emits OscConnectionSettingsIntent",
+      "app/python.zip:puripuly_heart/app/services/settings/settings_application.py:537-546 replaces send_port/receive_port retaining legacy port",
+      "app/python.zip:puripuly_heart/config/settings_vnext/schema.py:693-723 reconciles differing nondefault legacy port back into send_port"
+    ],
+    "source_proof_is_not_live_reducer_or_returned_model_attestation": true
+  },
+  "private_control_metadata": {
+    "PP4_D1_temporary_native_window_visibility_boundary": "Same owned window/PID later exposed by bounded native inspection, real stop completed with nonexpired ACK; no desktop-switch/cause attribution or product/quota diagnosis.",
+    "earlier_readonly_public_CLI_creationflags": 0,
+    "earlier_transient_console_windows_surfaced": "unobserved; not reproduced or blamed",
+    "later_readonly_public_CLI_creationflags": 134217728,
+    "PP1_D1_post_success_ACK_display_error": "CompletedProcess JSON display TypeError after actual ACK0; presentation only, retained privately, no ACK or audio replay."
+  },
+  "normal_full_cleanup": {
+    "path": "profiles/evidence/issue8/pp-restored-v1/normal-cleanup.json",
+    "sha256": "f98a2cd0089e6f48220aa0aa9eb7e9594d816517538680754e4ee33949f6869b"
+  },
+  "physical_cleanup_complete": true,
+  "all_eight_registered_sessions_retired_via_supported_invalidated_guards": true,
+  "remaining_pending_requests_in_restored_root": 0,
+  "new_keys_accounts_projects_tiers_provider_fallbacks_or_private_setting_rewrites": false,
+  "OS_VRChat_security_or_other_app_actions": false,
+  "original_historical_PP_findings_and_A_wave_artifacts_untouched": true,
+  "raw_capture_screenshots_logs_account_identifiers_or_settings_exported": false,
+  "normalized_admissions": {
+    "path": "profiles/evidence/issue8/pp-restored-v1/normalized-admissions.json",
+    "sha256": "ad20b2944b44f73d61c913e4132204e597a4db215b225f8425504ea306d84055"
+  },
+  "hash_pinned_capture_inventory_index": {
+    "path": ".data/issue8/puripuly-restored-preflights/capture-inventory-index.json",
+    "sha256": "1de688a728a940280fee8aae6d56147f0d5aeb922fcd1fe921883c168ddd8a8c"
+  },
+  "Director_integration_required": [
+    "Ingest the actual eight entries and observed rule/alias/quota bindings through the prepared B file-only helper.",
+    "Integrate actual send19104/receive19201 (PP4 receive19204) and prove wave-local uniqueness among active peers; PP profiles never coexist with each other.",
+    "Preserve selected-route versus returned-model/fallback unknowns and unknown output revision/page semantics.",
+    "Only then Director-approved B availability/static snapshot/new commit/freeze and fresh imminent main bindings; no restored main was started here."
+  ],
+  "computer_session_kept_open_with_sole_operator_authority": true
+}

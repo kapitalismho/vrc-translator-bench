@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "profile": "VRCLS1",
+  "authority": "repair-retry-amendment.json",
+  "status": "repair_blocked_before_application_launch",
+  "directions": {"D1": "Original operational-invalid capture preserved; no new retry", "D3": "Not launched; no new retry"},
+  "new_candidate_inspected": {"version": "0.7.0-20261007 / 0.7.0.1017", "official_installer_bytes": 222494756, "official_installer_sha256": "7d74795727984f2b2dca9e451ebdbf0c34225c07ee57190c92ca72898d606248", "source": "https://api.voicelinkvr.top/v2/api/releases/vrcls/windows/latest", "installed_or_executed": false},
+  "observed_static_findings": [
+    "Normal startup initializes microphone and desktop capture before applying listening defaults.",
+    "StartMicrophoneCapture still constructs parameterless WasapiCapture after unresolved named selection, then starts recording.",
+    "StartLoopbackCapture still constructs parameterless WasapiLoopbackCapture after a named render-endpoint miss, then starts recording.",
+    "Application-target desktop deferral does not remove independent microphone startup. No proven supported prelaunch containment covers both paths."
+  ],
+  "inspection_boundary": "Official normal-browser acquisition, archive extraction and bounded PE/CLI metadata/IL inspection, including resolved constructor signatures. No target assembly loading, installer/product execution, capture, provider request or configuration change.",
+  "corrected_retrieval_status": "Initial reader-size and HTTP403 failures did not establish inaccessible software; normal official browser retrieval succeeded. Package availability is no longer the blocker.",
+  "remaining_prerequisite": "Vendor-supported safe setup and fail-closed named-device selection for both capture paths, or an explicitly approved demonstrably nonprivate isolated environment and amended environment freeze. Updating to1017 alone does not establish this prerequisite.",
+  "preservation": "No OS defaults/security controls changed. Original private capture and failure records remain private and unchanged. No claim that a displayed Cable label proves effective selection."
+}

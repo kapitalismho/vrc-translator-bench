@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "recorded_date_local": "2026-10-24",
+  "profile": "VRCLS1",
+  "kind": "actual_original_build_named_capture_repair_not_main_or_quality_result",
+  "authority": "Owner requested automatic repair and further attempts. PuriPuly remains owner-reserved; only unmeasured D1/D3 are in scope.",
+  "installed_version": "0.7.0-20260913 /0.7.0.1015",
+  "installed_sha256": {
+    "VRCLS.exe": "eec5acd87649e73f70d2ab9330f14a5e3b5df2d0794e3cc8d21f7ac3dd726f8b",
+    "VRCLS.dll": "98e0046265557ac62154624886203df5a370be9b29af2c8b66e67fa281573a41",
+    "VRCLS.Services.dll": "7d1ec7908bf50fb11339579a6552cb3ceab4dabcd3fe137e886a701948a1d69a",
+    "VRCLS.Core.dll": "ac666829c3147390eaff5a5ac8dc8537d20ee62ecb365f0def0c86b53b64bdd0"
+  },
+  "fresh_non_capture_diagnostics": {
+    "NAudio_only": "Installed NAudio enumeration in .NET8/.NET10 terminal and native GUI contexts, plus PowerShell7, consistently returned Cable names without a space before parenthesis.",
+    "exact_installed_static_inspection": "PEReader inspected original1015 service constructors, resolver, generated predicates and fallback-event helpers before executing any resolver method.",
+    "actual_installed_resolver": "ResolveMicrophoneDevice0x0600060D selected CABLE Output(VB-Audio Virtual Cable); loopback predicate0x06000615 selected CABLE Input(VB-Audio Virtual Cable). Previous space variants returned no selection in both flows.",
+    "probe_boundary": "No application entry, application configuration loader, capture/playback constructor, audio stream or provider request was called by these diagnostics. Resolver code executed only in a separate diagnostic process after static review; no product binary was patched."
+  },
+  "normal_app_runtime": {
+    "owned_pid": 66440,
+    "capture_service_observation_local": "2026-10-24 14:24:56 +09:00",
+    "actual_microphone_line": "WasapiCapture 麦克风捕获启动成功 - 设备: CABLE Output(VB-Audio Virtual Cable), 格式: 32 bit IEEFloat: 48000Hz 1 channels",
+    "actual_loopback_line": "使用指定 Loopback 设备: CABLE Input(VB-Audio Virtual Cable)",
+    "fallback_warnings_in_fresh_startup": 0,
+    "original_binary_unchanged_after_startup": true,
+    "source_check_boundary": "Named capture success is not yet source-bound translation admission, main measurement or quality scoring. D1/D3 checks are separate records."
+  },
+  "configuration": {
+    "micName": "CABLE Output(VB-Audio Virtual Cable)",
+    "micName_change": "None; original no-space configured microphone already matches current exact endpoint",
+    "gameMicName": "CABLE Input(VB-Audio Virtual Cable)",
+    "desktopAudioSourceMode": 0,
+    "autoStartMic": false,
+    "autoStartDesktop": false,
+    "unrelated_automation_disabled": ["autoCheckUpdate", "autoDownloadModels", "autoSyncTranslationProfile", "enablePhotoTranslation"],
+    "sourceLanguage_and_targetTranslationLanguage": "D1 global fields aligned to existing mic-specific en→ja route",
+    "preserved": "Existing remote recognition and Developer server translation, account/provider/tier, TTS OFF, input OSC OFF, localhost19141 destination and normal VAD values"
+  },
+  "historical_boundary": "The old raw standalone enumeration really contained names with spaces; why those historical strings differ remains unresolved. Its failed process did not record actual endpoint names. The original invalid D1 and unlaunched D3 records remain unchanged; this current repair does not rewrite their outcome or prove a historical root cause.",
+  "safety_boundary": "No vendor fail-closed or hot-unplug guarantee is claimed. This repair is backed by fresh exact installed-method resolution and actual original-app named-capture diagnostics, not only an intended GUI label. Do not admit later starts after an actual fallback or route drift.",
+  "unchanged_external_scope": ["PuriPuly", "Windows audio defaults", "device enablement", "permissions", "product binaries", "completed candidate captures"],
+  "local_evidence_root": ".data/issue8/repair-retry/VRCLS/exact-name-repair-20261024",
+  "local_evidence": ["installed-1015-static-il.json", "actual-installed-resolver-result.json", "actual-normal-start-named-routes.json", "resolver-based-launch-decision.json", "prelaunch-decision.json"],
+  "privacy": "Only allowlisted routing diagnostics and public binary identities are included. Full configs, logs, account fields and historical unverified payloads remain private."
+}

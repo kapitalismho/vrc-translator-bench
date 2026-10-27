@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "kind": "actual_installed_PP291_CLI_startup_checks_not_main_results",
+  "authority": "profiles/evidence/issue8/pp291-installed-build-amendment.json",
+  "version": "2.9.1",
+  "GUI_sha256": "32e496085be14372c71dd28db24fa90096b3912e33f44468f037421ce30a019b",
+  "CLI_sha256": "83fae3185015ee8562a99df416218b8d935fe58d78bd056c1198424fdd9a5cb1",
+  "python_zip_sha256": "ff4c2e6f015cf8fddbd60d814c6c6863199e882aed3adc3f7f9ea24e6c35a011",
+  "lifecycle": "The exact old owned stopped host was normally closed through the installed public CLI with exit0/terminal stopped and independent owned-process absence. CLI cleanup_outcome=unobserved is retained. Supported product command-line run-gui actually launched a new desktop GUI host; no headless substitute. Subsequent settings/capture/status/stop used the unchanged reviewed typed public-CLI adapter.",
+  "source_checks": "Each profile/direction ran once: common40s D1 development01[34,74) or unchanged10s D3 source, plus existing silent lifecycle. Actual source-bound destination inputs were inspected and new per-direction rule references authored. Old2.9.0 captures, clocks, rules and failures remain history.",
+  "findings": {
+    "PP1": {"selected_route": "Gemini ASR plus existing mixed Gemma26B/31B OpenRouter policy", "D1": {"done": 4, "invalid": 0, "product_failure": 0, "Japanese_target_inputs": 7}, "D3": {"done": 4, "invalid": 0, "product_failure": 0, "Korean_target_inputs": 2}},
+    "PP2": {"selected_route": "Gemini ASR plus GPT6Luna through existing ChatGPT connection", "D1": {"done": 4, "invalid": 0, "product_failure": 0, "Japanese_target_inputs": 9}, "D3": {"done": 4, "invalid": 0, "product_failure": 0, "Korean_target_inputs": 2}},
+    "PP3": {"selected_route": "Gemini ASR plus Index official API", "D1": {"done": 4, "invalid": 0, "product_failure": 0, "Japanese_target_inputs": 9}, "D3": {"done": 4, "invalid": 0, "product_failure": 0, "Korean_target_inputs": 2}},
+    "PP4": {"selected_route": "CPU-auto local ASR plus Index official API", "running_ASR": {"D1": "parakeet", "D3": "qwen3"}, "D1": {"done": 4, "invalid": 0, "product_failure": 0, "Japanese_target_inputs": 10}, "D3": {"done": 4, "invalid": 0, "product_failure": 0, "Korean_target_inputs": 2}}
+  },
+  "common_terminal_evidence": {"each_runner_CLI_exit": 0, "each_silent_lifecycle_OSC_events": 0, "initialized_running_ASR": {"PP4_D1": "parakeet-tdt-0.6b-v3-int8-sherpa", "PP4_D3": "qwen3-asr-0.6b-int8-sherpa", "PP1_PP2_PP3": "gemini-3.5-transcribe-live"}},
+  "voice_output_basis": "profiles/evidence/issue8/pp291-voice-output-basis.json; source-derived unsupported translation-audio route, not an observed CLI TTS setting. Frozen adapter's Pinned2.9.0 wording remains historical.",
+  "ports": {"send_all": 19104, "receive_PP4": 19204, "receive_PP1_PP2_PP3": 19201, "simultaneous_PP_profiles": false},
+  "normalized_admissions": {"path": ".data/issue8/repair-retry/PP291-admission/normalized-admissions.json", "sha256": "016153054cb9dde2f4ac7a8f5f84071599a70de53b4ca83704b89d4744917292"},
+  "post_checks": {"state": "All diagnostic runners finished; genuine capture/translation stop completed. Actual final PP4D1 settings transaction runtime_applied at revision9 followed by typed OFF readback; owned desktop GUI retained STOPPED for future fresh binding.", "first_preparation": {"path": ".data/issue8/repair-retry/PP291-admission/first-preparation/PP4-D1.json", "sha256": "bc9d4770513dcbbd30b9ca7131455540c9e2cc2f443ea8d46f1b735e0d0efbd2"}, "journal": "New-instance record clean in original shared journal root; old-instance record not overwritten or reset."},
+  "boundaries": ["No new main, quality, latency, FPR or cost result", "Requested translation routes/models are not returned-upstream identity", "No new login/payment/provider export or forced model substitution", "No fabricated per-output relationships/finality", "Stopped preparation is not continuing runtime admission", "Ten completed A slots and original six failed/blocked findings remain unchanged"]
+}

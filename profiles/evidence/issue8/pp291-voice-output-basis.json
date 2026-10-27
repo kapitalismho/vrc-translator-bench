@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "kind": "current_installed_source_derived_output_route_applicability_not_runtime_TTS_telemetry",
+  "version": "2.9.1",
+  "python_zip_sha256": "ff4c2e6f015cf8fddbd60d814c6c6863199e882aed3adc3f7f9ea24e6c35a011",
+  "finding": "The selected2.9.1 translation output composition is text/UI/OSC-only. No synthesized-voice destination or TTS enable setting is exposed in the inspected current settings/control/production output path. The adapter voice_output=false value is source-derived unsupported-route metadata, not an observed CLI TTS setting.",
+  "adapter_boundary": "The unchanged frozen adapter hardcodes expected/observed voice_output=false and retains Pinned2.9.0 metadata wording. Comparing those values is not independent runtime verification. This new current-source record supplies applicability evidence without relabeling or editing that frozen adapter.",
+  "current_members": [
+    {"path": "puripuly_heart/config/settings_vnext/schema.py", "sha256": "99a9697a261791f5f7d3d6bc4dfb631ee6de7438c274e7c27b3376574e1402f8", "locations": "TranslationIntent314-344;AudioIntent490-493;DesktopAudioIntent633+;UserIntentSettings773-788", "basis": "No synthesized-speech intent. AudioIntent selects input device/API; desktop output_device belongs to peer capture_target, not translated-speech playback."},
+    {"path": "puripuly_heart/app/services/application_control.py", "sha256": "583052331183c89f3f1d047243505268e798c01db74399ca86dca523586aaa65", "locations": "COMMANDS110-140;QUERIES141-159", "basis": "Controls/queries expose capture, translation and microphone/loopback testing, not synthesized playback/TTS."},
+    {"path": "puripuly_heart/app/wiring/wiring_runtime_pipeline.py", "sha256": "3712b6862a17c14485eb009fede2148d924d98d6c4aaae650bc7ad7a0aac0bcf", "locations": "production composition902-952", "basis": "VrchatOscUdpSender -> ChatboxPaginator -> OutputRuntime(chatbox=osc); translation projection receives text output runtime and UI queue, with no synthesized-audio destination."},
+    {"path": "puripuly_heart/core/runtime/output.py", "sha256": "6207bdbc61bdb7d04e6c126d6f9f2010888c10109da8a3fd1dd18f67bfc7f6bb", "locations": "OutputRuntime149-213", "basis": "Chatbox, optional overlay and UI/conversation delivery; no synthesized-audio sink."},
+    {"path": "puripuly_heart/core/output/models.py", "sha256": "5454076240e216d8e4f3c3010baa132401936bd800947ba1339e4e91c344f6d6", "locations": "OutputRoute19-36", "basis": "Declared destinations are self_chatbox, subtitle_overlay, dashboard, conversation_feed and system_disclosure_chatbox."},
+    {"path": "puripuly_heart/core/output/router.py", "sha256": "4477712fd25273e444cf6cea4d9bd09194967431e196c58a68c3814a41e907d0", "locations": "OutputRouter51+;publish_self_utterance62-79", "basis": "Ports are chatbox/subtitle/dashboard/conversation feed; self utterance publishes to self_chatbox."}
+  ],
+  "runtime_context": "Actual fresh2.9.1 desktop host and revision9 stopped PP4D1 preparation are separately bound in pp291-current-preflights.json. Peer and overlay OFF are actual supported-state observations; the voice_output field itself is not independent TTS telemetry.",
+  "old_comparison_limit": "The exact retained old cli/main.py source match does not establish schema/output-route equivalence. These findings independently inspect current2.9.1 members; no unobserved old-member equality is claimed.",
+  "limits": ["No acoustic silence/playback measurement", "No claim that the entire process or OS can never emit sound", "No blanket package/plugin/provider audit", "No CLI/app/audio execution or adapter/journal mutation in this source inspection"]
+}

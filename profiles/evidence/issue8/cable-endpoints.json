@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "observation": "Fresh PortAudio/sounddevice device enumeration from .data/check-venv/Scripts/python.exe during issue8 resumed preparation",
+  "operation": "query_hostapis and query_devices only; no stream opened, capture, playback, calibration or operating-system setting change",
+  "host_api": {"index": 2, "name": "Windows WASAPI"},
+  "selected_by_exact_name": {
+    "playback": {"name": "CABLE Input(VB-Audio Virtual Cable)", "observed_index": 19, "max_input_channels": 0, "max_output_channels": 2, "default_samplerate": 48000},
+    "capture": {"name": "CABLE Output(VB-Audio Virtual Cable)", "observed_index": 20, "max_input_channels": 1, "max_output_channels": 0, "default_samplerate": 48000}
+  },
+  "distinct_not_selected": {"name": "CABLE In 16ch(VB-Audio Virtual Cable)", "observed_index": 17, "max_input_channels": 0, "max_output_channels": 2, "default_samplerate": 48000},
+  "selection_policy": "Use exact WASAPI names, not the historical calibration indices or system default. Names establish current endpoint availability, not successful application stream initialization or absence of application fallback.",
+  "retained_calibration": {
+    "path": ".data/issue3/calibration/cable.json",
+    "sha256": "ff8c74a66eff13e838c27772287b0050463f56c207edc1b64ae83a71f3d70550",
+    "offset_ns": 113409500,
+    "measured_at_utc": "2026-10-21T04:50:51Z",
+    "new_probe_performed": false
+  },
+  "privacy": "Only Cable endpoints are included. Owner devices and unrelated application state are omitted."
+}

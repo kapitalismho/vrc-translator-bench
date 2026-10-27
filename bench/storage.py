@@ -91,9 +91,10 @@ class Ledger:
             PRAGMA journal_mode=WAL;
             PRAGMA synchronous=FULL;
             CREATE TABLE IF NOT EXISTS work (
-                id INTEGER PRIMARY KEY, stage INTEGER NOT NULL, profile TEXT NOT NULL,
-                kind TEXT NOT NULL, state TEXT NOT NULL DEFAULT 'pending', outcome TEXT,
-                UNIQUE(stage, profile)
+                id INTEGER PRIMARY KEY, pass_index INTEGER NOT NULL, profile TEXT NOT NULL,
+                episode_id TEXT NOT NULL, pass_id TEXT NOT NULL, kind TEXT NOT NULL,
+                state TEXT NOT NULL DEFAULT 'pending', outcome TEXT,
+                UNIQUE(pass_index, profile)
             );
             CREATE TABLE IF NOT EXISTS attempts (
                 id INTEGER PRIMARY KEY, work_id INTEGER NOT NULL, number INTEGER NOT NULL,
@@ -108,12 +109,12 @@ class Ledger:
             );
         """)
 
-    def seed(self, stages):
+    def seed(self, passes):
         with self.db:
-            for index, stage in enumerate(stages):
-                for profile in stage["profiles"]:
-                    self.db.execute("INSERT OR IGNORE INTO work(stage,profile,kind) VALUES(?,?,?)",
-                                    (index, profile, stage["kind"]))
+            for index, item in enumerate(passes):
+                for profile in item["profiles"]:
+                    self.db.execute("INSERT OR IGNORE INTO work(pass_index,profile,episode_id,pass_id,kind) VALUES(?,?,?,?,?)",
+                                    (index, profile, item["episode_id"], item["pass_id"], item["kind"]))
 
     def record(self, kind, detail):
         with self.db:
@@ -134,8 +135,18 @@ class Ledger:
                 owned.add(profile)
         return owned
 
-    def work(self, stage):
-        return [dict(row) for row in self.db.execute("SELECT * FROM work WHERE stage=? ORDER BY id", (stage,))]
+    def controller_owned_profiles(self):
+        owned = set()
+        for row in self.db.execute("SELECT detail FROM records WHERE kind='controller_cleanup_ownership' ORDER BY id"):
+            detail = json.loads(row["detail"])
+            if detail["owned"]:
+                owned.add(detail["profile"])
+            else:
+                owned.discard(detail["profile"])
+        return owned
+
+    def work(self, pass_index):
+        return [dict(row) for row in self.db.execute("SELECT * FROM work WHERE pass_index=? ORDER BY id", (pass_index,))]
 
     def begin(self, work, resumed):
         state = self.db.execute("SELECT state FROM work WHERE id=?", (work["id"],)).fetchone()[0]
@@ -193,16 +204,19 @@ class Ledger:
         work = [dict(row) for row in self.db.execute("SELECT * FROM work ORDER BY id")]
         attempts = [dict(row) for row in self.db.execute("SELECT * FROM attempts ORDER BY id")]
         records = [dict(row) for row in self.db.execute("SELECT * FROM records ORDER BY id")]
-        remaining = sorted({row["stage"] for row in work if row["state"] in ("pending", "running", "invalid")})
-        seconds = sum(plan["stages"][index].get("duration_seconds", 0) + plan["stages"][index].get("tail_seconds", 0) for index in remaining)
+        remaining = sorted({row["pass_index"] for row in work if row["state"] in ("pending", "running", "invalid")})
+        seconds = sum(max(max(plan["passes"][index]["duration_seconds"],
+                              plan["passes"][index]["common_last_speech_seconds"] + 15)
+                          for index in execution_round["pass_indices"] if index in remaining)
+                      for execution_round in plan["rounds"] if set(execution_round["pass_indices"]) & set(remaining))
         counts = {state: sum(row["state"] == state for row in work) for state in ("pending", "running", "done", "product_failure", "invalid")}
-        return {"run": plan["run_id"], "counts": counts, "pending_stages": remaining,
-                "estimated_remaining_seconds": seconds, "estimate_excludes": "adapter/setup/restart time and future retries",
+        return {"run": plan["run_id"], "counts": counts, "pending_passes": remaining,
+                "estimated_remaining_seconds": seconds, "estimate_excludes": "adapter/setup/reset time and future retries",
                 "work": work, "attempts": attempts, "records": records}
 
     def manifest(self, plan):
         report = self.export(plan)
-        report.update({"schema_version": 1, "plan": plan, "host": {"cpu": platform.processor(), "os": platform.platform()},
+        report.update({"schema_version": 2, "plan": plan, "host": {"cpu": platform.processor(), "os": platform.platform()},
                        "clock": "perf_counter_ns", "updated_wall": utc_now(),
                        "session_implementations": [json.loads(record["detail"]) for record in report["records"]
                                                    if record["kind"] == "session_start"],

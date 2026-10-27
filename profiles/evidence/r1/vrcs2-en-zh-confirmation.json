@@ -1,0 +1,72 @@
+{
+  "protocol": "native-output-v1",
+  "profile": "VRCS2",
+  "scope": "ordinary/en-zh",
+  "condition": {
+    "ordinary_input": "peer",
+    "ordinary_directions": [
+      "en->zh",
+      "ja->ko"
+    ],
+    "t1_mode": "simultaneous",
+    "roles": {
+      "A": "peer",
+      "B": "self"
+    },
+    "t1_directions": {
+      "A": [
+        "en->zh",
+        "ja->ko"
+      ],
+      "B": [
+        "zh->en",
+        "ko->ja"
+      ]
+    },
+    "vrchat": "excluded"
+  },
+  "endpoint": {
+    "transport": "websocket",
+    "host": "127.0.0.1",
+    "port": 8767,
+    "path": "/v1/events",
+    "channels": {
+      "peer": "speaker",
+      "self": "microphone"
+    },
+    "event": "translation.completed"
+  },
+  "models": {
+    "asr": "Gemini 3.5 Transcribe",
+    "translation": "Gemma 4 26B / OpenRouter"
+  },
+  "kind": "input_to_native_translation",
+  "app_version": "0.2.8",
+  "instance": "Observed owned GUI process 33956; no producer instance field",
+  "translated_text": "好的。",
+  "input_evidence": "evidence/r1/vrcs2-en-zh-input-clock.json",
+  "raw_evidence": "evidence/r1/vrcs2-en-zh-native.jsonl",
+  "clock_evidence": "evidence/r1/vrcs2-en-zh-input-clock.json",
+  "observed_native_translation_events": 3,
+  "observed_partial_translation_events": 4,
+  "observed_native_event_count": 22,
+  "native_model_metadata": {
+    "provider": "openrouter",
+    "model": "google/gemma-4-26b-a4b-it",
+    "source_language": "en",
+    "target_language": "zh-Hans",
+    "basis": "Actual translation.completed payload; not independent upstream provider attestation"
+  },
+  "limits": [
+    "Only VRCS2 ordinary peer EN->ZH early feasibility; other scopes/profiles remain unverified.",
+    "Only three translation.completed and four translation.partial events occurred within the first 7.204931 seconds after DAC start; no later native translations observed during remaining playback/tail. Cause unknown; no complete text coverage or continuous app/input health claim.",
+    "Standalone NativeSink plus Playback, not Runner, W2 concurrency, final quality/time, performance or cost admission.",
+    "Producer UTC timestamps and native event/message IDs are preserved without a calibrated mapping to playback monotonic time.",
+    "Original wire bytes are identified by retained hashes, not published; original_not_persisted remains true. No replay performed."
+  ],
+  "evidence_sha256": {
+    "raw_evidence": "475add4f9a51def03425b985cdc9e6204af90220971416a63e05b1cb364aa580",
+    "input_evidence": "8bfdea002a12b93c90ce2995b6cf6ecce0e5e04462ad51168dfca9ae330e7354",
+    "clock_evidence": "8bfdea002a12b93c90ce2995b6cf6ecce0e5e04462ad51168dfca9ae330e7354"
+  }
+}

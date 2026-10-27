@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "owner_instruction": "왜 보고 안했어? 안되는 것들 고치고 병렬로 적절히 묶어서 재시도해줘",
+  "decision": "Repair the causes of six previously blocked/nonadmitted D1/D3 slots and retry them, regrouping ready unmeasured candidates into concurrent waves. This supersedes the no-retry disposition, not the historical failure evidence.",
+  "repair_targets": {"VRCT1": ["D1"], "VRCT3": ["D1"], "VRCS1": ["D1", "D3"], "VRCLS1": ["D1", "D3"]},
+  "retained_completed_slots": {"KIKI1": ["D1", "D3"], "KIKI2": ["D1", "D3"], "VRCLT1": ["D1", "D3"], "VRCS2": ["D1", "D3"], "VRCT1": ["D3"], "VRCT3": ["D3"]},
+  "execution_transition": "Hold new C timed launches while regrouping. If an actual C timed run has already started, preserve and complete it safely before admitting repair activity. Record actual start status rather than infer it. Preserve the C331d8e39fcaca8d5d18f8cdeac51015433b2a075 snapshot and any actual captures; freeze the amended membership before new measured results.",
+  "scheduling": "Parallel app-specific diagnosis/repair with one mutation owner per application. Share playback only among independently safe, ready candidates with distinct ports and compatible direction. Multiple profiles of one application remain in different waves. Exact membership follows observed readiness and is recorded before main.",
+  "preserved_constraints": ["D1/D3 only", "Do not remeasure ten completed configuration/direction slots or replace terminal product failures", "Retain prior operational-invalid attempts and causes", "PuriPuly uses official CLI; other apps use supported native GUI controls", "No default/private input exposure, security-policy or quarantine bypass, new accounts/keys/paid tiers, or silent model substitutions", "No PuriPuly source edits", "Removed tone/Korean owner-review scope remains removed", "No unrelated application manipulation or presence gate", "Automatic scoring and cost collection only after timed work", "No remote publication or closure authorization"],
+  "reporting": "Report candidate-specific observed progress and concrete blockers when discovered. Distinguish preparation, actual main playback, terminal capture, and scored results."
+}

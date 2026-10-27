@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "authority": "Owner quoted the tone30/Korean50-random50-disagreement sampling task and owner-review request task, then instructed: 이건 왜 하는데? 빼",
+  "scope": "Current D1/D3 task execution",
+  "removed": ["Supplementary tone evaluation of30 eligible segments per configuration", "Korean100 reference-review packet with50 random and50 disagreement-selected cases", "Related sample-count/shortfall and family-balance accounting", "Requesting and recording owner Korean reference review"],
+  "decision": "Do not run these supplementary evaluations, generate their packets or request owner review in this task. These are owner-removed obligations, not completed measurements and not empty generated deliverables.",
+  "retained": ["Primary automatic translation-quality scoring under the selected judge and MetricX contracts", "Latency, delivery, first-attempt failures and cost accounting", "General/stress/casual attribution", "Isolated-response, nonspeech and D1 repeat observations", "Actual measured profile/direction and run provenance"],
+  "implementation": "Preserve existing reusable supplementary evaluation features and historical evidence. Add explicit preparation opt-outs because the current scorer otherwise creates tone jobs and Korean review samples unconditionally. Freeze --skip-tone and --skip-korean-review for this batch; ESA and MetricX remain selected.",
+  "supersedes": "Current execution requirements for full tone30 and Korean100 populations and owner review in original issue8 and earlier local scope records.",
+  "protocol_frozen": false,
+  "main_measurement_started": false
+}

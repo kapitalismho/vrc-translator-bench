@@ -2,36 +2,33 @@ from __future__ import annotations
 
 import json
 import os
-import shutil
 import socket
 import sqlite3
 import subprocess
 import sys
-import time
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
 import bench.plan as plan_module
+import bench.runner as runner_module
+from bench.audio import ClockPlayback, Playback
 from bench.plan import implementation_provenance, load_plan
-from bench.runner import speech_timeout
-from bench.storage import Ledger, atomic_json, digest
-from test_capture import REPO, command, make_plan, report, wait_until
-
+from bench.storage import Journal, Ledger, atomic_json, digest
+from test_capture import FakeAdapter, FakeSink, REPO, command, execute, make_plan, report, runtime, trace, wait_until
 
 APP = REPO / "tests" / "fixtures" / "persistent_app.py"
 CONTROLLER = REPO / "tests" / "fixtures" / "persistent_adapter.py"
 
 
 class PersistentApplications:
-    def __init__(self, root, plan_path):
-        self.root = root
-        self.plan_path = plan_path
-        self.processes = {}
-        self.ports = {}
+    def __init__(self, root, path):
+        self.root, self.path = root, path
+        self.processes, self.ports = {}, {}
 
     def __enter__(self):
-        plan = json.loads(self.plan_path.read_text())
+        plan = json.loads(self.path.read_text())
         try:
             for profile in plan["profiles"]:
                 name = profile["id"]
@@ -40,23 +37,19 @@ class PersistentApplications:
                     port = reservation.getsockname()[1]
                 ready = self.root / f"{name}-ready.json"
                 process = subprocess.Popen([sys.executable, str(APP), "--state", str(self.root / f"{name}-state.json"),
-                                            "--scenario", str(self.root / f"{name}-scenario.json"), "--ready", str(ready),
-                                            "--port", str(port)], cwd=REPO, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-                self.processes[name] = process
-                self.ports[name] = port
-                wait_until(lambda: ready.is_file() and json.loads(ready.read_text())["port"] == port)
-                identity = json.loads(ready.read_text())
-                assert self.call(name, "read_state")["pid"] == identity["pid"]
-                atomic_json(self.root / f"{name}-startup.json", {"launcher_pid": process.pid, "application_pid": identity["pid"], "port": port})
+                                            "--scenario", str(self.root / f"{name}-scenario.json"), "--ready", str(ready), "--port", str(port)],
+                                           cwd=REPO, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+                self.processes[name], self.ports[name] = process, port
+                wait_until(lambda: ready.exists())
                 profile["adapter"] = [sys.executable, str(CONTROLLER), "--port", str(port)]
-            self.plan_path.write_text(json.dumps(plan))
+            atomic_json(self.path, plan)
             return self
         except BaseException:
-            self.__exit__(*sys.exc_info())
+            self.__exit__()
             raise
 
-    def call(self, profile, method, **params):
-        with socket.create_connection(("127.0.0.1", self.ports[profile]), timeout=5) as connection:
+    def call(self, name, method, **params):
+        with socket.create_connection(("127.0.0.1", self.ports[name]), timeout=5) as connection:
             with connection.makefile("rwb") as stream:
                 stream.write((json.dumps({"id": 9000, "method": method, "params": params, "controller_pid": 0}) + "\n").encode())
                 stream.flush()
@@ -80,224 +73,494 @@ class PersistentApplications:
             (self.root / f"{name}-app-stderr.txt").write_text(stderr)
 
 
-def run_cli(args, root, label, cwd=REPO, env=None):
-    result = subprocess.run(args, cwd=cwd, env=env, capture_output=True, text=True, timeout=30)
-    (root / f"{label}-stdout.txt").write_text(result.stdout)
-    (root / f"{label}-stderr.txt").write_text(result.stderr)
-    path = root / "commands.json"
-    commands = json.loads(path.read_text()) if path.exists() else []
-    commands.append({"label": label, "args": list(map(str, args)), "cwd": str(cwd), "returncode": result.returncode})
-    atomic_json(path, commands)
-    return result
-
-
-def run_args(root, plan, resume=False, executable=None):
-    if executable is None:
-        return command(root, plan, resume)
-    args = [str(executable), "run", "--root", str(root / "runs"), "--audio-backend", "clock"]
-    return args + (["--resume", "smoke"] if resume else ["--plan", str(plan), "--run-id", "smoke"])
-
-
-def exercise_persistent_resume(root, terminal_outcome, executable=None, reconcile_error=False):
-    scenario = {"chunks": {"c1": {"failure": {"reason": "provider", "message": "persistent first-attempt failure"}}}} if terminal_outcome == "product_failure" else {}
-    if reconcile_error:
-        scenario["reconcile_state_error"] = True
-    path = make_plan(root, {"P1": scenario, "P2": {}, "P3": {}}, durations=(0.12, 0.7, 0.12))
-    plan = json.loads(path.read_text())
-    plan["stages"][0]["profiles"] = ["P1", "P2"]
-    plan["stages"][1]["profiles"] = ["P2"]
-    plan["stages"][2]["profiles"] = ["P3"]
-    plan["stages"][2]["wave"] = "W2"
-    path.write_text(json.dumps(plan))
-    with PersistentApplications(root, path) as apps:
-        args = run_args(root, path, executable=executable)
-        process = subprocess.Popen(args, cwd=REPO, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+def test_fresh_process_resume_stops_prior_owned_capture_and_replays_only_unfinished(tmp_path):
+    path = make_plan(tmp_path, {"P1": "vrclt"}, kinds=("P1",))
+    with PersistentApplications(tmp_path, path) as apps:
+        process = subprocess.Popen(command(tmp_path, path), cwd=REPO, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         try:
-            wait_until(lambda: apps.call("P2", "read_state").get("last_stage", {}).get("chunk") == "c2")
+            wait_until(lambda: apps.call("P1", "read_state").get("last_pass", {}).get("episode_id") == "e1")
             process.terminate()
-            stdout, stderr = process.communicate(timeout=10)
-            (root / "interrupted-stdout.txt").write_text(stdout)
-            (root / "interrupted-stderr.txt").write_text(stderr)
-            atomic_json(root / "interruption-command.json", {"args": args, "returncode": process.returncode})
+            process.communicate(timeout=10)
         finally:
             if process.poll() is None:
                 process.kill()
                 process.wait()
-        cut = time.perf_counter_ns()
-        surviving = apps.call("P1", "read_state")
-        assert surviving["running"] is True and apps.processes["P1"].poll() is None
-        assert apps.call("P2", "read_state")["running"] is True
-        assert apps.call("P3", "read_state")["starts"] == 0
-        database = root / "runs" / "smoke" / "ledger.sqlite"
-        with sqlite3.connect(database) as db:
-            before = db.execute("SELECT a.* FROM attempts a JOIN work w ON w.id=a.work_id WHERE w.profile='P1' ORDER BY a.id").fetchall()
-            assert all(row[3] in ("done", "product_failure") for row in before)
-            assert any(row[3] == terminal_outcome for row in before)
-        resumed = run_cli(run_args(root, path, resume=True, executable=executable), root, "resume")
-        assert resumed.returncode == (2 if reconcile_error else 1 if terminal_outcome == "product_failure" else 0), resumed.stderr
-        with sqlite3.connect(database) as db:
-            after = db.execute("SELECT a.* FROM attempts a JOIN work w ON w.id=a.work_id WHERE w.profile='P1' ORDER BY a.id").fetchall()
-        assert after == before
-        if reconcile_error:
-            assert "reconciliation state unavailable" in resumed.stderr
-            assert all(apps.call(name, "read_state")["running"] is False for name in ("P1", "P2"))
-            assert apps.call("P3", "read_state")["starts"] == 0
-            atomic_json(root / "observations.json", {"terminal_attempts_unchanged": True,
-                                                    "all_prior_capture_stopped": True, "future_capture_starts": 0,
-                                                    "preserved_invalidity": resumed.stderr.strip()})
-            return
-        first = apps.call("P1", "read_state")
-        entering = apps.call("P3", "read_state")
-        assert first["pid"] == surviving["pid"] and first["running"] is False
-        assert first["starts"] == first["stops"] == 1
-        stopped = next(item["t_ns"] for item in first["lifecycle"] if item["action"] == "stop")
-        started = next(item["t_ns"] for item in entering["lifecycle"] if item["action"] == "start")
-        assert cut < stopped < started
-        resumed_methods = [item["method"] for item in first["requests"] if item["t_ns"] > cut and item["controller_pid"] != 0]
-        assert resumed_methods and set(resumed_methods) <= {"read_state", "stop"}
-        manifest = report(root)
-        assert not manifest["pending_stages"]
-        assert all(item["profile"] != "P1" for item in manifest["work"] if item["kind"] in ("resume_setup", "resume_check"))
-        assert apps.call("P2", "read_state")["starts"] == 1
-        assert all(apps.call(name, "read_state")["running"] is False for name in apps.processes)
-        observations = {"terminal_outcome": terminal_outcome, "surviving_app_pid": surviving["pid"],
-                        "running_after_runner_termination": surviving["running"], "terminal_attempts_unchanged": before == after,
-                        "resume_terminal_control_methods": resumed_methods, "stop_ns": stopped, "entering_start_ns": started,
-                        "all_capture_stopped_before_app_shutdown": True, "final_counts": manifest["counts"]}
-        atomic_json(root / "observations.json", observations)
-        return observations
+        assert apps.call("P1", "read_state")["running"] is True
+        frozen = digest(tmp_path / "runs" / "smoke" / "frozen-plan.json")
+        completed = execute(command(tmp_path, resume=True), tmp_path, "resume")
+        assert completed.returncode == 0, completed.stderr
+        manifest = report(tmp_path)
+        assert not manifest["pending_passes"]
+        assert [attempt["state"] for attempt in manifest["attempts"]] == ["invalid", "done"]
+        assert [attempt["number"] for attempt in manifest["attempts"]] == [1, 2]
+        assert manifest["attempts"][0]["reason"] == "interrupted"
+        state = apps.call("P1", "read_state")
+        assert state["running"] is False and state["starts"] == state["stops"] == state["resets"] == 2
+        assert digest(tmp_path / "runs" / "smoke" / "frozen-plan.json") == frozen
+        assert len(manifest["session_implementations"]) == 2
+        for attempt in manifest["attempts"]:
+            assert digest(tmp_path / "runs" / "smoke" / attempt["trace"]) == attempt["checksum"]
 
 
-@pytest.mark.parametrize("terminal_outcome", ["done", "product_failure"])
-def test_resume_reconciles_surviving_terminal_capture_without_replay(tmp_path, terminal_outcome):
-    exercise_persistent_resume(tmp_path, terminal_outcome)
-
-
-def exercise_post_start_invalidity(tmp_path, failure, executable=None):
-    scenario = {"post_start_state_mismatch": True} if failure == "observed_running" else ({failure: True} if failure != "source_identity" else {})
-    path = make_plan(tmp_path, {"P1": scenario}, durations=(0.12,))
+@pytest.mark.parametrize("failure", ["start_reply_error", "post_start_state_mismatch"])
+def test_actual_independent_fixture_capture_stopped_after_invalidity(tmp_path, failure):
+    path = make_plan(tmp_path, {"P1": "vrclt"}, kinds=("P1",), scenarios={"P1": {failure: True}})
     with PersistentApplications(tmp_path, path) as apps:
-        if failure == "observed_running":
-            profile = json.loads(path.read_text())["profiles"][0]
-            apps.call("P1", "configure", requested_state={**profile["expected_state"], "direction": "D1"})
-            apps.call("P1", "start")
-        if failure == "source_identity":
-            identity = apps.call("P1", "osc_identity")
-            plan = json.loads(path.read_text())
-            plan["profiles"][0]["osc"]["source_port"] = 1 if identity["source_port"] != 1 else 2
-            path.write_text(json.dumps(plan))
-        result = run_cli(run_args(tmp_path, path, executable=executable), tmp_path, "invalid")
+        result = execute(command(tmp_path, path), tmp_path, failure)
         assert result.returncode == 2
         state = apps.call("P1", "read_state")
-        assert apps.processes["P1"].poll() is None
-        assert state["starts"] == state["stops"] == 1 and state["running"] is False
-        manifest = report(tmp_path)
-        invalid = [item for item in manifest["attempts"] if item["state"] == "invalid"]
-        assert len(invalid) == 1
-        expected = {"source_identity": "source-port identity", "post_start_state_mismatch": "settings mismatch",
-                    "observed_running": "settings mismatch", "start_reply_error": "start applied but acknowledgement failed"}[failure]
-        assert expected in invalid[0]["reason"]
-        assert not [item for item in manifest["records"] if item["kind"] == "cleanup_failure"]
-        assert any(item["kind"] == "capture_ownership" for item in manifest["records"])
-        atomic_json(tmp_path / "observations.json", {"failure": failure, "original_invalidity": invalid[0]["reason"],
-                                                    "running_after_invalid_run": state["running"], "lifecycle": state["lifecycle"]})
+        assert state["running"] is False and state["starts"] == state["stops"] == 1
+        assert report(tmp_path)["counts"]["invalid"] == 1
 
 
-@pytest.mark.parametrize("failure", ["source_identity", "post_start_state_mismatch", "start_reply_error", "observed_running"])
-def test_post_start_invalidity_stops_independent_capture(tmp_path, failure):
-    exercise_post_start_invalidity(tmp_path, failure)
+def test_resume_never_rewrites_terminal_attempts_or_starts_terminal_profiles(tmp_path, runtime):
+    _, run = runtime
+    path = make_plan(tmp_path, {"P1": "puripuly", "P2": "vrct"}, kinds=("P1",))
+    root, first = run(path)
+    old = first["attempts"]
+    FakeAdapter.instances = {}
+    _, second = run(path, resume=True)
+    assert second["attempts"] == old and not FakeAdapter.instances
+    assert all(digest(root / attempt["trace"]) == attempt["checksum"] for attempt in old)
 
 
-@pytest.mark.parametrize("now", [59, 60, 61, 89, 90])
-def test_adjacent_speech_annotations_equal_merged_watchdog(now):
-    second = 1_000_000_000
-    merged = [[0, 90]]
-    adjacent = [[0, 30], [30, 60], [60, 90]]
-    assert speech_timeout(now * second, 0, 0, merged, None) == (now >= 60)
-    assert speech_timeout(now * second, 0, 0, adjacent, None) == speech_timeout(now * second, 0, 0, merged, None)
-    assert not speech_timeout(now * second, 0, 0, adjacent, max(0, now - 20) * second)
-    assert not speech_timeout(89 * second, 0, 0, [[0, 30], [31, 90]], None)
+@pytest.mark.parametrize("kind", [None, "app", "input", "collector"])
+def test_no_output_needs_each_independent_opportunity_axis(tmp_path, runtime, monkeypatch, kind):
+    _, run = runtime
+    path = make_plan(tmp_path, {"P1": "puripuly"}, kinds=("P1",))
+    plan = load_plan(path, "unit")
+    plan["synthetic"] = False
+    for channel, route in plan["profiles"][0]["routes"].items():
+        route["calibration"] = {"status": "measured", "offset_ns": 50_000_000,
+                                "devices": {"output": [channel, {"name": route["output_device"]}]}}
+    class TestPlayback(ClockPlayback):
+        def __init__(self, path, device):
+            super().__init__(path, device)
+            channel = "self" if device.endswith("self") else "peer"
+            self.devices = {"output": [channel, {"name": device}]}
+    monkeypatch.setattr(runner_module, "Playback", TestPlayback)
+    original = FakeAdapter.call
+    def call(self, method, **params):
+        result = original(self, method, **params)
+        if method == "liveness" and kind in ("app", "input"):
+            result[kind + "_continuity"] = {"continuous": None, "evidence": [], "gaps": []}
+        return result
+    monkeypatch.setattr(FakeAdapter, "call", call)
+    if kind == "collector":
+        FakeSink.continuity_value = None
+    root, result = run(path, plan=plan)
+    assert result["work"][0]["outcome"] == ("product_no_output" if kind is None else "unknown_no_output")
+    detail = json.loads(result["attempts"][0]["detail"])
+    assert detail["opportunity_established"] == (kind is None)
+    if kind is None:
+        source = next(row for row in trace(root, result["attempts"][0]) if row.get("record") == "source_playback")
+        assert detail["role_horizons_ns"]["peer"] == source["playback_dac_start_ns"] + 15_170_000_000
+
+
+def test_callback_origin_uses_dac_clock_and_scheduled_silence(tmp_path, monkeypatch):
+    import numpy as np
+    import bench.audio as audio
+    path = make_plan(tmp_path, kinds=("P1",), duration=.01)
+    source = load_plan(path, "callback")["episodes"][0]["roles"]["A"]
+    import wave
+    player = object.__new__(Playback)
+    player.info = {key: source[key] for key in ("frames", "sample_rate", "channels")}
+    player.source = wave.open(source["audio"], "rb")
+    player.np = np
+    class Stop(Exception):
+        pass
+    player.sd = SimpleNamespace(CallbackStop=Stop, CallbackAbort=Stop)
+    player.first_dac_ns = player.finished_ns = None
+    player.scheduled_start_ns = 1_005_000_000
+    player.position, player.records = 0, []
+    monkeypatch.setattr(audio, "time", SimpleNamespace(perf_counter_ns=lambda: 1_000_000_000))
+    output = np.zeros((480, 1), dtype="int16")
+    timing = SimpleNamespace(outputBufferDacTime=20, currentTime=20)
+    player._render(output, 480, timing, False)
+    assert player.records[0]["scheduled_silence_frames"] == 240
+    assert player.first_dac_ns == 1_005_000_000
+    assert np.all(output[:240] == 0) and np.all(output[240:] == 1)
+    assert player.source_time_ns(.005) == 1_010_000_000
+    player.source.close()
 
 
 def test_provenance_uses_loaded_checkout_not_operator_directory(tmp_path, monkeypatch):
     expected = implementation_provenance()
     monkeypatch.chdir(tmp_path)
-    loaded = implementation_provenance()
-    assert loaded == expected
-    assert loaded["package_path"] == str(REPO / "bench")
-    assert loaded["kind"] == "checkout" and loaded["revision"] != "unknown"
+    assert implementation_provenance() == expected
+    assert expected["package_path"] == str(REPO / "bench")
+    assert expected["kind"] == "checkout" and expected["revision"] != "unknown"
 
 
-def test_git_unavailable_is_unknown_checkout_not_operator_revision(tmp_path, monkeypatch):
+def test_git_unavailable_is_unknown_not_operator_revision(tmp_path, monkeypatch):
     def unavailable(*args, **kwargs):
         assert kwargs["cwd"] == REPO
-        raise FileNotFoundError("git unavailable in isolated test")
+        raise FileNotFoundError("isolated test")
     monkeypatch.setattr(plan_module.subprocess, "run", unavailable)
     identity = implementation_provenance()
-    assert identity["revision"] == "unknown" and identity["revision_reason"] == "git_unavailable"
-    assert identity["kind"] == "checkout" and identity["sources"]
-    assert load_plan(make_plan(tmp_path), "no-git")["harness_revision"] == "unknown"
+    assert identity["kind"] == "checkout" and identity["revision"] == "unknown"
+    assert identity["revision_reason"] == "git_unavailable"
 
 
-def exercise_session_provenance(root, executable=None, operator_cwd=REPO):
-    path = make_plan(root, durations=(0.12, 0.7))
-    args = run_args(root, path, executable=executable)
-    process = subprocess.Popen(args, cwd=operator_cwd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-    try:
-        wait_until(lambda: json.loads((root / "P1-state.json").read_text()).get("last_stage", {}).get("chunk") == "c2")
-        process.terminate()
-        stdout, stderr = process.communicate(timeout=10)
-        (root / "interrupted-stdout.txt").write_text(stdout)
-        (root / "interrupted-stderr.txt").write_text(stderr)
-        atomic_json(root / "interruption-command.json", {"args": args, "cwd": str(operator_cwd), "returncode": process.returncode})
-    finally:
-        if process.poll() is None:
-            process.kill()
-            process.wait()
-    run_root = root / "runs" / "smoke"
-    frozen_before = digest(run_root / "frozen-plan.json")
-    frozen = json.loads((run_root / "frozen-plan.json").read_text())
-    assert frozen["harness_implementation"]["package_path"] == str(REPO / "bench")
-    copied_root = root / "installed-package"
-    shutil.copytree(REPO / "bench", copied_root / "bench", ignore=shutil.ignore_patterns("__pycache__"))
-    (copied_root / "bench" / "__init__.py").write_text('__version__ = "0.2.0+synthetic-resume"\n')
-    env = {**os.environ, "PYTHONPATH": str(copied_root)}
-    resume_args = run_args(root, path, resume=True, executable=executable)
-    resumed = run_cli(resume_args, root, "package-resume", cwd=copied_root, env=env)
-    assert resumed.returncode == 0, resumed.stderr
-    manifest = report(root)
-    assert digest(run_root / "frozen-plan.json") == frozen_before
-    assert manifest["plan"]["harness_revision"] == frozen["harness_revision"]
-    assert manifest["plan"]["harness_sources"] == frozen["harness_sources"]
-    sessions = manifest["session_implementations"]
-    assert len(sessions) == 2
-    original, actual = [item["implementation"] for item in sessions]
-    assert original["package_path"] == str(REPO / "bench")
-    assert actual["package_path"] == str(copied_root / "bench")
-    assert actual["kind"] == "package" and actual["revision"] == "unknown"
-    assert actual["package_version"] == "0.2.0+synthetic-resume"
-    assert actual["sources"]["__init__.py"] != original["sources"]["__init__.py"]
-    atomic_json(root / "observations.json", {"frozen_plan_unchanged": True, "session_implementations": sessions})
-    return manifest
-
-
-def test_resume_records_loaded_package_without_rewriting_original_provenance(tmp_path):
-    exercise_session_provenance(tmp_path)
-
-
-def test_prior_candidate_ownership_is_reconciled_from_historical_state(tmp_path):
+def test_owned_capture_recovery_and_trace_immutability(tmp_path):
+    plan = load_plan(make_plan(tmp_path / "input", kinds=("P1",)), "recovery")
     ledger = Ledger(tmp_path)
     try:
-        ledger.record("application_state", {"profile": "P1", "state": {"running": True}})
-        ledger.record("application_state", {"profile": "P2", "state": {"running": False}})
+        ledger.seed(plan["passes"])
+        ledger.record("capture_ownership", {"profile": "P1", "owned": True})
+        attempt = ledger.begin(ledger.work(0)[0], False)
+        journal = Journal(tmp_path / attempt["trace"])
+        journal.append({"raw": "partial evidence"})
+        journal.file.close()  # Simulate an interrupted process leaving its journal.
+        ledger.recover()
         assert ledger.owned_profiles() == {"P1"}
-        ledger.record("capture_ownership", {"profile": "P1", "owned": False, "reason": "confirmed_stop"})
-        assert ledger.owned_profiles() == set()
-        ledger.record("capture_ownership", {"profile": "P2", "owned": True, "reason": "start_requested"})
-        assert ledger.owned_profiles() == {"P2"}
+        recovered = ledger.export(plan)["attempts"][0]
+        assert recovered["state"] == "invalid" and recovered["reason"] == "interrupted"
+        assert digest(tmp_path / recovered["trace"]) == recovered["checksum"]
+        second = ledger.begin(ledger.work(0)[0], True)
+        assert second["number"] == 2 and second["resumed"] == 1
     finally:
         ledger.close()
 
 
-def test_reconciliation_failure_still_cleans_other_prior_owned_capture(tmp_path):
-    exercise_persistent_resume(tmp_path, "product_failure", reconcile_error=True)
+def test_reconciliation_failure_cleans_all_prior_owners_without_replay(tmp_path, runtime, monkeypatch):
+    _, run = runtime
+    path = make_plan(tmp_path, {"P1": "puripuly", "P2": "vrct"}, kinds=("P1",))
+    root, original = run(path)
+    ledger = Ledger(root)
+    try:
+        for profile in ("P1", "P2"):
+            ledger.record("capture_ownership", {"profile": profile, "owned": True, "reason": "simulated surviving app"})
+    finally:
+        ledger.close()
+    old_init, old_call = FakeAdapter.__init__, FakeAdapter.call
+    def initialize(self, *args):
+        old_init(self, *args)
+        self.state["running"] = True
+        self.reconcile_failed = False
+    def call(self, method, **params):
+        if self.profile == "P1" and method == "read_state" and not self.reconcile_failed:
+            self.reconcile_failed = True
+            raise OperationalError("reconciliation state unavailable")
+        return old_call(self, method, **params)
+    from bench.adapter import OperationalError
+    monkeypatch.setattr(FakeAdapter, "__init__", initialize)
+    monkeypatch.setattr(FakeAdapter, "call", call)
+    with pytest.raises(OperationalError, match="reconciliation state unavailable"):
+        run(path, resume=True)
+    assert all(not adapter.state["running"] for adapter in FakeAdapter.instances.values())
+    current = json.loads((root / "manifest.json").read_text())
+    assert current["attempts"] == original["attempts"]
+
+
+def test_resume_records_current_implementation_without_replacing_frozen_identity(tmp_path, runtime, monkeypatch):
+    _, run = runtime
+    path = make_plan(tmp_path, kinds=("P1",))
+    frozen = load_plan(path, "unit")
+    root, first = run(path, plan=frozen)
+    changed = {"kind": "package", "revision": "unknown", "package_version": "test-resume", "sources": {"runner.py": "different"}}
+    monkeypatch.setattr(runner_module, "implementation_provenance", lambda: changed)
+    _, resumed = run(path, resume=True, plan=frozen)
+    assert resumed["attempts"] == first["attempts"]
+    sessions = [json.loads(record["detail"]) for record in resumed["records"] if record["kind"] == "session_start"]
+    assert sessions[-1]["implementation"] == changed
+    manifest = json.loads((root / "manifest.json").read_text())
+    assert manifest["plan"]["harness_revision"] == frozen["harness_revision"]
+    assert manifest["plan"]["harness_sources"] == frozen["harness_sources"]
+
+
+def test_output_receipts_do_not_admit_preparation_future_or_unattributed_text(tmp_path):
+    journal = runner_module._AttemptJournal(tmp_path / "bounded.tmp")
+    try:
+        for timestamp, text in ((90, "startup"), (120, "  "), (210, "late")):
+            journal.append({"record": "native_output_event", "capture_phase": "input", "input_channel": "peer",
+                            "collector_received_monotonic": timestamp, "translated_text": text})
+        assert journal.outputs_between({"peer": (100, 200)}) == (set(), False)
+        journal.append({"record": "native_output_event", "capture_phase": "input", "input_channel": "peer",
+                        "collector_received_monotonic": 150, "translated_text": "within observation"})
+        assert journal.outputs_between({"peer": (100, 200)}) == ({"peer"}, False)
+        journal.append({"record": "native_output_event", "capture_phase": "input", "input_channel": None,
+                        "collector_received_monotonic": 160, "translated_text": "role unproven"})
+        assert journal.outputs_between({"peer": (100, 200)}) == ({"peer"}, True)
+    finally:
+        journal.finalize()
+
+
+@pytest.mark.parametrize("phase,observed", [("preparation", False), ("quiet_precondition", False), ("observation_end", False), ("input", True)])
+def test_nonmeasurement_native_text_cannot_satisfy_role_output(tmp_path, runtime, monkeypatch, phase, observed):
+    clock, run = runtime
+    original = FakeSink.check
+    injected = set()
+    def check(self, profile=None):
+        original(self, profile)
+        for name in self.active:
+            if name not in injected and name in self.origins and clock.now >= self.origins[name]:
+                injected.add(name)
+                self.attempt_last_output[name] = clock.now  # Even the broad collector counter must not admit it.
+                self.targets[name].append({"record": "native_output_event", **self.context[name],
+                                           "input_channel": "peer", "capture_phase": phase,
+                                           "collector_received_monotonic": clock.now, "translated_text": "phase-specific text"})
+    monkeypatch.setattr(FakeSink, "check", check)
+    root, result = run(make_plan(tmp_path, {"P1": "puripuly"}, kinds=("P1",)))
+    detail = json.loads(result["attempts"][0]["detail"])
+    assert detail["role_outcomes"]["A"]["status"] == ("output_observed" if observed else "unknown_no_output")
+    raw = [row for row in trace(root, result["attempts"][0]) if row.get("record") == "native_output_event"]
+    assert len(raw) == 1 and raw[0]["capture_phase"] == phase and raw[0]["translated_text"] == "phase-specific text"
+
+
+@pytest.mark.parametrize("shared_scope", [False, True])
+def test_preparation_quota_retains_actual_failure_and_leaves_all_unplayed_work_pending(tmp_path, runtime, monkeypatch, shared_scope):
+    _, run = runtime
+    families = {"P1": "puripuly", "P2": "vrct"} if shared_scope else {"P1": "puripuly"}
+    path = make_plan(tmp_path, families, kinds=("P1", "P2"))
+    plan = load_plan(path, "unit")
+    if shared_scope:
+        for profile in plan["profiles"]:
+            profile["quota_scope"] = "shared"
+    original = FakeAdapter.call
+    def call(self, method, **params):
+        if self.profile == "P1" and method == "preflight":
+            from bench.adapter import ProductError
+            raise ProductError("limit", "actual preparation rejection", "shared")
+        return original(self, method, **params)
+    monkeypatch.setattr(FakeAdapter, "call", call)
+    root, result = run(path, plan=plan)
+    assert result["counts"]["product_failure"] == 1 and result["counts"]["pending"] == len(families) * 2 - 1
+    assert len(result["attempts"]) == 1 and set(FakeAdapter.instances) == {"P1"}
+    failure = result["attempts"][0]
+    assert failure["reason"] == "limit" and json.loads(failure["detail"])["opportunity"] == "not_played"
+    assert not any(row.get("record") == "source_playback" for row in trace(root, failure))
+    assert result["work"][0]["outcome"] == "unknown"
+    assert all(work["state"] == "pending" for work in result["work"][1:])
+
+
+@pytest.mark.parametrize("receipt_ns,expected", [(25_700_000_000, "output_observed"), (26_500_000_000, "product_no_output")])
+def test_simultaneous_roles_use_common_actual_cutoff_with_independent_origins(tmp_path, runtime, monkeypatch, receipt_ns, expected):
+    clock, run = runtime
+    path = make_plan(tmp_path, {"P1": "puripuly"}, kinds=("T1",), duration=20)
+    plan = load_plan(path, "unit")
+    plan["synthetic"] = False
+    plan["passes"][0]["common_last_speech_seconds"] = .12
+    for source in plan["episodes"][0]["roles"].values():
+        source["speech_intervals"] = [[0, .12]]
+    for channel, route in plan["profiles"][0]["routes"].items():
+        route["calibration"] = {"status": "measured", "offset_ns": 0,
+                                "devices": {"output": [channel, {"name": route["output_device"]}]}}
+    class SkewedPlayback(ClockPlayback):
+        def __init__(self, path, device):
+            super().__init__(path, device)
+            self.channel = "self" if device.endswith("self") else "peer"
+            self.devices = {"output": [self.channel, {"name": device}]}
+        def start(self, scheduled_start_ns=None):
+            super().start(scheduled_start_ns + (1_000_000_000 if self.channel == "self" else 0))
+    monkeypatch.setattr(runner_module, "Playback", SkewedPlayback)
+    injected = []
+    def output(now):
+        if not injected and now >= receipt_ns:
+            injected.append(now)
+            sink = FakeSink.instances[-1]
+            sink.targets["P1"].append({"record": "native_output_event", **sink.context["P1"],
+                                      "input_channel": "peer", "collector_received_monotonic": now,
+                                      "translated_text": "peer output near common boundary"})
+    clock.hooks.append(output)
+    root, result = run(path, plan=plan)
+    detail = json.loads(result["attempts"][0]["detail"])
+    assert detail["role_horizons_ns"] == {"peer": 25_320_000_000, "self": 26_320_000_000}
+    assert detail["output_windows_ns"] == {"peer": [10_200_000_000, 26_320_000_000], "self": [11_200_000_000, 26_320_000_000]}
+    window, = [row for row in trace(root, result["attempts"][0]) if row.get("record") == "observation_window"]
+    assert window["observation_end_ns"] == 26_320_000_000 and window["role_horizons_ns"] == detail["role_horizons_ns"]
+    assert detail["role_outcomes"]["A"]["status"] == expected
+    assert detail["opportunity_established"] and all(value["complete"] for value in detail["playback"].values())
+    native = [row for row in trace(root, result["attempts"][0]) if row.get("record") == "native_output_event"]
+    assert len(native) == 1 and native[0]["collector_received_monotonic"] == receipt_ns
+
+
+@pytest.mark.parametrize("kind", ["P1", "T1"])
+@pytest.mark.parametrize("receipt_ns,p1_status,p2_status", [
+    (25_100_000_000, "output_observed", "output_observed"),
+    (25_700_000_000, "product_no_output", "output_observed"),
+    (26_500_000_000, "product_no_output", "product_no_output"),
+])
+def test_round_collection_does_not_extend_another_profiles_output_cutoff(tmp_path, runtime, monkeypatch, kind, receipt_ns, p1_status, p2_status):
+    clock, run = runtime
+    path = make_plan(tmp_path, {"P1": "puripuly", "P2": "vrct"}, kinds=(kind,), duration=20)
+    plan = load_plan(path, "unit")
+    plan["synthetic"] = False
+    for item in plan["passes"]:
+        item["common_last_speech_seconds"] = .12
+    for source in plan["episodes"][0]["roles"].values():
+        source["speech_intervals"] = [[0, .12]]
+    for profile in plan["profiles"]:
+        for route in profile["routes"].values():
+            route["calibration"] = {"status": "measured", "offset_ns": 0,
+                                    "devices": {"output": [route["output_device"], {"name": route["output_device"]}]}}
+    class ProfileSkewedPlayback(ClockPlayback):
+        def __init__(self, path, device):
+            super().__init__(path, device)
+            self.device = device
+            self.devices = {"output": [device, {"name": device}]}
+        def start(self, scheduled_start_ns=None):
+            super().start(scheduled_start_ns + (1_000_000_000 if "-P2-" in self.device else 0))
+    monkeypatch.setattr(runner_module, "Playback", ProfileSkewedPlayback)
+    injected = []
+    def output(now):
+        if not injected and now >= receipt_ns:
+            injected.append(now)
+            sink = FakeSink.instances[-1]
+            for profile in ("P1", "P2"):
+                sink.targets[profile].append({"record": "native_output_event", **sink.context[profile],
+                                              "input_channel": "peer", "collector_received_monotonic": now,
+                                              "translated_text": "same receipt, independently bounded profiles"})
+    clock.hooks.append(output)
+    root, result = run(path, plan=plan)
+    for work, attempt in zip(result["work"], result["attempts"]):
+        detail = json.loads(attempt["detail"])
+        cutoff = 25_320_000_000 if work["profile"] == "P1" else 26_320_000_000
+        expected = p1_status if work["profile"] == "P1" else p2_status
+        assert detail["observation_deadline_ns"] == cutoff
+        assert detail["round_collection_deadline_ns"] == 26_320_000_000
+        assert all(window[1] == cutoff for window in detail["output_windows_ns"].values())
+        assert detail["role_outcomes"]["A"]["status"] == expected
+        assert detail["opportunity_established"] and all(value["complete"] for value in detail["playback"].values())
+        rows = trace(root, attempt)
+        window, = [row for row in rows if row.get("record") == "observation_window"]
+        assert window["observation_end_ns"] == cutoff and window["round_collection_deadline_ns"] == 26_320_000_000
+        event, = [row for row in rows if row.get("record") == "native_output_event"]
+        assert event["collector_received_monotonic"] == receipt_ns
+
+
+@pytest.mark.parametrize("selector,current_name,accepted", [
+    ("measured-cable", "measured-cable", True),
+    ("measured-cable", "wrong-cable", False),
+    ("19", "measured-cable", False),
+])
+def test_measured_named_route_survives_reindex_not_wrong_name_or_numeric_guess(tmp_path, monkeypatch, selector, current_name, accepted):
+    path = make_plan(tmp_path / "input", {"P1": "vrclt"}, kinds=("P1",))
+    plan = load_plan(path, "named-route")
+    plan["synthetic"] = False
+    route = plan["profiles"][0]["routes"]["self"]
+    route["output_device"] = selector
+    route["calibration"] = {"status": "measured", "offset_ns": 113409500,
+                            "devices": {"output": [22, {"name": "measured-cable"}]}}
+    class ReindexedPlayback(ClockPlayback):
+        def __init__(self, path, selected):
+            super().__init__(path, selected)
+            self.devices = {"output": [19, {"name": current_name}]}
+    monkeypatch.setattr(runner_module, "Playback", ReindexedPlayback)
+    root = tmp_path / "run"
+    root.mkdir()
+    runner = runner_module.Runner(root, plan, False)
+    try:
+        if accepted:
+            players, bindings = runner._players({"P1": plan["passes"][0]}, ["P1"])
+            assert next(iter(players.values())).devices["output"][0] == 19
+            assert bindings["P1"]["self"][1]["calibration"]["devices"]["output"][0] == 22
+            assert bindings["P1"]["self"][1]["calibration"]["offset_ns"] == 113409500
+        else:
+            with pytest.raises(runner_module.OperationalError, match="measured route calibration"):
+                runner._players({"P1": plan["passes"][0]}, ["P1"])
+    finally:
+        runner.ledger.close()
+
+
+def test_explicit_WASAPI_name_rejects_ambiguous_endpoints(monkeypatch):
+    import bench.audio as audio
+    devices = [{"name": "same-cable", "hostapi": 0, "max_output_channels": 2},
+               {"name": "same-cable", "hostapi": 0, "max_output_channels": 2}]
+    sd = SimpleNamespace(query_devices=lambda: devices, query_hostapis=lambda: [{"name": "Windows WASAPI"}],
+                         PortAudioError=RuntimeError)
+    monkeypatch.setattr(audio, "_modules", lambda: (None, sd))
+    with pytest.raises(audio.OperationalError, match="exactly one explicit"):
+        audio.wasapi_device("same-cable", "max_output_channels")
+
+
+def test_callback_cursor_consumes_snapshot_not_concurrent_append(tmp_path, runtime, monkeypatch):
+    _, run = runtime
+    class AppendingPlayback(ClockPlayback):
+        instance = None
+        def __init__(self, path, device):
+            super().__init__(path, device)
+            self.appended = False
+            self.__class__.instance = self
+        def start(self, scheduled_start_ns=None):
+            super().start(scheduled_start_ns)
+            self.records = [{"source_frame": 0, "source_frames": self.info["frames"] // 2,
+                             "dac_t_ns": self.first_dac_ns, "synthetic": True}]
+    original_record = runner_module.Runner._record
+    def record(self, profile, row):
+        original_record(self, profile, row)
+        player = AppendingPlayback.instance
+        if row.get("record") == "audio_callback" and not player.appended:
+            # Deterministically append while the consumer journals its sliced
+            # snapshot, before it updates its cursor. Existing rows never mutate.
+            player.appended = True
+            half = player.info["frames"] // 2
+            player.records.append({"source_frame": half, "source_frames": player.info["frames"] - half,
+                                   "dac_t_ns": player.first_dac_ns + 60_000_000, "synthetic": True})
+    monkeypatch.setattr(runner_module, "ClockPlayback", AppendingPlayback)
+    monkeypatch.setattr(runner_module.Runner, "_record", record)
+    root, result = run(make_plan(tmp_path / "input", {"P1": "vrclt"}, kinds=("P1",), duration=.12))
+    attempt, = result["attempts"]
+    callbacks = [row for row in trace(root, attempt) if row.get("record") == "audio_callback"]
+    assert [(row["source_frame"], row["source_frames"]) for row in callbacks] == [(0, 2880), (2880, 2880)]
+    assert sum(row["source_frames"] for row in callbacks) == 5760
+    detail = json.loads(attempt["detail"])
+    assert detail["observation_end_ns"] >= detail["observation_deadline_ns"]
+    assert detail["playback"]["self"]["complete"] is True
+
+
+def test_terminal_callback_is_drained_before_completed_attempt(tmp_path, runtime, monkeypatch):
+    clock, run = runtime
+    class Completion:
+        def __init__(self, player):
+            self.player = player
+        def is_set(self):
+            player = self.player
+            if clock.now < (player.finished_ns or float("inf")):
+                return False
+            if not player.final_appended:
+                # Publish the final append after the consumer's snapshot, at
+                # the first terminal completion observation.
+                player.records.append({"source_frame": player.info["frames"] - 480, "source_frames": 480,
+                                       "dac_t_ns": player.finished_ns - 10_000_000, "synthetic": True})
+                player.final_appended = True
+            return True
+    class TerminalPlayback(ClockPlayback):
+        instance = None
+        def __init__(self, path, device):
+            super().__init__(path, device)
+            self.final_appended = False
+            self.done = Completion(self)
+            self.__class__.instance = self
+        def start(self, scheduled_start_ns=None):
+            super().start(scheduled_start_ns)
+            self.records = [{"source_frame": 0, "source_frames": self.info["frames"] - 480,
+                             "dac_t_ns": self.first_dac_ns, "synthetic": True}]
+        def check(self):
+            pass  # Completion publishes append-before-done at its observation.
+    monkeypatch.setattr(runner_module, "ClockPlayback", TerminalPlayback)
+    path = make_plan(tmp_path / "input", {"P1": "vrclt"}, kinds=("P1",), duration=20)
+    plan = json.loads(path.read_text())
+    plan["episodes"][0]["roles"]["A"]["speech_intervals"] = [[0, 1]]
+    atomic_json(path, plan)
+    root, result = run(path)
+    attempt, = result["attempts"]
+    callbacks = [row for row in trace(root, attempt) if row.get("record") == "audio_callback"]
+    assert TerminalPlayback.instance.final_appended is True
+    assert [(row["source_frame"], row["source_frames"]) for row in callbacks] == [(0, 959520), (959520, 480)]
+    assert sum(row["source_frames"] for row in callbacks) == 960000
+    detail = json.loads(attempt["detail"])
+    assert detail["playback"]["self"]["complete"] is True
+    assert detail["observation_end_ns"] >= max(detail["observation_deadline_ns"], detail["playback"]["self"]["end_ns"])
+
+
+@pytest.mark.parametrize("family", ["kikitan", "vrclt"])
+def test_normal_EOF_controller_exit_finalizes_diagnostic(tmp_path, family):
+    from bench.adapter import Adapter
+    profile = {"id": "EOF", "collector": {"family": family},
+               "adapter": [sys.executable, "-c", "import sys; sys.stdin.read()"]}
+    adapter = Adapter(profile, tmp_path, "normal")
+    path, checksum = adapter.close()
+    assert adapter.process.returncode == 0
+    assert digest(tmp_path / path) == checksum
+    assert adapter.cleanup_evidence == []

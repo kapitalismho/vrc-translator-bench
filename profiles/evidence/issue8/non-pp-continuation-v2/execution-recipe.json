@@ -1,0 +1,169 @@
+{
+  "schema_version": 1,
+  "kind": "minimal_non_PP_execution_schedule_overlay_reusing_frozen_method",
+  "status": "prepared_for_commit",
+  "continuation_id": "non-pp-continuation-v2",
+  "output_cohort": "repair-retry-pp291-v1",
+  "authority": {
+    "path": "profiles/evidence/issue8/non-pp-continuation-v2-amendment.json",
+    "sha256": "ba6026309f56bdc6808eca6cea8a91395f495c3f37c0305c71d8d184f9ba8467"
+  },
+  "doc_contract_amendment": {
+    "path": "docs/profiles.md",
+    "baseline_sha256": "7cfd0070247e38d8c635d7d46347155585f7ef2645332e39eed25a59fb519109",
+    "sha256": "5f67995da9659b761a9935ad302eceaa9dcb36138dcbbfdcc6baf56d67292580",
+    "authority": {
+      "path": "profiles/evidence/issue8/non-pp-continuation-v2-amendment.json",
+      "sha256": "ba6026309f56bdc6808eca6cea8a91395f495c3f37c0305c71d8d184f9ba8467"
+    }
+  },
+  "baseline_recipe": {
+    "path": "profiles/evidence/issue8/repair-retry-pp291-v1/execution-recipe.json",
+    "sha256": "6d3e3f621dd5dc3d3ac63d7d494775986dbbefb536b84af4d697c6582c4e69b8"
+  },
+  "retained_materializer": {
+    "path": ".data/issue8/protocol-planning/repair-retry-pp291-v1/assemble_protocol.py",
+    "sha256": "cb546a1ca119a41f37939f98b8397a16ad8905f43a200fa3e42d511844b94f8d"
+  },
+  "materializer": {
+    "path": ".data/issue8/protocol-planning/non-pp-continuation-v2/materialize.py",
+    "sha256": "3f055e783b7858b19c9120c7b75091133c2b43fdc4f45eaa0c5befe3de249343"
+  },
+  "runtime_bindings_schema": {
+    "path": ".data/issue8/protocol-planning/repair-retry-pp291-v1/runtime-bindings.schema.json",
+    "sha256": "48bdf2f6708270c211bac8a32cbcd1e5d2865d4f6070c275cbb71a84ba9825bb"
+  },
+  "execution_order": [
+    {
+      "plan_id": "W4-D1",
+      "profiles": [
+        "VRCS1"
+      ]
+    },
+    {
+      "plan_id": "W4-D3",
+      "profiles": [
+        "VRCS1"
+      ]
+    },
+    {
+      "plan_id": "W2-D1",
+      "profiles": [
+        "VRCT1"
+      ]
+    },
+    {
+      "plan_id": "W3-D1",
+      "profiles": [
+        "VRCT2",
+        "VRCLT2"
+      ]
+    },
+    {
+      "plan_id": "W3-D3",
+      "profiles": [
+        "VRCT2",
+        "VRCLT2"
+      ]
+    }
+  ],
+  "eligible_profile_direction_slots": 7,
+  "deferred_profiles": [
+    "PP1",
+    "PP2",
+    "PP3",
+    "PP4"
+  ],
+  "blocked_by_plan": {
+    "W4-D1": {
+      "VRCLS1": {
+        "status": "blocked",
+        "reason": "Blocked before retry: the acquired official1017 PE/IL still starts microphone and desktop capture before listening defaults, and unresolved named microphone/system-loopback endpoints still construct parameterless default capture objects. No supported prelaunch mechanism proving containment of BOTH paths is established. Updating to1017 alone is not that mechanism; no new application/audio-to-OSC attempt was made.",
+        "basis": "actual_static_safety_finding",
+        "evidence": {
+          "path": ".data/issue8/repair-retry/VRCLS/blocked-intake-20261023T073808203815Z/vrcls1-d1-blocked-source.json",
+          "sha256": "fa589edf547a9e7951e924c2239b40f586663b0a105e5d0c3b6ab6ce2e44980a"
+        }
+      }
+    },
+    "W4-D3": {
+      "VRCLS1": {
+        "status": "blocked",
+        "reason": "Blocked before retry: the acquired official1017 PE/IL still starts microphone and desktop capture before listening defaults, and unresolved named microphone/system-loopback endpoints still construct parameterless default capture objects. No supported prelaunch mechanism proving containment of BOTH paths is established. Updating to1017 alone is not that mechanism; no new application/audio-to-OSC attempt was made.",
+        "basis": "actual_static_safety_finding",
+        "evidence": {
+          "path": ".data/issue8/repair-retry/VRCLS/blocked-intake-20261023T073808203815Z/vrcls1-d3-blocked-source.json",
+          "sha256": "65b743c3bafa6b9a5f4cd5a1f79ad7116b7e75cf0e76a5cca3bbe8ea4a830342"
+        }
+      }
+    }
+  },
+  "observation_not_before_utc": "2026-10-23T09:49:34.054082+00:00",
+  "observation_boundary_basis": "Retained accepted premeasurement freeze; new assigned bridge directories and actual actor observations remain mandatory. Preparation under this new owner authority may precede its new commit freeze; no main may precede freeze.",
+  "output_device": "CABLE Input(VB-Audio Virtual Cable)",
+  "capture_device": "CABLE Output(VB-Audio Virtual Cable)",
+  "resource_isolation": {
+    "path": ".data/issue8/protocol-planning/non-pp-continuation-v2/resource-isolation.json",
+    "sha256": "aebe83c904461dc834c1236bbff193062bc48aa3b214ccd28ea35f12465f88a7"
+  },
+  "preservation": [
+    "Retain the original ten completed A slots and newly completed PP4/D1 and VRCT3/D1, including original failures and interrupted-output outcomes.",
+    "Retain PP4/D3 partial raw captures, revision-drift invalid attempt and unresolved route eligibility without replay or reclassification.",
+    "Never replay completed or first-attempt product-failed primary work. Use supported same-ledger resume for operationally invalid work only.",
+    "Keep fixed source identities, metric definitions, rules, languages, model routes, CPU settings and per-app ports unchanged.",
+    "Retain D1 startup40s, D3 startup10s, primary playback, isolated responses, quiet15s, nonspeech180s and D1 fixed-subset repetitions as separate stages.",
+    "Keep VRCT2 and VRCLT2 concurrent. Do not describe nonconcurrent historical or deferred peers as co-measured.",
+    "PuriPuly settings, processes, CLI, diagnostics, ownership journal and cleanup are outside this execution grant. Historical OFF state is not current-state evidence.",
+    "Use explicit benchmark Cable endpoints and dedicated non-PP OSC ports. Do not change system defaults or personal application routing.",
+    "No unrelated application manipulation, presence gate or environment-presence note.",
+    "Tone30 and Korean100 sampling/review obligations remain withdrawn. No scoring or cost work during timed measurement. No remote publication or closure."
+  ],
+  "source_and_rules": "Use retained input inventory, startup hashes, native rules, bundle builder, calibration, executable/observation/ownership checks, and actual bench.plan.load_plan. No source preflight replay, PP branch, adapters, device/provider query or audio in materialization.",
+  "metadata_compatibility": {
+    "protocol_recipe_sha256": "Retained baseline method recipe hash, not the new schedule hash.",
+    "non_pp_continuation_recipe": "New recipe ref is separately mandatory in Director freeze and every plan.",
+    "population_roles": "Retain original declared matrix role domain for source_registry compatibility; actual captured slots come ONLY from profiles. Deferred PP roles are not co-measured.",
+    "participation": "Owner-deferred PP is separate from actual unavailable VRCLS; never fabricate app-failure evidence for deferral."
+  },
+  "freeze_contract": {
+    "revision": "Actual new committed checkout revision, distinct from baseline2beb323; Director owns Git.",
+    "recipe_sha256": "6d3e3f621dd5dc3d3ac63d7d494775986dbbefb536b84af4d697c6582c4e69b8",
+    "recipe": "profiles/evidence/issue8/repair-retry-pp291-v1/execution-recipe.json",
+    "non_pp_continuation_recipe": "Exact path+sha256 of this new recipe",
+    "non_pp_authority": {
+      "path": "profiles/evidence/issue8/non-pp-continuation-v2-amendment.json",
+      "sha256": "ba6026309f56bdc6808eca6cea8a91395f495c3f37c0305c71d8d184f9ba8467"
+    },
+    "resource_isolation": {
+      "path": ".data/issue8/protocol-planning/non-pp-continuation-v2/resource-isolation.json",
+      "sha256": "aebe83c904461dc834c1236bbff193062bc48aa3b214ccd28ea35f12465f88a7"
+    },
+    "approved_before_main": true,
+    "evidence": "Actual Director freeze record must bind all fields before materialization; no freeze file authored by worker."
+  },
+  "execution_commands": {
+    "python_executable": ".data/check-venv/Scripts/python.exe",
+    "materializer_argv": [
+      ".data/check-venv/Scripts/python.exe",
+      "-B",
+      ".data/issue8/protocol-planning/non-pp-continuation-v2/materialize.py",
+      "--root",
+      ".",
+      "--bindings",
+      "runtime/<plan_id>/actual-bindings.json under this root",
+      "--output",
+      "runtime/<plan_id>/materialized under this root"
+    ],
+    "runner": "Existing bench.cli run with the actual materialized plan/run_id, real wasapi, finite async completion; supported SAME-ledger resume for operational-invalid work only.",
+    "source_registry": ".data/issue8/protocol-planning/repair-retry-pp291-v1/source_registry.py; terminal register only; existing duplicate/domain/native-identity guards retained."
+  },
+  "failure_policy": "Report actual launch, interruption, recovery and terminal outcomes promptly. Diagnose an app-local failure within its owner scope; preserve evidence and continue independent ready plans after safe cleanup rather than silently holding the batch. Record any resulting order deviation before its next playback.",
+  "not_executed": {
+    "materialization": true,
+    "runner": true,
+    "audio": true,
+    "native_UI_by_coordinator": true,
+    "PP_query_or_mutation": true,
+    "scoring_or_cost": true
+  }
+}

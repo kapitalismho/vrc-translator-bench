@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "version": "issue8-vrct2-bilingual-preflight-v1",
+  "profile": "VRCT2",
+  "application": "VRCT3.6.0",
+  "observed_directions": ["D1", "D3"],
+  "preflight_receipts": "profiles/evidence/issue8/vrct-current-preflights.json",
+  "observations": [
+    {"direction": "D1", "public_trace": "profiles/evidence/issue8/vrct2-d1-preflight/attempt-0003-001.jsonl", "export_provenance": "profiles/evidence/issue8/vrct2-d1-preflight/export-provenance.json", "native_trace_sha256": "b6769ed383df6b15cd48551e53c1a37f0dd77060d78631150a28c883b50efa4e", "trace_lines": [595], "format": "English source, one newline, Japanese translation; trailing OSC arguments true,true"},
+    {"direction": "D3", "public_trace": "profiles/evidence/issue8/vrct2-d3-preflight/attempt-0003-001.jsonl", "export_provenance": "profiles/evidence/issue8/vrct2-d3-preflight/export-provenance.json", "native_trace_sha256": "4a9171352adf5e86e1b0e1a5b66a90ad2a4eec47e170b522371ad8617d37fc53", "trace_lines": [467, 836, 1005], "format": "Chinese source, one newline, Korean translation; trailing OSC arguments true,true"}
+  ],
+  "rule": {
+    "version": "issue8-vrct2-bilingual-preflight-v1",
+    "evidence": ["profiles/evidence/issue8/vrct2-observed-rules.json", "profiles/evidence/issue8/vrct-current-preflights.json"],
+    "style": "unknown",
+    "text_pattern": "(?P<source>[^\\n]*)(?:\\n|$)(?P<translation>.*)",
+    "supports": {"revision": false, "erasure": false, "resend": false},
+    "relationships": {},
+    "uncertainty": "Actual source-first bilingual framing agrees with the saved message/translation template. A missing target section supplies no translated text. Source is application ASR, not reference truth. No universal revision, resend, pagination or finality semantics are established; ambiguous new payloads require run-bound inspection."
+  },
+  "binding_policy": "Preflight clocks, sequence IDs and trace lines identify evidence only; never transfer them as main-run relationships or alignment links."
+}

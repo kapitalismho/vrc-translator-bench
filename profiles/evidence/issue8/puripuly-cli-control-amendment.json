@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "authority": "Owner: 퓨리풀리 쪽은 앞으로 계속 cli로 해줘 그게 편하잖아",
+  "decision": "Use the installed PuriPuly public CLI for ongoing PuriPuly preparation, settings changes, capture start/stop, runtime observations and normal owned-instance lifecycle. This supersedes GUI-only control for PuriPuly, not for other applications.",
+  "reason": "Native background clicks did not activate the observed controls; the owner reported that the live control confirmation was not visible and explicitly selected official CLI control.",
+  "scope": "PP1-PP4 only, using the original installed application and existing authorized service routes. Use public commands and revision-guarded settings transactions; do not directly rewrite live settings or patch application sources.",
+  "unchanged": ["D1/D3 continuation only; no replay of completed competitor measurements", "Original captures/failures remain immutable", "Current exact version, safe input and effective state require observation", "No new accounts, keys, tiers, payments or model substitutions", "No unrelated application or security-policy changes", "No tone/Korean review work", "No scoring/provider-cost work during timed measurement"],
+  "measurement_gate": "This control-method amendment alone is not a source-specific output pass, final C freeze, actual measurement or result.",
+  "publication_or_issue_closure_authorized": false
+}

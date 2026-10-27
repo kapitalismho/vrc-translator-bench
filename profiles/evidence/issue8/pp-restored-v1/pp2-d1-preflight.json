@@ -1,0 +1,312 @@
+{
+  "schema_version": 1,
+  "profile": "PP2",
+  "direction": "D1",
+  "status": "passed",
+  "basis": "actual_preflight_finding",
+  "reason": "First actual source-specific check yielded expected-language benchmark-content translation candidates, with genuine normal stop and resource release. Admission only, not a quality, finality, or healthy-FPR claim.",
+  "run_id": "issue8-pp-restored-PP2-D1-20261022T062658Z",
+  "application": {
+    "name": "PuriPulyHeart",
+    "version": "2.9.0",
+    "normal_installed_GUI": true,
+    "exe_basename": "PuriPulyHeart.exe",
+    "exe_sha256": "2f9b9938e0b7e03731f7cfa57056a68f78d05eb099312f6c07e9b71a8440ac31",
+    "packaged_python_archive_sha256": "b02cda0f64577d8efd442904c1ccb0fcded69be42450691c7591945a0fc03d50",
+    "source_commit_runtime_attestation": false,
+    "loose_and_packaged_source_not_assumed_identical": true
+  },
+  "selected_route": {
+    "ASR": "gemini_transcribe",
+    "reported_ASR_model_at_actual_capture": "gemini-3.5-transcribe-live",
+    "translation_model": "gpt_6_luna",
+    "translation_connection": "chatgpt",
+    "returned_LLM_model_or_upstream_provider_attested": false,
+    "native_selection_fallback_observed": null,
+    "fallback_basis": "Selected route is recorded; returned model / internal service routing is not attested."
+  },
+  "input_output": {
+    "microphone": "CABLE Output(VB-Audio Virtual Cable)",
+    "saved_host_API": "Windows WASAPI (Compatibility Mode)",
+    "actual_host_API": "Windows WASAPI",
+    "sample_rate": 48000,
+    "shared": true,
+    "voice_output": false,
+    "peer_capture": false,
+    "captions": false,
+    "overlay": false,
+    "OSC_host": "127.0.0.1",
+    "actual_collector_send_port": 19104,
+    "actual_receive_port": 19201,
+    "chatbox_include_source": false,
+    "activation_notice": false
+  },
+  "execution": {
+    "cli_exit": 0,
+    "counts": {
+      "pending": 0,
+      "running": 0,
+      "done": 4,
+      "product_failure": 0,
+      "invalid": 0
+    },
+    "callback_count": 1100,
+    "callback_frames": 528000,
+    "source_frames": 528000,
+    "check_audio_sha256": "ff7ada666a62f9fe3cf6846a0857f564399bc23d2848ad1b51a749cd36279cfd",
+    "source_check_seconds": 10,
+    "source_check_tail_seconds": 15,
+    "silent_lifecycle_seconds": 1,
+    "silent_lifecycle_tail_seconds": 2,
+    "no_check_replay": true,
+    "no_timed_GUI_or_agent_model_inference": true
+  },
+  "source_binding": {
+    "checked": true,
+    "not_generic_nonempty_gate": true,
+    "notes": "Actual Japanese check candidates contained the English source clip let-us-see fragment, pocket topic, and now/doing-this question. Three ordered inputs were inspected in original OSC, not treated as pass solely because nonempty; post-tail GUI idle text is not target-output evidence. Existing ChatGPT connection only; no new login or tier/payment operation.",
+    "actual_capture_runtime_signature_prefix": [
+      "en",
+      "Windows WASAPI (Compatibility Mode)",
+      "CABLE Output(VB-Audio Virtual Cable)"
+    ],
+    "actual_DAC_callback_provenance_preserved": true
+  },
+  "OSC": {
+    "output_check_event_count": 7,
+    "output_check_input_count": 3,
+    "silent_lifecycle_event_count": 0,
+    "outside_timed_attempt_events": 0,
+    "original_decoded_payloads_order_preserved": true,
+    "wire_bytes_for_valid_UDP_not_recorded_by_existing_bench_sink": true,
+    "hash_kind": "Canonical UTF-8 JSON of decoded address/typed args and original journal/trace hashes; not a valid UDP wire digest",
+    "payload_identities": [
+      {
+        "recv_seq": 1,
+        "clock_session": "536821183cc74e8eb370ea1f6cbc4224",
+        "t_ns": 48542157295400,
+        "address": "/chatbox/typing",
+        "argument_types": [
+          "bool"
+        ],
+        "decoded_address_args_sha256": "4079777e4df3f1df088768f4ae70fb13dd58e1a3567dd23184da744769a16eaf",
+        "text_utf8_sha256": null,
+        "text_characters": null,
+        "observer": "udp:127.0.0.1:19104",
+        "source_host": "127.0.0.1",
+        "source_port": 59185
+      },
+      {
+        "recv_seq": 2,
+        "clock_session": "536821183cc74e8eb370ea1f6cbc4224",
+        "t_ns": 48544175995200,
+        "address": "/chatbox/input",
+        "argument_types": [
+          "str",
+          "bool",
+          "bool"
+        ],
+        "decoded_address_args_sha256": "ab77fdcc8138d3559eca04d101c499c4af24d5ef67da84c93f5ec2bd2da53ecd",
+        "text_utf8_sha256": "3afe416ef21b655f08dbd70bd6570d848979d6f4c61d4e25344d13cb0093c584",
+        "text_characters": 6,
+        "observer": "udp:127.0.0.1:19104",
+        "source_host": "127.0.0.1",
+        "source_port": 59185
+      },
+      {
+        "recv_seq": 3,
+        "clock_session": "536821183cc74e8eb370ea1f6cbc4224",
+        "t_ns": 48544176311600,
+        "address": "/chatbox/typing",
+        "argument_types": [
+          "bool"
+        ],
+        "decoded_address_args_sha256": "a8542e4e02e1ab5b8373a2dc769e48219c377174a1ac09b0c08a6dfa94d43fb8",
+        "text_utf8_sha256": null,
+        "text_characters": null,
+        "observer": "udp:127.0.0.1:19104",
+        "source_host": "127.0.0.1",
+        "source_port": 59185
+      },
+      {
+        "recv_seq": 4,
+        "clock_session": "536821183cc74e8eb370ea1f6cbc4224",
+        "t_ns": 48545731989800,
+        "address": "/chatbox/input",
+        "argument_types": [
+          "str",
+          "bool",
+          "bool"
+        ],
+        "decoded_address_args_sha256": "51f5751d69507d6ce46fdc60f0358a8d9a36c7eb2603b4d9aebad830a4bab3d5",
+        "text_utf8_sha256": "f132bf0bb4ae988ac71fa91b0558df07875d25d7e5b6eb273ca0c4a9fb36a652",
+        "text_characters": 18,
+        "observer": "udp:127.0.0.1:19104",
+        "source_host": "127.0.0.1",
+        "source_port": 59185
+      },
+      {
+        "recv_seq": 5,
+        "clock_session": "536821183cc74e8eb370ea1f6cbc4224",
+        "t_ns": 48550988236600,
+        "address": "/chatbox/typing",
+        "argument_types": [
+          "bool"
+        ],
+        "decoded_address_args_sha256": "4079777e4df3f1df088768f4ae70fb13dd58e1a3567dd23184da744769a16eaf",
+        "text_utf8_sha256": null,
+        "text_characters": null,
+        "observer": "udp:127.0.0.1:19104",
+        "source_host": "127.0.0.1",
+        "source_port": 59185
+      },
+      {
+        "recv_seq": 6,
+        "clock_session": "536821183cc74e8eb370ea1f6cbc4224",
+        "t_ns": 48553075640000,
+        "address": "/chatbox/input",
+        "argument_types": [
+          "str",
+          "bool",
+          "bool"
+        ],
+        "decoded_address_args_sha256": "69c1e73214fbf7a14773af4f4ed3ce2cbf03553b2286fc3e5ea3533c9ca878c7",
+        "text_utf8_sha256": "29dd869d334ad364faa6d3dde6ad52552583b29214c61c548b49a6b354c786eb",
+        "text_characters": 18,
+        "observer": "udp:127.0.0.1:19104",
+        "source_host": "127.0.0.1",
+        "source_port": 59185
+      },
+      {
+        "recv_seq": 7,
+        "clock_session": "536821183cc74e8eb370ea1f6cbc4224",
+        "t_ns": 48553075932100,
+        "address": "/chatbox/typing",
+        "argument_types": [
+          "bool"
+        ],
+        "decoded_address_args_sha256": "a8542e4e02e1ab5b8373a2dc769e48219c377174a1ac09b0c08a6dfa94d43fb8",
+        "text_utf8_sha256": null,
+        "text_characters": null,
+        "observer": "udp:127.0.0.1:19104",
+        "source_host": "127.0.0.1",
+        "source_port": 59185
+      }
+    ],
+    "format_trace_ids": [
+      {
+        "run": "issue8-pp-restored-PP2-D1-20261022T062658Z",
+        "clock_session": "536821183cc74e8eb370ea1f6cbc4224",
+        "recv_seq": 2,
+        "text_utf8_sha256": "3afe416ef21b655f08dbd70bd6570d848979d6f4c61d4e25344d13cb0093c584"
+      },
+      {
+        "run": "issue8-pp-restored-PP2-D1-20261022T062658Z",
+        "clock_session": "536821183cc74e8eb370ea1f6cbc4224",
+        "recv_seq": 4,
+        "text_utf8_sha256": "f132bf0bb4ae988ac71fa91b0558df07875d25d7e5b6eb273ca0c4a9fb36a652"
+      },
+      {
+        "run": "issue8-pp-restored-PP2-D1-20261022T062658Z",
+        "clock_session": "536821183cc74e8eb370ea1f6cbc4224",
+        "recv_seq": 6,
+        "text_utf8_sha256": "29dd869d334ad364faa6d3dde6ad52552583b29214c61c548b49a6b354c786eb"
+      }
+    ]
+  },
+  "format": {
+    "observed": "Whole observed target-language /chatbox/input string,true,false, plus typing booleans. Actual per-attempt counts and identities above.",
+    "role": "translation",
+    "role_basis": "Actual configured translation-only output and inspected clip-specific target-language candidates; no source/target delimiter forced. A later idle GUI is not target-output evidence.",
+    "style": "unknown",
+    "supports": {
+      "revision": false,
+      "erasure": false,
+      "resend": false
+    },
+    "relationships": {},
+    "typing_false_is_not_finality": true,
+    "pagination_revision_grouping_universality_inferred": false
+  },
+  "cleanup": {
+    "physical_capture_and_inference_resources_off": true,
+    "both_has_source_false": true,
+    "both_effective_active_false": true,
+    "self_has_loop_task_false": true,
+    "cleanup_debt": 0,
+    "provider_live_false": true,
+    "normal_GUI_retained_stopped": true,
+    "full_process_exit_claimed": false,
+    "fresh_stop_ACK_sequence": 2,
+    "session_retired_via_supported_invalidated_guard": true
+  },
+  "key_aliases": [
+    "Google-A"
+  ],
+  "key_alias_basis": "Owner-accepted existing stored-slot alias reference; no new key-value read/compare or project isolation attestation. OpenRouter/ChatGPT account sharing remains unverified.",
+  "quota_scope": "PP2",
+  "numeric_allowance_or_cost": "unknown; not fetched",
+  "evidence": {
+    "capture_inventory": {
+      "path": ".data/issue8/puripuly-restored-preflights/PP2-D1-20261022T062658Z/capture-inventory.json",
+      "sha256": "ed1a6a216dc5be603163c57059b14422121e851c1bd026fe444546ff73d21af2"
+    },
+    "manifest": {
+      "path": ".data/issue8/puripuly-restored-preflights/PP2-D1-20261022T062658Z/runs/issue8-pp-restored-PP2-D1-20261022T062658Z/manifest.json",
+      "sha256": "8d2121fe5c7ada08c682f36867a155c6a35ffac08eed80030092f24e1cbf9b36"
+    },
+    "CLI_terminal_receipt": {
+      "path": ".data/issue8/puripuly-restored-preflights/PP2-D1-20261022T062658Z/runner-terminal-receipt.json",
+      "sha256": "b957a89f5798b6af6bab45c882556e59daee0a7c91adb31b35fd4cb789551545"
+    },
+    "raw_private_streams": [
+      {
+        "path": ".data/issue8/puripuly-restored-preflights/PP2-D1-20261022T062658Z/runs/issue8-pp-restored-PP2-D1-20261022T062658Z/stream-536821183cc74e8eb370ea1f6cbc4224.jsonl",
+        "sha256": "03226c53d08c9d6c72b737109a2012807c3b8ac553c8bd4943089ced69a7ad60"
+      }
+    ],
+    "raw_private_traces": [
+      {
+        "path": ".data/issue8/puripuly-restored-preflights/PP2-D1-20261022T062658Z/runs/issue8-pp-restored-PP2-D1-20261022T062658Z/attempt-0001-001.jsonl",
+        "sha256": "4193bba2103c426fad35482cfc026f4c259b679fd1dac0183353e6e1a625cc82"
+      },
+      {
+        "path": ".data/issue8/puripuly-restored-preflights/PP2-D1-20261022T062658Z/runs/issue8-pp-restored-PP2-D1-20261022T062658Z/attempt-0002-001.jsonl",
+        "sha256": "dd1dfab62145830b3dee73e7d50ee0633cc82ecc57f906f4a31dc6fe6a8f056e"
+      },
+      {
+        "path": ".data/issue8/puripuly-restored-preflights/PP2-D1-20261022T062658Z/runs/issue8-pp-restored-PP2-D1-20261022T062658Z/attempt-0003-001.jsonl",
+        "sha256": "597737bac6e0410477d46c62ca656e185ed8b4b4e2d272b833e20d7a60d2c178"
+      },
+      {
+        "path": ".data/issue8/puripuly-restored-preflights/PP2-D1-20261022T062658Z/runs/issue8-pp-restored-PP2-D1-20261022T062658Z/attempt-0004-001.jsonl",
+        "sha256": "25db7b7b4cb1d4ad9d9ebaba96b9fbec7b8533f075810050757f3e4ce333da7a"
+      }
+    ],
+    "start_runtime": {
+      "path": ".data/issue8/puripuly-restored-preflights/PP2-D1-20261022T062658Z/start-runtime-safe-facts.json",
+      "sha256": "d12fdc4c5ff627949acb3c52eb3c32e79d6d0cd523a8443562d33555d5d9851c"
+    },
+    "stop_runtime": {
+      "path": ".data/issue8/puripuly-restored-preflights/PP2-D1-20261022T062658Z/stop-runtime-safe-facts.json",
+      "sha256": "190daf4c824a4d43b158881bae64a88c4a476855066ec97d1878cf0df07cb06a"
+    },
+    "stop_ACK": {
+      "path": ".data/issue8/puripuly-restored-preflights/PP2-D1-20261022T062658Z/stop-ack-seq2.receipt.json",
+      "sha256": "9b2c7e833c97a4f154a5336b75438720c74225dac74741b55e6f35739303fda5"
+    },
+    "initial_observation": {
+      "path": ".data/issue8/puripuly-restored-preflights/PP2-D1-20261022T062658Z/initial-observation.json",
+      "sha256": "013bd42e2b30e651a355eaf15d7979f9d4c650e3a9fc474d2ff24590cb5198c9"
+    },
+    "actual_port_authority": {
+      "path": "profiles/evidence/issue8/pp-restored-v1/actual-osc-port-decision.json",
+      "sha256": "9ab8ebc4e19577244fd334d0aa9c41a61b5ac6c64d3d978abc3bacbebcaa71ba"
+    }
+  },
+  "raw_screenshots_logs_personal_settings_exported": false,
+  "silence_lifecycle_zero_is_not_a_main_FPR_claim": true,
+  "main_measurement": false,
+  "B_protocol_frozen": false,
+  "quality_scoring_or_ranking": false
+}

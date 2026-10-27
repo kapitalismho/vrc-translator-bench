@@ -1,0 +1,66 @@
+{
+  "protocol": "native-output-v1",
+  "profile": "KIKI2",
+  "scope": "ordinary/en-zh",
+  "kind": "input_to_native_translation",
+  "condition": {
+    "ordinary_input": "self",
+    "ordinary_directions": [
+      "en->zh",
+      "ja->ko"
+    ],
+    "t1_mode": "split_self",
+    "roles": {
+      "A": "self",
+      "B": "self"
+    },
+    "t1_directions": {
+      "A": [
+        "en->zh",
+        "ja->ko"
+      ],
+      "B": [
+        "zh->en",
+        "ko->ja"
+      ]
+    },
+    "vrchat": "excluded"
+  },
+  "endpoint": {
+    "transport": "websocket",
+    "host": "127.0.0.1",
+    "port": 18378,
+    "path": "/",
+    "channels": {
+      "self": "microphone"
+    },
+    "event": "recognition"
+  },
+  "models": {
+    "asr": "All-in-one",
+    "translation": "Gemini Live Translate 3.5"
+  },
+  "app_version": "2.0.2+175fb87f95d7b6592965fe3f099883ee2f830316",
+  "instance": "Owned installed --no-ui PID31232, birth1792999338892 Unix milliseconds; not producer-emitted instance ID",
+  "translated_text": "好的。我想我得说我最喜欢的动物是猫。",
+  "input_evidence": "evidence/r1/kiki2-websocket-en-zh-input-clock.json",
+  "clock_evidence": "evidence/r1/kiki2-websocket-en-zh-input-clock.json",
+  "raw_evidence": "evidence/r1/kiki2-websocket-en-zh-native.jsonl",
+  "observed_native_event_count": 66,
+  "nonempty_chinese_translation_snapshot_count": 60,
+  "native_final_true_count": 6,
+  "adoption_authority": "Owner 시행 then 다시 시작; installed headless recognition endpoint replaces active GUI-only/user-data requirement; no remote publication authority inferred.",
+  "evidence_basis": "Accepted historical single40s KIKI2 experiment, not an additional replay. Raw nested recognition only; unsafe state/config/logs and personal paths excluded.",
+  "limits": [
+    "Representative ordinary EN->ZH microphone/self feasibility only; no promotion of KIKI1, other language, T1, wave or R6 final quality/time.",
+    "All cumulative/source-only/unchanged/revised/native-final snapshots retained without reconstruction or semantic finality.",
+    "No producer timestamps/IDs/revisions; receipt clock not native time, no latency ranking.",
+    "Shared-cable waveform plus sampled process/status does not certify uninterrupted app/provider ingestion.",
+    "Historical UDP Unicode corruption and KIKI1 headless capture crash remain valid history. Stock startup network/log/discovery effects are not rolled back."
+  ],
+  "evidence_sha256": {
+    "input_evidence": "9a8dbd6400a0ec0f18736039e8f6f5e748a81852f3d4cc79abd968692e4c3ff9",
+    "clock_evidence": "9a8dbd6400a0ec0f18736039e8f6f5e748a81852f3d4cc79abd968692e4c3ff9",
+    "raw_evidence": "300e5b60a677656837476f2fef6c7a76917db0cbcccf9da57a516005e6800bdd"
+  }
+}

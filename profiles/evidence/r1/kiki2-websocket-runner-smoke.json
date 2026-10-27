@@ -1,0 +1,87 @@
+{
+  "kind": "bounded_installed_controller_collector_Runner_integration_smoke_with_discovered_evidence_defect",
+  "profile": "KIKI2",
+  "scope": "ordinary/en-zh",
+  "app_version": "2.0.2+175fb87f95d7b6592965fe3f099883ee2f830316",
+  "executable_sha256": "17270e64effb2ca38a9d6895c89ec6ca4009ef53a057d9c5cf60ac4de5069565",
+  "assembly_sha256": "b3d92e6bf20b9b6972f8bacd492ad609e350725063ad927cc435ec5031fee1ff",
+  "run": "kiki2-integrated",
+  "attempt": 1,
+  "sole_additional_real_ON_and_replay": true,
+  "reported_cli_exit": 0,
+  "reported_terminal_state": "done",
+  "reported_outcome": "output_observed",
+  "native_count": 66,
+  "chinese_translation_snapshots": 60,
+  "distinct_nonempty_translations": 28,
+  "source_only_snapshots": 6,
+  "adjacent_prefix_growth": 24,
+  "native_final_true": 6,
+  "full_raw_recognition_integrity_verified": true,
+  "tail_after_reported_calibrated_full_input_end_seconds": 15.013035333,
+  "start_order": {
+    "collector_ready_ns": 16757481171900,
+    "capture_ownership_claim_ns": 16757481542900,
+    "ON_requested_ns": 16757497733200,
+    "collector_before_ON": true,
+    "capture_claim_before_ON": true
+  },
+  "callback_evidence_defect": {
+    "classification": "callback ledger evidence loss",
+    "persisted_frames": 1896000,
+    "expected_frames": 1920000,
+    "missing_frames": 24000,
+    "callback_rows": 3972,
+    "gap_count": 50,
+    "first_missing_frame_range": [
+      7915,
+      8395
+    ],
+    "complete_serialized_frame_accounting": false,
+    "explanation": "Consumer advanced cursor to live list length after iterating a snapshot; concurrently appended rows were skipped. No callbacks reconstructed or real replay made. Reported playback completion is retained separately from serialized evidence completeness."
+  },
+  "bounded_repair": {
+    "cause_fix": "Snapshot producer list end before slicing/draining; cursor advances only consumed snapshot end. Append-only producer unchanged.",
+    "deterministic_regression": "Before repair: expected[(0,2880),(2880,2880)] but persisted[(0,2880)]. After repair verified by focused checks.",
+    "controlled_CLI_proof": {
+      "boundary": "Actual bench.cli/Runner/JSON-line controller/native UDP+file; synthetic asynchronous scheduled PCM-frame producer, not hardware/audio delivery, app/provider replaced by controlled fixture. No installed application or provider ON.",
+      "frames": 3840,
+      "callback_rows": 8,
+      "full_unique_coverage": true,
+      "append_during_drain": true,
+      "tail_seconds": 15.0093328,
+      "trace_sha256": "974a0fcb3e7ecf31f52d238ba1bc38cece6c083fd059e8a0e196964d5ab80dab",
+      "driver_sha256": "c9724a3ea9aa0bcaca3554d61ef903140ac65d3671522836f97ef2e4b07ab90d",
+      "driver_removed": true
+    },
+    "no_additional_real_replay": true,
+    "real_callback_rows_remain_incomplete": true
+  },
+  "cleanup": {
+    "ordered_OFF_status0_then_quit": true,
+    "owned_pid": 31472,
+    "owned_birth_filetime_100ns": 134375335727436824,
+    "no_remaining_instances_or_listener": true,
+    "fresh_process_exact_original_config_hash": "b9dc5fcf4e5fb0d166dd62ed4396b15c7c03510187438b2c43bee5382c3fe5ed",
+    "no_remaining_encrypted_backup_or_owner_pointer": true,
+    "exe_and_assembly_unchanged": true
+  },
+  "raw_evidence": "evidence/r1/kiki2-websocket-runner-en-zh-native.jsonl",
+  "input_clock_evidence": "evidence/r1/kiki2-websocket-runner-en-zh-input-clock.json",
+  "source_run_sha256": {
+    "attempt_trace": "dc428c2e3f0c260d1575d8b17c35690b1b722fb2a364fe0cf4032ae872806cc5",
+    "native_stream": "0a48422c31a03af77467cd2c86eb9dcaedab22ac6b2043fee3e765aba249370b"
+  },
+  "limits": [
+    "Small development integration smoke with explicit callback-ledger evidence loss; NOT complete flawless integrated admission, main measurement, R6 quality/time, model attestation, cost or wave admission.",
+    "Accepted prior pilot full-frame/cable feasibility remains separately valid; no sibling/language/T1 success inferred.",
+    "All native snapshots retained; final is raw app signal, not semantic finality.",
+    "No continuous internal/provider ingestion or native producer-clock proof.",
+    "Normal installed startup update/discovery/static-server/logging side effects were not comprehensively measured or rolled back.",
+    "Historical KIKI1 microphone crash and obsolete UDP Unicode defect remain immutable history."
+  ],
+  "evidence_sha256": {
+    "kiki2-websocket-runner-en-zh-native.jsonl": "0aba6a2e3a2796d4f06fd31b03501e09c5f68500dfcb1a630eb5f7cbd5af8f91",
+    "kiki2-websocket-runner-en-zh-input-clock.json": "3c9a4da2bb0b2986aeef8ab9d114f245c9bfce51b8d3cf33f147d3ff60e50df1"
+  }
+}

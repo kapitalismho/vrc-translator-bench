@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "kind": "static_installed_binary_routing_investigation_not_runtime_repair",
+  "profile": "VRCLS1",
+  "basis": "Read-only PE/portable-PDB metadata and IL inspection by vrcls-routing-research after the invalid D1 capture. No product methods/static initializers, launch, audio streams, endpoint-enumeration rerun or provider calls.",
+  "binary_sha256": {
+    "VRCLS.exe": "eec5acd87649e73f70d2ab9330f14a5e3b5df2d0794e3cc8d21f7ac3dd726f8b",
+    "VRCLS.dll": "98e0046265557ac62154624886203df5a370be9b29af2c8b66e67fa281573a41",
+    "VRCLS.Services.dll": "7d1ec7908bf50fb11339579a6552cb3ceab4dabcd3fe137e886a701948a1d69a",
+    "VRCLS.Core.dll": "ac666829c3147390eaff5a5ac8dc8537d20ee62ecb365f0def0c86b53b64bdd0"
+  },
+  "binary_boundary": "Current installed files; not independent loaded-module hash attestation for the already exited incident process.",
+  "metadata": {
+    "ui_product_version": "0.7.0-20260913",
+    "ui_file_version": "0.7.0.1015",
+    "services_and_core_informational_version": "1.0.0+3258ae0045ee44f8309a4833eedce570978e58bb",
+    "pdb_linkage": "Three adjacent portable-PDB IDs match their DLL CodeView GUIDs.",
+    "resolver_document_sha256": "bfd914abfb09ec119af8569e41fa49ff4b37024f70696df8cc47986d1c1edef4"
+  },
+  "actual_methods": {
+    "microphone": "AudioCaptureService.StartMicrophoneCapture 0x060005FE enumerates active Capture MMDevices. ResolveMicrophoneDevice 0x0600060D uses exact FriendlyName OrdinalIgnoreCase, then bidirectional substring matching (predicates0x06001035/0x06001036). Missing/blank/default selection returns null; parameterless WasapiCapture selects default input.",
+    "desktop": "StartLoopbackCapture 0x060005FC / predicate0x06000615 enumerates active Render endpoints and compares exact FriendlyName OrdinalIgnoreCase. Missing selection constructs parameterless WasapiLoopbackCapture. Request DeviceId is treated as FriendlyName, not endpoint ID.",
+    "configuration": "ResolveConfiguredMicCaptureDevice0x060001C5 reads MicName; BuildDesktopCaptureRequest0x060001DD System branch reads GameMicName. No internal-space or parenthesis normalization, alternate configuration property, MME mapping or endpoint-ID lookup was found in these paths.",
+    "startup": "InitializePipelines0x060001AA starts microphone and desktop hardware capture before ApplyListeningDefaultsForMode; recognition/autostart OFF is not no-capture safe mode.",
+    "gui": "Configured names can be reinserted into device options by EnsureStringOptionPresent. HandleAudioCaptureDeviceFallback emits a warning without replacing the displayed/saved name. An intended Cable label therefore does not establish effective selection."
+  },
+  "source_correspondence": {
+    "reference_revision": "5b489c4504a9a9b14460a609a9799df8e6eda1c0",
+    "result": "Relevant resolver semantics agree with inspected reference source, but PDB checksums for four relevant source files differ from fetched LF/CRLF variants. Exact build-source identity is not established.",
+    "public_build_revision_lookup": "Public repository commit API did not resolve3258ae0045ee44f8309a4833eedce570978e58bb (HTTP422). SourceLink covers third-party trees, not the relevant VRCLS sources; no matching source archive was found in the bounded local search."
+  },
+  "incident_explanation_boundary": "Passive exact active-endpoint matching and runtime default fallback remain contradictory. Static code does not establish why. Historical in-process endpoint collection, exact requested string code units and loaded-module identities were not captured; no cause is assigned to timing, privileges, spelling, hidden characters or alternate binaries.",
+  "decision": "No proven safe normal-GUI/prelaunch workaround. Keep VRCLS closed; D1 operational-invalid and D3 blocked. No spelling retry, endpoint-ID substitution or OS default change.",
+  "required_for_future_execution": "An explicitly authorized way to verify actual in-process named-device selection without allowing default/private capture, or vendor evidence resolving the discrepancy.",
+  "privacy": "No private OSC/log/configuration/screenshot payload is included or was inspected by this static investigation."
+}

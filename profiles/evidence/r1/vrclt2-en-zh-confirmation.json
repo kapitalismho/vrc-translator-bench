@@ -1,0 +1,67 @@
+{
+  "protocol": "native-output-v1",
+  "profile": "VRCLT2",
+  "scope": "ordinary/en-zh",
+  "condition": {
+    "ordinary_input": "self",
+    "ordinary_directions": [
+      "en->zh",
+      "ja->ko"
+    ],
+    "t1_mode": "split_self",
+    "roles": {
+      "A": "self",
+      "B": "self"
+    },
+    "t1_directions": {
+      "A": [
+        "en->zh",
+        "ja->ko"
+      ],
+      "B": [
+        "zh->en",
+        "ko->ja"
+      ]
+    },
+    "vrchat": "excluded"
+  },
+  "endpoint": {
+    "transport": "osc",
+    "host": "127.0.0.1",
+    "port": 19131,
+    "path": "/chatbox/input",
+    "channels": {
+      "self": "self"
+    },
+    "cross_check": "%LOCALAPPDATA%/vrclt/logs/vrclt.log:FINAL"
+  },
+  "models": {
+    "asr": "All-in-one",
+    "translation": "Qwen 3.8 LiveTranslate"
+  },
+  "kind": "input_to_native_translation",
+  "app_version": "1.0.1",
+  "instance": "Observed owned GUI process 13800; no producer instance field",
+  "translated_text": "好的。我想，我不得不承认，",
+  "translated_text_basis": "Separate FINAL log cross-check only, not an OSC translated_text field or a backdated reconstruction",
+  "primary_display_example": "Okay. I think that I would have to say\n好的。我想，我不得不承认，",
+  "input_evidence": "evidence/r1/vrclt2-en-zh-input-clock.json",
+  "raw_evidence": "evidence/r1/vrclt2-en-zh-native.jsonl",
+  "clock_evidence": "evidence/r1/vrclt2-en-zh-input-clock.json",
+  "observed_native_event_count": 44,
+  "primary_osc_display_record_count": 12,
+  "separate_final_crosscheck_count": 10,
+  "limits": [
+    "Only VRCLT2 ordinary self EN->ZH early feasibility; other scopes and profiles remain unverified.",
+    "Primary OSC preserves mixed English/Chinese display_text with translated_text=null. Separate FINAL file records have translated_text and physical-line-only completeness; they are not substitutions for or backdated into OSC.",
+    "UDP continuous=null and transport completeness unknown; listener continuity does not prove lossless packet delivery or uninterrupted app/input health.",
+    "FINAL local-wall timestamps have unverified timezone and no playback-clock mapping; no final quality/time, performance, cost, Runner or wave admission.",
+    "Configured source en is not enforced by Qwen3.8 auto-detection; native FINAL language auto remains actual metadata.",
+    "Original application log path, workspace and secret configuration are omitted. No replay or new provider call performed by evidence author."
+  ],
+  "evidence_sha256": {
+    "raw_evidence": "b1d34f84bec49d25369f64f6bf8f7a5e9f6982a83760385fb2230042cfedbb54",
+    "input_evidence": "8a5a08c15b1ba0aee491e6729d848ae35b5cc34fe0382e9bbaaf6be7433a5a77",
+    "clock_evidence": "8a5a08c15b1ba0aee491e6729d848ae35b5cc34fe0382e9bbaaf6be7433a5a77"
+  }
+}

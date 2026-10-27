@@ -1,0 +1,297 @@
+{
+  "schema_version": 1,
+  "kind": "first_batch_timed_capture_completion_not_analysis",
+  "recorded_at_utc": "2026-10-24T21:44:52.598737+00:00",
+  "directions": [
+    "D1",
+    "D3"
+  ],
+  "registered_primary_profile_directions": 27,
+  "registered_primary_captures": 18,
+  "registered_standalone_captures": 1,
+  "all_registered_manifests_hash_checked_and_terminal": true,
+  "collection_completion_is_not_translation_success": true,
+  "later_directions_not_measured": [
+    "D2",
+    "D4",
+    "D5",
+    "D6"
+  ],
+  "unmeasured_first_batch_slots": [
+    {
+      "profile": "VRCLS1",
+      "direction": "D3",
+      "status": "quota_stopped",
+      "main_frames": 0,
+      "evidence": "profiles/evidence/issue8/vrcls-quota-recovery-observation.json"
+    }
+  ],
+  "immutable_capture_registry": {
+    "path": ".data/issue8/owner-resumed-pp-v1/registration/all-captures-terminal-registry.json",
+    "sha256": "ac0b0c50f148e5c7dec7f5fd25813b079c8971c3b474eac917c7d27f32c87fb5"
+  },
+  "renewed_PP_capture_revision": "eb286b1bdc82972f9222054968c813ab32e304d9",
+  "renewed_PP_phases": [
+    {
+      "sequence": 1,
+      "plan_id": "W1-D3",
+      "profile": "PP4",
+      "direction": "D3",
+      "run_id": "issue8-pp291-W1-D3-2beb32362705",
+      "manifest": {
+        "path": ".data/issue8/protocol-planning/repair-retry-pp291-v1/runtime/W1-D3-2beb32362705/runs/issue8-pp291-W1-D3-2beb32362705/manifest.json",
+        "sha256": "75cfc180481dcd6bb110c674e44e57a6f70ea582f38d69f95b87f28632c7587f"
+      },
+      "terminal_receipt": {
+        "path": ".data/issue8/owner-resumed-pp-v1/successor-execution-v1/phase-01-W1-D3-terminal.json",
+        "sha256": "a5fbe1b2108175b2671a9ec575b9aafb0ab76defa7e4d607d823085b3a97becd"
+      },
+      "metrics_reference_binding": {
+        "path": ".data/issue8/protocol-planning/repair-retry-pp291-v1/runtime/W1-D3-2beb32362705/materialized/W1-D3-metrics-reference-binding.json",
+        "sha256": "65d745c9da5ae90b38d9a22d3bc165269cbfd91eb339fb11fa61c5719aa453d6"
+      },
+      "counts": {
+        "pending": 0,
+        "running": 0,
+        "done": 35,
+        "product_failure": 0,
+        "invalid": 0
+      }
+    },
+    {
+      "sequence": 2,
+      "plan_id": "W2-D1",
+      "profile": "PP1",
+      "direction": "D1",
+      "run_id": "issue8-owner-resumed-W2-D1-eb286b1bdc82",
+      "manifest": {
+        "path": ".data/issue8/owner-resumed-pp-v1/successor-execution-v1/phase-02-W2-D1-runtime/runs/issue8-owner-resumed-W2-D1-eb286b1bdc82/manifest.json",
+        "sha256": "3dcfa81fd816562c81ce249847400e83942a71d30f33edb53667cb52a188228f"
+      },
+      "terminal_receipt": {
+        "path": ".data/issue8/owner-resumed-pp-v1/successor-execution-v1/phase-02-W2-D1-terminal.json",
+        "sha256": "376cd30f94d35ce0ce0ee29918edbdba815f16474bd04fd87c4aeb9a9563c385"
+      },
+      "metrics_reference_binding": {
+        "path": ".data/issue8/owner-resumed-pp-v1/successor-execution-v1/phase-02-W2-D1-runtime/metrics-reference-binding.json",
+        "sha256": "50153d187cd5fc29ad33dd02611f8662d3009d8249a54f4249188eb7d7255c83"
+      },
+      "counts": {
+        "pending": 0,
+        "running": 0,
+        "done": 32,
+        "product_failure": 0,
+        "invalid": 0
+      }
+    },
+    {
+      "sequence": 3,
+      "plan_id": "W2-D3",
+      "profile": "PP1",
+      "direction": "D3",
+      "run_id": "issue8-owner-resumed-W2-D3-eb286b1bdc82",
+      "manifest": {
+        "path": ".data/issue8/owner-resumed-pp-v1/successor-execution-v1/phase-03-W2-D3-runtime/runs/issue8-owner-resumed-W2-D3-eb286b1bdc82/manifest.json",
+        "sha256": "61060dafd723c4d996b6f37d5df4d0ef46fa00702d9f8465df6189a243a253c6"
+      },
+      "terminal_receipt": {
+        "path": ".data/issue8/owner-resumed-pp-v1/successor-execution-v1/phase-03-W2-D3-terminal.json",
+        "sha256": "245c8947f6c9b7bc5da19765d90bf2bf4750238feedcbc6093dfde8433907cbf"
+      },
+      "metrics_reference_binding": {
+        "path": ".data/issue8/owner-resumed-pp-v1/successor-execution-v1/phase-03-W2-D3-runtime/metrics-reference-binding.json",
+        "sha256": "6ccfc426f2704532c86415dc8d880bff1321999d868eb7a6811613f7540b9e25"
+      },
+      "counts": {
+        "pending": 0,
+        "running": 0,
+        "done": 35,
+        "product_failure": 0,
+        "invalid": 0
+      }
+    },
+    {
+      "sequence": 4,
+      "plan_id": "W3-D1",
+      "profile": "PP2",
+      "direction": "D1",
+      "run_id": "issue8-owner-resumed-W3-D1-eb286b1bdc82",
+      "manifest": {
+        "path": ".data/issue8/owner-resumed-pp-v1/successor-execution-v1/phase-04-W3-D1-runtime/runs/issue8-owner-resumed-W3-D1-eb286b1bdc82/manifest.json",
+        "sha256": "0fa58f282502f515ae5036e972075052666e005371f49579f37e1fe043356849"
+      },
+      "terminal_receipt": {
+        "path": ".data/issue8/owner-resumed-pp-v1/successor-execution-v1/phase-04-W3-D1-terminal.json",
+        "sha256": "9d32cbceb58353a71c1b9b22e7354b133d4652d80afcd196d980914e849b691f"
+      },
+      "metrics_reference_binding": {
+        "path": ".data/issue8/owner-resumed-pp-v1/successor-execution-v1/phase-04-W3-D1-runtime/metrics-reference-binding.json",
+        "sha256": "6ec1e0a4cc092e0befdf5b1820b32a385f3b719ad55180e106e27a25a6cd1c9c"
+      },
+      "counts": {
+        "pending": 0,
+        "running": 0,
+        "done": 32,
+        "product_failure": 0,
+        "invalid": 0
+      }
+    },
+    {
+      "sequence": 5,
+      "plan_id": "W3-D3",
+      "profile": "PP2",
+      "direction": "D3",
+      "run_id": "issue8-owner-resumed-W3-D3-eb286b1bdc82",
+      "manifest": {
+        "path": ".data/issue8/owner-resumed-pp-v1/successor-execution-v1/phase-05-W3-D3-runtime/runs/issue8-owner-resumed-W3-D3-eb286b1bdc82/manifest.json",
+        "sha256": "6af14934a03dfe663b6d68ef426631654c85c2898a664f51876073e367c849ba"
+      },
+      "terminal_receipt": {
+        "path": ".data/issue8/owner-resumed-pp-v1/successor-execution-v1/phase-05-W3-D3-terminal.json",
+        "sha256": "a3ca26f75f2fcb09e8e5aeece2f1ca41adf9d30a3d2d6dd09d706108b67c7098"
+      },
+      "metrics_reference_binding": {
+        "path": ".data/issue8/owner-resumed-pp-v1/successor-execution-v1/phase-05-W3-D3-runtime/metrics-reference-binding.json",
+        "sha256": "062e89c451e30a7ea67e41ccd3caa18066ac836e264a5033a551394343290c84"
+      },
+      "counts": {
+        "pending": 0,
+        "running": 0,
+        "done": 33,
+        "product_failure": 0,
+        "invalid": 0
+      }
+    },
+    {
+      "sequence": 6,
+      "plan_id": "PP3ALONE-D1",
+      "profile": "PP3",
+      "direction": "D1",
+      "run_id": "issue8-owner-resumed-PP3ALONE-D1-eb286b1bdc82",
+      "manifest": {
+        "path": ".data/issue8/owner-resumed-pp-v1/successor-execution-v1/phase-06-PP3ALONE-D1-runtime/runs/issue8-owner-resumed-PP3ALONE-D1-eb286b1bdc82/manifest.json",
+        "sha256": "84e9d0492611cc77b14c694ffb1df0bd05a9ae50e31b3edd62a4846047898574"
+      },
+      "terminal_receipt": {
+        "path": ".data/issue8/owner-resumed-pp-v1/successor-execution-v1/phase-06-PP3ALONE-D1-terminal.json",
+        "sha256": "11891e1fcacc26ece0f8dde42fc13b44b262b1f9674ae27cf6b0c55b26f90c0c"
+      },
+      "metrics_reference_binding": {
+        "path": ".data/issue8/owner-resumed-pp-v1/successor-execution-v1/phase-06-PP3ALONE-D1-runtime/metrics-reference-binding.json",
+        "sha256": "0cb8f59c176d8686da9ba21c865a6e2606bca914d3ed39c15190c581e085d778"
+      },
+      "counts": {
+        "pending": 0,
+        "running": 0,
+        "done": 4,
+        "product_failure": 0,
+        "invalid": 0
+      }
+    },
+    {
+      "sequence": 7,
+      "plan_id": "W4-D1",
+      "profile": "PP3",
+      "direction": "D1",
+      "run_id": "issue8-owner-resumed-W4-D1-eb286b1bdc82",
+      "manifest": {
+        "path": ".data/issue8/owner-resumed-pp-v1/successor-execution-v1/phase-07-W4-D1-runtime/runs/issue8-owner-resumed-W4-D1-eb286b1bdc82/manifest.json",
+        "sha256": "9113797c75d20886d6660c63a76ae0cdba76ca84d9dd3fdeaf0ec257adb15ccb"
+      },
+      "terminal_receipt": {
+        "path": ".data/issue8/owner-resumed-pp-v1/successor-execution-v1/phase-07-W4-D1-terminal.json",
+        "sha256": "ff1d446176df9551f48933638fdb1cca5b63777700b1df835b2aec306629ca6b"
+      },
+      "metrics_reference_binding": {
+        "path": ".data/issue8/owner-resumed-pp-v1/successor-execution-v1/phase-07-W4-D1-runtime/metrics-reference-binding.json",
+        "sha256": "2dc6f92d2101cfedddba9e2af2894a2d0099f14416457018a13be1da0cf0cd19"
+      },
+      "counts": {
+        "pending": 0,
+        "running": 0,
+        "done": 32,
+        "product_failure": 0,
+        "invalid": 0
+      }
+    },
+    {
+      "sequence": 8,
+      "plan_id": "W4-D3",
+      "profile": "PP3",
+      "direction": "D3",
+      "run_id": "issue8-owner-resumed-W4-D3-eb286b1bdc82",
+      "manifest": {
+        "path": ".data/issue8/owner-resumed-pp-v1/successor-execution-v1/phase-08-W4-D3-runtime/runs/issue8-owner-resumed-W4-D3-eb286b1bdc82/manifest.json",
+        "sha256": "5c84071541072cae7af5610c24c09c1950296f9d795c8f8a968c74b4dbe67202"
+      },
+      "terminal_receipt": {
+        "path": ".data/issue8/owner-resumed-pp-v1/successor-execution-v1/phase-08-W4-D3-terminal.json",
+        "sha256": "a96c94f97532b34a0561d32d357d45ec590366b882b0fbe6233f19356c765ad9"
+      },
+      "metrics_reference_binding": {
+        "path": ".data/issue8/owner-resumed-pp-v1/successor-execution-v1/phase-08-W4-D3-runtime/metrics-reference-binding.json",
+        "sha256": "dd0df66909a9495d2a5a64f129944526b3cd9a5b2e32a442a2cc994ad4e0ec40"
+      },
+      "counts": {
+        "pending": 0,
+        "running": 0,
+        "done": 33,
+        "product_failure": 0,
+        "invalid": 0
+      }
+    }
+  ],
+  "managed_timed_capture_end_utc": "2026-10-24T21:31:22.453671+00:00",
+  "owned_PP_cleanup": {
+    "public_app_stop_exit_code": 0,
+    "public_status": "stopped",
+    "public_terminal": true,
+    "public_cleanup_outcome": "unobserved",
+    "owned_process_absence_independently_observed": true,
+    "capture_journal_clean": true,
+    "UDP19104_exclusive_bind_released": true,
+    "evidence": {
+      "path": ".data/issue8/owner-resumed-pp-v1/successor-execution-v1/final-cleanup-observation.json",
+      "sha256": "de562e159db4552b06016edef5f8b335641d197b331187103b94c7e524f67ec8"
+    },
+    "global_application_absence_claim": false
+  },
+  "operational_recovery": {
+    "phase": "W2-D3",
+    "failed_work": 20,
+    "failed_stage": 19,
+    "failed_source_frames": 0,
+    "completed_primary_replayed": false,
+    "completed_isolated_replayed": false,
+    "original_invalid_attempt_preserved": true,
+    "evidence": {
+      "path": ".data/issue8/owner-resumed-pp-v1/successor-execution-v1/phase-03-operational-recovery-outcome.json",
+      "sha256": "6fb36050af4bc5538e731369948b08206d816efb84c4c264f10d12c6ccb7aec9"
+    }
+  },
+  "preservation": [
+    "Original PP4D3 rawDONE01-05 and failure history preserved; only eligible remainder resumed.",
+    "Completed PP4D1 and completed peer primary captures not replayed.",
+    "Native provider and ASR error/cancellation/recovery observations remain separate from work-DONE status.",
+    "PP3 standalone remains separate and cannot establish a concurrent-peer load contrast with PP-only W4."
+  ],
+  "PP4D3_analysis_requirement": {
+    "direct_selector": {
+      "run": "issue8-pp291-W1-D3-2beb32362705",
+      "config": "PP4",
+      "direction": "D3",
+      "attempt_id": 8,
+      "stage": 7
+    },
+    "reason": "Native mixed Index/error route; no pure-Index quality/latency/delivery or cost credit for direct origin and consumer-derived dependent uncertainty.",
+    "raw_done_unchanged": true,
+    "overlay": {
+      "path": ".data/issue8/batch-analysis-v1/applicability/pp4-d3-final-native.json",
+      "sha256": "0930e4fe426551b236c69342e2b368dfc80643da20d4cdf65d931cfc03f56106"
+    }
+  },
+  "VRCLS_D1_population": "Retain registered first-primary observations including interleaved430/10-minute-limit incidents; disclose delayed detection/first-limit propagation deviation. No retrospective success-only or post-first-error exclusion.",
+  "VRCLS_allowance_units": "569/1000 is the displayed remaining daily allowance, unit unestablished; resource usage431/1000 and request count231 are distinct displays, not an attributable billing ledger.",
+  "analysis_and_cost_executed_in_this_record": false,
+  "public_content_scope": "Whitelisted capture status and relative hash-bound evidence references only; no raw conversations, settings, credentials, account details or private diagnostic lines."
+}

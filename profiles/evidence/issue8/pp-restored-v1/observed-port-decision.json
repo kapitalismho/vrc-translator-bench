@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-10-22T06:02:49.904152+00:00",
+  "cohort": "B-pp-restored-v1",
+  "authority": "Director execution decision under the owner's restored PP1-PP4 D1/D3 scope; preserve concurrent original waves and actual effective routing.",
+  "observed_PP1_pre_audio_finding": {
+    "GUI_send_port_readback": 19101,
+    "effective_send_port": 19104,
+    "effective_receive_port": 19201,
+    "effective_mode": "manual",
+    "host": "127.0.0.1",
+    "normal_GUI_single_field_commit": "Attempted once after the first mismatch; actual configured/effective send remained19104. No direct configuration write or internal control used.",
+    "evidence": [
+      {"path": ".data/issue8/puripuly-restored-preflights/PP1-D1-routing-20261022T055306Z/safe-routing-diagnostic.json", "sha256": "8753db224d8a3c2eb12bbe41273691934c7662f6ebec066719b76a18a3371018"},
+      {"path": ".data/issue8/puripuly-restored-preflights/PP1-D1-routing-20261022T055306Z/after-single-field-enter-safe-facts.json", "sha256": "f8313dba780ebc127b40aed4205330d1ec079584837aeb7e977e510dbacd3667"}
+    ],
+    "root_cause": "Not asserted by this decision; keep any bounded source finding distinct from runtime proof."
+  },
+  "decision": "Bind PP1 preflight reception to actual observed send19104 instead of claiming intended19101 worked. PP2/PP3 may use the same observed send19104 only if individually corroborated by fresh actual state and source-bound output. Freeze each admitted profile's actual route before restored main measurement.",
+  "safety_basis": [
+    "Only one PuriPuly profile belongs to each original wave: PP4/W1, PP1/W2, PP2/W3, PP3/W4.",
+    "Send19104 does not conflict with any other planned member of these waves. Fresh actual binding and wave-local uniqueness remain required.",
+    "This is nonconcurrent endpoint reuse, as already applied to VRCLT1/VRCLT2 send19131, not serialization or a change to the selected translation/ASR routes.",
+    "Stop and release the prior PuriPuly profile before another profile or wave; use separate run/profile/session identities."
+  ],
+  "unchanged": [
+    "No product source repair, private settings rewrite, hidden API, duplicate instance or repeated failed port commit.",
+    "No model, account, key, tier, input device, metric, prompt or failure-rule change.",
+    "All original97 cohort artifacts and historical PP observations remain unchanged.",
+    "A configured/effective endpoint is not by itself proof of translated audio output or profile readiness."
+  ],
+  "pending": "Actual PP1/PP2/PP3 output admission and corresponding new catalogue/recipe/helper/runtime route bindings; no restored main measurement or final freeze is claimed."
+}

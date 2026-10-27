@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "scope": "D1/D3 first batch only",
+  "authority": "Owner instructed the execution agent to prepare applications other than PuriPuly first because the owner intends to use VRChat.",
+  "decision": "Suspend PuriPuly GUI and settings manipulation. Continue other-app preparation and non-measurement harness work. Do not stop the owner's VRChat or treat runs with VRChat present as approved primary measurements.",
+  "protocol_unchanged": ["Original concurrent W1-W4 membership", "No VRChat during primary measurement", "No PuriPuly execution-deferral reinstatement", "No silent removal of PuriPuly profiles"],
+  "last_agent_observed_puripuly": {"pid": 27376, "version": "2.9.0", "source": "zh-CN", "target": "ko", "asr": "gemini_transcribe", "translation": "index_translate_35b", "connection": "public_api", "osc_send_port": 19103, "osc_receive_port": 19203, "capture_started_by_agent_after_resume": false, "limit": "Last observed state only; subsequent owner changes are not constrained."},
+  "main_measurement_started": false,
+  "protocol_frozen": false
+}

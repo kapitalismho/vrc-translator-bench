@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "kind": "public_safe_path_redacted_capture_derivative",
+  "authority": "Original runner manifest, ledger, frozen plan and streams remain unchanged locally.",
+  "redactions": "Only local repository/user path prefixes replaced, including inside serialized JSON strings. Unchanged strings retain their original text. No raw diagnostics or account/configuration files exported.",
+  "timing_policy": "All original numeric callback/DAC/OSC timestamps, order, payload text, source provenance and outcome history retained; none reconstructed.",
+  "files": [
+    {
+      "name": "manifest.json",
+      "original_sha256": "461185925dc1656377c5f7b3208e968ceaa9efed9bb38cb39e63290c43bb9a65",
+      "export_sha256": "21f96b7be47e1c5e3666720ae066c43598d9574d87c0c03b07a8182b6c1812db",
+      "byte_identical": false,
+      "redacted_json_pointers": [
+        "/records/0/detail",
+        "/plan/calibration/record_path",
+        "/plan/output_check/audio",
+        "/plan/profiles/0/adapter/0",
+        "/plan/profiles/0/adapter/4",
+        "/plan/stages/2/audio",
+        "/plan/stages/3/audio",
+        "/plan/harness_implementation/package_path",
+        "/plan/input_plan",
+        "/session_implementations/0/implementation/package_path"
+      ]
+    },
+    {
+      "name": "attempt-0001-001.jsonl",
+      "original_sha256": "b38019c0538108f9d764c64c4e8ff0e1d0e99b00aa4d5ca8c86e7dc661a6f9b3",
+      "export_sha256": "b38019c0538108f9d764c64c4e8ff0e1d0e99b00aa4d5ca8c86e7dc661a6f9b3",
+      "byte_identical": true,
+      "redacted_json_pointers": []
+    },
+    {
+      "name": "attempt-0002-001.jsonl",
+      "original_sha256": "4d1c1e191d35331788ec0052cd740c2e9b6cea66883dc478cf142def3e7ae177",
+      "export_sha256": "4d1c1e191d35331788ec0052cd740c2e9b6cea66883dc478cf142def3e7ae177",
+      "byte_identical": true,
+      "redacted_json_pointers": []
+    },
+    {
+      "name": "attempt-0003-001.invalid.jsonl",
+      "original_sha256": "e4ce8f003870e793be4483834587d7ba9c35b2ef72280421268bfec3fc41989b",
+      "export_sha256": "0508760bf4a2578ad4d593b4a17282d9f18b4b492625efdf2b7c4cc237a7f52e",
+      "byte_identical": false,
+      "redacted_json_pointers": [
+        "/rows/1002/calibration/record_path"
+      ]
+    }
+  ]
+}

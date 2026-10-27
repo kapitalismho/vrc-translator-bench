@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "kind": "actual_gui_configuration_only",
+  "observed_date_utc": "2026-10-21",
+  "application": "VRCS",
+  "version": "0.2.8",
+  "executable_sha256": "9343aeb6902e62535337f58c844272ab18348304c32925f8053d6686d244eb0e",
+  "owned_gui_pid": 25656,
+  "selected_profile": "VRCS1",
+  "actual_gui": {"microphone": "CABLE Output(VB-Audio Virtual Cable)", "microphone_format": "48000Hz mono", "other_voices": "disabled", "asr": "Local Qwen ASR", "package": "Qwen3-ASR0.6B Q8_0 installed", "device": "CPU", "source": "English", "translation": "OpenRouter", "requested_translation_model": "google/gemma-4-26b-a4b-it", "target": "Japanese", "recognition_state_after_stop": "Model not_loaded"},
+  "read_only_saved_intent": {"microphone_device_id": 5951714404579506, "output_mode": "disabled", "asr_backend": "qwen_local_managed", "asr_language": "en", "asr_active_profile_id": null, "package_id": "qwen3-asr-0.6b-q8_0", "device": "cpu", "osc_port": 19121, "osc_mute_sync_enabled": false},
+  "unexpected_runtime_observation": "During Audio-settings inspection the toolbar showed a square Stop control. The agent immediately clicked that visible control, which changed to the microphone Start icon. A subsequent Recognition panel showed Model not_loaded. No deliberate capture-start action or benchmark playback had been issued. This does not establish the trigger, start time, zero provider usage or zero pre-stop capture.",
+  "scope_limit": "No audio-to-OSC check performed. D3 target selector opened but no Korean selection was confirmed; retained intent remains English-to-Japanese. VRCS2 selection remains pending. Actual GUI manipulation then suspended because foreground ownership could not be retained reliably.",
+  "evidence": [".data/issue8/gui/vrcs-cable-microphone-stopped.png", ".data/issue8/gui/vrcs1-local-qwen-cpu.png", ".data/issue8/gui/vrcs-d1-gemma26b-request.png"],
+  "benchmark_audio_playback": false,
+  "main_measurement": false,
+  "protocol_frozen": false,
+  "last_observed_capture": "stopped; no subsequent start issued by agent"
+}

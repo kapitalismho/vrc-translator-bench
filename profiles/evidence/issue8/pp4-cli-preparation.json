@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "observed_at_utc": "2026-10-23T04:22:41.946207+00:00",
+  "profile": "PP4",
+  "direction": "D1",
+  "authority": "puripuly-cli-control-amendment.json",
+  "status": "settings_applied_and_stopped_runtime_verified_not_main_measurement",
+  "application": {"version": "2.9.0", "exe_sha256": "2f9b9938e0b7e03731f7cfa57056a68f78d05eb099312f6c07e9b71a8440ac31", "packaged_python_archive_sha256": "b02cda0f64577d8efd442904c1ccb0fcded69be42450691c7591945a0fc03d50", "matches_retained_preflights": true},
+  "transaction": {"interface": "installed public CLI settings apply", "expected_revision": 2, "committed_revision": 3, "exit_code": 0, "status": "applied", "terminal": true, "runtime_result": "settings_commit_success_runtime_applied"},
+  "selected_settings": {"source": "en", "target": "ja", "secondary_target": "", "input_host_api": "Windows WASAPI (Compatibility Mode)", "input_device": "CABLE Output(VB-Audio Virtual Cable)", "ASR": "local_cpu_auto", "translation_model": "index_translate_35b", "translation_connection": "public_api", "chatbox_source": false, "activation_notice": false},
+  "effective_OSC": {"host": "127.0.0.1", "mode": "manual", "send_port": 19104, "receive_port": 19204, "sender_available": true, "receiver_available": true, "remote_delivery": "unacknowledged"},
+  "stopped_runtime": {"self_desired_active": false, "self_effective_active": false, "peer_desired_active": false, "peer_effective_active": false, "translation_enabled": false, "overlay_active": false},
+  "GUI_cross_check": "Actual settings screen showed automatic CPU inference and Index-Translate 35B A3B after the CLI transaction. Other selected fields were verified through settings current and runtime status, not claimed as visually inspected.",
+  "preserved": "Existing secret configuration unchanged; no account/key/tier changes, no new inference request, no capture activation, no source-check or main playback. The unrelated peer provider remains unchanged and inactive.",
+  "boundary": "Preparation only. No new translated-output pass, runtime ASR model/returned upstream identity, restart persistence or final continuation freeze claimed. Prior applicable preflight evidence retained without replay."
+}

@@ -1,0 +1,58 @@
+{
+  "protocol": "native-output-v1",
+  "profile": "VRCT2",
+  "scope": "ordinary/en-zh",
+  "condition": {
+    "ordinary_input": "peer",
+    "ordinary_directions": [
+      "en->zh",
+      "ja->ko"
+    ],
+    "t1_mode": "simultaneous",
+    "roles": {
+      "A": "peer",
+      "B": "self"
+    },
+    "t1_directions": {
+      "A": [
+        "en->zh",
+        "ja->ko"
+      ],
+      "B": [
+        "zh->en",
+        "ko->ja"
+      ]
+    },
+    "vrchat": "excluded"
+  },
+  "endpoint": {
+    "transport": "websocket",
+    "host": "127.0.0.1",
+    "port": 2231,
+    "path": "/",
+    "channels": {
+      "peer": "RECEIVED",
+      "self": "SENT"
+    }
+  },
+  "models": {
+    "asr": "Whisper base",
+    "translation": "Google Translate"
+  },
+  "kind": "input_to_native_translation",
+  "app_version": "3.6.0",
+  "instance": "Observed owned GUI process 47708; no producer instance field",
+  "translated_text": "这可能非常非常有效。",
+  "input_evidence": "evidence/r1/vrct2-en-zh-input-clock.json",
+  "raw_evidence": "evidence/r1/vrct2-en-zh-native.jsonl",
+  "clock_evidence": "evidence/r1/vrct2-en-zh-input-clock.json",
+  "ocr_disabled": true,
+  "external_text_disabled": true,
+  "ocr_evidence": "evidence/r1/vrct2-en-zh-ocr.json",
+  "observed_native_translation_events": 7,
+  "limits": [
+    "Only VRCT2 ordinary EN->ZH peer feasibility; other profiles/languages/T1 remain unverified.",
+    "R6 final quality/time admission remains pending.",
+    "No input-to-output text quality grade or native-event finality inferred."
+  ]
+}

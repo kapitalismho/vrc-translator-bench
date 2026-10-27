@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "profile": "PP2",
+  "observed_directions": [
+    "D1"
+  ],
+  "rule": {
+    "version": "issue8-pp-restored-v1-PP2-D1-first-observed-20261022",
+    "style": "unknown",
+    "text_pattern": "(?s)^(?P<translation>.+)$",
+    "supports": {
+      "revision": false,
+      "erasure": false,
+      "resend": false
+    },
+    "relationships": {},
+    "evidence": {
+      "path": "profiles/evidence/issue8/pp-restored-v1/pp2-d1-preflight.json",
+      "sha256": "c3f909f0106c3221829172539836bf869381f8bb54cf3418dd186d0f1893f380"
+    },
+    "scope": "Whole observed translation-only input string. Typing=false is not finality; no universal page/revision relationships or reused historical trace identities."
+  }
+}

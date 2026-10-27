@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "observed_after_normal_Close_at_utc": "2026-10-22T06:52:59.2939948Z",
+  "physical_cleanup_complete": true,
+  "actual_owned_root_pid": 47612,
+  "tracked_owned_pids": [
+    47612
+  ],
+  "owned_before_normal_Quit_count": 1,
+  "owned_after_normal_Quit": [],
+  "native_owned_windows_after_Close": [],
+  "normal_GUI_Close_used": true,
+  "Close_control_basis": "Visible owned top-right Close; native AX button queries Close/\ub2eb\uae30 returned no exposed semantic button. Real supported owned-window click followed by native window and passive CIM evidence.",
+  "ASR_self_peer_sources_and_loops_stopped_before_Close": true,
+  "provider_live_false_before_Close": true,
+  "translation_enabled_false_before_Close": true,
+  "owned_launcher_parent_not_closed": "Native harness Bun parent is not PuriPuly-owned; left untouched.",
+  "no_kill_internal_control_duplicate_launch_OS_or_VRChat_changes": true,
+  "computer_session_kept_open": true,
+  "native_capabilities_after_app_exit": {
+    "backend": "win32",
+    "capture": true,
+    "input": true,
+    "AX": true,
+    "permissions": "granted",
+    "spaces": false,
+    "screenLocked": false
+  },
+  "evidence": {
+    "before_Quit_owned_runtime": {
+      "path": ".data/issue8/puripuly-restored-preflights/final-cleanup-20261022T065038Z/before-normal-Quit.private.json",
+      "sha256": "1201e48be54b1787549b322369282fcdcb869f93aa9dbf08b7b9d8508caf39d3"
+    },
+    "after_Quit_process_absence": {
+      "path": ".data/issue8/puripuly-restored-preflights/final-cleanup-20261022T065038Z/after-normal-Quit.private.json",
+      "sha256": "279f7f0e1a0eb9e5c67a1c0f9fa21d98565133ec1ef27efb556a1312b4f18541"
+    },
+    "last_real_stop": {
+      "path": ".data/issue8/puripuly-restored-preflights/PP3-D3-20261022T064539Z/stop-runtime-safe-facts.json",
+      "sha256": "f2345083380f0b0dab99dd8bf263e912d35a2ad42305c7b4bd673a574a319993"
+    },
+    "last_fresh_stop_ACK": {
+      "path": ".data/issue8/puripuly-restored-preflights/PP3-D3-20261022T064539Z/stop-ack-seq2.receipt.json",
+      "sha256": "324454e159e9600928a9b7302959ba1a8e2f0ce2fc0b3d5ce53cacd82c4caa49"
+    }
+  }
+}

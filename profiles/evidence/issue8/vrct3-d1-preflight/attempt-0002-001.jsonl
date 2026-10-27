@@ -1,0 +1,2 @@
+{"record": "attempt_start", "t_ns": 6343279472500, "wall": "2026-10-21T18:46:38.603619+00:00", "run": "vrct3-d1-operational-recheck-20261021T180555Z", "config": "VRCT3", "stage": 1, "kind": "direction", "resumed": false, "clock_session": "f76f2312c36d448f94aab58c760ae075", "wave": "preflight-only", "direction": "D1", "chunk": "one-second-lifecycle-only", "attempt": 2}
+{"record": "attempt_end", "t_ns": 6343281573000, "wall": "2026-10-21T18:46:38.605804+00:00", "state": "done", "reason": null, "detail": {}}

@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "kind": "installed_build_admission_amendment_not_measurement_results",
+  "authority": ["profiles/evidence/issue8/repair-retry-amendment.json", "profiles/evidence/issue8/puripuly-cli-control-amendment.json", "profiles/evidence/issue8/d1-startup-check-amendment.json"],
+  "decision_owner": "Director implementation decision under the owner's continuation, repair/retry and PuriPuly CLI-control instructions; not an attributed user explanation of the file replacement.",
+  "observation": "The first repaired-wave prelaunch guard found all three installed PuriPuly file identities changed. Windows GUI version metadata and the packaged version constant identify2.9.1; previous source checks/preparation were bound to2.9.0. Replacement cause and authenticated release commit are not established.",
+  "new_installed_identity": {
+    "version": "2.9.1",
+    "GUI_sha256": "32e496085be14372c71dd28db24fa90096b3912e33f44468f037421ce30a019b",
+    "CLI_sha256": "83fae3185015ee8562a99df416218b8d935fe58d78bd056c1198424fdd9a5cb1",
+    "python_zip_sha256": "ff4c2e6f015cf8fddbd60d814c6c6863199e882aed3adc3f7f9ea24e6c35a011"
+  },
+  "preserved_history": {
+    "unexecuted_R_revision": "046c086712c00795ff425a9070d7e5eb2ff2857a",
+    "R_recipe_sha256": "9eec6e3e59e445f68c8f468eea86eee06adff11df77c6c1713f6fa227806d6f7",
+    "materialized_R_plans": 0,
+    "R_main_attempts": 0,
+    "new_capture_start_requests_before_rejection": 0,
+    "retained_completed_A_slots": 10,
+    "original_six_failed_or_blocked_findings_unchanged": true
+  },
+  "control_decision": "Preserve actual desktop GUI execution. Use supported product command-line run-gui for a fresh desktop host and the installed public puripuly CLI for settings/capture/status/normal stop. The puripuly app start/restart commands launch headless and are not substitutes. Native argument forwarding and fresh GUI identity must be observed, not inferred.",
+  "ownership": "Normal-close only the exact owned stopped old host with point-of-action identity checks and terminal/process-exit evidence. Preserve its clean journal; a genuinely new host may receive a new record in the same existing journal root. Do not rebind the old record or restore old installed files.",
+  "compatibility_boundary": "Installed cli/main.py exactly matches retained source SHA b1d565556b527278fe07e77425e998c2f1d10ac7beb5d86ff1d082283a6af660; retained actual CLI status uses output_version1. This supports retaining the adapter mechanism, not automatic new-host/schema/output admission or a loaded-version claim.",
+  "required_admission": "Fresh2.9.1 PP1-PP4 D1/D3 startup/lifecycle observations with actual CLI state, exact installation/host identity, safe Cable and actual source-bound OSC interpretation. Use40s D1 and10s D3; exclude these checks from primary denominators. Preserve2.9.0 evidence as history and do not copy its clocks, payload IDs or runtime claims.",
+  "unchanged": ["D1/D3 only", "ten completed A slots without replay", "16 eligible and2 VRCLS-blocked intended new slots, subject to valid admissions", "concurrent wave membership/order", "221 primary inputs", "primary methods and metrics", "selected profiles/models/accounts/routes", "removed tone/Korean review scope"],
+  "freeze_gate": "A new exact source/rule/installation snapshot and fresh runtime materialization are required before main. The old R freeze is not modified or applied to new file identities. New-build startup checks are not main remeasurement.",
+  "main_authorized_by_this_record": false
+}

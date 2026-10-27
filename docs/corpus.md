@@ -1,4 +1,6 @@
-# Corpus preparation
+# Historical corpus preparation
+
+> **Historical reference only.** The AMI/AliMeeting/YODAS2 preparation, six-direction index/check and old control-track builder have been removed from the current package. Commands and completion records below describe the [pre-reset implementation](https://github.com/kapitalismho/vrc-translator-bench/tree/fbab10a0455d91d5419d9673499d25b7ac86c566), not available current commands. Frozen `corpus/` metadata and local audio/reference bytes are preserved. The [final plan §§3–5](benchmark-final-plan.md) selects ASCEND, IngCrowd, FLEURS and the bounded JA/KO T1 reconstruction; [new preparation work](benchmark-implementation-plan.md) must not overwrite or relabel this historical index.
 
 Authority: [issue #2](https://github.com/kapitalismho/vrc-translator-bench/issues/2) and [parent #1](https://github.com/kapitalismho/vrc-translator-bench/issues/1).
 
@@ -27,6 +29,32 @@ All indexed audio was reconstructed from the original source bytes and accepted 
 The regenerated reference uses the same pinned source/model payloads and actual CPU inference. Its formerly unsupported main words use thirty raw-Qwen alignments and three pronunciation-CTC alignments, versus twenty-nine and four in v1. Replaying the documented historical fallback choice also failed to recover the original timeline hash; that diagnostic candidate was not adopted. Complete original prediction outputs are unavailable, so do not claim that the remaining differences are only metadata or that the two references are semantically identical.
 
 Keep prior results bound to their original reference hashes. New runs must record v2 and its current hashes; do not silently rescore old results against it. The original `.data` run ledgers, raw captures and canonical metric caches were not recovered. Committed public-safe pilot derivatives remain historical evidence, not resumable run directories. Local recovery reports and retained failed attempts are under `.data/english`, `.data/chinese` and `.data/japanese`.
+
+## First D1/D3 batch inputs
+
+Issue #8's [input assembly record](../profiles/evidence/issue8/input-assembly.json)
+identifies local resumable slices and the pre-result common-example selection.
+This is input preparation, not a protocol freeze, measured baseline or public
+dataset release.
+
+- D1: six 300-second slices of the unchanged 1,800-second main bundle.
+- D3: nine 200-second slices of the unchanged 1,800-second main bundle.
+- Streaming comparison of the persisted slices against each original bundle
+  confirmed byte-identical concatenated PCM and complete reference coverage.
+  All ten English and sixteen Chinese separator seconds remain. The English
+  1,500-second boundary divides a separator, not a lexical reference.
+- Original zero-width Chinese alignment estimates remain uncertain; their
+  durations are not invented to populate speech intervals.
+- Common examples are the whole pre-existing shortlisted components:
+  D1 `general-01`, `stress-01`, `stress-02`; D3 `zh-general-01`,
+  `zh-general-02`, `zh-stress-03`. Selection preceded main-result inspection;
+  source-specific attribution and redistribution terms still apply.
+
+The existing twenty isolated inputs per direction, D1 fixed five-minute repeat,
+three-minute nonspeech track, source-matched development checks and measured
+calibration remain separately identified. The [observation-order record](../profiles/evidence/issue8/observation-order.json)
+specifies their proposed execution order and observation tails; fresh application
+admission and the single pre-result freeze remain pending.
 
 ## Nonspeech/background track
 

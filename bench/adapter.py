@@ -32,6 +32,15 @@ def redact(value):
 
 
 class Adapter:
+    """JSON-line controller, not a translation collector.
+
+    Episode protocol: preflight, read_state, stop, reset_session, configure,
+    identity, start, begin_pass and liveness. reset_session requires real
+    conversation/reset evidence. liveness reports app_continuity and
+    input_continuity independently; process alive alone establishes neither.
+    Configured channel languages/models must not be reported as detected ones.
+    """
+
     def __init__(self, profile, root, session):
         self.profile = profile
         self.counter = 0
@@ -119,23 +128,49 @@ class Adapter:
                 raise OperationalError(event.get("message", "Adapter observed invalid application settings"))
 
     def close(self):
+        forced = False
         if self.process.poll() is None:
-            self.process.terminate()
             try:
-                self.process.wait(timeout=5)
-            except subprocess.TimeoutExpired:
-                self.process.kill()
-                self.process.wait()
+                # EOF permits owned controllers to stop/quit and restore shared
+                # settings. Legacy controllers retain bounded termination fallback.
+                self.process.stdin.close()
+                self.process.wait(timeout=self.timeout)
+            except (OSError, subprocess.TimeoutExpired):
+                forced = True
+                self.process.terminate()
+                try:
+                    self.process.wait(timeout=5)
+                except subprocess.TimeoutExpired:
+                    self.process.kill()
+                    self.process.wait()
         self.reader.join(timeout=2)
         self.errors.join(timeout=2)
+        kikitan = self.profile.get("collector", {}).get("family") == "kikitan"
+        cleanup_failed = forced and kikitan
+        self.cleanup_evidence = []
         while True:
             try:
-                self._record("event", self.events.get_nowait())
+                event = self.events.get_nowait()
+                self._record("event", event)
+                cleanup_failed |= event.get("event") == "operational_error"
+                if event.get("event") == "operational_error" and kikitan:
+                    self.cleanup_evidence.append({key: event.get(key) for key in ("reason", "message")})
             except queue.Empty:
                 break
+        if kikitan and self.process.returncode != 0:
+            # Exiting is not evidence that shared-settings cleanup completed.
+            # Keep the Runner's durable cleanup owner until a later successful
+            # frozen-argv reconciliation, even if capture was already OFF.
+            cleanup_failed = True
+            failure = {"reason": "controller_abnormal_exit", "returncode": self.process.returncode}
+            self.cleanup_evidence.append(failure)
+            self._record("cleanup_failure", failure)
         for pipe in (self.process.stdin, self.process.stdout, self.process.stderr):
             try:
                 pipe.close()
             except OSError:
                 pass
-        return self.log.finalize()
+        artifact = self.log.finalize()
+        if cleanup_failed:
+            raise OSError(f"Adapter cleanup failed; diagnostic {artifact[0]} sha256={artifact[1]}")
+        return artifact

@@ -1,8 +1,22 @@
 # VRCLT: VRCLT1 and VRCLT2
 
+**Current R1 contract:** use the [episode-native CLI](../cli.md), [scope catalog](../../profiles/catalog.json) and [R1 evidence boundary](../benchmark-implementation-plan.md#r1-implementation-and-actual-feasibility). VRCLT2 ordinary EN→ZH self evidence retains mixed OSC display text and a separate FINAL-log crosscheck. Qwen3.8 auto-detects source language; a configured source is not an enforced provider constraint. Dashboard `translation_on`, not `outbound.enabled`, controls translation; OFF remains raw passthrough, not microphone mute.
+
+The following six-direction preparation and extraction rules are historical, not a second schema-2 collector or new admission.
+
 Initial source preparation was recorded on **2026-10-20** for [issue #4](https://github.com/kapitalismho/vrc-translator-bench/issues/4), under the [parent protocol](https://github.com/kapitalismho/vrc-translator-bench/issues/1). The actual-GUI observations below supersede historical absence/current-setting claims in [`profiles/findings/vrclt.json`](../../profiles/findings/vrclt.json).
 
-## Actual GUI pilots
+## Current D1/D3 short preflights
+
+The [current normal-GUI record](../../profiles/evidence/issue8/vrclt-current-preflights.json) covers both installed 1.0.1 profiles in D1 and D3. Saved-route-first order was VRCLT2 Qwen/Beijing D1/D3, then VRCLT1 Gemini D1/D3. All four CLI exits were 0; each check submitted 480,000 speech frames followed by 48,000 silent lifecycle frames. Eighteen translated chatbox inputs were retained, with none during silent stages. Normal GUI Quit and independent absence of each complete owned launcher/runtime pair established cleanup. These are short checks, not main results, quality scores or returned-model attestations.
+
+Independent inspection verified all 24 native/public capture pairs and the 18 receipt bindings: eight files were byte-identical, sixteen had only documented path redactions. OSC payloads, ordering and numeric/timing fields were unchanged. No credential, private account/workspace hostname or absolute user path was found within the inspected public capture/rule records.
+
+Public capture derivatives: [VRCLT1 D1](../../profiles/evidence/issue8/vrclt1-d1-preflight/export-provenance.json), [VRCLT1 D3](../../profiles/evidence/issue8/vrclt1-d3-preflight/export-provenance.json), [VRCLT2 D1](../../profiles/evidence/issue8/vrclt2-d1-preflight/export-provenance.json), [VRCLT2 D3](../../profiles/evidence/issue8/vrclt2-d3-preflight/export-provenance.json). Native originals and private diagnostic/configuration evidence remain separate.
+
+The [VRCLT1](../../profiles/evidence/issue8/vrclt1-observed-rules.json) and [VRCLT2](../../profiles/evidence/issue8/vrclt2-observed-rules.json) rules bind these exact current receipts and source-display/streaming state. All observed messages have nonblank source, exactly one LF and nonblank translation. The strict pattern rejects CR, additional newlines, blank fields and newline-less forms as unresolved role rather than guessing a single-field source/target fallback. Historical packet-specific extraction is not reused. Context growth or eviction does not establish revision, page or final IDs.
+
+## Retained D1 development pilots
 
 - Both installed **1.0.1** executables match published SHA-256 `e92eee6aa418c7abc096d4def18e496593f81c93da534171807bef01e0272fc5`. Existing owner-authorized access was used; dedicated projects, quotas and billed costs were not established.
 - Both planned profiles used CABLE Output, en→ja intent, text-only local output, source display and sentence streaming. Raw passthrough targeted **Realtek Digital Output**, never CABLE Input. Inbound, OSC control, feedback, VR overlays and global hotkeys were off. The normal 15-second idle timeout, 1.5-second OSC cadence and four-second page setting were preserved.
@@ -19,10 +33,12 @@ The earlier [GUI preparation](../../profiles/evidence/gui-preparation.json) and 
 
 | Profile | Current finding | Observed route | OSC destination |
 | --- | --- | --- | --- |
-| VRCLT1 | **ready, bounded D1 pilot** | Google Gemini Developer Live API, `gemini-3.5-live-translate-preview` | `127.0.0.1:19131` |
-| VRCLT2 | **ready, bounded D1 output check** | Alibaba Cloud Model Studio, same Qwen model through existing Beijing workspace-specific route | Observed `127.0.0.1:19131`; distinct W3, not concurrent with VRCLT1/W1 |
+| VRCLT1 | **D1/D3 short preflights passed** | Google Gemini Developer Live API, requested `gemini-3.5-live-translate-preview` | `127.0.0.1:19131` |
+| VRCLT2 | **D1/D3 short preflights passed** | Alibaba Cloud Model Studio, requested `qwen3.8-livetranslate-flash-realtime` through existing Beijing workspace-specific route | `127.0.0.1:19131`; distinct W3, not concurrent with VRCLT1/W1 |
 
 Readiness is limited to the observed profile/direction, not all languages, provider isolation or quality. Raw hashes and sanitized derivatives are linked from the run records. Effective tier, numeric account limits, complete response identity and actual billing exports remain unverified; missing usage is null, not $0.
+
+For the current D1/D3 execution, the [batch amendment](../../profiles/evidence/issue8/non-puripuly-batch-amendment.json) removes PuriPuly while retaining VRCLT1 in W1 and VRCLT2 in W3, concurrently with their remaining competitors. The [quota amendment](../../profiles/evidence/issue8/quota-isolation-amendment.json) permits existing shared or unverified capacity; new projects or replacement keys are not required. Historical isolation guidance below does not override these decisions. Fresh source-specific output checks, safe passthrough routing and confirmed owned-runtime cleanup remain necessary.
 
 The following source-backed descriptions and isolated-launch procedure preserve the initial preparation research. They are not the control method used for the later GUI-only pilots. The owner authorized existing installed instances/access for those pilots; they do not establish fresh-user/dedicated-project privacy or quota isolation. The agent-selected serial replacement is withdrawn, and original W1/W3 placement is restored without changing historical observations.
 
@@ -43,7 +59,7 @@ Set the following `outbound.source_language` / `outbound.target_language` values
 | Chinese → Japanese | D5 | `zh-Hans` / `ja` | `ja` | `ja` |
 | Japanese → English | D6 | `ja` / `en` | `en` | `en` |
 
-All six directions are **documented as supported**; VRCLT1 and VRCLT2 D1 have successful runtime confirmation here. Gemini and Qwen 3.8 automatically detect the source language; the saved source field records intended input, not a forced language recognizer. Gemini supports the listed BCP-47 codes in [Google's Live Translate guide](https://ai.google.dev/gemini-api/docs/live-api/live-translate#supported-languages). Qwen's [translation guide](https://docs.modelstudio.console.alibabacloud.com/en/model-studio/qwen3-5-livetranslate-flash-realtime) documents Chinese, English, Japanese and Korean among 60 input/text languages; the [pinned language mapping](https://github.com/VRCLT/VRCLT/blob/d97574fd451f1e5af8d0c68bd13c488fab54eaae/vrclt/languages.py) covers all six directions.
+All six directions are **documented as supported**; VRCLT1 and VRCLT2 have bounded actual D1/D3 output-check confirmation here. D2/D4/D5/D6 remain unmeasured. Gemini and Qwen 3.8 automatically detect the source language; the saved source field records intended input, not a forced language recognizer. Gemini supports the listed BCP-47 codes in [Google's Live Translate guide](https://ai.google.dev/gemini-api/docs/live-api/live-translate#supported-languages). Qwen's [translation guide](https://docs.modelstudio.console.alibabacloud.com/en/model-studio/qwen3-5-livetranslate-flash-realtime) documents Chinese, English, Japanese and Korean among 60 input/text languages; the [pinned language mapping](https://github.com/VRCLT/VRCLT/blob/d97574fd451f1e5af8d0c68bd13c488fab54eaae/vrclt/languages.py) covers all six directions.
 
 VRCLT1's [Gemini session](https://github.com/VRCLT/VRCLT/blob/d97574fd451f1e5af8d0c68bd13c488fab54eaae/vrclt/gemini/session.py) explicitly requests `input_audio_transcription`, `output_audio_transcription` and `response_modalities: [AUDIO]`. Source transcription is therefore part of the selected route, not an inferred transcript from OSC. Disabling local voice playback does **not** change Gemini to a text-generation route or eliminate remotely generated audio. Its Cantonese agent-model fallback is outside these six directions; do not substitute that model.
 
@@ -158,6 +174,8 @@ When leaving a profile or cleaning up, choose **Quit** from the owned app and co
 
 ## Observed OSC and source-derived interpretation
 
+The paragraph immediately below describes the retained historical development capture, not the current four short checks. Current observed-format bindings above deliberately do not generalize its single-field packets into universal extraction rules.
+
 The actual VRCLT1 pilot received **70 OSC packets**, including **26 chatbox inputs**: three during the output check and 23 during the main stage. Observations include rolling bilingual snapshots, source-only sequence 43 and Japanese-only sequence 58. The first main-stage chatbox update retains output-check context alongside new speech. These are actual receipt observations, not explicit utterance/final IDs or proof that all context belongs to the measured source. Preserve raw order and uncertain relationships; do not concatenate every bubble or take the last packet as the final translation. See the [run evidence](../../profiles/evidence/issue45/vrclt1-d1-observation.json) and [derived-evidence index](../../profiles/evidence/issue45/metrics/actual-pilot-metric-index.json).
 
 The following finer mechanisms remain source-backed explanations unless a particular per-run observation establishes them:
@@ -174,7 +192,7 @@ Actual rolling output does not resolve every new-utterance, revision, page or re
 
 ## Remaining limits
 
-1. The Chelsie rejection was bypassed by the supported existing-workspace route, without changing voice fields or product code. Only the ten-second Qwen check on UDP19131 was run. That observed port is retained across distinct original waves W1 (VRCLT1) and W3 (VRCLT2), superseding19132 without relying on the withdrawn single-profile layout. An additional forty-second stage is not a profile-preparation criterion. No broader comparison or additional app work is authorized by restoring the plan.
-2. Existing access worked for VRCLT1, but dedicated free-tier project identity, separate KIKI2 quota, numeric limits and actual billing/usage exports remain unverified.
-3. VRCLT1 readiness is D1-only; no exhaustive direction matrix, provider reconnect attribution or process-restart persistence claim is made.
+1. The historical Chelsie rejection was bypassed by the supported existing-workspace route, without changing voice fields or product code. The initial repaired Qwen observation was a ten-second check; current D1/D3 checks are separate records. Observed UDP19131 is retained across distinct W1 (VRCLT1) and W3 (VRCLT2), superseding19132 without relying on the withdrawn single-profile layout.
+2. Existing access produced current outputs. KIKI2 and VRCLT1 share the observed Google-A alias under the owner-approved quota amendment; numeric limits and actual billing/usage exports remain unverified.
+3. Both profiles have bounded D1/D3 preflight evidence, not an exhaustive six-direction matrix, provider reconnect attribution or a main comparison.
 4. Actual all-in-one rolling output is available. Pagination, resends and final-dependent correspondence remain uncertain where the packets lack identity fields.

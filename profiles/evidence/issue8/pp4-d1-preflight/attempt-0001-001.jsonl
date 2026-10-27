@@ -1,0 +1,2 @@
+{"record": "attempt_start", "t_ns": 410557816551100, "wall": "2026-10-21T10:16:49.899332+00:00", "run": "pp4-d1-preflight-20261021", "config": "PP4", "stage": 0, "kind": "setup", "resumed": false, "clock_session": "2946a3277fc24f5e856dd502bb07ab09", "wave": "gui-pilot-sequential", "direction": "D1", "chunk": "capture-resume-observation", "attempt": 1}
+{"record": "attempt_end", "t_ns": 410557893788100, "wall": "2026-10-21T10:16:49.976457+00:00", "state": "done", "reason": null, "detail": {}}

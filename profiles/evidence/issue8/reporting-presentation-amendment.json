@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "authority": "Owner: 뭐 브이알채 실행중에 했다고 한계점 따로 노트하고 그런거 절대 하지 말고",
+  "scope": "Current PuriPuly-excluded D1/D3 execution and resulting presentation",
+  "decision": "Do not add a standalone VRChat limitation note, prominent warning, speculative interference claim or scoring penalty merely because the owner uses VRChat during this execution.",
+  "record_integrity": "Preserve actual run records and measured values. Do not fabricate a no-VRChat state, an observed interference effect or evidence that an effect is negligible. Actual execution provenance remains factual rather than a separate limitations narrative.",
+  "unchanged": ["Owner-authorized measurement during VRChat use", "PuriPuly exclusion", "Ten-profile concurrent wave amendment", "D1/D3 scope", "No alteration of automatic scores based on background activity", "Existing failure, unknown-value and supplementary coverage accounting"],
+  "supersedes": "Earlier intended standalone VRChat/user-activity limitation callouts for this execution. Does not erase prior records or change measured observations.",
+  "protocol_frozen": false,
+  "main_measurement_started": false
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "authority": ["Owner: 일단 대기하고 내가 재개라고 말하면 다음 측정할 것들 생각해놔. 재측정 아니고 이어서 하는거 명심하고", "Owner subsequent instruction: 재개"],
+  "decision": "Resume only still-unmeasured D1/D3 work. Do not repeat completed W1/W2 competitor captures. Supersede the unexecuted full-W1/W2 remeasurement schedule in protocol1de4989894295f62a09fd90a0a5950606cc563bf; preserve that protocol and all original records as history.",
+  "continuation_cohort": "C-continuation-v1",
+  "directions": ["D1", "D3"],
+  "within_wave_direction_order": ["D1", "D3"],
+  "execution_order": ["W1-D1", "W1-D3", "W2-D1", "W2-D3", "W3-D1", "W3-D3", "PP3ALONE-D1", "W4-D1", "W4-D3"],
+  "remaining_wave_members": {"W1": ["PP4"], "W2": ["PP1"], "W3": ["VRCT2", "VRCLT2", "PP2"], "W4": ["PP3"]},
+  "remaining_wave_profile_direction_slots": 12,
+  "retained_completed_A_slots": {"KIKI2": ["D1", "D3"], "VRCLT1": ["D1", "D3"], "VRCT3": ["D3"], "VRCS2": ["D1", "D3"], "KIKI1": ["D1", "D3"], "VRCT1": ["D3"]},
+  "retained_unavailable_findings": {"VRCT3/D1": "Actual prior no-output preflight; not retried", "VRCT1/D1": "Actual prior no-output preflight; not retried", "VRCS1/D1": "Actual prior startup blocker", "VRCS1/D3": "Actual prior startup/security blocker", "VRCLS1/D1": "Actual prior operational-invalid effective input", "VRCLS1/D3": "Blocked before launch; safe routing prerequisite unresolved"},
+  "cumulative_accounting": "Fourteen profiles/twenty-eight direction slots:10 retained completed A slots,6 retained unavailable findings,12 remaining first-measurement slots. Prior execution completion does not imply translation success. Do not classify already-measured peers as unavailable or omit their original failures.",
+  "concurrency": "Run all remaining W3 members concurrently. W1/W2 now capture only their missing PP member; do not replay previously measured peers or claim the new PP captures were simultaneous with them. W4 has only PP3 available. Preserve actual run/time/source identities in combined views.",
+  "PP3_standalone": "One original fixed300-second D1 observation afterW3-D3 beforeW4-D1, separate from primary and nonspeech denominators. If W4 is also PP3-only, do not invent a concurrency-load contrast.",
+  "preserved_measurement_contract": "Unchanged sources, metrics, prompts, observed output rules, source-specific built-in checks, main/isolated/quiet15s/full180s nonspeech and prescribed two additional fixed300s D1 repeats for newly measured slots. Never replay completed or product-failed original chunks into replacement primaries.",
+  "preserved_exclusions": ["No tone30/Korean100/owner-review work", "No VRChat manipulation, presence gate or separate activity limitation narrative", "No security-policy/quarantine changes or VRCLS relaunch", "No new accounts/keys/tiers/payments/model substitutions", "No public-CLI shutdown exception granted by general resume"],
+  "resume_boundary": "Reobserve current installed app/version/device/GUI ownership. Reuse applicable eight-slot PP preflight evidence rather than rerunning it gratuitously. Resolve genuine GUI access through supported normal controls. Freeze the continuation schedule before its first main result; the superseded full-W1/W2 recipe cannot authorize continuation unchanged.",
+  "aggregation": "Retain A and C provenance and disjoint report/quality input roots; never pool duplicate configuration/direction/reference populations. Build an explicit registry of original and new actual run/manifest/report hashes. Automatic scoring/cost work follows all remaining timed work.",
+  "main_started_under_this_amendment": false,
+  "publication_or_issue_closure_authorized": false
+}

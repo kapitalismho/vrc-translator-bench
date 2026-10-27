@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "kind": "actual_runtime_repair_and_short_source_checks_not_main_results",
+  "authority": "profiles/evidence/issue8/vrcs-runtime-launch-amendment.json",
+  "application": {"version": "0.2.8", "sha256": "9343aeb6902e62535337f58c844272ab18348304c32925f8053d6686d244eb0e", "modified": false},
+  "repair": {
+    "distribution": "ggml-org/llama.cpp b11501 complete official Windows CPU distribution",
+    "archive_asset_id": 621845528,
+    "archive_sha256": "c4b823df0e10e62f51ae20e427086973cea2a953eaf71586dcb02d27a283caae",
+    "staged_path": ".data/issue8/repair-retry/VRCS/official-b11501-cpu-staged",
+    "integrity": "All51 extracted members matched the official ZIP; original Qwen model/projector hashes matched their pinned manifest.",
+    "launch": "Owner-authorized unchanged desktop process with process-only VRCS_LLAMA_SERVER override to the complete staged CPU distribution; no shell/global environment mutation.",
+    "observed_runtime": "Actual desktop-spawned inference children used the staged executable and original Qwen3-ASR0.6B Q8_0 model/projector with --device none --gpu-layers0 --no-mmproj-offload --no-op-offload.",
+    "future_requirement": "Fresh launches require this approved scoped override plus actual native settings/routing admission. Ordinary launch without the override is not repaired-path admission.",
+    "security": "Normal Defender scans of the exact ZIP and extracted runtime had paired start/completion events with enabled protection. No matching task-runtime threat events were reported in the bounded post-execution check. This is not proof that previous detections were false positives or that all risk is absent.",
+    "not_performed": ["individual DLL replacement", "quarantine restore", "security exception", "antivirus disable", "source or binary patch", "model/account/key substitution"]
+  },
+  "checks": {
+    "D1": {"language_pair": "English to Japanese", "speech_seconds": 10, "speech_frames": 480000, "speech_callbacks": 1000, "terminal_counts": {"done": 4, "invalid": 0, "product_failure": 0}, "source_only_chatbox_inputs": 1, "bilingual_chatbox_inputs": 2, "silent_seconds": 1, "silent_chatbox_inputs": 0},
+    "D3": {"language_pair": "Chinese to Korean", "speech_seconds": 10, "speech_frames": 480000, "speech_callbacks": 1000, "terminal_counts": {"done": 4, "invalid": 0, "product_failure": 0}, "source_only_chatbox_inputs": 0, "bilingual_chatbox_inputs": 2, "silent_seconds": 1, "silent_chatbox_inputs": 0}
+  },
+  "destination": "127.0.0.1:19121",
+  "selected_translation": "Existing OpenRouter profile12; requested google/gemma-4-26b-a4b-it",
+  "D1_probe_transition": "The ten-second D1 run was already launched when common40s steering arrived; it finished without interruption or repetition. This actual10s repair diagnostic is not relabeled as40s. All future D1 startup checks use the amended40s probe.",
+  "cleanup": "Both real pending stop requests acknowledged after native GUI Stop; both bridges retired; normal desktop close returned exit0; owned desktop/runtime/WebView processes and direct children were absent. GUI/Cable resources released.",
+  "preserved": "Original startup/security failures and completed VRCS2 slots are unchanged; original broken managed runtime is untouched.",
+  "boundaries": ["No new main measurement or VRCS2 remeasurement", "No quality, cost or returned-model/upstream attestation", "No numeric runner exit invented where a separate receipt was absent", "Retired GUI/bridge/runtime identities cannot bind future runs"]
+}

@@ -1,4 +1,16 @@
-# Blinded translation-quality scoring
+# Judge foundations and historical quality scoring
+
+## Current retained foundation
+
+The reset retains `quality_store.QualityStore` (durable calls, raw responses, model-bound cache and unresolved recovery), `quality_transport`, `quality_process`, `quality_judge`, and the packaged `quality_bridge.mjs`. The selected route remains **GPT 6 Astra / Sign in with ChatGPT**, with no paid/model fallback. Windows process containment and payload/actual-model evidence are independent of the retired rubric.
+
+There is currently **no `bench quality` command, prompt/rubric, scheduler or quality report generator**. The single-call ESA, tone/Korean sampling and MetricX runtime were removed. The two independent GEMBA-ESA stages, quote validation, episode/role input binding, new cache identities and semantic checkpoints remain [implementation work](benchmark-implementation-plan.md) under [the final plan §§7–9](benchmark-final-plan.md). Do not open or mutate a historical queue as a migration operation.
+
+The low-level store and transport do not acquire measurement exclusion or validate a new judgment by themselves. A future orchestration caller must acquire `activity.exclusive_activity()`, establish that timed measurements have ended, validate stage/model/input/prompt identity and preserve unknown/failed calls. Stored old prompt hashes must never be reused for a new methodology.
+
+## Historical scoring reference
+
+Everything below records the [pre-reset implementation](https://github.com/kapitalismho/vrc-translator-bench/tree/fbab10a0455d91d5419d9673499d25b7ac86c566). Its commands/extras are no longer available in this checkout, and its successful observations do not validate the new methodology. The selected transport configuration and safety principles remain useful; references to a scorer acquiring locks or validating results describe the removed orchestration, not automatic guarantees of the retained low-level modules.
 
 This is the automatic quality layer for [issue #6](https://github.com/kapitalismho/vrc-translator-bench/issues/6). It consumes the [issue #5 report contract](metrics.md), not application ASR as reference text. Scoring infrastructure and synthetic checks do not establish a completed application comparison. The planned judge is **GPT 6 Astra through Sign in with ChatGPT**; no API-paid fallback is provided.
 
@@ -6,7 +18,7 @@ This is the automatic quality layer for [issue #6](https://github.com/kapitalism
 
 Freeze these choices with the comparison revision in #8. They are implementation defaults, not independently validated measures of translation accuracy.
 
-- ESA receives the source reference, target language, two earlier unscored reference turns, and interpreted final output in display order. That output already includes temporally assigned unaligned output. Preserve #5 exclusions, reconstruction uncertainty, partial references, and automatic Japanese-reference limitations.
+- ESA receives the source reference, target language, two earlier unscored reference turns, and interpreted final output in display order. That output includes temporally assigned role-confirmed translation with unknown correspondence, not unresolved-role mixed text. Preserve #5 exclusions, reconstruction uncertainty, partial references, and automatic Japanese-reference limitations.
 - Application, engine, creator, price, latency, capture IDs, and report metadata are not sent to the judge. Speaker identities are pseudonymized consistently within a call. Reference/output content is untrusted data, not instructions. Blinding metadata does not promise that linguistic content can never reveal its origin.
 - Each judgment starts an independent conversation. Configurations are shuffled within shared-source groups with a recorded seed; earlier judgments are never conversation context. Queue resume does not resume a judge conversation.
 - ESA requests minor/major error spans and a 0–100 score. In `contextual-esa-tone-v2`, the judge supplies exact quoted `text` and a mandatory positive, 1-based `occurrence` within the selected source/output, counting overlapping matches. Python derives half-open Unicode-codepoint `start`/`end` offsets for the normalized result; the judge no longer counts characters. Raw responses remain unchanged. Nonexact quotes, invalid occurrences and model-supplied offset fields are rejected rather than repaired. Omissions quote missing source content; an entirely empty output may instead use an empty output omission with occurrence 1, normalized to `[0,0)`. Conversation context and roughly 30-second segments modify standard GEMBA-ESA practice.
@@ -26,6 +38,26 @@ python -m bench.cli quality report --root .data/quality/pilot --output .data/qua
 ```
 
 Repeat `--report` to assemble configurations from multiple reports. Preparation freezes the inputs, seed, sample membership, and prompts; use a new root for changed inputs or prompt versions. `--seed` defaults to `20261020`. The input reports remain unchanged.
+
+An extraction-role exclusion retains the record with `input: null`, `input_unavailable_reason: "unresolved_output_role"` and the affected segment's `unresolved_output_ids`. No ESA, tone or MetricX job is created for it; coverage and raw identities remain visible. Null input is not an empty output string and must not be scored as an omission. Reports and MetricX lookup retain this unavailable state; externally supplied scores cannot override input eligibility.
+
+Explicit legacy `pattern_mismatch_unknown_translation` artifacts are rejected before new scoring/composition, including frozen-plan loading. Rederive corrected metrics from retained raw observations and prepare a new queue. Do not edit historical reports or frozen queues; this safety boundary does not change valid historical matched inputs or judge prompts.
+
+### Explicit core-only execution scope
+
+Default preparation still includes supplementary tone sampling/jobs and Korean reference-review reporting. For the owner-amended current D1/D3 execution, prepare a **new** queue with both opt-outs:
+
+```powershell
+python -m bench.cli quality prepare --report .data/reports/pilot.json --root .data/quality/core-only --skip-tone --skip-korean-review
+python -m bench.cli quality report --root .data/quality/core-only --output .data/quality/core-only/report.json
+```
+
+`--skip-tone` prevents tone sample selection and tone judge jobs; reports omit tone scores, summaries and sample/shortfall sections. `--skip-korean-review` prevents Korean packet selection and generation; reports omit `korean_review` rather than fabricate an empty packet or a coverage shortfall. Either flag may be used independently. ESA inputs/jobs, sanity checks, the fixed changed-judge calibration sample, MetricX eligibility and cost/metrics accounting are unchanged. Preparation and reporting do not perform inference.
+
+The booleans are frozen as `evaluation_scope.tone` and `evaluation_scope.korean_review` in the bound quality plan. Reusing a root with different requested scope is rejected, including omitting flags for a previously core-only root; repeat its original flags or use a new root. Plans without `evaluation_scope` retain the historical full behavior and are not rewritten. A review-disabled plan rejects report `--review-output` or `--human-notes` before writing report/packet files. These opt-outs do not change judge prompts, model selection or service/payment routes.
+
+The [current D1/D3 scope amendment](../profiles/evidence/issue8/supplementary-scope-amendment.json) removes tone-30, Korean-100 and owner-review obligations from that execution. Reusable supplementary features and historical observations below remain available; their historical shortfalls are not current execution requirements.
+
 
 New preparation generates v2 prompts. Use a **new root** to adopt this repair; `prepare` rejects an existing v1 root rather than rewriting its frozen protocol. Existing v1 queues remain readable and reportable, and `score` resumes their original prompts with the strict v1 offset decoder. Their failed responses are not reinterpreted as successes. Plan binding, per-job prompt version/hash and cache identity keep the two protocols separate.
 
@@ -137,7 +169,7 @@ Fresh verification used the current checkout:
 
 Current raw responses, frozen plan, reports, commands and row-preserving reuse proofs are under `.data/issue6-current-smoke/`; start with `execution-report.json`, `quality.sqlite`, `quality-report.json` and `korean-review.json`. Runtime setup and exact payload checks are under `.data/issue6-runtime/setup-evidence.json`; controlled CLI observations are under `.data/issue6-control-smoke/evidence.json`. A local evidence-wrapper filename collision required report regeneration, not repeated scoring; its diagnosis is retained separately.
 
-**Remaining evaluation obligations:** no eligible D3/D4 application-output population is present in these inputs. The populated 100-case Korean review packet therefore remains unavailable; packet-generation capability is not packet completion. Tone 30 per configuration, the full comparison and any required changed-judge calibration remain later evaluation work, not results of this smoke. Actual owner review is separate and unperformed. The owner has removed the PuriPuly execution deferral after reporting an update; this supplies no new evaluation outputs or scores. Publication and issue closure require separate owner authority; merging infrastructure does not waive these remaining evaluation obligations.
+**Coverage limits of that historical smoke:** no eligible D3/D4 application-output population was present. The populated 100-case Korean packet and tone 30 per configuration were not completed, and actual owner review was unperformed. These historical shortfalls are not pending obligations of the owner-amended current D1/D3 execution, which explicitly opts out of those supplementary features. The full comparison and any applicable changed-judge calibration are not established by the smoke. Publication and issue closure require separate owner authority.
 
 ## Historical bounded real-input verification
 

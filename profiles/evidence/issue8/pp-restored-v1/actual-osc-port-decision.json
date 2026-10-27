@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-10-22T06:06:02.306474+00:00",
+  "authority": "Director explicitly authorized actual observed send19104 across nonconcurrent PP4 W1 / PP1 W2 / PP2 W3 / PP3 W4; preserve each observed receive route and wave-local uniqueness, no old97 artifact edits or main before new freeze.",
+  "actual_normal_GUI_configuration_finding": {
+    "intended_PP1_send": 19101,
+    "GUI_edit_readback": 19101,
+    "actual_configured_and_effective_send": 19104,
+    "actual_receive": 19201,
+    "intended19101_did_not_work": true,
+    "initial_normal_Tab_commit_then_one_bounded_single_field_Enter_commit_both_preserved_actual19104": true,
+    "root_cause_runtime_attestation": false
+  },
+  "exact_diagnostic_directory": ".data/issue8/puripuly-restored-preflights/PP1-D1-routing-20261022T055306Z",
+  "diagnostics": [
+    {
+      "path": ".data/issue8/puripuly-restored-preflights/PP1-D1-routing-20261022T055306Z/safe-routing-diagnostic.json",
+      "sha256": "8753db224d8a3c2eb12bbe41273691934c7662f6ebec066719b76a18a3371018"
+    },
+    {
+      "path": ".data/issue8/puripuly-restored-preflights/PP1-D1-routing-20261022T055306Z/after-single-field-enter-safe-facts.json",
+      "sha256": "f8313dba780ebc127b40aed4205330d1ec079584837aeb7e977e510dbacd3667"
+    }
+  ],
+  "source_only_finding": {
+    "source_archive_sha256": "b02cda0f64577d8efd442904c1ccb0fcded69be42450691c7591945a0fc03d50",
+    "GUI_callback": {
+      "member": "puripuly_heart/ui/views/settings.py",
+      "lines": "6522-6548",
+      "behavior": "Emits OscConnectionSettingsIntent with mode/send_port/receive_port"
+    },
+    "reducer": {
+      "member": "puripuly_heart/app/services/settings/settings_application.py",
+      "lines": "537-546",
+      "behavior": "dataclasses.replace changes send_port and receive_port, retaining legacy port"
+    },
+    "schema": {
+      "member": "puripuly_heart/config/settings_vnext/schema.py",
+      "lines": "693-723",
+      "behavior": "When carried legacy port is nondefault and differs from send_port, __post_init__ selects legacy port then sets both fields to it"
+    },
+    "interpretation": "Source-only path is consistent with observed display/effective mismatch; no product fix or live reducer experiment performed"
+  },
+  "execution_authority": {
+    "one_PP_instance_profile_at_a_time": true,
+    "PP1_preflight_collector_actual_send_port": 19104,
+    "PP1_actual_receive_port": 19201,
+    "PP2_PP3_ports_must_be_observed_individually": true,
+    "source_specific_checks_required": true,
+    "no_serialization_of_wave_peers": true,
+    "no_model_input_privacy_change": true,
+    "no_config_or_internal_API_or_source_write": true,
+    "all_existing_PP4_outputs_unchanged": true,
+    "new_B_main_still_held_until_integration_and_freeze": true
+  },
+  "raw_logs_screenshots_personal_settings_exported": false
+}

@@ -1,41 +1,31 @@
+import copy
 import json
 import socket
-from contextlib import ExitStack
+from pathlib import Path
 
 import pytest
 
 from bench.profiles import inspect_catalog
 
 
+CATALOG = Path(__file__).resolve().parents[1] / "profiles" / "catalog.json"
+EXPECTED_WAVES = {
+    "W1": ["PP4", "KIKI2", "VRCLT1", "VRCT3"],
+    "W2": ["VRCT1", "PP1", "VRCS2", "KIKI1"],
+    "W3": ["VRCT2", "VRCLT2", "PP2"],
+    "W4": ["VRCS1", "PP3", "VRCLS1"],
+}
+SCOPES = ["ordinary/en-zh", "ordinary/ja-ko", "t1/en-zh/A", "t1/en-zh/B", "t1/ja-ko/A", "t1/ja-ko/B"]
+
+
 @pytest.fixture
 def catalog(tmp_path):
-    identities = ("PP1", "PP2", "PP3", "PP4", "VRCT1", "VRCT2", "VRCT3", "VRCS1", "VRCS2", "VRCLS1", "KIKI1", "KIKI2", "VRCLT1", "VRCLT2")
-    (tmp_path / "procedure.txt").write_text("Synthetic test procedure; not application preparation.", encoding="utf-8")
-    (tmp_path / "evidence.json").write_text(json.dumps({"synthetic": True}), encoding="utf-8")
-    with ExitStack() as stack:
-        sockets = [stack.enter_context(socket.socket(socket.AF_INET, socket.SOCK_DGRAM)) for _ in range(2 * len(identities))]
-        for sock in sockets:
-            sock.bind(("127.0.0.1", 0))
-        ports = [sock.getsockname()[1] for sock in sockets]
-    value = {
-        "schema_version": 1,
-        "profiles": [{
-            "id": identity, "application": f"synthetic-{identity}",
-            "finding": "blocked", "reason": "Synthetic contract fixture; no real application observed.",
-            "planned": {}, "observed": {},
-            "directions": {direction: "source_supported" for direction in ("D1", "D2", "D3", "D4", "D5", "D6")},
-            "control": {}, "microphone": {"verified": False},
-            "osc": {"host": "127.0.0.1", "send_port": port, "receive_port": control_port},
-            "tts": {"verified_off_injection": False}, "updates": {},
-            "access": {"exclusive_quota_scope": None},
-            "cpu_local": "asr" if identity == "PP4" else None,
-            "procedure": "procedure.txt", "evidence": ["evidence.json"], "osc_example": None,
-        } for identity, port, control_port in zip(identities, ports[:len(identities)], ports[len(identities):])],
-        "waves": [{"id": "paired", "profiles": ["PP4", "VRCT1"]}] + [
-            {"id": identity, "profiles": [identity]} for identity in identities if identity not in ("PP4", "VRCT1")
-        ],
-        "limitations": ["Synthetic validation only; no application readiness evidence."],
-    }
+    value = json.loads(CATALOG.read_text(encoding="utf-8"))
+    for profile in value["profiles"]:
+        profile["procedure"] = str((CATALOG.parent / profile["procedure"]).resolve())
+        profile["evidence"] = [str((CATALOG.parent / name).resolve()) for name in profile["evidence"]]
+        # Mutation cases start unverified; maintained real evidence is checked below.
+        profile["native_protocol"]["early_feasibility"] = {"confirmed": [], "blockers": [], "unverified": list(SCOPES)}
     destination = tmp_path / "catalog.json"
 
     def save():
@@ -45,92 +35,277 @@ def catalog(tmp_path):
     return value, save
 
 
-def test_source_support_cannot_promote_profile_without_observed_run(catalog):
+def profile(value, identity):
+    return next(row for row in value["profiles"] if row["id"] == identity)
+
+
+def confirm(tmp_path, row, scope="ordinary/en-zh"):
+    """Synthetic validator input only; never written into the maintained catalog."""
+    native = row["native_protocol"]
+    evidence = {
+        "protocol": "native-output-v1", "profile": row["id"], "scope": scope,
+        "kind": "input_to_native_translation", "condition": copy.deepcopy(native["condition"]),
+        "endpoint": copy.deepcopy(native["endpoint"]),
+        "models": {key: row["planned"][key] for key in ("asr", "translation")},
+        "app_version": "synthetic-test-build", "instance": "synthetic-test-instance",
+        "translated_text": "Synthetic translation, not an observed app result.",
+    }
+    if "peer_asr" in native:
+        evidence["peer_asr"] = native["peer_asr"]
+    for key in ("input_evidence", "raw_evidence", "clock_evidence"):
+        name = f"{row['id']}-{key}.json"
+        (tmp_path / name).write_text('{"synthetic": true}', encoding="utf-8")
+        evidence[key] = name
+    name = f"{row['id']}-confirmation.json"
+    native["early_feasibility"]["confirmed"].append({"scope": scope, "evidence": name})
+    native["early_feasibility"]["unverified"].remove(scope)
+
+    def save_evidence():
+        (tmp_path / name).write_text(json.dumps(evidence), encoding="utf-8")
+
+    save_evidence()
+    return evidence, save_evidence
+
+
+def test_maintained_catalog_preserves_inventory_waves_and_condition_contract():
+    result = inspect_catalog(CATALOG)
+    assert {wave["id"]: wave["profiles"] for wave in result["waves"]} == EXPECTED_WAVES
+    assert {row["id"] for row in result["findings"]} == {identity for members in EXPECTED_WAVES.values() for identity in members}
+    for row in result["findings"]:
+        assert row["final_admission"] == {"owner": "R6", "quality": "pending_r6", "time": "pending_r6"}
+        condition = row["condition"]
+        split = row["id"] in ("VRCLT1", "VRCLT2", "KIKI1", "KIKI2")
+        assert condition["ordinary_input"] == ("self" if split else "peer")
+        assert condition["t1_mode"] == ("split_self" if split else "simultaneous")
+        assert condition["roles"] == {"A": "self" if split else "peer", "B": "self"}
+        assert condition["t1_directions"] == {"A": ["en->zh", "ja->ko"], "B": ["zh->en", "ko->ja"]}
+
+
+def test_old_ready_and_direction_fields_are_history_not_an_alternate_evaluator(catalog):
     value, save = catalog
-    profile = value["profiles"][0]
-    profile["finding"] = "ready"
-    with pytest.raises(ValueError, match="observed route/state"):
-        inspect_catalog(save())
+    row = profile(value, "PP1")
+    row.update(finding="ready", directions={}, observed={}, osc_example=None)
+    assert inspect_catalog(save())["new_protocol_status"] == "unverified"
 
 
-def test_manual_osc_is_not_audio_readiness(catalog, tmp_path):
+@pytest.mark.parametrize("change", ("missing", "duplicate", "foreign"))
+def test_inventory_cannot_shrink_or_duplicate(catalog, change):
     value, save = catalog
-    profile = value["profiles"][0]
-    evidence = tmp_path / "observed.json"
-    evidence.write_text("{}", encoding="utf-8")
-    profile.update(finding="ready", observed={"version": "observed", "asr": "observed", "translation": "observed", "provider_route": "observed", "state_evidence": str(evidence)})
-    profile["microphone"]["verified"] = True
-    profile["tts"]["verified_off_injection"] = True
-    profile["osc_example"] = {"kind": "manual_text_control_probe", "no_vrchat": True, "path": str(evidence)}
-    with pytest.raises(ValueError, match="audio-to-OSC"):
-        inspect_catalog(save())
-    profile["osc_example"]["kind"] = "audio_to_osc"
-    profile["directions"]["D1"] = "verified"
-    assert inspect_catalog(save())["ready_profiles"] == [profile["id"]]
-    profile["observed"]["state_evidence"] = "missing-state.json"
-    with pytest.raises(ValueError, match="missing readiness evidence"):
-        inspect_catalog(save())
-    profile["observed"]["state_evidence"] = str(evidence)
-    profile["osc_example"]["path"] = "missing-audio.json"
-    with pytest.raises(ValueError, match="missing readiness evidence"):
+    if change == "missing":
+        value["profiles"].pop()
+    elif change == "duplicate":
+        value["profiles"].append(copy.deepcopy(value["profiles"][0]))
+    else:
+        value["profiles"][0]["id"] = "PP5"
+    with pytest.raises(ValueError, match="profile"):
         inspect_catalog(save())
 
 
-def test_cpu_local_profiles_cannot_share_wave(catalog):
+@pytest.mark.parametrize("identity,field,replacement", [
+    ("PP4", "asr", "Gemini 3.5 Transcribe"),
+    ("PP2", "translation", "GPT 6 Luna / paid API"),
+    ("VRCLT2", "translation", "Gemini Live Translate 3.5"),
+    ("KIKI1", "asr", "Whisper base"),
+])
+def test_model_comparison_cannot_be_silently_substituted(catalog, identity, field, replacement):
     value, save = catalog
-    by_id = {profile["id"]: profile for profile in value["profiles"]}
-    by_id["PP4"]["cpu_local"] = "asr"
-    by_id["VRCT1"]["cpu_local"] = None
-    assert inspect_catalog(save())["waves"][0]["profiles"] == ["PP4", "VRCT1"]
-    by_id["VRCT1"]["cpu_local"] = "translation"
-    with pytest.raises(ValueError, match="CPU-local"):
+    profile(value, identity)["planned"][field] = replacement
+    with pytest.raises(ValueError, match="model comparison"):
         inspect_catalog(save())
-    value["waves"][0]["profiles"] = ["PP4"]
-    value["waves"].append({"id": "separate-local", "profiles": ["VRCT1"]})
-    assert inspect_catalog(save())["status"] == "blocked"
 
 
-def test_capture_and_control_ports_cannot_overlap_in_wave(catalog):
+def test_profile_family_and_separate_peer_asr_are_enforced(catalog):
     value, save = catalog
-    by_id = {profile["id"]: profile for profile in value["profiles"]}
-    first, second = "PP4", "VRCT1"
-    assert inspect_catalog(save())["waves"][0]["profiles"] == [first, second]
-    by_id[second]["osc"]["receive_port"] = by_id[first]["osc"]["send_port"]
-    with pytest.raises(ValueError, match="conflicting OSC ports"):
+    row = profile(value, "PP4")
+    row["application"] = "VRCS"
+    with pytest.raises(ValueError, match="family"):
         inspect_catalog(save())
-    value["waves"][0]["profiles"] = [first]
-    value["waves"].append({"id": "separate-ports", "profiles": [second]})
-    assert inspect_catalog(save())["status"] == "blocked"
+    row["application"] = "PuriPuly"
+    row["native_protocol"]["peer_asr"] = "gemini_transcribe"
+    with pytest.raises(ValueError, match="peer ASR"):
+        inspect_catalog(save())
 
 
-def test_shared_ip_limited_service_requires_separate_wave(catalog):
+@pytest.mark.parametrize("identity,key,replacement", [
+    ("KIKI1", "ordinary_input", "peer"), ("VRCLT2", "t1_mode", "simultaneous"),
+    ("VRCS1", "t1_mode", "split_self"), ("VRCT1", "roles", {"A": "self", "B": "peer"}),
+    ("KIKI2", "ordinary_directions", ["zh->en", "ko->ja"]),
+    ("PP1", "vrchat", "required"),
+])
+def test_condition_role_and_language_cannot_drift(catalog, identity, key, replacement):
     value, save = catalog
-    by_id = {profile["id"]: profile for profile in value["profiles"]}
-    first, second = "PP4", "VRCT1"
-    by_id[first]["access"]["exclusive_quota_scope"] = "service-a"
-    by_id[second]["access"]["exclusive_quota_scope"] = "service-b"
-    assert inspect_catalog(save())["waves"][0]["profiles"] == [first, second]
-    for identity in (first, second):
-        by_id[identity]["access"]["exclusive_quota_scope"] = "same-public-ip-service"
+    profile(value, identity)["native_protocol"]["condition"][key] = replacement
+    with pytest.raises(ValueError, match="condition/role/direction"):
+        inspect_catalog(save())
+
+
+@pytest.mark.parametrize("change", ("drop", "repeat", "old_direction", "ready_flag"))
+def test_all_native_scopes_need_explicit_nonconflicting_states(catalog, change):
+    value, save = catalog
+    early = profile(value, "PP1")["native_protocol"]["early_feasibility"]
+    if change == "drop":
+        early["unverified"].pop()
+    elif change == "repeat":
+        early["unverified"][-1] = early["unverified"][0]
+    elif change == "old_direction":
+        early["unverified"][-1] = "D1"
+    else:
+        early["ready"] = True
+    with pytest.raises(ValueError, match="scope|states"):
+        inspect_catalog(save())
+
+
+@pytest.mark.parametrize("field", ("quality", "time"))
+def test_r1_cannot_grant_final_admission(catalog, field):
+    value, save = catalog
+    profile(value, "PP1")["native_protocol"]["final_admission"][field] = "admitted"
+    with pytest.raises(ValueError, match="pending R6"):
+        inspect_catalog(save())
+
+
+def test_individual_confirmation_never_promotes_sibling_or_final_admission(catalog, tmp_path):
+    value, save = catalog
+    confirm(tmp_path, profile(value, "PP1"))
+    result = inspect_catalog(save())
+    assert result["new_protocol_status"] == "partially_confirmed"
+    rows = {row["id"]: row for row in result["findings"]}
+    assert len(rows["PP1"]["early_feasibility"]["confirmed"]) == 1
+    assert rows["PP2"]["early_feasibility"]["confirmed"] == []
+    assert rows["PP1"]["final_admission"]["quality"] == "pending_r6"
+    assert result["final_admission"]["time"] == "pending_r6"
+
+
+@pytest.mark.parametrize("field,bad", [
+    ("protocol", "historical-self-osc"), ("profile", "PP2"), ("scope", "t1/en-zh/A"),
+    ("kind", "manual_text_control_probe"), ("condition", {}), ("models", {}),
+    ("endpoint", {}), ("peer_asr", "local_cpu_auto"), ("translated_text", ""),
+    ("instance", ""), ("raw_evidence", "missing.json"), ("input_evidence", "missing.json"),
+    ("clock_evidence", "missing.json"),
+])
+def test_confirmation_requires_profile_scope_model_route_and_actual_evidence(catalog, tmp_path, field, bad):
+    value, save = catalog
+    evidence, save_evidence = confirm(tmp_path, profile(value, "PP1"))
+    evidence[field] = bad
+    save_evidence()
+    with pytest.raises(ValueError, match="evidence|confirmation"):
+        inspect_catalog(save())
+
+
+def test_vrct_cannot_confirm_received_without_independent_ocr_off_proof(catalog, tmp_path):
+    value, save = catalog
+    evidence, save_evidence = confirm(tmp_path, profile(value, "VRCT1"))
+    with pytest.raises(ValueError, match="OCR"):
+        inspect_catalog(save())
+    evidence.update(ocr_disabled=True, external_text_disabled=True, ocr_evidence="ocr-off.json")
+    save_evidence()
+    with pytest.raises(ValueError, match="ocr-off"):
+        inspect_catalog(save())
+    (tmp_path / "ocr-off.json").write_text('{"synthetic": true}', encoding="utf-8")
+    assert inspect_catalog(save())["new_protocol_status"] == "partially_confirmed"
+
+
+def test_blockers_remain_scoped_and_cannot_coexist_with_same_scope_confirmation(catalog, tmp_path):
+    value, save = catalog
+    row = profile(value, "PP1")
+    early = row["native_protocol"]["early_feasibility"]
+    early["blockers"] = [{"scope": "t1/ja-ko/B", "reason": "Synthetic missing reverse input."}]
+    confirm(tmp_path, row)
+    assert inspect_catalog(save())["new_protocol_status"] == "partially_confirmed"
+    early["blockers"][0]["scope"] = "all"
+    with pytest.raises(ValueError, match="unresolved blocker"):
+        inspect_catalog(save())
+
+
+@pytest.mark.parametrize("change", ("serialize", "swap", "missing", "duplicate"))
+def test_exact_concurrent_waves_cannot_be_replanned(catalog, change):
+    value, save = catalog
+    if change == "serialize":
+        value["waves"][0]["profiles"].pop()
+    elif change == "swap":
+        value["waves"][0]["profiles"][0], value["waves"][1]["profiles"][0] = value["waves"][1]["profiles"][0], value["waves"][0]["profiles"][0]
+    elif change == "missing":
+        value["waves"].pop()
+    else:
+        value["waves"].append(copy.deepcopy(value["waves"][0]))
+    with pytest.raises(ValueError, match="W1-W4"):
+        inspect_catalog(save())
+
+
+def test_cpu_conditions_and_exclusive_quota_conflicts_are_not_hidden(catalog):
+    value, save = catalog
+    row = profile(value, "VRCT3")
+    row["cpu_local"] = "translation"
+    with pytest.raises(ValueError, match="competing CPU-local"):
+        inspect_catalog(save())
+    row["cpu_local"] = None
+    profile(value, "PP4")["cpu_local"] = None
+    with pytest.raises(ValueError, match="CPU-local model"):
+        inspect_catalog(save())
+    profile(value, "PP4")["cpu_local"] = "asr"
+    profile(value, "PP4")["access"]["exclusive_quota_scope"] = "shared"
+    row["access"]["exclusive_quota_scope"] = "shared"
     with pytest.raises(ValueError, match="exclusive quota"):
         inspect_catalog(save())
-    value["waves"][0]["profiles"] = [first]
-    value["waves"].append({"id": "separate-quota", "profiles": [second]})
-    assert inspect_catalog(save())["status"] == "blocked"
 
 
-def test_port_probe_reports_occupied_socket_without_reserving_ports(catalog):
+@pytest.mark.parametrize("port", (0, -1, 65536, True, "2231", None))
+def test_native_network_ports_reject_invalid_boundaries(catalog, port):
     value, save = catalog
-    with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as occupied:
-        port = value["profiles"][0]["osc"]["send_port"]
-        occupied.bind(("127.0.0.1", port))
+    profile(value, "VRCT1")["native_protocol"]["endpoint"]["port"] = port
+    with pytest.raises(ValueError, match="native port"):
+        inspect_catalog(save())
+
+
+@pytest.mark.parametrize("port", (1, 65535))
+def test_native_port_boundaries_are_valid_without_binding_privileged_ports(catalog, port):
+    value, save = catalog
+    profile(value, "VRCT1")["native_protocol"]["endpoint"]["port"] = port
+    assert inspect_catalog(save())["new_protocol_status"] == "unverified"
+
+
+@pytest.mark.parametrize("identity,key,bad", [
+    ("KIKI1", "port", 19151), ("KIKI2", "path", "/desktop/translated"),
+    ("VRCT1", "host", "0.0.0.0"), ("VRCS1", "path", "/v1/internal"),
+    ("VRCLS1", "transport", "osc"),
+])
+def test_family_native_channel_and_local_boundary_are_enforced(catalog, identity, key, bad):
+    value, save = catalog
+    profile(value, identity)["native_protocol"]["endpoint"][key] = bad
+    with pytest.raises(ValueError, match="native endpoint|native port"):
+        inspect_catalog(save())
+
+
+def test_native_port_conflicts_are_transport_specific_and_wave_local(catalog):
+    value, save = catalog
+    # W2 hosts both VRCS and VRCT; TCP bind conflicts cannot be concealed by distinct apps.
+    profile(value, "VRCS2")["native_protocol"]["endpoint"]["port"] = 2231
+    with pytest.raises(ValueError, match="conflicting native ports"):
+        inspect_catalog(save())
+    profile(value, "VRCS2")["native_protocol"]["endpoint"]["port"] = 18378
+    with pytest.raises(ValueError, match="conflicting native ports"):
+        inspect_catalog(save())
+    profile(value, "VRCS2")["native_protocol"]["endpoint"]["port"] = 19131
+    # TCP 19131 and VRCLT UDP 19131 are distinct. KIKI1/2 reuse TCP18378
+    # only in separate fixed waves.
+    assert inspect_catalog(save())["new_protocol_status"] == "unverified"
+
+
+def test_probes_inspect_native_tcp_udp_only_and_release_all_sockets(catalog):
+    value, save = catalog
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as occupied:
+        occupied.bind(("127.0.0.1", 0))
+        port = occupied.getsockname()[1]
+        profile(value, "VRCT1")["native_protocol"]["endpoint"]["port"] = port
         result = inspect_catalog(save(), check_ports=True)
-        assert next(row for row in result["port_observations"] if row["port"] == port)["available"] is False
-        assert result["status"] == "blocked"
-        available = [row["port"] for row in result["port_observations"] if row["available"]]
-        assert available
-        for checked_port in available:
-            with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as checked:
-                checked.bind(("127.0.0.1", checked_port))
-    with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as released:
+        observations = result["port_observations"]
+        assert next(row for row in observations if (row["transport"], row["port"]) == ("tcp", port))["available"] is False
+        assert result["new_protocol_status"] == "unverified"
+        assert ("tcp", 18378) in {(row["transport"], row["port"]) for row in observations}
+        assert ("udp", 19104) not in {(row["transport"], row["port"]) for row in observations}
+        for row in observations:
+            if row["available"]:
+                kind = socket.SOCK_STREAM if row["transport"] == "tcp" else socket.SOCK_DGRAM
+                with socket.socket(socket.AF_INET, kind) as released:
+                    released.bind(("127.0.0.1", row["port"]))
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as released:
         released.bind(("127.0.0.1", port))

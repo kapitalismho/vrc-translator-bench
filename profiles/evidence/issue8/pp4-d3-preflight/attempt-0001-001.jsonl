@@ -1,0 +1,2 @@
+{"record": "attempt_start", "t_ns": 411070181276900, "wall": "2026-10-21T10:25:22.264141+00:00", "run": "pp4-d3-preflight-20261021", "config": "PP4", "stage": 0, "kind": "setup", "resumed": false, "clock_session": "8b7923ad00bf40b7b8cfe2d5f6b0d894", "wave": "preflight-only", "direction": "D3", "chunk": "one-second-lifecycle-only", "attempt": 1}
+{"record": "attempt_end", "t_ns": 411070262210200, "wall": "2026-10-21T10:25:22.345195+00:00", "state": "done", "reason": null, "detail": {}}

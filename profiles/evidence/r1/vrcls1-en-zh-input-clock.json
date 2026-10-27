@@ -1,0 +1,121 @@
+{
+  "kind": "actual_audio_native_collector_smoke",
+  "profile": "VRCLS1",
+  "clock_session": "vrcls1-en-zh-01",
+  "original_report_sha256": "bcca0103e9a19fc6dd8b4a5bea5f1d45bfdce07641aa2d07a9fb6ff358520a3b",
+  "original_stream_sha256": "4f17c1d68c7f51e65c7d80eca45781ea597c518123f3d668165996bc8e0d9686",
+  "source": {
+    "sha256": "b214d5288ed05ce51e6c18a7e8b2b3101218331122a8cf19192e9dc398c33926",
+    "provenance": "AMI development-01 original timeline [34,74), CC BY 4.0 authorized development input; no new TTS.",
+    "sample_rate": 48000,
+    "channels": 1,
+    "frames": 1920000,
+    "duration_seconds": 40.0
+  },
+  "dac_start_ns": 383402236795100,
+  "playback_end_ns": 383442220028000,
+  "observation_end_ns": 383457222953800,
+  "observation_tail_seconds": 15.0029258,
+  "submitted_source_frames": 1920000,
+  "callback_count": 4000,
+  "callback_status_errors": [],
+  "first_callback": {
+    "callback_t_ns": 383402236795100,
+    "dac_t_ns": 383402236795100,
+    "portaudio_current_time": 383402.2365284,
+    "portaudio_output_dac_time": 383402.2365284,
+    "source_frame": 0,
+    "source_frames": 480,
+    "callback_frames": 480,
+    "scheduled_silence_frames": 0,
+    "status": ""
+  },
+  "last_callback": {
+    "callback_t_ns": 383442200028000,
+    "dac_t_ns": 383442210028000,
+    "portaudio_current_time": 383442.20000789996,
+    "portaudio_output_dac_time": 383442.21000789996,
+    "source_frame": 1919520,
+    "source_frames": 480,
+    "callback_frames": 480,
+    "scheduled_silence_frames": 0,
+    "status": ""
+  },
+  "route": {
+    "output": "CABLE Input(VB-Audio Virtual Cable)",
+    "peer_capture": "CABLE Input(VB-Audio Virtual Cable)",
+    "capture_mode": "System WASAPI loopback",
+    "capture_format": "48000Hz 2 channels,32-bit IEEE float",
+    "microphone_recognition": "disabled",
+    "voice_output": false,
+    "TTS_toggle": 0,
+    "tts_mic_passthrough": false,
+    "input_channel": "peer"
+  },
+  "startup_route_evidence": {
+    "basis": "Independent narrow read of Director-identified startup diagnostic lines before audio; no whole log/config snapshot exported",
+    "source_file": "vrcls-20261026.log",
+    "observations": [
+      {
+        "line": 135,
+        "text": "[2026-10-26 12:28:19.647 INF] 使用指定 Loopback 设备: CABLE Input(VB-Audio Virtual Cable)"
+      },
+      {
+        "line": 136,
+        "text": "[2026-10-26 12:28:19.653 INF] WasapiLoopbackCapture 启动成功 - 格式: 32 bit IEEFloat: 48000Hz 2 channels"
+      },
+      {
+        "line": 142,
+        "text": "[2026-10-26 12:28:19.653 INF] Desktop capture running. Target=system:CABLE Input(VB-Audio Virtual Cable)"
+      }
+    ]
+  },
+  "settings_observation": {
+    "basis": "Director actual GUI and retained smoke report",
+    "installed_build": "0.7.0-20260913 /0.7.0.1015",
+    "recognition": "Remote",
+    "translation": "developer",
+    "actual_server_model": "unknown",
+    "source_language": "en",
+    "target_language": "zh",
+    "additional_peer_targets": "disabled",
+    "device_provider_language_changes_performed": false,
+    "update_prompt": "declined; no install",
+    "context_reset": "Fresh owned normal application process, both recognition channels initially disabled"
+  },
+  "continuity": {
+    "sample_count": 55,
+    "sample_interval_seconds": 1,
+    "app_alive_all_samples": true,
+    "collector_continuous_all_samples": true,
+    "explicit_gap_count": 0,
+    "scope": "Collector continuity and sampled process life only; not continuous provider/input health"
+  },
+  "observation": {
+    "native_physical_lines": 15,
+    "translated_result_lines": 5,
+    "gui_source_and_chinese_cards": "Director observed matching content; not rendering-time measurement"
+  },
+  "restoration": {
+    "basis": "Director postcapture GUI/process/config-difference observation",
+    "peer_capture_disabled": true,
+    "microphone_capture_disabled": true,
+    "active_settings_unchanged": true,
+    "owned_pid_2504_exited": true,
+    "full_byte_equality_claimed": false,
+    "automatic_state_changes": [
+      "Authentication refresh and expiry",
+      "lastUpdateCheckUtc"
+    ],
+    "secret_values_omitted": true,
+    "obsolete_credentials_restored": false
+  },
+  "limits": [
+    "Only VRCLS1 ordinary peer EN->ZH early feasibility; other scopes/profiles remain unverified.",
+    "Fifteen Desktop physical-line records contain five translated result lines; source/status lines are not additional translations. Multiline and arrow-boundary uncertainty remains explicit.",
+    "Installed original1015 Remote/Developer route is observed; actual deployed server model/checkpoint and downstream identity remain unknown.",
+    "Local-wall producer times have unverified timezone and no calibrated playback-clock mapping. Collector continuity and process samples are not continuous provider/input health.",
+    "Standalone NativeSink plus Playback, not Runner, W4 concurrency, final quality/time, performance or cost admission.",
+    "No full-byte configuration equality claimed: automatic authentication refresh/expiry and last-update-check state changed on normal lifecycle. Secret values are omitted and obsolete credentials were not restored."
+  ]
+}

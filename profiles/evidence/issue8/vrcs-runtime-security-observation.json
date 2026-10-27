@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "scope": "Read-only explanation of the observed VRCS1 Qwen runtime startup failures; no security remediation or new execution",
+  "affected_profile": "VRCS1",
+  "affected_directions": ["D1", "D3"],
+  "application": "VRCS0.2.8",
+  "runtime": "Qwen runtime b11501",
+  "observed_failures": "Actual GUI Start returned Qwen ASR runtime did not become ready in time before any local-profile runner/audio playback. An authorized normal-GUI runtime Download was followed by a separately retained D3 recovery startup timeout; it did not establish readiness.",
+  "security_query": {
+    "tool": "Windows Defender PowerShell read-only cmdlets",
+    "selection": "Get-MpThreatDetection restricted to vrcs/mtmd.dll resources; Get-MpThreat restricted to returned ThreatID2147731250",
+    "threat_id": 2147731250,
+    "reported_name": "Trojan:Win32/Bearfoos.A!ml",
+    "severity_id": 5,
+    "category_id": 8,
+    "did_threat_execute": false,
+    "is_active": false,
+    "detections": [
+      {"initial_detection_utc": "2026-10-21T17:44:49.871+00:00", "resource": "%LOCALAPPDATA%/.vrcs/runtimes/qwen/b11501/mtmd.dll", "action_success": true},
+      {"initial_detection_utc": "2026-10-21T17:54:15.353+00:00", "resource": "%LOCALAPPDATA%/.vrcs/runtimes/qwen/.b11501.staging/mtmd.dll", "action_success": true},
+      {"initial_detection_utc": "2026-10-21T17:55:35.426+00:00", "resource": "%LOCALAPPDATA%/.vrcs/runtimes/qwen/b11501/mtmd.dll", "action_success": true}
+    ]
+  },
+  "filesystem_observation": "mtmd.dll is absent from the inspected installed b11501 directory; llama-server.exe, llama-server-impl.dll, llama.dll and other runtime components remain. The GUI operator separately retained its earlier presence after download.",
+  "interpretation": "This records Defender's classification and successful security action, not an independent determination that the DLL is malicious or a false positive. The required local runtime is unavailable; no language-support conclusion follows.",
+  "decision": "Do not restore quarantined content, add exclusions, disable protection or repeat the same failed startup. Keep both startup histories. Continue reachable competitor profiles; VRCS2 cloud-route D1/D3 output checks succeeded independently.",
+  "accounting": "No VRCS1 main source or output-check audio was played in these startup attempts. Main delivery/latency/quality remain unavailable, not zero delivery or invented failed sentence counts.",
+  "privacy": "Only matching runtime-resource records are retained; user path prefixes are replaced with an environment placeholder. No unrelated security history, credentials or owner application state is included."
+}

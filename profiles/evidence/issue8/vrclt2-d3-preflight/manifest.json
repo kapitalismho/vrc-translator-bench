@@ -1,0 +1,4567 @@
+{
+  "run": "vrclt2-d3-20261021T195054Z",
+  "counts": {
+    "pending": 0,
+    "running": 0,
+    "done": 4,
+    "product_failure": 0,
+    "invalid": 0
+  },
+  "pending_stages": [],
+  "estimated_remaining_seconds": 0,
+  "estimate_excludes": "adapter/setup/restart time and future retries",
+  "work": [
+    {
+      "id": 1,
+      "stage": 0,
+      "profile": "VRCLT2",
+      "kind": "setup",
+      "state": "done",
+      "outcome": "done"
+    },
+    {
+      "id": 2,
+      "stage": 1,
+      "profile": "VRCLT2",
+      "kind": "direction",
+      "state": "done",
+      "outcome": "done"
+    },
+    {
+      "id": 3,
+      "stage": 2,
+      "profile": "VRCLT2",
+      "kind": "output_check",
+      "state": "done",
+      "outcome": "done"
+    },
+    {
+      "id": 4,
+      "stage": 3,
+      "profile": "VRCLT2",
+      "kind": "nonspeech",
+      "state": "done",
+      "outcome": "done"
+    }
+  ],
+  "attempts": [
+    {
+      "id": 1,
+      "work_id": 1,
+      "number": 1,
+      "state": "done",
+      "reason": null,
+      "resumed": 0,
+      "start_wall": "2026-10-21T19:55:48.276640+00:00",
+      "end_wall": "2026-10-21T19:55:48.399103+00:00",
+      "start_ns": 10492952094000,
+      "end_ns": 10493074523100,
+      "trace": "attempt-0001-001.jsonl",
+      "checksum": "fd0faf6dda7da3e09dd3e583704ddd81881761498148650963648af1db202adf",
+      "detail": "{}"
+    },
+    {
+      "id": 2,
+      "work_id": 2,
+      "number": 1,
+      "state": "done",
+      "reason": null,
+      "resumed": 0,
+      "start_wall": "2026-10-21T19:55:48.464078+00:00",
+      "end_wall": "2026-10-21T19:55:48.473141+00:00",
+      "start_ns": 10493139585500,
+      "end_ns": 10493148602700,
+      "trace": "attempt-0002-001.jsonl",
+      "checksum": "2301ccd2ad41b45128c155a2091c3219e4c43c91f745ea7ba16e4d4043717141",
+      "detail": "{}"
+    },
+    {
+      "id": 3,
+      "work_id": 3,
+      "number": 1,
+      "state": "done",
+      "reason": null,
+      "resumed": 0,
+      "start_wall": "2026-10-21T19:55:48.478719+00:00",
+      "end_wall": "2026-10-21T19:56:13.810288+00:00",
+      "start_ns": 10493154098000,
+      "end_ns": 10518485800200,
+      "trace": "attempt-0003-001.jsonl",
+      "checksum": "efcc8a24804d96c2bb0b84eef736970c16b278727d00a14adcda2da2dc06cde8",
+      "detail": "{}"
+    },
+    {
+      "id": 4,
+      "work_id": 4,
+      "number": 1,
+      "state": "done",
+      "reason": null,
+      "resumed": 0,
+      "start_wall": "2026-10-21T19:56:13.817353+00:00",
+      "end_wall": "2026-10-21T19:56:16.952000+00:00",
+      "start_ns": 10518492657100,
+      "end_ns": 10521627390000,
+      "trace": "attempt-0004-001.jsonl",
+      "checksum": "5911d00706b0f49305dd1c19d2a94652e33345f836c1585479d7cd501049b98e",
+      "detail": "{}"
+    }
+  ],
+  "records": [
+    {
+      "id": 1,
+      "wall": "2026-10-21T19:55:48.273632+00:00",
+      "t_ns": 10492949388200,
+      "kind": "session_start",
+      "detail": "{\"session\":\"006e787e10da40a3a5f3c89db06ce2bc\",\"resumed\":false,\"synthetic\":false,\"wall\":\"2026-10-21T19:55:48.204964+00:00\",\"implementation\":{\"kind\":\"checkout\",\"revision\":\"fec7899771799d946fc3152d6f1db548597e254e\",\"revision_reason\":\"loaded_harness_checkout\",\"package_version\":\"0.2.0\",\"package_path\":\"[LOCAL_REPOSITORY]\\\\bench\",\"sources\":{\"__init__.py\":\"667d4a15b970b851e20d17510224670c14646cfb6d5a1e388ca6b9cc6da8bf41\",\"activity.py\":\"e35b438c143586ce2b4336a2cce0b3bcdcf142dfd8bf0faadcd3af75d0a32686\",\"adapter.py\":\"17c1eb3f3f9053cd87173cf80be79c8daf5a7b932fd79e6b5b21605e4049f9ee\",\"audio.py\":\"c1d58a2754c1be531ac3c85b5bf1656b5dd9a059a2f0b7195cc8c1f7c71a5ff4\",\"cli.py\":\"b5c4ccda6e388beb3bcedec64c1ce944630b25764f4b73bf8ddfbefbd75bdc60\",\"cost_inputs.py\":\"8dec384479dcf6f05baa2679e03dd36fdf0264aee1596b2a52503daf62979fef\",\"costs.py\":\"928fc38c88c0fee27bd501a9ac090727434ce83bfd7364828718e5f34ab15762\",\"gui_operator_adapter.py\":\"1edb7bbdf920a6221ddf0a40f9b0db5322c2b70eca8b9a132c130f4396f78473\",\"metrics.py\":\"7ca15777eab78d48a5d665a197b22dd31d5879cb1256491349bd3983a257ca74\",\"metrics_alignment.py\":\"6e9541a4cf27c853070c83ecaca820bec577b387810e1ff3ce5b7c01532e4b2a\",\"metrics_batch.py\":\"7135e066ca696b2662c1e4715a90b17b8b334611b87ee7581a0344035863f1ae\",\"metrics_diagnostics.py\":\"37d50306974437be3a6736c221dcfc23cf53f07e655535c0bd494741903580f3\",\"metrics_inputs.py\":\"6162739b95c2807d4c275adc690cb8874b34a10c521c60e0a9355bcbdab3cf8e\",\"metrics_stats.py\":\"a6a305dc62897e48835fd2dca7ca75375e7aea9e2d1261ba9113641b454e42d6\",\"osc.py\":\"24d65ceb3eeb6fa1e5b45626fee5f5fc405232ab36ba9dc12ba0017ae2dbc22e\",\"plan.py\":\"00f188525da18a9e46ba9053ad4764bf1369b43aa0256123928ae2a7f7e5923c\",\"profiles.py\":\"0142978d01cba7448413a8cf0a3c631a9a565c148e1b2e856d8714ed3fc04d4d\",\"quality.py\":\"232e03d14736265f58d5df443a372513e90d0cb6a50cc847a44c741ae8c79244\",\"quality_judge.py\":\"7a83d704ba38336a867d6c9eb36ec5978bd94aaf75bfa1145c86797aecf1f7b7\",\"quality_metricx.py\":\"eb3bc75599e23eae8deb7b5efe8c0f69c1f375f3b89a0320d779d135af2366e7\",\"quality_process.py\":\"b9ae92cd3b8e3631318370860165f7e8a3d8eb46d4e6540a2c596f72f63b74e1\",\"quality_prompts.py\":\"e8ea7c552e567f70960cf4b3ff9214e3ce67339a3498894676023521fffa1eca\",\"quality_report.py\":\"32b7588079520fe7713ea470d0cb930cb0d6002c5fdef881c0d5fef27a216e0c\",\"quality_sampling.py\":\"920d75fce668fb660c413580a49b5a5b69a0cebe67054d0ad6ba1db4ee6bf4f6\",\"quality_store.py\":\"17088e30ca05235ad4cf6750690af66fc5771f6004b06787280c75b2598e1e24\",\"quality_transport.py\":\"17bd38703c6704ccd985e804050fb55c6c7f3d193051e87cb274147be108fb16\",\"runner.py\":\"e4ec4d22669935e92c75fb91246411170ac70853a81460f0fae0f20dea72d87f\",\"storage.py\":\"cdce70eb22df4325153eb6fae31d4ebdd5c66d44ebd0945eb61ec61d1a1064e9\"}}}"
+    },
+    {
+      "id": 2,
+      "wall": "2026-10-21T19:55:48.276141+00:00",
+      "t_ns": 10492951588600,
+      "kind": "wave_enter",
+      "detail": "{\"wave\": \"preflight-only\", \"profiles\": [\"VRCLT2\"], \"retained\": []}"
+    },
+    {
+      "id": 3,
+      "wall": "2026-10-21T19:55:48.389463+00:00",
+      "t_ns": 10493065578700,
+      "kind": "profile_metadata",
+      "detail": "{\"profile\":\"VRCLT2\",\"direction\":\"D3\",\"metadata\":{\"purpose\":\"Actual normal GUI VRCLT source-specific short preflight; not main or freeze\",\"application_version\":\"1.0.1\",\"source_revision\":\"d97574fd451f1e5af8d0c68bd13c488fab54eaae\",\"owned_GUI_pid\":23904,\"route\":\"Existing Beijing workspace-specific MAAS\",\"requested_model\":\"qwen3.8-livetranslate-flash-realtime\",\"returned_model_independently_attested\":false,\"runtime_condition\":\"Owner-authorized concurrent user activity\",\"saved_intent\":{\"provider\":\"qwen\",\"model\":\"gemini-3.5-live-translate-preview\",\"app\":{\"mode\":\"vrchat\"},\"outbound\":{\"enabled\":false,\"chatbox\":true,\"text_only\":true,\"voice_output\":false,\"passthrough_while_translating\":true,\"mic_device\":\"CABLE Output(VB-Audio Virtual Cable)\",\"tts_device\":\"Realtek Digital Output(Realtek USB Audio)\",\"monitor_device\":\"\",\"glossary\":\"\",\"echo_target_language\":false,\"source_language\":\"zh-Hans\",\"target_language\":\"ko\"},\"inbound\":{\"enabled\":false,\"play_audio\":false,\"allow_system_audio\":false},\"dashboard\":{\"translation_on\":true,\"subtitles_on\":false},\"control\":{\"enabled\":false,\"feedback_chatbox\":false,\"osc_listen_port\":19231},\"osc\":{\"ip\":\"127.0.0.1\",\"port\":19131,\"show_source\":true,\"stream_sentences\":true,\"throttle_sec\":1.5,\"chunk_display_sec\":4.0,\"notification_sfx\":false},\"audio\":{\"mic_idle_disconnect_sec\":15.0},\"hotkeys\":{\"enabled\":false},\"steamvr\":{\"register\":false,\"dashboard_panel\":false},\"ui\":{\"close_action\":\"exit\",\"easy_mode\":true,\"lang\":\"ko\",\"mode\":\"auto\"},\"meta\":{\"auto_setup_pending\":false},\"qwen\":{\"model\":\"qwen3.8-livetranslate-flash-realtime\",\"endpoint\":\"beijing\",\"voice_clone\":\"off\",\"voice\":\"\"},\"vrchat_profile\":{\"ui_mode\":\"auto\",\"voice_output\":true,\"passthrough_while_translating\":false,\"chatbox\":true,\"osc_control\":true,\"vr_overlay\":true,\"wrist_ui\":true},\"qwen_workspace_nonempty\":true,\"qwen_custom_base_url_nonempty\":false,\"overlay_enabled\":false,\"wrist_enabled\":false},\"capture_state_basis\":\"manual GUI observation while process alive; process exit establishes stopped\",\"observation_valid\":true,\"continuous_effective_state_observation\":false,\"gui_observation\":{\"basis\":\"actual_visible_gui\",\"observed_at_utc\":\"2026-10-21T19:55:39.535797+00:00\",\"evidence\":[\"[LOCAL_REPOSITORY]\\\\.data\\\\issue8\\\\competitor-preflights\\\\vrclt\\\\actual-20261021T195054Z\\\\evidence\\\\vrclt2-d3-running.png\",\"[LOCAL_REPOSITORY]\\\\.data\\\\issue8\\\\competitor-preflights\\\\vrclt\\\\actual-20261021T195054Z\\\\evidence\\\\audio-route.png\",\"[LOCAL_REPOSITORY]\\\\.data\\\\issue8\\\\competitor-preflights\\\\vrclt\\\\actual-20261021T195054Z\\\\evidence\\\\osc-format-controls.png\",\"[LOCAL_REPOSITORY]\\\\.data\\\\issue8\\\\competitor-preflights\\\\vrclt\\\\actual-20261021T195054Z\\\\evidence\\\\qwen-settings-redacted.png\"],\"profile\":\"VRCLT2\",\"session\":\"vrclt2-d3-20261021T195054Z\"}}}"
+    },
+    {
+      "id": 4,
+      "wall": "2026-10-21T19:55:48.390973+00:00",
+      "t_ns": 10493066637000,
+      "kind": "capture_ownership",
+      "detail": "{\"profile\": \"VRCLT2\", \"owned\": true, \"reason\": \"observed_running\", \"session\": \"006e787e10da40a3a5f3c89db06ce2bc\", \"wave\": \"preflight-only\"}"
+    },
+    {
+      "id": 5,
+      "wall": "2026-10-21T19:55:48.391514+00:00",
+      "t_ns": 10493067025200,
+      "kind": "application_state",
+      "detail": "{\"profile\":\"VRCLT2\",\"stage\":\"setup\",\"state\":{\"microphone\":\"CABLE Output(VB-Audio Virtual Cable)\",\"voice_output\":false,\"osc_host\":\"127.0.0.1\",\"osc_port\":19131,\"direction\":\"D3\",\"running\":true,\"metadata\":{\"purpose\":\"Actual normal GUI VRCLT source-specific short preflight; not main or freeze\",\"application_version\":\"1.0.1\",\"source_revision\":\"d97574fd451f1e5af8d0c68bd13c488fab54eaae\",\"owned_GUI_pid\":23904,\"route\":\"Existing Beijing workspace-specific MAAS\",\"requested_model\":\"qwen3.8-livetranslate-flash-realtime\",\"returned_model_independently_attested\":false,\"runtime_condition\":\"Owner-authorized concurrent user activity\",\"saved_intent\":{\"provider\":\"qwen\",\"model\":\"gemini-3.5-live-translate-preview\",\"app\":{\"mode\":\"vrchat\"},\"outbound\":{\"enabled\":false,\"chatbox\":true,\"text_only\":true,\"voice_output\":false,\"passthrough_while_translating\":true,\"mic_device\":\"CABLE Output(VB-Audio Virtual Cable)\",\"tts_device\":\"Realtek Digital Output(Realtek USB Audio)\",\"monitor_device\":\"\",\"glossary\":\"\",\"echo_target_language\":false,\"source_language\":\"zh-Hans\",\"target_language\":\"ko\"},\"inbound\":{\"enabled\":false,\"play_audio\":false,\"allow_system_audio\":false},\"dashboard\":{\"translation_on\":true,\"subtitles_on\":false},\"control\":{\"enabled\":false,\"feedback_chatbox\":false,\"osc_listen_port\":19231},\"osc\":{\"ip\":\"127.0.0.1\",\"port\":19131,\"show_source\":true,\"stream_sentences\":true,\"throttle_sec\":1.5,\"chunk_display_sec\":4.0,\"notification_sfx\":false},\"audio\":{\"mic_idle_disconnect_sec\":15.0},\"hotkeys\":{\"enabled\":false},\"steamvr\":{\"register\":false,\"dashboard_panel\":false},\"ui\":{\"close_action\":\"exit\",\"easy_mode\":true,\"lang\":\"ko\",\"mode\":\"auto\"},\"meta\":{\"auto_setup_pending\":false},\"qwen\":{\"model\":\"qwen3.8-livetranslate-flash-realtime\",\"endpoint\":\"beijing\",\"voice_clone\":\"off\",\"voice\":\"\"},\"vrchat_profile\":{\"ui_mode\":\"auto\",\"voice_output\":true,\"passthrough_while_translating\":false,\"chatbox\":true,\"osc_control\":true,\"vr_overlay\":true,\"wrist_ui\":true},\"qwen_workspace_nonempty\":true,\"qwen_custom_base_url_nonempty\":false,\"overlay_enabled\":false,\"wrist_enabled\":false},\"capture_state_basis\":\"manual GUI observation while process alive; process exit establishes stopped\",\"observation_valid\":true,\"continuous_effective_state_observation\":false,\"gui_observation\":{\"basis\":\"actual_visible_gui\",\"observed_at_utc\":\"2026-10-21T19:55:39.535797+00:00\",\"evidence\":[\"[LOCAL_REPOSITORY]\\\\.data\\\\issue8\\\\competitor-preflights\\\\vrclt\\\\actual-20261021T195054Z\\\\evidence\\\\vrclt2-d3-running.png\",\"[LOCAL_REPOSITORY]\\\\.data\\\\issue8\\\\competitor-preflights\\\\vrclt\\\\actual-20261021T195054Z\\\\evidence\\\\audio-route.png\",\"[LOCAL_REPOSITORY]\\\\.data\\\\issue8\\\\competitor-preflights\\\\vrclt\\\\actual-20261021T195054Z\\\\evidence\\\\osc-format-controls.png\",\"[LOCAL_REPOSITORY]\\\\.data\\\\issue8\\\\competitor-preflights\\\\vrclt\\\\actual-20261021T195054Z\\\\evidence\\\\qwen-settings-redacted.png\"],\"profile\":\"VRCLT2\",\"session\":\"vrclt2-d3-20261021T195054Z\"}}},\"requested\":{\"microphone\":\"CABLE Output(VB-Audio Virtual Cable)\",\"voice_output\":false,\"osc_host\":\"127.0.0.1\",\"osc_port\":19131,\"direction\":\"D3\"},\"corrected\":false}"
+    },
+    {
+      "id": 6,
+      "wall": "2026-10-21T19:55:48.392020+00:00",
+      "t_ns": 10493067854400,
+      "kind": "application_state",
+      "detail": "{\"profile\":\"VRCLT2\",\"stage\":\"setup\",\"state\":{\"microphone\":\"CABLE Output(VB-Audio Virtual Cable)\",\"voice_output\":false,\"osc_host\":\"127.0.0.1\",\"osc_port\":19131,\"direction\":\"D3\",\"running\":true,\"metadata\":{\"purpose\":\"Actual normal GUI VRCLT source-specific short preflight; not main or freeze\",\"application_version\":\"1.0.1\",\"source_revision\":\"d97574fd451f1e5af8d0c68bd13c488fab54eaae\",\"owned_GUI_pid\":23904,\"route\":\"Existing Beijing workspace-specific MAAS\",\"requested_model\":\"qwen3.8-livetranslate-flash-realtime\",\"returned_model_independently_attested\":false,\"runtime_condition\":\"Owner-authorized concurrent user activity\",\"saved_intent\":{\"provider\":\"qwen\",\"model\":\"gemini-3.5-live-translate-preview\",\"app\":{\"mode\":\"vrchat\"},\"outbound\":{\"enabled\":false,\"chatbox\":true,\"text_only\":true,\"voice_output\":false,\"passthrough_while_translating\":true,\"mic_device\":\"CABLE Output(VB-Audio Virtual Cable)\",\"tts_device\":\"Realtek Digital Output(Realtek USB Audio)\",\"monitor_device\":\"\",\"glossary\":\"\",\"echo_target_language\":false,\"source_language\":\"zh-Hans\",\"target_language\":\"ko\"},\"inbound\":{\"enabled\":false,\"play_audio\":false,\"allow_system_audio\":false},\"dashboard\":{\"translation_on\":true,\"subtitles_on\":false},\"control\":{\"enabled\":false,\"feedback_chatbox\":false,\"osc_listen_port\":19231},\"osc\":{\"ip\":\"127.0.0.1\",\"port\":19131,\"show_source\":true,\"stream_sentences\":true,\"throttle_sec\":1.5,\"chunk_display_sec\":4.0,\"notification_sfx\":false},\"audio\":{\"mic_idle_disconnect_sec\":15.0},\"hotkeys\":{\"enabled\":false},\"steamvr\":{\"register\":false,\"dashboard_panel\":false},\"ui\":{\"close_action\":\"exit\",\"easy_mode\":true,\"lang\":\"ko\",\"mode\":\"auto\"},\"meta\":{\"auto_setup_pending\":false},\"qwen\":{\"model\":\"qwen3.8-livetranslate-flash-realtime\",\"endpoint\":\"beijing\",\"voice_clone\":\"off\",\"voice\":\"\"},\"vrchat_profile\":{\"ui_mode\":\"auto\",\"voice_output\":true,\"passthrough_while_translating\":false,\"chatbox\":true,\"osc_control\":true,\"vr_overlay\":true,\"wrist_ui\":true},\"qwen_workspace_nonempty\":true,\"qwen_custom_base_url_nonempty\":false,\"overlay_enabled\":false,\"wrist_enabled\":false},\"capture_state_basis\":\"manual GUI observation while process alive; process exit establishes stopped\",\"observation_valid\":true,\"continuous_effective_state_observation\":false,\"gui_observation\":{\"basis\":\"actual_visible_gui\",\"observed_at_utc\":\"2026-10-21T19:55:39.535797+00:00\",\"evidence\":[\"[LOCAL_REPOSITORY]\\\\.data\\\\issue8\\\\competitor-preflights\\\\vrclt\\\\actual-20261021T195054Z\\\\evidence\\\\vrclt2-d3-running.png\",\"[LOCAL_REPOSITORY]\\\\.data\\\\issue8\\\\competitor-preflights\\\\vrclt\\\\actual-20261021T195054Z\\\\evidence\\\\audio-route.png\",\"[LOCAL_REPOSITORY]\\\\.data\\\\issue8\\\\competitor-preflights\\\\vrclt\\\\actual-20261021T195054Z\\\\evidence\\\\osc-format-controls.png\",\"[LOCAL_REPOSITORY]\\\\.data\\\\issue8\\\\competitor-preflights\\\\vrclt\\\\actual-20261021T195054Z\\\\evidence\\\\qwen-settings-redacted.png\"],\"profile\":\"VRCLT2\",\"session\":\"vrclt2-d3-20261021T195054Z\"}}},\"requested\":{\"microphone\":\"CABLE Output(VB-Audio Virtual Cable)\",\"voice_output\":false,\"osc_host\":\"127.0.0.1\",\"osc_port\":19131,\"direction\":\"D3\"},\"corrected\":false}"
+    },
+    {
+      "id": 7,
+      "wall": "2026-10-21T19:55:48.466594+00:00",
+      "t_ns": 10493142362400,
+      "kind": "application_state",
+      "detail": "{\"profile\":\"VRCLT2\",\"stage\":\"direction\",\"state\":{\"microphone\":\"CABLE Output(VB-Audio Virtual Cable)\",\"voice_output\":false,\"osc_host\":\"127.0.0.1\",\"osc_port\":19131,\"direction\":\"D3\",\"running\":true,\"metadata\":{\"purpose\":\"Actual normal GUI VRCLT source-specific short preflight; not main or freeze\",\"application_version\":\"1.0.1\",\"source_revision\":\"d97574fd451f1e5af8d0c68bd13c488fab54eaae\",\"owned_GUI_pid\":23904,\"route\":\"Existing Beijing workspace-specific MAAS\",\"requested_model\":\"qwen3.8-livetranslate-flash-realtime\",\"returned_model_independently_attested\":false,\"runtime_condition\":\"Owner-authorized concurrent user activity\",\"saved_intent\":{\"provider\":\"qwen\",\"model\":\"gemini-3.5-live-translate-preview\",\"app\":{\"mode\":\"vrchat\"},\"outbound\":{\"enabled\":false,\"chatbox\":true,\"text_only\":true,\"voice_output\":false,\"passthrough_while_translating\":true,\"mic_device\":\"CABLE Output(VB-Audio Virtual Cable)\",\"tts_device\":\"Realtek Digital Output(Realtek USB Audio)\",\"monitor_device\":\"\",\"glossary\":\"\",\"echo_target_language\":false,\"source_language\":\"zh-Hans\",\"target_language\":\"ko\"},\"inbound\":{\"enabled\":false,\"play_audio\":false,\"allow_system_audio\":false},\"dashboard\":{\"translation_on\":true,\"subtitles_on\":false},\"control\":{\"enabled\":false,\"feedback_chatbox\":false,\"osc_listen_port\":19231},\"osc\":{\"ip\":\"127.0.0.1\",\"port\":19131,\"show_source\":true,\"stream_sentences\":true,\"throttle_sec\":1.5,\"chunk_display_sec\":4.0,\"notification_sfx\":false},\"audio\":{\"mic_idle_disconnect_sec\":15.0},\"hotkeys\":{\"enabled\":false},\"steamvr\":{\"register\":false,\"dashboard_panel\":false},\"ui\":{\"close_action\":\"exit\",\"easy_mode\":true,\"lang\":\"ko\",\"mode\":\"auto\"},\"meta\":{\"auto_setup_pending\":false},\"qwen\":{\"model\":\"qwen3.8-livetranslate-flash-realtime\",\"endpoint\":\"beijing\",\"voice_clone\":\"off\",\"voice\":\"\"},\"vrchat_profile\":{\"ui_mode\":\"auto\",\"voice_output\":true,\"passthrough_while_translating\":false,\"chatbox\":true,\"osc_control\":true,\"vr_overlay\":true,\"wrist_ui\":true},\"qwen_workspace_nonempty\":true,\"qwen_custom_base_url_nonempty\":false,\"overlay_enabled\":false,\"wrist_enabled\":false},\"capture_state_basis\":\"manual GUI observation while process alive; process exit establishes stopped\",\"observation_valid\":true,\"continuous_effective_state_observation\":false,\"gui_observation\":{\"basis\":\"actual_visible_gui\",\"observed_at_utc\":\"2026-10-21T19:55:39.535797+00:00\",\"evidence\":[\"[LOCAL_REPOSITORY]\\\\.data\\\\issue8\\\\competitor-preflights\\\\vrclt\\\\actual-20261021T195054Z\\\\evidence\\\\vrclt2-d3-running.png\",\"[LOCAL_REPOSITORY]\\\\.data\\\\issue8\\\\competitor-preflights\\\\vrclt\\\\actual-20261021T195054Z\\\\evidence\\\\audio-route.png\",\"[LOCAL_REPOSITORY]\\\\.data\\\\issue8\\\\competitor-preflights\\\\vrclt\\\\actual-20261021T195054Z\\\\evidence\\\\osc-format-controls.png\",\"[LOCAL_REPOSITORY]\\\\.data\\\\issue8\\\\competitor-preflights\\\\vrclt\\\\actual-20261021T195054Z\\\\evidence\\\\qwen-settings-redacted.png\"],\"profile\":\"VRCLT2\",\"session\":\"vrclt2-d3-20261021T195054Z\"}}},\"requested\":{\"microphone\":\"CABLE Output(VB-Audio Virtual Cable)\",\"voice_output\":false,\"osc_host\":\"127.0.0.1\",\"osc_port\":19131,\"direction\":\"D3\"},\"corrected\":false}"
+    },
+    {
+      "id": 8,
+      "wall": "2026-10-21T19:55:48.479224+00:00",
+      "t_ns": 10493155423800,
+      "kind": "application_state",
+      "detail": "{\"profile\":\"VRCLT2\",\"stage\":\"output_check\",\"state\":{\"microphone\":\"CABLE Output(VB-Audio Virtual Cable)\",\"voice_output\":false,\"osc_host\":\"127.0.0.1\",\"osc_port\":19131,\"direction\":\"D3\",\"running\":true,\"metadata\":{\"purpose\":\"Actual normal GUI VRCLT source-specific short preflight; not main or freeze\",\"application_version\":\"1.0.1\",\"source_revision\":\"d97574fd451f1e5af8d0c68bd13c488fab54eaae\",\"owned_GUI_pid\":23904,\"route\":\"Existing Beijing workspace-specific MAAS\",\"requested_model\":\"qwen3.8-livetranslate-flash-realtime\",\"returned_model_independently_attested\":false,\"runtime_condition\":\"Owner-authorized concurrent user activity\",\"saved_intent\":{\"provider\":\"qwen\",\"model\":\"gemini-3.5-live-translate-preview\",\"app\":{\"mode\":\"vrchat\"},\"outbound\":{\"enabled\":false,\"chatbox\":true,\"text_only\":true,\"voice_output\":false,\"passthrough_while_translating\":true,\"mic_device\":\"CABLE Output(VB-Audio Virtual Cable)\",\"tts_device\":\"Realtek Digital Output(Realtek USB Audio)\",\"monitor_device\":\"\",\"glossary\":\"\",\"echo_target_language\":false,\"source_language\":\"zh-Hans\",\"target_language\":\"ko\"},\"inbound\":{\"enabled\":false,\"play_audio\":false,\"allow_system_audio\":false},\"dashboard\":{\"translation_on\":true,\"subtitles_on\":false},\"control\":{\"enabled\":false,\"feedback_chatbox\":false,\"osc_listen_port\":19231},\"osc\":{\"ip\":\"127.0.0.1\",\"port\":19131,\"show_source\":true,\"stream_sentences\":true,\"throttle_sec\":1.5,\"chunk_display_sec\":4.0,\"notification_sfx\":false},\"audio\":{\"mic_idle_disconnect_sec\":15.0},\"hotkeys\":{\"enabled\":false},\"steamvr\":{\"register\":false,\"dashboard_panel\":false},\"ui\":{\"close_action\":\"exit\",\"easy_mode\":true,\"lang\":\"ko\",\"mode\":\"auto\"},\"meta\":{\"auto_setup_pending\":false},\"qwen\":{\"model\":\"qwen3.8-livetranslate-flash-realtime\",\"endpoint\":\"beijing\",\"voice_clone\":\"off\",\"voice\":\"\"},\"vrchat_profile\":{\"ui_mode\":\"auto\",\"voice_output\":true,\"passthrough_while_translating\":false,\"chatbox\":true,\"osc_control\":true,\"vr_overlay\":true,\"wrist_ui\":true},\"qwen_workspace_nonempty\":true,\"qwen_custom_base_url_nonempty\":false,\"overlay_enabled\":false,\"wrist_enabled\":false},\"capture_state_basis\":\"manual GUI observation while process alive; process exit establishes stopped\",\"observation_valid\":true,\"continuous_effective_state_observation\":false,\"gui_observation\":{\"basis\":\"actual_visible_gui\",\"observed_at_utc\":\"2026-10-21T19:55:39.535797+00:00\",\"evidence\":[\"[LOCAL_REPOSITORY]\\\\.data\\\\issue8\\\\competitor-preflights\\\\vrclt\\\\actual-20261021T195054Z\\\\evidence\\\\vrclt2-d3-running.png\",\"[LOCAL_REPOSITORY]\\\\.data\\\\issue8\\\\competitor-preflights\\\\vrclt\\\\actual-20261021T195054Z\\\\evidence\\\\audio-route.png\",\"[LOCAL_REPOSITORY]\\\\.data\\\\issue8\\\\competitor-preflights\\\\vrclt\\\\actual-20261021T195054Z\\\\evidence\\\\osc-format-controls.png\",\"[LOCAL_REPOSITORY]\\\\.data\\\\issue8\\\\competitor-preflights\\\\vrclt\\\\actual-20261021T195054Z\\\\evidence\\\\qwen-settings-redacted.png\"],\"profile\":\"VRCLT2\",\"session\":\"vrclt2-d3-20261021T195054Z\"}}},\"requested\":{\"microphone\":\"CABLE Output(VB-Audio Virtual Cable)\",\"voice_output\":false,\"osc_host\":\"127.0.0.1\",\"osc_port\":19131,\"direction\":\"D3\"},\"corrected\":false}"
+    },
+    {
+      "id": 9,
+      "wall": "2026-10-21T19:56:13.818357+00:00",
+      "t_ns": 10518494098100,
+      "kind": "application_state",
+      "detail": "{\"profile\":\"VRCLT2\",\"stage\":\"nonspeech\",\"state\":{\"microphone\":\"CABLE Output(VB-Audio Virtual Cable)\",\"voice_output\":false,\"osc_host\":\"127.0.0.1\",\"osc_port\":19131,\"direction\":\"D3\",\"running\":true,\"metadata\":{\"purpose\":\"Actual normal GUI VRCLT source-specific short preflight; not main or freeze\",\"application_version\":\"1.0.1\",\"source_revision\":\"d97574fd451f1e5af8d0c68bd13c488fab54eaae\",\"owned_GUI_pid\":23904,\"route\":\"Existing Beijing workspace-specific MAAS\",\"requested_model\":\"qwen3.8-livetranslate-flash-realtime\",\"returned_model_independently_attested\":false,\"runtime_condition\":\"Owner-authorized concurrent user activity\",\"saved_intent\":{\"provider\":\"qwen\",\"model\":\"gemini-3.5-live-translate-preview\",\"app\":{\"mode\":\"vrchat\"},\"outbound\":{\"enabled\":false,\"chatbox\":true,\"text_only\":true,\"voice_output\":false,\"passthrough_while_translating\":true,\"mic_device\":\"CABLE Output(VB-Audio Virtual Cable)\",\"tts_device\":\"Realtek Digital Output(Realtek USB Audio)\",\"monitor_device\":\"\",\"glossary\":\"\",\"echo_target_language\":false,\"source_language\":\"zh-Hans\",\"target_language\":\"ko\"},\"inbound\":{\"enabled\":false,\"play_audio\":false,\"allow_system_audio\":false},\"dashboard\":{\"translation_on\":true,\"subtitles_on\":false},\"control\":{\"enabled\":false,\"feedback_chatbox\":false,\"osc_listen_port\":19231},\"osc\":{\"ip\":\"127.0.0.1\",\"port\":19131,\"show_source\":true,\"stream_sentences\":true,\"throttle_sec\":1.5,\"chunk_display_sec\":4.0,\"notification_sfx\":false},\"audio\":{\"mic_idle_disconnect_sec\":15.0},\"hotkeys\":{\"enabled\":false},\"steamvr\":{\"register\":false,\"dashboard_panel\":false},\"ui\":{\"close_action\":\"exit\",\"easy_mode\":true,\"lang\":\"ko\",\"mode\":\"auto\"},\"meta\":{\"auto_setup_pending\":false},\"qwen\":{\"model\":\"qwen3.8-livetranslate-flash-realtime\",\"endpoint\":\"beijing\",\"voice_clone\":\"off\",\"voice\":\"\"},\"vrchat_profile\":{\"ui_mode\":\"auto\",\"voice_output\":true,\"passthrough_while_translating\":false,\"chatbox\":true,\"osc_control\":true,\"vr_overlay\":true,\"wrist_ui\":true},\"qwen_workspace_nonempty\":true,\"qwen_custom_base_url_nonempty\":false,\"overlay_enabled\":false,\"wrist_enabled\":false},\"capture_state_basis\":\"manual GUI observation while process alive; process exit establishes stopped\",\"observation_valid\":true,\"continuous_effective_state_observation\":false,\"gui_observation\":{\"basis\":\"actual_visible_gui\",\"observed_at_utc\":\"2026-10-21T19:55:39.535797+00:00\",\"evidence\":[\"[LOCAL_REPOSITORY]\\\\.data\\\\issue8\\\\competitor-preflights\\\\vrclt\\\\actual-20261021T195054Z\\\\evidence\\\\vrclt2-d3-running.png\",\"[LOCAL_REPOSITORY]\\\\.data\\\\issue8\\\\competitor-preflights\\\\vrclt\\\\actual-20261021T195054Z\\\\evidence\\\\audio-route.png\",\"[LOCAL_REPOSITORY]\\\\.data\\\\issue8\\\\competitor-preflights\\\\vrclt\\\\actual-20261021T195054Z\\\\evidence\\\\osc-format-controls.png\",\"[LOCAL_REPOSITORY]\\\\.data\\\\issue8\\\\competitor-preflights\\\\vrclt\\\\actual-20261021T195054Z\\\\evidence\\\\qwen-settings-redacted.png\"],\"profile\":\"VRCLT2\",\"session\":\"vrclt2-d3-20261021T195054Z\"}}},\"requested\":{\"microphone\":\"CABLE Output(VB-Audio Virtual Cable)\",\"voice_output\":false,\"osc_host\":\"127.0.0.1\",\"osc_port\":19131,\"direction\":\"D3\"},\"corrected\":false}"
+    },
+    {
+      "id": 10,
+      "wall": "2026-10-21T19:56:37.144584+00:00",
+      "t_ns": 10541820329800,
+      "kind": "capture_ownership",
+      "detail": "{\"profile\": \"VRCLT2\", \"owned\": false, \"reason\": \"confirmed_stop\", \"session\": \"006e787e10da40a3a5f3c89db06ce2bc\"}"
+    },
+    {
+      "id": 11,
+      "wall": "2026-10-21T19:56:37.153084+00:00",
+      "t_ns": 10541828809500,
+      "kind": "diagnostic_artifact",
+      "detail": "{\"profile\": \"VRCLT2\", \"path\": \"diagnostic-VRCLT2-006e787e10da40a3a5f3c89db06ce2bc.jsonl\", \"sha256\": \"253210e5861c9f3c67234c4aa59a82196f26604873730f81ba903a83ae543187\"}"
+    },
+    {
+      "id": 12,
+      "wall": "2026-10-21T19:56:37.187802+00:00",
+      "t_ns": 10541863541700,
+      "kind": "stream_artifact",
+      "detail": "{\"path\": \"stream-006e787e10da40a3a5f3c89db06ce2bc.jsonl\", \"sha256\": \"d261d877ad5d0f6dc51b73b044fe09982bb79320c2d3d31d5244505337b54eca\"}"
+    },
+    {
+      "id": 13,
+      "wall": "2026-10-21T19:56:37.188302+00:00",
+      "t_ns": 10541864075000,
+      "kind": "session_end",
+      "detail": "{\"session\": \"006e787e10da40a3a5f3c89db06ce2bc\", \"wall\": \"2026-10-21T19:56:37.188302+00:00\"}"
+    }
+  ],
+  "schema_version": 1,
+  "plan": {
+    "frozen_rule_revision": "issue8-development-preflight-not-main-freeze",
+    "price_table_version": "unknown-not-zero",
+    "calibration": {
+      "schema_version": 1,
+      "status": "measured",
+      "offset_ns": 113409500,
+      "convention": "source_at_capture_ns = playback_dac_ns + source_frame/sample_rate*1e9 + offset_ns",
+      "method": "single bounded shared-mode cable probe, normalized cross-correlation; not precision certification",
+      "normalized_correlation": 0.9999999403953552,
+      "probe_dac_ns": 390999494605600,
+      "probe_capture_ns": 390999608015100,
+      "arrival_frame": 29334,
+      "probe_frame": 24000,
+      "sample_rate": 48000,
+      "devices": {
+        "output": [
+          22,
+          {
+            "name": "CABLE Input(VB-Audio Virtual Cable)",
+            "index": 22,
+            "hostapi": 2,
+            "max_input_channels": 0,
+            "max_output_channels": 2,
+            "default_low_input_latency": 0.0,
+            "default_low_output_latency": 0.002,
+            "default_high_input_latency": 0.0,
+            "default_high_output_latency": 0.01,
+            "default_samplerate": 48000.0
+          }
+        ],
+        "input": [
+          23,
+          {
+            "name": "CABLE Output(VB-Audio Virtual Cable)",
+            "index": 23,
+            "hostapi": 2,
+            "max_input_channels": 1,
+            "max_output_channels": 0,
+            "default_low_input_latency": 0.003,
+            "default_low_output_latency": 0.0,
+            "default_high_input_latency": 0.01,
+            "default_high_output_latency": 0.0,
+            "default_samplerate": 48000.0
+          }
+        ],
+        "exclusive": false
+      },
+      "wall_start": "2026-10-21T04:50:51.022550+00:00",
+      "wall_end": "2026-10-21T04:50:54.096472+00:00",
+      "callbacks": [
+        {
+          "frame": 0,
+          "frames": 480,
+          "callback_t_ns": 390998978522000,
+          "adc_t_ns": 390998988522000,
+          "dac_t_ns": 390998988522000,
+          "portaudio_current_time": 390998.9784135,
+          "portaudio_input_adc_time": 390998.9884135,
+          "portaudio_output_dac_time": 390998.9884135,
+          "status": ""
+        },
+        {
+          "frame": 480,
+          "frames": 480,
+          "callback_t_ns": 390998985045500,
+          "adc_t_ns": 390998995045500,
+          "dac_t_ns": 390998995045500,
+          "portaudio_current_time": 390998.98495189997,
+          "portaudio_input_adc_time": 390998.9949519,
+          "portaudio_output_dac_time": 390998.9949519,
+          "status": ""
+        },
+        {
+          "frame": 960,
+          "frames": 480,
+          "callback_t_ns": 390998994706500,
+          "adc_t_ns": 390999004706500,
+          "dac_t_ns": 390999004706500,
+          "portaudio_current_time": 390998.99464,
+          "portaudio_input_adc_time": 390999.00464,
+          "portaudio_output_dac_time": 390999.00464,
+          "status": ""
+        },
+        {
+          "frame": 1440,
+          "frames": 480,
+          "callback_t_ns": 390999014677600,
+          "adc_t_ns": 390999024677600,
+          "dac_t_ns": 390999024677600,
+          "portaudio_current_time": 390999.0146079,
+          "portaudio_input_adc_time": 390999.0246079,
+          "portaudio_output_dac_time": 390999.0246079,
+          "status": ""
+        },
+        {
+          "frame": 1920,
+          "frames": 480,
+          "callback_t_ns": 390999023527900,
+          "adc_t_ns": 390999033527900,
+          "dac_t_ns": 390999043527900,
+          "portaudio_current_time": 390999.0234463,
+          "portaudio_input_adc_time": 390999.0334463,
+          "portaudio_output_dac_time": 390999.0434463,
+          "status": ""
+        },
+        {
+          "frame": 2400,
+          "frames": 480,
+          "callback_t_ns": 390999034632900,
+          "adc_t_ns": 390999044632900,
+          "dac_t_ns": 390999044632900,
+          "portaudio_current_time": 390999.0345646,
+          "portaudio_input_adc_time": 390999.0445646,
+          "portaudio_output_dac_time": 390999.0445646,
+          "status": ""
+        },
+        {
+          "frame": 2880,
+          "frames": 480,
+          "callback_t_ns": 390999044755000,
+          "adc_t_ns": 390999054755000,
+          "dac_t_ns": 390999054755000,
+          "portaudio_current_time": 390999.0447014,
+          "portaudio_input_adc_time": 390999.0547014,
+          "portaudio_output_dac_time": 390999.0547014,
+          "status": ""
+        },
+        {
+          "frame": 3360,
+          "frames": 480,
+          "callback_t_ns": 390999053966700,
+          "adc_t_ns": 390999063966700,
+          "dac_t_ns": 390999063966700,
+          "portaudio_current_time": 390999.05391719996,
+          "portaudio_input_adc_time": 390999.06391719996,
+          "portaudio_output_dac_time": 390999.06391719996,
+          "status": ""
+        },
+        {
+          "frame": 3840,
+          "frames": 480,
+          "callback_t_ns": 390999065181400,
+          "adc_t_ns": 390999075181400,
+          "dac_t_ns": 390999075181400,
+          "portaudio_current_time": 390999.0651368,
+          "portaudio_input_adc_time": 390999.0751368,
+          "portaudio_output_dac_time": 390999.0751368,
+          "status": ""
+        },
+        {
+          "frame": 4320,
+          "frames": 480,
+          "callback_t_ns": 390999073749000,
+          "adc_t_ns": 390999083749000,
+          "dac_t_ns": 390999083749000,
+          "portaudio_current_time": 390999.0737074,
+          "portaudio_input_adc_time": 390999.0837074,
+          "portaudio_output_dac_time": 390999.0837074,
+          "status": ""
+        },
+        {
+          "frame": 4800,
+          "frames": 480,
+          "callback_t_ns": 390999084093900,
+          "adc_t_ns": 390999104093900,
+          "dac_t_ns": 390999094093900,
+          "portaudio_current_time": 390999.0840498,
+          "portaudio_input_adc_time": 390999.1040498,
+          "portaudio_output_dac_time": 390999.0940498,
+          "status": ""
+        },
+        {
+          "frame": 5280,
+          "frames": 480,
+          "callback_t_ns": 390999084140900,
+          "adc_t_ns": 390999094140900,
+          "dac_t_ns": 390999104140900,
+          "portaudio_current_time": 390999.0841335,
+          "portaudio_input_adc_time": 390999.0941335,
+          "portaudio_output_dac_time": 390999.1041335,
+          "status": ""
+        },
+        {
+          "frame": 5760,
+          "frames": 480,
+          "callback_t_ns": 390999103769300,
+          "adc_t_ns": 390999113769300,
+          "dac_t_ns": 390999113769300,
+          "portaudio_current_time": 390999.1037146,
+          "portaudio_input_adc_time": 390999.1137146,
+          "portaudio_output_dac_time": 390999.1137146,
+          "status": ""
+        },
+        {
+          "frame": 6240,
+          "frames": 480,
+          "callback_t_ns": 390999113859400,
+          "adc_t_ns": 390999123859400,
+          "dac_t_ns": 390999123859400,
+          "portaudio_current_time": 390999.113815,
+          "portaudio_input_adc_time": 390999.123815,
+          "portaudio_output_dac_time": 390999.123815,
+          "status": ""
+        },
+        {
+          "frame": 6720,
+          "frames": 480,
+          "callback_t_ns": 390999124442000,
+          "adc_t_ns": 390999134442000,
+          "dac_t_ns": 390999134442000,
+          "portaudio_current_time": 390999.12439209997,
+          "portaudio_input_adc_time": 390999.1343921,
+          "portaudio_output_dac_time": 390999.1343921,
+          "status": ""
+        },
+        {
+          "frame": 7200,
+          "frames": 480,
+          "callback_t_ns": 390999133169800,
+          "adc_t_ns": 390999143169800,
+          "dac_t_ns": 390999153169800,
+          "portaudio_current_time": 390999.1331153,
+          "portaudio_input_adc_time": 390999.1431153,
+          "portaudio_output_dac_time": 390999.1531153,
+          "status": ""
+        },
+        {
+          "frame": 7680,
+          "frames": 480,
+          "callback_t_ns": 390999144800200,
+          "adc_t_ns": 390999154800200,
+          "dac_t_ns": 390999154800200,
+          "portaudio_current_time": 390999.1447534,
+          "portaudio_input_adc_time": 390999.1547534,
+          "portaudio_output_dac_time": 390999.1547534,
+          "status": ""
+        },
+        {
+          "frame": 8160,
+          "frames": 480,
+          "callback_t_ns": 390999155348600,
+          "adc_t_ns": 390999175348600,
+          "dac_t_ns": 390999165348600,
+          "portaudio_current_time": 390999.1553002,
+          "portaudio_input_adc_time": 390999.1753002,
+          "portaudio_output_dac_time": 390999.1653002,
+          "status": ""
+        },
+        {
+          "frame": 8640,
+          "frames": 480,
+          "callback_t_ns": 390999155401600,
+          "adc_t_ns": 390999165401600,
+          "dac_t_ns": 390999175401600,
+          "portaudio_current_time": 390999.1553948,
+          "portaudio_input_adc_time": 390999.1653948,
+          "portaudio_output_dac_time": 390999.1753948,
+          "status": ""
+        },
+        {
+          "frame": 9120,
+          "frames": 480,
+          "callback_t_ns": 390999174034200,
+          "adc_t_ns": 390999184034200,
+          "dac_t_ns": 390999184034200,
+          "portaudio_current_time": 390999.1739684,
+          "portaudio_input_adc_time": 390999.1839684,
+          "portaudio_output_dac_time": 390999.1839684,
+          "status": ""
+        },
+        {
+          "frame": 9600,
+          "frames": 480,
+          "callback_t_ns": 390999185206600,
+          "adc_t_ns": 390999205206600,
+          "dac_t_ns": 390999195206600,
+          "portaudio_current_time": 390999.18512569997,
+          "portaudio_input_adc_time": 390999.2051257,
+          "portaudio_output_dac_time": 390999.1951257,
+          "status": ""
+        },
+        {
+          "frame": 10080,
+          "frames": 480,
+          "callback_t_ns": 390999185280700,
+          "adc_t_ns": 390999195280700,
+          "dac_t_ns": 390999205280700,
+          "portaudio_current_time": 390999.1852719,
+          "portaudio_input_adc_time": 390999.1952719,
+          "portaudio_output_dac_time": 390999.2052719,
+          "status": ""
+        },
+        {
+          "frame": 10560,
+          "frames": 480,
+          "callback_t_ns": 390999203370000,
+          "adc_t_ns": 390999213370000,
+          "dac_t_ns": 390999223370000,
+          "portaudio_current_time": 390999.2033016,
+          "portaudio_input_adc_time": 390999.2133016,
+          "portaudio_output_dac_time": 390999.2233016,
+          "status": ""
+        },
+        {
+          "frame": 11040,
+          "frames": 480,
+          "callback_t_ns": 390999213469500,
+          "adc_t_ns": 390999223469500,
+          "dac_t_ns": 390999233469500,
+          "portaudio_current_time": 390999.21339489997,
+          "portaudio_input_adc_time": 390999.2233949,
+          "portaudio_output_dac_time": 390999.2333949,
+          "status": ""
+        },
+        {
+          "frame": 11520,
+          "frames": 480,
+          "callback_t_ns": 390999224245900,
+          "adc_t_ns": 390999234245900,
+          "dac_t_ns": 390999234245900,
+          "portaudio_current_time": 390999.2241926,
+          "portaudio_input_adc_time": 390999.2341926,
+          "portaudio_output_dac_time": 390999.2341926,
+          "status": ""
+        },
+        {
+          "frame": 12000,
+          "frames": 480,
+          "callback_t_ns": 390999233216300,
+          "adc_t_ns": 390999243216300,
+          "dac_t_ns": 390999253216300,
+          "portaudio_current_time": 390999.2331647,
+          "portaudio_input_adc_time": 390999.2431647,
+          "portaudio_output_dac_time": 390999.2531647,
+          "status": ""
+        },
+        {
+          "frame": 12480,
+          "frames": 480,
+          "callback_t_ns": 390999244289300,
+          "adc_t_ns": 390999254289300,
+          "dac_t_ns": 390999254289300,
+          "portaudio_current_time": 390999.2442195,
+          "portaudio_input_adc_time": 390999.2542195,
+          "portaudio_output_dac_time": 390999.2542195,
+          "status": ""
+        },
+        {
+          "frame": 12960,
+          "frames": 480,
+          "callback_t_ns": 390999254875000,
+          "adc_t_ns": 390999264875000,
+          "dac_t_ns": 390999264875000,
+          "portaudio_current_time": 390999.2548216,
+          "portaudio_input_adc_time": 390999.2648216,
+          "portaudio_output_dac_time": 390999.2648216,
+          "status": ""
+        },
+        {
+          "frame": 13440,
+          "frames": 480,
+          "callback_t_ns": 390999264377200,
+          "adc_t_ns": 390999284377200,
+          "dac_t_ns": 390999274377200,
+          "portaudio_current_time": 390999.2643159,
+          "portaudio_input_adc_time": 390999.2843159,
+          "portaudio_output_dac_time": 390999.2743159,
+          "status": ""
+        },
+        {
+          "frame": 13920,
+          "frames": 480,
+          "callback_t_ns": 390999264435200,
+          "adc_t_ns": 390999274435200,
+          "dac_t_ns": 390999284435200,
+          "portaudio_current_time": 390999.2644288,
+          "portaudio_input_adc_time": 390999.2744288,
+          "portaudio_output_dac_time": 390999.2844288,
+          "status": ""
+        },
+        {
+          "frame": 14400,
+          "frames": 480,
+          "callback_t_ns": 390999274602500,
+          "adc_t_ns": 390999284602500,
+          "dac_t_ns": 390999294602500,
+          "portaudio_current_time": 390999.27454769996,
+          "portaudio_input_adc_time": 390999.28454769996,
+          "portaudio_output_dac_time": 390999.2945477,
+          "status": ""
+        },
+        {
+          "frame": 14880,
+          "frames": 480,
+          "callback_t_ns": 390999285093000,
+          "adc_t_ns": 390999295093000,
+          "dac_t_ns": 390999305093000,
+          "portaudio_current_time": 390999.285042,
+          "portaudio_input_adc_time": 390999.295042,
+          "portaudio_output_dac_time": 390999.305042,
+          "status": ""
+        },
+        {
+          "frame": 15360,
+          "frames": 480,
+          "callback_t_ns": 390999303995800,
+          "adc_t_ns": 390999313995800,
+          "dac_t_ns": 390999313995800,
+          "portaudio_current_time": 390999.3039211,
+          "portaudio_input_adc_time": 390999.3139211,
+          "portaudio_output_dac_time": 390999.3139211,
+          "status": ""
+        },
+        {
+          "frame": 15840,
+          "frames": 480,
+          "callback_t_ns": 390999315121300,
+          "adc_t_ns": 390999325121300,
+          "dac_t_ns": 390999325121300,
+          "portaudio_current_time": 390999.3150651,
+          "portaudio_input_adc_time": 390999.3250651,
+          "portaudio_output_dac_time": 390999.3250651,
+          "status": ""
+        },
+        {
+          "frame": 16320,
+          "frames": 480,
+          "callback_t_ns": 390999324319500,
+          "adc_t_ns": 390999334319500,
+          "dac_t_ns": 390999334319500,
+          "portaudio_current_time": 390999.3242687,
+          "portaudio_input_adc_time": 390999.3342687,
+          "portaudio_output_dac_time": 390999.3342687,
+          "status": ""
+        },
+        {
+          "frame": 16800,
+          "frames": 480,
+          "callback_t_ns": 390999335077200,
+          "adc_t_ns": 390999345077200,
+          "dac_t_ns": 390999345077200,
+          "portaudio_current_time": 390999.33503789996,
+          "portaudio_input_adc_time": 390999.34503789997,
+          "portaudio_output_dac_time": 390999.34503789997,
+          "status": ""
+        },
+        {
+          "frame": 17280,
+          "frames": 480,
+          "callback_t_ns": 390999343522700,
+          "adc_t_ns": 390999353522700,
+          "dac_t_ns": 390999363522700,
+          "portaudio_current_time": 390999.3434672,
+          "portaudio_input_adc_time": 390999.3534672,
+          "portaudio_output_dac_time": 390999.3634672,
+          "status": ""
+        },
+        {
+          "frame": 17760,
+          "frames": 480,
+          "callback_t_ns": 390999354327700,
+          "adc_t_ns": 390999374327700,
+          "dac_t_ns": 390999364327700,
+          "portaudio_current_time": 390999.354291,
+          "portaudio_input_adc_time": 390999.374291,
+          "portaudio_output_dac_time": 390999.364291,
+          "status": ""
+        },
+        {
+          "frame": 18240,
+          "frames": 480,
+          "callback_t_ns": 390999354376500,
+          "adc_t_ns": 390999364376500,
+          "dac_t_ns": 390999374376500,
+          "portaudio_current_time": 390999.35436999996,
+          "portaudio_input_adc_time": 390999.36436999997,
+          "portaudio_output_dac_time": 390999.37437,
+          "status": ""
+        },
+        {
+          "frame": 18720,
+          "frames": 480,
+          "callback_t_ns": 390999373615900,
+          "adc_t_ns": 390999383615900,
+          "dac_t_ns": 390999393615900,
+          "portaudio_current_time": 390999.373579,
+          "portaudio_input_adc_time": 390999.383579,
+          "portaudio_output_dac_time": 390999.393579,
+          "status": ""
+        },
+        {
+          "frame": 19200,
+          "frames": 480,
+          "callback_t_ns": 390999384255500,
+          "adc_t_ns": 390999394255500,
+          "dac_t_ns": 390999394255500,
+          "portaudio_current_time": 390999.3842176,
+          "portaudio_input_adc_time": 390999.3942176,
+          "portaudio_output_dac_time": 390999.3942176,
+          "status": ""
+        },
+        {
+          "frame": 19680,
+          "frames": 480,
+          "callback_t_ns": 390999394381500,
+          "adc_t_ns": 390999414381500,
+          "dac_t_ns": 390999404381500,
+          "portaudio_current_time": 390999.3943471,
+          "portaudio_input_adc_time": 390999.4143471,
+          "portaudio_output_dac_time": 390999.4043471,
+          "status": ""
+        },
+        {
+          "frame": 20160,
+          "frames": 480,
+          "callback_t_ns": 390999394426200,
+          "adc_t_ns": 390999404426200,
+          "dac_t_ns": 390999414426200,
+          "portaudio_current_time": 390999.39441849996,
+          "portaudio_input_adc_time": 390999.40441849997,
+          "portaudio_output_dac_time": 390999.4144185,
+          "status": ""
+        },
+        {
+          "frame": 20640,
+          "frames": 480,
+          "callback_t_ns": 390999413310900,
+          "adc_t_ns": 390999423310900,
+          "dac_t_ns": 390999433310900,
+          "portaudio_current_time": 390999.41326939996,
+          "portaudio_input_adc_time": 390999.42326939997,
+          "portaudio_output_dac_time": 390999.4332694,
+          "status": ""
+        },
+        {
+          "frame": 21120,
+          "frames": 480,
+          "callback_t_ns": 390999423429700,
+          "adc_t_ns": 390999433429700,
+          "dac_t_ns": 390999443429700,
+          "portaudio_current_time": 390999.4233944,
+          "portaudio_input_adc_time": 390999.4333944,
+          "portaudio_output_dac_time": 390999.4433944,
+          "status": ""
+        },
+        {
+          "frame": 21600,
+          "frames": 480,
+          "callback_t_ns": 390999435618900,
+          "adc_t_ns": 390999455618900,
+          "dac_t_ns": 390999445618900,
+          "portaudio_current_time": 390999.4355869,
+          "portaudio_input_adc_time": 390999.4555869,
+          "portaudio_output_dac_time": 390999.4455869,
+          "status": ""
+        },
+        {
+          "frame": 22080,
+          "frames": 480,
+          "callback_t_ns": 390999435664600,
+          "adc_t_ns": 390999445664600,
+          "dac_t_ns": 390999455664600,
+          "portaudio_current_time": 390999.4356583,
+          "portaudio_input_adc_time": 390999.4456583,
+          "portaudio_output_dac_time": 390999.4556583,
+          "status": ""
+        },
+        {
+          "frame": 22560,
+          "frames": 480,
+          "callback_t_ns": 390999454499100,
+          "adc_t_ns": 390999464499100,
+          "dac_t_ns": 390999464499100,
+          "portaudio_current_time": 390999.4544446,
+          "portaudio_input_adc_time": 390999.4644446,
+          "portaudio_output_dac_time": 390999.4644446,
+          "status": ""
+        },
+        {
+          "frame": 23040,
+          "frames": 480,
+          "callback_t_ns": 390999465530100,
+          "adc_t_ns": 390999475530100,
+          "dac_t_ns": 390999475530100,
+          "portaudio_current_time": 390999.4654913,
+          "portaudio_input_adc_time": 390999.4754913,
+          "portaudio_output_dac_time": 390999.4754913,
+          "status": ""
+        },
+        {
+          "frame": 23520,
+          "frames": 480,
+          "callback_t_ns": 390999474561000,
+          "adc_t_ns": 390999494561000,
+          "dac_t_ns": 390999484561000,
+          "portaudio_current_time": 390999.4745215,
+          "portaudio_input_adc_time": 390999.4945215,
+          "portaudio_output_dac_time": 390999.4845215,
+          "status": ""
+        },
+        {
+          "frame": 24000,
+          "frames": 480,
+          "callback_t_ns": 390999474605600,
+          "adc_t_ns": 390999484605600,
+          "dac_t_ns": 390999494605600,
+          "portaudio_current_time": 390999.4745993,
+          "portaudio_input_adc_time": 390999.4845993,
+          "portaudio_output_dac_time": 390999.49459930003,
+          "status": ""
+        },
+        {
+          "frame": 24480,
+          "frames": 480,
+          "callback_t_ns": 390999485099100,
+          "adc_t_ns": 390999495099100,
+          "dac_t_ns": 390999505099100,
+          "portaudio_current_time": 390999.4850597,
+          "portaudio_input_adc_time": 390999.4950597,
+          "portaudio_output_dac_time": 390999.5050597,
+          "status": ""
+        },
+        {
+          "frame": 24960,
+          "frames": 480,
+          "callback_t_ns": 390999505013000,
+          "adc_t_ns": 390999515013000,
+          "dac_t_ns": 390999525013000,
+          "portaudio_current_time": 390999.50478029996,
+          "portaudio_input_adc_time": 390999.51478029997,
+          "portaudio_output_dac_time": 390999.5247803,
+          "status": ""
+        },
+        {
+          "frame": 25440,
+          "frames": 480,
+          "callback_t_ns": 390999514924500,
+          "adc_t_ns": 390999534924500,
+          "dac_t_ns": 390999534924500,
+          "portaudio_current_time": 390999.5148602,
+          "portaudio_input_adc_time": 390999.5348602,
+          "portaudio_output_dac_time": 390999.5348602,
+          "status": ""
+        },
+        {
+          "frame": 25920,
+          "frames": 480,
+          "callback_t_ns": 390999525130200,
+          "adc_t_ns": 390999535130200,
+          "dac_t_ns": 390999545130200,
+          "portaudio_current_time": 390999.5250928,
+          "portaudio_input_adc_time": 390999.5350928,
+          "portaudio_output_dac_time": 390999.5450928,
+          "status": ""
+        },
+        {
+          "frame": 26400,
+          "frames": 480,
+          "callback_t_ns": 390999534342200,
+          "adc_t_ns": 390999544342200,
+          "dac_t_ns": 390999554342200,
+          "portaudio_current_time": 390999.53430319997,
+          "portaudio_input_adc_time": 390999.5443032,
+          "portaudio_output_dac_time": 390999.5543032,
+          "status": ""
+        },
+        {
+          "frame": 26880,
+          "frames": 480,
+          "callback_t_ns": 390999545244900,
+          "adc_t_ns": 390999565244900,
+          "dac_t_ns": 390999565244900,
+          "portaudio_current_time": 390999.5452056,
+          "portaudio_input_adc_time": 390999.5652056,
+          "portaudio_output_dac_time": 390999.5652056,
+          "status": ""
+        },
+        {
+          "frame": 27360,
+          "frames": 480,
+          "callback_t_ns": 390999554425800,
+          "adc_t_ns": 390999574425800,
+          "dac_t_ns": 390999574425800,
+          "portaudio_current_time": 390999.55439119996,
+          "portaudio_input_adc_time": 390999.5743912,
+          "portaudio_output_dac_time": 390999.5743912,
+          "status": ""
+        },
+        {
+          "frame": 27840,
+          "frames": 480,
+          "callback_t_ns": 390999564695400,
+          "adc_t_ns": 390999574695400,
+          "dac_t_ns": 390999584695400,
+          "portaudio_current_time": 390999.5646598,
+          "portaudio_input_adc_time": 390999.5746598,
+          "portaudio_output_dac_time": 390999.5846598,
+          "status": ""
+        },
+        {
+          "frame": 28320,
+          "frames": 480,
+          "callback_t_ns": 390999575373300,
+          "adc_t_ns": 390999585373300,
+          "dac_t_ns": 390999595373300,
+          "portaudio_current_time": 390999.57534549996,
+          "portaudio_input_adc_time": 390999.5853455,
+          "portaudio_output_dac_time": 390999.5953455,
+          "status": ""
+        },
+        {
+          "frame": 28800,
+          "frames": 480,
+          "callback_t_ns": 390999586041100,
+          "adc_t_ns": 390999606041100,
+          "dac_t_ns": 390999606041100,
+          "portaudio_current_time": 390999.58598559996,
+          "portaudio_input_adc_time": 390999.6059856,
+          "portaudio_output_dac_time": 390999.6059856,
+          "status": ""
+        },
+        {
+          "frame": 29280,
+          "frames": 480,
+          "callback_t_ns": 390999596890100,
+          "adc_t_ns": 390999606890100,
+          "dac_t_ns": 390999606890100,
+          "portaudio_current_time": 390999.5968351,
+          "portaudio_input_adc_time": 390999.6068351,
+          "portaudio_output_dac_time": 390999.6068351,
+          "status": ""
+        },
+        {
+          "frame": 29760,
+          "frames": 480,
+          "callback_t_ns": 390999605058900,
+          "adc_t_ns": 390999625058900,
+          "dac_t_ns": 390999615058900,
+          "portaudio_current_time": 390999.60500419996,
+          "portaudio_input_adc_time": 390999.6250042,
+          "portaudio_output_dac_time": 390999.61500419996,
+          "status": ""
+        },
+        {
+          "frame": 30240,
+          "frames": 480,
+          "callback_t_ns": 390999605117700,
+          "adc_t_ns": 390999615117700,
+          "dac_t_ns": 390999625117700,
+          "portaudio_current_time": 390999.60511099995,
+          "portaudio_input_adc_time": 390999.61511099996,
+          "portaudio_output_dac_time": 390999.625111,
+          "status": ""
+        },
+        {
+          "frame": 30720,
+          "frames": 480,
+          "callback_t_ns": 390999624263300,
+          "adc_t_ns": 390999634263300,
+          "dac_t_ns": 390999634263300,
+          "portaudio_current_time": 390999.6241906,
+          "portaudio_input_adc_time": 390999.6341906,
+          "portaudio_output_dac_time": 390999.6341906,
+          "status": ""
+        },
+        {
+          "frame": 31200,
+          "frames": 480,
+          "callback_t_ns": 390999635374900,
+          "adc_t_ns": 390999645374900,
+          "dac_t_ns": 390999645374900,
+          "portaudio_current_time": 390999.6353125,
+          "portaudio_input_adc_time": 390999.6453125,
+          "portaudio_output_dac_time": 390999.6453125,
+          "status": ""
+        },
+        {
+          "frame": 31680,
+          "frames": 480,
+          "callback_t_ns": 390999643465600,
+          "adc_t_ns": 390999663465600,
+          "dac_t_ns": 390999663465600,
+          "portaudio_current_time": 390999.64342459996,
+          "portaudio_input_adc_time": 390999.6634246,
+          "portaudio_output_dac_time": 390999.6634246,
+          "status": ""
+        },
+        {
+          "frame": 32160,
+          "frames": 480,
+          "callback_t_ns": 390999645962700,
+          "adc_t_ns": 390999655962700,
+          "dac_t_ns": 390999665962700,
+          "portaudio_current_time": 390999.64593379997,
+          "portaudio_input_adc_time": 390999.6559338,
+          "portaudio_output_dac_time": 390999.6659338,
+          "status": ""
+        },
+        {
+          "frame": 32640,
+          "frames": 480,
+          "callback_t_ns": 390999664689500,
+          "adc_t_ns": 390999684689500,
+          "dac_t_ns": 390999674689500,
+          "portaudio_current_time": 390999.6646571,
+          "portaudio_input_adc_time": 390999.6846571,
+          "portaudio_output_dac_time": 390999.6746571,
+          "status": ""
+        },
+        {
+          "frame": 33120,
+          "frames": 480,
+          "callback_t_ns": 390999664731000,
+          "adc_t_ns": 390999674731000,
+          "dac_t_ns": 390999684731000,
+          "portaudio_current_time": 390999.6647246,
+          "portaudio_input_adc_time": 390999.6747246,
+          "portaudio_output_dac_time": 390999.6847246,
+          "status": ""
+        },
+        {
+          "frame": 33600,
+          "frames": 480,
+          "callback_t_ns": 390999684314600,
+          "adc_t_ns": 390999694314600,
+          "dac_t_ns": 390999694314600,
+          "portaudio_current_time": 390999.6842278,
+          "portaudio_input_adc_time": 390999.6942278,
+          "portaudio_output_dac_time": 390999.6942278,
+          "status": ""
+        },
+        {
+          "frame": 34080,
+          "frames": 480,
+          "callback_t_ns": 390999694807700,
+          "adc_t_ns": 390999704807700,
+          "dac_t_ns": 390999704807700,
+          "portaudio_current_time": 390999.69475679996,
+          "portaudio_input_adc_time": 390999.70475679997,
+          "portaudio_output_dac_time": 390999.70475679997,
+          "status": ""
+        },
+        {
+          "frame": 34560,
+          "frames": 480,
+          "callback_t_ns": 390999703188200,
+          "adc_t_ns": 390999713188200,
+          "dac_t_ns": 390999723188200,
+          "portaudio_current_time": 390999.7031259,
+          "portaudio_input_adc_time": 390999.7131259,
+          "portaudio_output_dac_time": 390999.7231259,
+          "status": ""
+        },
+        {
+          "frame": 35040,
+          "frames": 480,
+          "callback_t_ns": 390999713711500,
+          "adc_t_ns": 390999723711500,
+          "dac_t_ns": 390999723711500,
+          "portaudio_current_time": 390999.71366109996,
+          "portaudio_input_adc_time": 390999.72366109997,
+          "portaudio_output_dac_time": 390999.72366109997,
+          "status": ""
+        },
+        {
+          "frame": 35520,
+          "frames": 480,
+          "callback_t_ns": 390999724790500,
+          "adc_t_ns": 390999734790500,
+          "dac_t_ns": 390999734790500,
+          "portaudio_current_time": 390999.7247322,
+          "portaudio_input_adc_time": 390999.7347322,
+          "portaudio_output_dac_time": 390999.7347322,
+          "status": ""
+        },
+        {
+          "frame": 36000,
+          "frames": 480,
+          "callback_t_ns": 390999735604000,
+          "adc_t_ns": 390999755604000,
+          "dac_t_ns": 390999745604000,
+          "portaudio_current_time": 390999.7355513,
+          "portaudio_input_adc_time": 390999.7555513,
+          "portaudio_output_dac_time": 390999.7455513,
+          "status": ""
+        },
+        {
+          "frame": 36480,
+          "frames": 480,
+          "callback_t_ns": 390999735662000,
+          "adc_t_ns": 390999745662000,
+          "dac_t_ns": 390999755662000,
+          "portaudio_current_time": 390999.73565369996,
+          "portaudio_input_adc_time": 390999.74565369997,
+          "portaudio_output_dac_time": 390999.7556537,
+          "status": ""
+        },
+        {
+          "frame": 36960,
+          "frames": 480,
+          "callback_t_ns": 390999753632400,
+          "adc_t_ns": 390999763632400,
+          "dac_t_ns": 390999773632400,
+          "portaudio_current_time": 390999.7535825,
+          "portaudio_input_adc_time": 390999.7635825,
+          "portaudio_output_dac_time": 390999.7735825,
+          "status": ""
+        },
+        {
+          "frame": 37440,
+          "frames": 480,
+          "callback_t_ns": 390999764773500,
+          "adc_t_ns": 390999774773500,
+          "dac_t_ns": 390999774773500,
+          "portaudio_current_time": 390999.76470359997,
+          "portaudio_input_adc_time": 390999.7747036,
+          "portaudio_output_dac_time": 390999.7747036,
+          "status": ""
+        },
+        {
+          "frame": 37920,
+          "frames": 480,
+          "callback_t_ns": 390999773171500,
+          "adc_t_ns": 390999783171500,
+          "dac_t_ns": 390999793171500,
+          "portaudio_current_time": 390999.7731236,
+          "portaudio_input_adc_time": 390999.7831236,
+          "portaudio_output_dac_time": 390999.7931236,
+          "status": ""
+        },
+        {
+          "frame": 38400,
+          "frames": 480,
+          "callback_t_ns": 390999783363500,
+          "adc_t_ns": 390999793363500,
+          "dac_t_ns": 390999803363500,
+          "portaudio_current_time": 390999.78332329995,
+          "portaudio_input_adc_time": 390999.79332329996,
+          "portaudio_output_dac_time": 390999.8033233,
+          "status": ""
+        },
+        {
+          "frame": 38880,
+          "frames": 480,
+          "callback_t_ns": 390999793934700,
+          "adc_t_ns": 390999813934700,
+          "dac_t_ns": 390999803934700,
+          "portaudio_current_time": 390999.7938918,
+          "portaudio_input_adc_time": 390999.8138918,
+          "portaudio_output_dac_time": 390999.8038918,
+          "status": ""
+        },
+        {
+          "frame": 39360,
+          "frames": 480,
+          "callback_t_ns": 390999793981800,
+          "adc_t_ns": 390999803981800,
+          "dac_t_ns": 390999813981800,
+          "portaudio_current_time": 390999.7939748,
+          "portaudio_input_adc_time": 390999.8039748,
+          "portaudio_output_dac_time": 390999.8139748,
+          "status": ""
+        },
+        {
+          "frame": 39840,
+          "frames": 480,
+          "callback_t_ns": 390999813804300,
+          "adc_t_ns": 390999823804300,
+          "dac_t_ns": 390999823804300,
+          "portaudio_current_time": 390999.8137514,
+          "portaudio_input_adc_time": 390999.8237514,
+          "portaudio_output_dac_time": 390999.8237514,
+          "status": ""
+        },
+        {
+          "frame": 40320,
+          "frames": 480,
+          "callback_t_ns": 390999823206800,
+          "adc_t_ns": 390999833206800,
+          "dac_t_ns": 390999843206800,
+          "portaudio_current_time": 390999.82315109996,
+          "portaudio_input_adc_time": 390999.83315109997,
+          "portaudio_output_dac_time": 390999.8431511,
+          "status": ""
+        },
+        {
+          "frame": 40800,
+          "frames": 480,
+          "callback_t_ns": 390999834981000,
+          "adc_t_ns": 390999844981000,
+          "dac_t_ns": 390999844981000,
+          "portaudio_current_time": 390999.8349337,
+          "portaudio_input_adc_time": 390999.8449337,
+          "portaudio_output_dac_time": 390999.8449337,
+          "status": ""
+        },
+        {
+          "frame": 41280,
+          "frames": 480,
+          "callback_t_ns": 390999844530500,
+          "adc_t_ns": 390999864530500,
+          "dac_t_ns": 390999854530500,
+          "portaudio_current_time": 390999.8444696,
+          "portaudio_input_adc_time": 390999.8644696,
+          "portaudio_output_dac_time": 390999.8544696,
+          "status": ""
+        },
+        {
+          "frame": 41760,
+          "frames": 480,
+          "callback_t_ns": 390999844595000,
+          "adc_t_ns": 390999854595000,
+          "dac_t_ns": 390999864595000,
+          "portaudio_current_time": 390999.8445843,
+          "portaudio_input_adc_time": 390999.8545843,
+          "portaudio_output_dac_time": 390999.8645843,
+          "status": ""
+        },
+        {
+          "frame": 42240,
+          "frames": 480,
+          "callback_t_ns": 390999865556600,
+          "adc_t_ns": 390999875556600,
+          "dac_t_ns": 390999875556600,
+          "portaudio_current_time": 390999.86549299996,
+          "portaudio_input_adc_time": 390999.87549299997,
+          "portaudio_output_dac_time": 390999.87549299997,
+          "status": ""
+        },
+        {
+          "frame": 42720,
+          "frames": 480,
+          "callback_t_ns": 390999873588700,
+          "adc_t_ns": 390999883588700,
+          "dac_t_ns": 390999893588700,
+          "portaudio_current_time": 390999.8735472,
+          "portaudio_input_adc_time": 390999.8835472,
+          "portaudio_output_dac_time": 390999.8935472,
+          "status": ""
+        },
+        {
+          "frame": 43200,
+          "frames": 480,
+          "callback_t_ns": 390999884780900,
+          "adc_t_ns": 390999894780900,
+          "dac_t_ns": 390999894780900,
+          "portaudio_current_time": 390999.88474079996,
+          "portaudio_input_adc_time": 390999.89474079997,
+          "portaudio_output_dac_time": 390999.89474079997,
+          "status": ""
+        },
+        {
+          "frame": 43680,
+          "frames": 480,
+          "callback_t_ns": 390999893471700,
+          "adc_t_ns": 390999903471700,
+          "dac_t_ns": 390999913471700,
+          "portaudio_current_time": 390999.89343199995,
+          "portaudio_input_adc_time": 390999.90343199996,
+          "portaudio_output_dac_time": 390999.913432,
+          "status": ""
+        },
+        {
+          "frame": 44160,
+          "frames": 480,
+          "callback_t_ns": 390999904031100,
+          "adc_t_ns": 390999924031100,
+          "dac_t_ns": 390999924031100,
+          "portaudio_current_time": 390999.90399669996,
+          "portaudio_input_adc_time": 390999.9239967,
+          "portaudio_output_dac_time": 390999.9239967,
+          "status": ""
+        },
+        {
+          "frame": 44640,
+          "frames": 480,
+          "callback_t_ns": 390999905028900,
+          "adc_t_ns": 390999915028900,
+          "dac_t_ns": 390999925028900,
+          "portaudio_current_time": 390999.905001,
+          "portaudio_input_adc_time": 390999.915001,
+          "portaudio_output_dac_time": 390999.925001,
+          "status": ""
+        },
+        {
+          "frame": 45120,
+          "frames": 480,
+          "callback_t_ns": 390999924179800,
+          "adc_t_ns": 390999934179800,
+          "dac_t_ns": 390999934179800,
+          "portaudio_current_time": 390999.9241219,
+          "portaudio_input_adc_time": 390999.9341219,
+          "portaudio_output_dac_time": 390999.9341219,
+          "status": ""
+        },
+        {
+          "frame": 45600,
+          "frames": 480,
+          "callback_t_ns": 390999934204600,
+          "adc_t_ns": 390999944204600,
+          "dac_t_ns": 390999944204600,
+          "portaudio_current_time": 390999.9341713,
+          "portaudio_input_adc_time": 390999.9441713,
+          "portaudio_output_dac_time": 390999.9441713,
+          "status": ""
+        },
+        {
+          "frame": 46080,
+          "frames": 480,
+          "callback_t_ns": 390999944766100,
+          "adc_t_ns": 390999954766100,
+          "dac_t_ns": 390999954766100,
+          "portaudio_current_time": 390999.94473459997,
+          "portaudio_input_adc_time": 390999.9547346,
+          "portaudio_output_dac_time": 390999.9547346,
+          "status": ""
+        },
+        {
+          "frame": 46560,
+          "frames": 480,
+          "callback_t_ns": 390999954255900,
+          "adc_t_ns": 390999964255900,
+          "dac_t_ns": 390999964255900,
+          "portaudio_current_time": 390999.954225,
+          "portaudio_input_adc_time": 390999.964225,
+          "portaudio_output_dac_time": 390999.964225,
+          "status": ""
+        },
+        {
+          "frame": 47040,
+          "frames": 480,
+          "callback_t_ns": 390999965338500,
+          "adc_t_ns": 390999975338500,
+          "dac_t_ns": 390999975338500,
+          "portaudio_current_time": 390999.9652922,
+          "portaudio_input_adc_time": 390999.9752922,
+          "portaudio_output_dac_time": 390999.9752922,
+          "status": ""
+        },
+        {
+          "frame": 47520,
+          "frames": 480,
+          "callback_t_ns": 390999974427100,
+          "adc_t_ns": 390999994427100,
+          "dac_t_ns": 390999984427100,
+          "portaudio_current_time": 390999.97439349996,
+          "portaudio_input_adc_time": 390999.9943935,
+          "portaudio_output_dac_time": 390999.98439349997,
+          "status": ""
+        },
+        {
+          "frame": 48000,
+          "frames": 480,
+          "callback_t_ns": 390999974467800,
+          "adc_t_ns": 390999984467800,
+          "dac_t_ns": 390999994467800,
+          "portaudio_current_time": 390999.9744615,
+          "portaudio_input_adc_time": 390999.9844615,
+          "portaudio_output_dac_time": 390999.9944615,
+          "status": ""
+        },
+        {
+          "frame": 48480,
+          "frames": 480,
+          "callback_t_ns": 390999994724100,
+          "adc_t_ns": 391000004724100,
+          "dac_t_ns": 391000004724100,
+          "portaudio_current_time": 390999.99465969997,
+          "portaudio_input_adc_time": 391000.0046597,
+          "portaudio_output_dac_time": 391000.0046597,
+          "status": ""
+        },
+        {
+          "frame": 48960,
+          "frames": 480,
+          "callback_t_ns": 391000004964600,
+          "adc_t_ns": 391000014964600,
+          "dac_t_ns": 391000014964600,
+          "portaudio_current_time": 391000.0049074,
+          "portaudio_input_adc_time": 391000.0149074,
+          "portaudio_output_dac_time": 391000.0149074,
+          "status": ""
+        },
+        {
+          "frame": 49440,
+          "frames": 480,
+          "callback_t_ns": 391000015075800,
+          "adc_t_ns": 391000025075800,
+          "dac_t_ns": 391000025075800,
+          "portaudio_current_time": 391000.015021,
+          "portaudio_input_adc_time": 391000.025021,
+          "portaudio_output_dac_time": 391000.025021,
+          "status": ""
+        },
+        {
+          "frame": 49920,
+          "frames": 480,
+          "callback_t_ns": 391000024044500,
+          "adc_t_ns": 391000034044500,
+          "dac_t_ns": 391000034044500,
+          "portaudio_current_time": 391000.02398949995,
+          "portaudio_input_adc_time": 391000.03398949996,
+          "portaudio_output_dac_time": 391000.03398949996,
+          "status": ""
+        },
+        {
+          "frame": 50400,
+          "frames": 480,
+          "callback_t_ns": 391000033716000,
+          "adc_t_ns": 391000043716000,
+          "dac_t_ns": 391000043716000,
+          "portaudio_current_time": 391000.03366939997,
+          "portaudio_input_adc_time": 391000.0436694,
+          "portaudio_output_dac_time": 391000.0436694,
+          "status": ""
+        },
+        {
+          "frame": 50880,
+          "frames": 480,
+          "callback_t_ns": 391000044822500,
+          "adc_t_ns": 391000054822500,
+          "dac_t_ns": 391000054822500,
+          "portaudio_current_time": 391000.0447715,
+          "portaudio_input_adc_time": 391000.0547715,
+          "portaudio_output_dac_time": 391000.0547715,
+          "status": ""
+        },
+        {
+          "frame": 51360,
+          "frames": 480,
+          "callback_t_ns": 391000053569200,
+          "adc_t_ns": 391000063569200,
+          "dac_t_ns": 391000073569200,
+          "portaudio_current_time": 391000.05352909997,
+          "portaudio_input_adc_time": 391000.0635291,
+          "portaudio_output_dac_time": 391000.0735291,
+          "status": ""
+        },
+        {
+          "frame": 51840,
+          "frames": 480,
+          "callback_t_ns": 391000064261600,
+          "adc_t_ns": 391000074261600,
+          "dac_t_ns": 391000074261600,
+          "portaudio_current_time": 391000.06420639995,
+          "portaudio_input_adc_time": 391000.07420639996,
+          "portaudio_output_dac_time": 391000.07420639996,
+          "status": ""
+        },
+        {
+          "frame": 52320,
+          "frames": 480,
+          "callback_t_ns": 391000074838100,
+          "adc_t_ns": 391000084838100,
+          "dac_t_ns": 391000084838100,
+          "portaudio_current_time": 391000.07477099996,
+          "portaudio_input_adc_time": 391000.08477099997,
+          "portaudio_output_dac_time": 391000.08477099997,
+          "status": ""
+        },
+        {
+          "frame": 52800,
+          "frames": 480,
+          "callback_t_ns": 391000083362600,
+          "adc_t_ns": 391000093362600,
+          "dac_t_ns": 391000103362600,
+          "portaudio_current_time": 391000.08331139997,
+          "portaudio_input_adc_time": 391000.0933114,
+          "portaudio_output_dac_time": 391000.1033114,
+          "status": ""
+        },
+        {
+          "frame": 53280,
+          "frames": 480,
+          "callback_t_ns": 391000094469400,
+          "adc_t_ns": 391000114469400,
+          "dac_t_ns": 391000104469400,
+          "portaudio_current_time": 391000.09438059997,
+          "portaudio_input_adc_time": 391000.1143806,
+          "portaudio_output_dac_time": 391000.1043806,
+          "status": ""
+        },
+        {
+          "frame": 53760,
+          "frames": 480,
+          "callback_t_ns": 391000094550800,
+          "adc_t_ns": 391000104550800,
+          "dac_t_ns": 391000114550800,
+          "portaudio_current_time": 391000.0945438,
+          "portaudio_input_adc_time": 391000.1045438,
+          "portaudio_output_dac_time": 391000.1145438,
+          "status": ""
+        },
+        {
+          "frame": 54240,
+          "frames": 480,
+          "callback_t_ns": 391000113289800,
+          "adc_t_ns": 391000123289800,
+          "dac_t_ns": 391000133289800,
+          "portaudio_current_time": 391000.113227,
+          "portaudio_input_adc_time": 391000.123227,
+          "portaudio_output_dac_time": 391000.133227,
+          "status": ""
+        },
+        {
+          "frame": 54720,
+          "frames": 480,
+          "callback_t_ns": 391000124416200,
+          "adc_t_ns": 391000134416200,
+          "dac_t_ns": 391000134416200,
+          "portaudio_current_time": 391000.1243487,
+          "portaudio_input_adc_time": 391000.1343487,
+          "portaudio_output_dac_time": 391000.1343487,
+          "status": ""
+        },
+        {
+          "frame": 55200,
+          "frames": 480,
+          "callback_t_ns": 391000135532400,
+          "adc_t_ns": 391000155532400,
+          "dac_t_ns": 391000145532400,
+          "portaudio_current_time": 391000.13546009996,
+          "portaudio_input_adc_time": 391000.1554601,
+          "portaudio_output_dac_time": 391000.1454601,
+          "status": ""
+        },
+        {
+          "frame": 55680,
+          "frames": 480,
+          "callback_t_ns": 391000135599300,
+          "adc_t_ns": 391000145599300,
+          "dac_t_ns": 391000155599300,
+          "portaudio_current_time": 391000.1355926,
+          "portaudio_input_adc_time": 391000.1455926,
+          "portaudio_output_dac_time": 391000.1555926,
+          "status": ""
+        },
+        {
+          "frame": 56160,
+          "frames": 480,
+          "callback_t_ns": 391000154116000,
+          "adc_t_ns": 391000164116000,
+          "dac_t_ns": 391000174116000,
+          "portaudio_current_time": 391000.1540341,
+          "portaudio_input_adc_time": 391000.1640341,
+          "portaudio_output_dac_time": 391000.1740341,
+          "status": ""
+        },
+        {
+          "frame": 56640,
+          "frames": 480,
+          "callback_t_ns": 391000164159500,
+          "adc_t_ns": 391000174159500,
+          "dac_t_ns": 391000174159500,
+          "portaudio_current_time": 391000.1640982,
+          "portaudio_input_adc_time": 391000.1740982,
+          "portaudio_output_dac_time": 391000.1740982,
+          "status": ""
+        },
+        {
+          "frame": 57120,
+          "frames": 480,
+          "callback_t_ns": 391000175430500,
+          "adc_t_ns": 391000195430500,
+          "dac_t_ns": 391000185430500,
+          "portaudio_current_time": 391000.1753724,
+          "portaudio_input_adc_time": 391000.1953724,
+          "portaudio_output_dac_time": 391000.1853724,
+          "status": ""
+        },
+        {
+          "frame": 57600,
+          "frames": 480,
+          "callback_t_ns": 391000175493500,
+          "adc_t_ns": 391000185493500,
+          "dac_t_ns": 391000195493500,
+          "portaudio_current_time": 391000.17548609996,
+          "portaudio_input_adc_time": 391000.1854861,
+          "portaudio_output_dac_time": 391000.1954861,
+          "status": ""
+        },
+        {
+          "frame": 58080,
+          "frames": 480,
+          "callback_t_ns": 391000194926300,
+          "adc_t_ns": 391000214926300,
+          "dac_t_ns": 391000204926300,
+          "portaudio_current_time": 391000.1948599,
+          "portaudio_input_adc_time": 391000.2148599,
+          "portaudio_output_dac_time": 391000.2048599,
+          "status": ""
+        },
+        {
+          "frame": 58560,
+          "frames": 480,
+          "callback_t_ns": 391000194989100,
+          "adc_t_ns": 391000204989100,
+          "dac_t_ns": 391000214989100,
+          "portaudio_current_time": 391000.1949827,
+          "portaudio_input_adc_time": 391000.2049827,
+          "portaudio_output_dac_time": 391000.2149827,
+          "status": ""
+        },
+        {
+          "frame": 59040,
+          "frames": 480,
+          "callback_t_ns": 391000214014600,
+          "adc_t_ns": 391000234014600,
+          "dac_t_ns": 391000234014600,
+          "portaudio_current_time": 391000.2139338,
+          "portaudio_input_adc_time": 391000.2339338,
+          "portaudio_output_dac_time": 391000.2339338,
+          "status": ""
+        },
+        {
+          "frame": 59520,
+          "frames": 480,
+          "callback_t_ns": 391000215473600,
+          "adc_t_ns": 391000225473600,
+          "dac_t_ns": 391000235473600,
+          "portaudio_current_time": 391000.2154407,
+          "portaudio_input_adc_time": 391000.2254407,
+          "portaudio_output_dac_time": 391000.2354407,
+          "status": ""
+        },
+        {
+          "frame": 60000,
+          "frames": 480,
+          "callback_t_ns": 391000225545400,
+          "adc_t_ns": 391000235545400,
+          "dac_t_ns": 391000245545400,
+          "portaudio_current_time": 391000.2255078,
+          "portaudio_input_adc_time": 391000.2355078,
+          "portaudio_output_dac_time": 391000.2455078,
+          "status": ""
+        },
+        {
+          "frame": 60480,
+          "frames": 480,
+          "callback_t_ns": 391000235600000,
+          "adc_t_ns": 391000245600000,
+          "dac_t_ns": 391000255600000,
+          "portaudio_current_time": 391000.2355653,
+          "portaudio_input_adc_time": 391000.2455653,
+          "portaudio_output_dac_time": 391000.2555653,
+          "status": ""
+        },
+        {
+          "frame": 60960,
+          "frames": 480,
+          "callback_t_ns": 391000254751600,
+          "adc_t_ns": 391000264751600,
+          "dac_t_ns": 391000264751600,
+          "portaudio_current_time": 391000.2546826,
+          "portaudio_input_adc_time": 391000.2646826,
+          "portaudio_output_dac_time": 391000.2646826,
+          "status": ""
+        },
+        {
+          "frame": 61440,
+          "frames": 480,
+          "callback_t_ns": 391000265483400,
+          "adc_t_ns": 391000285483400,
+          "dac_t_ns": 391000275483400,
+          "portaudio_current_time": 391000.2654088,
+          "portaudio_input_adc_time": 391000.2854088,
+          "portaudio_output_dac_time": 391000.2754088,
+          "status": ""
+        },
+        {
+          "frame": 61920,
+          "frames": 480,
+          "callback_t_ns": 391000265561300,
+          "adc_t_ns": 391000275561300,
+          "dac_t_ns": 391000285561300,
+          "portaudio_current_time": 391000.26555169997,
+          "portaudio_input_adc_time": 391000.2755517,
+          "portaudio_output_dac_time": 391000.2855517,
+          "status": ""
+        },
+        {
+          "frame": 62400,
+          "frames": 480,
+          "callback_t_ns": 391000284526400,
+          "adc_t_ns": 391000294526400,
+          "dac_t_ns": 391000294526400,
+          "portaudio_current_time": 391000.28444859997,
+          "portaudio_input_adc_time": 391000.2944486,
+          "portaudio_output_dac_time": 391000.2944486,
+          "status": ""
+        },
+        {
+          "frame": 62880,
+          "frames": 480,
+          "callback_t_ns": 391000295133800,
+          "adc_t_ns": 391000305133800,
+          "dac_t_ns": 391000305133800,
+          "portaudio_current_time": 391000.2950782,
+          "portaudio_input_adc_time": 391000.3050782,
+          "portaudio_output_dac_time": 391000.3050782,
+          "status": ""
+        },
+        {
+          "frame": 63360,
+          "frames": 480,
+          "callback_t_ns": 391000304166800,
+          "adc_t_ns": 391000314166800,
+          "dac_t_ns": 391000314166800,
+          "portaudio_current_time": 391000.3041209,
+          "portaudio_input_adc_time": 391000.3141209,
+          "portaudio_output_dac_time": 391000.3141209,
+          "status": ""
+        },
+        {
+          "frame": 63840,
+          "frames": 480,
+          "callback_t_ns": 391000314984000,
+          "adc_t_ns": 391000334984000,
+          "dac_t_ns": 391000324984000,
+          "portaudio_current_time": 391000.3149358,
+          "portaudio_input_adc_time": 391000.3349358,
+          "portaudio_output_dac_time": 391000.3249358,
+          "status": ""
+        },
+        {
+          "frame": 64320,
+          "frames": 480,
+          "callback_t_ns": 391000315041400,
+          "adc_t_ns": 391000325041400,
+          "dac_t_ns": 391000335041400,
+          "portaudio_current_time": 391000.31503289996,
+          "portaudio_input_adc_time": 391000.3250329,
+          "portaudio_output_dac_time": 391000.3350329,
+          "status": ""
+        },
+        {
+          "frame": 64800,
+          "frames": 480,
+          "callback_t_ns": 391000334803900,
+          "adc_t_ns": 391000344803900,
+          "dac_t_ns": 391000344803900,
+          "portaudio_current_time": 391000.3347617,
+          "portaudio_input_adc_time": 391000.3447617,
+          "portaudio_output_dac_time": 391000.3447617,
+          "status": ""
+        },
+        {
+          "frame": 65280,
+          "frames": 480,
+          "callback_t_ns": 391000345417000,
+          "adc_t_ns": 391000355417000,
+          "dac_t_ns": 391000355417000,
+          "portaudio_current_time": 391000.34537319996,
+          "portaudio_input_adc_time": 391000.3553732,
+          "portaudio_output_dac_time": 391000.3553732,
+          "status": ""
+        },
+        {
+          "frame": 65760,
+          "frames": 480,
+          "callback_t_ns": 391000354459200,
+          "adc_t_ns": 391000374459200,
+          "dac_t_ns": 391000364459200,
+          "portaudio_current_time": 391000.3544146,
+          "portaudio_input_adc_time": 391000.3744146,
+          "portaudio_output_dac_time": 391000.3644146,
+          "status": ""
+        },
+        {
+          "frame": 66240,
+          "frames": 480,
+          "callback_t_ns": 391000354502900,
+          "adc_t_ns": 391000364502900,
+          "dac_t_ns": 391000374502900,
+          "portaudio_current_time": 391000.3544968,
+          "portaudio_input_adc_time": 391000.3644968,
+          "portaudio_output_dac_time": 391000.3744968,
+          "status": ""
+        },
+        {
+          "frame": 66720,
+          "frames": 480,
+          "callback_t_ns": 391000373551900,
+          "adc_t_ns": 391000393551900,
+          "dac_t_ns": 391000393551900,
+          "portaudio_current_time": 391000.3734925,
+          "portaudio_input_adc_time": 391000.3934925,
+          "portaudio_output_dac_time": 391000.3934925,
+          "status": ""
+        },
+        {
+          "frame": 67200,
+          "frames": 480,
+          "callback_t_ns": 391000375581500,
+          "adc_t_ns": 391000385581500,
+          "dac_t_ns": 391000395581500,
+          "portaudio_current_time": 391000.3755411,
+          "portaudio_input_adc_time": 391000.3855411,
+          "portaudio_output_dac_time": 391000.3955411,
+          "status": ""
+        },
+        {
+          "frame": 67680,
+          "frames": 480,
+          "callback_t_ns": 391000394216500,
+          "adc_t_ns": 391000404216500,
+          "dac_t_ns": 391000404216500,
+          "portaudio_current_time": 391000.3941629,
+          "portaudio_input_adc_time": 391000.4041629,
+          "portaudio_output_dac_time": 391000.4041629,
+          "status": ""
+        },
+        {
+          "frame": 68160,
+          "frames": 480,
+          "callback_t_ns": 391000404694000,
+          "adc_t_ns": 391000414694000,
+          "dac_t_ns": 391000414694000,
+          "portaudio_current_time": 391000.4046438,
+          "portaudio_input_adc_time": 391000.4146438,
+          "portaudio_output_dac_time": 391000.4146438,
+          "status": ""
+        },
+        {
+          "frame": 68640,
+          "frames": 480,
+          "callback_t_ns": 391000413335400,
+          "adc_t_ns": 391000423335400,
+          "dac_t_ns": 391000433335400,
+          "portaudio_current_time": 391000.4132715,
+          "portaudio_input_adc_time": 391000.4232715,
+          "portaudio_output_dac_time": 391000.4332715,
+          "status": ""
+        },
+        {
+          "frame": 69120,
+          "frames": 480,
+          "callback_t_ns": 391000424313500,
+          "adc_t_ns": 391000434313500,
+          "dac_t_ns": 391000434313500,
+          "portaudio_current_time": 391000.42416329996,
+          "portaudio_input_adc_time": 391000.4341633,
+          "portaudio_output_dac_time": 391000.4341633,
+          "status": ""
+        },
+        {
+          "frame": 69600,
+          "frames": 480,
+          "callback_t_ns": 391000434758600,
+          "adc_t_ns": 391000444758600,
+          "dac_t_ns": 391000444758600,
+          "portaudio_current_time": 391000.4346998,
+          "portaudio_input_adc_time": 391000.4446998,
+          "portaudio_output_dac_time": 391000.4446998,
+          "status": ""
+        },
+        {
+          "frame": 70080,
+          "frames": 480,
+          "callback_t_ns": 391000444842700,
+          "adc_t_ns": 391000454842700,
+          "dac_t_ns": 391000454842700,
+          "portaudio_current_time": 391000.4447977,
+          "portaudio_input_adc_time": 391000.4547977,
+          "portaudio_output_dac_time": 391000.4547977,
+          "status": ""
+        },
+        {
+          "frame": 70560,
+          "frames": 480,
+          "callback_t_ns": 391000454965800,
+          "adc_t_ns": 391000474965800,
+          "dac_t_ns": 391000464965800,
+          "portaudio_current_time": 391000.4549189,
+          "portaudio_input_adc_time": 391000.4749189,
+          "portaudio_output_dac_time": 391000.4649189,
+          "status": ""
+        },
+        {
+          "frame": 71040,
+          "frames": 480,
+          "callback_t_ns": 391000455015900,
+          "adc_t_ns": 391000465015900,
+          "dac_t_ns": 391000475015900,
+          "portaudio_current_time": 391000.45500889997,
+          "portaudio_input_adc_time": 391000.4650089,
+          "portaudio_output_dac_time": 391000.4750089,
+          "status": ""
+        },
+        {
+          "frame": 71520,
+          "frames": 480,
+          "callback_t_ns": 391000473574700,
+          "adc_t_ns": 391000493574700,
+          "dac_t_ns": 391000493574700,
+          "portaudio_current_time": 391000.4735186,
+          "portaudio_input_adc_time": 391000.4935186,
+          "portaudio_output_dac_time": 391000.4935186,
+          "status": ""
+        },
+        {
+          "frame": 72000,
+          "frames": 480,
+          "callback_t_ns": 391000475554300,
+          "adc_t_ns": 391000485554300,
+          "dac_t_ns": 391000495554300,
+          "portaudio_current_time": 391000.4755197,
+          "portaudio_input_adc_time": 391000.4855197,
+          "portaudio_output_dac_time": 391000.4955197,
+          "status": ""
+        },
+        {
+          "frame": 72480,
+          "frames": 480,
+          "callback_t_ns": 391000494924900,
+          "adc_t_ns": 391000504924900,
+          "dac_t_ns": 391000504924900,
+          "portaudio_current_time": 391000.49487339996,
+          "portaudio_input_adc_time": 391000.5048734,
+          "portaudio_output_dac_time": 391000.5048734,
+          "status": ""
+        },
+        {
+          "frame": 72960,
+          "frames": 480,
+          "callback_t_ns": 391000503517400,
+          "adc_t_ns": 391000513517400,
+          "dac_t_ns": 391000523517400,
+          "portaudio_current_time": 391000.5034746,
+          "portaudio_input_adc_time": 391000.5134746,
+          "portaudio_output_dac_time": 391000.5234746,
+          "status": ""
+        },
+        {
+          "frame": 73440,
+          "frames": 480,
+          "callback_t_ns": 391000514594600,
+          "adc_t_ns": 391000524594600,
+          "dac_t_ns": 391000524594600,
+          "portaudio_current_time": 391000.5145441,
+          "portaudio_input_adc_time": 391000.5245441,
+          "portaudio_output_dac_time": 391000.5245441,
+          "status": ""
+        },
+        {
+          "frame": 73920,
+          "frames": 480,
+          "callback_t_ns": 391000525675000,
+          "adc_t_ns": 391000545675000,
+          "dac_t_ns": 391000535675000,
+          "portaudio_current_time": 391000.5256021,
+          "portaudio_input_adc_time": 391000.5456021,
+          "portaudio_output_dac_time": 391000.5356021,
+          "status": ""
+        },
+        {
+          "frame": 74400,
+          "frames": 480,
+          "callback_t_ns": 391000525745300,
+          "adc_t_ns": 391000535745300,
+          "dac_t_ns": 391000545745300,
+          "portaudio_current_time": 391000.5257364,
+          "portaudio_input_adc_time": 391000.5357364,
+          "portaudio_output_dac_time": 391000.5457364,
+          "status": ""
+        },
+        {
+          "frame": 74880,
+          "frames": 480,
+          "callback_t_ns": 391000543237400,
+          "adc_t_ns": 391000553237400,
+          "dac_t_ns": 391000563237400,
+          "portaudio_current_time": 391000.54317849997,
+          "portaudio_input_adc_time": 391000.5531785,
+          "portaudio_output_dac_time": 391000.5631785,
+          "status": ""
+        },
+        {
+          "frame": 75360,
+          "frames": 480,
+          "callback_t_ns": 391000553402100,
+          "adc_t_ns": 391000573402100,
+          "dac_t_ns": 391000573402100,
+          "portaudio_current_time": 391000.5533252,
+          "portaudio_input_adc_time": 391000.5733252,
+          "portaudio_output_dac_time": 391000.5733252,
+          "status": ""
+        },
+        {
+          "frame": 75840,
+          "frames": 480,
+          "callback_t_ns": 391000555421700,
+          "adc_t_ns": 391000565421700,
+          "dac_t_ns": 391000575421700,
+          "portaudio_current_time": 391000.5553749,
+          "portaudio_input_adc_time": 391000.5653749,
+          "portaudio_output_dac_time": 391000.5753749,
+          "status": ""
+        },
+        {
+          "frame": 76320,
+          "frames": 480,
+          "callback_t_ns": 391000574559200,
+          "adc_t_ns": 391000584559200,
+          "dac_t_ns": 391000584559200,
+          "portaudio_current_time": 391000.5744931,
+          "portaudio_input_adc_time": 391000.5844931,
+          "portaudio_output_dac_time": 391000.5844931,
+          "status": ""
+        },
+        {
+          "frame": 76800,
+          "frames": 480,
+          "callback_t_ns": 391000585108500,
+          "adc_t_ns": 391000595108500,
+          "dac_t_ns": 391000595108500,
+          "portaudio_current_time": 391000.5850625,
+          "portaudio_input_adc_time": 391000.5950625,
+          "portaudio_output_dac_time": 391000.5950625,
+          "status": ""
+        },
+        {
+          "frame": 77280,
+          "frames": 480,
+          "callback_t_ns": 391000594367200,
+          "adc_t_ns": 391000614367200,
+          "dac_t_ns": 391000604367200,
+          "portaudio_current_time": 391000.5943279,
+          "portaudio_input_adc_time": 391000.6143279,
+          "portaudio_output_dac_time": 391000.6043279,
+          "status": ""
+        },
+        {
+          "frame": 77760,
+          "frames": 480,
+          "callback_t_ns": 391000594410800,
+          "adc_t_ns": 391000604410800,
+          "dac_t_ns": 391000614410800,
+          "portaudio_current_time": 391000.5944049,
+          "portaudio_input_adc_time": 391000.6044049,
+          "portaudio_output_dac_time": 391000.6144049,
+          "status": ""
+        },
+        {
+          "frame": 78240,
+          "frames": 480,
+          "callback_t_ns": 391000613211500,
+          "adc_t_ns": 391000623211500,
+          "dac_t_ns": 391000633211500,
+          "portaudio_current_time": 391000.6131712,
+          "portaudio_input_adc_time": 391000.6231712,
+          "portaudio_output_dac_time": 391000.6331712,
+          "status": ""
+        },
+        {
+          "frame": 78720,
+          "frames": 480,
+          "callback_t_ns": 391000624138100,
+          "adc_t_ns": 391000634138100,
+          "dac_t_ns": 391000634138100,
+          "portaudio_current_time": 391000.62406979996,
+          "portaudio_input_adc_time": 391000.63406979997,
+          "portaudio_output_dac_time": 391000.63406979997,
+          "status": ""
+        },
+        {
+          "frame": 79200,
+          "frames": 480,
+          "callback_t_ns": 391000634699500,
+          "adc_t_ns": 391000644699500,
+          "dac_t_ns": 391000644699500,
+          "portaudio_current_time": 391000.634659,
+          "portaudio_input_adc_time": 391000.644659,
+          "portaudio_output_dac_time": 391000.644659,
+          "status": ""
+        },
+        {
+          "frame": 79680,
+          "frames": 480,
+          "callback_t_ns": 391000643356900,
+          "adc_t_ns": 391000653356900,
+          "dac_t_ns": 391000663356900,
+          "portaudio_current_time": 391000.6433236,
+          "portaudio_input_adc_time": 391000.6533236,
+          "portaudio_output_dac_time": 391000.6633236,
+          "status": ""
+        },
+        {
+          "frame": 80160,
+          "frames": 480,
+          "callback_t_ns": 391000655375300,
+          "adc_t_ns": 391000665375300,
+          "dac_t_ns": 391000665375300,
+          "portaudio_current_time": 391000.65534,
+          "portaudio_input_adc_time": 391000.66534,
+          "portaudio_output_dac_time": 391000.66534,
+          "status": ""
+        },
+        {
+          "frame": 80640,
+          "frames": 480,
+          "callback_t_ns": 391000663428900,
+          "adc_t_ns": 391000673428900,
+          "dac_t_ns": 391000683428900,
+          "portaudio_current_time": 391000.6633979,
+          "portaudio_input_adc_time": 391000.6733979,
+          "portaudio_output_dac_time": 391000.6833979,
+          "status": ""
+        },
+        {
+          "frame": 81120,
+          "frames": 480,
+          "callback_t_ns": 391000674008200,
+          "adc_t_ns": 391000684008200,
+          "dac_t_ns": 391000694008200,
+          "portaudio_current_time": 391000.6739774,
+          "portaudio_input_adc_time": 391000.6839774,
+          "portaudio_output_dac_time": 391000.6939774,
+          "status": ""
+        },
+        {
+          "frame": 81600,
+          "frames": 480,
+          "callback_t_ns": 391000683577600,
+          "adc_t_ns": 391000703577600,
+          "dac_t_ns": 391000703577600,
+          "portaudio_current_time": 391000.6835493,
+          "portaudio_input_adc_time": 391000.70354930003,
+          "portaudio_output_dac_time": 391000.70354930003,
+          "status": ""
+        },
+        {
+          "frame": 82080,
+          "frames": 480,
+          "callback_t_ns": 391000685581600,
+          "adc_t_ns": 391000695581600,
+          "dac_t_ns": 391000705581600,
+          "portaudio_current_time": 391000.68555389997,
+          "portaudio_input_adc_time": 391000.6955539,
+          "portaudio_output_dac_time": 391000.7055539,
+          "status": ""
+        },
+        {
+          "frame": 82560,
+          "frames": 480,
+          "callback_t_ns": 391000694378400,
+          "adc_t_ns": 391000704378400,
+          "dac_t_ns": 391000714378400,
+          "portaudio_current_time": 391000.6943562,
+          "portaudio_input_adc_time": 391000.7043562,
+          "portaudio_output_dac_time": 391000.7143562,
+          "status": ""
+        },
+        {
+          "frame": 83040,
+          "frames": 480,
+          "callback_t_ns": 391000705095500,
+          "adc_t_ns": 391000715095500,
+          "dac_t_ns": 391000725095500,
+          "portaudio_current_time": 391000.7050725,
+          "portaudio_input_adc_time": 391000.7150725,
+          "portaudio_output_dac_time": 391000.7250725,
+          "status": ""
+        },
+        {
+          "frame": 83520,
+          "frames": 480,
+          "callback_t_ns": 391000725109900,
+          "adc_t_ns": 391000745109900,
+          "dac_t_ns": 391000735109900,
+          "portaudio_current_time": 391000.7250774,
+          "portaudio_input_adc_time": 391000.7450774,
+          "portaudio_output_dac_time": 391000.7350774,
+          "status": ""
+        },
+        {
+          "frame": 84000,
+          "frames": 480,
+          "callback_t_ns": 391000725152600,
+          "adc_t_ns": 391000735152600,
+          "dac_t_ns": 391000745152600,
+          "portaudio_current_time": 391000.7251463,
+          "portaudio_input_adc_time": 391000.7351463,
+          "portaudio_output_dac_time": 391000.7451463,
+          "status": ""
+        },
+        {
+          "frame": 84480,
+          "frames": 480,
+          "callback_t_ns": 391000742762800,
+          "adc_t_ns": 391000752762800,
+          "dac_t_ns": 391000762762800,
+          "portaudio_current_time": 391000.7427115,
+          "portaudio_input_adc_time": 391000.7527115,
+          "portaudio_output_dac_time": 391000.7627115,
+          "status": ""
+        },
+        {
+          "frame": 84960,
+          "frames": 480,
+          "callback_t_ns": 391000753274400,
+          "adc_t_ns": 391000763274400,
+          "dac_t_ns": 391000773274400,
+          "portaudio_current_time": 391000.75325129996,
+          "portaudio_input_adc_time": 391000.76325129997,
+          "portaudio_output_dac_time": 391000.7732513,
+          "status": ""
+        },
+        {
+          "frame": 85440,
+          "frames": 480,
+          "callback_t_ns": 391000764912900,
+          "adc_t_ns": 391000784912900,
+          "dac_t_ns": 391000774912900,
+          "portaudio_current_time": 391000.7648905,
+          "portaudio_input_adc_time": 391000.7848905,
+          "portaudio_output_dac_time": 391000.7748905,
+          "status": ""
+        },
+        {
+          "frame": 85920,
+          "frames": 480,
+          "callback_t_ns": 391000764945600,
+          "adc_t_ns": 391000774945600,
+          "dac_t_ns": 391000784945600,
+          "portaudio_current_time": 391000.76493889996,
+          "portaudio_input_adc_time": 391000.77493889997,
+          "portaudio_output_dac_time": 391000.7849389,
+          "status": ""
+        },
+        {
+          "frame": 86400,
+          "frames": 480,
+          "callback_t_ns": 391000775497900,
+          "adc_t_ns": 391000785497900,
+          "dac_t_ns": 391000795497900,
+          "portaudio_current_time": 391000.7754755,
+          "portaudio_input_adc_time": 391000.7854755,
+          "portaudio_output_dac_time": 391000.7954755,
+          "status": ""
+        },
+        {
+          "frame": 86880,
+          "frames": 480,
+          "callback_t_ns": 391000784955900,
+          "adc_t_ns": 391000794955900,
+          "dac_t_ns": 391000804955900,
+          "portaudio_current_time": 391000.7849237,
+          "portaudio_input_adc_time": 391000.7949237,
+          "portaudio_output_dac_time": 391000.8049237,
+          "status": ""
+        },
+        {
+          "frame": 87360,
+          "frames": 480,
+          "callback_t_ns": 391000804166100,
+          "adc_t_ns": 391000814166100,
+          "dac_t_ns": 391000814166100,
+          "portaudio_current_time": 391000.804108,
+          "portaudio_input_adc_time": 391000.814108,
+          "portaudio_output_dac_time": 391000.814108,
+          "status": ""
+        },
+        {
+          "frame": 87840,
+          "frames": 480,
+          "callback_t_ns": 391000815131900,
+          "adc_t_ns": 391000825131900,
+          "dac_t_ns": 391000825131900,
+          "portaudio_current_time": 391000.8150771,
+          "portaudio_input_adc_time": 391000.8250771,
+          "portaudio_output_dac_time": 391000.8250771,
+          "status": ""
+        },
+        {
+          "frame": 88320,
+          "frames": 480,
+          "callback_t_ns": 391000823301300,
+          "adc_t_ns": 391000833301300,
+          "dac_t_ns": 391000843301300,
+          "portaudio_current_time": 391000.8232614,
+          "portaudio_input_adc_time": 391000.8332614,
+          "portaudio_output_dac_time": 391000.8432614,
+          "status": ""
+        },
+        {
+          "frame": 88800,
+          "frames": 480,
+          "callback_t_ns": 391000834408100,
+          "adc_t_ns": 391000854408100,
+          "dac_t_ns": 391000844408100,
+          "portaudio_current_time": 391000.8343707,
+          "portaudio_input_adc_time": 391000.8543707,
+          "portaudio_output_dac_time": 391000.8443707,
+          "status": ""
+        },
+        {
+          "frame": 89280,
+          "frames": 480,
+          "callback_t_ns": 391000834452700,
+          "adc_t_ns": 391000844452700,
+          "dac_t_ns": 391000854452700,
+          "portaudio_current_time": 391000.8344461,
+          "portaudio_input_adc_time": 391000.8444461,
+          "portaudio_output_dac_time": 391000.8544461,
+          "status": ""
+        },
+        {
+          "frame": 89760,
+          "frames": 480,
+          "callback_t_ns": 391000845495500,
+          "adc_t_ns": 391000855495500,
+          "dac_t_ns": 391000865495500,
+          "portaudio_current_time": 391000.8454614,
+          "portaudio_input_adc_time": 391000.8554614,
+          "portaudio_output_dac_time": 391000.8654614,
+          "status": ""
+        },
+        {
+          "frame": 90240,
+          "frames": 480,
+          "callback_t_ns": 391000864837400,
+          "adc_t_ns": 391000874837400,
+          "dac_t_ns": 391000874837400,
+          "portaudio_current_time": 391000.86479829997,
+          "portaudio_input_adc_time": 391000.8747983,
+          "portaudio_output_dac_time": 391000.8747983,
+          "status": ""
+        },
+        {
+          "frame": 90720,
+          "frames": 480,
+          "callback_t_ns": 391000873499500,
+          "adc_t_ns": 391000893499500,
+          "dac_t_ns": 391000893499500,
+          "portaudio_current_time": 391000.8734644,
+          "portaudio_input_adc_time": 391000.8934644,
+          "portaudio_output_dac_time": 391000.8934644,
+          "status": ""
+        },
+        {
+          "frame": 91200,
+          "frames": 480,
+          "callback_t_ns": 391000875495500,
+          "adc_t_ns": 391000885495500,
+          "dac_t_ns": 391000895495500,
+          "portaudio_current_time": 391000.8754726,
+          "portaudio_input_adc_time": 391000.8854726,
+          "portaudio_output_dac_time": 391000.8954726,
+          "status": ""
+        },
+        {
+          "frame": 91680,
+          "frames": 480,
+          "callback_t_ns": 391000894652000,
+          "adc_t_ns": 391000904652000,
+          "dac_t_ns": 391000904652000,
+          "portaudio_current_time": 391000.89461739996,
+          "portaudio_input_adc_time": 391000.90461739997,
+          "portaudio_output_dac_time": 391000.90461739997,
+          "status": ""
+        },
+        {
+          "frame": 92160,
+          "frames": 480,
+          "callback_t_ns": 391000903672900,
+          "adc_t_ns": 391000913672900,
+          "dac_t_ns": 391000913672900,
+          "portaudio_current_time": 391000.9036421,
+          "portaudio_input_adc_time": 391000.9136421,
+          "portaudio_output_dac_time": 391000.9136421,
+          "status": ""
+        },
+        {
+          "frame": 92640,
+          "frames": 480,
+          "callback_t_ns": 391000914293500,
+          "adc_t_ns": 391000924293500,
+          "dac_t_ns": 391000924293500,
+          "portaudio_current_time": 391000.914238,
+          "portaudio_input_adc_time": 391000.924238,
+          "portaudio_output_dac_time": 391000.924238,
+          "status": ""
+        },
+        {
+          "frame": 93120,
+          "frames": 480,
+          "callback_t_ns": 391000924710100,
+          "adc_t_ns": 391000934710100,
+          "dac_t_ns": 391000934710100,
+          "portaudio_current_time": 391000.92467549996,
+          "portaudio_input_adc_time": 391000.9346755,
+          "portaudio_output_dac_time": 391000.9346755,
+          "status": ""
+        },
+        {
+          "frame": 93600,
+          "frames": 480,
+          "callback_t_ns": 391000934284900,
+          "adc_t_ns": 391000944284900,
+          "dac_t_ns": 391000944284900,
+          "portaudio_current_time": 391000.9342566,
+          "portaudio_input_adc_time": 391000.9442566,
+          "portaudio_output_dac_time": 391000.9442566,
+          "status": ""
+        },
+        {
+          "frame": 94080,
+          "frames": 480,
+          "callback_t_ns": 391000944413200,
+          "adc_t_ns": 391000954413200,
+          "dac_t_ns": 391000954413200,
+          "portaudio_current_time": 391000.9443775,
+          "portaudio_input_adc_time": 391000.9543775,
+          "portaudio_output_dac_time": 391000.9543775,
+          "status": ""
+        },
+        {
+          "frame": 94560,
+          "frames": 480,
+          "callback_t_ns": 391000955461400,
+          "adc_t_ns": 391000965461400,
+          "dac_t_ns": 391000965461400,
+          "portaudio_current_time": 391000.955435,
+          "portaudio_input_adc_time": 391000.965435,
+          "portaudio_output_dac_time": 391000.965435,
+          "status": ""
+        },
+        {
+          "frame": 95040,
+          "frames": 480,
+          "callback_t_ns": 391000964540300,
+          "adc_t_ns": 391000974540300,
+          "dac_t_ns": 391000974540300,
+          "portaudio_current_time": 391000.9645144,
+          "portaudio_input_adc_time": 391000.9745144,
+          "portaudio_output_dac_time": 391000.9745144,
+          "status": ""
+        },
+        {
+          "frame": 95520,
+          "frames": 480,
+          "callback_t_ns": 391000974739200,
+          "adc_t_ns": 391000984739200,
+          "dac_t_ns": 391000984739200,
+          "portaudio_current_time": 391000.97471509996,
+          "portaudio_input_adc_time": 391000.98471509997,
+          "portaudio_output_dac_time": 391000.98471509997,
+          "status": ""
+        },
+        {
+          "frame": 96000,
+          "frames": 480,
+          "callback_t_ns": 391000983786900,
+          "adc_t_ns": 391000993786900,
+          "dac_t_ns": 391001003786900,
+          "portaudio_current_time": 391000.9837626,
+          "portaudio_input_adc_time": 391000.9937626,
+          "portaudio_output_dac_time": 391001.0037626,
+          "status": ""
+        },
+        {
+          "frame": 96480,
+          "frames": 480,
+          "callback_t_ns": 391000993868500,
+          "adc_t_ns": 391001013868500,
+          "dac_t_ns": 391001013868500,
+          "portaudio_current_time": 391000.9938443,
+          "portaudio_input_adc_time": 391001.0138443,
+          "portaudio_output_dac_time": 391001.0138443,
+          "status": ""
+        },
+        {
+          "frame": 96960,
+          "frames": 480,
+          "callback_t_ns": 391001004950500,
+          "adc_t_ns": 391001014950500,
+          "dac_t_ns": 391001014950500,
+          "portaudio_current_time": 391001.00492509996,
+          "portaudio_input_adc_time": 391001.01492509997,
+          "portaudio_output_dac_time": 391001.01492509997,
+          "status": ""
+        },
+        {
+          "frame": 97440,
+          "frames": 480,
+          "callback_t_ns": 391001014271300,
+          "adc_t_ns": 391001024271300,
+          "dac_t_ns": 391001024271300,
+          "portaudio_current_time": 391001.0142194,
+          "portaudio_input_adc_time": 391001.0242194,
+          "portaudio_output_dac_time": 391001.0242194,
+          "status": ""
+        },
+        {
+          "frame": 97920,
+          "frames": 480,
+          "callback_t_ns": 391001023224500,
+          "adc_t_ns": 391001033224500,
+          "dac_t_ns": 391001043224500,
+          "portaudio_current_time": 391001.02317939996,
+          "portaudio_input_adc_time": 391001.03317939996,
+          "portaudio_output_dac_time": 391001.0431794,
+          "status": ""
+        },
+        {
+          "frame": 98400,
+          "frames": 480,
+          "callback_t_ns": 391001034795700,
+          "adc_t_ns": 391001044795700,
+          "dac_t_ns": 391001044795700,
+          "portaudio_current_time": 391001.03475409996,
+          "portaudio_input_adc_time": 391001.0447541,
+          "portaudio_output_dac_time": 391001.0447541,
+          "status": ""
+        },
+        {
+          "frame": 98880,
+          "frames": 480,
+          "callback_t_ns": 391001043611000,
+          "adc_t_ns": 391001063611000,
+          "dac_t_ns": 391001063611000,
+          "portaudio_current_time": 391001.0435344,
+          "portaudio_input_adc_time": 391001.0635344,
+          "portaudio_output_dac_time": 391001.0635344,
+          "status": ""
+        },
+        {
+          "frame": 99360,
+          "frames": 480,
+          "callback_t_ns": 391001045638700,
+          "adc_t_ns": 391001055638700,
+          "dac_t_ns": 391001065638700,
+          "portaudio_current_time": 391001.04559349996,
+          "portaudio_input_adc_time": 391001.0555935,
+          "portaudio_output_dac_time": 391001.0655935,
+          "status": ""
+        },
+        {
+          "frame": 99840,
+          "frames": 480,
+          "callback_t_ns": 391001064952300,
+          "adc_t_ns": 391001084952300,
+          "dac_t_ns": 391001074952300,
+          "portaudio_current_time": 391001.0648909,
+          "portaudio_input_adc_time": 391001.0848909,
+          "portaudio_output_dac_time": 391001.0748909,
+          "status": ""
+        },
+        {
+          "frame": 100320,
+          "frames": 480,
+          "callback_t_ns": 391001065015100,
+          "adc_t_ns": 391001075015100,
+          "dac_t_ns": 391001085015100,
+          "portaudio_current_time": 391001.0650086,
+          "portaudio_input_adc_time": 391001.0750086,
+          "portaudio_output_dac_time": 391001.0850086,
+          "status": ""
+        },
+        {
+          "frame": 100800,
+          "frames": 480,
+          "callback_t_ns": 391001084674900,
+          "adc_t_ns": 391001094674900,
+          "dac_t_ns": 391001094674900,
+          "portaudio_current_time": 391001.0845993,
+          "portaudio_input_adc_time": 391001.0945993,
+          "portaudio_output_dac_time": 391001.0945993,
+          "status": ""
+        },
+        {
+          "frame": 101280,
+          "frames": 480,
+          "callback_t_ns": 391001093221100,
+          "adc_t_ns": 391001103221100,
+          "dac_t_ns": 391001113221100,
+          "portaudio_current_time": 391001.09316349996,
+          "portaudio_input_adc_time": 391001.10316349997,
+          "portaudio_output_dac_time": 391001.1131635,
+          "status": ""
+        },
+        {
+          "frame": 101760,
+          "frames": 480,
+          "callback_t_ns": 391001104673200,
+          "adc_t_ns": 391001114673200,
+          "dac_t_ns": 391001114673200,
+          "portaudio_current_time": 391001.1046249,
+          "portaudio_input_adc_time": 391001.1146249,
+          "portaudio_output_dac_time": 391001.1146249,
+          "status": ""
+        },
+        {
+          "frame": 102240,
+          "frames": 480,
+          "callback_t_ns": 391001113237600,
+          "adc_t_ns": 391001123237600,
+          "dac_t_ns": 391001133237600,
+          "portaudio_current_time": 391001.11319149996,
+          "portaudio_input_adc_time": 391001.12319149997,
+          "portaudio_output_dac_time": 391001.1331915,
+          "status": ""
+        },
+        {
+          "frame": 102720,
+          "frames": 480,
+          "callback_t_ns": 391001124463200,
+          "adc_t_ns": 391001134463200,
+          "dac_t_ns": 391001134463200,
+          "portaudio_current_time": 391001.1244116,
+          "portaudio_input_adc_time": 391001.1344116,
+          "portaudio_output_dac_time": 391001.1344116,
+          "status": ""
+        },
+        {
+          "frame": 103200,
+          "frames": 480,
+          "callback_t_ns": 391001135058500,
+          "adc_t_ns": 391001155058500,
+          "dac_t_ns": 391001145058500,
+          "portaudio_current_time": 391001.1350044,
+          "portaudio_input_adc_time": 391001.1550044,
+          "portaudio_output_dac_time": 391001.1450044,
+          "status": ""
+        },
+        {
+          "frame": 103680,
+          "frames": 480,
+          "callback_t_ns": 391001135118700,
+          "adc_t_ns": 391001145118700,
+          "dac_t_ns": 391001155118700,
+          "portaudio_current_time": 391001.1351119,
+          "portaudio_input_adc_time": 391001.1451119,
+          "portaudio_output_dac_time": 391001.1551119,
+          "status": ""
+        },
+        {
+          "frame": 104160,
+          "frames": 480,
+          "callback_t_ns": 391001155491400,
+          "adc_t_ns": 391001175491400,
+          "dac_t_ns": 391001165491400,
+          "portaudio_current_time": 391001.1554234,
+          "portaudio_input_adc_time": 391001.1754234,
+          "portaudio_output_dac_time": 391001.1654234,
+          "status": ""
+        },
+        {
+          "frame": 104640,
+          "frames": 480,
+          "callback_t_ns": 391001155561200,
+          "adc_t_ns": 391001165561200,
+          "dac_t_ns": 391001175561200,
+          "portaudio_current_time": 391001.1555547,
+          "portaudio_input_adc_time": 391001.1655547,
+          "portaudio_output_dac_time": 391001.1755547,
+          "status": ""
+        },
+        {
+          "frame": 105120,
+          "frames": 480,
+          "callback_t_ns": 391001164125200,
+          "adc_t_ns": 391001174125200,
+          "dac_t_ns": 391001184125200,
+          "portaudio_current_time": 391001.16404189996,
+          "portaudio_input_adc_time": 391001.17404189997,
+          "portaudio_output_dac_time": 391001.1840419,
+          "status": ""
+        },
+        {
+          "frame": 105600,
+          "frames": 480,
+          "callback_t_ns": 391001176106300,
+          "adc_t_ns": 391001186106300,
+          "dac_t_ns": 391001196106300,
+          "portaudio_current_time": 391001.17602939997,
+          "portaudio_input_adc_time": 391001.1860294,
+          "portaudio_output_dac_time": 391001.1960294,
+          "status": ""
+        },
+        {
+          "frame": 106080,
+          "frames": 480,
+          "callback_t_ns": 391001193720000,
+          "adc_t_ns": 391001203720000,
+          "dac_t_ns": 391001203720000,
+          "portaudio_current_time": 391001.1936463,
+          "portaudio_input_adc_time": 391001.2036463,
+          "portaudio_output_dac_time": 391001.2036463,
+          "status": ""
+        },
+        {
+          "frame": 106560,
+          "frames": 480,
+          "callback_t_ns": 391001205555600,
+          "adc_t_ns": 391001215555600,
+          "dac_t_ns": 391001215555600,
+          "portaudio_current_time": 391001.2054572,
+          "portaudio_input_adc_time": 391001.2154572,
+          "portaudio_output_dac_time": 391001.2154572,
+          "status": ""
+        },
+        {
+          "frame": 107040,
+          "frames": 480,
+          "callback_t_ns": 391001214148700,
+          "adc_t_ns": 391001224148700,
+          "dac_t_ns": 391001234148700,
+          "portaudio_current_time": 391001.21409019997,
+          "portaudio_input_adc_time": 391001.2240902,
+          "portaudio_output_dac_time": 391001.2340902,
+          "status": ""
+        },
+        {
+          "frame": 107520,
+          "frames": 480,
+          "callback_t_ns": 391001223232900,
+          "adc_t_ns": 391001233232900,
+          "dac_t_ns": 391001243232900,
+          "portaudio_current_time": 391001.22317889996,
+          "portaudio_input_adc_time": 391001.2331789,
+          "portaudio_output_dac_time": 391001.2431789,
+          "status": ""
+        },
+        {
+          "frame": 108000,
+          "frames": 480,
+          "callback_t_ns": 391001233394400,
+          "adc_t_ns": 391001253394400,
+          "dac_t_ns": 391001253394400,
+          "portaudio_current_time": 391001.2333185,
+          "portaudio_input_adc_time": 391001.2533185,
+          "portaudio_output_dac_time": 391001.2533185,
+          "status": ""
+        },
+        {
+          "frame": 108480,
+          "frames": 480,
+          "callback_t_ns": 391001235887900,
+          "adc_t_ns": 391001245887900,
+          "dac_t_ns": 391001255887900,
+          "portaudio_current_time": 391001.2358404,
+          "portaudio_input_adc_time": 391001.2458404,
+          "portaudio_output_dac_time": 391001.2558404,
+          "status": ""
+        },
+        {
+          "frame": 108960,
+          "frames": 480,
+          "callback_t_ns": 391001245006200,
+          "adc_t_ns": 391001255006200,
+          "dac_t_ns": 391001265006200,
+          "portaudio_current_time": 391001.24495019997,
+          "portaudio_input_adc_time": 391001.2549502,
+          "portaudio_output_dac_time": 391001.2649502,
+          "status": ""
+        },
+        {
+          "frame": 109440,
+          "frames": 480,
+          "callback_t_ns": 391001255605500,
+          "adc_t_ns": 391001265605500,
+          "dac_t_ns": 391001275605500,
+          "portaudio_current_time": 391001.2555399,
+          "portaudio_input_adc_time": 391001.2655399,
+          "portaudio_output_dac_time": 391001.2755399,
+          "status": ""
+        },
+        {
+          "frame": 109920,
+          "frames": 480,
+          "callback_t_ns": 391001275447100,
+          "adc_t_ns": 391001295447100,
+          "dac_t_ns": 391001285447100,
+          "portaudio_current_time": 391001.2753725,
+          "portaudio_input_adc_time": 391001.2953725,
+          "portaudio_output_dac_time": 391001.2853725,
+          "status": ""
+        },
+        {
+          "frame": 110400,
+          "frames": 480,
+          "callback_t_ns": 391001275519200,
+          "adc_t_ns": 391001285519200,
+          "dac_t_ns": 391001295519200,
+          "portaudio_current_time": 391001.27551229997,
+          "portaudio_input_adc_time": 391001.2855123,
+          "portaudio_output_dac_time": 391001.2955123,
+          "status": ""
+        },
+        {
+          "frame": 110880,
+          "frames": 480,
+          "callback_t_ns": 391001295129900,
+          "adc_t_ns": 391001305129900,
+          "dac_t_ns": 391001305129900,
+          "portaudio_current_time": 391001.29506,
+          "portaudio_input_adc_time": 391001.30506,
+          "portaudio_output_dac_time": 391001.30506,
+          "status": ""
+        },
+        {
+          "frame": 111360,
+          "frames": 480,
+          "callback_t_ns": 391001303610700,
+          "adc_t_ns": 391001313610700,
+          "dac_t_ns": 391001323610700,
+          "portaudio_current_time": 391001.30354999995,
+          "portaudio_input_adc_time": 391001.31354999996,
+          "portaudio_output_dac_time": 391001.32355,
+          "status": ""
+        },
+        {
+          "frame": 111840,
+          "frames": 480,
+          "callback_t_ns": 391001314558600,
+          "adc_t_ns": 391001334558600,
+          "dac_t_ns": 391001324558600,
+          "portaudio_current_time": 391001.31442089996,
+          "portaudio_input_adc_time": 391001.3344209,
+          "portaudio_output_dac_time": 391001.32442089997,
+          "status": ""
+        },
+        {
+          "frame": 112320,
+          "frames": 480,
+          "callback_t_ns": 391001314665900,
+          "adc_t_ns": 391001324665900,
+          "dac_t_ns": 391001334665900,
+          "portaudio_current_time": 391001.31464969995,
+          "portaudio_input_adc_time": 391001.32464969996,
+          "portaudio_output_dac_time": 391001.3346497,
+          "status": ""
+        },
+        {
+          "frame": 112800,
+          "frames": 480,
+          "callback_t_ns": 391001325584900,
+          "adc_t_ns": 391001335584900,
+          "dac_t_ns": 391001345584900,
+          "portaudio_current_time": 391001.325517,
+          "portaudio_input_adc_time": 391001.335517,
+          "portaudio_output_dac_time": 391001.345517,
+          "status": ""
+        },
+        {
+          "frame": 113280,
+          "frames": 480,
+          "callback_t_ns": 391001345060300,
+          "adc_t_ns": 391001365060300,
+          "dac_t_ns": 391001355060300,
+          "portaudio_current_time": 391001.34498299996,
+          "portaudio_input_adc_time": 391001.364983,
+          "portaudio_output_dac_time": 391001.35498299997,
+          "status": ""
+        },
+        {
+          "frame": 113760,
+          "frames": 480,
+          "callback_t_ns": 391001345135300,
+          "adc_t_ns": 391001355135300,
+          "dac_t_ns": 391001365135300,
+          "portaudio_current_time": 391001.34512819996,
+          "portaudio_input_adc_time": 391001.35512819997,
+          "portaudio_output_dac_time": 391001.3651282,
+          "status": ""
+        },
+        {
+          "frame": 114240,
+          "frames": 480,
+          "callback_t_ns": 391001363573900,
+          "adc_t_ns": 391001383573900,
+          "dac_t_ns": 391001383573900,
+          "portaudio_current_time": 391001.36349879997,
+          "portaudio_input_adc_time": 391001.3834988,
+          "portaudio_output_dac_time": 391001.3834988,
+          "status": ""
+        },
+        {
+          "frame": 114720,
+          "frames": 480,
+          "callback_t_ns": 391001365633600,
+          "adc_t_ns": 391001375633600,
+          "dac_t_ns": 391001385633600,
+          "portaudio_current_time": 391001.365576,
+          "portaudio_input_adc_time": 391001.375576,
+          "portaudio_output_dac_time": 391001.38557600003,
+          "status": ""
+        },
+        {
+          "frame": 115200,
+          "frames": 480,
+          "callback_t_ns": 391001383235400,
+          "adc_t_ns": 391001393235400,
+          "dac_t_ns": 391001403235400,
+          "portaudio_current_time": 391001.38318179996,
+          "portaudio_input_adc_time": 391001.39318179997,
+          "portaudio_output_dac_time": 391001.4031818,
+          "status": ""
+        },
+        {
+          "frame": 115680,
+          "frames": 480,
+          "callback_t_ns": 391001393312900,
+          "adc_t_ns": 391001403312900,
+          "dac_t_ns": 391001413312900,
+          "portaudio_current_time": 391001.3932532,
+          "portaudio_input_adc_time": 391001.4032532,
+          "portaudio_output_dac_time": 391001.4132532,
+          "status": ""
+        },
+        {
+          "frame": 116160,
+          "frames": 480,
+          "callback_t_ns": 391001403706000,
+          "adc_t_ns": 391001413706000,
+          "dac_t_ns": 391001413706000,
+          "portaudio_current_time": 391001.4036646,
+          "portaudio_input_adc_time": 391001.4136646,
+          "portaudio_output_dac_time": 391001.4136646,
+          "status": ""
+        },
+        {
+          "frame": 116640,
+          "frames": 480,
+          "callback_t_ns": 391001414804700,
+          "adc_t_ns": 391001424804700,
+          "dac_t_ns": 391001424804700,
+          "portaudio_current_time": 391001.41476189997,
+          "portaudio_input_adc_time": 391001.4247619,
+          "portaudio_output_dac_time": 391001.4247619,
+          "status": ""
+        },
+        {
+          "frame": 117120,
+          "frames": 480,
+          "callback_t_ns": 391001423337700,
+          "adc_t_ns": 391001433337700,
+          "dac_t_ns": 391001443337700,
+          "portaudio_current_time": 391001.4232979,
+          "portaudio_input_adc_time": 391001.4332979,
+          "portaudio_output_dac_time": 391001.4432979,
+          "status": ""
+        },
+        {
+          "frame": 117600,
+          "frames": 480,
+          "callback_t_ns": 391001433403700,
+          "adc_t_ns": 391001453403700,
+          "dac_t_ns": 391001453403700,
+          "portaudio_current_time": 391001.4333647,
+          "portaudio_input_adc_time": 391001.4533647,
+          "portaudio_output_dac_time": 391001.4533647,
+          "status": ""
+        },
+        {
+          "frame": 118080,
+          "frames": 480,
+          "callback_t_ns": 391001435915300,
+          "adc_t_ns": 391001445915300,
+          "dac_t_ns": 391001455915300,
+          "portaudio_current_time": 391001.43588,
+          "portaudio_input_adc_time": 391001.44588,
+          "portaudio_output_dac_time": 391001.45588,
+          "status": ""
+        },
+        {
+          "frame": 118560,
+          "frames": 480,
+          "callback_t_ns": 391001453309100,
+          "adc_t_ns": 391001463309100,
+          "dac_t_ns": 391001473309100,
+          "portaudio_current_time": 391001.45327349997,
+          "portaudio_input_adc_time": 391001.4632735,
+          "portaudio_output_dac_time": 391001.4732735,
+          "status": ""
+        },
+        {
+          "frame": 119040,
+          "frames": 480,
+          "callback_t_ns": 391001464386000,
+          "adc_t_ns": 391001484386000,
+          "dac_t_ns": 391001474386000,
+          "portaudio_current_time": 391001.4643307,
+          "portaudio_input_adc_time": 391001.4843307,
+          "portaudio_output_dac_time": 391001.4743307,
+          "status": ""
+        },
+        {
+          "frame": 119520,
+          "frames": 480,
+          "callback_t_ns": 391001464443000,
+          "adc_t_ns": 391001474443000,
+          "dac_t_ns": 391001484443000,
+          "portaudio_current_time": 391001.4644364,
+          "portaudio_input_adc_time": 391001.4744364,
+          "portaudio_output_dac_time": 391001.4844364,
+          "status": ""
+        },
+        {
+          "frame": 120000,
+          "frames": 480,
+          "callback_t_ns": 391001483207800,
+          "adc_t_ns": 391001493207800,
+          "dac_t_ns": 391001503207800,
+          "portaudio_current_time": 391001.4831367,
+          "portaudio_input_adc_time": 391001.4931367,
+          "portaudio_output_dac_time": 391001.5031367,
+          "status": ""
+        },
+        {
+          "frame": 120480,
+          "frames": 480,
+          "callback_t_ns": 391001493225500,
+          "adc_t_ns": 391001503225500,
+          "dac_t_ns": 391001513225500,
+          "portaudio_current_time": 391001.49316829996,
+          "portaudio_input_adc_time": 391001.50316829997,
+          "portaudio_output_dac_time": 391001.5131683,
+          "status": ""
+        },
+        {
+          "frame": 120960,
+          "frames": 480,
+          "callback_t_ns": 391001503791500,
+          "adc_t_ns": 391001513791500,
+          "dac_t_ns": 391001513791500,
+          "portaudio_current_time": 391001.5037464,
+          "portaudio_input_adc_time": 391001.5137464,
+          "portaudio_output_dac_time": 391001.5137464,
+          "status": ""
+        },
+        {
+          "frame": 121440,
+          "frames": 480,
+          "callback_t_ns": 391001514849200,
+          "adc_t_ns": 391001524849200,
+          "dac_t_ns": 391001524849200,
+          "portaudio_current_time": 391001.5148082,
+          "portaudio_input_adc_time": 391001.5248082,
+          "portaudio_output_dac_time": 391001.5248082,
+          "status": ""
+        },
+        {
+          "frame": 121920,
+          "frames": 480,
+          "callback_t_ns": 391001523476200,
+          "adc_t_ns": 391001543476200,
+          "dac_t_ns": 391001543476200,
+          "portaudio_current_time": 391001.52343189996,
+          "portaudio_input_adc_time": 391001.5434319,
+          "portaudio_output_dac_time": 391001.5434319,
+          "status": ""
+        },
+        {
+          "frame": 122400,
+          "frames": 480,
+          "callback_t_ns": 391001525473200,
+          "adc_t_ns": 391001535473200,
+          "dac_t_ns": 391001545473200,
+          "portaudio_current_time": 391001.52543609997,
+          "portaudio_input_adc_time": 391001.5354361,
+          "portaudio_output_dac_time": 391001.5454361,
+          "status": ""
+        },
+        {
+          "frame": 122880,
+          "frames": 480,
+          "callback_t_ns": 391001544585800,
+          "adc_t_ns": 391001564585800,
+          "dac_t_ns": 391001554585800,
+          "portaudio_current_time": 391001.5445336,
+          "portaudio_input_adc_time": 391001.5645336,
+          "portaudio_output_dac_time": 391001.5545336,
+          "status": ""
+        },
+        {
+          "frame": 123360,
+          "frames": 480,
+          "callback_t_ns": 391001544635100,
+          "adc_t_ns": 391001554635100,
+          "dac_t_ns": 391001564635100,
+          "portaudio_current_time": 391001.5446288,
+          "portaudio_input_adc_time": 391001.5546288,
+          "portaudio_output_dac_time": 391001.5646288,
+          "status": ""
+        },
+        {
+          "frame": 123840,
+          "frames": 480,
+          "callback_t_ns": 391001564716700,
+          "adc_t_ns": 391001574716700,
+          "dac_t_ns": 391001574716700,
+          "portaudio_current_time": 391001.5646672,
+          "portaudio_input_adc_time": 391001.5746672,
+          "portaudio_output_dac_time": 391001.5746672,
+          "status": ""
+        },
+        {
+          "frame": 124320,
+          "frames": 480,
+          "callback_t_ns": 391001574370600,
+          "adc_t_ns": 391001584370600,
+          "dac_t_ns": 391001584370600,
+          "portaudio_current_time": 391001.57430629997,
+          "portaudio_input_adc_time": 391001.5843063,
+          "portaudio_output_dac_time": 391001.5843063,
+          "status": ""
+        },
+        {
+          "frame": 124800,
+          "frames": 480,
+          "callback_t_ns": 391001583921000,
+          "adc_t_ns": 391001603921000,
+          "dac_t_ns": 391001603921000,
+          "portaudio_current_time": 391001.5838721,
+          "portaudio_input_adc_time": 391001.6038721,
+          "portaudio_output_dac_time": 391001.6038721,
+          "status": ""
+        },
+        {
+          "frame": 125280,
+          "frames": 480,
+          "callback_t_ns": 391001586455400,
+          "adc_t_ns": 391001596455400,
+          "dac_t_ns": 391001606455400,
+          "portaudio_current_time": 391001.5864202,
+          "portaudio_input_adc_time": 391001.5964202,
+          "portaudio_output_dac_time": 391001.6064202,
+          "status": ""
+        },
+        {
+          "frame": 125760,
+          "frames": 480,
+          "callback_t_ns": 391001603565500,
+          "adc_t_ns": 391001623565500,
+          "dac_t_ns": 391001623565500,
+          "portaudio_current_time": 391001.60351,
+          "portaudio_input_adc_time": 391001.62351,
+          "portaudio_output_dac_time": 391001.62351,
+          "status": ""
+        },
+        {
+          "frame": 126240,
+          "frames": 480,
+          "callback_t_ns": 391001605558800,
+          "adc_t_ns": 391001615558800,
+          "dac_t_ns": 391001625558800,
+          "portaudio_current_time": 391001.6055198,
+          "portaudio_input_adc_time": 391001.6155198,
+          "portaudio_output_dac_time": 391001.6255198,
+          "status": ""
+        },
+        {
+          "frame": 126720,
+          "frames": 480,
+          "callback_t_ns": 391001623837000,
+          "adc_t_ns": 391001633837000,
+          "dac_t_ns": 391001633837000,
+          "portaudio_current_time": 391001.623767,
+          "portaudio_input_adc_time": 391001.633767,
+          "portaudio_output_dac_time": 391001.633767,
+          "status": ""
+        },
+        {
+          "frame": 127200,
+          "frames": 480,
+          "callback_t_ns": 391001634065400,
+          "adc_t_ns": 391001654065400,
+          "dac_t_ns": 391001654065400,
+          "portaudio_current_time": 391001.633996,
+          "portaudio_input_adc_time": 391001.653996,
+          "portaudio_output_dac_time": 391001.653996,
+          "status": ""
+        },
+        {
+          "frame": 127680,
+          "frames": 480,
+          "callback_t_ns": 391001635057200,
+          "adc_t_ns": 391001645057200,
+          "dac_t_ns": 391001655057200,
+          "portaudio_current_time": 391001.6350114,
+          "portaudio_input_adc_time": 391001.6450114,
+          "portaudio_output_dac_time": 391001.6550114,
+          "status": ""
+        },
+        {
+          "frame": 128160,
+          "frames": 480,
+          "callback_t_ns": 391001653264600,
+          "adc_t_ns": 391001663264600,
+          "dac_t_ns": 391001673264600,
+          "portaudio_current_time": 391001.6531923,
+          "portaudio_input_adc_time": 391001.6631923,
+          "portaudio_output_dac_time": 391001.6731923,
+          "status": ""
+        },
+        {
+          "frame": 128640,
+          "frames": 480,
+          "callback_t_ns": 391001664511800,
+          "adc_t_ns": 391001674511800,
+          "dac_t_ns": 391001674511800,
+          "portaudio_current_time": 391001.6644344,
+          "portaudio_input_adc_time": 391001.6744344,
+          "portaudio_output_dac_time": 391001.6744344,
+          "status": ""
+        },
+        {
+          "frame": 129120,
+          "frames": 480,
+          "callback_t_ns": 391001673563600,
+          "adc_t_ns": 391001683563600,
+          "dac_t_ns": 391001693563600,
+          "portaudio_current_time": 391001.6735013,
+          "portaudio_input_adc_time": 391001.6835013,
+          "portaudio_output_dac_time": 391001.6935013,
+          "status": ""
+        },
+        {
+          "frame": 129600,
+          "frames": 480,
+          "callback_t_ns": 391001684100400,
+          "adc_t_ns": 391001704100400,
+          "dac_t_ns": 391001694100400,
+          "portaudio_current_time": 391001.684038,
+          "portaudio_input_adc_time": 391001.704038,
+          "portaudio_output_dac_time": 391001.694038,
+          "status": ""
+        },
+        {
+          "frame": 130080,
+          "frames": 480,
+          "callback_t_ns": 391001684163700,
+          "adc_t_ns": 391001694163700,
+          "dac_t_ns": 391001704163700,
+          "portaudio_current_time": 391001.6841569,
+          "portaudio_input_adc_time": 391001.6941569,
+          "portaudio_output_dac_time": 391001.7041569,
+          "status": ""
+        },
+        {
+          "frame": 130560,
+          "frames": 480,
+          "callback_t_ns": 391001703588500,
+          "adc_t_ns": 391001723588500,
+          "dac_t_ns": 391001723588500,
+          "portaudio_current_time": 391001.70351009996,
+          "portaudio_input_adc_time": 391001.7235101,
+          "portaudio_output_dac_time": 391001.7235101,
+          "status": ""
+        },
+        {
+          "frame": 131040,
+          "frames": 480,
+          "callback_t_ns": 391001705582000,
+          "adc_t_ns": 391001715582000,
+          "dac_t_ns": 391001725582000,
+          "portaudio_current_time": 391001.70551949996,
+          "portaudio_input_adc_time": 391001.71551949997,
+          "portaudio_output_dac_time": 391001.7255195,
+          "status": ""
+        },
+        {
+          "frame": 131520,
+          "frames": 480,
+          "callback_t_ns": 391001725116100,
+          "adc_t_ns": 391001735116100,
+          "dac_t_ns": 391001735116100,
+          "portaudio_current_time": 391001.7250233,
+          "portaudio_input_adc_time": 391001.7350233,
+          "portaudio_output_dac_time": 391001.7350233,
+          "status": ""
+        },
+        {
+          "frame": 132000,
+          "frames": 480,
+          "callback_t_ns": 391001735267700,
+          "adc_t_ns": 391001745267700,
+          "dac_t_ns": 391001745267700,
+          "portaudio_current_time": 391001.7351987,
+          "portaudio_input_adc_time": 391001.7451987,
+          "portaudio_output_dac_time": 391001.7451987,
+          "status": ""
+        },
+        {
+          "frame": 132480,
+          "frames": 480,
+          "callback_t_ns": 391001744357600,
+          "adc_t_ns": 391001754357600,
+          "dac_t_ns": 391001764357600,
+          "portaudio_current_time": 391001.7442802,
+          "portaudio_input_adc_time": 391001.7542802,
+          "portaudio_output_dac_time": 391001.7642802,
+          "status": ""
+        },
+        {
+          "frame": 132960,
+          "frames": 480,
+          "callback_t_ns": 391001755207000,
+          "adc_t_ns": 391001765207000,
+          "dac_t_ns": 391001765207000,
+          "portaudio_current_time": 391001.7551414,
+          "portaudio_input_adc_time": 391001.7651414,
+          "portaudio_output_dac_time": 391001.7651414,
+          "status": ""
+        },
+        {
+          "frame": 133440,
+          "frames": 480,
+          "callback_t_ns": 391001763249400,
+          "adc_t_ns": 391001773249400,
+          "dac_t_ns": 391001783249400,
+          "portaudio_current_time": 391001.76318989997,
+          "portaudio_input_adc_time": 391001.7731899,
+          "portaudio_output_dac_time": 391001.7831899,
+          "status": ""
+        },
+        {
+          "frame": 133920,
+          "frames": 480,
+          "callback_t_ns": 391001774641600,
+          "adc_t_ns": 391001784641600,
+          "dac_t_ns": 391001784641600,
+          "portaudio_current_time": 391001.77457209997,
+          "portaudio_input_adc_time": 391001.7845721,
+          "portaudio_output_dac_time": 391001.7845721,
+          "status": ""
+        },
+        {
+          "frame": 134400,
+          "frames": 480,
+          "callback_t_ns": 391001783716200,
+          "adc_t_ns": 391001793716200,
+          "dac_t_ns": 391001793716200,
+          "portaudio_current_time": 391001.78362149996,
+          "portaudio_input_adc_time": 391001.79362149996,
+          "portaudio_output_dac_time": 391001.79362149996,
+          "status": ""
+        },
+        {
+          "frame": 134880,
+          "frames": 480,
+          "callback_t_ns": 391001795007900,
+          "adc_t_ns": 391001805007900,
+          "dac_t_ns": 391001805007900,
+          "portaudio_current_time": 391001.79494289996,
+          "portaudio_input_adc_time": 391001.80494289997,
+          "portaudio_output_dac_time": 391001.80494289997,
+          "status": ""
+        },
+        {
+          "frame": 135360,
+          "frames": 480,
+          "callback_t_ns": 391001805089700,
+          "adc_t_ns": 391001815089700,
+          "dac_t_ns": 391001815089700,
+          "portaudio_current_time": 391001.8050289,
+          "portaudio_input_adc_time": 391001.8150289,
+          "portaudio_output_dac_time": 391001.8150289,
+          "status": ""
+        },
+        {
+          "frame": 135840,
+          "frames": 480,
+          "callback_t_ns": 391001814390900,
+          "adc_t_ns": 391001824390900,
+          "dac_t_ns": 391001824390900,
+          "portaudio_current_time": 391001.8143243,
+          "portaudio_input_adc_time": 391001.8243243,
+          "portaudio_output_dac_time": 391001.8243243,
+          "status": ""
+        },
+        {
+          "frame": 136320,
+          "frames": 480,
+          "callback_t_ns": 391001825362300,
+          "adc_t_ns": 391001835362300,
+          "dac_t_ns": 391001835362300,
+          "portaudio_current_time": 391001.82530739997,
+          "portaudio_input_adc_time": 391001.8353074,
+          "portaudio_output_dac_time": 391001.8353074,
+          "status": ""
+        },
+        {
+          "frame": 136800,
+          "frames": 480,
+          "callback_t_ns": 391001833511500,
+          "adc_t_ns": 391001853511500,
+          "dac_t_ns": 391001853511500,
+          "portaudio_current_time": 391001.83345519996,
+          "portaudio_input_adc_time": 391001.8534552,
+          "portaudio_output_dac_time": 391001.8534552,
+          "status": ""
+        },
+        {
+          "frame": 137280,
+          "frames": 480,
+          "callback_t_ns": 391001835538300,
+          "adc_t_ns": 391001845538300,
+          "dac_t_ns": 391001855538300,
+          "portaudio_current_time": 391001.8354986,
+          "portaudio_input_adc_time": 391001.8454986,
+          "portaudio_output_dac_time": 391001.8554986,
+          "status": ""
+        },
+        {
+          "frame": 137760,
+          "frames": 480,
+          "callback_t_ns": 391001844073200,
+          "adc_t_ns": 391001854073200,
+          "dac_t_ns": 391001864073200,
+          "portaudio_current_time": 391001.84402839997,
+          "portaudio_input_adc_time": 391001.8540284,
+          "portaudio_output_dac_time": 391001.8640284,
+          "status": ""
+        },
+        {
+          "frame": 138240,
+          "frames": 480,
+          "callback_t_ns": 391001864037400,
+          "adc_t_ns": 391001884037400,
+          "dac_t_ns": 391001874037400,
+          "portaudio_current_time": 391001.8639897,
+          "portaudio_input_adc_time": 391001.8839897,
+          "portaudio_output_dac_time": 391001.8739897,
+          "status": ""
+        },
+        {
+          "frame": 138720,
+          "frames": 480,
+          "callback_t_ns": 391001864090000,
+          "adc_t_ns": 391001874090000,
+          "dac_t_ns": 391001884090000,
+          "portaudio_current_time": 391001.8640834,
+          "portaudio_input_adc_time": 391001.8740834,
+          "portaudio_output_dac_time": 391001.8840834,
+          "status": ""
+        },
+        {
+          "frame": 139200,
+          "frames": 480,
+          "callback_t_ns": 391001883877900,
+          "adc_t_ns": 391001893877900,
+          "dac_t_ns": 391001903877900,
+          "portaudio_current_time": 391001.8838258,
+          "portaudio_input_adc_time": 391001.8938258,
+          "portaudio_output_dac_time": 391001.9038258,
+          "status": ""
+        },
+        {
+          "frame": 139680,
+          "frames": 480,
+          "callback_t_ns": 391001894555200,
+          "adc_t_ns": 391001904555200,
+          "dac_t_ns": 391001904555200,
+          "portaudio_current_time": 391001.89451149997,
+          "portaudio_input_adc_time": 391001.9045115,
+          "portaudio_output_dac_time": 391001.9045115,
+          "status": ""
+        },
+        {
+          "frame": 140160,
+          "frames": 480,
+          "callback_t_ns": 391001905130400,
+          "adc_t_ns": 391001915130400,
+          "dac_t_ns": 391001915130400,
+          "portaudio_current_time": 391001.9050892,
+          "portaudio_input_adc_time": 391001.9150892,
+          "portaudio_output_dac_time": 391001.9150892,
+          "status": ""
+        },
+        {
+          "frame": 140640,
+          "frames": 480,
+          "callback_t_ns": 391001914151100,
+          "adc_t_ns": 391001924151100,
+          "dac_t_ns": 391001924151100,
+          "portaudio_current_time": 391001.91411049996,
+          "portaudio_input_adc_time": 391001.92411049997,
+          "portaudio_output_dac_time": 391001.92411049997,
+          "status": ""
+        },
+        {
+          "frame": 141120,
+          "frames": 480,
+          "callback_t_ns": 391001924193400,
+          "adc_t_ns": 391001934193400,
+          "dac_t_ns": 391001934193400,
+          "portaudio_current_time": 391001.9241493,
+          "portaudio_input_adc_time": 391001.9341493,
+          "portaudio_output_dac_time": 391001.9341493,
+          "status": ""
+        },
+        {
+          "frame": 141600,
+          "frames": 480,
+          "callback_t_ns": 391001935266300,
+          "adc_t_ns": 391001945266300,
+          "dac_t_ns": 391001945266300,
+          "portaudio_current_time": 391001.9352268,
+          "portaudio_input_adc_time": 391001.9452268,
+          "portaudio_output_dac_time": 391001.9452268,
+          "status": ""
+        },
+        {
+          "frame": 142080,
+          "frames": 480,
+          "callback_t_ns": 391001944306400,
+          "adc_t_ns": 391001954306400,
+          "dac_t_ns": 391001954306400,
+          "portaudio_current_time": 391001.94426869997,
+          "portaudio_input_adc_time": 391001.9542687,
+          "portaudio_output_dac_time": 391001.9542687,
+          "status": ""
+        },
+        {
+          "frame": 142560,
+          "frames": 480,
+          "callback_t_ns": 391001954993400,
+          "adc_t_ns": 391001964993400,
+          "dac_t_ns": 391001964993400,
+          "portaudio_current_time": 391001.9549506,
+          "portaudio_input_adc_time": 391001.9649506,
+          "portaudio_output_dac_time": 391001.9649506,
+          "status": ""
+        },
+        {
+          "frame": 143040,
+          "frames": 480,
+          "callback_t_ns": 391001964076300,
+          "adc_t_ns": 391001974076300,
+          "dac_t_ns": 391001974076300,
+          "portaudio_current_time": 391001.9640402,
+          "portaudio_input_adc_time": 391001.9740402,
+          "portaudio_output_dac_time": 391001.9740402,
+          "status": ""
+        },
+        {
+          "frame": 143520,
+          "frames": 480,
+          "callback_t_ns": 391001974359000,
+          "adc_t_ns": 391001984359000,
+          "dac_t_ns": 391001984359000,
+          "portaudio_current_time": 391001.97432499996,
+          "portaudio_input_adc_time": 391001.98432499997,
+          "portaudio_output_dac_time": 391001.98432499997,
+          "status": ""
+        }
+      ],
+      "raw_evidence": {
+        "path": "cable.npz",
+        "sha256": "6c97630bbf2cee74634b9122fac6057c9657459c127bcc33567d2ef8683d45ee"
+      },
+      "record_path": "[LOCAL_REPOSITORY]\\.data\\issue3\\calibration\\cable.json",
+      "record_sha256": "ff8c74a66eff13e838c27772287b0050463f56c207edc1b64ae83a71f3d70550"
+    },
+    "output_device": "CABLE Input(VB-Audio Virtual Cable)",
+    "output_check": {
+      "audio": "[LOCAL_REPOSITORY]\\.data\\issue4\\output-checks\\zh-output-check.wav",
+      "tail_seconds": 15,
+      "audio_sha256": "3be6974425b8b0de3cafced557d58bc5e1c2d7578445a3f094606f67ca97f20a",
+      "sample_rate": 48000,
+      "channels": 1,
+      "frames": 480000,
+      "duration_seconds": 10.0
+    },
+    "profiles": [
+      {
+        "id": "VRCLT2",
+        "adapter": [
+          "[LOCAL_REPOSITORY]\\.data\\check-venv\\Scripts\\python.exe",
+          "-m",
+          "bench.gui_operator_adapter",
+          "--directory",
+          "[LOCAL_REPOSITORY]\\.data\\issue8\\competitor-preflights\\vrclt\\actual-20261021T195054Z\\vrclt2-d3-20261021T195054Z\\operator",
+          "--owned-pid",
+          "23904",
+          "--profile",
+          "VRCLT2",
+          "--session",
+          "vrclt2-d3-20261021T195054Z"
+        ],
+        "control_timeout_seconds": 600,
+        "osc": {
+          "host": "127.0.0.1",
+          "port": 19131
+        },
+        "expected_state": {
+          "microphone": "CABLE Output(VB-Audio Virtual Cable)",
+          "voice_output": false,
+          "osc_host": "127.0.0.1",
+          "osc_port": 19131
+        },
+        "quota_scope": "owner-approved-shared-or-unverified-existing-accounts",
+        "metadata": {
+          "purpose": "Actual normal GUI VRCLT source-specific short preflight; not main or freeze",
+          "application_version": "1.0.1",
+          "source_revision": "d97574fd451f1e5af8d0c68bd13c488fab54eaae",
+          "owned_GUI_pid": 23904,
+          "route": "Existing Beijing workspace-specific MAAS",
+          "requested_model": "qwen3.8-livetranslate-flash-realtime",
+          "returned_model_independently_attested": false,
+          "runtime_condition": "Owner-authorized concurrent user activity"
+        },
+        "key_aliases": []
+      }
+    ],
+    "stages": [
+      {
+        "wave": "preflight-only",
+        "direction": "D3",
+        "chunk": "one-second-lifecycle-only",
+        "kind": "setup",
+        "profiles": [
+          "VRCLT2"
+        ]
+      },
+      {
+        "wave": "preflight-only",
+        "direction": "D3",
+        "chunk": "one-second-lifecycle-only",
+        "kind": "direction",
+        "profiles": [
+          "VRCLT2"
+        ]
+      },
+      {
+        "audio": "[LOCAL_REPOSITORY]\\.data\\issue4\\output-checks\\zh-output-check.wav",
+        "tail_seconds": 15,
+        "audio_sha256": "3be6974425b8b0de3cafced557d58bc5e1c2d7578445a3f094606f67ca97f20a",
+        "sample_rate": 48000,
+        "channels": 1,
+        "frames": 480000,
+        "duration_seconds": 10.0,
+        "wave": "preflight-only",
+        "direction": "D3",
+        "chunk": "one-second-lifecycle-only",
+        "kind": "output_check",
+        "profiles": [
+          "VRCLT2"
+        ]
+      },
+      {
+        "kind": "nonspeech",
+        "chunk": "one-second-lifecycle-only",
+        "wave": "preflight-only",
+        "direction": "D3",
+        "profiles": [
+          "VRCLT2"
+        ],
+        "audio": "[LOCAL_REPOSITORY]\\.data\\issue8\\competitor-preflights\\vrclt\\actual-20261021T195054Z\\one-second-silent-lifecycle.wav",
+        "speech_intervals": [],
+        "tail_seconds": 2,
+        "audio_sha256": "0a8f76d89c709043814cb74f331a4578d17ff61256303bd0019a263d053f86e8",
+        "sample_rate": 48000,
+        "channels": 1,
+        "frames": 48000,
+        "duration_seconds": 1.0
+      }
+    ],
+    "harness_revision": "fec7899771799d946fc3152d6f1db548597e254e",
+    "run_id": "vrclt2-d3-20261021T195054Z",
+    "schema_version": 1,
+    "harness_sources": {
+      "__init__.py": "667d4a15b970b851e20d17510224670c14646cfb6d5a1e388ca6b9cc6da8bf41",
+      "activity.py": "e35b438c143586ce2b4336a2cce0b3bcdcf142dfd8bf0faadcd3af75d0a32686",
+      "adapter.py": "17c1eb3f3f9053cd87173cf80be79c8daf5a7b932fd79e6b5b21605e4049f9ee",
+      "audio.py": "c1d58a2754c1be531ac3c85b5bf1656b5dd9a059a2f0b7195cc8c1f7c71a5ff4",
+      "cli.py": "b5c4ccda6e388beb3bcedec64c1ce944630b25764f4b73bf8ddfbefbd75bdc60",
+      "cost_inputs.py": "8dec384479dcf6f05baa2679e03dd36fdf0264aee1596b2a52503daf62979fef",
+      "costs.py": "928fc38c88c0fee27bd501a9ac090727434ce83bfd7364828718e5f34ab15762",
+      "gui_operator_adapter.py": "1edb7bbdf920a6221ddf0a40f9b0db5322c2b70eca8b9a132c130f4396f78473",
+      "metrics.py": "7ca15777eab78d48a5d665a197b22dd31d5879cb1256491349bd3983a257ca74",
+      "metrics_alignment.py": "6e9541a4cf27c853070c83ecaca820bec577b387810e1ff3ce5b7c01532e4b2a",
+      "metrics_batch.py": "7135e066ca696b2662c1e4715a90b17b8b334611b87ee7581a0344035863f1ae",
+      "metrics_diagnostics.py": "37d50306974437be3a6736c221dcfc23cf53f07e655535c0bd494741903580f3",
+      "metrics_inputs.py": "6162739b95c2807d4c275adc690cb8874b34a10c521c60e0a9355bcbdab3cf8e",
+      "metrics_stats.py": "a6a305dc62897e48835fd2dca7ca75375e7aea9e2d1261ba9113641b454e42d6",
+      "osc.py": "24d65ceb3eeb6fa1e5b45626fee5f5fc405232ab36ba9dc12ba0017ae2dbc22e",
+      "plan.py": "00f188525da18a9e46ba9053ad4764bf1369b43aa0256123928ae2a7f7e5923c",
+      "profiles.py": "0142978d01cba7448413a8cf0a3c631a9a565c148e1b2e856d8714ed3fc04d4d",
+      "quality.py": "232e03d14736265f58d5df443a372513e90d0cb6a50cc847a44c741ae8c79244",
+      "quality_judge.py": "7a83d704ba38336a867d6c9eb36ec5978bd94aaf75bfa1145c86797aecf1f7b7",
+      "quality_metricx.py": "eb3bc75599e23eae8deb7b5efe8c0f69c1f375f3b89a0320d779d135af2366e7",
+      "quality_process.py": "b9ae92cd3b8e3631318370860165f7e8a3d8eb46d4e6540a2c596f72f63b74e1",
+      "quality_prompts.py": "e8ea7c552e567f70960cf4b3ff9214e3ce67339a3498894676023521fffa1eca",
+      "quality_report.py": "32b7588079520fe7713ea470d0cb930cb0d6002c5fdef881c0d5fef27a216e0c",
+      "quality_sampling.py": "920d75fce668fb660c413580a49b5a5b69a0cebe67054d0ad6ba1db4ee6bf4f6",
+      "quality_store.py": "17088e30ca05235ad4cf6750690af66fc5771f6004b06787280c75b2598e1e24",
+      "quality_transport.py": "17bd38703c6704ccd985e804050fb55c6c7f3d193051e87cb274147be108fb16",
+      "runner.py": "e4ec4d22669935e92c75fb91246411170ac70853a81460f0fae0f20dea72d87f",
+      "storage.py": "cdce70eb22df4325153eb6fae31d4ebdd5c66d44ebd0945eb61ec61d1a1064e9"
+    },
+    "harness_implementation": {
+      "kind": "checkout",
+      "revision": "fec7899771799d946fc3152d6f1db548597e254e",
+      "revision_reason": "loaded_harness_checkout",
+      "package_version": "0.2.0",
+      "package_path": "[LOCAL_REPOSITORY]\\bench",
+      "sources": {
+        "__init__.py": "667d4a15b970b851e20d17510224670c14646cfb6d5a1e388ca6b9cc6da8bf41",
+        "activity.py": "e35b438c143586ce2b4336a2cce0b3bcdcf142dfd8bf0faadcd3af75d0a32686",
+        "adapter.py": "17c1eb3f3f9053cd87173cf80be79c8daf5a7b932fd79e6b5b21605e4049f9ee",
+        "audio.py": "c1d58a2754c1be531ac3c85b5bf1656b5dd9a059a2f0b7195cc8c1f7c71a5ff4",
+        "cli.py": "b5c4ccda6e388beb3bcedec64c1ce944630b25764f4b73bf8ddfbefbd75bdc60",
+        "cost_inputs.py": "8dec384479dcf6f05baa2679e03dd36fdf0264aee1596b2a52503daf62979fef",
+        "costs.py": "928fc38c88c0fee27bd501a9ac090727434ce83bfd7364828718e5f34ab15762",
+        "gui_operator_adapter.py": "1edb7bbdf920a6221ddf0a40f9b0db5322c2b70eca8b9a132c130f4396f78473",
+        "metrics.py": "7ca15777eab78d48a5d665a197b22dd31d5879cb1256491349bd3983a257ca74",
+        "metrics_alignment.py": "6e9541a4cf27c853070c83ecaca820bec577b387810e1ff3ce5b7c01532e4b2a",
+        "metrics_batch.py": "7135e066ca696b2662c1e4715a90b17b8b334611b87ee7581a0344035863f1ae",
+        "metrics_diagnostics.py": "37d50306974437be3a6736c221dcfc23cf53f07e655535c0bd494741903580f3",
+        "metrics_inputs.py": "6162739b95c2807d4c275adc690cb8874b34a10c521c60e0a9355bcbdab3cf8e",
+        "metrics_stats.py": "a6a305dc62897e48835fd2dca7ca75375e7aea9e2d1261ba9113641b454e42d6",
+        "osc.py": "24d65ceb3eeb6fa1e5b45626fee5f5fc405232ab36ba9dc12ba0017ae2dbc22e",
+        "plan.py": "00f188525da18a9e46ba9053ad4764bf1369b43aa0256123928ae2a7f7e5923c",
+        "profiles.py": "0142978d01cba7448413a8cf0a3c631a9a565c148e1b2e856d8714ed3fc04d4d",
+        "quality.py": "232e03d14736265f58d5df443a372513e90d0cb6a50cc847a44c741ae8c79244",
+        "quality_judge.py": "7a83d704ba38336a867d6c9eb36ec5978bd94aaf75bfa1145c86797aecf1f7b7",
+        "quality_metricx.py": "eb3bc75599e23eae8deb7b5efe8c0f69c1f375f3b89a0320d779d135af2366e7",
+        "quality_process.py": "b9ae92cd3b8e3631318370860165f7e8a3d8eb46d4e6540a2c596f72f63b74e1",
+        "quality_prompts.py": "e8ea7c552e567f70960cf4b3ff9214e3ce67339a3498894676023521fffa1eca",
+        "quality_report.py": "32b7588079520fe7713ea470d0cb930cb0d6002c5fdef881c0d5fef27a216e0c",
+        "quality_sampling.py": "920d75fce668fb660c413580a49b5a5b69a0cebe67054d0ad6ba1db4ee6bf4f6",
+        "quality_store.py": "17088e30ca05235ad4cf6750690af66fc5771f6004b06787280c75b2598e1e24",
+        "quality_transport.py": "17bd38703c6704ccd985e804050fb55c6c7f3d193051e87cb274147be108fb16",
+        "runner.py": "e4ec4d22669935e92c75fb91246411170ac70853a81460f0fae0f20dea72d87f",
+        "storage.py": "cdce70eb22df4325153eb6fae31d4ebdd5c66d44ebd0945eb61ec61d1a1064e9"
+      }
+    },
+    "input_plan_sha256": "6df0dc0bcf231167248564a5d64c0b9ce598172642645b853ee4df06e3ad8be2",
+    "input_plan": "[LOCAL_REPOSITORY]\\.data\\issue8\\competitor-preflights\\vrclt\\actual-20261021T195054Z\\vrclt2-d3-20261021T195054Z\\plan.json"
+  },
+  "host": {
+    "cpu": "AMD64 Family 26 Model 68 Stepping 0, AuthenticAMD",
+    "os": "Windows-11-10.0.22631-SP0"
+  },
+  "clock": "perf_counter_ns",
+  "updated_wall": "2026-10-21T19:56:37.189301+00:00",
+  "session_implementations": [
+    {
+      "session": "006e787e10da40a3a5f3c89db06ce2bc",
+      "resumed": false,
+      "synthetic": false,
+      "wall": "2026-10-21T19:55:48.204964+00:00",
+      "implementation": {
+        "kind": "checkout",
+        "revision": "fec7899771799d946fc3152d6f1db548597e254e",
+        "revision_reason": "loaded_harness_checkout",
+        "package_version": "0.2.0",
+        "package_path": "[LOCAL_REPOSITORY]\\bench",
+        "sources": {
+          "__init__.py": "667d4a15b970b851e20d17510224670c14646cfb6d5a1e388ca6b9cc6da8bf41",
+          "activity.py": "e35b438c143586ce2b4336a2cce0b3bcdcf142dfd8bf0faadcd3af75d0a32686",
+          "adapter.py": "17c1eb3f3f9053cd87173cf80be79c8daf5a7b932fd79e6b5b21605e4049f9ee",
+          "audio.py": "c1d58a2754c1be531ac3c85b5bf1656b5dd9a059a2f0b7195cc8c1f7c71a5ff4",
+          "cli.py": "b5c4ccda6e388beb3bcedec64c1ce944630b25764f4b73bf8ddfbefbd75bdc60",
+          "cost_inputs.py": "8dec384479dcf6f05baa2679e03dd36fdf0264aee1596b2a52503daf62979fef",
+          "costs.py": "928fc38c88c0fee27bd501a9ac090727434ce83bfd7364828718e5f34ab15762",
+          "gui_operator_adapter.py": "1edb7bbdf920a6221ddf0a40f9b0db5322c2b70eca8b9a132c130f4396f78473",
+          "metrics.py": "7ca15777eab78d48a5d665a197b22dd31d5879cb1256491349bd3983a257ca74",
+          "metrics_alignment.py": "6e9541a4cf27c853070c83ecaca820bec577b387810e1ff3ce5b7c01532e4b2a",
+          "metrics_batch.py": "7135e066ca696b2662c1e4715a90b17b8b334611b87ee7581a0344035863f1ae",
+          "metrics_diagnostics.py": "37d50306974437be3a6736c221dcfc23cf53f07e655535c0bd494741903580f3",
+          "metrics_inputs.py": "6162739b95c2807d4c275adc690cb8874b34a10c521c60e0a9355bcbdab3cf8e",
+          "metrics_stats.py": "a6a305dc62897e48835fd2dca7ca75375e7aea9e2d1261ba9113641b454e42d6",
+          "osc.py": "24d65ceb3eeb6fa1e5b45626fee5f5fc405232ab36ba9dc12ba0017ae2dbc22e",
+          "plan.py": "00f188525da18a9e46ba9053ad4764bf1369b43aa0256123928ae2a7f7e5923c",
+          "profiles.py": "0142978d01cba7448413a8cf0a3c631a9a565c148e1b2e856d8714ed3fc04d4d",
+          "quality.py": "232e03d14736265f58d5df443a372513e90d0cb6a50cc847a44c741ae8c79244",
+          "quality_judge.py": "7a83d704ba38336a867d6c9eb36ec5978bd94aaf75bfa1145c86797aecf1f7b7",
+          "quality_metricx.py": "eb3bc75599e23eae8deb7b5efe8c0f69c1f375f3b89a0320d779d135af2366e7",
+          "quality_process.py": "b9ae92cd3b8e3631318370860165f7e8a3d8eb46d4e6540a2c596f72f63b74e1",
+          "quality_prompts.py": "e8ea7c552e567f70960cf4b3ff9214e3ce67339a3498894676023521fffa1eca",
+          "quality_report.py": "32b7588079520fe7713ea470d0cb930cb0d6002c5fdef881c0d5fef27a216e0c",
+          "quality_sampling.py": "920d75fce668fb660c413580a49b5a5b69a0cebe67054d0ad6ba1db4ee6bf4f6",
+          "quality_store.py": "17088e30ca05235ad4cf6750690af66fc5771f6004b06787280c75b2598e1e24",
+          "quality_transport.py": "17bd38703c6704ccd985e804050fb55c6c7f3d193051e87cb274147be108fb16",
+          "runner.py": "e4ec4d22669935e92c75fb91246411170ac70853a81460f0fae0f20dea72d87f",
+          "storage.py": "cdce70eb22df4325153eb6fae31d4ebdd5c66d44ebd0945eb61ec61d1a1064e9"
+        }
+      }
+    }
+  ],
+  "application_observations": [
+    {
+      "profile": "VRCLT2",
+      "direction": "D3",
+      "metadata": {
+        "purpose": "Actual normal GUI VRCLT source-specific short preflight; not main or freeze",
+        "application_version": "1.0.1",
+        "source_revision": "d97574fd451f1e5af8d0c68bd13c488fab54eaae",
+        "owned_GUI_pid": 23904,
+        "route": "Existing Beijing workspace-specific MAAS",
+        "requested_model": "qwen3.8-livetranslate-flash-realtime",
+        "returned_model_independently_attested": false,
+        "runtime_condition": "Owner-authorized concurrent user activity",
+        "saved_intent": {
+          "provider": "qwen",
+          "model": "gemini-3.5-live-translate-preview",
+          "app": {
+            "mode": "vrchat"
+          },
+          "outbound": {
+            "enabled": false,
+            "chatbox": true,
+            "text_only": true,
+            "voice_output": false,
+            "passthrough_while_translating": true,
+            "mic_device": "CABLE Output(VB-Audio Virtual Cable)",
+            "tts_device": "Realtek Digital Output(Realtek USB Audio)",
+            "monitor_device": "",
+            "glossary": "",
+            "echo_target_language": false,
+            "source_language": "zh-Hans",
+            "target_language": "ko"
+          },
+          "inbound": {
+            "enabled": false,
+            "play_audio": false,
+            "allow_system_audio": false
+          },
+          "dashboard": {
+            "translation_on": true,
+            "subtitles_on": false
+          },
+          "control": {
+            "enabled": false,
+            "feedback_chatbox": false,
+            "osc_listen_port": 19231
+          },
+          "osc": {
+            "ip": "127.0.0.1",
+            "port": 19131,
+            "show_source": true,
+            "stream_sentences": true,
+            "throttle_sec": 1.5,
+            "chunk_display_sec": 4.0,
+            "notification_sfx": false
+          },
+          "audio": {
+            "mic_idle_disconnect_sec": 15.0
+          },
+          "hotkeys": {
+            "enabled": false
+          },
+          "steamvr": {
+            "register": false,
+            "dashboard_panel": false
+          },
+          "ui": {
+            "close_action": "exit",
+            "easy_mode": true,
+            "lang": "ko",
+            "mode": "auto"
+          },
+          "meta": {
+            "auto_setup_pending": false
+          },
+          "qwen": {
+            "model": "qwen3.8-livetranslate-flash-realtime",
+            "endpoint": "beijing",
+            "voice_clone": "off",
+            "voice": ""
+          },
+          "vrchat_profile": {
+            "ui_mode": "auto",
+            "voice_output": true,
+            "passthrough_while_translating": false,
+            "chatbox": true,
+            "osc_control": true,
+            "vr_overlay": true,
+            "wrist_ui": true
+          },
+          "qwen_workspace_nonempty": true,
+          "qwen_custom_base_url_nonempty": false,
+          "overlay_enabled": false,
+          "wrist_enabled": false
+        },
+        "capture_state_basis": "manual GUI observation while process alive; process exit establishes stopped",
+        "observation_valid": true,
+        "continuous_effective_state_observation": false,
+        "gui_observation": {
+          "basis": "actual_visible_gui",
+          "observed_at_utc": "2026-10-21T19:55:39.535797+00:00",
+          "evidence": [
+            "[LOCAL_REPOSITORY]\\.data\\issue8\\competitor-preflights\\vrclt\\actual-20261021T195054Z\\evidence\\vrclt2-d3-running.png",
+            "[LOCAL_REPOSITORY]\\.data\\issue8\\competitor-preflights\\vrclt\\actual-20261021T195054Z\\evidence\\audio-route.png",
+            "[LOCAL_REPOSITORY]\\.data\\issue8\\competitor-preflights\\vrclt\\actual-20261021T195054Z\\evidence\\osc-format-controls.png",
+            "[LOCAL_REPOSITORY]\\.data\\issue8\\competitor-preflights\\vrclt\\actual-20261021T195054Z\\evidence\\qwen-settings-redacted.png"
+          ],
+          "profile": "VRCLT2",
+          "session": "vrclt2-d3-20261021T195054Z"
+        }
+      }
+    },
+    {
+      "profile": "VRCLT2",
+      "stage": "setup",
+      "state": {
+        "microphone": "CABLE Output(VB-Audio Virtual Cable)",
+        "voice_output": false,
+        "osc_host": "127.0.0.1",
+        "osc_port": 19131,
+        "direction": "D3",
+        "running": true,
+        "metadata": {
+          "purpose": "Actual normal GUI VRCLT source-specific short preflight; not main or freeze",
+          "application_version": "1.0.1",
+          "source_revision": "d97574fd451f1e5af8d0c68bd13c488fab54eaae",
+          "owned_GUI_pid": 23904,
+          "route": "Existing Beijing workspace-specific MAAS",
+          "requested_model": "qwen3.8-livetranslate-flash-realtime",
+          "returned_model_independently_attested": false,
+          "runtime_condition": "Owner-authorized concurrent user activity",
+          "saved_intent": {
+            "provider": "qwen",
+            "model": "gemini-3.5-live-translate-preview",
+            "app": {
+              "mode": "vrchat"
+            },
+            "outbound": {
+              "enabled": false,
+              "chatbox": true,
+              "text_only": true,
+              "voice_output": false,
+              "passthrough_while_translating": true,
+              "mic_device": "CABLE Output(VB-Audio Virtual Cable)",
+              "tts_device": "Realtek Digital Output(Realtek USB Audio)",
+              "monitor_device": "",
+              "glossary": "",
+              "echo_target_language": false,
+              "source_language": "zh-Hans",
+              "target_language": "ko"
+            },
+            "inbound": {
+              "enabled": false,
+              "play_audio": false,
+              "allow_system_audio": false
+            },
+            "dashboard": {
+              "translation_on": true,
+              "subtitles_on": false
+            },
+            "control": {
+              "enabled": false,
+              "feedback_chatbox": false,
+              "osc_listen_port": 19231
+            },
+            "osc": {
+              "ip": "127.0.0.1",
+              "port": 19131,
+              "show_source": true,
+              "stream_sentences": true,
+              "throttle_sec": 1.5,
+              "chunk_display_sec": 4.0,
+              "notification_sfx": false
+            },
+            "audio": {
+              "mic_idle_disconnect_sec": 15.0
+            },
+            "hotkeys": {
+              "enabled": false
+            },
+            "steamvr": {
+              "register": false,
+              "dashboard_panel": false
+            },
+            "ui": {
+              "close_action": "exit",
+              "easy_mode": true,
+              "lang": "ko",
+              "mode": "auto"
+            },
+            "meta": {
+              "auto_setup_pending": false
+            },
+            "qwen": {
+              "model": "qwen3.8-livetranslate-flash-realtime",
+              "endpoint": "beijing",
+              "voice_clone": "off",
+              "voice": ""
+            },
+            "vrchat_profile": {
+              "ui_mode": "auto",
+              "voice_output": true,
+              "passthrough_while_translating": false,
+              "chatbox": true,
+              "osc_control": true,
+              "vr_overlay": true,
+              "wrist_ui": true
+            },
+            "qwen_workspace_nonempty": true,
+            "qwen_custom_base_url_nonempty": false,
+            "overlay_enabled": false,
+            "wrist_enabled": false
+          },
+          "capture_state_basis": "manual GUI observation while process alive; process exit establishes stopped",
+          "observation_valid": true,
+          "continuous_effective_state_observation": false,
+          "gui_observation": {
+            "basis": "actual_visible_gui",
+            "observed_at_utc": "2026-10-21T19:55:39.535797+00:00",
+            "evidence": [
+              "[LOCAL_REPOSITORY]\\.data\\issue8\\competitor-preflights\\vrclt\\actual-20261021T195054Z\\evidence\\vrclt2-d3-running.png",
+              "[LOCAL_REPOSITORY]\\.data\\issue8\\competitor-preflights\\vrclt\\actual-20261021T195054Z\\evidence\\audio-route.png",
+              "[LOCAL_REPOSITORY]\\.data\\issue8\\competitor-preflights\\vrclt\\actual-20261021T195054Z\\evidence\\osc-format-controls.png",
+              "[LOCAL_REPOSITORY]\\.data\\issue8\\competitor-preflights\\vrclt\\actual-20261021T195054Z\\evidence\\qwen-settings-redacted.png"
+            ],
+            "profile": "VRCLT2",
+            "session": "vrclt2-d3-20261021T195054Z"
+          }
+        }
+      },
+      "requested": {
+        "microphone": "CABLE Output(VB-Audio Virtual Cable)",
+        "voice_output": false,
+        "osc_host": "127.0.0.1",
+        "osc_port": 19131,
+        "direction": "D3"
+      },
+      "corrected": false
+    },
+    {
+      "profile": "VRCLT2",
+      "stage": "setup",
+      "state": {
+        "microphone": "CABLE Output(VB-Audio Virtual Cable)",
+        "voice_output": false,
+        "osc_host": "127.0.0.1",
+        "osc_port": 19131,
+        "direction": "D3",
+        "running": true,
+        "metadata": {
+          "purpose": "Actual normal GUI VRCLT source-specific short preflight; not main or freeze",
+          "application_version": "1.0.1",
+          "source_revision": "d97574fd451f1e5af8d0c68bd13c488fab54eaae",
+          "owned_GUI_pid": 23904,
+          "route": "Existing Beijing workspace-specific MAAS",
+          "requested_model": "qwen3.8-livetranslate-flash-realtime",
+          "returned_model_independently_attested": false,
+          "runtime_condition": "Owner-authorized concurrent user activity",
+          "saved_intent": {
+            "provider": "qwen",
+            "model": "gemini-3.5-live-translate-preview",
+            "app": {
+              "mode": "vrchat"
+            },
+            "outbound": {
+              "enabled": false,
+              "chatbox": true,
+              "text_only": true,
+              "voice_output": false,
+              "passthrough_while_translating": true,
+              "mic_device": "CABLE Output(VB-Audio Virtual Cable)",
+              "tts_device": "Realtek Digital Output(Realtek USB Audio)",
+              "monitor_device": "",
+              "glossary": "",
+              "echo_target_language": false,
+              "source_language": "zh-Hans",
+              "target_language": "ko"
+            },
+            "inbound": {
+              "enabled": false,
+              "play_audio": false,
+              "allow_system_audio": false
+            },
+            "dashboard": {
+              "translation_on": true,
+              "subtitles_on": false
+            },
+            "control": {
+              "enabled": false,
+              "feedback_chatbox": false,
+              "osc_listen_port": 19231
+            },
+            "osc": {
+              "ip": "127.0.0.1",
+              "port": 19131,
+              "show_source": true,
+              "stream_sentences": true,
+              "throttle_sec": 1.5,
+              "chunk_display_sec": 4.0,
+              "notification_sfx": false
+            },
+            "audio": {
+              "mic_idle_disconnect_sec": 15.0
+            },
+            "hotkeys": {
+              "enabled": false
+            },
+            "steamvr": {
+              "register": false,
+              "dashboard_panel": false
+            },
+            "ui": {
+              "close_action": "exit",
+              "easy_mode": true,
+              "lang": "ko",
+              "mode": "auto"
+            },
+            "meta": {
+              "auto_setup_pending": false
+            },
+            "qwen": {
+              "model": "qwen3.8-livetranslate-flash-realtime",
+              "endpoint": "beijing",
+              "voice_clone": "off",
+              "voice": ""
+            },
+            "vrchat_profile": {
+              "ui_mode": "auto",
+              "voice_output": true,
+              "passthrough_while_translating": false,
+              "chatbox": true,
+              "osc_control": true,
+              "vr_overlay": true,
+              "wrist_ui": true
+            },
+            "qwen_workspace_nonempty": true,
+            "qwen_custom_base_url_nonempty": false,
+            "overlay_enabled": false,
+            "wrist_enabled": false
+          },
+          "capture_state_basis": "manual GUI observation while process alive; process exit establishes stopped",
+          "observation_valid": true,
+          "continuous_effective_state_observation": false,
+          "gui_observation": {
+            "basis": "actual_visible_gui",
+            "observed_at_utc": "2026-10-21T19:55:39.535797+00:00",
+            "evidence": [
+              "[LOCAL_REPOSITORY]\\.data\\issue8\\competitor-preflights\\vrclt\\actual-20261021T195054Z\\evidence\\vrclt2-d3-running.png",
+              "[LOCAL_REPOSITORY]\\.data\\issue8\\competitor-preflights\\vrclt\\actual-20261021T195054Z\\evidence\\audio-route.png",
+              "[LOCAL_REPOSITORY]\\.data\\issue8\\competitor-preflights\\vrclt\\actual-20261021T195054Z\\evidence\\osc-format-controls.png",
+              "[LOCAL_REPOSITORY]\\.data\\issue8\\competitor-preflights\\vrclt\\actual-20261021T195054Z\\evidence\\qwen-settings-redacted.png"
+            ],
+            "profile": "VRCLT2",
+            "session": "vrclt2-d3-20261021T195054Z"
+          }
+        }
+      },
+      "requested": {
+        "microphone": "CABLE Output(VB-Audio Virtual Cable)",
+        "voice_output": false,
+        "osc_host": "127.0.0.1",
+        "osc_port": 19131,
+        "direction": "D3"
+      },
+      "corrected": false
+    },
+    {
+      "profile": "VRCLT2",
+      "stage": "direction",
+      "state": {
+        "microphone": "CABLE Output(VB-Audio Virtual Cable)",
+        "voice_output": false,
+        "osc_host": "127.0.0.1",
+        "osc_port": 19131,
+        "direction": "D3",
+        "running": true,
+        "metadata": {
+          "purpose": "Actual normal GUI VRCLT source-specific short preflight; not main or freeze",
+          "application_version": "1.0.1",
+          "source_revision": "d97574fd451f1e5af8d0c68bd13c488fab54eaae",
+          "owned_GUI_pid": 23904,
+          "route": "Existing Beijing workspace-specific MAAS",
+          "requested_model": "qwen3.8-livetranslate-flash-realtime",
+          "returned_model_independently_attested": false,
+          "runtime_condition": "Owner-authorized concurrent user activity",
+          "saved_intent": {
+            "provider": "qwen",
+            "model": "gemini-3.5-live-translate-preview",
+            "app": {
+              "mode": "vrchat"
+            },
+            "outbound": {
+              "enabled": false,
+              "chatbox": true,
+              "text_only": true,
+              "voice_output": false,
+              "passthrough_while_translating": true,
+              "mic_device": "CABLE Output(VB-Audio Virtual Cable)",
+              "tts_device": "Realtek Digital Output(Realtek USB Audio)",
+              "monitor_device": "",
+              "glossary": "",
+              "echo_target_language": false,
+              "source_language": "zh-Hans",
+              "target_language": "ko"
+            },
+            "inbound": {
+              "enabled": false,
+              "play_audio": false,
+              "allow_system_audio": false
+            },
+            "dashboard": {
+              "translation_on": true,
+              "subtitles_on": false
+            },
+            "control": {
+              "enabled": false,
+              "feedback_chatbox": false,
+              "osc_listen_port": 19231
+            },
+            "osc": {
+              "ip": "127.0.0.1",
+              "port": 19131,
+              "show_source": true,
+              "stream_sentences": true,
+              "throttle_sec": 1.5,
+              "chunk_display_sec": 4.0,
+              "notification_sfx": false
+            },
+            "audio": {
+              "mic_idle_disconnect_sec": 15.0
+            },
+            "hotkeys": {
+              "enabled": false
+            },
+            "steamvr": {
+              "register": false,
+              "dashboard_panel": false
+            },
+            "ui": {
+              "close_action": "exit",
+              "easy_mode": true,
+              "lang": "ko",
+              "mode": "auto"
+            },
+            "meta": {
+              "auto_setup_pending": false
+            },
+            "qwen": {
+              "model": "qwen3.8-livetranslate-flash-realtime",
+              "endpoint": "beijing",
+              "voice_clone": "off",
+              "voice": ""
+            },
+            "vrchat_profile": {
+              "ui_mode": "auto",
+              "voice_output": true,
+              "passthrough_while_translating": false,
+              "chatbox": true,
+              "osc_control": true,
+              "vr_overlay": true,
+              "wrist_ui": true
+            },
+            "qwen_workspace_nonempty": true,
+            "qwen_custom_base_url_nonempty": false,
+            "overlay_enabled": false,
+            "wrist_enabled": false
+          },
+          "capture_state_basis": "manual GUI observation while process alive; process exit establishes stopped",
+          "observation_valid": true,
+          "continuous_effective_state_observation": false,
+          "gui_observation": {
+            "basis": "actual_visible_gui",
+            "observed_at_utc": "2026-10-21T19:55:39.535797+00:00",
+            "evidence": [
+              "[LOCAL_REPOSITORY]\\.data\\issue8\\competitor-preflights\\vrclt\\actual-20261021T195054Z\\evidence\\vrclt2-d3-running.png",
+              "[LOCAL_REPOSITORY]\\.data\\issue8\\competitor-preflights\\vrclt\\actual-20261021T195054Z\\evidence\\audio-route.png",
+              "[LOCAL_REPOSITORY]\\.data\\issue8\\competitor-preflights\\vrclt\\actual-20261021T195054Z\\evidence\\osc-format-controls.png",
+              "[LOCAL_REPOSITORY]\\.data\\issue8\\competitor-preflights\\vrclt\\actual-20261021T195054Z\\evidence\\qwen-settings-redacted.png"
+            ],
+            "profile": "VRCLT2",
+            "session": "vrclt2-d3-20261021T195054Z"
+          }
+        }
+      },
+      "requested": {
+        "microphone": "CABLE Output(VB-Audio Virtual Cable)",
+        "voice_output": false,
+        "osc_host": "127.0.0.1",
+        "osc_port": 19131,
+        "direction": "D3"
+      },
+      "corrected": false
+    },
+    {
+      "profile": "VRCLT2",
+      "stage": "output_check",
+      "state": {
+        "microphone": "CABLE Output(VB-Audio Virtual Cable)",
+        "voice_output": false,
+        "osc_host": "127.0.0.1",
+        "osc_port": 19131,
+        "direction": "D3",
+        "running": true,
+        "metadata": {
+          "purpose": "Actual normal GUI VRCLT source-specific short preflight; not main or freeze",
+          "application_version": "1.0.1",
+          "source_revision": "d97574fd451f1e5af8d0c68bd13c488fab54eaae",
+          "owned_GUI_pid": 23904,
+          "route": "Existing Beijing workspace-specific MAAS",
+          "requested_model": "qwen3.8-livetranslate-flash-realtime",
+          "returned_model_independently_attested": false,
+          "runtime_condition": "Owner-authorized concurrent user activity",
+          "saved_intent": {
+            "provider": "qwen",
+            "model": "gemini-3.5-live-translate-preview",
+            "app": {
+              "mode": "vrchat"
+            },
+            "outbound": {
+              "enabled": false,
+              "chatbox": true,
+              "text_only": true,
+              "voice_output": false,
+              "passthrough_while_translating": true,
+              "mic_device": "CABLE Output(VB-Audio Virtual Cable)",
+              "tts_device": "Realtek Digital Output(Realtek USB Audio)",
+              "monitor_device": "",
+              "glossary": "",
+              "echo_target_language": false,
+              "source_language": "zh-Hans",
+              "target_language": "ko"
+            },
+            "inbound": {
+              "enabled": false,
+              "play_audio": false,
+              "allow_system_audio": false
+            },
+            "dashboard": {
+              "translation_on": true,
+              "subtitles_on": false
+            },
+            "control": {
+              "enabled": false,
+              "feedback_chatbox": false,
+              "osc_listen_port": 19231
+            },
+            "osc": {
+              "ip": "127.0.0.1",
+              "port": 19131,
+              "show_source": true,
+              "stream_sentences": true,
+              "throttle_sec": 1.5,
+              "chunk_display_sec": 4.0,
+              "notification_sfx": false
+            },
+            "audio": {
+              "mic_idle_disconnect_sec": 15.0
+            },
+            "hotkeys": {
+              "enabled": false
+            },
+            "steamvr": {
+              "register": false,
+              "dashboard_panel": false
+            },
+            "ui": {
+              "close_action": "exit",
+              "easy_mode": true,
+              "lang": "ko",
+              "mode": "auto"
+            },
+            "meta": {
+              "auto_setup_pending": false
+            },
+            "qwen": {
+              "model": "qwen3.8-livetranslate-flash-realtime",
+              "endpoint": "beijing",
+              "voice_clone": "off",
+              "voice": ""
+            },
+            "vrchat_profile": {
+              "ui_mode": "auto",
+              "voice_output": true,
+              "passthrough_while_translating": false,
+              "chatbox": true,
+              "osc_control": true,
+              "vr_overlay": true,
+              "wrist_ui": true
+            },
+            "qwen_workspace_nonempty": true,
+            "qwen_custom_base_url_nonempty": false,
+            "overlay_enabled": false,
+            "wrist_enabled": false
+          },
+          "capture_state_basis": "manual GUI observation while process alive; process exit establishes stopped",
+          "observation_valid": true,
+          "continuous_effective_state_observation": false,
+          "gui_observation": {
+            "basis": "actual_visible_gui",
+            "observed_at_utc": "2026-10-21T19:55:39.535797+00:00",
+            "evidence": [
+              "[LOCAL_REPOSITORY]\\.data\\issue8\\competitor-preflights\\vrclt\\actual-20261021T195054Z\\evidence\\vrclt2-d3-running.png",
+              "[LOCAL_REPOSITORY]\\.data\\issue8\\competitor-preflights\\vrclt\\actual-20261021T195054Z\\evidence\\audio-route.png",
+              "[LOCAL_REPOSITORY]\\.data\\issue8\\competitor-preflights\\vrclt\\actual-20261021T195054Z\\evidence\\osc-format-controls.png",
+              "[LOCAL_REPOSITORY]\\.data\\issue8\\competitor-preflights\\vrclt\\actual-20261021T195054Z\\evidence\\qwen-settings-redacted.png"
+            ],
+            "profile": "VRCLT2",
+            "session": "vrclt2-d3-20261021T195054Z"
+          }
+        }
+      },
+      "requested": {
+        "microphone": "CABLE Output(VB-Audio Virtual Cable)",
+        "voice_output": false,
+        "osc_host": "127.0.0.1",
+        "osc_port": 19131,
+        "direction": "D3"
+      },
+      "corrected": false
+    },
+    {
+      "profile": "VRCLT2",
+      "stage": "nonspeech",
+      "state": {
+        "microphone": "CABLE Output(VB-Audio Virtual Cable)",
+        "voice_output": false,
+        "osc_host": "127.0.0.1",
+        "osc_port": 19131,
+        "direction": "D3",
+        "running": true,
+        "metadata": {
+          "purpose": "Actual normal GUI VRCLT source-specific short preflight; not main or freeze",
+          "application_version": "1.0.1",
+          "source_revision": "d97574fd451f1e5af8d0c68bd13c488fab54eaae",
+          "owned_GUI_pid": 23904,
+          "route": "Existing Beijing workspace-specific MAAS",
+          "requested_model": "qwen3.8-livetranslate-flash-realtime",
+          "returned_model_independently_attested": false,
+          "runtime_condition": "Owner-authorized concurrent user activity",
+          "saved_intent": {
+            "provider": "qwen",
+            "model": "gemini-3.5-live-translate-preview",
+            "app": {
+              "mode": "vrchat"
+            },
+            "outbound": {
+              "enabled": false,
+              "chatbox": true,
+              "text_only": true,
+              "voice_output": false,
+              "passthrough_while_translating": true,
+              "mic_device": "CABLE Output(VB-Audio Virtual Cable)",
+              "tts_device": "Realtek Digital Output(Realtek USB Audio)",
+              "monitor_device": "",
+              "glossary": "",
+              "echo_target_language": false,
+              "source_language": "zh-Hans",
+              "target_language": "ko"
+            },
+            "inbound": {
+              "enabled": false,
+              "play_audio": false,
+              "allow_system_audio": false
+            },
+            "dashboard": {
+              "translation_on": true,
+              "subtitles_on": false
+            },
+            "control": {
+              "enabled": false,
+              "feedback_chatbox": false,
+              "osc_listen_port": 19231
+            },
+            "osc": {
+              "ip": "127.0.0.1",
+              "port": 19131,
+              "show_source": true,
+              "stream_sentences": true,
+              "throttle_sec": 1.5,
+              "chunk_display_sec": 4.0,
+              "notification_sfx": false
+            },
+            "audio": {
+              "mic_idle_disconnect_sec": 15.0
+            },
+            "hotkeys": {
+              "enabled": false
+            },
+            "steamvr": {
+              "register": false,
+              "dashboard_panel": false
+            },
+            "ui": {
+              "close_action": "exit",
+              "easy_mode": true,
+              "lang": "ko",
+              "mode": "auto"
+            },
+            "meta": {
+              "auto_setup_pending": false
+            },
+            "qwen": {
+              "model": "qwen3.8-livetranslate-flash-realtime",
+              "endpoint": "beijing",
+              "voice_clone": "off",
+              "voice": ""
+            },
+            "vrchat_profile": {
+              "ui_mode": "auto",
+              "voice_output": true,
+              "passthrough_while_translating": false,
+              "chatbox": true,
+              "osc_control": true,
+              "vr_overlay": true,
+              "wrist_ui": true
+            },
+            "qwen_workspace_nonempty": true,
+            "qwen_custom_base_url_nonempty": false,
+            "overlay_enabled": false,
+            "wrist_enabled": false
+          },
+          "capture_state_basis": "manual GUI observation while process alive; process exit establishes stopped",
+          "observation_valid": true,
+          "continuous_effective_state_observation": false,
+          "gui_observation": {
+            "basis": "actual_visible_gui",
+            "observed_at_utc": "2026-10-21T19:55:39.535797+00:00",
+            "evidence": [
+              "[LOCAL_REPOSITORY]\\.data\\issue8\\competitor-preflights\\vrclt\\actual-20261021T195054Z\\evidence\\vrclt2-d3-running.png",
+              "[LOCAL_REPOSITORY]\\.data\\issue8\\competitor-preflights\\vrclt\\actual-20261021T195054Z\\evidence\\audio-route.png",
+              "[LOCAL_REPOSITORY]\\.data\\issue8\\competitor-preflights\\vrclt\\actual-20261021T195054Z\\evidence\\osc-format-controls.png",
+              "[LOCAL_REPOSITORY]\\.data\\issue8\\competitor-preflights\\vrclt\\actual-20261021T195054Z\\evidence\\qwen-settings-redacted.png"
+            ],
+            "profile": "VRCLT2",
+            "session": "vrclt2-d3-20261021T195054Z"
+          }
+        }
+      },
+      "requested": {
+        "microphone": "CABLE Output(VB-Audio Virtual Cable)",
+        "voice_output": false,
+        "osc_host": "127.0.0.1",
+        "osc_port": 19131,
+        "direction": "D3"
+      },
+      "corrected": false
+    }
+  ],
+  "wall_windows": [
+    {
+      "start": "2026-10-21T19:55:48.276640+00:00",
+      "end": "2026-10-21T19:55:48.399103+00:00",
+      "attempt": 1
+    },
+    {
+      "start": "2026-10-21T19:55:48.464078+00:00",
+      "end": "2026-10-21T19:55:48.473141+00:00",
+      "attempt": 2
+    },
+    {
+      "start": "2026-10-21T19:55:48.478719+00:00",
+      "end": "2026-10-21T19:56:13.810288+00:00",
+      "attempt": 3
+    },
+    {
+      "start": "2026-10-21T19:56:13.817353+00:00",
+      "end": "2026-10-21T19:56:16.952000+00:00",
+      "attempt": 4
+    }
+  ],
+  "streams": [
+    {
+      "path": "stream-006e787e10da40a3a5f3c89db06ce2bc.jsonl",
+      "sha256": "d261d877ad5d0f6dc51b73b044fe09982bb79320c2d3d31d5244505337b54eca"
+    }
+  ],
+  "derived_export_notice": "Path-redacted public derivative, not authoritative runner state. Original trace/stream checksum fields identify immutable native files; see export-provenance.json for derived-file hashes."
+}

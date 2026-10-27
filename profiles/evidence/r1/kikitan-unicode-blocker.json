@@ -1,0 +1,94 @@
+{
+  "kind": "actual_native_transport_access_blocker",
+  "profile": "KIKI2",
+  "scope": "ordinary/en-zh",
+  "app_version": "2.0.2",
+  "condition": "owner-approved self exception, desktop_translation=false, no VRChat",
+  "input_sha256": "b214d5288ed05ce51e6c18a7e8b2b3101218331122a8cf19192e9dc398c33926",
+  "original_attempt_status": "invalid",
+  "original_error": "Native collector KIKI2 has an observation gap",
+  "original_stream_sha256": "0598141fb7bfc0a603ab93d33c84e0acc42ce5ad7cbcad065ed5b0fc5ba0d43d",
+  "original_trace_sha256": "df534db67b78ac35205e8ef9444af8f8ff458fe1f653f7409da3cc4b04ea1db2",
+  "route": {
+    "playback": "CABLE Input(VB-Audio Virtual Cable)",
+    "microphone": "CABLE Output(VB-Audio Virtual Cable)",
+    "userdata": "127.0.0.1:7272",
+    "send_user_data": true
+  },
+  "gui_observation": {
+    "source": "I think that I would have to say",
+    "translation": "我想我得说",
+    "paired_to_retained_packet": false,
+    "basis": "Actual target-window image after collector stopped; earlier UDP packet is not aligned to this displayed text."
+  },
+  "observed_packet": {
+    "packet_sha256": "1682f46fab83095b08ad155802fdd0f3ba4a4c9b0d200310eec033fe352b8f4d",
+    "packet_base64": "L21pY3JvcGhvbmUvdHJhbnNsYXRlZAAALHMAAH0nAgA=",
+    "packet_hex": "2f6d6963726f70686f6e652f7472616e736c6174656400002c7300007d270200",
+    "argument_bytes_with_terminator_hex": "7d270200",
+    "actual_replay_result": {
+      "decoder": "bench.osc.decode",
+      "address": "/microphone/translated",
+      "text": "}'\u0002"
+    }
+  },
+  "source_diagnosis": "The retained datagram already contains 7D 27 02 rather than Chinese UTF-8 bytes. The harness reports those actual bytes faithfully. Source-derived narrowing is lossy and non-injective; original Unicode high bytes cannot be reconstructed by a legal decoder repair.",
+  "sources": [
+    {
+      "url": "https://github.com/YusufOzmen01/kikitan-translator/blob/175fb87f95d7b6592965fe3f099883ee2f830316/KikitanTranslator.Base/Outputs/OSC.cs",
+      "revision": "175fb87f95d7b6592965fe3f099883ee2f830316",
+      "observation": "Send uses BuildSoft.OscCore.OscClient.Send(address, string) for recognized and translated; fixed destination 127.0.0.1:7272."
+    },
+    {
+      "url": "https://github.com/YusufOzmen01/kikitan-translator/blob/175fb87f95d7b6592965fe3f099883ee2f830316/KikitanTranslator.Base/KikitanTranslator.Base.csproj",
+      "revision": "175fb87f95d7b6592965fe3f099883ee2f830316",
+      "observation": "References VRCOscLib 1.6.0; NuGet package metadata depends on BuildSoft.OscCore >=1.2.1."
+    },
+    {
+      "url": "https://github.com/ChanyaVRC/OscCore/blob/126fc2d94814b5409d35130660f0da15a2acb028/src/BuildSoft.OscCore/OscClient.cs",
+      "revision": "126fc2d94814b5409d35130660f0da15a2acb028",
+      "observation": "Send(address, string) calls Writer.Write(element)."
+    },
+    {
+      "url": "https://github.com/ChanyaVRC/OscCore/blob/126fc2d94814b5409d35130660f0da15a2acb028/src/BuildSoft.OscCore/OscWriter.cs",
+      "revision": "126fc2d94814b5409d35130660f0da15a2acb028",
+      "release_message": "Tag: Release v1.2.1",
+      "observation": "Write(string) is documented ASCII-only and performs foreach (var chr in data) Buffer[_length++] = (byte)chr; this narrows UTF-16 code units rather than encoding Unicode."
+    }
+  ],
+  "installed_dependency": {
+    "manifest_basename": "KikitanTranslator.Photino.deps.json",
+    "manifest_sha256": "0f5de51dd4affb5ba9991970384cac5e961e7c6a738c18e6255adfb6db596fa6",
+    "resolved_library_names": [
+      "BuildSoft.OscCore/1.2.1",
+      "OscCore/1.0.5"
+    ],
+    "full_assembly_equivalence_to_source_certified": false
+  },
+  "disposition": {
+    "native_translation_content": "blocked: serializer destroys non-ASCII information before receipt",
+    "no_decoder_reconstruction": true,
+    "app_patch_or_hook": false,
+    "headless_alternative_adopted": false,
+    "full_input_horizon_completed": false,
+    "product_no_output_claim": false,
+    "quality_time_admission": "pending_r6",
+    "sibling_profile_or_other_scope_promotion": false
+  },
+  "limits": [
+    "Some truncated bytes happen to form valid UTF-8 and are silent corruption; other packets trigger explicit decode gap.",
+    "No original Chinese phrase inferred from a many-to-one packet mapping.",
+    "Primary userdata route cannot supply reliable Unicode text in this installed dependency; GUI text is not substituted as primary output.",
+    "This original attempt aborted on collector gap before full input+15s; it is invalid, not a measured no-output product outcome.",
+    "No paid replay or new tests of copied bytes were used to reconfirm this observation."
+  ],
+  "restoration": {
+    "target_language": "ja",
+    "send_user_data": false,
+    "desktop_translation": false,
+    "recognizer": 2,
+    "translator": 2,
+    "capture_stopped_before_close": true,
+    "owned_pid_5160_exited": true
+  }
+}

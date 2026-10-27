@@ -1,0 +1,304 @@
+{
+  "schema_version": 1,
+  "kind": "owner_resumed_PP_D1_D3_execution_recipe_before_new_main_results",
+  "authority": {
+    "path": "profiles/evidence/issue8/owner-resumed-pp-and-remaining-d1-d3.json",
+    "sha256": "977013773f5e2afb7dc09f2ca363c3808b966d283d98547d0dc29e6846ecd864"
+  },
+  "proposed_public_record_scope": "Owner-resumed D1/D3 continuation after actual normal closure; no new route/model/tier or replay authority.",
+  "current_PP_status": {
+    "installed_version": "2.9.1",
+    "GUI_sha256": "32e496085be14372c71dd28db24fa90096b3912e33f44468f037421ce30a019b",
+    "CLI_sha256": "83fae3185015ee8562a99df416218b8d935fe58d78bd056c1198424fdd9a5cb1",
+    "package_sha256": "ff4c2e6f015cf8fddbd60d814c6c6863199e882aed3adc3f7f9ea24e6c35a011",
+    "fresh_host_observed": true,
+    "source_admission": {
+      "path": ".data/issue8/owner-resumed-pp-v1/successor-execution-v1/PP4-D3-short-check/finding.json",
+      "sha256": "dbbeb70bdc87deb584e6bf66c193b93bf922d4819e14269b4d2bc4a00def71bd"
+    },
+    "source_findings": "Fresh original-config GUI host, guarded settings runtime_applied/effectiveOFF, development10s actual480000frames+1s silence48000frames,2Korean/6OSC/silent0, initialized QwenCPU. Operational readiness only."
+  },
+  "legacy_lifecycle_correction": {
+    "57448": "Actual identity-matched hidden rootHWND28315150 standardWM_CLOSE; exit0 observed2026-10-24T15:42:03.3974601Z. First Director hash prerequisite failure sent no message and remains retained.",
+    "3708": "Previously normally exited after its retained publicappstop7 unknown_execution. Do not turn that CLI failure into success.",
+    "no_live_historical_binding_reuse": true,
+    "evidence": [
+      {
+        "path": ".data/issue8/owner-resumed-pp-v1/legacy-recovery/director-hidden-window-close-57448.json",
+        "sha256": "937ed17f20613caf2e35c408d9012e7435895b4d828829d316187b265a5c5aea"
+      },
+      {
+        "path": ".data/issue8/owner-resumed-pp-v1/legacy-recovery/director-hidden-window-close-57448-after-hash-repair.json",
+        "sha256": "11244aab0497edfadfbe8c25466422b8bdb525cf214b2760305b446974c29613"
+      }
+    ]
+  },
+  "schedule": [
+    {
+      "plan_id": "W1-D3",
+      "actual_participants": [
+        "PP4"
+      ]
+    },
+    {
+      "plan_id": "W2-D1",
+      "actual_participants": [
+        "PP1"
+      ]
+    },
+    {
+      "plan_id": "W2-D3",
+      "actual_participants": [
+        "PP1"
+      ]
+    },
+    {
+      "plan_id": "W3-D1",
+      "actual_participants": [
+        "PP2"
+      ]
+    },
+    {
+      "plan_id": "W3-D3",
+      "actual_participants": [
+        "PP2"
+      ]
+    },
+    {
+      "plan_id": "PP3ALONE-D1",
+      "actual_participants": [
+        "PP3"
+      ]
+    },
+    {
+      "plan_id": "W4-D1",
+      "actual_participants": [
+        "PP3"
+      ]
+    },
+    {
+      "plan_id": "W4-D3",
+      "actual_participants": [
+        "PP3"
+      ]
+    }
+  ],
+  "PP4D3": {
+    "execution": "Original run issue8-pp291-W1-D3-2beb32362705 same ledger; native fresh resume_setup/resume_check, work9/stage8/chunk06; no replay01to05",
+    "external_binding_transition": "Director-owned expected-old-hash replacement only; original binding61200 historical",
+    "raw_chunk05": "PreservedDONE, Index503+Gemma401 retained, selected-settings actor/cause unknown",
+    "pure_Index_comparison": "Entire mixed200s chunk05 excluded by Director decision; integrated POST-CAPTURE applicability code is separate from timed capture",
+    "neighboring_carryover": "No unsupported Index credit for excluded-capture outputs linked into other source attempts or segments. Preserve source correspondence and observations; propagate explicit analysis uncertainty without inventing missing-output failures or promoting retries."
+  },
+  "VRCLS_D3": {
+    "status": "quota_stopped",
+    "evidence": {
+      "path": "profiles/evidence/issue8/vrcls-quota-recovery-observation.json",
+      "sha256": "f9c9ea78f1f63d0f233e2be4e6e9fff8c03b763d03b09f063f3b139f888ee7d1"
+    },
+    "main_frames": 0,
+    "admitted": false,
+    "PP3_D3_actual_participants": [
+      "PP3"
+    ],
+    "description": "Explicit unavailable unplayed current-batch population, not completed/unconfigured and no indefinite dependency wait."
+  },
+  "source_rule_reuse": "Retain admitted2.9.1 eight profile/direction rule/source findings. Do not repeat eight preflights. Every later native direction/resume source check and effective-state admission remains required.",
+  "all_remaining_source_stages": [
+    {
+      "plan_id": "W1-D3",
+      "profile": "PP4",
+      "direction": "D3",
+      "counts": {
+        "chunk": 4,
+        "isolated": 20,
+        "nonspeech": 1
+      },
+      "source_seconds_by_kind": {
+        "chunk": 800.0,
+        "isolated": 40.97,
+        "nonspeech": 180.0
+      },
+      "startup_source_seconds": 10,
+      "startup_tail_seconds": 15
+    },
+    {
+      "plan_id": "W2-D1",
+      "profile": "PP1",
+      "direction": "D1",
+      "counts": {
+        "chunk": 6,
+        "isolated": 20,
+        "nonspeech": 1,
+        "repeat": 2
+      },
+      "source_seconds_by_kind": {
+        "chunk": 1800.0,
+        "isolated": 93.07,
+        "nonspeech": 180.0,
+        "repeat": 600.0
+      },
+      "startup_source_seconds": 40,
+      "startup_tail_seconds": 15
+    },
+    {
+      "plan_id": "W2-D3",
+      "profile": "PP1",
+      "direction": "D3",
+      "counts": {
+        "chunk": 9,
+        "isolated": 20,
+        "nonspeech": 1
+      },
+      "source_seconds_by_kind": {
+        "chunk": 1800.0,
+        "isolated": 40.97,
+        "nonspeech": 180.0
+      },
+      "startup_source_seconds": 10,
+      "startup_tail_seconds": 15
+    },
+    {
+      "plan_id": "W3-D1",
+      "profile": "PP2",
+      "direction": "D1",
+      "counts": {
+        "chunk": 6,
+        "isolated": 20,
+        "nonspeech": 1,
+        "repeat": 2
+      },
+      "source_seconds_by_kind": {
+        "chunk": 1800.0,
+        "isolated": 93.07,
+        "nonspeech": 180.0,
+        "repeat": 600.0
+      },
+      "startup_source_seconds": 40,
+      "startup_tail_seconds": 15
+    },
+    {
+      "plan_id": "W3-D3",
+      "profile": "PP2",
+      "direction": "D3",
+      "counts": {
+        "chunk": 9,
+        "isolated": 20,
+        "nonspeech": 1
+      },
+      "source_seconds_by_kind": {
+        "chunk": 1800.0,
+        "isolated": 40.97,
+        "nonspeech": 180.0
+      },
+      "startup_source_seconds": 10,
+      "startup_tail_seconds": 15
+    },
+    {
+      "plan_id": "PP3ALONE-D1",
+      "profile": "PP3",
+      "direction": "D1",
+      "counts": {
+        "repeat": 1
+      },
+      "source_seconds_by_kind": {
+        "repeat": 300.0
+      },
+      "startup_source_seconds": 40,
+      "startup_tail_seconds": 15
+    },
+    {
+      "plan_id": "W4-D1",
+      "profile": "PP3",
+      "direction": "D1",
+      "counts": {
+        "chunk": 6,
+        "isolated": 20,
+        "nonspeech": 1,
+        "repeat": 2
+      },
+      "source_seconds_by_kind": {
+        "chunk": 1800.0,
+        "isolated": 93.07,
+        "nonspeech": 180.0,
+        "repeat": 600.0
+      },
+      "startup_source_seconds": 40,
+      "startup_tail_seconds": 15
+    },
+    {
+      "plan_id": "W4-D3",
+      "profile": "PP3",
+      "direction": "D3",
+      "counts": {
+        "chunk": 9,
+        "isolated": 20,
+        "nonspeech": 1
+      },
+      "source_seconds_by_kind": {
+        "chunk": 1800.0,
+        "isolated": 40.97,
+        "nonspeech": 180.0
+      },
+      "startup_source_seconds": 10,
+      "startup_tail_seconds": 15
+    }
+  ],
+  "no_fabricated_peer_concurrency": true,
+  "supplementary_removed": [
+    "tone30",
+    "Korean100",
+    "owner review"
+  ],
+  "no_judging_or_cost_here": true,
+  "implementation_parent_revision": "f286d1f4bf336c862a35f4afc2a2389092c74ce2",
+  "decision": "Continue only the eight declared PP phases after genuine native-host recovery and fresh source admission. Preserve all completed/failed primary attempts, original PP4D3 partial raw data and historical lifecycle failures. No completed peers are replayed.",
+  "design": {
+    "path": ".data/issue8/owner-resumed-pp-v1/successor-execution-v1/continuation-design/design.json",
+    "sha256": "71675fca016589afe35081b7bd4695393de1e54e593e0aaad605354b37fc6ee2"
+  },
+  "helper_hashes": [
+    {
+      "path": ".data/issue8/owner-resumed-pp-v1/readiness_control.py",
+      "sha256": "6ca7418890a590dc1d776bd58e2d8062d8fcf499d1ac27678273776bf11ce356"
+    },
+    {
+      "path": ".data/issue8/owner-resumed-pp-v1/continuation_handoff.py",
+      "sha256": "8febe4ba3c6331f803acd531945eb9107644d5efe2fdcb91a439ce5d1a241d2f"
+    },
+    {
+      "path": ".data/issue8/protocol-planning/continuation-v1/puripuly_cli_adapter.py",
+      "sha256": "65dda94b05e0de45ee72b0071c8be175725724a79960b3c8bc26655ce9fe075d"
+    },
+    {
+      "path": ".data/issue8/protocol-planning/repair-retry-pp291-v1/assemble_protocol.py",
+      "sha256": "cb546a1ca119a41f37939f98b8397a16ad8905f43a200fa3e42d511844b94f8d"
+    }
+  ],
+  "all_input_hashes": {
+    "path": ".data/issue8/owner-resumed-pp-v1/successor-execution-v1/input-hash-admission-receipt.json",
+    "sha256": "cb88873655a609e05bdb4f72a09559455b72579bb5c44d9c7924274f74a39852"
+  },
+  "runtime_recipe": {
+    "path": ".data/issue8/owner-resumed-pp-v1/successor-execution-v1/continuation-recipe.json",
+    "sha256": "f8c1a622ef7b2414a70dae1d4cb57797aadf31b3bb56bb5f01412bf3a1260196"
+  },
+  "release_gate": "Director-approved full-commit freeze must bind this record, design/helpers/inputs and all eight memberships. Require fresh loaded-checkout equality, current guarded CLI state, and the archived expected-old-hash external-binding transition before first same-ledger resume. Native session_start records actual loaded implementation; the original frozen plan remains historical and unchanged.",
+  "post_capture_analysis_gate": {
+    "timed_runner_and_public_CLI_adapter_unchanged": true,
+    "analysis_repairs": "Independent review identified cross-attempt output-credit and excluded-first-attempt pairing leaks in the optional post-capture applicability consumer. Repair is isolated from the live capture checkout. No real scoring/report attachment until the repaired consumer is integrated and independently verified.",
+    "timed_work_not_blocked_by_unused_analysis_path": true,
+    "calculation_provenance": "Final derived reports must retain their actual calculation revision and separate applicability/evidence hashes, not claim the capture revision implements the final analysis."
+  },
+  "quota_policy": "Retain the original recipe first-limit scope across ledgers/directions/cohorts and actual first product failures. No quota reset inferred from elapsed time, new direction or scratch directory; no paid/account/tier/model substitute.",
+  "operational_failure_policy": "Preserve actual errors promptly. Retry only operational-invalid or still-unmeasured work under the existing guards; never replay completed or first-product-failed primary audio. Clean up owned resources and advance independent eligible phases rather than silently waiting.",
+  "standalone_interpretation": "PP3 fixed300s remains separately captured before W4D1. Since its remaining W4 participants are PP-only, do not invent a concurrent-peer load contrast.",
+  "scope_limits": [
+    "D1/D3 only; later directions not yet measured",
+    "No judging/MetricX/provider-cost work during timed captures",
+    "Tone30/Korean100/owner review remain withdrawn",
+    "No game inspection/control or presence-based notes",
+    "No remote publication or issue closure authorized"
+  ],
+  "created_at_utc": "2026-10-24T16:13:46.389946+00:00"
+}

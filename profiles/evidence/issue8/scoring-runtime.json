@@ -1,0 +1,184 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-10-21T17:50:43.285488+00:00",
+  "scope": "Runtime preparation plus separately dated historical-input alignment smoke below; no current-main judging or capture. Initial preparation at created_utc loaded no model weights and made no inference or provider dispatch.",
+  "python": {
+    "identity": "CPython3.12.10 win_amd64",
+    "executable": ".data/issue6-runtime/venv/Scripts/python.exe",
+    "packages": {
+      "accelerate": "1.6.0",
+      "certifi": "2026.10.19",
+      "charset-normalizer": "3.5.2",
+      "cloudpickle": "3.1.2",
+      "colorama": "0.4.6",
+      "filelock": "4.2.4",
+      "fsspec": "2026.9.0",
+      "huggingface-hub": "0.24.7",
+      "idna": "3.20",
+      "iniconfig": "2.3.1",
+      "Jinja2": "3.1.6",
+      "joblib": "1.6.0",
+      "MarkupSafe": "3.0.4",
+      "mpmath": "1.3.0",
+      "networkx": "3.7",
+      "numpy": "1.26.4",
+      "packaging": "26.3",
+      "pip": "25.0.1",
+      "pluggy": "1.7.0",
+      "protobuf": "5.29.5",
+      "psutil": "7.2.2",
+      "Pygments": "2.21.0",
+      "pytest": "8.4.2",
+      "PyYAML": "6.0.3",
+      "regex": "2026.9.29",
+      "requests": "2.34.2",
+      "safetensors": "0.8.0",
+      "scikit-learn": "1.5.2",
+      "scipy": "1.13.1",
+      "sentencepiece": "0.2.0",
+      "setuptools": "84.2.1",
+      "simalign": "0.4",
+      "sympy": "1.13.1",
+      "threadpoolctl": "3.7.0",
+      "tokenizers": "0.19.1",
+      "torch": "2.6.0+cpu",
+      "tqdm": "4.70.1",
+      "transformers": "4.44.2",
+      "typing_extensions": "4.16.0",
+      "urllib3": "2.8.0"
+    },
+    "existing_versions_changed": {}
+  },
+  "alignment": {
+    "model": "google-bert/bert-base-multilingual-cased",
+    "revision": "3f076fdb1ab68d5b2880cb87a0886f315b8146f8",
+    "snapshot": ".data\\issue8\\alignment-runtime\\hf\\models--google-bert--bert-base-multilingual-cased\\snapshots\\3f076fdb1ab68d5b2880cb87a0886f315b8146f8",
+    "files": {
+      "config.json": {
+        "bytes": 625,
+        "sha256": "4d10c2021c6b5fbe8b70698abc6ccc6691dc28d1bae9732f7fa1087782feba7e",
+        "hash_evidence": "fresh SHA256 after acquisition; 2026-10-21T17:50:39.539363+00:00"
+      },
+      "model.safetensors": {
+        "bytes": 714290682,
+        "sha256": "876f584f15ebf14887dec17539c114bb99a032e96b9e72507a51c41e205337fc",
+        "hash_evidence": "fresh SHA256 after acquisition; 2026-10-21T17:50:39.539363+00:00"
+      },
+      "tokenizer.json": {
+        "bytes": 1961828,
+        "sha256": "f4a4d5bf7301717e261fafbe26e1eb967f6ba4cb3ae0ab7a29f4642ec229f386",
+        "hash_evidence": "fresh SHA256 after acquisition; 2026-10-21T17:50:39.539363+00:00"
+      },
+      "tokenizer_config.json": {
+        "bytes": 49,
+        "sha256": "0f6d13e6f4da6f9e24f22ada6bc3be571123d858d7c0c05a8a7cd55a9c23c2e8",
+        "hash_evidence": "fresh SHA256 after acquisition; 2026-10-21T17:50:39.539363+00:00"
+      },
+      "vocab.txt": {
+        "bytes": 995526,
+        "sha256": "fe0fda7c425b48c516fc8f160d594c8022a0808447475c1a7c6d6479763f310c",
+        "hash_evidence": "fresh SHA256 after acquisition; 2026-10-21T17:50:39.539363+00:00"
+      }
+    },
+    "hash_observed_utc": "2026-10-21T17:50:39.539363+00:00",
+    "weights_loaded": false,
+    "inference_performed": false,
+    "package": "simalign",
+    "version": "0.4",
+    "device": "cpu",
+    "layer": 8,
+    "matching": "itermax",
+    "token_type": "word",
+    "correspondence": "Proposals only; confirmed source credit requires input-bound adjudication."
+  },
+  "metricx": {
+    "repo": "google/metricx-24-hybrid-xl-v2p6",
+    "revision": "f6e7f99a655582f28cb998dd3e6ca86b4217430d",
+    "files": {
+      "pytorch_model-00001-of-00002.bin": [
+        9977015092,
+        "f0481c16fa7171bbb1a724cce3b8598b8d78bb8e8209138fecf7fdedd5200327"
+      ],
+      "pytorch_model-00002-of-00002.bin": [
+        4993661116,
+        "24978065a17c3d63617d92f093a1b4cdf3b94cb68b969ebd3c947c334d837cbc"
+      ],
+      "config.json": [
+        851,
+        "47b47c4c4a892f2c7411a0e7711ad76f5bdcd13c176161e04f26b0dc681b4c42"
+      ],
+      "pytorch_model.bin.index.json": [
+        50781,
+        "e00c00362f242bd766e84a3a30d820e80ba3be1c08eab2b9bf123535d5fe1c92"
+      ]
+    },
+    "snapshot": ".data/issue6-runtime/hf/models--google--metricx-24-hybrid-xl-v2p6/snapshots/f6e7f99a655582f28cb998dd3e6ca86b4217430d",
+    "tokenizer": {
+      "repo": "google/mt5-xl",
+      "revision": "63fc6450d80515b48e026b69ef2fbbd426433e84",
+      "files": {
+        "spiece.model": [
+          4309802,
+          "ef78f86560d809067d12bac6c09f19a462cb3af3f54d2b8acbba26e1433125d6"
+        ],
+        "config.json": [
+          688,
+          "ab40135afd2da5bbb3ff182e7424db595b11ffee5dc81bebd8089f6288afb1df"
+        ],
+        "special_tokens_map.json": [
+          65,
+          "09059cedc26bc46bc09a52f05b92d4922e11917e87f3b92059bb1a63a59ab2c4"
+        ],
+        "tokenizer_config.json": [
+          376,
+          "3be4bbd24c65845b1dc86186f3c7d1d61ac2e29154cb0d71133753562f8d1959"
+        ]
+      }
+    },
+    "tokenizer_snapshot": ".data/issue6-runtime/hf/models--google--mt5-xl/snapshots/63fc6450d80515b48e026b69ef2fbbd426433e84",
+    "hash_evidence": "Retained verified acquisition SHA256 from 2026-10-21; not freshly rehashed in this preparation.",
+    "retained_manifest_sha256": "7f88ac01bba9deb6f3a8b6ca2492d4ad3caf080b1576a009052a8f61f7344d19",
+    "device": "cpu"
+  },
+  "judge": {
+    "model": "gpt-6-astra",
+    "route": "Sign in with ChatGPT",
+    "sdk": "@oh-my-pi/pi-ai",
+    "sdk_version": "18.12.3",
+    "sdk_package_root": ".data/issue6-runtime/sdk/node_modules/@oh-my-pi/pi-ai",
+    "bun_version": "1.3.14",
+    "private_transport_spec": ".data/issue6-current-smoke/judge.json",
+    "transport_spec_sha256": "b6b8808c7a7b9f893b00b69c1c91c372dc2f673e995aace65b05b76a017e8ac7",
+    "credentials": "Not read or exported; no authentication or provider request performed."
+  },
+  "actual_alignment_runtime_observation": {
+    "observed_on_utc": "2026-10-21",
+    "summary": ".data/issue8/alignment-runtime/offline-cpu-smoke-20261021T192212651562Z/summary.json",
+    "summary_sha256": "e10d7242064aa5c1b5103de07b3803ffac1f442b5ea542fa99644998c04ab81f",
+    "raw_result": ".data/issue8/alignment-runtime/offline-cpu-smoke-20261021T192212651562Z/result.json",
+    "raw_result_sha256": "c68a8839895e7dc81920f9ee706e7a8da6bd21e5ccd75d8b7fca5ae753f0f5ca",
+    "method": "Existing Alignment ordinary path, exact pinned local BERT, SimAlign0.4/layer8/itermax/CPU; offline flags set and one real token-alignment call observed without replacing computation.",
+    "input": "One exact retained historical VRCS2 pilot output and two ordinary same-clock source candidates, with a new empty correspondence cache.",
+    "model_initialized": true,
+    "prepared_model_file_hashes_match": true,
+    "token_alignment_calls": 1,
+    "result_status": "unknown",
+    "proposal_status": "requires_adjudication",
+    "confirmed_sentence_ids": [],
+    "cache_links_before_after": [0, 0],
+    "exit_code": 0,
+    "process_exited": true,
+    "timing_boundary": "All app captures were stopped for this bounded smoke; process exit preceded release of the next GUI launch.",
+    "limits": "Runtime execution proof only, not alignment accuracy, delivery credit, quality scoring or main results. No download, dependency change, provider/judge/MetricX/audio/GUI call or fallback; throwaway script removed."
+  },
+  "local_preparation": {
+    "helper": ".data\\issue8\\alignment-runtime\\prepare.py",
+    "helper_sha256": "23d92ec263641ef094c4a12fc6efdd1bc11f085aec04da635f5d425243bfdfe2",
+    "requirements": ".data\\issue8\\alignment-runtime\\requirements.txt",
+    "constraints": ".data\\issue8\\alignment-runtime\\constraints.txt",
+    "pip_report": ".data\\issue8\\alignment-runtime\\pip-report.json",
+    "pip_outcome": ".data\\issue8\\alignment-runtime\\pip-outcome.json",
+    "model_info": ".data\\issue8\\alignment-runtime\\model-info.json",
+    "pip_exit_code": 0
+  }
+}

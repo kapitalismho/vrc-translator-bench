@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "kind": "actual_gui_configuration_only",
+  "observed_date_utc": "2026-10-21",
+  "application": "VRCT",
+  "version": "3.6.0",
+  "executable_sha256": "889ae8ee3ec0f4a395a4cc21050631d0215e2be997db3d08131edef3aa961ebe",
+  "owned_gui_pid": 23896,
+  "owned_backend_pid": 27816,
+  "input": {"host": "Windows WASAPI", "microphone": "CABLE Output(VB-Audio Virtual Cable)", "automatic_selection": false},
+  "gui_observed_inactive": ["translation", "microphone_recognition", "speaker_recognition", "chat_reading", "VR_mute_sync", "VR_overlay"],
+  "profiles": {
+    "VRCT3": {"asr": "Google", "translation": "OpenRouter_API", "requested_model": "google/gemma-4-26b-a4b-it", "osc_host": "127.0.0.1", "osc_port": 19113, "configured_directions": ["D1", "D3"], "state": "configured_then_replaced_by_VRCT2", "runtime_access": "not_exercised", "evidence": [".data/issue8/gui/vrct3-openrouter-requested-model.png", ".data/issue8/gui/vrct3-google-asr.png", ".data/issue8/gui/vrct3-d1-configured-stopped.png", ".data/issue8/gui/vrct3-d3-configured-stopped.png"]},
+    "VRCT2": {"asr": "Whisper", "model": "base", "device": "cpu", "compute_type": "int8", "translation": "Google", "osc_host": "127.0.0.1", "osc_port": 19112, "configured_directions": ["D3", "D1"], "last_configured_direction": "D1", "runtime_access": "not_exercised", "evidence": [".data/issue8/gui/vrct2-whisper-cpu-int8.png", ".data/issue8/gui/vrct2-osc-ports-saved.png", ".data/issue8/gui/vrct2-d3-configured-stopped.png", ".data/issue8/gui/vrct2-d1-configured-stopped.png"]}
+  },
+  "direction_settings": {"D1": "English (United States) to Japanese (Japan)", "D3": "Chinese Simplified (China) to Korean (South Korea)"},
+  "preparation_correction": "An initial VRCT2 port edit targeted a scrolled settings viewport and did not persist. A subsequent unpaced text entry saved an incomplete value. Capture stayed OFF. After restoring the observed OSC viewport and using paced GUI entry, the GUI and allowlisted stored configuration both confirmed19112. The earlier images are not successful port evidence.",
+  "audio_playback": false,
+  "provider_output_check": "pending",
+  "main_measurement": false,
+  "limits": ["Saved and visible configuration is not effective model/provider execution or audio-to-OSC proof.", "No current direction has a new VRCT2/VRCT3 output check.", "Owner requested other-app preparation while intending VRChat use; no primary run was started.", "Startup may perform provider authentication/model-list requests despite capture OFF; zero network usage is not claimed.", "Images remain task-local preparation evidence, not a published results package."]
+}

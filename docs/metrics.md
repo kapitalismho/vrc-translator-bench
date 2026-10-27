@@ -1,4 +1,6 @@
-# Derived OSC measurements
+# Historical OSC measurements
+
+> **Retired evaluation contract.** `bench metrics`, `metrics-batch`, all `bench/metrics*.py` modules and their old alignment dependencies have been removed. Definitions, commands and observations below explain retained historical artifacts at [the pre-reset revision](https://github.com/kapitalismho/vrc-translator-bench/tree/fbab10a0455d91d5419d9673499d25b7ac86c566); they are not active instructions or accepted new-benchmark results. The old analysis remains under an integrity hold. Episode quality and separate weighted semantic-wait p50/p90 are specified in [the final plan §§7–10](benchmark-final-plan.md) and remain [implementation work](benchmark-implementation-plan.md). No old delivery/FOL/LUL field is a new metric alias.
 
 This is the calculation and report-data layer for [issue #5](https://github.com/kapitalismho/vrc-translator-bench/issues/5). It consumes prepared references from [#2](https://github.com/kapitalismho/vrc-translator-bench/issues/2) and captured endpoint records from [#3](https://github.com/kapitalismho/vrc-translator-bench/issues/3). Application-specific interpretation evidence belongs to [#4](https://github.com/kapitalismho/vrc-translator-bench/issues/4); judging belongs to [#6](https://github.com/kapitalismho/vrc-translator-bench/issues/6). These measurements are not a public scorecard, a semantic-completion detector, or a single overall score.
 
@@ -13,8 +15,8 @@ The following are the working calculation definitions. The final input/rule/mode
 | Sentence last-update latency (LUL) | Last corresponding content-changing output received by the deadline minus sentence end, in seconds |
 | Turn LUL | Last related content change received by the turn deadline minus turn end, in seconds |
 | Delivery | Reference sentences with determinable corresponding output by the deadline / eligible reference sentences |
-| Unaligned-output rate | Observed translation outputs without determinable source correspondence / observed translation outputs; retain the underlying output records and exact denominator |
-| Isolated-response window | Utterance start through utterance end + 10 seconds; associate window output without cross-language alignment |
+| Unaligned-output rate | Role-confirmed translation outputs without determinable source correspondence / role-confirmed translation outputs; retain raw observations and unresolved-role coverage separately |
+| Isolated-response window | Utterance start through utterance end + 10 seconds; associate role-confirmed translation within the window without cross-language alignment, retaining unresolved-role activity separately |
 | Isolated-response timing | First response minus utterance start, first response minus utterance end, and last content change minus utterance end, in seconds |
 | Quality segment | Approximately 30 seconds, cut only at reference sentence boundaries; **two preceding reference turns** are unscored context |
 | FOL duration bins | Source sentence duration <2 seconds, 2–5 seconds inclusive, and >5 seconds |
@@ -26,7 +28,7 @@ Sample-native reference boundaries retain exact native-sample, sample-rate and e
 
 Negative latency is retained when the observed timing supports it. Missing output has null latency, not an arbitrary timeout latency. LUL means the last observed content update, not proven semantic completion. Resends do not create content changes; revision-dependent measurements require applicable interpretation evidence.
 
-No corresponding output before a deadline, output after the deadline, and output with undetermined correspondence are different observations. An unaligned output is retained and assigned to its nearest temporal quality segment; it is not silently discarded or credited as delivery. Obvious alignment problems must restrict the claim or produce an explicit unknown/N/A reason.
+No corresponding output before a deadline, output after the deadline, and output with undetermined correspondence are different observations. A role-confirmed translation with unknown correspondence is retained and assigned to its nearest temporal quality segment; it is not silently discarded or credited as delivery. Unresolved text role follows the separate exclusion boundary below. Obvious alignment problems must restrict the claim or produce an explicit unknown/N/A reason.
 
 Prepared reference units do not always have a unique containing turn. Retain candidate turn identities and report deadline-dependent values as unknown with `ambiguous_containing_turn` when the reference cannot establish one; do not synthesize a containing turn from a convenient end time. Report affected reference counts and denominator coverage. Partial reference units remain visible but are excluded from complete-reference deadline metrics with `partial_reference`; punctuation-only units are not eligible speech. These policies reduce claims rather than conceal reference uncertainty.
 
@@ -34,13 +36,33 @@ Prepared reference units do not always have a unique containing turn. Retain can
 
 Raw OSC observations remain unchanged. Derived grouping and source alignment are estimates stored separately, with rule/model provenance and uncertainty. OSC does not provide universal translation, revision, page or final IDs. An unsupported final-text reconstruction, revision count, erased-character count, endpoint boundary, or source CER must remain N/A rather than become a heuristic presented as fact.
 
+A frozen extraction-pattern mismatch has `output_role: "unresolved"`, `text: null`, `source_text: null` and `extraction: "pattern_mismatch_unresolved_role"`. Preserve the complete raw packet and rule provenance; do not fall back to treating mixed source/target text as translation. Existing source/time candidates preserve possible-delivery uncertainty but cannot grant model/cache alignment, CER, grouping or final-output credit. Such a row cannot serve as a revision/pagination/resend parent. Two null interpreted texts do not establish duplicate translated content.
+
+All affected candidate quality segments retain `unresolved_output_ids` and become ineligible with `quality_eligibility_reason: "unresolved_output_role"`. This is unavailable extraction, not an empty translation or an omission judgment. Known empty extracted translation remains a separate `source_only` observation; matched nonempty translation remains usable even with an empty recognized-source field. Isolated unresolved-only activity reports `unknown_output_role`, not a false no-output timeout. Nonspeech retains raw endpoint activity separately from known translated counts. Common-clip replay uses retained `raw_text`, not null interpreted text.
+
+When source bounds are unavailable, unresolved activity also excludes untimed reference-bearing quality segments from its exact captured attempt/frozen-stage population, matching configuration, clock, direction and capture kind. `untimed_capture_quality_segment_ids` records this conservative exclusion coverage, not sentence correspondence. Timed allocation and orphan observations remain intact; this does not invent cross-attempt untimed carryover or alter missing-timing behavior when no unresolved role was observed.
+
 SimAlign-family alignment is the working cross-language proposal method, not proof of correspondence. Its maximum matching also produces links for unrelated text. Model proposals therefore retain token links and candidate identities but stay `unknown` for delivery until inspected, input-bound correspondence evidence supports a source assignment. This prevents forced token matches from becoming falsely delivered sentences. Isolated-response results use window association instead and remain a separate test.
 
-Quality inputs contain target-speaker reference text, unscored earlier-turn context, interpreted final output in display order, and temporally assigned unaligned output. Japanese references remain automatic/exploratory; Japanese CER is automatic-reference guidance, not verified recognition accuracy. Japanese speech-derived report content inherits the local-only release restriction.
+Quality inputs contain target-speaker reference text, unscored earlier-turn context, interpreted final output in display order, and temporally assigned role-confirmed translations with unknown correspondence. Unresolved-role text is not a scoring input. Japanese references remain automatic/exploratory; Japanese CER is automatic-reference guidance, not verified recognition accuracy. Japanese speech-derived report content inherits the local-only release restriction.
 
 Sentence splits and merges describe message segmentation, not translation merit. Boundary loss/duplication, message rate per speaking minute, duplicate/order-change observations, uninterrupted-speech accumulation, endpoint-delay versus mid-sentence-cut pairs, and exploratory Japanese speaker-boundary/pre-predicate diagnostics require their stated evidence. Do not replace speaking time with elapsed audio duration. PuriPuly internal endpoint/ASR/queue/first-token/generation/output timings remain separate from cross-application OSC endpoint measurements.
 
 Count nonspeech output separately for the observed two-minute silence/nonverbal interval and one-minute background-speech interval. Report those observed three-minute counts, never an hourly extrapolation.
+
+The optional observed pre-nonspeech quiet gate is described in the
+[runner contract](cli.md#plan-contract). Its delayed output is retained in
+`quiet_precondition_observations`, outside measured translation/alignment,
+quality, nonspeech and global output denominators. Each nonspeech diagnostic
+retains the complete `nonspeech_quiet_wait` evidence and the
+`quiet_precondition_met` / `unresolved_carryover` flags.
+
+`count` remains the raw observed interval count. `clean_nonspeech_count` is
+available only when quiet was actually established and playback timing is
+available. Timeout leaves clean attribution null with a carryover reason,
+without discarding the actual three-minute playback or fabricating a zero.
+Historical captures without the gate retain their observed counts; their quiet
+precondition and clean attribution are unknown, not retrospectively certified.
 
 ## Reporting populations and uncertainty
 
@@ -49,6 +71,22 @@ Keep configuration, direction and category explicit. General, deliberately selec
 Report p50/p90 latency alongside delivery, unaligned-output rate, first-attempt failures and major-error segment rate. Quality-rate denominators must disclose score coverage. Show original-session values when session count is small. Chopped segments and two target languages using the same audio are not independent recordings. Bootstrap uncertainty excludes reference, alignment and judge bias.
 
 Repeated-subset results expose run-to-run variation; resumed-chunk sensitivity reports summaries with and without resumed chunks. Neither constitutes a validation of the benchmark's statistical or linguistic accuracy.
+
+### Cross-wave paired composition
+
+Use actual retained wave/direction reports, then the joined quality report after scoring:
+
+```powershell
+python -m bench.cli metrics-batch --report wave1-d1.json --report wave2-d1.json --output batch-paired.json
+python -m bench.cli metrics-batch --quality-report batch-quality.json --output batch-scored-paired.json
+```
+
+Repeat `--report` for every retained canonical metrics report. `--quality-report` consumes `joined_metrics_reports`; do not also supply original reports already represented there. Composition performs no capture, judging, inference or provider calls.
+
+The batch envelope preserves each source report unchanged, including category/casual, turn, output, repeat, resume and failure summaries, with input/source hashes, run IDs and joined-report JSON pointers. Only paired estimates combine reports, using the existing estimator and narrowly projected, run/config/direction/attempt-scoped inputs. Shared reference and original-session identities remain unchanged; report percentiles are never averaged.
+
+Any duplicate reference-eligible chunk/shared population is rejected, including duplicates within one report or successful retries after failures. Diagnostics identify the source/run/attempt; resolve the actual canonical population without silently selecting a successful retry or erasing failure evidence. Shared source identity, text and original session must agree; output-specific quality eligibility may differ.
+
 
 ## Command and inputs
 
@@ -101,6 +139,125 @@ Inspect proposals against the retained source/output evidence, record the corres
 
 Same-clock candidate search retains late-output possibilities through the containing-turn deadline (or sentence end when unknown) plus 120 seconds. Punctuation-only and future-source support do not establish a model proposal. Inputs exceeding 500 model wordpieces remain unknown instead of being silently truncated. These working method choices must be recorded at the main-run freeze.
 
+## Optional analysis applicability
+
+Collection completion does not establish runtime-route identity. A retained `done`
+chunk may contain mixed routes while its source, raw output and failure incidents
+remain valid observations. Derive a **new report** with an explicit population gate:
+
+```powershell
+python -m bench.cli metrics --manifest native-manifest.json --spec frozen-metrics-spec.json --applicability index-applicability.json --output index-primary.json
+```
+
+The Python entry point is `bench.metrics.derive(..., applicability_path=...)`.
+Omitting the optional input retains existing behavior; profile names, failures and
+current settings never automatically infer an exclusion.
+
+The input has exactly these top-level fields:
+
+| Field | Contract |
+| --- | --- |
+| `schema_version`, `version` | `1`, `"analysis-applicability-v1"` |
+| `population` | Nonempty analysis-population name |
+| `manifest_sha256`, `spec_sha256` | Exact original native manifest and metrics-spec hashes |
+| `exclusions` | Nonempty array of whole-attempt exclusions |
+
+Each exclusion has exactly `run`, `config`, `direction`, integer `attempt_id`,
+integer `stage`, nonempty `reason` and nonempty `evidence`. The complete native
+selector must identify one unambiguous reference-bearing `chunk` or `repeat`;
+`stage` is the zero-based plan index, not a quality-segment number. Missing,
+nonexistent, mismatched, duplicate or ambiguous selectors fail. There are no
+wildcards, retry promotion or within-chunk splits. Reference-free and isolated
+windows are outside this input's scope.
+
+Each evidence item has exactly `path` and `sha256`; relative paths resolve beside
+the applicability file. Missing or changed evidence and stale manifest/spec hashes
+fail. Record the authorized decision, observed events and attribution limits in
+the evidence. Hash binding does not authenticate authors or prove provider success,
+cause, actor, output-to-provider correspondence or billable usage.
+
+Original manifest/spec provenance remains intact; the report appends applicability
+and evidence hashes. Its `applicability` section retains the decision and excluded
+attempt/sentence/turn/segment counts. Native files, collection outcomes, references,
+raw packets and known failures are not rewritten. Output cannot overwrite bound
+inputs. The analysis hash is not a new capture identity.
+
+Directly excluded attempts, source rows and captured outputs carry
+`population_eligible: false` and `applicability.exclusion_kind: "direct"`.
+An output's confirmed SOURCE correspondence is preserved; it does not establish
+the provider that produced that output. Directly mixed origins cannot supply
+pure-route delivery, timing, output-rate or quality credit through a clean source
+attempt or through an unaligned quality-segment display placement.
+
+Dependent source, turn, quality and relevant first-attempt populations become
+ineligible with `applicability.exclusion_kind: "dependent"`, reason
+`excluded_capture_output_dependency`, `dependent_output_ids` and the original
+hash-bound `origin_exclusions`. Unknown correspondence/display allocation retains
+uncertainty over the affected reference population. Confirmed correspondence
+limits source dependency to its confirmed sources rather than all old candidates.
+The existing isolated-window consumer also excludes a window containing a
+directly mixed origin; isolated attempts remain unavailable as direct selectors.
+Dependency propagation is seeded only by explicitly selected capture origins:
+otherwise clean output origins do not become mixed merely because their source
+attempt becomes dependency-excluded, and independent dependent-free sources
+remain usable.
+
+Sentence/turn/quality rows preserve previous eligibility/reasons (and quality
+timing eligibility), then become ineligible. `analysis_applicability_excluded`
+is the default direct reason; an existing extraction/reference reason survives.
+Quality `reference_eligible` remains the native reference/status judgment.
+Original delivery status, FOL/LUL, source links, text, incidents and supplied scores
+remain excluded diagnostic evidence. Do not rewrite an affected source as a
+missing-output failure or recalculate favorable timings from only trusted output.
+
+Aggregation excludes affected rows from delivery/latency, turn LUL, session
+bootstrap, source-population output rates, quality and first-attempt denominators.
+The report distinguishes `direct_excluded_counts`, `dependent_excluded_counts`,
+total `excluded_counts` and directly mixed `excluded_output_ids`. Known collection
+outcomes remain unchanged. Repeat/resume and quality joining reuse these gates.
+
+Prepare a **new quality queue root** from the derived report. Excluded segments
+remain records but create no ESA/tone/MetricX jobs or quality samples; sanity
+controls remain independent. Frozen queues reject changed report hashes.
+In-report and cross-report pairing use the retained first completed/product-failed
+primary source selection BEFORE analysis exclusions: an excluded primary is never
+replaced by a later successful retry. An earlier operational-invalid attempt does
+not block a later legitimate terminal primary. In-report duplicate retained-primary
+shared populations are rejected before applicability; `metrics-batch` retains its
+stricter rejection of every duplicate native reference-eligible chunk/shared
+population, including an excluded first attempt and a successful retry, before
+applying exclusions. Resolve the actual canonical source explicitly; exclusions
+cannot bypass duplicate or shared-source identity checks. Pairing then requires
+both native reference and analysis-population eligibility.
+`metrics-batch.pairing_exclusions` retains rejected segment identities/decisions,
+and `reports` retains all source history. An output-specific quality exclusion
+alone still does not remove an applicable delivery/latency pair.
+Global `output_population` remains raw observed translation, not a pure-route claim.
+
+### Cost population
+
+The [existing cost contract](costs.md#report-fields-and-denominators) requires
+explicit observed `window_ids`; the cost CLI does **not** consume applicability
+automatically. Retain the mixed window and incidents as evidence, but exclude it
+consistently from Index-primary component `coverage.window_ids`, free-access
+`access.window_ids` and normalized denominator `window_ids`. Bind the analysis
+hash and native attempt-to-window mapping in existing evidence/population fields.
+Derive replay duration and reference counts from that same selected subset.
+
+Carry both direct and dependent attempt exclusions into that explicit cost-window
+selection. A dependency-excluded window is not thereby a mixed provider origin;
+retain that distinction and its original collection status. If only part of a
+source window remains eligible for one measurement, the cost contract still has
+whole observed windows, not invented per-output charge allocation. Compare a
+quality/metric/cost point only on the same explicitly selected supported subset;
+otherwise retain separate populations or an unknown/partial normalized amount.
+
+Complete coverage and observed free eligibility remain necessary. A failed request,
+HTTP401 or missing fallback output does not prove zero cost. Mixed or unassignable
+carryover cost remains unknown/partial or separately labelled diagnostic cost;
+never prorate it by elapsed time, split at an unsupported rebuild boundary or
+rewrite collection status to obtain a free-cost point.
+
 ## Report-data contract
 
 The output is one JSON object, `schema_version: 1`, calculation `version: "issue5-v1"`. Consumers must inspect `synthetic`, limitations and evidence coverage before presenting a result.
@@ -111,27 +268,30 @@ The output is one JSON object, `schema_version: 1`, calculation `version: "issue
 | `definitions`, `limitations` | Applied formulas, population policy and unsupported claims |
 | `provenance`, `alignment_provenance`, `application_observations`, `harness` | Checksummed input paths, actual model/runtime details, application metadata and capture implementation identity |
 | `attempts` | Retained status, first-attempt history, failure reasons and resume provenance |
-| `outputs` | Nonempty interpreted translation outputs only, with untouched `raw`, derived text/source text, relationship/parent/group, rule evidence, content-change certainty, source proposals/confirmed links and quality-segment identity |
+| `outputs` | Role-confirmed translations and unresolved-role endpoint observations, distinguished by `output_role`; untouched `raw`, nullable interpreted text/source, relationship/parent/group, rule evidence, content-change certainty, source candidates/confirmed links and quality-segment identity |
 | `nontranslation_observations` | Source-only observations retain raw payload and extraction evidence without entering translation, delivery or unaligned-output denominators |
+| `quiet_precondition_observations` | Preserved pre-playback wait output and source-only observations, raw payload and candidate provenance; excluded from measured output populations |
 | `sentences`, `turns` | Original/generated identity, source session/speaker/category, native reference evidence, uncertainty, candidate turns, timing, delivery and late/unknown output identities |
-| `quality_segments` | Approximately 30-second reference units, two unscored earlier turns, final display-order output, unaligned output and externally supplied quality score |
+| `quality_segments` | Approximately 30-second reference units, two unscored earlier turns, final display-order output, unaligned translation, unresolved-role IDs/eligibility and externally supplied quality score |
 | `quality_score_coverage` | Total/eligible/excluded segment and supplied-score counts, with exclusion reasons mapped to affected segment IDs |
-| `isolated` | Separate utterance-window response timing, no-output/timeout, carryover and quality; not continuous-dialogue latency |
-| `diagnostics` | Per-attempt segmentation/message measurements, nonspeech counts, common-clip timelines and separately identified PuriPuly internal decomposition |
+| `isolated` | Separate utterance-window translation timing, no-output/timeout versus unknown role, retained endpoint activity, carryover and quality eligibility; not continuous-dialogue latency |
+| `diagnostics` | Per-attempt segmentation/message measurements, separate nonspeech raw/translation counts, common-clip events with `raw_text` and interpreted `text`/`output_role`, and separately identified PuriPuly internal decomposition |
 | `aggregates`, `paired` | Config/direction/category/casual views, original-session values/intervals and shared-segment paired comparisons; common-success comparisons are supplementary |
 | `repeats`, `repeat_variation`, `resume_sensitivity` | Repeated-subset observations and summaries with/without resumed chunks |
-| `output_population` | Global output denominator and alignment-status accounting, including orphan output |
+| `output_population` | Known translation denominator and alignment status, `observed_nonempty_chatbox_inputs`, `output_role_counts` and `unresolved_output_ids`, including orphan output |
 | `alignment_cache` | Input-bound reusable correspondence evidence, not a new raw observation |
 
 Measurement objects carry `value`, `unit`, `reason` and relevant denominator/evidence fields. Unavailable values are JSON `null`, never NaN or a fabricated zero. Playback `start`/`end` are seconds; `native_coordinate_units` and `offset_seconds` preserve normalization provenance. `*_ns` values are nanoseconds within the named clock session, not UTC timestamps.
 
 Product-failed attempts remain in the measurement population when reference/timing evidence exists. Operational-invalid, unsupported, partial-reference, nonlexical/unscored, ambiguous-containing-turn and unavailable-source-timing records remain in the report with reasons and denominator-coverage counts. Unknown correspondence stays in eligible delivery denominators, with `unresolved_sentences` and correspondence bounds. Quality eligibility is distinct from deadline/turn eligibility.
 
-Quality segments distinguish `reference_eligible` (source/status population) from `eligible` (supported quality-scoring input). If one indivisible output has confirmed links across multiple quality segments, its `source_quality_segment_ids` names all affected segments, which retain `source_linked_output_ids` and `cross_segment_output_ids`. The text is displayed once, not split into invented spans or duplicated as independent delivery. Every affected quality input becomes N/A with `quality_eligibility_reason: "unresolved_merged_output_allocation"`. Supplied scores remain visible but are excluded. Source eligibility, sentence/turn timing and paired delivery/latency remain available; paired major-error differences require both quality inputs eligible.
+Quality segments distinguish `reference_eligible` (source/status population) from `eligible` (supported quality-scoring input). If one indivisible output has confirmed links across multiple quality segments, its `source_quality_segment_ids` names all affected segments, which retain `source_linked_output_ids` and `cross_segment_output_ids`. The text is displayed once, not split into invented spans or duplicated as independent delivery. Every affected quality input becomes N/A with `quality_eligibility_reason: "unresolved_merged_output_allocation"` unless unresolved text role also applies; then `unresolved_output_role` remains primary and merged-output provenance is still retained. Supplied scores remain visible but are excluded. Source eligibility, sentence/turn timing and paired delivery/latency remain available; paired major-error differences require both quality inputs eligible.
 
-Unaligned-rate denominators include all observed translation outputs in the declared global or source population, including resends, late and orphan output. Outputs known to be unrelated also lack a linked source; `alignment_status_counts` keeps them distinct from unresolved correspondence. Known-unrelated output does not turn a sentence's no-output result into unknown. Source-population denominators can be smaller than the global denominator; never omit that distinction.
+Unaligned-rate denominators include all role-confirmed translation outputs in the declared global or source population, including resends, late and orphan output. Unresolved text roles are excluded from that denominator but retained in role coverage and raw observation IDs; they are not known absent translations. Outputs known to be unrelated also lack a linked source; `alignment_status_counts` keeps them distinct from unresolved correspondence. Known-unrelated output does not turn a sentence's no-output result into unknown. Source-population denominators can be smaller than the global denominator; never omit that distinction.
 
 Subgroup output attribution uses confirmed linked source identities, otherwise the assigned quality-segment population; raw attempt identity alone never assigns every output to every category. `unaligned_output_rate.population_attribution` exposes selection-basis counts, ambiguous/excluded output IDs and unassigned capture IDs. `output_population` retains global unassigned and ambiguous-population IDs. Output spanning populations can be nonexclusive: do not sum subgroup denominators into the global denominator. A reference-free output-check, nonspeech or isolated observation remains in its own test population rather than entering continuous quality text by nearest-time fallback.
+
+Explicit historical `pattern_mismatch_unknown_translation` artifacts used the unsafe mixed-text fallback. New quality preparation/frozen-plan loading, aggregate recomputation and batch composition reject those artifacts with a rederivation/new-queue requirement. Preserve original reports and queues unchanged; derive corrected reports from their retained raw evidence rather than silently rewriting history. Ordinary historical matched outputs retain their prior behavior.
 
 First-attempt product-failure rates exclude operational-invalid and unsupported first attempts from their product-failure denominator but preserve all first-attempt status counts. Missing quality scores are unscored, not zero-error judgments. Reports expose session-level values; fewer than two original sessions yields no bootstrap interval. Paired comparisons match shared reference segments rather than treating each target language as a new recording.
 
@@ -151,7 +311,7 @@ Internal PuriPuly records may contain `speech_end_ns`, `endpoint_ns`, `asr_start
 
 ## Hand-worked boundaries and observed checks
 
-With DAC origin 10.0 seconds and cable correction +0.1 seconds, source origin is 10.1 seconds. A sentence at playback [0,2] has source bounds [10.1,12.1]. If its containing turn ends at playback 4, the deadline is 29.1. Related content-changing outputs at 11 and 12 give FOL **0.9 seconds** and LUL **−0.1 seconds**. Output exactly at 29.1 is on time; 29.100000001 is late. Missing output has null latency. Unresolved output remains in the quality input rather than proving delivery or disappearing.
+With DAC origin 10.0 seconds and cable correction +0.1 seconds, source origin is 10.1 seconds. A sentence at playback [0,2] has source bounds [10.1,12.1]. If its containing turn ends at playback 4, the deadline is 29.1. Related content-changing outputs at 11 and 12 give FOL **0.9 seconds** and LUL **−0.1 seconds**. Output exactly at 29.1 is on time; 29.100000001 is late. Missing output has null latency. Role-confirmed translation with unresolved correspondence remains in quality input without proving delivery; unresolved text role instead makes affected quality input unavailable.
 
 Initial candidate checks (before independent-review repairs):
 

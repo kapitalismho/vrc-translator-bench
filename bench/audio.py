@@ -28,33 +28,34 @@ def _modules():
     return np, sd
 
 
-def cable_devices(output_device=None, input_device=None):
+def wasapi_device(selected, channel_key):
     _, sd = _modules()
+    if selected is None or selected == "":
+        raise OperationalError("An explicit audio device is required; no default-device fallback")
     if os.name != "nt":
-        raise OperationalError("Cable playback requires Windows WASAPI shared mode")
+        raise OperationalError("Playback requires Windows WASAPI shared mode")
     try:
-        devices = sd.query_devices()
-        apis = sd.query_hostapis()
+        devices, apis = sd.query_devices(), sd.query_hostapis()
     except sd.PortAudioError as error:
         raise OperationalError(f"Cannot enumerate Windows audio devices: {error}") from error
-    def choose(selected, fragment, channel_key):
-        found = [(index, dict(device)) for index, device in enumerate(devices)
-                 if apis[device["hostapi"]]["name"] == "Windows WASAPI"
-                 and fragment in device["name"] and "16ch" not in device["name"]
-                 and device[channel_key] > 0
-                 and (selected is None or str(index) == str(selected) or device["name"] == selected)]
-        if len(found) != 1:
-            raise OperationalError(f"Select exactly one WASAPI {fragment} device; matches={found}")
-        return found[0]
-    return {"output": choose(output_device, "CABLE Input", "max_output_channels"),
-            "input": choose(input_device, "CABLE Output", "max_input_channels"), "exclusive": False}
+    found = [(index, dict(device)) for index, device in enumerate(devices)
+             if apis[device["hostapi"]]["name"] == "Windows WASAPI" and device[channel_key] > 0
+             and (str(index) == str(selected) or device["name"] == selected)]
+    if len(found) != 1:
+        raise OperationalError(f"Select exactly one explicit WASAPI device; matches={found}")
+    return found[0]
+
+
+def cable_devices(output_device=None, input_device=None):
+    return {"output": wasapi_device(output_device, "max_output_channels"),
+            "input": wasapi_device(input_device, "max_input_channels"), "exclusive": False}
 
 
 class Playback:
     def __init__(self, path, output_device=None):
         self.path = Path(path)
         self.info = wave_info(path)
-        self.devices = cable_devices(output_device)
+        self.devices = {"output": wasapi_device(output_device, "max_output_channels"), "exclusive": False}
         self.records = []
         self.failure = None
         self.done = threading.Event()
@@ -62,6 +63,7 @@ class Playback:
         self.first_dac_ns = None
         self.finished_ns = None
         self.source = wave.open(str(path), "rb")
+        self.scheduled_start_ns = None
         np, sd = _modules()
         self.np = np
         self.sd = sd
@@ -86,26 +88,29 @@ class Playback:
     def _render(self, outdata, frames, timing, status):
         callback_ns = time.perf_counter_ns()
         dac_ns = callback_ns + round((timing.outputBufferDacTime - timing.currentTime) * 1e9)
-        if self.first_dac_ns is None:
-            self.first_dac_ns = dac_ns
-        raw = self.source.readframes(frames)
+        outdata.fill(0)
+        prefix = min(frames, max(0, round(((self.scheduled_start_ns or dac_ns) - dac_ns) * self.info["sample_rate"] / 1e9)))
+        raw = self.source.readframes(frames - prefix)
         values = self.np.frombuffer(raw, dtype="int16").reshape(-1, self.info["channels"])
         count = len(values)
-        outdata.fill(0)
-        outdata[:count] = values
-        self.records.append({"callback_t_ns": callback_ns, "dac_t_ns": dac_ns,
+        source_dac_ns = dac_ns + round(prefix / self.info["sample_rate"] * 1e9)
+        if count and self.first_dac_ns is None:
+            self.first_dac_ns = source_dac_ns
+        outdata[prefix:prefix + count] = values
+        self.records.append({"callback_t_ns": callback_ns, "dac_t_ns": source_dac_ns,
                              "portaudio_current_time": timing.currentTime, "portaudio_output_dac_time": timing.outputBufferDacTime,
                              "source_frame": self.position, "source_frames": count, "callback_frames": frames,
-                             "status": str(status)})
+                             "scheduled_silence_frames": prefix, "status": str(status)})
         self.position += count
         if status:
             self.failure = OperationalError(f"Playback callback status: {status}")
             raise self.sd.CallbackAbort
-        if count < frames or self.position == self.info["frames"]:
-            self.finished_ns = dac_ns + round(count / self.info["sample_rate"] * 1e9)
+        if self.position == self.info["frames"]:
+            self.finished_ns = source_dac_ns + round(count / self.info["sample_rate"] * 1e9)
             raise self.sd.CallbackStop
 
-    def start(self):
+    def start(self, scheduled_start_ns=None):
+        self.scheduled_start_ns = scheduled_start_ns
         try:
             self.stream.start()
         except self.sd.PortAudioError as error:
@@ -116,6 +121,13 @@ class Playback:
             raise self.failure
         if self.done.is_set() and self.position < self.info["frames"]:
             raise OperationalError("Playback stopped before all source frames were submitted")
+
+    def source_time_ns(self, seconds):
+        frame = round(seconds * self.info["sample_rate"])
+        for record in self.records:
+            if record["source_frames"] and record["source_frame"] <= frame <= record["source_frame"] + record["source_frames"]:
+                return record["dac_t_ns"] + round((frame - record["source_frame"]) / self.info["sample_rate"] * 1e9)
+        return None
 
     def close(self):
         try:
@@ -135,14 +147,19 @@ class ClockPlayback:
         self.done = threading.Event()
         self.devices = {"synthetic": True}
 
-    def start(self):
-        self.first_dac_ns = time.perf_counter_ns()
+    def start(self, scheduled_start_ns=None):
+        self.first_dac_ns = scheduled_start_ns or time.perf_counter_ns()
         self.finished_ns = self.first_dac_ns + round(self.info["duration_seconds"] * 1e9)
         self.records.append({"synthetic_start_t_ns": self.first_dac_ns, "frames": self.info["frames"], "actual_dac_observed": False})
 
     def check(self):
         if self.first_dac_ns is not None and time.perf_counter_ns() >= self.finished_ns:
             self.done.set()
+
+    def source_time_ns(self, seconds):
+        if self.first_dac_ns is not None and time.perf_counter_ns() >= self.first_dac_ns + round(seconds * 1e9):
+            return self.first_dac_ns + round(seconds * 1e9)
+        return None
 
     def close(self):
         pass

@@ -1,0 +1,746 @@
+{
+  "schema_version": 1,
+  "scope": "issue8-development-preflight-not-main-freeze",
+  "recorded_at_utc": "2026-10-21T19:18:34.200988+00:00",
+  "summary": {
+    "slots": 6,
+    "passed": 4,
+    "failed_current_output_checks": 2,
+    "real_output_check_invocations": 7,
+    "translated_nonempty_chatbox_inputs": 10,
+    "submitted_check_source_frames_total": 3360000,
+    "submitted_lifecycle_source_frames_total": 192000,
+    "main_performed": false,
+    "protocol_or_checkout_frozen": false
+  },
+  "application": {
+    "name": "VRCT",
+    "version": "3.6.0",
+    "gui_pid": 23896,
+    "backend_pid": 27816,
+    "renderer_pid": 29508,
+    "backend_and_renderer_parent_pid": 23896,
+    "main_window_id": "985396",
+    "executables": [
+      {
+        "file": "VRCT.exe",
+        "sha256": "889ae8ee3ec0f4a395a4cc21050631d0215e2be997db3d08131edef3aa961ebe"
+      },
+      {
+        "file": "VRCT-sidecar.exe",
+        "sha256": "63205c34bfad83fa17bec6862f3dc318125d04eb4f2e67a4960c1cfd66980c5f"
+      }
+    ],
+    "preparation_reference": {
+      "path": "profiles/evidence/issue8/vrct-preparation.json",
+      "sha256": "028cdf22365918a1be08d925d02d8b9b2fecc3b2878d3f334e2aedbaca99a00b"
+    }
+  },
+  "evidence_path_base": ".data/issue8/competitor-preflights/vrct/preflight-20261021T180555Z",
+  "evidence": {
+    "full_actual_commands_receipts_raw_payloads": {
+      "path": "run-results.json",
+      "sha256": "b9dbfc524a393b747f3e523259c15475fad404eadba58228bc09130ab7b53d96"
+    },
+    "inventory": {
+      "path": "inventory.json",
+      "sha256": "36296ed435e62a0745b38771387e75eebba8b1b241417322f8288fff71757b63",
+      "files": 183
+    },
+    "final_owned_state": {
+      "path": "final-owned-state.json",
+      "sha256": "c890b3ea9bb943ec5f4d843154e31eceb1122cf1295ff29428f057d3c0e90c45"
+    },
+    "installed_model_asset_hashes": {
+      "path": "installed-model-assets.json",
+      "sha256": "6b31c5ae9deed696724ae4ae678102a8d2c274837224767862c08dce42a1fb87",
+      "marker_listed_files": 27
+    },
+    "pre_playback_configuration_correction": {
+      "path": "pre-playback-configuration-correction.json",
+      "sha256": "9ce6ccb325e8af7d752bd1683c3cd3806a79e9dadfd6f8c85a51fd77bb73401e"
+    },
+    "settled_declared_baseline": {
+      "path": "declared-baseline-settled-before-first-audio.json",
+      "sha256": "b2c6449811be8e595ef4de671765b02c2b2ff60a54d8f708dc00dfa6094a456d"
+    },
+    "first_failure_and_cleanup_history": {
+      "path": "vrct3-d1-first-attempt-with-cleanup-interruption.json",
+      "sha256": "7298ec9f8e513b2037c9f7a8b661530eb54347125769e7804ae3c7572e10e613"
+    },
+    "prior_app_evidence_before_single_recheck": {
+      "path": "vrct3-d1-prior-app-evidence-before-authorized-recheck.json",
+      "sha256": "4a43f17f59e330db4df114153665f5551da83a3194b6d8a190ad7408a55965bd"
+    }
+  },
+  "source_assets_repository_relative": {
+    "D1_check": {
+      "path": ".data/issue4/output-checks/en-output-check.wav",
+      "sha256": "ff7ada666a62f9fe3cf6846a0857f564399bc23d2848ad1b51a749cd36279cfd"
+    },
+    "D3_check": {
+      "path": ".data/issue4/output-checks/zh-output-check.wav",
+      "sha256": "3be6974425b8b0de3cafced557d58bc5e1c2d7578445a3f094606f67ca97f20a"
+    },
+    "lifecycle": {
+      "path": ".data/issue45/plans/pp4/one-second-silent-lifecycle-observation.wav",
+      "sha256": "0a8f76d89c709043814cb74f331a4578d17ff61256303bd0019a263d053f86e8"
+    },
+    "calibration": {
+      "path": ".data/issue3/calibration/cable.json",
+      "sha256": "ff8c74a66eff13e838c27772287b0050463f56c207edc1b64ae83a71f3d70550"
+    },
+    "calibration_raw": {
+      "path": ".data/issue3/calibration/cable.npz",
+      "sha256": "6c97630bbf2cee74634b9122fac6057c9657459c127bcc33567d2ef8683d45ee"
+    },
+    "calibration_offset_ns": 113409500
+  },
+  "preflight_timing_only": {
+    "check_audio_seconds": 10,
+    "check_tail_seconds": 15,
+    "lifecycle_audio_seconds": 1,
+    "lifecycle_tail_seconds": 2,
+    "render_sample_rate_hz": 48000,
+    "calibration_offset_ns": 113409500,
+    "main_stage_timing_not_set": true,
+    "no_computer_actions_or_other_model_inference_during_timed_playback_and_tails": true
+  },
+  "routes": [
+    {
+      "profile": "VRCT3",
+      "osc_port": 19113,
+      "asr": "Google Web Speech",
+      "translation": "OpenRouter_API",
+      "requested_model": "google/gemma-4-26b-a4b-it",
+      "actual_returned_model_independently_attested": false
+    },
+    {
+      "profile": "VRCT2",
+      "osc_port": 19112,
+      "asr": "Whisper base",
+      "asr_device": "CPU",
+      "asr_compute_type": "int8",
+      "translation": "Google web"
+    },
+    {
+      "profile": "VRCT1",
+      "osc_port": 19111,
+      "asr": "Google Web Speech",
+      "translation": "CTranslate2",
+      "model": "m2m100_418M-ct2-int8",
+      "translation_device": "CPU",
+      "translation_compute_type": "int8"
+    }
+  ],
+  "local_model_bins": [
+    {
+      "model": "ctranslate2/m2m100_418M-ct2-int8",
+      "sha256": "d6703dd9f920ff896e45c3d97b490761bed5944937b90bbe6a7245f5652542d4",
+      "bytes": 490667713
+    },
+    {
+      "model": "whisper/base",
+      "sha256": "d01c3014881c9c6f3133c182f3d2887eb6ca1c789a7538c5c007196857a0a6a9",
+      "bytes": 145217532
+    }
+  ],
+  "directions": {
+    "D1": {
+      "source_GUI": "English (United States)",
+      "target_GUI": "Japanese (Japan)"
+    },
+    "D3": {
+      "source_GUI": "Chinese Simplified (China)",
+      "target_GUI": "Korean (South Korea)"
+    }
+  },
+  "preserved_baseline": {
+    "MIC_THRESHOLD": 300,
+    "MIC_ENABLE_VAD": false,
+    "MIC_AUTOMATIC_THRESHOLD": false,
+    "correction": "Restored initially observed manual300/VADfalse via actual GUI while stopped before any playback; cause of intervening changed observation unknown. Not factory-default attestation, optimization, or result-driven tuning.",
+    "other_mic_parameters": {
+      "MIC_RECORD_TIMEOUT": 3,
+      "MIC_PHRASE_TIMEOUT": 3,
+      "MIC_MAX_PHRASES": 10,
+      "MIC_AVG_LOGPROB": -0.8,
+      "MIC_NO_SPEECH_PROB": 0.6,
+      "MIC_NO_REPEAT_NGRAM_SIZE": 0
+    },
+    "microphone": "CABLE Output(VB-Audio Virtual Cable)",
+    "microphone_host": "Windows WASAPI",
+    "auto_mic": false,
+    "speaker_recognition": false,
+    "chat_reading": false,
+    "vr_mute_sync": false,
+    "vr_overlay": false,
+    "voice_output": false,
+    "endpoint_reference": {
+      "path": "profiles/evidence/issue8/cable-endpoints.json",
+      "sha256": "c51c6ed03631520fa86c5e0d7c264109096243e64f8251ca8477b6acdb6e174f"
+    }
+  },
+  "saved_message_format": {
+    "SEND_MESSAGE_FORMAT_PARTS": {
+      "message": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "separator": "\n",
+      "translation": {
+        "prefix": "",
+        "separator": "\n",
+        "suffix": ""
+      },
+      "translation_first": false
+    },
+    "RECEIVED_MESSAGE_FORMAT_PARTS": {
+      "message": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "separator": "\n",
+      "translation": {
+        "prefix": "",
+        "separator": "\n",
+        "suffix": ""
+      },
+      "translation_first": false
+    },
+    "SEND_ONLY_TRANSLATED_MESSAGES": false
+  },
+  "fresh_payload_format_evidence": [
+    {
+      "profile": "VRCT3",
+      "direction": "D3",
+      "trace": "vrct3-d3-20261021T180555Z/runs/vrct3-d3-20261021T180555Z/attempt-0003-001.jsonl",
+      "trace_sha256": "79b5bfd7d4762d08020d1b95f2e412dbd192bec03e6913fbb2147682bc82f7ab",
+      "address": "/chatbox/input",
+      "observed_structure": [
+        "<recognized source>\n<translated text>",
+        true,
+        true
+      ],
+      "source_first_basis": "Fresh actual OSC text sections and same-time GUI source/translation pane agree with the preserved saved format; not inherited historical literals.",
+      "payloads": [
+        {
+          "trace_line": 610,
+          "payload_utf8_sha256": "ba23519fc7d668f83c930b4c7e92fbcc90fae3cb9cd0b192da260435e7065b69",
+          "newline_count": 1,
+          "arguments_after_text": [
+            true,
+            true
+          ]
+        },
+        {
+          "trace_line": 875,
+          "payload_utf8_sha256": "6d8981a871d4ef5785bc553ee170d23d1f9cfc4c361c56b4bb7c23add4ca456e",
+          "newline_count": 1,
+          "arguments_after_text": [
+            true,
+            true
+          ]
+        },
+        {
+          "trace_line": 1005,
+          "payload_utf8_sha256": "3a5e94541d4a47bc7b45a8669600922a9dc611a3044a0e8583399489e45947bc",
+          "newline_count": 1,
+          "arguments_after_text": [
+            true,
+            true
+          ]
+        }
+      ],
+      "quality_or_finality_claim": false
+    },
+    {
+      "profile": "VRCT2",
+      "direction": "D1",
+      "trace": "vrct2-d1-20261021T180555Z/runs/vrct2-d1-20261021T180555Z/attempt-0003-001.jsonl",
+      "trace_sha256": "b6769ed383df6b15cd48551e53c1a37f0dd77060d78631150a28c883b50efa4e",
+      "address": "/chatbox/input",
+      "observed_structure": [
+        "<recognized source>\n<translated text>",
+        true,
+        true
+      ],
+      "source_first_basis": "Fresh actual OSC text sections and same-time GUI source/translation pane agree with the preserved saved format; not inherited historical literals.",
+      "payloads": [
+        {
+          "trace_line": 595,
+          "payload_utf8_sha256": "c0fa45a7db84353f160f637bb04968b87d88ad9da89b3afe225b9ce5ca9dbb39",
+          "newline_count": 1,
+          "arguments_after_text": [
+            true,
+            true
+          ]
+        }
+      ],
+      "quality_or_finality_claim": false
+    },
+    {
+      "profile": "VRCT2",
+      "direction": "D3",
+      "trace": "vrct2-d3-20261021T180555Z/runs/vrct2-d3-20261021T180555Z/attempt-0003-001.jsonl",
+      "trace_sha256": "4a9171352adf5e86e1b0e1a5b66a90ad2a4eec47e170b522371ad8617d37fc53",
+      "address": "/chatbox/input",
+      "observed_structure": [
+        "<recognized source>\n<translated text>",
+        true,
+        true
+      ],
+      "source_first_basis": "Fresh actual OSC text sections and same-time GUI source/translation pane agree with the preserved saved format; not inherited historical literals.",
+      "payloads": [
+        {
+          "trace_line": 467,
+          "payload_utf8_sha256": "beb680046c7e88b303acf84e08142b16807ca5a60d98745d6c83fa78658813e0",
+          "newline_count": 1,
+          "arguments_after_text": [
+            true,
+            true
+          ]
+        },
+        {
+          "trace_line": 836,
+          "payload_utf8_sha256": "4ad1e8903a49fe13509f15529c415f87667c511eb20335397609c841297b8f74",
+          "newline_count": 1,
+          "arguments_after_text": [
+            true,
+            true
+          ]
+        },
+        {
+          "trace_line": 1005,
+          "payload_utf8_sha256": "b86c6794fda81faa86475a0c6ca8ebaba86a6e1c58f553262c210fb9b06c2b6d",
+          "newline_count": 1,
+          "arguments_after_text": [
+            true,
+            true
+          ]
+        }
+      ],
+      "quality_or_finality_claim": false
+    },
+    {
+      "profile": "VRCT1",
+      "direction": "D3",
+      "trace": "vrct1-d3-20261021T180555Z/runs/vrct1-d3-20261021T180555Z/attempt-0003-001.jsonl",
+      "trace_sha256": "2ac3ae9825edfd22b0ed6195d022be07aa97f497e8c6efee1a446f9b03aeb1f3",
+      "address": "/chatbox/input",
+      "observed_structure": [
+        "<recognized source>\n<translated text>",
+        true,
+        true
+      ],
+      "source_first_basis": "Fresh actual OSC text sections and same-time GUI source/translation pane agree with the preserved saved format; not inherited historical literals.",
+      "payloads": [
+        {
+          "trace_line": 474,
+          "payload_utf8_sha256": "bb3e629ece67420f3074438260025fd7f032ce2e92eee3840b3e36d85bdbb59d",
+          "newline_count": 1,
+          "arguments_after_text": [
+            true,
+            true
+          ]
+        },
+        {
+          "trace_line": 830,
+          "payload_utf8_sha256": "90cb9270cb77fa5d2a55c84b4e095089aac7c84e7244de237bb206ea8709ab57",
+          "newline_count": 1,
+          "arguments_after_text": [
+            true,
+            true
+          ]
+        },
+        {
+          "trace_line": 1005,
+          "payload_utf8_sha256": "d05ff4e0edfd1e2a4b8f12d04b01e6180bf93d492fd55fb536420e31260946e6",
+          "newline_count": 1,
+          "arguments_after_text": [
+            true,
+            true
+          ]
+        }
+      ],
+      "quality_or_finality_claim": false
+    }
+  ],
+  "format_interpretation_limits": [
+    "All ten observed translated payloads used source then newline then translation, with actual trailing OSC arguments true,true. Raw event order/content retained.",
+    "VRCT3D1 and VRCT1D1 emitted no payload: no direction-specific payload-format observation is claimed for these failed checks.",
+    "These are extraction evidence, not frozen rules or universal revision/finality/concatenation semantics. No translation quality claim."
+  ],
+  "slots": [
+    {
+      "profile": "VRCT3",
+      "direction": "D1",
+      "short_preflight": "failed_output_check_not_admitted",
+      "failure_cause": "unknown",
+      "current_attempt": {
+        "session": "vrct3-d1-operational-recheck-20261021T180555Z",
+        "cli_exit_code": 2,
+        "terminal_disposition": "output_check_no_output",
+        "counts": {
+          "pending": 1,
+          "running": 0,
+          "done": 2,
+          "product_failure": 0,
+          "invalid": 1
+        },
+        "development_plan_sha256": "6a406b5c3670f69bcab1834d77d27565d56dd6f6e0ef29d16c003a4a9ef2d499",
+        "manifest": {
+          "path": "vrct3-d1-operational-recheck-20261021T180555Z/runs/vrct3-d1-operational-recheck-20261021T180555Z/manifest.json",
+          "sha256": "336593eb2ebfadc68a653613d6c5685831cf9eaa1ecf3b0a107789cd80734da2"
+        },
+        "output_check": {
+          "trace": "vrct3-d1-operational-recheck-20261021T180555Z/runs/vrct3-d1-operational-recheck-20261021T180555Z/attempt-0003-001.invalid.jsonl",
+          "sha256": "eddd0d6aac3acb70f4d1abed13dac452d72af5230693866cc5aba2b9647f0843",
+          "state": "invalid",
+          "reason": "output_check_no_output",
+          "submitted_source_frames": 480000,
+          "nonempty_chatbox_inputs": 0,
+          "listener_destination_port": 19113,
+          "observed_source_ports": [],
+          "bridge_recorded_GUI_identity_pids": [],
+          "actual_dac_observed": true,
+          "audio_sha256": "ff7ada666a62f9fe3cf6846a0857f564399bc23d2848ad1b51a749cd36279cfd"
+        },
+        "lifecycle": {
+          "state": "pending",
+          "executed": false,
+          "submitted_source_frames": 0,
+          "nonempty_chatbox_inputs": null
+        },
+        "stopped_observation_sha256": "d3f52a9738e6caef7c05a6b856f4cd5d6be63ef9108c988c8c8f5260b8f3ae66",
+        "retirement_sha256": "b27312d822ebf1c7362b0de254b330777bcbc28f1156a2688476354c331ed74f"
+      },
+      "preserved_first_attempt": {
+        "session": "vrct3-d1-20261021T180555Z",
+        "cli_exit_code": null,
+        "terminal_disposition": "shell_timeout300s_during_later_cleanup",
+        "counts": {
+          "pending": 1,
+          "running": 0,
+          "done": 2,
+          "product_failure": 0,
+          "invalid": 1
+        },
+        "development_plan_sha256": "07c1367fd09f67778b1c59bd6757bc9d01117bbdafd9287a73498df2c83f0153",
+        "manifest": {
+          "path": "vrct3-d1-20261021T180555Z/runs/vrct3-d1-20261021T180555Z/manifest.json",
+          "sha256": "461185925dc1656377c5f7b3208e968ceaa9efed9bb38cb39e63290c43bb9a65"
+        },
+        "output_check": {
+          "trace": "vrct3-d1-20261021T180555Z/runs/vrct3-d1-20261021T180555Z/attempt-0003-001.invalid.jsonl",
+          "sha256": "e4ce8f003870e793be4483834587d7ba9c35b2ef72280421268bfec3fc41989b",
+          "state": "invalid",
+          "reason": "output_check_no_output",
+          "submitted_source_frames": 480000,
+          "nonempty_chatbox_inputs": 0,
+          "listener_destination_port": 19113,
+          "observed_source_ports": [],
+          "bridge_recorded_GUI_identity_pids": [],
+          "actual_dac_observed": true,
+          "audio_sha256": "ff7ada666a62f9fe3cf6846a0857f564399bc23d2848ad1b51a749cd36279cfd"
+        },
+        "lifecycle": {
+          "state": "pending",
+          "executed": false,
+          "submitted_source_frames": 0,
+          "nonempty_chatbox_inputs": null
+        },
+        "stopped_observation_sha256": "6cc0e92904656d44f2b19049f5cbdda3d4644d919acff31587e2d8129d3fec52",
+        "retirement_sha256": "1cc43e32692d159300bfa1926cb5cca3dca03ec2227dd6452779fa5236ad18d7"
+      },
+      "bounded_recheck_authority": "One operationally valid recheck authorized after preserving first no-output outcome and separate later cleanup interruption. No further replay."
+    },
+    {
+      "profile": "VRCT3",
+      "direction": "D3",
+      "short_preflight": "passed",
+      "failure_cause": null,
+      "current_attempt": {
+        "session": "vrct3-d3-20261021T180555Z",
+        "cli_exit_code": 0,
+        "terminal_disposition": "completed",
+        "counts": {
+          "pending": 0,
+          "running": 0,
+          "done": 4,
+          "product_failure": 0,
+          "invalid": 0
+        },
+        "development_plan_sha256": "eb6bdc83e810bae736414fcd2b6eba8b76a22cf8c6d3e20300af780bb8e8da22",
+        "manifest": {
+          "path": "vrct3-d3-20261021T180555Z/runs/vrct3-d3-20261021T180555Z/manifest.json",
+          "sha256": "c29be570bc7b3994cf7d0c057d615d0c756b9887b59c13fb38464cf841f62401"
+        },
+        "output_check": {
+          "trace": "vrct3-d3-20261021T180555Z/runs/vrct3-d3-20261021T180555Z/attempt-0003-001.jsonl",
+          "sha256": "79b5bfd7d4762d08020d1b95f2e412dbd192bec03e6913fbb2147682bc82f7ab",
+          "state": "done",
+          "reason": null,
+          "submitted_source_frames": 480000,
+          "nonempty_chatbox_inputs": 3,
+          "listener_destination_port": 19113,
+          "observed_source_ports": [
+            58545
+          ],
+          "bridge_recorded_GUI_identity_pids": [
+            23896
+          ],
+          "actual_dac_observed": true,
+          "audio_sha256": "3be6974425b8b0de3cafced557d58bc5e1c2d7578445a3f094606f67ca97f20a"
+        },
+        "lifecycle": {
+          "state": "done",
+          "executed": true,
+          "submitted_source_frames": 48000,
+          "nonempty_chatbox_inputs": 0,
+          "trace": "vrct3-d3-20261021T180555Z/runs/vrct3-d3-20261021T180555Z/attempt-0004-001.jsonl",
+          "sha256": "49497671d4608fef46c87be0df7e95dd576bf585963b312854ac431ddf79d421"
+        },
+        "stopped_observation_sha256": "204ae847bac4d00859bf0d4e26b251527bac6792ae456331e8026c8fabfe3c6e",
+        "retirement_sha256": "d0c299514fe27ae3ad27d718316bbaea9c2c6f9e447b914af1ad5242fa29206d"
+      }
+    },
+    {
+      "profile": "VRCT2",
+      "direction": "D1",
+      "short_preflight": "passed",
+      "failure_cause": null,
+      "current_attempt": {
+        "session": "vrct2-d1-20261021T180555Z",
+        "cli_exit_code": 0,
+        "terminal_disposition": "completed",
+        "counts": {
+          "pending": 0,
+          "running": 0,
+          "done": 4,
+          "product_failure": 0,
+          "invalid": 0
+        },
+        "development_plan_sha256": "c7345514d41cafadd6f31cfa8b7392e6a46317d21d556803c242e5dff70a7c33",
+        "manifest": {
+          "path": "vrct2-d1-20261021T180555Z/runs/vrct2-d1-20261021T180555Z/manifest.json",
+          "sha256": "eb87607b716635b28ff23570abfab860a637dbbaeae4afc3fdc503a278a5bf43"
+        },
+        "output_check": {
+          "trace": "vrct2-d1-20261021T180555Z/runs/vrct2-d1-20261021T180555Z/attempt-0003-001.jsonl",
+          "sha256": "b6769ed383df6b15cd48551e53c1a37f0dd77060d78631150a28c883b50efa4e",
+          "state": "done",
+          "reason": null,
+          "submitted_source_frames": 480000,
+          "nonempty_chatbox_inputs": 1,
+          "listener_destination_port": 19112,
+          "observed_source_ports": [
+            61898
+          ],
+          "bridge_recorded_GUI_identity_pids": [
+            23896
+          ],
+          "actual_dac_observed": true,
+          "audio_sha256": "ff7ada666a62f9fe3cf6846a0857f564399bc23d2848ad1b51a749cd36279cfd"
+        },
+        "lifecycle": {
+          "state": "done",
+          "executed": true,
+          "submitted_source_frames": 48000,
+          "nonempty_chatbox_inputs": 0,
+          "trace": "vrct2-d1-20261021T180555Z/runs/vrct2-d1-20261021T180555Z/attempt-0004-001.jsonl",
+          "sha256": "a8aacf5aa3d15b0813448db84c40a3656fd50cb7bcf02c0af4bd867d98252088"
+        },
+        "stopped_observation_sha256": "37075bf584d7408cc94840af179304f255df814c642867cfbbb8122ade3d24c7",
+        "retirement_sha256": "df252e4f50813caa00e86a14fa167594759a7b3f253c5bad7ee3be52e17c6e13"
+      }
+    },
+    {
+      "profile": "VRCT2",
+      "direction": "D3",
+      "short_preflight": "passed",
+      "failure_cause": null,
+      "current_attempt": {
+        "session": "vrct2-d3-20261021T180555Z",
+        "cli_exit_code": 0,
+        "terminal_disposition": "completed",
+        "counts": {
+          "pending": 0,
+          "running": 0,
+          "done": 4,
+          "product_failure": 0,
+          "invalid": 0
+        },
+        "development_plan_sha256": "b8b66a77e4cde633112b2c680fdc822e3eb28f15886d45c5a6010b5e40327375",
+        "manifest": {
+          "path": "vrct2-d3-20261021T180555Z/runs/vrct2-d3-20261021T180555Z/manifest.json",
+          "sha256": "99e28481b569a233aae2ce15e219661133cfc5ffa0251aa77e3c82801cb4641e"
+        },
+        "output_check": {
+          "trace": "vrct2-d3-20261021T180555Z/runs/vrct2-d3-20261021T180555Z/attempt-0003-001.jsonl",
+          "sha256": "4a9171352adf5e86e1b0e1a5b66a90ad2a4eec47e170b522371ad8617d37fc53",
+          "state": "done",
+          "reason": null,
+          "submitted_source_frames": 480000,
+          "nonempty_chatbox_inputs": 3,
+          "listener_destination_port": 19112,
+          "observed_source_ports": [
+            61898
+          ],
+          "bridge_recorded_GUI_identity_pids": [
+            23896
+          ],
+          "actual_dac_observed": true,
+          "audio_sha256": "3be6974425b8b0de3cafced557d58bc5e1c2d7578445a3f094606f67ca97f20a"
+        },
+        "lifecycle": {
+          "state": "done",
+          "executed": true,
+          "submitted_source_frames": 48000,
+          "nonempty_chatbox_inputs": 0,
+          "trace": "vrct2-d3-20261021T180555Z/runs/vrct2-d3-20261021T180555Z/attempt-0004-001.jsonl",
+          "sha256": "6636c643af9c6ec4a46e41a33a3b22081cf8ea93fa34384e86df1192833f05e6"
+        },
+        "stopped_observation_sha256": "72cecfb0438939924e643c7839d65782e6a7611a6f09ed4ee4acff7296a74960",
+        "retirement_sha256": "097b0d5d4a00fc9351b981a4d601bd4656860a2c40cd42589d4a1049938fd822"
+      }
+    },
+    {
+      "profile": "VRCT1",
+      "direction": "D1",
+      "short_preflight": "failed_output_check_not_admitted",
+      "failure_cause": "unknown",
+      "current_attempt": {
+        "session": "vrct1-d1-20261021T180555Z",
+        "cli_exit_code": 2,
+        "terminal_disposition": "output_check_no_output",
+        "counts": {
+          "pending": 1,
+          "running": 0,
+          "done": 2,
+          "product_failure": 0,
+          "invalid": 1
+        },
+        "development_plan_sha256": "e8f5f4d9cfd2dad8c8b86cfdd5f87db60404e00966c681bdc2418eb36a332345",
+        "manifest": {
+          "path": "vrct1-d1-20261021T180555Z/runs/vrct1-d1-20261021T180555Z/manifest.json",
+          "sha256": "aba551babf0ad955c3c284c7747403544ed472b88915f93abb985aa8d7d23340"
+        },
+        "output_check": {
+          "trace": "vrct1-d1-20261021T180555Z/runs/vrct1-d1-20261021T180555Z/attempt-0003-001.invalid.jsonl",
+          "sha256": "9d08d2657aff5f4d0450f86bd88913cfb3a9b9f68bd413ed5a40a632a2ff089a",
+          "state": "invalid",
+          "reason": "output_check_no_output",
+          "submitted_source_frames": 480000,
+          "nonempty_chatbox_inputs": 0,
+          "listener_destination_port": 19111,
+          "observed_source_ports": [],
+          "bridge_recorded_GUI_identity_pids": [],
+          "actual_dac_observed": true,
+          "audio_sha256": "ff7ada666a62f9fe3cf6846a0857f564399bc23d2848ad1b51a749cd36279cfd"
+        },
+        "lifecycle": {
+          "state": "pending",
+          "executed": false,
+          "submitted_source_frames": 0,
+          "nonempty_chatbox_inputs": null
+        },
+        "stopped_observation_sha256": "983fcf69a79991e677e23045e0693f06ed9970ec862f13ace42b569ad3b40dfe",
+        "retirement_sha256": "1adaefd9163a9cf1e7198449c377b92ae624b39fc19c5c04008f01e358f0a0d9"
+      }
+    },
+    {
+      "profile": "VRCT1",
+      "direction": "D3",
+      "short_preflight": "passed",
+      "failure_cause": null,
+      "current_attempt": {
+        "session": "vrct1-d3-20261021T180555Z",
+        "cli_exit_code": 0,
+        "terminal_disposition": "completed",
+        "counts": {
+          "pending": 0,
+          "running": 0,
+          "done": 4,
+          "product_failure": 0,
+          "invalid": 0
+        },
+        "development_plan_sha256": "8a380814f35f083c6aef0b8bc15f27bc0ae8ba22ed7d43bcd8f5357623115259",
+        "manifest": {
+          "path": "vrct1-d3-20261021T180555Z/runs/vrct1-d3-20261021T180555Z/manifest.json",
+          "sha256": "97fe6d1440e5f91146f3f0c39efa1b367b0be8ea28c44f04af8f9a4ef1bf568b"
+        },
+        "output_check": {
+          "trace": "vrct1-d3-20261021T180555Z/runs/vrct1-d3-20261021T180555Z/attempt-0003-001.jsonl",
+          "sha256": "2ac3ae9825edfd22b0ed6195d022be07aa97f497e8c6efee1a446f9b03aeb1f3",
+          "state": "done",
+          "reason": null,
+          "submitted_source_frames": 480000,
+          "nonempty_chatbox_inputs": 3,
+          "listener_destination_port": 19111,
+          "observed_source_ports": [
+            62900
+          ],
+          "bridge_recorded_GUI_identity_pids": [
+            23896
+          ],
+          "actual_dac_observed": true,
+          "audio_sha256": "3be6974425b8b0de3cafced557d58bc5e1c2d7578445a3f094606f67ca97f20a"
+        },
+        "lifecycle": {
+          "state": "done",
+          "executed": true,
+          "submitted_source_frames": 48000,
+          "nonempty_chatbox_inputs": 0,
+          "trace": "vrct1-d3-20261021T180555Z/runs/vrct1-d3-20261021T180555Z/attempt-0004-001.jsonl",
+          "sha256": "fc8a2b4cc63e6c93bdd82e1724f2f678e8f87033550d57af22f8557df0face29"
+        },
+        "stopped_observation_sha256": "760c92f41637a440aba067931742265a83b5bace226bb5703c7d07382bd4dcb2",
+        "retirement_sha256": "3490f2f0005b794de4797fa5c46fe7ae8052dcbd8da5f918ccdb406c12e67da7"
+      }
+    }
+  ],
+  "stop_and_handoff": {
+    "left_open_stopped": true,
+    "active_profile": "VRCT1",
+    "direction": "D3",
+    "osc_port": 19111,
+    "all_four_GUI_toggles_off": true,
+    "backend_stop_acknowledgements": [
+      {
+        "local_log_time": "2026-10-22 04:04:13,877",
+        "status": 200,
+        "endpoint": "/set/disable/transcription_send",
+        "result": false
+      },
+      {
+        "local_log_time": "2026-10-22 04:04:14,947",
+        "status": 200,
+        "endpoint": "/set/disable/translation",
+        "result": false
+      }
+    ],
+    "backend_log_time_basis": "Application local time, current host UTC offset+09:00",
+    "all_seven_bridge_sessions_retired": true,
+    "task_specific_python_process_matches_after_terminal_runs": [],
+    "last_actual_GUI_frame": {
+      "path": "evidence/vrct1-d3-final-all-four-off.png",
+      "sha256": "e740b60b837a2267e755e95492819ce2c96de4fa442513a5adacdafc2a96ec35"
+    },
+    "native_reexposure": "Actual TaskView showed currentdesktop2 and same ownedVRCT PID; existing thumbnail selected by nativeAX Invoke. No desktop creation/deletion, extra instance, restart, kill, or hidden app controller.",
+    "post_run_source_port_owner": {
+      "observed_trace_source_port": 62900,
+      "kernel_local_port": 62900,
+      "owning_pid": 27816,
+      "basis": "Post-run Get-NetUDPEndpoint -OwningProcess 27816; not per-packet owner attribution. Earlier source ports58545/61898 not present in this final query."
+    }
+  },
+  "provenance_limits": {
+    "declared_development_plan_revision": "fec7899771799d946fc3152d6f1db548597e254e",
+    "revision_note": "This is the carried plan.harness_revision declaration, not an attestation of actual loaded working-tree code. No checkout/protocolfreeze or per-run source snapshot performed. Actual CLI commands/manifests retained.",
+    "first_invocation": "Output_check_no_output and zeroOSC preceded the later shell300s cleanup timeout. Both preserved separately; original temporary streams retained unchanged.",
+    "negative_result": "Bounded current English source-check failures, causeunknown; not unsupported-language evidence or main product results. Chinese GoogleASR and English/Chinese Whisper positive observations retained.",
+    "lifecycle": "Four1s lifecycle observations with zero nonemptyOSC, not the180s nonspeech test or independent incidental-speech/silence certification.",
+    "remaining": "Director owns main admission, extraction-rule integration, executable wave plans, and actualfreeze. No extra retry/restart performed."
+  }
+}

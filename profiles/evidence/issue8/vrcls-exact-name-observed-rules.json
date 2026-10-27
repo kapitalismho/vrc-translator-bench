@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "version": "issue8-vrcls1-original1015-exact-name-sourcecheck-v1",
+  "profile": "VRCLS1",
+  "application": "VRCLS0.7.0-20260913 /0.7.0.1015",
+  "executable_sha256": "eec5acd87649e73f70d2ab9330f14a5e3b5df2d0794e3cc8d21f7ac3dd726f8b",
+  "observed_directions": ["D1", "D3"],
+  "basis": "Independent inspection of all six actual correctly-routed startup-check OSC payloads, their exact input PCM crops/native references, the actual default multiline template and actual one-enabled-target GUI state. This is source/field-format admission, not quality scoring, main correspondence or universal identity.",
+  "route_evidence": {"path": "profiles/evidence/issue8/vrcls-exact-name-routing-repair.json", "sha256": "d0cb7a25fff98119afde032c69fa350705bf1ac3a2a25db912bcc9ff0352fbd5"},
+  "actual_template": {
+    "field": "VRCChatboxformat_new",
+    "value": "{translatedText}\n{translatedText2}\n{translatedText3}\n{text}",
+    "safe_metadata": {"path": ".data/issue8/repair-retry/VRCLS/exact-name-repair-20261024/safe-observed-OSC-template.json", "sha256": "52b2a8ba72a85df55819b0305334401cbe3ec71b93e7bac03ebb3bc05d8a720a"},
+    "GUI": {"path": ".data/issue8/repair-retry/VRCLS/exact-name-repair-20261024/evidence/D1-OSC-isolation.png", "sha256": "48ea3590cad4a665c5087cd2c84d2ba10f5d492d62d3ab3850bb2435c6d851dd"},
+    "target_state": "First target Japanese for D1/Korean for D3; second and third both No translation in actual direction GUI evidence",
+    "observed_framing": "Exactly two nonblank LF-separated fields: first target translation, then source ASR. Empty secondary-target placeholders are absent from the actual six payloads; no universal renderer or language classifier is inferred."
+  },
+  "observations": [
+    {
+      "direction": "D1",
+      "finding": {"path": ".data/issue8/repair-retry/VRCLS/exact-name-repair-20261024/admission/vrcls1-d1-admission.json", "sha256": "32da729523485269002d085a31a4ca3a177569831a3b8969aa807b10e3d4b10d"},
+      "trace": ".data/issue8/repair-retry/VRCLS/exact-name-repair-20261024/D1/runs/vrcls1-d1-exact-name-20261024T054601Z/attempt-0003-001.jsonl",
+      "sha256": "02291cb86362d4a1c2b994d7346a1330b05faa76a8f3ac96789495a7e0712ed5",
+      "clock_session_evidence_only": "8ab277f4bb34471fa9a29c120633da13",
+      "recv_seq": [1, 2, 3, 4, 5],
+      "lines": [933, 1683, 2055, 3761, 4007],
+      "format": "Japanese translation, one LF, English ASR source",
+      "expected_extraction": {"path": ".data/issue8/repair-retry/VRCLS/exact-name-repair-20261024/admission/D1-payload-expectations.json", "sha256": "7dfc0b3d26591c285a9e9d88175e2ce66a62d0805fb7e502319d2fa2ed47b1f1"}
+    },
+    {
+      "direction": "D3",
+      "finding": {"path": ".data/issue8/repair-retry/VRCLS/exact-name-repair-20261024/admission/vrcls1-d3-admission.json", "sha256": "20fad1a88c42b4311848ff6e36b6d7a4aec32bdc111e60e509afef4d25b709bd"},
+      "trace": ".data/issue8/repair-retry/VRCLS/exact-name-repair-20261024/D3/runs/vrcls1-d3-exact-name-20261024T060349Z/attempt-0003-001.jsonl",
+      "sha256": "367b0ec2e3dfc0c55bd17701582d6d6116723ff6f65ff8c590bc26c1f522050c",
+      "clock_session_evidence_only": "19cdb2b8cd2d40a297ae2675793b14a8",
+      "recv_seq": [1],
+      "lines": [1003],
+      "format": "Korean translation, one LF, Chinese ASR source",
+      "expected_extraction": {"path": ".data/issue8/repair-retry/VRCLS/exact-name-repair-20261024/admission/D3-payload-expectations.json", "sha256": "bacf4c6e6e76265d294c8d153580b250c43b73959e3c0eb49198e92b1f404484"}
+    }
+  ],
+  "rule": {
+    "version": "issue8-vrcls1-original1015-exact-name-sourcecheck-v1",
+    "evidence": ["profiles/evidence/issue8/vrcls-exact-name-observed-rules.json", "profiles/evidence/issue8/vrcls-exact-name-routing-repair.json", ".data/issue8/repair-retry/VRCLS/exact-name-repair-20261024/admission/vrcls1-d1-admission.json", ".data/issue8/repair-retry/VRCLS/exact-name-repair-20261024/admission/vrcls1-d3-admission.json", ".data/issue8/repair-retry/VRCLS/exact-name-repair-20261024/safe-observed-OSC-template.json"],
+    "style": "unknown",
+    "text_pattern": "(?P<translation>[^\\r\\n]*\\S[^\\r\\n]*)\\n(?P<source>[^\\r\\n]*\\S[^\\r\\n]*)",
+    "supports": {"revision": false, "erasure": false, "resend": false},
+    "relationships": {},
+    "uncertainty": "Only actual one-enabled-target default multiline mode is covered. Full-message matching accepts exactly two nonblank lines separated by one LF: target then ASR source. Single-line/source-only/translation-only, blank-field, CRLF, extra-line or other ambiguous payloads remain unresolved with null text/source_text; never reinterpret entire mixed text as translation or fabricate an empty target. ASR source is not reference truth. No universal revision/page/resend/finality/utterance IDs, cross-packet grouping or final-output claim. Changed target count/template requires new observed rule evidence."
+  },
+  "consumer_contract": {
+    "implementation": {"path": "bench/metrics_alignment.py", "sha256": "a0aa22e8aa54b376b713b8cfb7459c72b6b86326dc0c286a4ccce7f140635a38", "symbol": "interpret", "lines": [29, 86]},
+    "matching": "Existing re.fullmatch(text_pattern,payload,re.DOTALL); named translation and source groups are supported without interpreter changes",
+    "mismatch": "Existing pattern_mismatch_unresolved_role path retains raw event and output_role unresolved with text/source_text null; no quality-eligible translation inferred",
+    "verification": "Source/consumer APIs inspected. Exact six-payload extraction hashes and conservative mismatch cases are supplied for parent-run focused smoke; worker did not execute the interpreter or tests."
+  },
+  "binding_policy": "Observation clocks/recv_seq/lines/hashes identify only these preflights. Do not copy them into main-run relationships, alignment links or current runtime evidence. Source checks/lifecycle are excluded from main populations; old invalid/blocked evidence stays unchanged.",
+  "remote_identity": "Existing remote recognition and Developer server translation; D3 FireRedASR2S is only a GUI preference, exact returned remote models/provider routing unknown.",
+  "privacy": "Public record contains safe template, receipt hashes/locations and operational summaries only; no raw app logs/config/account data or full captured transcripts."
+}

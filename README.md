@@ -1,114 +1,61 @@
 # VRC Translator Bench
 
-Local speech-corpus preparation, resumable Windows audio-to-OSC capture, application-profile preparation, derived measurements and blinded automatic quality scoring for the community translation benchmark in [issue #1](https://github.com/kapitalismho/vrc-translator-bench/issues/1). The repository implements local corpus work ([#2](https://github.com/kapitalismho/vrc-translator-bench/issues/2)), capture infrastructure ([#3](https://github.com/kapitalismho/vrc-translator-bench/issues/3)), profile findings and bounded actual-GUI development pilots ([#4](https://github.com/kapitalismho/vrc-translator-bench/issues/4)), calculation/report data ([#5](https://github.com/kapitalismho/vrc-translator-bench/issues/5)), and scoring infrastructure ([#6](https://github.com/kapitalismho/vrc-translator-bench/issues/6)), not a completed comparison or human-verified quality ranking.
+A community benchmark for conversation translation. The approved [final plan](docs/benchmark-final-plan.md) replaces the original six-direction microphone-to-OSC evaluation with a peer-centered EN→ZH / JA→KO comparison, episode-level GEMBA-ESA quality, separate semantic-wait p50/p90, and evidence-bound costs.
 
-The owner [replaced the Hugging Face publication criterion with local preparation](https://github.com/kapitalismho/vrc-translator-bench/issues/2#issuecomment-6282606626). No public audio dataset has been published. Audio, model weights and downloads remain in ignored `.data/`; Git contains preparation code and permitted metadata.
+**Current state: native-capture implementation and early feasibility, not a completed benchmark.** R1 migrates collection and episode/role/pass execution in place. Corpus production, two-stage judging, final all-profile admission and public results remain separate work. The [implementation plan and published R0–R10 issues](docs/benchmark-implementation-plan.md) preserve the GPT/backend versus Claude/presentation split.
 
-## Local inputs
+## What remains usable
 
-`corpus/manifest.json` is the six-direction index. Each pair references the same physical main waveform rather than duplicated source evidence.
+- Windows WASAPI playback/calibration, episode/role/pass routing, app-native output collection, durable attempt history, interruption/resume and owned-process cleanup.
+- All 14 application profiles, independent native feasibility scopes and retained historical configuration, capture, failure and source evidence.
+- GPT 6 Astra / Sign in with ChatGPT transport, Windows child containment and low-level durable call storage. There is currently **no scoring CLI**.
+- Local cost-log ingestion, attribution, Decimal arithmetic, subscription/free/unknown treatment and original-evidence protection. New episode/pass normalization is not implemented.
+- Separate path-redacted capture exports; publication still needs content and rights inspection.
 
-| Shared directions | Source | Main playback | Separate development | Isolated responses |
-|---|---|---:|---:|---:|
-| D1 English → Japanese / D2 English → Chinese | AMI scenario-only test headsets | 30 min | 5 min | 20 for D1 |
-| D3 Chinese → Korean / D5 Chinese → Japanese | AliMeeting Eval headsets | 30 min | 5 min | 20 for D3 |
-| D4 Japanese → Korean / D6 Japanese → English | YODAS2 mixed-speaker candidates | 30 min | 5 min | 20 for D6 |
+The runner accepts **episode schema 2**, not historical stage plans. Ordinary inputs are peer; T1 uses simultaneous peer/self. The owner-approved VRCLT and Kikitan exceptions use self for ordinary cases and separate A/B self passes for T1, with one logical episode. Native receipt clocks do not certify producer completion or screen rendering. Historical profile readiness is not new-protocol admission.
 
-Each main budget is 20 minutes general plus 10 minutes separately selected stress **including recorded separator accounting**, not 30 minutes of uninterrupted speaking. A three-minute nonspeech/background track, the exact five-minute D1 repeat prefix and pre-result common-clip shortlists are also identified. Main-run protocol freeze and final common-excerpt selection belong to issue #8.
+Kikitan's approved primary is its installed `--no-ui` WebSocket `recognition` output, not user-data OSC. The owner adopted this route after a bounded KIKI2 EN→ZH experiment. The original UDP Unicode defect and KIKI1 headless crash remain historical evidence; no application patch or automatic admission of other scopes is implied. See the [current Kikitan contract](docs/benchmark-final-plan.md#kikitan--kiki1kiki2).
 
-English and Chinese use human lexical references with automatic timing. Japanese is **automatic and exploratory**, with estimated speakers, provisional conversation eligibility and unresolved original-video rights. Its 3,166 main words now have acoustic timing estimates, including low-confidence covering alignment for formerly unsupported words; numeric completeness is not accuracy. Japanese full text/timelines remain local. No human listening or independent transcription-validation study is claimed.
+## Install and inspect
 
-After local data loss, the owner accepted `issue-2-local-v2`: all indexed audio retains its original hash, but the regenerated Japanese main reference has a new hash. [Recovery provenance and revision boundaries](docs/corpus.md#local-recovery-revision) distinguish restored assets from regenerated references and historical pilot evidence.
-
-The owner delegated practical assessment rather than providing a listening judgment. [The sample record](corpus/practical-assessment.json) combines original human annotations/supplementary captions, actual recognized content and waveform checks, including Japanese reference disagreements and perceptual limits. It is not a human-listening result.
-
-## Run
-
-Use Python 3.11+ and FFmpeg on PATH; actual preparation was exercised with Python 3.12 and 3.14 on Windows. Chinese and Japanese model pipelines use separate Python 3.12 environments and CPU inference.
+Use Python 3.11+; actual audio requires Windows WASAPI and `.[audio]`. WebSocket collectors require `.[native]`.
 
 ```powershell
-py -3.12 -m venv .data/check-venv
-.data/check-venv/Scripts/python.exe -m pip install -e ".[test]"
-.data/check-venv/Scripts/python.exe -m pytest -q
+python -m pip install -e ".[audio,native,test]"
+python -m pytest -q
+python -m bench.cli --help
+python -m bench.cli profiles --catalog profiles/catalog.json
 ```
 
-Follow [corpus preparation](docs/corpus.md) for source acquisition, optional model dependencies, per-language commands, licenses and limitations. After preparing all local bundles:
+`profiles` reports each profile's confirmed, blocked and unverified native condition scopes, separately from R6's pending final quality/time admission. It does not launch apps. `--check-ports` probes and releases relevant native loopback ports; availability is not collection or translation evidence.
 
-```powershell
-.data/check-venv/Scripts/python.exe -m tools.index_corpus
-.data/check-venv/Scripts/python.exe -m tools.check_corpus
-```
+[Capture CLI documentation](docs/cli.md) defines the episode plan, native collectors, adapter lifecycle and clock/outcome boundaries. Real runs require explicit device selection and scoped app/service authority. No new corpus or TTS production is implied by a small development smoke.
 
-The index builder refuses missing or checksum-mismatched audio; it does not fill missing material. The checker verifies actual local waveform hashes/frames, direction sharing, duration budgets, reference hashes and the repeat prefix. It does not certify linguistic correctness or rights. On a clean clone, explicit Chinese real-material smoke tests skip until local audio exists; deterministic tests remain available.
-
-## Capture runs
-
-The `bench` CLI provides real-time WASAPI shared-mode cable playback, measured cable correction, ordered OSC capture, per-profile attempt history, resume and operator status:
-
-```powershell
-python -m pip install -e ".[audio]"
-bench calibrate --output .data/calibration/cable.json
-bench run --plan plan.json --run-id pilot
-bench status pilot
-bench run --resume pilot
-```
-
-Follow the [runner CLI, plan and adapter contract](docs/cli.md) to prepare the plan and application adapter. Artifacts default to ignored `.data/runs`. Completed and product-failed work survives resume; interrupted work retains invalid evidence and gets a new marked attempt.
-
-Windows cable calibration/playback and actual GUI-operated microphone-to-translated-OSC development pilots were observed for VRCT, VRCS and VRCLT configurations. Their bounded results, failures and cleanup limits are recorded separately from earlier PuriPuly manual-text/control probes. Use only explicitly owner-authorized application instances, keep secrets out of exported evidence, and do not run VRChat.
-
-## Application profiles
-
-[Profile preparation](docs/profiles.md) accounts for all 14 planned profiles, exact model/access caveats, observed GUI state and reserved OSC ports. The owner withdrew the unreported sequential replacement; the original W1–W4 concurrent-within-wave plan is restored. After reporting PuriPuly updated, the owner also removed the PP1–PP4 execution deferral. All four PP profiles return to preparation, with post-update runtime evidence still pending. Bounded readiness requires actual audio/OSC evidence, not source availability, an update report or saved credentials. The [catalogue](profiles/catalog.json) records current ready/blocked findings; the [owner decisions](profiles/evidence/issue45/decisions-and-candidate.json) and [scheduling withdrawal](profiles/evidence/issue45/sequential-wave-decision.json) record the scope corrections.
-
-```powershell
-python -m tools.prepare_profile_checks
-bench profiles --check-ports
-bench profiles --require-ready
-```
-
-The first command prepares local ten-second development clips for the three source languages. Catalogue inspection checks static wave/port/workload conflicts; `--require-ready` exits 2 while readiness evidence is missing, including PP post-update observations. See the [actual pilot evidence](profiles/evidence/issue45/) and separately labelled [historical control-only evidence](profiles/evidence/puripuly-control.json). [GUI operator instructions](docs/cli.md#actual-gui-development-pilots) connect actual observed GUI actions to the existing runner without hidden application API control.
-
-## Derive measurements
-
-```powershell
-python -m bench.cli metrics --manifest .data/runs/pilot/manifest.json --spec metrics-spec.json --output .data/reports/pilot.json
-```
-
-The [metric definitions and report-data contract](docs/metrics.md) describe reference normalization, versioned application rules, cross-language alignment, timing/delivery, quality segments, diagnostics and session-clustered summaries. Optional model alignment uses `.[alignment]`; inspected, input-bound alignment caches support offline calculations. Raw capture is never rewritten. Missing correspondence, late output, failure, reference uncertainty and unsupported measurements remain visible.
-
-Actual VRCT, VRCS and VRCLT translation streams now supply distinct-application integration inputs. Per-run interpretation and inspected correspondence remain evidence-bound: rolling context, cumulative updates, truncation and unknown relationships must not become invented final-output reconstruction or quality scores. Synthetic checks and PuriPuly manual-text probes remain separate. Derived reports can contain speech and local provenance; publish only inspected, rights-cleared derivatives with their original hashes.
-
-## Score translation quality
-
-```powershell
-python -m bench.cli quality prepare --report .data/reports/pilot.json --root .data/quality/pilot
-python -m bench.cli quality status --root .data/quality/pilot
-python -m bench.cli quality score --root .data/quality/pilot --transport-spec judge.json --measurements-ended --limit 6
-python -m bench.cli quality report --root .data/quality/pilot --output .data/quality/pilot/report.json --review-output .data/quality/pilot/korean-review.json
-```
-
-Follow the [quality setup, prompts, resume, MetricX and review-packet contract](docs/quality.md) to configure the selected Sign in with ChatGPT route. The durable queue preserves raw responses, actual model identity, failures and unresolved calls; missing scores never become successful zero-error judgments. Optional `.[metricx]` supplies the selected supplementary local QE model runtime. Finish timed measurements before either scorer runs. Automatic scores and prepared Korean review packets are not human semantic verification.
-
-## Reconcile usage costs
+## Reconcile local cost evidence
 
 ```powershell
 python -m bench.cli costs --spec tests/fixtures/costs/synthetic-spec.json --output .data/costs/synthetic.json
 python -m bench.cli costs --spec tests/fixtures/costs/real-missing-spec.json --output .data/costs/real-missing.json
 ```
 
-The [cost input and report contract](docs/costs.md) covers selected OpenRouter/Qwen exports, PuriPuly diagnostic usage, dated prices, request-window attribution, subscription/free conditions and explicit normalization coverage for [issue #7](https://github.com/kapitalismho/vrc-translator-bench/issues/7). The first example is synthetic arithmetic; the second uses an actual historical VRCS2 capture with missing provider evidence and therefore null costs. Neither establishes measured billing totals. PP execution is no longer owner-deferred; permitted actual exports and run-bound PP usage remain empirical prerequisites.
+The first input is synthetic arithmetic. The second binds a historical VRCS2 capture with missing usage evidence and must retain null costs. Neither supplies measured provider billing. See [costs](docs/costs.md) for the existing format and its migration limits.
+
+## Historical evidence, not a new baseline
+
+The previous implementation is retained at commit [`fbab10a0455d91d5419d9673499d25b7ac86c566`](https://github.com/kapitalismho/vrc-translator-bench/tree/fbab10a0455d91d5419d9673499d25b7ac86c566). Old corpus preparation, sentence-alignment/delivery/FOL/LUL analysis, single-call ESA, MetricX and supplementary sampling commands have been removed from the current package, not renamed into the new protocol.
+
+`corpus/`, historical fields in `profiles/catalog.json`, `profiles/findings/`, `profiles/evidence/` and ignored `.data/` assets retain their evidence identities. Do not regenerate or rewrite historical hashes. The old D1/D3 analysis has an integrity/acceptance hold; captured output is evidence, not an approved ranking. R1 does not repair old scores or complete the retired issue #8.
+
+Historical corpus/metric/quality guides remain explicitly marked as historical. Use the pinned revision to inspect their former implementation; do not resume old measurements or queues using this checkout.
 
 ## Contracts and rights
 
-- [Architecture and artifact boundaries](docs/architecture.md)
-- [Curation, reproduction and observed verification](docs/corpus.md)
-- [Capture CLI, persistence, adapter and timing contracts](docs/cli.md)
-- [Derived measurement definitions and report-data contract](docs/metrics.md)
-- [Profile controls, readiness findings, waves and evidence limits](docs/profiles.md)
-- [Blinded quality scoring, provenance and Korean reference review](docs/quality.md)
-- [Usage-cost reconciliation, service conditions and evidence gaps](docs/costs.md)
-- [Six-direction local index](corpus/manifest.json)
-- [English references](corpus/english/manifest.json), [Chinese references](corpus/chinese/manifest.json), [Japanese public-safe metadata](corpus/japanese/local-preparation.json), [nonspeech attribution](corpus/nonspeech/manifest.json)
+- [Implementation sequence, retained/retired inventory and published issues](docs/benchmark-implementation-plan.md)
+- [Approved benchmark contract](docs/benchmark-final-plan.md)
+- [Architecture and current boundaries](docs/architecture.md)
+- [Capture CLI and adapter contracts](docs/cli.md)
+- [Profile findings and historical evidence](docs/profiles.md)
+- [Historical corpus provenance](docs/corpus.md), [historical metrics](docs/metrics.md), [judge foundations and historical scoring](docs/quality.md)
+- [Usage-cost processing](docs/costs.md)
 
-Code and maintained documentation use MIT. AMI assets retain CC BY 4.0; Chinese derived audio/timelines retain CC BY-SA 4.0. Japanese dataset-declared CC BY 3.0 does not resolve selected-video attribution. Do not publish unresolved assets, treat local paths as public download locations, or count shared source pairs as independent evidence.
+Code and maintained documentation use MIT. Imported/derived data retains source-specific terms. Audio, private transcripts, raw app/billing logs, credentials, model weights and downloads stay local unless separately cleared for publication. In particular, existing YODAS2 attribution holds and IngCrowd's noncommercial restrictions are not removed by choosing a new plan.

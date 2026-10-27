@@ -1,0 +1,289 @@
+{
+  "schema_version": 1,
+  "profile": "PP3",
+  "direction": "D3",
+  "status": "passed",
+  "basis": "actual_preflight_finding",
+  "reason": "First actual source-specific check yielded expected-language benchmark-content translation candidates, with genuine normal stop and resource release. Admission only, not a quality, finality, or healthy-FPR claim.",
+  "run_id": "issue8-pp-restored-PP3-D3-20261022T064539Z",
+  "application": {
+    "name": "PuriPulyHeart",
+    "version": "2.9.0",
+    "normal_installed_GUI": true,
+    "exe_basename": "PuriPulyHeart.exe",
+    "exe_sha256": "2f9b9938e0b7e03731f7cfa57056a68f78d05eb099312f6c07e9b71a8440ac31",
+    "packaged_python_archive_sha256": "b02cda0f64577d8efd442904c1ccb0fcded69be42450691c7591945a0fc03d50",
+    "source_commit_runtime_attestation": false,
+    "loose_and_packaged_source_not_assumed_identical": true
+  },
+  "selected_route": {
+    "ASR": "gemini_transcribe",
+    "reported_ASR_model_at_actual_capture": "gemini-3.5-transcribe-live",
+    "translation_model": "index_translate_35b",
+    "translation_connection": "public_api",
+    "returned_LLM_model_or_upstream_provider_attested": false,
+    "native_selection_fallback_observed": null,
+    "fallback_basis": "Selected route is recorded; returned model / internal service routing is not attested."
+  },
+  "input_output": {
+    "microphone": "CABLE Output(VB-Audio Virtual Cable)",
+    "saved_host_API": "Windows WASAPI (Compatibility Mode)",
+    "actual_host_API": "Windows WASAPI",
+    "sample_rate": 48000,
+    "shared": true,
+    "voice_output": false,
+    "peer_capture": false,
+    "captions": false,
+    "overlay": false,
+    "OSC_host": "127.0.0.1",
+    "actual_collector_send_port": 19104,
+    "actual_receive_port": 19201,
+    "chatbox_include_source": false,
+    "activation_notice": false
+  },
+  "execution": {
+    "cli_exit": 0,
+    "counts": {
+      "pending": 0,
+      "running": 0,
+      "done": 4,
+      "product_failure": 0,
+      "invalid": 0
+    },
+    "callback_count": 1100,
+    "callback_frames": 528000,
+    "source_frames": 528000,
+    "check_audio_sha256": "3be6974425b8b0de3cafced557d58bc5e1c2d7578445a3f094606f67ca97f20a",
+    "source_check_seconds": 10,
+    "source_check_tail_seconds": 15,
+    "silent_lifecycle_seconds": 1,
+    "silent_lifecycle_tail_seconds": 2,
+    "no_check_replay": true,
+    "no_timed_GUI_or_agent_model_inference": true
+  },
+  "source_binding": {
+    "checked": true,
+    "not_generic_nonempty_gate": true,
+    "notes": "Actual Korean inputs contained the Chinese clip Mid-Autumn festival and better-understanding/introducing-China activities topic. Two ordered, partly overlapping target inputs were preserved without inventing revision/page/finality relationships. The normal GUI still selected Index-Translate 35B A3B with official/public API after the check; internal/backend fallback or returned model remains unattested. Post-tail idle GUI is not target-output evidence.",
+    "actual_capture_runtime_signature_prefix": [
+      "zh-CN",
+      "Windows WASAPI (Compatibility Mode)",
+      "CABLE Output(VB-Audio Virtual Cable)"
+    ],
+    "actual_DAC_callback_provenance_preserved": true
+  },
+  "OSC": {
+    "output_check_event_count": 6,
+    "output_check_input_count": 2,
+    "silent_lifecycle_event_count": 0,
+    "outside_timed_attempt_events": 0,
+    "original_decoded_payloads_order_preserved": true,
+    "wire_bytes_for_valid_UDP_not_recorded_by_existing_bench_sink": true,
+    "hash_kind": "Canonical UTF-8 JSON of decoded address/typed args and original journal/trace hashes; not a valid UDP wire digest",
+    "payload_identities": [
+      {
+        "recv_seq": 1,
+        "clock_session": "05a4089880124b30b54fea5d5133cbc1",
+        "t_ns": 49599344689100,
+        "address": "/chatbox/typing",
+        "argument_types": [
+          "bool"
+        ],
+        "decoded_address_args_sha256": "4079777e4df3f1df088768f4ae70fb13dd58e1a3567dd23184da744769a16eaf",
+        "text_utf8_sha256": null,
+        "text_characters": null,
+        "observer": "udp:127.0.0.1:19104",
+        "source_host": "127.0.0.1",
+        "source_port": 59185
+      },
+      {
+        "recv_seq": 2,
+        "clock_session": "05a4089880124b30b54fea5d5133cbc1",
+        "t_ns": 49600648457600,
+        "address": "/chatbox/input",
+        "argument_types": [
+          "str",
+          "bool",
+          "bool"
+        ],
+        "decoded_address_args_sha256": "e25e5fafdda606dc883ceafd8297739ef509e356842960387c5332e997910e28",
+        "text_utf8_sha256": "7a300d346e5c55ffa63f32183e96d89bd8119442e6df3a4ffaa8ebd14cd510a4",
+        "text_characters": 20,
+        "observer": "udp:127.0.0.1:19104",
+        "source_host": "127.0.0.1",
+        "source_port": 59185
+      },
+      {
+        "recv_seq": 3,
+        "clock_session": "05a4089880124b30b54fea5d5133cbc1",
+        "t_ns": 49600648752200,
+        "address": "/chatbox/typing",
+        "argument_types": [
+          "bool"
+        ],
+        "decoded_address_args_sha256": "a8542e4e02e1ab5b8373a2dc769e48219c377174a1ac09b0c08a6dfa94d43fb8",
+        "text_utf8_sha256": null,
+        "text_characters": null,
+        "observer": "udp:127.0.0.1:19104",
+        "source_host": "127.0.0.1",
+        "source_port": 59185
+      },
+      {
+        "recv_seq": 4,
+        "clock_session": "05a4089880124b30b54fea5d5133cbc1",
+        "t_ns": 49606395299300,
+        "address": "/chatbox/typing",
+        "argument_types": [
+          "bool"
+        ],
+        "decoded_address_args_sha256": "4079777e4df3f1df088768f4ae70fb13dd58e1a3567dd23184da744769a16eaf",
+        "text_utf8_sha256": null,
+        "text_characters": null,
+        "observer": "udp:127.0.0.1:19104",
+        "source_host": "127.0.0.1",
+        "source_port": 59185
+      },
+      {
+        "recv_seq": 5,
+        "clock_session": "05a4089880124b30b54fea5d5133cbc1",
+        "t_ns": 49608133610800,
+        "address": "/chatbox/input",
+        "argument_types": [
+          "str",
+          "bool",
+          "bool"
+        ],
+        "decoded_address_args_sha256": "40f532ff436618cd3ed35bca2f3a499867c79331bf0f18478f0e02d60454d289",
+        "text_utf8_sha256": "a8e764028bd882af08609420a05e30aca4ed2122f9f5feeb9cff81715a65829c",
+        "text_characters": 70,
+        "observer": "udp:127.0.0.1:19104",
+        "source_host": "127.0.0.1",
+        "source_port": 59185
+      },
+      {
+        "recv_seq": 6,
+        "clock_session": "05a4089880124b30b54fea5d5133cbc1",
+        "t_ns": 49608133894000,
+        "address": "/chatbox/typing",
+        "argument_types": [
+          "bool"
+        ],
+        "decoded_address_args_sha256": "a8542e4e02e1ab5b8373a2dc769e48219c377174a1ac09b0c08a6dfa94d43fb8",
+        "text_utf8_sha256": null,
+        "text_characters": null,
+        "observer": "udp:127.0.0.1:19104",
+        "source_host": "127.0.0.1",
+        "source_port": 59185
+      }
+    ],
+    "format_trace_ids": [
+      {
+        "run": "issue8-pp-restored-PP3-D3-20261022T064539Z",
+        "clock_session": "05a4089880124b30b54fea5d5133cbc1",
+        "recv_seq": 2,
+        "text_utf8_sha256": "7a300d346e5c55ffa63f32183e96d89bd8119442e6df3a4ffaa8ebd14cd510a4"
+      },
+      {
+        "run": "issue8-pp-restored-PP3-D3-20261022T064539Z",
+        "clock_session": "05a4089880124b30b54fea5d5133cbc1",
+        "recv_seq": 5,
+        "text_utf8_sha256": "a8e764028bd882af08609420a05e30aca4ed2122f9f5feeb9cff81715a65829c"
+      }
+    ]
+  },
+  "format": {
+    "observed": "Whole observed target-language /chatbox/input string,true,false, plus typing booleans. Actual per-attempt counts and identities above.",
+    "role": "translation",
+    "role_basis": "Actual configured translation-only output and inspected clip-specific target-language candidates; no source/target delimiter forced. A later idle GUI is not target-output evidence.",
+    "style": "unknown",
+    "supports": {
+      "revision": false,
+      "erasure": false,
+      "resend": false
+    },
+    "relationships": {},
+    "typing_false_is_not_finality": true,
+    "pagination_revision_grouping_universality_inferred": false
+  },
+  "cleanup": {
+    "physical_capture_and_inference_resources_off": true,
+    "both_has_source_false": true,
+    "both_effective_active_false": true,
+    "self_has_loop_task_false": true,
+    "cleanup_debt": 0,
+    "provider_live_false": true,
+    "normal_GUI_retained_stopped": true,
+    "full_process_exit_claimed": false,
+    "fresh_stop_ACK_sequence": 2,
+    "session_retired_via_supported_invalidated_guard": true
+  },
+  "key_aliases": [
+    "Google-A"
+  ],
+  "key_alias_basis": "Owner-accepted existing stored-slot alias reference; no new key-value read/compare or project isolation attestation. OpenRouter/ChatGPT account sharing remains unverified.",
+  "quota_scope": "index-public-ip",
+  "numeric_allowance_or_cost": "unknown; not fetched",
+  "evidence": {
+    "capture_inventory": {
+      "path": ".data/issue8/puripuly-restored-preflights/PP3-D3-20261022T064539Z/capture-inventory.json",
+      "sha256": "dc91ddfb58b22272e8722614d61b6a6fad263f3719b6d1658bb1c305d20ba646"
+    },
+    "manifest": {
+      "path": ".data/issue8/puripuly-restored-preflights/PP3-D3-20261022T064539Z/runs/issue8-pp-restored-PP3-D3-20261022T064539Z/manifest.json",
+      "sha256": "1eeffde16cda7aa83d6aad0bd8824e3c6c41df9dce6666dbe3c0ffaadd4186ef"
+    },
+    "CLI_terminal_receipt": {
+      "path": ".data/issue8/puripuly-restored-preflights/PP3-D3-20261022T064539Z/runner-terminal-receipt.json",
+      "sha256": "99b7e94e61de74e9cf7bdf2cc736696ff9e6ede0ee054211120f945ce3d8b776"
+    },
+    "raw_private_streams": [
+      {
+        "path": ".data/issue8/puripuly-restored-preflights/PP3-D3-20261022T064539Z/runs/issue8-pp-restored-PP3-D3-20261022T064539Z/stream-05a4089880124b30b54fea5d5133cbc1.jsonl",
+        "sha256": "a916d8bea915cd7426e428c87809b2e1b1bebd523d2933a0b661ea840db7c71e"
+      }
+    ],
+    "raw_private_traces": [
+      {
+        "path": ".data/issue8/puripuly-restored-preflights/PP3-D3-20261022T064539Z/runs/issue8-pp-restored-PP3-D3-20261022T064539Z/attempt-0001-001.jsonl",
+        "sha256": "af653de8cb52972c521ccbfb2b2592cd615c6e9e26d4ce26ccdd60c0c27e1f4a"
+      },
+      {
+        "path": ".data/issue8/puripuly-restored-preflights/PP3-D3-20261022T064539Z/runs/issue8-pp-restored-PP3-D3-20261022T064539Z/attempt-0002-001.jsonl",
+        "sha256": "de5e0842a29b1bf55f8d87224aba9bcb975f6d6227e4b48e486e8531d22dabd0"
+      },
+      {
+        "path": ".data/issue8/puripuly-restored-preflights/PP3-D3-20261022T064539Z/runs/issue8-pp-restored-PP3-D3-20261022T064539Z/attempt-0003-001.jsonl",
+        "sha256": "aad75dce851821c767ea0ceac8ee1912fc0439f128f7b1120508c91f2f8aa857"
+      },
+      {
+        "path": ".data/issue8/puripuly-restored-preflights/PP3-D3-20261022T064539Z/runs/issue8-pp-restored-PP3-D3-20261022T064539Z/attempt-0004-001.jsonl",
+        "sha256": "1cd4bff5f9682fcb17828ebc78fb364b0c7c905c2370c252e17413606cfc1f37"
+      }
+    ],
+    "start_runtime": {
+      "path": ".data/issue8/puripuly-restored-preflights/PP3-D3-20261022T064539Z/start-runtime-safe-facts.json",
+      "sha256": "8316931a8c406c353e258c8e8ed46530024ea44b73715c3ae3cd35321315a819"
+    },
+    "stop_runtime": {
+      "path": ".data/issue8/puripuly-restored-preflights/PP3-D3-20261022T064539Z/stop-runtime-safe-facts.json",
+      "sha256": "f2345083380f0b0dab99dd8bf263e912d35a2ad42305c7b4bd673a574a319993"
+    },
+    "stop_ACK": {
+      "path": ".data/issue8/puripuly-restored-preflights/PP3-D3-20261022T064539Z/stop-ack-seq2.receipt.json",
+      "sha256": "324454e159e9600928a9b7302959ba1a8e2f0ce2fc0b3d5ce53cacd82c4caa49"
+    },
+    "initial_observation": {
+      "path": ".data/issue8/puripuly-restored-preflights/PP3-D3-20261022T064539Z/initial-observation.json",
+      "sha256": "e03b8f0681571c85799d209a52d22c39f6c6ca4dae2661a76a2b34ec35516550"
+    },
+    "actual_port_authority": {
+      "path": "profiles/evidence/issue8/pp-restored-v1/actual-osc-port-decision.json",
+      "sha256": "9ab8ebc4e19577244fd334d0aa9c41a61b5ac6c64d3d978abc3bacbebcaa71ba"
+    }
+  },
+  "raw_screenshots_logs_personal_settings_exported": false,
+  "silence_lifecycle_zero_is_not_a_main_FPR_claim": true,
+  "main_measurement": false,
+  "B_protocol_frozen": false,
+  "quality_scoring_or_ranking": false
+}
