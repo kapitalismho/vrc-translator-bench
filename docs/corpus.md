@@ -1,4 +1,197 @@
-# Historical corpus preparation
+# Corpus preparation
+
+## R2 source review and preparation
+
+[Issue #16](https://github.com/kapitalismho/vrc-translator-bench/issues/16) follows
+[final-plan §§2–5](benchmark-final-plan.md), not the historical corpus below.
+R1 supplies the capture contract and early feasibility. Per-app replay is not an
+R2 acceptance requirement; R6 owns the remaining input-to-app integration.
+
+Preparation and production freeze are different states. A prepared candidate has
+source-linked local bytes and recorded review evidence. A production-frozen
+episode additionally has accepted audible references, semantic endpoints,
+source-group separation and applicable use rights. A checksum proves identity,
+not that the words, speaker attribution or timing are correct.
+
+### Prepared inputs and exact coverage
+
+The [R2 status and evidence index](../corpus/r2/status.json) binds the three
+source catalogues, final materialization reports and acoustic review addenda.
+It records **27 typed main candidates, six development candidates and two C1
+candidates**, not a completed corpus. Three additional ASCEND explanations are
+unclassified and receive no cell credit. No production-frozen main episode is
+claimed while the required source/review/rights gates remain open.
+
+| Pair | Type | Required main | Prepared main candidates | Prepared development |
+|---|---|---:|---:|---:|
+| EN/ZH | P1 | 3 | 3 | 1 |
+| EN/ZH | P2 | 9 | 0 | 0 |
+| EN/ZH | P3 | 6 | 0 | 0 |
+| EN/ZH | T1 | 9 | 0 | 0 of 4 parents |
+| EN/ZH | P4 | 3 | 3 | 1 |
+| JA/KO | P1 | 3 | 3 | 1 |
+| JA/KO | P2 | 9 | 9 | 1 |
+| JA/KO | P3 | 6 | 6 | 1 |
+| JA/KO | T1 | 9, R3-owned | 0 | 0 of 4, R3-owned |
+| JA/KO | P4 | 3 | 3 | 1 |
+
+Both pairs retain 50% weight; within each pair P1/P2/P3/T1/P4 retain
+10/30/20/30/10%. T1 roles retain 50:50. Candidate files, checkpoint count, C1,
+unclassified explanations and planned repeats add no weight.
+
+- **[ASCEND](../corpus/r2/ascend.json):** four intact native 16-kHz P1 files.
+  Source-only no-hints Qwen ASR corroborates their human references and required
+  meanings; separate supplied-text alignment and actual waveforms support
+  bounded endpoint proposals on an 80-ms grid. That grid is not a calibrated
+  error bound. The development endpoint lies near the file edge. Original
+  people and known connected groups are reserved across all types, not merely
+  across filename speakers or upstream splits. No T1 role buffers were made.
+- **[IngCrowd](../corpus/r2/ingcrowd.json):** 21 exact 16-kHz mixed-track crops
+  with 54 pre-result checkpoint candidates. All original samples, gaps,
+  overlaps and intersecting annotations from both speakers remain; no splices,
+  added silence or individual-track isolation claim. Dialogue 10 is development;
+  main uses dialogues 01–04 and 06–09. Known links are retained and unknown
+  recurring speakers are not certified independent. Bounded no-hints Reazon
+  views corroborate core meanings for five main and one development candidate;
+  15 have specific unresolved content/boundary observations. Core corroboration
+  is not full-fidelity or precise-endpoint certification.
+- **[FLEURS](../corpus/r2/read-controls.json):** main sentence IDs
+  1980/1914/1771 and development ID 151 are joined across EN/JA by sentence ID,
+  not row order. The six main recordings have three shared text-dependence
+  groups. Full native float32/16-kHz sources are retained with an explicit
+  full-timeline PCM16/48-kHz conversion, no gain or time compression.
+  Automatic preparation passes cover EN 1980, EN 1771, JA 1771 and development
+  EN 151. Holds remain for EN 1914's 320-ms endpoint discrepancy, JA 1980's
+  driver-word disagreement, JA 1914's clipping/lexical detail and development
+  JA 151's named-group disagreement. Original references are not replaced with
+  recognizer outputs.
+- **C1:** unchanged historical samples `[0, 2880000)` are exactly zero;
+  `[2880000, 5760000)` retain keyboard/coin/snaps and their original gaps.
+  Incidental speech in the latter remains unresolved. The historical AMI speech
+  minute `[5760000, 8640000)` is excluded, not relabeled as nonspeech.
+  C1 contributes neither quality nor meaning-wait credit. Runtime quiet/reset
+  and carryover checks remain R6-owned.
+
+Review is **automatic, not human listening**. R2 does not invent a human-only
+gate. Independent source invocations are not benchmark-app results, but Qwen's
+model family also occurs in evaluated apps; model/training independence is not
+claimed. Weak SAPI mismatches, the initial Qwen invocation that exited without
+inference, and Reazon's initial over-length inputs remain recorded as inadequate
+observations rather than corpus failures. Corrected Reazon screening uses
+20-second diagnostic windows with two-second overlaps without changing playback.
+
+The status index fixes public-example candidates and one repeat candidate per
+currently prepared pair/type cell before app results. Held examples still need
+their named review; selection grants neither publication nor execution. Missing
+cells remain pending rather than receiving substitute repeat/example material.
+
+### Reuse and local reproduction
+
+Keep the bound source, playback, reference and review bytes unchanged when
+handing them to R3/R4/R6. Original materialization snapshots and later review
+addenda are separately identified. None of these candidate catalogues is an
+executable capture plan or R6 admission. Full text/audio/model outputs stay in
+ignored `.data/r2/`; public catalogues contain provenance, hashes, concepts,
+rights and limits rather than a redistributed corpus.
+
+The scripts below **materialize already acquired pinned sources offline**;
+they do not download models, call providers, launch apps or certify a freeze.
+Source URLs and expected hashes are in the catalogues. Supply the retained
+source layout described by each script and choose a fresh output directory;
+existing outputs are not overwritten.
+
+```powershell
+python tools/prepare_ascend.py --cache <retained-ASCEND-directory> --output .data/r2/ascend-copy
+python tools/prepare_ingcrowd.py prepare --retained .data/r2/ingcrowd/sources --output .data/r2/ingcrowd-copy
+python tools/prepare_read_controls.py --retained <retained-FLEURS-directory> --historical-control <historical-nonspeech.wav> --output .data/r2/read-controls-copy
+python -m pytest tests/test_prepare_ascend.py tests/test_prepare_ingcrowd.py tests/test_prepare_read_controls.py -q
+```
+
+ASCEND and IngCrowd materialization use the Python standard library. Reading
+conversion also requires FFmpeg. Optional `prepare_ingcrowd.py asr` needs the
+existing local `sherpa_onnx`/NumPy environment and pinned Reazon files; its
+token times and CER are diagnostics, not certified endpoints or pass thresholds.
+Reuse the retained reviews instead of running inference merely for a handoff.
+
+Integration executed all three final-catalogue materializers in fresh local
+directories, verified the actual 38 output IDs' WAV/PCM/reference hashes and
+sample counts (including unclassified files), and checked known-group
+development/main separation. **21 focused tests passed.** No full-suite,
+typecheck, app replay, external-service call or human-listening claim is made.
+Historical source and corpus bytes were not overwritten.
+
+### Source identities and rights
+
+| Source | Inspected revision | Terms | Intended role |
+|---|---|---|---|
+| [ASCEND](https://huggingface.co/datasets/CAiRE/ASCEND) | Original `b966160952fc5fe9cb036f098dd44f135d5c6f20`; current test comparison `737e9800ae31be9932ba8464c80366559bd28424` | CC BY-SA 4.0 | EN/ZH P1–P3 and T1 parents |
+| [IngCrowd](https://huggingface.co/datasets/IngCrowd/japanese-themed-dialogue) | `e2eed8769400269f20821deb0e47e68b40012e8b` | CC BY-NC 4.0 | JA P1–P3 |
+| [FLEURS](https://huggingface.co/datasets/google/fleurs) | `70bb2e84b976b7e960aa89f1c648e09c59f894dd` | CC BY 4.0 | Human-read EN/JA P4 |
+
+The owner describes the intended use as **noncommercial OSS, including product
+promotion**. Promotion and OSS/free status do not independently establish or
+exclude NonCommercial use. The [CC BY-NC definition](https://creativecommons.org/licenses/by-nc/4.0/legalcode.en#s1)
+asks whether use is primarily directed toward commercial advantage or monetary
+compensation. IngCrowd's [original publisher](https://www.ingcrowd.jp/datasets/)
+confirms public WAV/EAF access for noncommercial research, education and
+verification. Its separately application-based original video access is not a
+restriction on the already-public audio.
+
+Keep these permissions distinct:
+
+- Local preparation is not a public dataset release or permission to launch
+  benchmark apps/providers.
+- The existing NC grant is the starting point for noncommercial clips,
+  transcripts and adaptations; do not demand a separate commercial license
+  merely because results promote an OSS project.
+- Source-bearing public examples need attribution, license links, retained
+  notices, modification notices and selected-content privacy review. ASCEND
+  shared adaptations retain ShareAlike; IngCrowd material retains NC. None is
+  relicensed as MIT. Source credit must not imply endorsement.
+- Numerical findings and source/hash metadata are not the same publication
+  surface as redistributing audio or verbatim transcripts.
+- External processing needs the actual recipient/account route and its input
+  terms. Paid processing is not itself prohibited by NC. Conversely,
+  no-training settings alone do not settle a provider's sublicensable input
+  grant. The inspected [OpenRouter terms](https://openrouter.ai/terms) distinguish
+  service-operation rights from opt-in commercial prompt reuse; the inspected
+  [Gemini terms](https://ai.google.dev/gemini-api/terms) distinguish paid and unpaid
+  content use and incorporate the [API input grant](https://developers.google.com/terms#b_submission_of_content).
+  No account opt-ins, all-profile recipient compatibility or extra permission
+  is certified by this source review. Resolve a concrete out-of-grant use for
+  that route rather than declaring the whole project prohibited.
+
+### ASCEND original-dialogue blocker
+
+The inspected full legacy archive contains 12,314 utterance WAVs, not the
+continuous paired recordings described in the source paper. The legacy loader
+assigns IDs independently within each split. Session numbers are reused, and
+filename speakers 22/23/25 map to original people 1/2/9. Upstream train/test
+labels are therefore not sufficient project-development/main grouping keys.
+
+There is positive evidence of both sides and substantive English/Chinese
+conversation. There is not yet a verified original-dialogue/recording map,
+common clock or actual intervening audio for accepted T1 windows. A concrete
+counterexample to blindly sorting filename timestamps is
+`ses3_spk13_2_L15412_221.2600_4.2400.wav` followed later in annotation order by
+`ses3_spk13_2_L15419_3.1500_3.7000.wav`: the same apparent stem resets from
+221.260 to 3.150 seconds. This is a mapping warning, not proof of a particular
+offset. Omitted all-`[UNK]` utterances also prevent treating every missing
+interval as silence.
+
+Do not stitch these clips with inferred gaps and call the result original
+natural conversation. Nine main T1 parents and four separate development T1
+parents remain unaccepted; R3 must not generate descendants as if those parents
+were frozen. ASCEND P2/P3 continuity and their required counts also remain to be
+established. Isolated complete P1 utterances can be prepared independently.
+Additional authoritative paired originals and recording/clock mapping would
+allow this work to resume; the investigation does not prove ASCEND inherently
+contains no eligible dialogue.
+
+All fixed cells and weights remain required. No replacement dataset, synthetic
+EN/ZH conversation, reduced count or redistributed weight is authorized.
+
+## Historical corpus record
 
 > **Historical reference only.** The AMI/AliMeeting/YODAS2 preparation, six-direction index/check and old control-track builder have been removed from the current package. Commands and completion records below describe the [pre-reset implementation](https://github.com/kapitalismho/vrc-translator-bench/tree/fbab10a0455d91d5419d9673499d25b7ac86c566), not available current commands. Frozen `corpus/` metadata and local audio/reference bytes are preserved. The [final plan §§3–5](benchmark-final-plan.md) selects ASCEND, IngCrowd, FLEURS and the bounded JA/KO T1 reconstruction; [new preparation work](benchmark-implementation-plan.md) must not overwrite or relabel this historical index.
 

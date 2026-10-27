@@ -1,0 +1,2501 @@
+{
+  "schema_version": 1,
+  "issue": "https://github.com/kapitalismho/vrc-translator-bench/issues/16",
+  "status": "prepared_candidates_not_production_freeze",
+  "source": {
+    "dataset": "IngCrowd/japanese-themed-dialogue",
+    "revision": "e2eed8769400269f20821deb0e47e68b40012e8b",
+    "card_url": "https://huggingface.co/datasets/IngCrowd/japanese-themed-dialogue/resolve/e2eed8769400269f20821deb0e47e68b40012e8b/README.md",
+    "card_sha256": "6eb32fd1cec62af9d03321f6122a0f5d880e4724e56d643d7cd5936983c0bbfd",
+    "tree_sha256": "a359f3a481f6d99cb168120d8f0847cd32630dac0b95f81262cb3d3c557cfa8f",
+    "license": "CC-BY-NC-4.0",
+    "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+    "attribution": "IngCrowd Japanese Themed Casual Conversation Corpus, IngCrowd Inc.",
+    "publisher_url": "https://www.ingcrowd.jp/datasets/",
+    "availability": "public pinned mixed WAV and human EAF, no provider/app calls"
+  },
+  "rights": {
+    "code_license": "MIT; corpus content is not relicensed under MIT",
+    "source_and_derivatives_license": "CC-BY-NC-4.0; preserve supplied notices, credit, pinned URL, license link and modification description; no endorsement implication",
+    "purpose": "owner-stated noncommercial OSS promotion; not categorically commercial",
+    "local_preparation": "source-license noncommercial preparation; no external-provider transmission",
+    "external_provider_input_clearance": "pending, per actual route/account/input grants; no calls authorized by this artifact",
+    "public_source_bearing_publication": "not authorized by candidate preselection; apply license conditions and selected-content privacy review, and obtain extra permission only for an identified use outside the existing grant",
+    "public_safe_catalogue": "source identifiers, hashes, counts and abstract semantic concepts only; raw transcripts/audio/references/ASR remain .data"
+  },
+  "grouping": {
+    "main_dialogues": [
+      "01",
+      "02",
+      "03",
+      "04",
+      "06",
+      "07",
+      "08",
+      "09"
+    ],
+    "development_dialogues": [
+      "10"
+    ],
+    "known_connected_dialogue_components": [
+      [
+        "01"
+      ],
+      [
+        "02"
+      ],
+      [
+        "03"
+      ],
+      [
+        "04"
+      ],
+      [
+        "06"
+      ],
+      [
+        "07"
+      ],
+      [
+        "08"
+      ],
+      [
+        "09"
+      ],
+      [
+        "10"
+      ]
+    ],
+    "known_cross_dialogue_participant_equivalences": [],
+    "known_component_basis": "All tracks and excerpts within a dialogue are connected; no cross-dialogue participant equivalence is discoverable in the pinned card/tree/EAF evidence.",
+    "unknown_recurring_speakers_independent": false,
+    "limitation": "Whole-dialogue separation is established. It does not certify independence of unknown recurring speakers or invent equivalence from repeated demographics. Any subsequently discovered connected participants must remain on one side before acceptance.",
+    "original_dialogue05": "not selected; not a replacement source or extra independent sample"
+  },
+  "preserved_design": {
+    "language_pair": "ja-ko",
+    "language_pair_weight": 0.5,
+    "within_pair_weights": {
+      "P1": 0.1,
+      "P2": 0.3,
+      "P3": 0.2,
+      "T1": 0.3,
+      "P4": 0.1
+    },
+    "weights_redistributed": false,
+    "episode_weighting": "equal within each fixed cell; checkpoints/utterances/speakers are not extra samples",
+    "T1": "outside IngCrowd: R3, selected ASCEND parents prerequisite remains blocked",
+    "P4": "separate R2 FLEURS artifact; no IngCrowd replacement"
+  },
+  "counts": {
+    "P1": {
+      "main_required": 3,
+      "main_materialized_candidates": 3,
+      "main_accepted_frozen": 0,
+      "main_not_frozen": 3,
+      "main_asr_core_supported_candidates": 2,
+      "main_held_for_specific_content_or_boundary_review": 1,
+      "development_required_minimum": 1,
+      "development_materialized_candidates": 1,
+      "development_accepted_frozen": 0,
+      "reason": "All required candidates are materialized; the request clip still lacks independent corroboration of its primary request. Core support is not full audible-reference acceptance or a production freeze. No human-only or global-identity prerequisite is imposed."
+    },
+    "P2": {
+      "main_required": 9,
+      "main_materialized_candidates": 9,
+      "main_accepted_frozen": 0,
+      "main_not_frozen": 9,
+      "main_asr_core_supported_candidates": 0,
+      "main_held_for_specific_content_or_boundary_review": 9,
+      "development_required_minimum": 1,
+      "development_materialized_candidates": 1,
+      "development_accepted_frozen": 0,
+      "reason": "All nine mixed-input candidates are materialized. Specific important numbers, clauses, speaker reactions or boundary evidence remain unresolved as detailed below; ASR omissions are not source-failure findings. No cell or weight substitution."
+    },
+    "P3": {
+      "main_required": 6,
+      "main_materialized_candidates": 6,
+      "main_accepted_frozen": 0,
+      "main_not_frozen": 6,
+      "main_asr_core_supported_candidates": 3,
+      "main_held_for_specific_content_or_boundary_review": 3,
+      "development_required_minimum": 1,
+      "development_materialized_candidates": 1,
+      "development_accepted_frozen": 0,
+      "reason": "All six complete explanation candidates are materialized. Three have independent support for their core checkpoints; three retain specific content/uncertainty/endpoint questions. No automatic full-fidelity certification or production freeze is claimed."
+    }
+  },
+  "pre_result_selection": {
+    "benchmark_app_results_viewed": false,
+    "independent_asr_is_not_benchmark_result": true,
+    "checkpoints": "Source EAF evidence IDs, essential meanings, allowed semantic paraphrases and 0/+2/+5/+10/+15 s observations selected before app results; EAF end times are provisional, not certified phonetic ends.",
+    "paraphrase_policy": "Checkpoint paraphrases are illustrative semantic alternatives, not a string whitelist or a unique model Korean translation. Accept any accurate Korean expression preserving the stated questions, negation, conditions, attribution and approximate numbers.",
+    "repeat_subset_candidate_ids": [
+      "ingcrowd-main-P1-01",
+      "ingcrowd-main-P2-01",
+      "ingcrowd-main-P3-03"
+    ],
+    "repeat_count_credit": false
+  },
+  "public_example_preselection": [
+    {
+      "candidate_id": "ingcrowd-main-P1-01",
+      "content_basis": "Generic electricity-cost agreement question; no names, exact locations or personal identifiers in selected EAF row.",
+      "privacy_review": "EAF semantic screen found no concrete sensitive disclosure; actual audible-content review remains pending.",
+      "publication_authorization": "separate and pending; not automatic approval to upload audio/transcript/translation/video",
+      "license_conditions": "CC BY-NC 4.0 credit/license/pinned-source/modification notice; no corpus-to-MIT relicensing"
+    }
+  ],
+  "review": {
+    "source_semantics": "Original Japanese EAF passages and all closure-added context reviewed; not just manifest shapes.",
+    "source_audio": "All selected full mixed WAVs decoded and source/sample-bound crops examined by signal statistics; exact PCM binding is tested by materialization.",
+    "independent_asr": "Actually executed sherpa_onnx 1.13.8 / pinned ReazonSpeech-k2-v2, CPU 2 threads, no text hints, all 21 unchanged WAVs. Corrected bounded review contains 87 views of at most 20 seconds with 2-second overlaps. Raw views and exact sample offsets are retained locally; midpoint token ownership deduplicates comparison only.",
+    "actual_listening": false,
+    "acoustic_fidelity_certified": false,
+    "annotation_uncertainty": "Literal uncertainty/laughter markers retained locally. Full EAF includes both speakers; no product ASR replacement.",
+    "mixed_policy": "P1/P2/P3 use the original mixed WAV; all source gaps and overlapping speakers remain. No individual-track leakage-free or role-isolation claim."
+  },
+  "freeze_gates": [
+    "Resolve each specifically held audible-reference or crop-boundary question using suitable source/audio evidence. Automatic source-semantic/waveform/independent-ASR evidence can support R2 within its declared limits; human listening is not a mandatory gate and CER is not an acceptance threshold.",
+    "Preserve whole-dialogue and all discoverable known connected-participant grouping; unknown recurring participants are not independently certified.",
+    "External-provider compatibility must be cleared separately for each intended actual route/account before transmission.",
+    "Source-bearing public examples require publication authorization, CC conditions and content/privacy review; preselection is not publication approval.",
+    "Global #16 freeze remains blocked by unavailable ASCEND T1 parents; do not replace data or redistribute weights."
+  ],
+  "execution_evidence": {
+    "materialization": {
+      "command": "python tools/prepare_ingcrowd.py prepare --retained .data/r2/ingcrowd/sources --output .data/r2/ingcrowd/prepared-v1",
+      "exit_code": 0,
+      "wall_seconds": 2.55,
+      "episodes": 21,
+      "semantic_checkpoints": 54,
+      "total_playback_frames_16000hz": 22124656,
+      "total_playback_seconds": 1382.791,
+      "report_path": ".data/r2/ingcrowd/prepared-v1/materialization.json",
+      "report_sha256": "3722c567dc4fc75f19a066d352e7e2fe75461d85e1acbbbab3c0bb834a189df3",
+      "actual_input_catalogue_snapshot": ".data/r2/ingcrowd/prepared-v1/catalogue.json",
+      "actual_input_catalogue_sha256": "2a09fc50c4440306c376c71d9142ac2f820b13d92562802dfe37d04892801260",
+      "checks_exercised": ["All selected original file and decoded PCM hashes", "Native WAV decoding, not a fixed 44-byte header assumption", "Every crop PCM and rendered WAV hash and exact decode roundtrip", "Whole-dialogue and all recorded known-component separation", "Half-open source intervals do not overlap", "Both EAF speakers retained, no partial original annotation at crop edges", "Exact source-to-playback offsets, original gaps and overlaps; zero added silence, resampling, splicing or role masking", "All fixed main counts and development minima; no redistributed weights"],
+      "metadata_evolution": "The actual materialization snapshot predates independent ASR review. Later public review/status additions do not change candidate playback, original-human-EAF references or checkpoints."
+    },
+    "initial_asr_attempt": {
+      "report_path": ".data/r2/ingcrowd/reazon-review-v1.json",
+      "report_sha256": "a0d4771081a2afa933ca38b200a1c94fb221e66faf68baa6bc9d0e120034f364",
+      "exit_code": 0,
+      "wall_seconds": 31.98,
+      "episodes": 21,
+      "views_exceeding_model_approximately_30_second_contract": 17,
+      "interpretation": "Retained out-of-contract long-view attempt, not evidence of source omission. Severe long-clip ASR collapse motivated the bounded same-audio diagnostic, not easier replacement playback."
+    },
+    "bounded_independent_asr": {
+      "report_path": ".data/r2/ingcrowd/reazon-windowed-review-v2.json",
+      "report_sha256": "07b54eaa088e09553fb333e6d653892d23a4fec39473538d7b73a67b4ba4657e",
+      "exit_code": 0,
+      "wall_seconds": 21.49,
+      "engine": "sherpa_onnx 1.13.8",
+      "model": "ReazonSpeech-k2-v2",
+      "model_revision": "291488c8151be24d7da4bf7af26e533fad96e407",
+      "model_file_sha256": {
+        "encoder": "2c7bd08a8a99f9ddd0d9e458456577b1f6279214e51426f114f9eced44c54e1d",
+        "decoder": "58b18211ae06265466bfa17172dab574df94f76c8bcb61a3640c28ba860e4124",
+        "joiner": "49cc7ea1d3d35a40a27442db5e89996da64bf0e683a903dce76e99e57a12e4de",
+        "tokens": "2c3ac659818a48a0c04010e0593bbc4d7c8a24a054340b01131499c05fd52def"
+      },
+      "episodes": 21,
+      "views": 87,
+      "window_seconds": 20,
+      "overlap_seconds": 2,
+      "audio_seconds_including_diagnostic_overlaps": 1514.791,
+      "provider": "local CPU",
+      "threads": 2,
+      "text_hints_supplied": false,
+      "playback_or_reference_modified": false,
+      "comparison_policy": "Inspect raw window text against original EAF and semantic checkpoints, not CER thresholds. Approximate ASR-token timing is not certified acoustic timing. Uncorroborated content is unresolved, not established inaudibility or upstream error.",
+      "source_material_transmitted_externally": false
+    },
+    "focused_tests": "tests/test_prepare_ingcrowd.py added with synthetic inputs; not run by worker. Director owns integrated verification.",
+    "historical_corpus": "No historical corpus bytes were used as replacement material or edited."
+  },
+  "candidate_review_observations": {
+    "level": "Original-human-EAF semantic inspection plus actual mixed-WAV signal/sample inspection and no-hints bounded independent ASR. Not actual listening, forced-alignment validation, or complete acoustic-fidelity certification.",
+    "core_support_does_not_mean_frozen": true,
+    "development_asr_core_supported_candidates": {"P1": 1, "P2": 0, "P3": 0},
+    "development_held_candidates": {"P1": 0, "P2": 1, "P3": 1},
+    "observations": [
+      {"id": "ingcrowd-main-P1-01", "status": "core_checkpoint_supported", "observation": "Independent ASR corroborates the complete recent-electricity-price question. Boundary 50ms RMS is -53.14/-67.46 dBFS. No concrete sensitive disclosure found in the selected source row; public-example authorization remains separate."},
+      {"id": "ingcrowd-main-P1-02", "status": "held_specific_content", "observation": "ASR recognizes the interlocutor's follow-up question but not the primary attention request. This is noncorroboration, not proof the request is inaudible. Trailing EAF shoulder is 90ms."},
+      {"id": "ingcrowd-main-P1-03", "status": "core_checkpoint_supported", "observation": "Independent ASR corroborates the topic change and appliance-selection preference question; fillers and some second-speaker reactions are omitted. Boundary 50ms RMS is -64.13/-61.12 dBFS."},
+      {"id": "ingcrowd-main-P2-01", "status": "held_specific_content", "observation": "Bounded ASR recovers family-home answer and expensive/crowded-holiday reasoning, but not the opening holiday question. Both source speakers and all original overlaps remain, rather than dropping unrecognized reactions."},
+      {"id": "ingcrowd-main-P2-02", "status": "held_specific_content", "observation": "ASR supports theme-park/children context, distinct family preferences and meals together, but parts of the grandparents hypothetical and short question/answer clauses are not fully corroborated."},
+      {"id": "ingcrowd-main-P2-03", "status": "held_specific_content_or_boundary", "observation": "ASR supports approximate 1000/500/1500-yen amounts and monthly cost complaint; brief agreement clauses remain noncorroborated. Original trailing EAF shoulder is 80ms, with last-50ms RMS -64.19 dBFS; this is a signal observation, not phonetic endpoint proof."},
+      {"id": "ingcrowd-main-P2-04", "status": "held_specific_content", "observation": "Bounded ASR supports exercise for enjoyment and possible later-life mobility benefits; the initial not-particularly-health-conscious response and some clauses are omitted. 101.91s retains the complete explanation rather than cutting to the approximate 90s work target."},
+      {"id": "ingcrowd-main-P2-05", "status": "held_specific_content", "observation": "The initial long-view collapse is substantially repaired by bounded diagnostics: dress-change sequence, four-hour complaint and high-note ending reappear. The contrasting two-to-three-hour preference remains noncorroborated; no source failure is inferred."},
+      {"id": "ingcrowd-main-P2-06", "status": "held_specific_content_or_boundary", "observation": "ASR supports adding Japanese-history tutoring and self-study, but does not reliably recover the monthly-versus-summer-course correction or all assessment details. Leading 50ms RMS -35.90 dBFS leaves an unannotated onset/tail question despite a 250ms EAF shoulder. Duration 98.585s keeps the connected exchange."},
+      {"id": "ingcrowd-main-P2-07", "status": "held_specific_content_or_boundary", "observation": "Bounded ASR recovers summer household congestion and housing-cost contrast after initial collapse, but misrecognizes homework and omits the six-thousand-something-yen amount and competition conclusion. Original EAF shoulders are 65/45ms."},
+      {"id": "ingcrowd-main-P2-08", "status": "held_specific_content_or_boundary", "observation": "ASR supports high-feature-appliance concerns and this-year/next-year price-model contrast, but not the 2027 correction. EAF a183 retains an uncertainty marker; the leading EAF shoulder is only 12ms, though first-50ms RMS is -56.59 dBFS."},
+      {"id": "ingcrowd-main-P2-09", "status": "held_specific_content", "observation": "ASR supports practical AI translation/search use and remaining human-language advantages. It does not fully corroborate the occasional-falsehood qualifier or service name; original reference is unchanged."},
+      {"id": "ingcrowd-main-P3-01", "status": "core_checkpoints_supported", "observation": "Independent ASR corroborates gym-start enthusiasm, proper-workout pressure, special-trip burden, about one month attendance versus one-and-a-half years paying, and eventual cancellation. Source full-scale samples are recorded, not silently repaired."},
+      {"id": "ingcrowd-main-P3-02", "status": "core_checkpoints_supported", "observation": "Independent ASR corroborates pandemic online ceremonies, uncertainty about current continuation and perceived family-only funeral trend. Boundary 50ms RMS is -64.22/-67.12 dBFS."},
+      {"id": "ingcrowd-main-P3-03", "status": "held_specific_content_or_boundary", "observation": "ASR supports same-department correction, five possible versus four eligible days, best-result selection and more chances. Politics/economics is rendered with homophonic wrong words; source EAF supplies the subject. Last-50ms RMS -37.41 dBFS leaves the trailing reaction/endpoint unresolved."},
+      {"id": "ingcrowd-main-P3-04", "status": "held_specific_content", "observation": "ASR supports temporary wireless service, one-to-two-week gap, smartphone/computer contrast and wired-service conclusion, but omits the approximate monthly price increase and some interlocutor statements. EAF a12 remains uncertain."},
+      {"id": "ingcrowd-main-P3-05", "status": "held_specific_content", "observation": "Bounded diagnostics recover fifth-year failure, persistent heat, service diagnosis and just-expired-warranty exception, unlike the initial near-empty long view. The first summer-failure statement and twenty-degree setting remain uncorroborated; EAF a3 remains uncertain."},
+      {"id": "ingcrowd-main-P3-06", "status": "core_checkpoints_supported", "observation": "Independent ASR corroborates the AI-use question, reported distinction between using AI and delegating work to it, and the speaker's difficulty even at the first stage. Some reactions/fillers are omitted."},
+      {"id": "ingcrowd-development-P1-01", "status": "core_checkpoint_supported", "observation": "Independent ASR corroborates the complete dream-cause question. Boundary 50ms RMS is -67.33/-61.26 dBFS. Dialogue10 is development-only, not an independent-speaker claim."},
+      {"id": "ingcrowd-development-P2-01", "status": "held_specific_content", "observation": "ASR supports recurring university dreams, age correction, dream-versus-real graduate study and employment worries, but omits the oversleeping/missed-class causal clause."},
+      {"id": "ingcrowd-development-P3-01", "status": "held_specific_content", "observation": "ASR supports pasture care, milking and deeper self-directed study without promised enrollment. Morning/evening and dry-period terms are garbled and EAF a190 includes uncertainty; the original human reference is not overwritten."}
+    ]
+  },
+  "reproduction": {
+    "prepare_command": "python tools/prepare_ingcrowd.py prepare --retained .data/r2/ingcrowd/sources --output .data/r2/ingcrowd/prepared-v1",
+    "download_method": "Fetch each sources[].wav_url/eaf_url and source.card_url as pinned direct public downloads to matching retained paths, and verify SHA256; no dataset loader, provider or account settings.",
+    "playback_format": "mono PCM16 WAV 16000 Hz, exact original mixed-track sample crop; R6 owns app routing and any separately pinned conversion.",
+    "local_output": "playback WAVs, original-human-EAF references with literal quotes/checkpoints and materialization evidence under .data/r2/ingcrowd/",
+    "no_added_silence_or_splices": true
+  },
+  "sources": [
+    {
+      "dialogue": "01",
+      "upstream_split": "not supplied; original named dialogue",
+      "wav_path": "japanese-themed-dialogue01/japanese-themed-dialogue01_audio.wav",
+      "eaf_path": "japanese-themed-dialogue01/japanese-themed-dialogue01.eaf",
+      "wav_sha256": "ea1138f2b05e6b3cc9580ed1196748ed67c5847f222c1cf4a54de6bf4d9d3282",
+      "decoded_s16le_sha256": "f7504467870f04e3a64a97812df3d9eb84c72595f66ac479f7b7a12b7872c85b",
+      "source_frames": 10812416,
+      "eaf_sha256": "c59daa71d0ffa34e50b4c532d33f5c0d2a51ceaa8aea4435a68a87d924f61b32",
+      "wav_url": "https://huggingface.co/datasets/IngCrowd/japanese-themed-dialogue/resolve/e2eed8769400269f20821deb0e47e68b40012e8b/japanese-themed-dialogue01/japanese-themed-dialogue01_audio.wav",
+      "eaf_url": "https://huggingface.co/datasets/IngCrowd/japanese-themed-dialogue/resolve/e2eed8769400269f20821deb0e47e68b40012e8b/japanese-themed-dialogue01/japanese-themed-dialogue01.eaf",
+      "license": "CC-BY-NC-4.0",
+      "dialogue_dependence_group": "ingcrowd-dialogue01",
+      "global_participant_identity": "unknown; local speaker_1/2 are not global keys"
+    },
+    {
+      "dialogue": "02",
+      "upstream_split": "not supplied; original named dialogue",
+      "wav_path": "japanese-themed-dialogue02/japanese-themed-dialogue02_audio.wav",
+      "eaf_path": "japanese-themed-dialogue02/japanese-themed-dialogue02.eaf",
+      "wav_sha256": "fd371e8dba3462dbb7f09ee0bf1358a6f2e3cc49a1fc0ed270a930f708554f39",
+      "decoded_s16le_sha256": "e8ccda5ab0ce05ff9da8149c131aae69c938d159ecf491b79279e3f902717b57",
+      "source_frames": 11322027,
+      "eaf_sha256": "dee4e82d37805493af85cd18493b7b549294f36b99878687a586d6f5d1235d15",
+      "wav_url": "https://huggingface.co/datasets/IngCrowd/japanese-themed-dialogue/resolve/e2eed8769400269f20821deb0e47e68b40012e8b/japanese-themed-dialogue02/japanese-themed-dialogue02_audio.wav",
+      "eaf_url": "https://huggingface.co/datasets/IngCrowd/japanese-themed-dialogue/resolve/e2eed8769400269f20821deb0e47e68b40012e8b/japanese-themed-dialogue02/japanese-themed-dialogue02.eaf",
+      "license": "CC-BY-NC-4.0",
+      "dialogue_dependence_group": "ingcrowd-dialogue02",
+      "global_participant_identity": "unknown; local speaker_1/2 are not global keys"
+    },
+    {
+      "dialogue": "03",
+      "upstream_split": "not supplied; original named dialogue",
+      "wav_path": "japanese-themed-dialogue03/japanese-themed-dialogue03_audio.wav",
+      "eaf_path": "japanese-themed-dialogue03/japanese-themed-dialogue03.eaf",
+      "wav_sha256": "cbc21140f2c10fd8e55e60b72e2960bf2fb1d3ebabac6e192659aa0c4f1ef6b9",
+      "decoded_s16le_sha256": "a64f461ee709231d39e767f96965e1274f93b4e0f705d010ace03cfeba174fe0",
+      "source_frames": 12192768,
+      "eaf_sha256": "309a9b1ca0b90d7e615c4e6bd6daa31171627e2846c31cb1eb89ef4b26f97a57",
+      "wav_url": "https://huggingface.co/datasets/IngCrowd/japanese-themed-dialogue/resolve/e2eed8769400269f20821deb0e47e68b40012e8b/japanese-themed-dialogue03/japanese-themed-dialogue03_audio.wav",
+      "eaf_url": "https://huggingface.co/datasets/IngCrowd/japanese-themed-dialogue/resolve/e2eed8769400269f20821deb0e47e68b40012e8b/japanese-themed-dialogue03/japanese-themed-dialogue03.eaf",
+      "license": "CC-BY-NC-4.0",
+      "dialogue_dependence_group": "ingcrowd-dialogue03",
+      "global_participant_identity": "unknown; local speaker_1/2 are not global keys"
+    },
+    {
+      "dialogue": "04",
+      "upstream_split": "not supplied; original named dialogue",
+      "wav_path": "japanese-themed-dialogue04/japanese-themed-dialogue04_audio.wav",
+      "eaf_path": "japanese-themed-dialogue04/japanese-themed-dialogue04.eaf",
+      "wav_sha256": "14a1fa85853c5bf7bbc447298c2ee18830094ac7d7fee9532a7935200e4776e0",
+      "decoded_s16le_sha256": "5ed526ab359bfb640322554b16af6896d7259c4ec5576af8d31587eaacab3884",
+      "source_frames": 12151467,
+      "eaf_sha256": "1dda6b58d0cb19834c5164632aba46a060768813c5f82bb9e87482f461482a2b",
+      "wav_url": "https://huggingface.co/datasets/IngCrowd/japanese-themed-dialogue/resolve/e2eed8769400269f20821deb0e47e68b40012e8b/japanese-themed-dialogue04/japanese-themed-dialogue04_audio.wav",
+      "eaf_url": "https://huggingface.co/datasets/IngCrowd/japanese-themed-dialogue/resolve/e2eed8769400269f20821deb0e47e68b40012e8b/japanese-themed-dialogue04/japanese-themed-dialogue04.eaf",
+      "license": "CC-BY-NC-4.0",
+      "dialogue_dependence_group": "ingcrowd-dialogue04",
+      "global_participant_identity": "unknown; local speaker_1/2 are not global keys"
+    },
+    {
+      "dialogue": "06",
+      "upstream_split": "not supplied; original named dialogue",
+      "wav_path": "japanese-themed-dialogue06/japanese-themed-dialogue06_audio.wav",
+      "eaf_path": "japanese-themed-dialogue06/japanese-themed-dialogue06.eaf",
+      "wav_sha256": "3d8cbc125a53823ce965ca6d44c938d59c9940e4ca40c0ba8c08f32f4a04304d",
+      "decoded_s16le_sha256": "ceda3220af6b3ab9d58162620c556c95e6aa650ada555449b1e6e25953e29009",
+      "source_frames": 12105728,
+      "eaf_sha256": "ce80381dc46403525442f4ef6d2ca22c3aa4a73b22aeb46652261f364ca735d0",
+      "wav_url": "https://huggingface.co/datasets/IngCrowd/japanese-themed-dialogue/resolve/e2eed8769400269f20821deb0e47e68b40012e8b/japanese-themed-dialogue06/japanese-themed-dialogue06_audio.wav",
+      "eaf_url": "https://huggingface.co/datasets/IngCrowd/japanese-themed-dialogue/resolve/e2eed8769400269f20821deb0e47e68b40012e8b/japanese-themed-dialogue06/japanese-themed-dialogue06.eaf",
+      "license": "CC-BY-NC-4.0",
+      "dialogue_dependence_group": "ingcrowd-dialogue06",
+      "global_participant_identity": "unknown; local speaker_1/2 are not global keys"
+    },
+    {
+      "dialogue": "07",
+      "upstream_split": "not supplied; original named dialogue",
+      "wav_path": "japanese-themed-dialogue07/japanese-themed-dialogue07_audio.wav",
+      "eaf_path": "japanese-themed-dialogue07/japanese-themed-dialogue07.eaf",
+      "wav_sha256": "0eb8f647192ac9698fd67c30bf9fd56661ff9cf79d6f5d5fbbb584a37506aabf",
+      "decoded_s16le_sha256": "ff4b353c9c3e09c12b8f1fbd262e789e44ad8475155e57cd46a692b7c4142cb3",
+      "source_frames": 11131904,
+      "eaf_sha256": "3937a932ba5222a8a4629a24f1470e1237db24e13bed1cae5ae40e4a7b2eccd8",
+      "wav_url": "https://huggingface.co/datasets/IngCrowd/japanese-themed-dialogue/resolve/e2eed8769400269f20821deb0e47e68b40012e8b/japanese-themed-dialogue07/japanese-themed-dialogue07_audio.wav",
+      "eaf_url": "https://huggingface.co/datasets/IngCrowd/japanese-themed-dialogue/resolve/e2eed8769400269f20821deb0e47e68b40012e8b/japanese-themed-dialogue07/japanese-themed-dialogue07.eaf",
+      "license": "CC-BY-NC-4.0",
+      "dialogue_dependence_group": "ingcrowd-dialogue07",
+      "global_participant_identity": "unknown; local speaker_1/2 are not global keys"
+    },
+    {
+      "dialogue": "08",
+      "upstream_split": "not supplied; original named dialogue",
+      "wav_path": "japanese-themed-dialogue08/japanese-themed-dialogue08_audio.wav",
+      "eaf_path": "japanese-themed-dialogue08/japanese-themed-dialogue08.eaf",
+      "wav_sha256": "cb97630ddfbf6558c53f6e837fed2b9fe97cc6cb6edfe13f15c4517ecf246837",
+      "decoded_s16le_sha256": "d5b21287890f1b19f77e6e8b9f5d817d7682a3d7a87a021b815fa1370ca9b56d",
+      "source_frames": 11346603,
+      "eaf_sha256": "36aaf89d33163770e0cbf8310245437a1d9da5f4d779416e2507917a1547392c",
+      "wav_url": "https://huggingface.co/datasets/IngCrowd/japanese-themed-dialogue/resolve/e2eed8769400269f20821deb0e47e68b40012e8b/japanese-themed-dialogue08/japanese-themed-dialogue08_audio.wav",
+      "eaf_url": "https://huggingface.co/datasets/IngCrowd/japanese-themed-dialogue/resolve/e2eed8769400269f20821deb0e47e68b40012e8b/japanese-themed-dialogue08/japanese-themed-dialogue08.eaf",
+      "license": "CC-BY-NC-4.0",
+      "dialogue_dependence_group": "ingcrowd-dialogue08",
+      "global_participant_identity": "unknown; local speaker_1/2 are not global keys"
+    },
+    {
+      "dialogue": "09",
+      "upstream_split": "not supplied; original named dialogue",
+      "wav_path": "japanese-themed-dialogue09/japanese-themed-dialogue09_audio.wav",
+      "eaf_path": "japanese-themed-dialogue09/japanese-themed-dialogue09.eaf",
+      "wav_sha256": "b5458a5d9f495515b5d1a34d1ffdc15de4abad71c3282e07a2c138675bb481d4",
+      "decoded_s16le_sha256": "908dc775da2fb42dd06aacec08e5160c01becb4edcca3429991ac3a573043600",
+      "source_frames": 11299840,
+      "eaf_sha256": "7d9fe991093a438a9412020f9c8129a8206f45b87e2e48dfc2dc23d265ab9c21",
+      "wav_url": "https://huggingface.co/datasets/IngCrowd/japanese-themed-dialogue/resolve/e2eed8769400269f20821deb0e47e68b40012e8b/japanese-themed-dialogue09/japanese-themed-dialogue09_audio.wav",
+      "eaf_url": "https://huggingface.co/datasets/IngCrowd/japanese-themed-dialogue/resolve/e2eed8769400269f20821deb0e47e68b40012e8b/japanese-themed-dialogue09/japanese-themed-dialogue09.eaf",
+      "license": "CC-BY-NC-4.0",
+      "dialogue_dependence_group": "ingcrowd-dialogue09",
+      "global_participant_identity": "unknown; local speaker_1/2 are not global keys"
+    },
+    {
+      "dialogue": "10",
+      "upstream_split": "not supplied; original named dialogue",
+      "wav_path": "japanese-themed-dialogue10/japanese-themed-dialogue10_audio.wav",
+      "eaf_path": "japanese-themed-dialogue10/japanese-themed-dialogue10.eaf",
+      "wav_sha256": "c4f9ba1e0400970346607523a714256b978edbecbc2e49b8f7b2d7bc4a1d37bf",
+      "decoded_s16le_sha256": "7e9168b1286fb1415cbae8389c2ba9e8b822ad1aaefd6a27ec586eb316a61d2c",
+      "source_frames": 11953152,
+      "eaf_sha256": "63756b137c1d707ce3a4ccf04ea2491736b30373b8591a02da11164df9e27f8f",
+      "wav_url": "https://huggingface.co/datasets/IngCrowd/japanese-themed-dialogue/resolve/e2eed8769400269f20821deb0e47e68b40012e8b/japanese-themed-dialogue10/japanese-themed-dialogue10_audio.wav",
+      "eaf_url": "https://huggingface.co/datasets/IngCrowd/japanese-themed-dialogue/resolve/e2eed8769400269f20821deb0e47e68b40012e8b/japanese-themed-dialogue10/japanese-themed-dialogue10.eaf",
+      "license": "CC-BY-NC-4.0",
+      "dialogue_dependence_group": "ingcrowd-dialogue10",
+      "global_participant_identity": "unknown; local speaker_1/2 are not global keys"
+    }
+  ],
+  "candidates": [
+    {
+      "id": "ingcrowd-main-P1-01",
+      "kind": "P1",
+      "project_split": "main",
+      "dialogue": "02",
+      "source_samples": [
+        1991200,
+        2042720
+      ],
+      "source_milliseconds": [
+        124450,
+        127670
+      ],
+      "annotation_ids": [
+        "a25"
+      ],
+      "checkpoints": [
+        {
+          "evidence_annotation_ids": [
+            "a25"
+          ],
+          "concept": "Ask the interlocutor to agree that recent electricity charges are extremely high.",
+          "allowed_paraphrases": [
+            "Any Korean colloquial question conveying unusually expensive recent electricity bills."
+          ],
+          "must_preserve": [
+            "question",
+            "recent period",
+            "high not low costs"
+          ]
+        }
+      ],
+      "status": "materialized_candidate_not_accepted",
+      "acoustic_review": "pending; no listening or certified endpoints",
+      "selection_basis": "original human EAF semantics before any benchmark app results",
+      "playback_s16le_sha256": "ce87532ccfeeb49fe357289a7a8a4833b3051aea331284159d21089a7cb523ad",
+      "reference_json_sha256": "486462b531dd17aa2f82b66b3311658cf2145e203b4bdcf8b05d2d6cdee0cbff",
+      "playback_wav_sha256": "6f851f1d13359c9ab918d5250ac3ef2772e2e5d2ca76d3dd1b521f1987ae5288",
+      "boundary_shoulders_ms": [
+        230,
+        250
+      ],
+      "boundary_review_flags": [],
+      "duration_seconds": 3.22,
+      "duration_exception": null
+    },
+    {
+      "id": "ingcrowd-main-P1-02",
+      "kind": "P1",
+      "project_split": "main",
+      "dialogue": "08",
+      "source_samples": [
+        47040,
+        105600
+      ],
+      "source_milliseconds": [
+        2940,
+        6600
+      ],
+      "annotation_ids": [
+        "a1",
+        "a10",
+        "a11"
+      ],
+      "checkpoints": [
+        {
+          "evidence_annotation_ids": [
+            "a1"
+          ],
+          "concept": "Request the other person to listen.",
+          "allowed_paraphrases": [
+            "A short Korean request for attention or to hear the speaker out."
+          ],
+          "must_preserve": [
+            "request not order to report facts"
+          ]
+        },
+        {
+          "evidence_annotation_ids": [
+            "a11"
+          ],
+          "concept": "The interlocutor agrees and asks what happened.",
+          "allowed_paraphrases": [
+            "Agree to listen and invite the story."
+          ],
+          "must_preserve": [
+            "response belongs to second speaker"
+          ]
+        }
+      ],
+      "status": "materialized_candidate_not_accepted",
+      "acoustic_review": "pending; no listening or certified endpoints",
+      "selection_basis": "original human EAF semantics before any benchmark app results",
+      "playback_s16le_sha256": "0b3d3b857d749eacc290f2a93e5f829f0a34860600872c221f4db946c72b8312",
+      "reference_json_sha256": "3133884e78593734246056e3ca53e2ad47b4b0e2a31db590b278269b0661f53a",
+      "playback_wav_sha256": "b840c840ccaf78285508b930f9fde1d73152fb2da1952a47a4e6b6e7b888690b",
+      "boundary_shoulders_ms": [
+        250,
+        90
+      ],
+      "boundary_review_flags": [
+        "short_annotated_shoulder_under_100ms"
+      ],
+      "duration_seconds": 3.66,
+      "duration_exception": null
+    },
+    {
+      "id": "ingcrowd-main-P1-03",
+      "kind": "P1",
+      "project_split": "main",
+      "dialogue": "08",
+      "source_samples": [
+        6274656,
+        6354416
+      ],
+      "source_milliseconds": [
+        392166,
+        397151
+      ],
+      "annotation_ids": [
+        "a101",
+        "a191",
+        "a192"
+      ],
+      "checkpoints": [
+        {
+          "evidence_annotation_ids": [
+            "a101"
+          ],
+          "concept": "Change topic and ask whether the other person likes choosing household appliances.",
+          "allowed_paraphrases": [
+            "Ask if selecting or shopping for appliances is enjoyable."
+          ],
+          "must_preserve": [
+            "question",
+            "topic change",
+            "preference for choosing, not operating appliances"
+          ]
+        }
+      ],
+      "status": "materialized_candidate_not_accepted",
+      "acoustic_review": "pending; no listening or certified endpoints",
+      "selection_basis": "original human EAF semantics before any benchmark app results",
+      "playback_s16le_sha256": "74905842df3e9155ec8c4746d34c1fc15f7538e207e067ebc352f5669146c100",
+      "reference_json_sha256": "e06e7b847d7710c636260d95fe368792528d7028a751fa8967299de811338360",
+      "playback_wav_sha256": "3bb72dd02326b7b41537aa700f5dbb08b0c344892e0279ab0e847eadc9dbd694",
+      "boundary_shoulders_ms": [
+        245,
+        250
+      ],
+      "boundary_review_flags": [],
+      "duration_seconds": 4.985,
+      "duration_exception": null
+    },
+    {
+      "id": "ingcrowd-main-P2-01",
+      "kind": "P2",
+      "project_split": "main",
+      "dialogue": "01",
+      "source_samples": [
+        51520,
+        963440
+      ],
+      "source_milliseconds": [
+        3220,
+        60215
+      ],
+      "annotation_ids": [
+        "a1",
+        "a40",
+        "a2",
+        "a3",
+        "a41",
+        "a4",
+        "a42",
+        "a5",
+        "a43",
+        "a6",
+        "a44",
+        "a7",
+        "a8",
+        "a45",
+        "a72",
+        "a9",
+        "a10",
+        "a46",
+        "a11",
+        "a47",
+        "a48",
+        "a12",
+        "a49",
+        "a13",
+        "a50",
+        "a14",
+        "a51",
+        "a15"
+      ],
+      "checkpoints": [
+        {
+          "evidence_annotation_ids": [
+            "a2",
+            "a3",
+            "a4"
+          ],
+          "concept": "Ask what the other speaker did during the recent Obon break.",
+          "allowed_paraphrases": [
+            "Ask about holiday activities or places visited."
+          ],
+          "must_preserve": [
+            "Obon holiday",
+            "question"
+          ]
+        },
+        {
+          "evidence_annotation_ids": [
+            "a42",
+            "a43"
+          ],
+          "concept": "Answer that the holiday was mainly spent visiting the family home and relaxing with family.",
+          "allowed_paraphrases": [
+            "Went home and took it easy with family rather than an eventful trip."
+          ],
+          "must_preserve": [
+            "speaker attribution",
+            "mainly family time"
+          ]
+        },
+        {
+          "evidence_annotation_ids": [
+            "a45",
+            "a48",
+            "a50",
+            "a51"
+          ],
+          "concept": "Explain preference for staying home because holiday travel is expensive and crowded.",
+          "allowed_paraphrases": [
+            "High prices and crowds make relaxing at home preferable."
+          ],
+          "must_preserve": [
+            "causal relation",
+            "preference not inability"
+          ]
+        }
+      ],
+      "status": "materialized_candidate_not_accepted",
+      "acoustic_review": "pending; no listening or certified endpoints",
+      "selection_basis": "original human EAF semantics before any benchmark app results",
+      "playback_s16le_sha256": "70fa04f8aecd39e7c5837435d4a84802084c9ec1599931b440d34a475e8c378d",
+      "reference_json_sha256": "4d3899ac44b88fb6ffcfd2199c0d2fddee4b520171cf75e271623f7a906344ce",
+      "playback_wav_sha256": "1b5ea04201b2d27dc6bd10b50f7fada251e5a893ef522ac9ee279d8bd3a63aca",
+      "boundary_shoulders_ms": [
+        250,
+        235
+      ],
+      "boundary_review_flags": [],
+      "duration_seconds": 56.995,
+      "duration_exception": null
+    },
+    {
+      "id": "ingcrowd-main-P2-02",
+      "kind": "P2",
+      "project_split": "main",
+      "dialogue": "01",
+      "source_samples": [
+        1968160,
+        2853920
+      ],
+      "source_milliseconds": [
+        123010,
+        178370
+      ],
+      "annotation_ids": [
+        "a31",
+        "a65",
+        "a32",
+        "a33",
+        "a34",
+        "a66",
+        "a35",
+        "a36",
+        "a67",
+        "a37",
+        "a68",
+        "a69",
+        "a70",
+        "a38",
+        "a71",
+        "a39",
+        "a174",
+        "a73",
+        "a175",
+        "a74",
+        "a75",
+        "a176",
+        "a76",
+        "a177",
+        "a77"
+      ],
+      "checkpoints": [
+        {
+          "evidence_annotation_ids": [
+            "a34",
+            "a35",
+            "a36",
+            "a37"
+          ],
+          "concept": "Suggest that having children could motivate a theme park outing with grandparents.",
+          "allowed_paraphrases": [
+            "With kids, visiting a theme park together with their grandparents might be appealing."
+          ],
+          "must_preserve": [
+            "hypothetical children",
+            "not an actual claimed outing"
+          ]
+        },
+        {
+          "evidence_annotation_ids": [
+            "a39",
+            "a174",
+            "a175"
+          ],
+          "concept": "Ask about shared family hobbies and receive an answer that family members like different things.",
+          "allowed_paraphrases": [
+            "There is no particular common hobby because everyone has their own preferences."
+          ],
+          "must_preserve": [
+            "question and answer attribution"
+          ]
+        },
+        {
+          "evidence_annotation_ids": [
+            "a176",
+            "a177"
+          ],
+          "concept": "The shared family activity is mostly going for a meal, not another group activity.",
+          "allowed_paraphrases": [
+            "Eating out is about all they do together."
+          ],
+          "must_preserve": [
+            "limited activity",
+            "not never seeing family"
+          ]
+        }
+      ],
+      "status": "materialized_candidate_not_accepted",
+      "acoustic_review": "pending; no listening or certified endpoints",
+      "selection_basis": "original human EAF semantics before any benchmark app results",
+      "playback_s16le_sha256": "d4e3203db6cb70354aa3a1464d413ea3e4ea35008904858b3fa177e233d34faa",
+      "reference_json_sha256": "b15e2b9b958f65e989a7f813acd857f55bfd69ef08ca38c403cebec25ff20f3a",
+      "playback_wav_sha256": "78ddbaadfc501ea17b2c3fc782497eb7b1646970975e46397d19348bf3845fb9",
+      "boundary_shoulders_ms": [
+        250,
+        250
+      ],
+      "boundary_review_flags": [],
+      "duration_seconds": 55.36,
+      "duration_exception": null
+    },
+    {
+      "id": "ingcrowd-main-P2-03",
+      "kind": "P2",
+      "project_split": "main",
+      "dialogue": "02",
+      "source_samples": [
+        2090720,
+        3022240
+      ],
+      "source_milliseconds": [
+        130670,
+        188890
+      ],
+      "annotation_ids": [
+        "a27",
+        "a51",
+        "a52",
+        "a28",
+        "a29",
+        "a30",
+        "a53",
+        "a54",
+        "a55",
+        "a56",
+        "a57",
+        "a58",
+        "a191",
+        "a59",
+        "a192",
+        "a193",
+        "a60",
+        "a61",
+        "a194",
+        "a195",
+        "a62",
+        "a196"
+      ],
+      "checkpoints": [
+        {
+          "evidence_annotation_ids": [
+            "a27",
+            "a52"
+          ],
+          "concept": "Ask about a roughly one-thousand-yen monthly renewable-energy surcharge and receive agreement.",
+          "allowed_paraphrases": [
+            "They also pay around a thousand yen for the renewable-energy levy."
+          ],
+          "must_preserve": [
+            "approximate 1000 yen",
+            "monthly",
+            "agreement"
+          ]
+        },
+        {
+          "evidence_annotation_ids": [
+            "a30",
+            "a53"
+          ],
+          "concept": "Recall lower or less noticeable charges previously; the other person is uncertain whether low cost explains not noticing.",
+          "allowed_paraphrases": [
+            "It used to seem cheaper or they may simply not have paid attention when it was small."
+          ],
+          "must_preserve": [
+            "uncertainty",
+            "past versus present"
+          ]
+        },
+        {
+          "evidence_annotation_ids": [
+            "a61",
+            "a62"
+          ],
+          "concept": "A plan change raised the base charge by around five hundred yen, contributing to a feeling of losing fifteen hundred yen monthly.",
+          "allowed_paraphrases": [
+            "About 500 yen more fixed charge and a perceived roughly 1500-yen monthly loss."
+          ],
+          "must_preserve": [
+            "approximate 500 and 1500 yen",
+            "monthly",
+            "perceived loss rather than proven saving"
+          ]
+        }
+      ],
+      "status": "materialized_candidate_not_accepted",
+      "acoustic_review": "pending; no listening or certified endpoints",
+      "selection_basis": "original human EAF semantics before any benchmark app results",
+      "playback_s16le_sha256": "9d92843f5ea8bfcfcb4d41d12efccac3fb4eb5e5140d2b70288a93b6f47e059d",
+      "reference_json_sha256": "8fa431f2aab431017e695309bcbb4b72e13e5fcf0356f9ac36312ad24290f01a",
+      "playback_wav_sha256": "4078d6854d59a19a7fce649d08f3f656e6e704b725ddf7bbb207259f3fb31134",
+      "boundary_shoulders_ms": [
+        250,
+        80
+      ],
+      "boundary_review_flags": [
+        "short_annotated_shoulder_under_100ms"
+      ],
+      "duration_seconds": 58.22,
+      "duration_exception": null
+    },
+    {
+      "id": "ingcrowd-main-P2-04",
+      "kind": "P2",
+      "project_split": "main",
+      "dialogue": "03",
+      "source_samples": [
+        53280,
+        1683840
+      ],
+      "source_milliseconds": [
+        3330,
+        105240
+      ],
+      "annotation_ids": [
+        "a1",
+        "a4",
+        "a2",
+        "a166",
+        "a167",
+        "a168",
+        "a3",
+        "a169",
+        "a5",
+        "a170",
+        "a6",
+        "a171",
+        "a7",
+        "a8",
+        "a172",
+        "a9",
+        "a173",
+        "a10",
+        "a174",
+        "a11",
+        "a175",
+        "a12",
+        "a13",
+        "a14",
+        "a15",
+        "a16",
+        "a177",
+        "a17",
+        "a178",
+        "a18",
+        "a179",
+        "a19",
+        "a20",
+        "a181",
+        "a21",
+        "a22",
+        "a23",
+        "a24",
+        "a25",
+        "a26"
+      ],
+      "checkpoints": [
+        {
+          "evidence_annotation_ids": [
+            "a2",
+            "a3",
+            "a169"
+          ],
+          "concept": "Ask whether the other person does anything for health and receive a not-particularly answer.",
+          "allowed_paraphrases": [
+            "The second speaker does not consciously focus much on health yet."
+          ],
+          "must_preserve": [
+            "question and response",
+            "not a denial of exercise"
+          ]
+        },
+        {
+          "evidence_annotation_ids": [
+            "a172",
+            "a173",
+            "a174"
+          ],
+          "concept": "The second person does gym, basketball and soccer because they enjoy them.",
+          "allowed_paraphrases": [
+            "They work out and play sports for fun."
+          ],
+          "must_preserve": [
+            "speaker attribution",
+            "motivation"
+          ]
+        },
+        {
+          "evidence_annotation_ids": [
+            "a175",
+            "a177",
+            "a178",
+            "a179",
+            "a181"
+          ],
+          "concept": "They occasionally consider future health and maintaining mobility with muscle as they age.",
+          "allowed_paraphrases": [
+            "Stronger muscles may make later-life movement easier, though that is not the main present motive."
+          ],
+          "must_preserve": [
+            "future possibility",
+            "not guaranteed medical result"
+          ]
+        }
+      ],
+      "status": "materialized_candidate_not_accepted",
+      "acoustic_review": "pending; no listening or certified endpoints",
+      "selection_basis": "original human EAF semantics before any benchmark app results",
+      "playback_s16le_sha256": "d6e77321a5dcecdcaa0039217c8de578fbfd319dd70877729260476516c59390",
+      "reference_json_sha256": "6430e33aed1d36bc7ae0d6e1d6c16c085d9f9a2e47767394fb5111286cb99f92",
+      "playback_wav_sha256": "1a762582bbe97486ac44e8b3a45a4881814000ade2eab2a5e118273586292366",
+      "boundary_shoulders_ms": [
+        250,
+        250
+      ],
+      "boundary_review_flags": [],
+      "duration_seconds": 101.91,
+      "duration_exception": "Kept complete source semantic/context unit rather than trimming to the approximate 30–90 s work target."
+    },
+    {
+      "id": "ingcrowd-main-P2-05",
+      "kind": "P2",
+      "project_split": "main",
+      "dialogue": "04",
+      "source_samples": [
+        6465408,
+        7761440
+      ],
+      "source_milliseconds": [
+        404088,
+        485090
+      ],
+      "annotation_ids": [
+        "a78",
+        "a206",
+        "a207",
+        "a208",
+        "a209",
+        "a79",
+        "a210",
+        "a80",
+        "a211",
+        "a212",
+        "a213",
+        "a81",
+        "a214",
+        "a215",
+        "a82",
+        "a83",
+        "a216",
+        "a84",
+        "a217",
+        "a85",
+        "a86",
+        "a87",
+        "a218",
+        "a219",
+        "a88",
+        "a314",
+        "a220",
+        "a89",
+        "a221",
+        "a90",
+        "a222",
+        "a91",
+        "a223",
+        "a92",
+        "a224",
+        "a225",
+        "a93",
+        "a226"
+      ],
+      "checkpoints": [
+        {
+          "evidence_annotation_ids": [
+            "a78",
+            "a79",
+            "a80"
+          ],
+          "concept": "Describe a wedding ceremony followed by a reception, with dress changes contributing to length.",
+          "allowed_paraphrases": [
+            "A white wedding dress is followed by other dresses and Japanese-style attire during the event."
+          ],
+          "must_preserve": [
+            "sequence",
+            "outfit changes"
+          ]
+        },
+        {
+          "evidence_annotation_ids": [
+            "a214",
+            "a215",
+            "a216",
+            "a217",
+            "a83",
+            "a85"
+          ],
+          "concept": "Discuss that the couple's preferences and number of outfit changes affect duration.",
+          "allowed_paraphrases": [
+            "The bride and groom's choices can make the reception longer or shorter."
+          ],
+          "must_preserve": [
+            "possibility",
+            "question answered"
+          ]
+        },
+        {
+          "evidence_annotation_ids": [
+            "a87",
+            "a88",
+            "a93"
+          ],
+          "concept": "Four hours felt too long; roughly two or three hours and ending while the mood is high is preferred.",
+          "allowed_paraphrases": [
+            "Avoid guests losing enthusiasm; finish on a high note rather than dragging on."
+          ],
+          "must_preserve": [
+            "four versus two or three hours",
+            "preference not universal rule"
+          ]
+        }
+      ],
+      "status": "materialized_candidate_not_accepted",
+      "acoustic_review": "pending; no listening or certified endpoints",
+      "selection_basis": "original human EAF semantics before any benchmark app results",
+      "playback_s16le_sha256": "79bd63fe62040d15990bd7e6ffb512bfbb2ef04d4c5cd1ef3808476a9027cdf7",
+      "reference_json_sha256": "7eaa8f65e694b4eb479085e938c1012cee7cc1f2582d818b7636a06f22c64502",
+      "playback_wav_sha256": "580a7528464a004468bd3cff4321a5e306af099e1e89cd8d4d6c6aac7057640f",
+      "boundary_shoulders_ms": [
+        152,
+        250
+      ],
+      "boundary_review_flags": [],
+      "duration_seconds": 81.002,
+      "duration_exception": null
+    },
+    {
+      "id": "ingcrowd-main-P2-06",
+      "kind": "P2",
+      "project_split": "main",
+      "dialogue": "06",
+      "source_samples": [
+        5943120,
+        7520480
+      ],
+      "source_milliseconds": [
+        371445,
+        470030
+      ],
+      "annotation_ids": [
+        "a234",
+        "a158",
+        "a159",
+        "a235",
+        "a236",
+        "a161",
+        "a162",
+        "a237",
+        "a163",
+        "a238",
+        "a239",
+        "a240",
+        "a241",
+        "a242",
+        "a164",
+        "a243",
+        "a244",
+        "a309",
+        "a165",
+        "a245",
+        "a246",
+        "a247",
+        "a166",
+        "a325",
+        "a326",
+        "a248",
+        "a167",
+        "a168",
+        "a249",
+        "a250",
+        "a251",
+        "a252",
+        "a253",
+        "a310",
+        "a169",
+        "a254",
+        "a170",
+        "a171",
+        "a255",
+        "a172",
+        "a256",
+        "a173"
+      ],
+      "checkpoints": [
+        {
+          "evidence_annotation_ids": [
+            "a234",
+            "a159",
+            "a161",
+            "a162",
+            "a163"
+          ],
+          "concept": "Ask whether Japanese-history preparation requires more tutoring; the reply explains adding it after starting with Japanese and English.",
+          "allowed_paraphrases": [
+            "The child began with Japanese and English, then was advised to switch to Japanese history for the chosen school."
+          ],
+          "must_preserve": [
+            "question and answer",
+            "subjects and sequence"
+          ]
+        },
+        {
+          "evidence_annotation_ids": [
+            "a244",
+            "a165",
+            "a166",
+            "a168"
+          ],
+          "concept": "Correct the assumption of separately priced summer classes: this school charges monthly and mainly uses assignments, testing and tutor discussion rather than lectures.",
+          "allowed_paraphrases": [
+            "It is a monthly self-study-and-testing arrangement without a separate summer course or conventional classes."
+          ],
+          "must_preserve": [
+            "correction",
+            "monthly not two-week billing",
+            "self-study format"
+          ]
+        },
+        {
+          "evidence_annotation_ids": [
+            "a169",
+            "a254",
+            "a171"
+          ],
+          "concept": "They regard tutoring as expensive in addition to school tuition.",
+          "allowed_paraphrases": [
+            "Tutoring costs are another burden on top of school fees."
+          ],
+          "must_preserve": [
+            "additional cost",
+            "agreement"
+          ]
+        }
+      ],
+      "status": "materialized_candidate_not_accepted",
+      "acoustic_review": "pending; no listening or certified endpoints",
+      "selection_basis": "original human EAF semantics before any benchmark app results",
+      "playback_s16le_sha256": "6e5749580e6fc810449a35f979d030cb454e69a2bbb41858bcd2443b2a005c1e",
+      "reference_json_sha256": "3459db32f7cf2f4b9736bf20490e7ec003707d07371f77379385621d6ee00876",
+      "playback_wav_sha256": "b3020472574e4ff40d709d579e526a137f6329e974b5feb9316ff123a9cd93f4",
+      "boundary_shoulders_ms": [
+        250,
+        250
+      ],
+      "boundary_review_flags": [],
+      "duration_seconds": 98.585,
+      "duration_exception": "Kept complete source semantic/context unit rather than trimming to the approximate 30–90 s work target."
+    },
+    {
+      "id": "ingcrowd-main-P2-07",
+      "kind": "P2",
+      "project_split": "main",
+      "dialogue": "07",
+      "source_samples": [
+        2419920,
+        3582160
+      ],
+      "source_milliseconds": [
+        151245,
+        223885
+      ],
+      "annotation_ids": [
+        "a97",
+        "a31",
+        "a32",
+        "a98",
+        "a33",
+        "a34",
+        "a35",
+        "a36",
+        "a37",
+        "a99",
+        "a38",
+        "a100",
+        "a39",
+        "a40",
+        "a101",
+        "a41",
+        "a102",
+        "a103",
+        "a42",
+        "a104",
+        "a105",
+        "a106",
+        "a43",
+        "a44",
+        "a107",
+        "a108",
+        "a109",
+        "a45",
+        "a110"
+      ],
+      "checkpoints": [
+        {
+          "evidence_annotation_ids": [
+            "a97",
+            "a98",
+            "a99"
+          ],
+          "concept": "Contrast ordinary workday connectivity with freezes when children also use tablets for summer homework.",
+          "allowed_paraphrases": [
+            "More simultaneous household devices can cause the connection to stall."
+          ],
+          "must_preserve": [
+            "summer homework context",
+            "contrast",
+            "not a measured network diagnosis"
+          ]
+        },
+        {
+          "evidence_annotation_ids": [
+            "a41",
+            "a103",
+            "a42"
+          ],
+          "concept": "State a household internet bill above six thousand yen monthly and explain detached houses cost more than apartments.",
+          "allowed_paraphrases": [
+            "Roughly six-thousand-something yen a month; apartments are cheaper in their experience."
+          ],
+          "must_preserve": [
+            "approximate amount",
+            "monthly",
+            "house type contrast"
+          ]
+        },
+        {
+          "evidence_annotation_ids": [
+            "a44",
+            "a45"
+          ],
+          "concept": "Limited local providers mean little price competition.",
+          "allowed_paraphrases": [
+            "With few rural choices there is not much price competition."
+          ],
+          "must_preserve": [
+            "cause",
+            "no exact location inferred"
+          ]
+        }
+      ],
+      "status": "materialized_candidate_not_accepted",
+      "acoustic_review": "pending; no listening or certified endpoints",
+      "selection_basis": "original human EAF semantics before any benchmark app results",
+      "playback_s16le_sha256": "27814cc318b61b27bd4958816f6e4499700c60cd1a5d9cd6fa133b80a1854a66",
+      "reference_json_sha256": "d4cf0d31f329af916ee82b3cf7315dc17841960c2d4959c06474d33484f5450b",
+      "playback_wav_sha256": "0e07d148245de3fbe0b2b115665bbb23a42e6b6ceaedc0a92ed1a9ef2c46d752",
+      "boundary_shoulders_ms": [
+        65,
+        45
+      ],
+      "boundary_review_flags": [
+        "short_annotated_shoulder_under_100ms"
+      ],
+      "duration_seconds": 72.64,
+      "duration_exception": null
+    },
+    {
+      "id": "ingcrowd-main-P2-08",
+      "kind": "P2",
+      "project_split": "main",
+      "dialogue": "08",
+      "source_samples": [
+        4907648,
+        6274656
+      ],
+      "source_milliseconds": [
+        306728,
+        392166
+      ],
+      "annotation_ids": [
+        "a176",
+        "a77",
+        "a78",
+        "a79",
+        "a80",
+        "a177",
+        "a81",
+        "a82",
+        "a83",
+        "a178",
+        "a179",
+        "a84",
+        "a180",
+        "a181",
+        "a182",
+        "a85",
+        "a86",
+        "a87",
+        "a88",
+        "a183",
+        "a89",
+        "a90",
+        "a333",
+        "a184",
+        "a91",
+        "a186",
+        "a92",
+        "a187",
+        "a93",
+        "a94",
+        "a95",
+        "a96",
+        "a188",
+        "a97",
+        "a189",
+        "a99",
+        "a190",
+        "a100"
+      ],
+      "checkpoints": [
+        {
+          "evidence_annotation_ids": [
+            "a176",
+            "a177",
+            "a178",
+            "a182",
+            "a183"
+          ],
+          "concept": "Recount research and installers' advice that more elaborate air-conditioner features can mean more failures.",
+          "allowed_paraphrases": [
+            "They were told to avoid some complicated high-feature models."
+          ],
+          "must_preserve": [
+            "reported claim not verified engineering fact",
+            "manufacturer unnamed"
+          ]
+        },
+        {
+          "evidence_annotation_ids": [
+            "a90",
+            "a184",
+            "a91",
+            "a186"
+          ],
+          "concept": "Correct the year of the discussed air-conditioner market change to 2027, described as next year.",
+          "allowed_paraphrases": [
+            "The other speaker corrects the date: 2027, next year in the recording."
+          ],
+          "must_preserve": [
+            "self-correction",
+            "2027",
+            "recording-relative date"
+          ]
+        },
+        {
+          "evidence_annotation_ids": [
+            "a187"
+          ],
+          "concept": "Say cheaper models can still be bought this year but may not be available next year.",
+          "allowed_paraphrases": [
+            "They have heard inexpensive models may disappear after this year."
+          ],
+          "must_preserve": [
+            "reported possibility",
+            "this year versus next year"
+          ]
+        }
+      ],
+      "status": "materialized_candidate_not_accepted",
+      "acoustic_review": "pending; no listening or certified endpoints",
+      "selection_basis": "original human EAF semantics before any benchmark app results",
+      "playback_s16le_sha256": "b934aac23ce7ea2616c2fe4b83eacbdd14e358ade5ae285c832ab05085cd0a43",
+      "reference_json_sha256": "0ff36b24f230d85ccc313d158f1ac72e74cca50f2cde2b32767f8dfe4f07c39b",
+      "playback_wav_sha256": "011e04a1acc782bd4bb81e33c82e154b58dd3fef1fd610fb751dbc52b1971383",
+      "boundary_shoulders_ms": [
+        12,
+        245
+      ],
+      "boundary_review_flags": [
+        "short_annotated_shoulder_under_100ms"
+      ],
+      "duration_seconds": 85.438,
+      "duration_exception": null
+    },
+    {
+      "id": "ingcrowd-main-P2-09",
+      "kind": "P2",
+      "project_split": "main",
+      "dialogue": "09",
+      "source_samples": [
+        1697920,
+        2441120
+      ],
+      "source_milliseconds": [
+        106120,
+        152570
+      ],
+      "annotation_ids": [
+        "a168",
+        "a20",
+        "a169",
+        "a21",
+        "a22",
+        "a170",
+        "a23",
+        "a24",
+        "a25",
+        "a26",
+        "a171",
+        "a172",
+        "a173",
+        "a27",
+        "a174",
+        "a28",
+        "a175",
+        "a29",
+        "a30",
+        "a176",
+        "a31",
+        "a32"
+      ],
+      "checkpoints": [
+        {
+          "evidence_annotation_ids": [
+            "a169",
+            "a170"
+          ],
+          "concept": "Describe using AI practically for translation and as a substitute for search.",
+          "allowed_paraphrases": [
+            "The second speaker uses translation and Gemini-style information searches."
+          ],
+          "must_preserve": [
+            "speaker attribution",
+            "practical uses"
+          ]
+        },
+        {
+          "evidence_annotation_ids": [
+            "a173",
+            "a28",
+            "a175",
+            "a176"
+          ],
+          "concept": "Acknowledge improved performance but occasional falsehoods and remaining language tasks where humans are better.",
+          "allowed_paraphrases": [
+            "It has become useful but is not always truthful or better than people."
+          ],
+          "must_preserve": [
+            "contrast",
+            "occasional not constant errors",
+            "no universal superiority"
+          ]
+        }
+      ],
+      "status": "materialized_candidate_not_accepted",
+      "acoustic_review": "pending; no listening or certified endpoints",
+      "selection_basis": "original human EAF semantics before any benchmark app results",
+      "playback_s16le_sha256": "1b2418198fc4cb7f3bd62401d69fa38a77a46e9afc140ea1f75ec90a1a258943",
+      "reference_json_sha256": "d8ed57ac66648b37b22087b7d1221706ffe9be658e3c1cb4c0682a876c62fff4",
+      "playback_wav_sha256": "991ab3530db2201c2f18bd46a4ee733b7d7d83315a71fe2cda7920bdbcd52ea2",
+      "boundary_shoulders_ms": [
+        120,
+        250
+      ],
+      "boundary_review_flags": [],
+      "duration_seconds": 46.45,
+      "duration_exception": null
+    },
+    {
+      "id": "ingcrowd-main-P3-01",
+      "kind": "P3",
+      "project_split": "main",
+      "dialogue": "03",
+      "source_samples": [
+        8914400,
+        10316320
+      ],
+      "source_milliseconds": [
+        557150,
+        644770
+      ],
+      "annotation_ids": [
+        "a124",
+        "a256",
+        "a257",
+        "a125",
+        "a304",
+        "a258",
+        "a126",
+        "a259",
+        "a127",
+        "a260",
+        "a128",
+        "a129",
+        "a261",
+        "a262",
+        "a130",
+        "a131",
+        "a132",
+        "a133",
+        "a263",
+        "a264",
+        "a265",
+        "a266",
+        "a134",
+        "a267",
+        "a135",
+        "a305",
+        "a268",
+        "a136",
+        "a137",
+        "a269"
+      ],
+      "checkpoints": [
+        {
+          "evidence_annotation_ids": [
+            "a124",
+            "a125",
+            "a126",
+            "a127",
+            "a129"
+          ],
+          "concept": "A gym membership began enthusiastically, but the speaker wanted proper exercise sessions instead of brief casual visits.",
+          "allowed_paraphrases": [
+            "They tried the gym initially but felt each visit had to be a real workout."
+          ],
+          "must_preserve": [
+            "initial month",
+            "proper-session preference"
+          ]
+        },
+        {
+          "evidence_annotation_ids": [
+            "a133"
+          ],
+          "concept": "A special trip, rather than a stop during a commute, increased pressure and made going feel burdensome.",
+          "allowed_paraphrases": [
+            "Because it required going out of the way, the obligation to make it worthwhile became heavy."
+          ],
+          "must_preserve": [
+            "causal chain",
+            "not on commute"
+          ]
+        },
+        {
+          "evidence_annotation_ids": [
+            "a134",
+            "a135",
+            "a136",
+            "a137"
+          ],
+          "concept": "Attendance stopped after about a month, fees continued for about a year and a half, and cancellation finally happened this year.",
+          "allowed_paraphrases": [
+            "They kept paying long after stopping, then eventually cancelled."
+          ],
+          "must_preserve": [
+            "approximate one month and one and a half years",
+            "this year",
+            "attendance versus payment"
+          ]
+        }
+      ],
+      "status": "materialized_candidate_not_accepted",
+      "acoustic_review": "pending; no listening or certified endpoints",
+      "selection_basis": "original human EAF semantics before any benchmark app results",
+      "playback_s16le_sha256": "6c49bfef5f9fb755a061fd5fc0897c6bc21bdd48681135ab5519f50c7ae233bd",
+      "reference_json_sha256": "6893cb3385af1178f502e57529349ee6b085f3ef34e4beedb93e84944ac557b4",
+      "playback_wav_sha256": "0ff3d7eef0042357ea632d9577e902472d5b05e5f4a5913453021674db705ef8",
+      "boundary_shoulders_ms": [
+        250,
+        250
+      ],
+      "boundary_review_flags": [],
+      "duration_seconds": 87.62,
+      "duration_exception": null
+    },
+    {
+      "id": "ingcrowd-main-P3-02",
+      "kind": "P3",
+      "project_split": "main",
+      "dialogue": "04",
+      "source_samples": [
+        73920,
+        1083552
+      ],
+      "source_milliseconds": [
+        4620,
+        67722
+      ],
+      "annotation_ids": [
+        "a1",
+        "a10",
+        "a2",
+        "a11",
+        "a3",
+        "a136",
+        "a137",
+        "a138",
+        "a12",
+        "a139",
+        "a140",
+        "a141",
+        "a4",
+        "a5",
+        "a142",
+        "a143",
+        "a6",
+        "a7",
+        "a144",
+        "a8",
+        "a9",
+        "a13"
+      ],
+      "checkpoints": [
+        {
+          "evidence_annotation_ids": [
+            "a2",
+            "a3",
+            "a4",
+            "a5"
+          ],
+          "concept": "Describe online wedding and funeral attendance during the pandemic when gatherings were restricted.",
+          "allowed_paraphrases": [
+            "Venues were shown over an internet connection so people could attend remotely."
+          ],
+          "must_preserve": [
+            "pandemic restriction",
+            "online attendance"
+          ]
+        },
+        {
+          "evidence_annotation_ids": [
+            "a6",
+            "a7",
+            "a8",
+            "a9"
+          ],
+          "concept": "The speaker is unsure whether online ceremonies continue, but perceives funerals becoming mainly family-only after the pandemic.",
+          "allowed_paraphrases": [
+            "They do not know the current wedding situation, while funerals seem to have shifted toward small family services."
+          ],
+          "must_preserve": [
+            "uncertainty",
+            "perceived trend not universal fact"
+          ]
+        }
+      ],
+      "status": "materialized_candidate_not_accepted",
+      "acoustic_review": "pending; no listening or certified endpoints",
+      "selection_basis": "original human EAF semantics before any benchmark app results",
+      "playback_s16le_sha256": "48f812bce5395cf6a17aa3d1815c583366f406d8885a81b379b47bcb33a156d6",
+      "reference_json_sha256": "d842ab348989be3c9ee1790d42bf69164edf1925a3f522b040e1e2290e5f1d21",
+      "playback_wav_sha256": "78715ebb1edc5e88cefebc47eb5a5ab75c03b063cdc472a095a664349e2e48de",
+      "boundary_shoulders_ms": [
+        250,
+        232
+      ],
+      "boundary_review_flags": [],
+      "duration_seconds": 63.102,
+      "duration_exception": null
+    },
+    {
+      "id": "ingcrowd-main-P3-03",
+      "kind": "P3",
+      "project_split": "main",
+      "dialogue": "06",
+      "source_samples": [
+        967760,
+        1813632
+      ],
+      "source_milliseconds": [
+        60485,
+        113352
+      ],
+      "annotation_ids": [
+        "a14",
+        "a85",
+        "a86",
+        "a15",
+        "a87",
+        "a16",
+        "a17",
+        "a18",
+        "a88",
+        "a89",
+        "a90",
+        "a91",
+        "a20",
+        "a22",
+        "a320",
+        "a321",
+        "a92",
+        "a23",
+        "a93",
+        "a24",
+        "a94",
+        "a25",
+        "a95",
+        "a26",
+        "a96",
+        "a97",
+        "a98",
+        "a99",
+        "a27",
+        "a100",
+        "a28"
+      ],
+      "checkpoints": [
+        {
+          "evidence_annotation_ids": [
+            "a14",
+            "a15",
+            "a18"
+          ],
+          "concept": "Correct a misunderstanding: the desired four entrance-exam attempts are for the same department, which offers five possible dates.",
+          "allowed_paraphrases": [
+            "Not four different departments: repeated exams for one department."
+          ],
+          "must_preserve": [
+            "correction",
+            "four desired attempts",
+            "five possible days",
+            "same department"
+          ]
+        },
+        {
+          "evidence_annotation_ids": [
+            "a20",
+            "a22",
+            "a24",
+            "a25",
+            "a26"
+          ],
+          "concept": "One date is for politics/economics and four for Japanese history; history candidates may take all four and apparently have their best result considered.",
+          "allowed_paraphrases": [
+            "Subject choice changes the number of eligible attempts; the best mark seems to count."
+          ],
+          "must_preserve": [
+            "one versus four",
+            "subject names",
+            "apparently best result"
+          ]
+        },
+        {
+          "evidence_annotation_ids": [
+            "a27",
+            "a100"
+          ],
+          "concept": "The explanation concludes that this increases chances, surprising the listener that it is not a single-shot exam.",
+          "allowed_paraphrases": [
+            "More attempts mean more chances, not just one examination."
+          ],
+          "must_preserve": [
+            "conclusion",
+            "listener reaction"
+          ]
+        }
+      ],
+      "status": "materialized_candidate_not_accepted",
+      "acoustic_review": "pending; no listening or certified endpoints",
+      "selection_basis": "original human EAF semantics before any benchmark app results",
+      "playback_s16le_sha256": "41f70d4d63065deeb4f226f613bd54f91908717e8783b00192f6a462741999f9",
+      "reference_json_sha256": "fff04efa2094e5444970d5cdd81c431beb6a1a0acc940a45506e300c2c182382",
+      "playback_wav_sha256": "ff1673f6bc3030cf7c6d37339d6357c318878ab24df3e74cdd567b1630244952",
+      "boundary_shoulders_ms": [
+        215,
+        217
+      ],
+      "boundary_review_flags": [],
+      "duration_seconds": 52.867,
+      "duration_exception": null
+    },
+    {
+      "id": "ingcrowd-main-P3-04",
+      "kind": "P3",
+      "project_split": "main",
+      "dialogue": "07",
+      "source_samples": [
+        56480,
+        2225440
+      ],
+      "source_milliseconds": [
+        3530,
+        139090
+      ],
+      "annotation_ids": [
+        "a1",
+        "a66",
+        "a2",
+        "a3",
+        "a67",
+        "a4",
+        "a68",
+        "a69",
+        "a5",
+        "a70",
+        "a71",
+        "a72",
+        "a6",
+        "a73",
+        "a74",
+        "a7",
+        "a75",
+        "a8",
+        "a76",
+        "a9",
+        "a77",
+        "a78",
+        "a10",
+        "a11",
+        "a79",
+        "a12",
+        "a13",
+        "a80",
+        "a81",
+        "a82",
+        "a83",
+        "a84",
+        "a14",
+        "a15",
+        "a197",
+        "a86",
+        "a16",
+        "a87",
+        "a17",
+        "a88",
+        "a19",
+        "a89",
+        "a20",
+        "a90",
+        "a91",
+        "a21",
+        "a22",
+        "a23",
+        "a24",
+        "a25",
+        "a92",
+        "a26",
+        "a93"
+      ],
+      "checkpoints": [
+        {
+          "evidence_annotation_ids": [
+            "a3",
+            "a4",
+            "a5",
+            "a6",
+            "a7"
+          ],
+          "concept": "After moving, limited provider choices led to a fiber plan costing roughly a thousand yen more per month.",
+          "allowed_paraphrases": [
+            "The move reduced choices and the new fixed connection was more expensive."
+          ],
+          "must_preserve": [
+            "approximate price increase",
+            "monthly",
+            "move context"
+          ]
+        },
+        {
+          "evidence_annotation_ids": [
+            "a9",
+            "a10",
+            "a11",
+            "a13",
+            "a14"
+          ],
+          "concept": "A one-to-two-week wait for activation was bridged by a plug-in wireless connection that was very slow.",
+          "allowed_paraphrases": [
+            "A temporary mobile or wireless router was used while waiting for the fixed line."
+          ],
+          "must_preserve": [
+            "temporary period",
+            "one or two weeks",
+            "self-corrected device description"
+          ]
+        },
+        {
+          "evidence_annotation_ids": [
+            "a15",
+            "a16",
+            "a17",
+            "a19",
+            "a20"
+          ],
+          "concept": "Distinguish possible single-phone use from problematic computer/video use; repeated buffering leads to a preference for wired service locally.",
+          "allowed_paraphrases": [
+            "Perhaps adequate for one smartphone, but too slow for computer tasks and YouTube, so a wired connection feels necessary there."
+          ],
+          "must_preserve": [
+            "conditional smartphone adequacy",
+            "computer contrast",
+            "local judgment"
+          ]
+        },
+        {
+          "evidence_annotation_ids": [
+            "a91",
+            "a92",
+            "a93"
+          ],
+          "concept": "The interlocutor has a renewal decision coming, usually leaves research to their spouse, and now recognizes speed matters.",
+          "allowed_paraphrases": [
+            "They had delegated the choice but realize a careless choice could be slow."
+          ],
+          "must_preserve": [
+            "different speaker",
+            "upcoming decision"
+          ]
+        }
+      ],
+      "status": "materialized_candidate_not_accepted",
+      "acoustic_review": "pending; no listening or certified endpoints",
+      "selection_basis": "original human EAF semantics before any benchmark app results",
+      "playback_s16le_sha256": "698552554321a935e01b5681e5ac172c8b3182e444696b00f19f725e7474c7ae",
+      "reference_json_sha256": "866f21141b339abf642dc26cf70a57297806402772bcab246760f16ec86dc9d3",
+      "playback_wav_sha256": "f5c9a735d32de604bfb2c9ef38961e09917a0bfb6796de892313799798cfc5ca",
+      "boundary_shoulders_ms": [
+        250,
+        110
+      ],
+      "boundary_review_flags": [],
+      "duration_seconds": 135.56,
+      "duration_exception": null
+    },
+    {
+      "id": "ingcrowd-main-P3-05",
+      "kind": "P3",
+      "project_split": "main",
+      "dialogue": "08",
+      "source_samples": [
+        105600,
+        2040800
+      ],
+      "source_milliseconds": [
+        6600,
+        127550
+      ],
+      "annotation_ids": [
+        "a2",
+        "a331",
+        "a104",
+        "a12",
+        "a3",
+        "a4",
+        "a13",
+        "a5",
+        "a332",
+        "a14",
+        "a6",
+        "a7",
+        "a105",
+        "a8",
+        "a15",
+        "a9",
+        "a16",
+        "a17",
+        "a106",
+        "a18",
+        "a107",
+        "a19",
+        "a20",
+        "a108",
+        "a21",
+        "a109",
+        "a110",
+        "a111",
+        "a22",
+        "a112",
+        "a113",
+        "a114",
+        "a115",
+        "a116",
+        "a23",
+        "a117",
+        "a24",
+        "a118",
+        "a25",
+        "a119",
+        "a120",
+        "a121",
+        "a122",
+        "a123",
+        "a124",
+        "a26",
+        "a125",
+        "a27",
+        "a126",
+        "a127",
+        "a128",
+        "a129",
+        "a130",
+        "a131",
+        "a28",
+        "a132"
+      ],
+      "checkpoints": [
+        {
+          "evidence_annotation_ids": [
+            "a2",
+            "a7",
+            "a8",
+            "a9",
+            "a17",
+            "a20"
+          ],
+          "concept": "An air conditioner installed on moving in failed during summer in its fifth year despite being a current model when bought.",
+          "allowed_paraphrases": [
+            "A relatively new air conditioner broke after about five years, in summer."
+          ],
+          "must_preserve": [
+            "fifth year",
+            "summer",
+            "model was current when installed"
+          ]
+        },
+        {
+          "evidence_annotation_ids": [
+            "a21",
+            "a22",
+            "a23",
+            "a24",
+            "a25"
+          ],
+          "concept": "Water sounds were initially attributed to condensation; even a setting around twenty degrees did not cool the room, and service diagnosed a failed air-exchange part.",
+          "allowed_paraphrases": [
+            "The initial harmless explanation proved insufficient when the room stayed hot despite cool air."
+          ],
+          "must_preserve": [
+            "initial explanation versus diagnosis",
+            "approximately 20 degrees",
+            "room still hot"
+          ]
+        },
+        {
+          "evidence_annotation_ids": [
+            "a26",
+            "a27",
+            "a28"
+          ],
+          "concept": "Although the warranty had expired about a month earlier, a free replacement was offered as a one-time exception in the previous year.",
+          "allowed_paraphrases": [
+            "Normally just outside warranty, but service made an exceptional no-charge replacement."
+          ],
+          "must_preserve": [
+            "expired not unexpired warranty",
+            "about one month",
+            "one-time exception",
+            "last year"
+          ]
+        }
+      ],
+      "status": "materialized_candidate_not_accepted",
+      "acoustic_review": "pending; no listening or certified endpoints",
+      "selection_basis": "original human EAF semantics before any benchmark app results",
+      "playback_s16le_sha256": "c7b364dbed84386dcbbf83a0740ab6a52d5ae1e3f46d4a2782097bfc91dd29a4",
+      "reference_json_sha256": "1432867e77917f9fd3c7d846681c0e4beba914bad845f338c3f8c7cb2c511b48",
+      "playback_wav_sha256": "b33ff21f9b0388f9b44b8201d6f42034cae9ab9526e048a2bf077ab09793c0df",
+      "boundary_shoulders_ms": [
+        90,
+        190
+      ],
+      "boundary_review_flags": [
+        "short_annotated_shoulder_under_100ms"
+      ],
+      "duration_seconds": 120.95,
+      "duration_exception": null
+    },
+    {
+      "id": "ingcrowd-main-P3-06",
+      "kind": "P3",
+      "project_split": "main",
+      "dialogue": "09",
+      "source_samples": [
+        52800,
+        1013792
+      ],
+      "source_milliseconds": [
+        3300,
+        63362
+      ],
+      "annotation_ids": [
+        "a1",
+        "a3",
+        "a2",
+        "a236",
+        "a237",
+        "a140",
+        "a4",
+        "a141",
+        "a5",
+        "a142",
+        "a6",
+        "a143",
+        "a7",
+        "a144",
+        "a8",
+        "a145",
+        "a9",
+        "a146",
+        "a147",
+        "a10",
+        "a148",
+        "a149",
+        "a11",
+        "a150",
+        "a12",
+        "a151",
+        "a152",
+        "a153",
+        "a154"
+      ],
+      "checkpoints": [
+        {
+          "evidence_annotation_ids": [
+            "a2",
+            "a4",
+            "a6"
+          ],
+          "concept": "Introduce established generative AI use and wonder how much the interlocutor uses it.",
+          "allowed_paraphrases": [
+            "Ask about the other person's extent of AI use."
+          ],
+          "must_preserve": [
+            "generative AI context",
+            "question"
+          ]
+        },
+        {
+          "evidence_annotation_ids": [
+            "a7",
+            "a8",
+            "a9",
+            "a10",
+            "a11",
+            "a12"
+          ],
+          "concept": "Contrast merely using AI with having it work on one's behalf; the speaker says even the first stage remains difficult.",
+          "allowed_paraphrases": [
+            "A video describes delegating work to AI as the new standard, while the speaker struggles even with ordinary use."
+          ],
+          "must_preserve": [
+            "reported video claim",
+            "two stages",
+            "self-deprecating difficulty"
+          ]
+        }
+      ],
+      "status": "materialized_candidate_not_accepted",
+      "acoustic_review": "pending; no listening or certified endpoints",
+      "selection_basis": "original human EAF semantics before any benchmark app results",
+      "playback_s16le_sha256": "ec3fb9a2be35e00bd44d8ff3acf12c0b5deecace5abc5f78ad20bb37fad10a11",
+      "reference_json_sha256": "4d2e8c3128a3ff4a0256eaab678e55832bbdf3ccbe40738bbdb6876665c8c491",
+      "playback_wav_sha256": "e29ccdd18e87c1d520eb458d7c709b7672cb9708b6be47def9b12c57d0acd176",
+      "boundary_shoulders_ms": [
+        250,
+        247
+      ],
+      "boundary_review_flags": [],
+      "duration_seconds": 60.062,
+      "duration_exception": null
+    },
+    {
+      "id": "ingcrowd-development-P1-01",
+      "kind": "P1",
+      "project_split": "development",
+      "dialogue": "10",
+      "source_samples": [
+        1324320,
+        1397440
+      ],
+      "source_milliseconds": [
+        82770,
+        87340
+      ],
+      "annotation_ids": [
+        "a41"
+      ],
+      "checkpoints": [
+        {
+          "evidence_annotation_ids": [
+            "a41"
+          ],
+          "concept": "Ask whether the other speaker can think of a reason for having that dream.",
+          "allowed_paraphrases": [
+            "Invite a possible explanation for the recurring dream."
+          ],
+          "must_preserve": [
+            "question",
+            "possible cause not asserted diagnosis"
+          ]
+        }
+      ],
+      "status": "materialized_candidate_not_accepted",
+      "acoustic_review": "pending; no listening or certified endpoints",
+      "selection_basis": "original human EAF semantics before any benchmark app results",
+      "playback_s16le_sha256": "0a755a62125f55a91378b7d4e23e60500b9b37ed5721a2b8e00138698e26bfa1",
+      "reference_json_sha256": "5620aef6525f668a09fc7a1a3cf42c5c6d5786a25ee3dfa78a699f00c421d29b",
+      "playback_wav_sha256": "7590b4181123ca8d6f96afefebbbdbf8ea70f7f14163213e31ce68a0d66274a4",
+      "boundary_shoulders_ms": [
+        250,
+        190
+      ],
+      "boundary_review_flags": [],
+      "duration_seconds": 4.57,
+      "duration_exception": null
+    },
+    {
+      "id": "ingcrowd-development-P2-01",
+      "kind": "P2",
+      "project_split": "development",
+      "dialogue": "10",
+      "source_samples": [
+        69920,
+        1323360
+      ],
+      "source_milliseconds": [
+        4370,
+        82710
+      ],
+      "annotation_ids": [
+        "a1",
+        "a22",
+        "a2",
+        "a23",
+        "a24",
+        "a3",
+        "a25",
+        "a26",
+        "a27",
+        "a4",
+        "a152",
+        "a28",
+        "a5",
+        "a29",
+        "a6",
+        "a30",
+        "a7",
+        "a153",
+        "a154",
+        "a31",
+        "a8",
+        "a32",
+        "a33",
+        "a9",
+        "a34",
+        "a10",
+        "a35",
+        "a11",
+        "a12",
+        "a155",
+        "a36",
+        "a37",
+        "a13",
+        "a38",
+        "a39",
+        "a40"
+      ],
+      "checkpoints": [
+        {
+          "evidence_annotation_ids": [
+            "a2",
+            "a3",
+            "a4",
+            "a5",
+            "a6"
+          ],
+          "concept": "Describe recurring university dreams at roughly the present or somewhat younger age and tentatively connect them to stress.",
+          "allowed_paraphrases": [
+            "The speaker has recently dreamed of university and only speculates about stress."
+          ],
+          "must_preserve": [
+            "recurring recent dream",
+            "age self-correction",
+            "speculation"
+          ]
+        },
+        {
+          "evidence_annotation_ids": [
+            "a7",
+            "a8",
+            "a9"
+          ],
+          "concept": "In the dream the speaker has graduate-school experience and is repeating an undergraduate degree, unlike real life.",
+          "allowed_paraphrases": [
+            "The dream invents a graduate degree and a return to undergraduate study."
+          ],
+          "must_preserve": [
+            "dream versus reality",
+            "not actual educational history"
+          ]
+        },
+        {
+          "evidence_annotation_ids": [
+            "a10",
+            "a12",
+            "a13"
+          ],
+          "concept": "Dream oversleeping and missed classes lead to worries about graduation and what academic history to use in job applications.",
+          "allowed_paraphrases": [
+            "They worry in the dream about not graduating or being able to apply for work."
+          ],
+          "must_preserve": [
+            "dream setting",
+            "causal sequence"
+          ]
+        }
+      ],
+      "status": "materialized_candidate_not_accepted",
+      "acoustic_review": "pending; no listening or certified endpoints",
+      "selection_basis": "original human EAF semantics before any benchmark app results",
+      "playback_s16le_sha256": "0d6c7c33dd4710179f9ac390c495b090d21ad47c1c52add562a109a4f8eaa514",
+      "reference_json_sha256": "bc7c54c181147cc06afaa90f080165eeae296f4291fd513258f28fcf35070126",
+      "playback_wav_sha256": "d628bb4d8809ea7fa742ce9286c1c7763b16d19f15655a7846cd2106a5668799",
+      "boundary_shoulders_ms": [
+        250,
+        250
+      ],
+      "boundary_review_flags": [],
+      "duration_seconds": 78.34,
+      "duration_exception": null
+    },
+    {
+      "id": "ingcrowd-development-P3-01",
+      "kind": "P3",
+      "project_split": "development",
+      "dialogue": "10",
+      "source_samples": [
+        3559040,
+        5339120
+      ],
+      "source_milliseconds": [
+        222440,
+        333695
+      ],
+      "annotation_ids": [
+        "a180",
+        "a64",
+        "a181",
+        "a65",
+        "a182",
+        "a66",
+        "a183",
+        "a184",
+        "a67",
+        "a68",
+        "a69",
+        "a185",
+        "a186",
+        "a70",
+        "a71",
+        "a187",
+        "a188",
+        "a72",
+        "a189",
+        "a190",
+        "a73",
+        "a74",
+        "a75",
+        "a191",
+        "a192",
+        "a193",
+        "a76",
+        "a77",
+        "a194",
+        "a78",
+        "a195",
+        "a79",
+        "a196",
+        "a197",
+        "a198",
+        "a199",
+        "a80",
+        "a81",
+        "a82",
+        "a200",
+        "a83",
+        "a201",
+        "a202",
+        "a84",
+        "a203"
+      ],
+      "checkpoints": [
+        {
+          "evidence_annotation_ids": [
+            "a181",
+            "a182",
+            "a183",
+            "a184",
+            "a185",
+            "a186"
+          ],
+          "concept": "Explain cattle-related farm duties including maintaining summer pasture and milking.",
+          "allowed_paraphrases": [
+            "Work includes pasture care and milking, not only watching animals."
+          ],
+          "must_preserve": [
+            "summer grazing",
+            "milking"
+          ]
+        },
+        {
+          "evidence_annotation_ids": [
+            "a187",
+            "a188",
+            "a190",
+            "a192",
+            "a193"
+          ],
+          "concept": "Cattle have differing milking needs; usually morning and evening, but some approach a dry period.",
+          "allowed_paraphrases": [
+            "Twice-daily milking is typical, with individual exceptions and reduced milk production."
+          ],
+          "must_preserve": [
+            "usually twice daily",
+            "individual variation",
+            "uncertain EAF span remains unresolved"
+          ]
+        },
+        {
+          "evidence_annotation_ids": [
+            "a194",
+            "a195",
+            "a199",
+            "a200",
+            "a202"
+          ],
+          "concept": "More knowledge would make work more interesting; the speaker wants deeper self-directed study, not necessarily university enrollment.",
+          "allowed_paraphrases": [
+            "They want to learn the specialist material without saying they will enroll in college."
+          ],
+          "must_preserve": [
+            "knowledge motivation",
+            "not committed to university"
+          ]
+        }
+      ],
+      "status": "materialized_candidate_not_accepted",
+      "acoustic_review": "pending; no listening or certified endpoints",
+      "selection_basis": "original human EAF semantics before any benchmark app results",
+      "playback_s16le_sha256": "11a5d47346ccbf39a1704237c924a7aa895b625481603feb0b9081223acc0ee7",
+      "reference_json_sha256": "531b5593ea44be11482da346da125cca35732138db7ae0e8e122c2ebbcfdd88a",
+      "playback_wav_sha256": "5714e962c0db87d265d4a41a232a3b83d14ad36f91eb09f5d3d2d13a6142d308",
+      "boundary_shoulders_ms": [
+        250,
+        145
+      ],
+      "boundary_review_flags": [],
+      "duration_seconds": 111.255,
+      "duration_exception": null
+    }
+  ]
+}

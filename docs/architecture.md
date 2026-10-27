@@ -20,6 +20,13 @@ The [maintained final benchmark plan](benchmark-final-plan.md), including the ow
 
 The public CLI retains `run`, `status`, `calibrate`, `playback`, `profiles`, and `costs`. Obsolete `metrics`, `metrics-batch`, `quality`, `prepare-english`, corpus builders and generated-pilot commands have no compatibility aliases.
 
+R2's standalone `tools/prepare_ascend.py`, `prepare_ingcrowd.py` and
+`prepare_read_controls.py` materialize pinned local candidates; they do not
+restore the old builders or add a corpus-freeze CLI. `corpus/r2/status.json`
+binds public-safe coverage and local source/review evidence. Candidate inputs
+are not accepted episode plans: original-dialogue, audible-reference,
+checkpoint and rights gates remain explicit. See the [corpus guide](corpus.md).
+
 ## Episode-native boundary
 
 One episode preserves source identity and role WAVs on the original common timeline. Physical input channels are distinct from logical A/B roles. VRCLT and Kikitan use two separately originated self passes for T1; the other families retain simultaneous peer/self. Mixed-family first passes within a wave share a scheduled execution round; exception B passes follow separately. Actual concurrency admission still requires runtime evidence.

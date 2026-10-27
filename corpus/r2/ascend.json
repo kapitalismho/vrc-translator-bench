@@ -1,0 +1,498 @@
+{
+  "schema_version": 1,
+  "id": "r2-ascend",
+  "status": "source_candidates_not_production_frozen",
+  "issue": "https://github.com/kapitalismho/vrc-translator-bench/issues/16",
+  "privacy": "Metadata only; all source transcripts, reference semantics instances, audio and ASR remain local under .data/r2/ascend. This inventory is not an executable benchmark plan.",
+  "dataset": "CAiRE/ASCEND",
+  "revision": "b966160952fc5fe9cb036f098dd44f135d5c6f20",
+  "revision_url": "https://huggingface.co/datasets/CAiRE/ASCEND/tree/b966160952fc5fe9cb036f098dd44f135d5c6f20",
+  "license": "CC-BY-SA-4.0",
+  "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "attribution": "ASCEND: A Spontaneous Chinese-English Dataset for Code-switching in Multi-turn Conversation (2022). CAiRE / HLTCHKUST. https://aclanthology.org/2022.lrec-1.788/ . No endorsement. Original audio/transcripts retain source attribution and BY-SA terms; not the repository code license.",
+  "rights_review": "CC BY-SA 4.0 grants commercial use, sharing and adaptation subject to attribution, retained notices, modification disclosure and compatible share-alike licensing for shared adaptations. No extra rights-holder permission letter is presumed necessary for license-covered public examples. Actual publication still requires owner authorization and a concrete privacy/personality review of the proposed excerpt; no specific conflict has been identified in this preparation. External-service compatibility is route-specific: inspect the chosen provider's terms and handling rather than imposing a blanket ban.",
+  "research_evidence": {
+    "path": ".data/r2/ascend/research-machine-evidence.json",
+    "origin": "artifact://66, complete UTF-8 JSON with one terminal LF",
+    "bytes": 1641843,
+    "sha256": "39a7d03158adfb2690b657fac14eaa0b58ad1da2a24df48e798ec55254c4ceae",
+    "json_without_terminal_lf_sha256": "3fc7f0f77ff46e76ac07b5a7033310567d8da30a0d96d193641e924157fbe978",
+    "original_findings_path": ".data/r2/ascend/research-findings.json",
+    "original_findings_sha256": "10e39059bdce1733e42c52d797ec8c0febb4171494390b052a5871038ec79d20"
+  },
+  "source_archive": {
+    "url": "https://huggingface.co/datasets/CAiRE/ASCEND/resolve/b966160952fc5fe9cb036f098dd44f135d5c6f20/waves.tar.bz2",
+    "bytes": 929707032,
+    "sha256": "b35cc295f1310535a8e250d534aee0adeb90bccbc027a442cdbef81146894529"
+  },
+  "source_metadata": {
+    "train_metadata.csv": {
+      "url": "https://huggingface.co/datasets/CAiRE/ASCEND/resolve/b966160952fc5fe9cb036f098dd44f135d5c6f20/train_metadata.csv",
+      "bytes": 1081181,
+      "sha256": "4cbdf90fe9bf53640bfc285e2539b468a6e412daeb17c36a1b5da478cd9f5b29"
+    },
+    "test_metadata.csv": {
+      "url": "https://huggingface.co/datasets/CAiRE/ASCEND/resolve/b966160952fc5fe9cb036f098dd44f135d5c6f20/test_metadata.csv",
+      "bytes": 127658,
+      "sha256": "15689bc1c1a0bc29b250f63221576392b627da9cc1d80e51bb1a422118b9732c"
+    },
+    "validation_metadata.csv": {
+      "url": "https://huggingface.co/datasets/CAiRE/ASCEND/resolve/b966160952fc5fe9cb036f098dd44f135d5c6f20/validation_metadata.csv",
+      "bytes": 118552,
+      "sha256": "6e53e362991b23ffa49ed991c6062a51d8f286747f341e566c897c02bee72459"
+    }
+  },
+  "ancillary_sha256": {
+    "archive-ASCEND.py": "3b6b4eec1e4085d7a559d0e1c1b5980920479849a9b981e9cc75e2368b7714fd",
+    "archive-dataset_infos.json": "166f548b901a57710164395d87227007c7251f4edb73080f993419bb5d223021",
+    "archive-README.md": "e54cb7507d1b05e127cd2d21f438ba774976f045be5a1ed13c21e2a30ab1afc8",
+    "archive-speakers.csv": "c2b35fdb008bdb575017c394f24a0d2665627834751aeae9685469679d442e59",
+    "2022.lrec-1.788.pdf": "6a8019c9aa0d6d5ce94e8742f5ba730b4711f70c582fb65e1c17f2b3d6476e69",
+    "paper-page3.png": "bc3c3f12e9415b2309da03d67156fb25ed33cfabad783ec6584adf9744e056e5"
+  },
+  "input_policy": "Whole original mono PCM16 WAV at 16000 Hz. No crop, concatenation, silence insertion, gain, normalization, resampling or time compression. File sample zero is local only; filename times are not a certified dialogue clock.",
+  "review_level": "Limited automatic actual-source review: all four P1 human references and semantic targets corroborated by corrected no-hints Qwen ASR; supplied-text endpoint proposals compared with actual waveform at declared 80ms timestamp granularity. No listening. SAPI mismatch and invalid initial Qwen observation retained. No exact phonetic endpoint, clean speaker-separation or T1 common-origin claim.",
+  "automatic_review": {
+    "status": "inconclusive_weak_independent_ASR_counterevidence",
+    "local_binding": ".data/r2/ascend/review/review-binding.json",
+    "local_report": ".data/r2/ascend/review/sapi-results.json",
+    "report_sha256": "940fd2ea4b1747e187c9dfda4be9d2d38cfcce3574b57c1081919dc3fc8b25cb",
+    "recognizer_id": "MS-1033-80-DESK",
+    "adaptation_on": 0,
+    "method": "File-only independent en-US dictation; no transcript or hotword hints, one synchronous recognition per source file. Inputs hashed before/after unchanged. No provider or benchmark-app calls.",
+    "result": "All four first recognitions substantially disagree with released text at low confidence (0.0113–0.1634). Does not establish reference accuracy and is not proof source transcripts are wrong. No audible acceptance or certified endpoint credit.",
+    "retained_failure": ".data/r2/ascend/review/attempt-1-failure.json",
+    "failure_scope": "Initial observation failed before recognition because Get-FileHash was unavailable; corrected procedure used .NET hashing. Failure retained, no source change."
+  },
+  "review_policy": "R2 does not impose a mandatory human-listening gate. Agreement among released human source text, actual waveform/source checks and independent no-hints ASR may support explicitly limited automatic review. No listening is a disclosure, not by itself a rejection. Hold unresolved content, leakage and endpoint claims on concrete evidence; forced alignment alone cannot independently verify text. The dialogue/common-origin T1 gate is unchanged.",
+  "stronger_automatic_review": {
+    "status": "limited_automatic_reference_semantics_supported_all_four_P1",
+    "local_binding": ".data/r2/ascend/review/qwen-review-binding.json",
+    "local_batch": ".data/r2/ascend/review/qwen-standalone-v2/batch.json",
+    "batch_sha256": "62079e46b95945bc4cf6d16e56e805ea373214e2d599710f44468f241a4c6b5d",
+    "model_revision": "928ab958557df9aa2ef1c93e0e83c7ad0933fae2",
+    "model_sha256": "bca259818b50ca7c4c05e9bdb35a5dc04fa039653a6d6f3f0f331f96f6aa1971",
+    "projector_sha256": "41a342b5e4c514e968cb756de6cd1b7be39eff43c44c57a2ef5fc6522e36603d",
+    "runtime_sha256": "5cdf4a59e03f3f3a187b45e00be8a0bcd28ece5f74c7a4f8473480028e5a3bf9",
+    "method": "Whole native files, gain 1, generic transcription instruction only, no language/reference/context hints. Fresh offline CPU process per file at 2 threads; no benchmark app/provider. All four actual audio encodings and generated transcriptions observed, exit 0, source hashes unchanged.",
+    "comparison": "Three normalized-exact full references; main3 differs only by a semantically preserving definite article. All required question/request concepts corroborated, no extra substantive text detected. Human source references are not replaced.",
+    "limits": "Automatic not human and not disjoint from evaluated Qwen family. Transcript agreement is not source separation, a guarantee of no quiet leakage or exact speech-end timing.",
+    "invalid_prior_attempt": ".data/r2/ascend/review/qwen-invalid-empty-prompt/observation-status.json",
+    "invalid_prior_reason": "Empty prompt selected interactive chat; stdin EOF caused exit 0 without audio inference. Retained as invalid, not source/model failure."
+  },
+  "endpoint_review": {
+    "status": "bounded_automatic_proposals_not_exact_phonetic_endpoints",
+    "local_binding": ".data/r2/ascend/review/endpoint-review.json",
+    "raw_alignment": ".data/r2/ascend/review/alignment-results.json",
+    "raw_alignment_sha256": "bcafd1be1c9798fac811883723a2be8d33cfa97de679b3b763c39fffcf0405d3",
+    "waveform_overview": ".data/r2/ascend/review/endpoint-waveform-overview.svg",
+    "waveform_overview_sha256": "705f3f434d8fb63d5e898db5caf19a18fce84f5090d434889d37859748693e8f",
+    "model": "Qwen/Qwen3-ForcedAligner-0.6B",
+    "revision": "c7cbfc2048c462b0d63a45797104fc9db3ad62b7",
+    "weights_sha256": "47831d0e82f96b20e9034dba01a075ee06436654719f6a68289e49f1b65ce0e7",
+    "timestamp_grid_ms": 80,
+    "interpolation": false,
+    "method": "Four original full-file PCM inputs and separately corroborated source references; raw word predictions, no repairs, gain/time edits or playback changes. Exit 0 at 2 CPU threads. Actual waveform compared in 5ms min/max display bins.",
+    "limits": "One-grid-bin neighborhoods are proposal/sensitivity regions, not calibrated error bounds. Main endpoints sit near terminal decay with low-energy tails; development endpoint is within 80ms of file edge with remaining terminal energy. File end, alignment end and uncertainty remain separate."
+  },
+  "split_reservations": {
+    "main_reserved_original_groups": [
+      [
+        13,
+        14
+      ],
+      [
+        1,
+        2,
+        21,
+        24
+      ],
+      [
+        7,
+        8
+      ]
+    ],
+    "development_reserved_original_groups": [
+      [
+        17,
+        18
+      ]
+    ],
+    "known_overlap": [],
+    "filename_original_aliases": {
+      "22": 1,
+      "23": 2,
+      "25": 9
+    },
+    "caution": "Conservative same-conversation pair reservations are not clock-map certification; unknown participation cannot be certified disjoint."
+  },
+  "candidates": [
+    {
+      "id": "ascend-p1-main-1",
+      "kind": "P1",
+      "project_split": "main",
+      "upstream_split": "train",
+      "upstream_id": "01254",
+      "natural_source_key": "CAiRE/ASCEND@b966160952fc5fe9cb036f098dd44f135d5c6f20/train/01254",
+      "archive_member": "waves/ses1_spk13_L3106_319.1700_1.2700.wav",
+      "original_speaker_id": 13,
+      "filename_speaker": 13,
+      "session_id": 1,
+      "filename_part": null,
+      "annotation_L": 3106,
+      "nominal_filename_start_seconds_not_verified_common_clock": 319.17,
+      "reserved_original_speakers": [
+        13,
+        14
+      ],
+      "source_frames": 20320,
+      "source_sample_rate": 16000,
+      "source_wav_sha256": "0e85749099ea7615bb824b2d56c150266f2b11b6a4735755147a9b8d40687476",
+      "decoded_pcm16le_sha256": "7cf00ee66cdc9fff62360cd56838e95ea42a637d617f415d823eac3a7d36babc",
+      "reference_utf8_sha256": "a115a61271f196eede04a4ff82d80a0172bf45c74533f936f9e6a79ada822968",
+      "direction": "en-to-zh",
+      "logical_role": "A",
+      "translation_scope": "All released English meaning in this whole source file. No released Chinese context for this candidate; audible incidental content is not certified absent.",
+      "checkpoint_candidate": {
+        "required_concepts": [
+          "question addressed to listener",
+          "food preference",
+          "strongest or favorite preference"
+        ],
+        "allowed_paraphrase_concepts": [
+          "which food is liked best",
+          "favorite dish or food"
+        ],
+        "reject_concepts": [
+          "invented specific food",
+          "asking only what was eaten"
+        ],
+        "certified_evidence_end_sample": null,
+        "evidence_end_sample_proposal": 16640,
+        "timestamp_grid_ms": 80,
+        "proposal_window_samples_not_error_bound": [15360, 17920],
+        "file_end_sample_not_speech_endpoint": 20320,
+        "observation_offsets_seconds_after_reviewed_evidence_end": [
+          0,
+          2,
+          5,
+          10,
+          15
+        ]
+      },
+      "status": "materialized_automatic_reference_supported_bounded_endpoint_candidate"
+    },
+    {
+      "id": "ascend-p1-main-2",
+      "kind": "P1",
+      "project_split": "main",
+      "upstream_split": "train",
+      "upstream_id": "00412",
+      "natural_source_key": "CAiRE/ASCEND@b966160952fc5fe9cb036f098dd44f135d5c6f20/train/00412",
+      "archive_member": "waves/ses2_spk21_L839_703.500_4.560.wav",
+      "original_speaker_id": 21,
+      "filename_speaker": 21,
+      "session_id": 2,
+      "filename_part": null,
+      "annotation_L": 839,
+      "nominal_filename_start_seconds_not_verified_common_clock": 703.5,
+      "reserved_original_speakers": [
+        1,
+        2,
+        21,
+        24
+      ],
+      "source_frames": 72960,
+      "source_sample_rate": 16000,
+      "source_wav_sha256": "26692ec215949798fd81b2bc68d25034c3732e21ef9794354069e28d9c1faa45",
+      "decoded_pcm16le_sha256": "bb1afc7b3beaafb466598ce1cdef95ad0942f8a3f791bbeafed47777a37b73ce",
+      "reference_utf8_sha256": "d2fda50f3abbc405c62e50a5c563a57874522151c0e8cb1b46829a339b3feea4",
+      "direction": "en-to-zh",
+      "logical_role": "A",
+      "translation_scope": "All released English meaning in this whole source file. No released Chinese context for this candidate; audible incidental content is not certified absent.",
+      "checkpoint_candidate": {
+        "required_concepts": [
+          "request addressed to listener",
+          "describe own university experience"
+        ],
+        "allowed_paraphrase_concepts": [
+          "talk about personal college experience",
+          "share experience at university"
+        ],
+        "reject_concepts": [
+          "only introducing the institution",
+          "invented degree or campus facts"
+        ],
+        "certified_evidence_end_sample": null,
+        "evidence_end_sample_proposal": 69120,
+        "timestamp_grid_ms": 80,
+        "proposal_window_samples_not_error_bound": [67840, 70400],
+        "file_end_sample_not_speech_endpoint": 72960,
+        "observation_offsets_seconds_after_reviewed_evidence_end": [
+          0,
+          2,
+          5,
+          10,
+          15
+        ]
+      },
+      "status": "materialized_automatic_reference_supported_bounded_endpoint_candidate"
+    },
+    {
+      "id": "ascend-p1-main-3",
+      "kind": "P1",
+      "project_split": "main",
+      "upstream_split": "train",
+      "upstream_id": "07714",
+      "natural_source_key": "CAiRE/ASCEND@b966160952fc5fe9cb036f098dd44f135d5c6f20/train/07714",
+      "archive_member": "waves/ses3_spk8_1_L19728_126.940_1.820.wav",
+      "original_speaker_id": 8,
+      "filename_speaker": 8,
+      "session_id": 3,
+      "filename_part": "1",
+      "annotation_L": 19728,
+      "nominal_filename_start_seconds_not_verified_common_clock": 126.94,
+      "reserved_original_speakers": [
+        7,
+        8
+      ],
+      "source_frames": 29120,
+      "source_sample_rate": 16000,
+      "source_wav_sha256": "b6b30bb3577dcbf4a0ea19f60cc15670345ae43b2ee67ea5f6d94554b06cf2b4",
+      "decoded_pcm16le_sha256": "87c2dcd3b28e3bf5921a933a294d3a15b83fbee77e88bbc32c06ebb2744fe1d5",
+      "reference_utf8_sha256": "59e0d683d1d21dc4241b9c74715fd44865eb29d54bd462e07ae63fc987d1c637",
+      "direction": "en-to-zh",
+      "logical_role": "A",
+      "translation_scope": "All released English meaning in this whole source file. No released Chinese context for this candidate; audible incidental content is not certified absent.",
+      "checkpoint_candidate": {
+        "required_concepts": [
+          "question addressed to listener",
+          "future plans"
+        ],
+        "allowed_paraphrase_concepts": [
+          "plans for the future",
+          "what the listener intends to do later"
+        ],
+        "reject_concepts": [
+          "invented career or destination",
+          "past plans instead of future"
+        ],
+        "certified_evidence_end_sample": null,
+        "evidence_end_sample_proposal": 25600,
+        "timestamp_grid_ms": 80,
+        "proposal_window_samples_not_error_bound": [24320, 26880],
+        "file_end_sample_not_speech_endpoint": 29120,
+        "observation_offsets_seconds_after_reviewed_evidence_end": [
+          0,
+          2,
+          5,
+          10,
+          15
+        ]
+      },
+      "status": "materialized_automatic_reference_supported_bounded_endpoint_candidate"
+    },
+    {
+      "id": "ascend-p1-development-1",
+      "kind": "P1",
+      "project_split": "development",
+      "upstream_split": "test",
+      "upstream_id": "00002",
+      "natural_source_key": "CAiRE/ASCEND@b966160952fc5fe9cb036f098dd44f135d5c6f20/test/00002",
+      "archive_member": "waves/ses1_spk17_L3825_16.5740_2.8760.wav",
+      "original_speaker_id": 17,
+      "filename_speaker": 17,
+      "session_id": 1,
+      "filename_part": null,
+      "annotation_L": 3825,
+      "nominal_filename_start_seconds_not_verified_common_clock": 16.574,
+      "reserved_original_speakers": [
+        17,
+        18
+      ],
+      "source_frames": 46016,
+      "source_sample_rate": 16000,
+      "source_wav_sha256": "6bf1b9dc6c22c10920e94923b4052fca98e9733a3e322569ad950aba258595bd",
+      "decoded_pcm16le_sha256": "197e53e573a43f099ad73ceffef82056dca0b4bfb0c0cb7d631ae33c6bd07fba",
+      "reference_utf8_sha256": "99cc4517ffedc41a35da54d4a7d99e27143ef42cdfd7b5ed3a35f2508e206f43",
+      "direction": "en-to-zh",
+      "logical_role": "A",
+      "translation_scope": "All released English meaning in this whole source file. No released Chinese context for this candidate; audible incidental content is not certified absent.",
+      "checkpoint_candidate": {
+        "required_concepts": [
+          "question addressed to listener",
+          "academic major",
+          "hobbies"
+        ],
+        "allowed_paraphrase_concepts": [
+          "field of study",
+          "leisure interests"
+        ],
+        "reject_concepts": [
+          "dropping either requested item",
+          "major interpreted as military rank"
+        ],
+        "certified_evidence_end_sample": null,
+        "evidence_end_sample_proposal": 44800,
+        "timestamp_grid_ms": 80,
+        "proposal_window_samples_not_error_bound": [43520, 46016],
+        "boundary_limit": "Terminal energy reaches close to the file edge; exact final-consonant completion/truncation is not certified by alignment.",
+        "file_end_sample_not_speech_endpoint": 46016,
+        "observation_offsets_seconds_after_reviewed_evidence_end": [
+          0,
+          2,
+          5,
+          10,
+          15
+        ]
+      },
+      "status": "materialized_automatic_reference_supported_boundary_adjacent_endpoint_candidate"
+    }
+  ],
+  "unclassified_candidates": [
+    {
+      "id": "ascend-unclassified-train-06250",
+      "upstream_split": "train",
+      "upstream_id": "06250",
+      "archive_member": "waves/ses3_spk15_L15926_153.580_9.560.wav",
+      "source_frames": 152960,
+      "source_sample_rate": 16000,
+      "original_speaker_id": 15,
+      "reserved_original_speakers": [
+        15,
+        16
+      ],
+      "source_wav_sha256": "abe144e3e5ae806b2f5a8e0ba9ff39405ad10041f4c245497d3e4fde2d40c8aa",
+      "decoded_pcm16le_sha256": "69f6c0be33ab3b44898b2d8b783a74e86600b22f5f0457de0f34a8ac63afd14e",
+      "reference_utf8_sha256": "697553f04b3fd764b4b86f16d5f6d24880ecb9ba2209a72f7d8333357fcc6e6e",
+      "status": "unclassified_no_count_credit",
+      "classification": "Compact explanation not established as sustained P3"
+    },
+    {
+      "id": "ascend-unclassified-train-06251",
+      "upstream_split": "train",
+      "upstream_id": "06251",
+      "archive_member": "waves/ses3_spk15_L15928_163.740_10.440.wav",
+      "source_frames": 167040,
+      "source_sample_rate": 16000,
+      "original_speaker_id": 15,
+      "reserved_original_speakers": [
+        15,
+        16
+      ],
+      "source_wav_sha256": "0beeff0df23701f3c247feb165ef0dbc5737a47cbceb7aa802d75b8d293e50ff",
+      "decoded_pcm16le_sha256": "ec2a44193a9e9144e33ccec9740e425dde22c59eee73b364a749e3865daca925",
+      "reference_utf8_sha256": "8d2ff3d6442453a5328a7728becf8194699d0f7766b36f647a170cf7f464f583",
+      "status": "unclassified_no_count_credit",
+      "classification": "Compact explanation not established as sustained P3"
+    },
+    {
+      "id": "ascend-unclassified-train-06778",
+      "upstream_split": "train",
+      "upstream_id": "06778",
+      "archive_member": "waves/ses3_spk19_L17591_736.100_13.030.wav",
+      "source_frames": 208483,
+      "source_sample_rate": 16000,
+      "original_speaker_id": 19,
+      "reserved_original_speakers": [
+        19,
+        20
+      ],
+      "source_wav_sha256": "e7997a45d217312cf692254f9fee9af52e8d2deebcfcf873b7a51e7f42aa348b",
+      "decoded_pcm16le_sha256": "bbb5260b6063c9f6b63615c3672bc7beab1334af421e5e2d2840dd3d1fe00a5a",
+      "reference_utf8_sha256": "e199ababff96a89d1a5a1d5f0582bd2ef7ba0fa4cf903a6acd43e08e54657baa",
+      "status": "unclassified_no_count_credit",
+      "classification": "Context-dependent mixed-language explanation; not an isolated self-contained P3"
+    }
+  ],
+  "cell_accounting": {
+    "P1": {
+      "required_main": 3,
+      "required_development": 1,
+      "materialized_candidates_main": 3,
+      "materialized_candidates_development": 1,
+      "accepted_main": 0,
+      "accepted_development": 0
+    },
+    "P2": {
+      "required_main": 9,
+      "required_development": 1,
+      "accepted_main": 0,
+      "accepted_development": 0,
+      "unmet_main": 9,
+      "unmet_development": 1
+    },
+    "P3": {
+      "required_main": 6,
+      "required_development": 1,
+      "accepted_main": 0,
+      "accepted_development": 0,
+      "unmet_main": 6,
+      "unmet_development": 1
+    },
+    "T1": {
+      "required_main": 9,
+      "required_development": 4,
+      "accepted_main": 0,
+      "accepted_development": 0,
+      "unmet_main": 9,
+      "unmet_development": 4,
+      "accepted_parent_ids": []
+    }
+  },
+  "blocker_evidence": {
+    "missing_clock_and_origin": "Inspected release has no verified dialogue/recording map, recorder offsets/drift, reset semantics or shared origin. Semantic adjacency and both microphone sides are positive candidate evidence, not a synchronization certificate.",
+    "missing_intervening_audio": "Complete original archive has 12314 utterance WAVs and 8 small code/metadata files, not the 98 unsegmented recordings described in paper §§3.1–3.2, raw annotations or clock logs. Paper postprocessing excludes all-[UNK] utterances: omitted intervals are not proven silent. No clips have been stitched and no silences invented.",
+    "recycled_session_ids": {
+      "observed_values": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "meaning": "Not unique dialogues; split-local IDs and session_id alone are not join keys."
+    },
+    "recurrent_speakers": {
+      "filename_to_original": {
+        "22": 1,
+        "23": 2,
+        "25": 9
+      },
+      "meaning": "Reserve connected groups across original people, all case types and derivatives, not merely filenames/upstream splits."
+    },
+    "concrete_same_stem_timestamp_reset": {
+      "earlier": {
+        "upstream_split": "train",
+        "id": "05999",
+        "filename": "ses3_spk13_2_L15412_221.2600_4.2400.wav",
+        "nominal_start_seconds": 221.26
+      },
+      "later": {
+        "upstream_split": "train",
+        "id": "06001",
+        "filename": "ses3_spk13_2_L15419_3.1500_3.7000.wav",
+        "nominal_start_seconds": 3.15
+      },
+      "interpretation": "Observed reset within same stem; [INFERENCE] recording-part reset or naming issue requires authoritative source mapping, not sorting/stitching."
+    },
+    "sample_clock": {
+      "wav_headers_inspected": 12314,
+      "printed_duration_discrepancies_over_one_sample": 1553,
+      "use": "Actual frame counts, not rounded duration text, govern candidate intervals."
+    },
+    "P2": "9 main + 1 development remain unmet without original-order/clock/intervening-sound evidence.",
+    "P3": "6 main + 1 development remain unmet; 10.44-second train/06251 is an unclassified compact explanatory candidate, not forced P3 credit. No invented minimum duration threshold.",
+    "T1": "No parent accepted: exactly 9 main + 4 development remain unmet. Do not start dependent JA/KO production T1 or substitute EN/ZH TTS, shrink cells or redistribute weights."
+  },
+  "public_example_selection": {
+    "candidate_id": "ascend-p1-main-1",
+    "status": "license_eligible_preselected_before_app_results_owner_publication_not_authorized",
+    "reason": "Shortest standalone P1 question in three-group proposal; no transcript/audio is published here. CC BY-SA supports license-covered sharing with its conditions; assess the actual proposed excerpt for concrete privacy/personality issues and obtain owner publication authorization, not an assumed extra rights-holder letter."
+  },
+  "freeze_gates": [
+    "P1 references and semantic targets have limited automatic corroboration, not a human-only gate. Before freeze, select and disclose checkpoint anchor/80ms granularity and development boundary-adjacent uncertainty; retain observed mono/quiet-leakage limits rather than claiming separated clean audio or precise phonetic proof.",
+    "Original dialogue/clock and actual intervening audio evidence for linked P2/P3/T1, with fixed-role substantive translation targets for both T1 sides.",
+    "Exact fixed cells, nonoverlapping source intervals and connected-speaker development exclusion across all types/derivatives. Apply declared license conditions, chosen provider route terms, owner publication authorization and concrete privacy/personality review without assuming extra rights-holder permission for license-covered sharing.",
+    "No final issue completion or app-runtime admission claimed by source materialization."
+  ]
+}

@@ -1,0 +1,302 @@
+{
+  "schema_version": 1,
+  "id": "r2-read-controls",
+  "status": "preselected_preparation_not_production_frozen",
+  "privacy": "Metadata only. Source text, generated references, model outputs and all audio remain ignored local artifacts. No publication grant is implied.",
+  "issue": "https://github.com/kapitalismho/vrc-translator-bench/issues/16",
+  "fleurs": {
+    "dataset": "google/fleurs",
+    "revision": "70bb2e84b976b7e960aa89f1c648e09c59f894dd",
+    "revision_url": "https://huggingface.co/datasets/google/fleurs/tree/70bb2e84b976b7e960aa89f1c648e09c59f894dd",
+    "license": "CC-BY-4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "attribution": "Alexis Conneau, Min Ma, Simran Khanuja, Yu Zhang, Vera Axelrod, Siddharth Dalmia, Jason Riesa, Clara Rivera and Ankur Bapna (2022), FLEURS: Few-shot Learning Evaluation of Universal Representations of Speech. https://arxiv.org/abs/2205.12446. No endorsement implied; retain CC-BY-4.0 notices and identify transformations.",
+    "card_sha256": "688f79f2a5c731af3796e9f683eb02f9b3f09d040decd8c5625d0f37098e71c6",
+    "source_sample_rate": 16000,
+    "source_format": "mono pcm_f32le",
+    "archive_hash_evidence": "Original source investigation streamed entire archives and matched the LFS OIDs; this offline materializer reuses selected source WAVs and TSVs and does not reacquire archives.",
+    "archives": [
+      {
+        "language": "en_us",
+        "split": "test",
+        "sha256": "d9c2e37b41aacd41bc283554a0a82b5476b36887049774ecb2819dcaaa55a356"
+      },
+      {
+        "language": "ja_jp",
+        "split": "test",
+        "sha256": "5de465fa7aaafc4e2c13aba44771550b8cd2dd29bb9b265daeb6d92ca8e0c136"
+      },
+      {
+        "language": "en_us",
+        "split": "train",
+        "sha256": "5f4491948c2bd29ac00f4b8afae2378f0a1dcdde4041b5cd284a80dff01fa9f5"
+      },
+      {
+        "language": "ja_jp",
+        "split": "train",
+        "sha256": "9a67e38bff0077e74dded7c7b735f7958f1d1d2075e330e62f95c9e18deb30a7"
+      }
+    ],
+    "split_tsv_sha256": {
+      "en_us-train": "3ccfc83672cc03a835143e325abb38b4163e3a21725bc1a7d1165bc309b95852",
+      "en_us-dev": "9d57ee7e91e9d4c92edb39f6bbea668ef8dc2a3ff96eb510d5580b2ad05d17ec",
+      "en_us-test": "74c046239374deeb60fa63f258f907388093a32bcaa3140965f70ef05c79f7ca",
+      "ja_jp-train": "728ddfac77544b63692c9b3f39b998b9604822832b2cf733a2620ae1da1aa227",
+      "ja_jp-dev": "92beded0999347ad5b8599fe70940e2e7b9232c67c426defb258e596ade94f48",
+      "ja_jp-test": "5dd9643511437414681ad3f23508596c621cdf78978724a09f1f06fefe9d300b"
+    },
+    "grouping": "Join by integer sentence ID, never row order. All takes/languages of one sentence share one original-text dependence group. Main upstream test IDs 1980/1914/1771; project development upstream train ID 151. Stable per-speaker IDs are unavailable; no independent-main-speaker or unseen-training-data claim.",
+    "playback_policy": "Full source timeline, no crop, added silence, gain, normalization or time compression. Explicit FFmpeg conversion to mono 48kHz PCM16; source N frames map to exactly 3N playback frames. These are playback candidates, not runtime admission.",
+    "roles": {
+      "logical_role": "A",
+      "directions": {
+        "en_us": "en-zh",
+        "ja_jp": "ja-ko"
+      },
+      "ordinary_channel": "peer; approved VRCLT/Kikitan exception self"
+    },
+    "candidates": [
+      {
+        "id": "p4-en-1980",
+        "language": "en_us",
+        "project_split": "main",
+        "upstream_split": "test",
+        "sentence_id": 1980,
+        "dependence_group": "fleurs:70bb2e84b976b7e960aa89f1c648e09c59f894dd:sentence:1980",
+        "filename": "12741024238657315067.wav",
+        "source_frames": 202240,
+        "source_wav_sha256": "3e76cc5728bfd7c24f1039b5c9a47e8d79c7f225605862e977833a4f79249bff",
+        "decoded_f32le_sha256": "6fabcdd61b4ba425455095c468f543732a1d9cb764d20f8e35aeb69b84af9e05",
+        "playback_s16le_sha256": "c61297a19a8dd0c1cbbbfac25b12aadae7ae078150915659d25ec06a10f30040",
+        "raw_text_utf8_sha256": "41ae4cd4035e2f9201c9df44bc2bde58aff854302ff67f2fb1a403e367343f2c"
+      },
+      {
+        "id": "p4-ja-1980",
+        "language": "ja_jp",
+        "project_split": "main",
+        "upstream_split": "test",
+        "sentence_id": 1980,
+        "dependence_group": "fleurs:70bb2e84b976b7e960aa89f1c648e09c59f894dd:sentence:1980",
+        "filename": "13792578466787777450.wav",
+        "source_frames": 200640,
+        "source_wav_sha256": "5815726fc021d9289be3b01bdec7c54c3adc516d562a48a84890df19817793ae",
+        "decoded_f32le_sha256": "6b8a47f1892aba653e24fc278567b7aa38d15bacad158bba33b7f79a23bbbeac",
+        "playback_s16le_sha256": "a615cf1bbd058ca8226fa7d316e14005499607d650fffb26c46d52fa256d15c2",
+        "raw_text_utf8_sha256": "dae3e4ec153a6346e0c4f16be254e0374331adedaf31ae98ea9dca7dfdc37f66"
+      },
+      {
+        "id": "p4-en-1914",
+        "language": "en_us",
+        "project_split": "main",
+        "upstream_split": "test",
+        "sentence_id": 1914,
+        "dependence_group": "fleurs:70bb2e84b976b7e960aa89f1c648e09c59f894dd:sentence:1914",
+        "filename": "621925716775998155.wav",
+        "source_frames": 94080,
+        "source_wav_sha256": "cf4c405546467f94f1589e574bec7c07cfe2a709bdc40b65660ed24f74d13d60",
+        "decoded_f32le_sha256": "5666c569fbad40208b387286b812cfc2161f604532023dabd30fc9adad79db1c",
+        "playback_s16le_sha256": "df2ee6706ee9a647c98ed299b6f7708e5fca4afac67354e8249309bdac5c5665",
+        "raw_text_utf8_sha256": "4c2ed6b3f083afe8cf22baef2ee0ec56364a40531ebe7b700c0ea574b82ac9df"
+      },
+      {
+        "id": "p4-ja-1914",
+        "language": "ja_jp",
+        "project_split": "main",
+        "upstream_split": "test",
+        "sentence_id": 1914,
+        "dependence_group": "fleurs:70bb2e84b976b7e960aa89f1c648e09c59f894dd:sentence:1914",
+        "filename": "17855816070741310110.wav",
+        "source_frames": 240000,
+        "source_wav_sha256": "aea37bbc423338aafb7d9f1d0146a9d8e86887c81095858e9c04cf79ad9b8c8f",
+        "decoded_f32le_sha256": "8a558bf8e869478f23193a0ca2b292a19777a15b1727970936393ef0fe3e27ee",
+        "playback_s16le_sha256": "e1e3417ef4039391602829da3e17aa8f9e1246eb51e68758107de0bafae17f69",
+        "raw_text_utf8_sha256": "2bfa43fb9801b44e470c2d27f3964e018812a3b8cdb1d0c66adb5bfcf57a6a66"
+      },
+      {
+        "id": "p4-en-1771",
+        "language": "en_us",
+        "project_split": "main",
+        "upstream_split": "test",
+        "sentence_id": 1771,
+        "dependence_group": "fleurs:70bb2e84b976b7e960aa89f1c648e09c59f894dd:sentence:1771",
+        "filename": "2589557553267364799.wav",
+        "source_frames": 143040,
+        "source_wav_sha256": "5db6068216c1f013f1fda5068e1f3b4e326a533bb361682ef05795f35549aa4f",
+        "decoded_f32le_sha256": "38de8f903cb570901713004a2129ddfe93bcf9ae15b5c57f51dad1548e19de3d",
+        "playback_s16le_sha256": "3456ef43e2dc06908e32f081e6bfa13f36df6f16c610254f0b3929c432a91812",
+        "raw_text_utf8_sha256": "6586cf6b9b89200ab1c71ae064c2320e2266a21a5e07c838053fa42225feeeaa"
+      },
+      {
+        "id": "p4-ja-1771",
+        "language": "ja_jp",
+        "project_split": "main",
+        "upstream_split": "test",
+        "sentence_id": 1771,
+        "dependence_group": "fleurs:70bb2e84b976b7e960aa89f1c648e09c59f894dd:sentence:1771",
+        "filename": "10228875750894489453.wav",
+        "source_frames": 207360,
+        "source_wav_sha256": "f8ab164f389ee30d0c9694ce9b6fab387354503971262f5cc4a1b31c309e7b93",
+        "decoded_f32le_sha256": "006e94d4d857145a1f7f258750273776a23a47a817ac0de9fe84cc4bb79f1c53",
+        "playback_s16le_sha256": "35bab35fc725cc7639819dfceb794ecced10d72ccbcfac59dee18644a5d88a29",
+        "raw_text_utf8_sha256": "040e5c2de1b68bcc0e5526cea46ba5c40eca36b6e06d2d6cc88f34c136e0979f"
+      },
+      {
+        "id": "p4-en-151",
+        "language": "en_us",
+        "project_split": "development",
+        "upstream_split": "train",
+        "sentence_id": 151,
+        "dependence_group": "fleurs:70bb2e84b976b7e960aa89f1c648e09c59f894dd:sentence:151",
+        "filename": "11559549184357409250.wav",
+        "source_frames": 120000,
+        "source_wav_sha256": "c4902534fff0fda96f0bf08d8cb3535951dbd7d061832118f7f5f67607839fd6",
+        "decoded_f32le_sha256": "8852213825df8c4d4380e7ece1eb12c0a57b2d8c51844b9e38ab85e8daf4ffa0",
+        "playback_s16le_sha256": "3199a0f2dc5f77deb7e86c102d3a5aaa0f799f3b2a9c4b11e3090776e33158ca",
+        "raw_text_utf8_sha256": "cd9afea7d8d63ee0967f490e6fe0ec2b6e610f6f122285fd4c09428fd592e9bd"
+      },
+      {
+        "id": "p4-ja-151",
+        "language": "ja_jp",
+        "project_split": "development",
+        "upstream_split": "train",
+        "sentence_id": 151,
+        "dependence_group": "fleurs:70bb2e84b976b7e960aa89f1c648e09c59f894dd:sentence:151",
+        "filename": "9899709070254230102.wav",
+        "source_frames": 176640,
+        "source_wav_sha256": "0f4fce5536147d14cab26dcebc9711317cdeb86cdea53a09189616fc21a35284",
+        "decoded_f32le_sha256": "d99656ad0131e8d40dced689b7ceb659ef455710f2c25eb1ebc8cf9c84df2e56",
+        "playback_s16le_sha256": "1852c87b73d2e531f86840d329f81cc3aac4da25d41cb64ade5da56282632353",
+        "raw_text_utf8_sha256": "1f138368413ccb7e6bb4823478ababa22d05ff2eef3ff7de8ea458bb8c13a860"
+      }
+    ]
+  },
+  "public_example_preselection": {
+    "selection_basis": "Before app benchmark results and before this preparation/review. No benchmark-app output was inspected. Candidate choice is not an actual publication grant.",
+    "candidate_ids": [
+      "p4-en-1980",
+      "p4-ja-1980",
+      "c1-zero-60",
+      "c1-nonverbal-60"
+    ],
+    "license_eligibility": "FLEURS attributed CC-BY-4.0; keyboard CC0; coin/snaps Public Domain declarations. Subject to project authorization and review.",
+    "publication_granted": false
+  },
+  "c1": {
+    "historical_parent_sha256": "30ec4d85eb94484523718f8d9518a287297166bef1da932fc11b3cc6957d6649",
+    "historical_parent_pcm_sha256": "93f520840e10174cac80d60453ff7aa81d1eaae03026440569cfe2c026a27411",
+    "sample_rate": 48000,
+    "channels": 1,
+    "sample_width": 2,
+    "parent_frames": 8640000,
+    "excluded_parent_samples": [
+      5760000,
+      8640000
+    ],
+    "exclusion_reason": "AMI human speech in last minute is not C1. Historical corpus and parent bytes remain unchanged.",
+    "quality_credit": null,
+    "meaning_wait_credit": null,
+    "quiet_precondition": "Runtime must establish previous output cleared/quiet. Corpus preparation does not establish this.",
+    "candidates": [
+      {
+        "id": "c1-zero-60",
+        "parent_samples": [
+          0,
+          2880000
+        ],
+        "expected_pcm_sha256": "c0e5fc1ce8c727d3e75fa229cdb40a4f971cf6a8dea9ba552ec8f3d3b81d8082",
+        "suitability": "exact-digital-zero byte evidence, no acoustic/hardware quiet claim"
+      },
+      {
+        "id": "c1-nonverbal-60",
+        "parent_samples": [
+          2880000,
+          5760000
+        ],
+        "suitability": "recorded keyboard/coin/snaps with original gaps; incidental speech not certified absent"
+      }
+    ],
+    "source_to_parent": [
+      {
+        "source_id": "keyboard",
+        "source_seconds": [10, 40],
+        "parent_samples": [2880000, 4320000],
+        "historical_gain_linear": 0.37823838635756774,
+        "parent_pcm_sha256": "ff7b1815f30bab3dc2710838540e32a45d404d42bacdf5e627cbfbc2daa4c75f"
+      },
+      {
+        "source_id": "coin",
+        "source_seconds": [0, 3.2391875],
+        "parent_samples": [4320000, 4475481],
+        "historical_gain_linear": 0.44154379641190084,
+        "parent_pcm_sha256": "e6f8b84b4a3110c5dbc093d49bf97ce27e19f949b8dc3c11b566a3142d66ab31"
+      },
+      {
+        "source_id": "snap",
+        "source_seconds": [0, 3.0040625],
+        "parent_samples": [4800000, 4944195],
+        "historical_gain_linear": 0.500015259254738,
+        "parent_pcm_sha256": "44e140b89047adc64e344f71c95f94ff4a065f8400819fc03cbc8df2997d8f80"
+      }
+    ],
+    "historical_transformation": "Existing crop, mono downmix, 48kHz resampling and constant gain preserved as bytes, not regenerated. New control crops add no gain or conversion.",
+    "exact_zero_parent_gaps": [[4475481, 4800000], [4944195, 5760000]],
+    "sources": [
+      {
+        "id": "keyboard",
+        "filename": "keyboard.mp3",
+        "creator": "yottasounds",
+        "license": "CC0-1.0",
+        "source_page": "https://freesound.org/people/yottasounds/sounds/380135/",
+        "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "sha256": "060cbad136d2b64525c0483d374b5133792f668449bed3f939c083020be6ec65"
+      },
+      {
+        "id": "coin",
+        "filename": "noise-sound-bible-0017.wav",
+        "creator": "Willem Hunt",
+        "license": "Public Domain",
+        "source_page": "https://soundbible.com/2081-Coin-Drop.html",
+        "sha256": "1dda7a8cf3a52004921fa7cce6bc06b400f9e85116adfaa9692b746dab47455b"
+      },
+      {
+        "id": "snap",
+        "filename": "noise-sound-bible-0029.wav",
+        "creator": "Maddie Fix",
+        "license": "Public Domain",
+        "source_page": "https://soundbible.com/1978-Finger-Snapping.html",
+        "sha256": "277b7127e277f4965a3069ce309354ad2c2322e3b6dc6d3cae443f988de22d38"
+      }
+    ]
+  },
+  "automatic_review": {
+    "status": "completed_with_specific_holds",
+    "review_level": "automatic_not_human",
+    "human_only_gate": false,
+    "source_only_asr": "Actual offline standalone Qwen3-ASR0.6B Q8_0, plus Reazon Japanese and weak Windows en-US SAPI",
+    "model_family_disjoint_from_evaluated_apps": false,
+    "accepted_preparation_ids": ["p4-en-1980", "p4-en-1771", "p4-ja-1771", "p4-en-151"],
+    "held": [
+      {"id": "p4-en-1914", "reason": "Content corroborated, but native/gain supplied-text end proposals differ by 320ms; quiet source retained unchanged"},
+      {"id": "p4-ja-1980", "reason": "Two no-hints ASRs disagree with supplied reference in the driver word"},
+      {"id": "p4-ja-1914", "reason": "165 full-scale source samples and unresolved lexical/acoustic detail"},
+      {"id": "p4-ja-151", "reason": "Two no-hints ASRs disagree with supplied reference in the named group"}
+    ],
+    "production_frozen": false,
+    "evidence_path": ".data/r2/read-controls/review/source-review.json",
+    "evidence_sha256": "f8249f707f0840016994fcdd90296a39d11006730d223423f2ab49635ce91efc",
+    "materialization_snapshot_notice": "prepared-v2/provenance/catalogue.json is the exact acquisition/materialization catalogue snapshot before this review addendum. All selected source/reference/decoded/playback bytes remain unchanged."
+  },
+  "local_artifacts": {
+    "materialization": ".data/r2/read-controls/prepared-v2/materialization.json",
+    "review": ".data/r2/read-controls/review/review-summary.json",
+    "reviewed_semantics": ".data/r2/read-controls/review/semantic-references-reviewed.json"
+  },
+  "freeze_gates": [
+    "Actual audible-reference/content and endpoint review; automatic review must be labeled not human",
+    "Resolve the four explicitly held content/acoustic/endpoint cases; retain declared quiet-source amplitude and clipping warnings",
+    "No energy-only or file-length substitute for certified speech endpoints",
+    "Semantic requirements are fixed pre-results locally; exact checkpoint end samples require reviewed speech evidence",
+    "Nonverbal C1 incidental speech remains unresolved unless supported by review",
+    "Separate project permission before publishing local audio or text"
+  ]
+}

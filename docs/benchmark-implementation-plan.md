@@ -86,6 +86,36 @@ The final focused repair suite passed **162 tests in 141.11 seconds**, including
 
 Final shared Windows Python 3.12 verification after this PR repair: **446 tests passed in 152.38 seconds**. Product/test sources were frozen before that run; only this maintained verification text was updated afterward.
 
+### R2 source-preparation checkpoint — production freeze blocked
+
+[R2's coverage/evidence index](../corpus/r2/status.json) and
+[corpus guide](corpus.md#r2-source-review-and-preparation) preserve the fixed
+60-episode design while recording 27 typed main candidates, six development
+candidates, two C1 candidates and three unclassified ASCEND explanations.
+The three offline materializers preserve pinned sources, original grouping,
+sample mappings, references and hashes without changing historical corpus bytes.
+Actual final-catalogue materialization, output-byte/group checks and **21 focused
+tests** passed. Source-only local ASR and waveform/alignment evidence are retained
+with their failed/inconclusive attempts; no provider calls or app replay occurred.
+
+This is not issue #16 completion. ASCEND's released utterances do not yet supply
+verified paired original-recording/clock mapping or actual intervening sound for
+the required P2/P3/T1 windows. Nine main and four development T1 parents remain
+unaccepted, so R3 receives no frozen parent list. IngCrowd's prepared mixed-input
+candidates retain named content/boundary review limits; FLEURS retains four
+specific acoustic/reference/endpoint holds; nonverbal C1 speech absence is
+unresolved. Automatic review is disclosed without inventing a mandatory
+human-only R2 gate. Unknown repeated speakers are not certified independent.
+
+The owner clarified noncommercial OSS use including promotion; promotion alone
+does not establish a CC BY-NC violation. Source-license eligibility, actual
+provider-route input terms and owner authorization to publish source-bearing
+examples remain separate. Pre-result examples/repeat candidates are recorded
+without inspecting benchmark-app results. No source substitution, reduced
+counts, weight redistribution, TTS request, code push or issue closure occurred.
+Resolve the named missing original-source and review/rights evidence before
+production acceptance; reuse existing valid artifacts across issue boundaries.
+
 ### What “through issue #8” means
 
 - Before replacement, issues #2–#7 were closed on their respective amended preparation/implementation scopes, while #1, #8 and #9–#11 were open. No linked Project items or repository Actions workflows were returned. The publication record above supersedes their page-existence/status information, not the historical implementation facts.

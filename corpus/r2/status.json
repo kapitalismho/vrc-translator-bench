@@ -1,0 +1,257 @@
+{
+  "schema_version": 1,
+  "issue": "https://github.com/kapitalismho/vrc-translator-bench/issues/16",
+  "status": "partial_source_preparation__production_freeze_blocked",
+  "production_frozen": false,
+  "scope_changed": false,
+  "authority": "https://github.com/kapitalismho/vrc-translator-bench/issues/14#issuecomment-6406764791",
+  "language_pair_weights": {
+    "en-zh": 0.5,
+    "ja-ko": 0.5
+  },
+  "t1_role_weights": {
+    "A": 0.5,
+    "B": 0.5
+  },
+  "cells": [
+    {
+      "language_pair": "en-zh",
+      "kind": "P1",
+      "main_required": 3,
+      "within_pair_weight": 0.1,
+      "main_prepared_candidates": 3,
+      "main_production_frozen": 0,
+      "development_required": 1,
+      "development_prepared_candidates": 1,
+      "owner": "R2",
+      "reason": "Automatic source-reference support and bounded endpoint proposals; not global production freeze"
+    },
+    {
+      "language_pair": "en-zh",
+      "kind": "P2",
+      "main_required": 9,
+      "within_pair_weight": 0.3,
+      "main_prepared_candidates": 0,
+      "main_production_frozen": 0,
+      "development_required": 1,
+      "development_prepared_candidates": 0,
+      "owner": "R2",
+      "reason": "Original continuity, intervening audio and eligible windows not established"
+    },
+    {
+      "language_pair": "en-zh",
+      "kind": "P3",
+      "main_required": 6,
+      "within_pair_weight": 0.2,
+      "main_prepared_candidates": 0,
+      "main_production_frozen": 0,
+      "development_required": 1,
+      "development_prepared_candidates": 0,
+      "owner": "R2",
+      "reason": "Original continuity, intervening audio and eligible windows not established"
+    },
+    {
+      "language_pair": "en-zh",
+      "kind": "T1",
+      "main_required": 9,
+      "within_pair_weight": 0.3,
+      "main_prepared_candidates": 0,
+      "main_production_frozen": 0,
+      "development_required": 4,
+      "development_prepared_candidates": 0,
+      "owner": "R2",
+      "reason": "ASCEND verified original parents unavailable"
+    },
+    {
+      "language_pair": "en-zh",
+      "kind": "P4",
+      "main_required": 3,
+      "within_pair_weight": 0.1,
+      "main_prepared_candidates": 3,
+      "main_production_frozen": 0,
+      "development_required": 1,
+      "development_prepared_candidates": 1,
+      "owner": "R2",
+      "reason": "Automatic preparation passes and named content/endpoint holds remain distinct from global production freeze"
+    },
+    {
+      "language_pair": "ja-ko",
+      "kind": "P1",
+      "main_required": 3,
+      "within_pair_weight": 0.1,
+      "main_prepared_candidates": 3,
+      "main_production_frozen": 0,
+      "development_required": 1,
+      "development_prepared_candidates": 1,
+      "owner": "R2",
+      "reason": "All candidate bytes prepared; per-case content/boundary review and provider route permissions remain explicit"
+    },
+    {
+      "language_pair": "ja-ko",
+      "kind": "P2",
+      "main_required": 9,
+      "within_pair_weight": 0.3,
+      "main_prepared_candidates": 9,
+      "main_production_frozen": 0,
+      "development_required": 1,
+      "development_prepared_candidates": 1,
+      "owner": "R2",
+      "reason": "All candidate bytes prepared; per-case content/boundary review and provider route permissions remain explicit"
+    },
+    {
+      "language_pair": "ja-ko",
+      "kind": "P3",
+      "main_required": 6,
+      "within_pair_weight": 0.2,
+      "main_prepared_candidates": 6,
+      "main_production_frozen": 0,
+      "development_required": 1,
+      "development_prepared_candidates": 1,
+      "owner": "R2",
+      "reason": "All candidate bytes prepared; per-case content/boundary review and provider route permissions remain explicit"
+    },
+    {
+      "language_pair": "ja-ko",
+      "kind": "T1",
+      "main_required": 9,
+      "within_pair_weight": 0.3,
+      "main_prepared_candidates": 0,
+      "main_production_frozen": 0,
+      "development_required": 4,
+      "development_prepared_candidates": 0,
+      "owner": "R3",
+      "reason": "R3-owned synthetic descendants blocked on accepted ASCEND parents; no TTS requested"
+    },
+    {
+      "language_pair": "ja-ko",
+      "kind": "P4",
+      "main_required": 3,
+      "within_pair_weight": 0.1,
+      "main_prepared_candidates": 3,
+      "main_production_frozen": 0,
+      "development_required": 1,
+      "development_prepared_candidates": 1,
+      "owner": "R2",
+      "reason": "Automatic preparation passes and named content/endpoint holds remain distinct from global production freeze"
+    }
+  ],
+  "totals": {
+    "main_required_all_owners": 60,
+    "main_required_R2": 51,
+    "main_prepared_typed_candidates": 27,
+    "development_prepared_typed_candidates": 6,
+    "c1_candidates": 2,
+    "unclassified_ASCEND_explanations_no_count_credit": 3,
+    "production_frozen_main": 0
+  },
+  "count_policy": "Prepared candidates, automatic reference support, semantic endpoint review and production freeze are distinct. No redistribution, repeated-source credit or replacement material. C1 has no quality/meaning-wait credit. JA/KO T1 remains R3-owned.",
+  "source_catalogues": [
+    {
+      "path": "corpus/r2/ascend.json",
+      "sha256": "fba52837308b5064cd8d9727b5ef8a0f9cd1b56a175afb16726eb546da57b734"
+    },
+    {
+      "path": "corpus/r2/ingcrowd.json",
+      "sha256": "8fd781de64d4133aac56d85319a42c4cfe15c2e0861847158f8e43156df13341"
+    },
+    {
+      "path": "corpus/r2/read-controls.json",
+      "sha256": "e43fe06f495311c0a8b3cc0e1ea417070d9229570715e247a291d8cbb653fe86"
+    }
+  ],
+  "local_unchanged_handoff": {
+    "materialization_reports": {
+      ".data/r2/integration-ascend/preparation-report.json": {
+        "sha256": "cdd5e17d2b4ccdd11d7c80fd782a504e73c15decf27a2b364f4932b0bb0d4fdf"
+      },
+      ".data/r2/integration-ingcrowd/materialization.json": {
+        "sha256": "391f17bc41bc35a1e69182ab8e5bd5335057e353240d78cdbb6ee481b67431fe"
+      },
+      ".data/r2/integration-read-controls/materialization.json": {
+        "sha256": "7f8e4cb407c0c2851d264bc99341a549bc9c10f90431b1e911c7c07e095603b7"
+      }
+    },
+    "review_bindings": [
+      {
+        "path": ".data/r2/ascend/review/qwen-review-binding.json",
+        "sha256": "f0e8aeee1e9c10ca91570baa682b28a1156d6595f577d538ec434583b20086f0"
+      },
+      {
+        "path": ".data/r2/ascend/review/endpoint-review.json",
+        "sha256": "d3c0d05b4c46edce06babaf53bbc8701fc7b6d2ef8d4b19ac8175088d922a108"
+      },
+      {
+        "path": ".data/r2/ingcrowd/reazon-windowed-review-v2.json",
+        "sha256": "07b54eaa088e09553fb333e6d653892d23a4fec39473538d7b73a67b4ba4657e"
+      },
+      {
+        "path": ".data/r2/read-controls/review/source-review.json",
+        "sha256": "f8249f707f0840016994fcdd90296a39d11006730d223423f2ab49635ce91efc"
+      },
+      {
+        "path": ".data/r2/read-controls/review/semantic-references-reviewed.json",
+        "sha256": "63c7f0549f1323f5136460c4b4f0d72e0eb40a91b9983721d010507d3baf1ce8"
+      }
+    ],
+    "integration_verification": {
+      "path": ".data/r2/integration-verification.json",
+      "sha256": "5ec7c90c7bbaee77dfb517a30022ec73462ed3bc96f73932586f7c7d10e62ec7"
+    },
+    "policy": "Keep these exact selected source/playback/reference/review bytes and identities; do not regenerate merely at R3/R4/R6 transitions. Review addenda do not overwrite earlier attempts. Materialization reports alone are not execution admission."
+  },
+  "source_review_summary": {
+    "ASCEND": "Four P1 references automatically corroborated with source-only no-hints ASR and separate 80-ms-grid endpoint proposals; development endpoint is near file edge. Three compact explanations are unclassified. P2/P3/T1 continuity and T1 role buffers remain unaccepted.",
+    "IngCrowd": "21 exact mixed-track crops,54 pre-result checkpoint candidates; bounded independent ASR supports core meanings for5 main and1 development candidates, with15 specific content/boundary holds. Whole-dialogue separation and known links applied; unknown participant recurrence not certified independent.",
+    "FLEURS": "Eight real source/read inputs with shared-sentence groups. Automatic preparation passes: p4-en-1980,p4-en-1771,p4-ja-1771,p4-en-151. Holds: p4-en-1914 endpoint320ms disagreement,p4-ja-1980 driver-word disagreement,p4-ja-1914 clipping/lexical detail,p4-ja-151 named-group disagreement.",
+    "C1": "Exact zero60s supported at digital signal boundary. Nonverbal60s candidate preserves original events/gaps, incidental speech unresolved. Historical AMI speech minute excluded; runtime quiet/reset remains R6-owned.",
+    "level": "Automatic source/transcript/waveform/ASR inspection, not human listening. Forced alignment is not independent transcript proof; model-family independence and calibrated phonetic accuracy are not claimed."
+  },
+  "pre_result_repetition_candidate_ids": [
+    "ascend-p1-main-1",
+    "ingcrowd-main-P1-01",
+    "ingcrowd-main-P2-01",
+    "ingcrowd-main-P3-01",
+    "p4-en-1980",
+    "p4-ja-1980"
+  ],
+  "repetition_selection_basis": "First preselected main candidate in every presently prepared pair/type cell, before benchmark output; no extra sample/weight credit. Held candidates require source acceptance before execution. EN/ZH P2/P3/T1 and JA/KO T1 repeat candidates remain pending original inputs.",
+  "pre_result_public_example_candidate_ids": [
+    "ascend-p1-main-1",
+    "ingcrowd-main-P1-01",
+    "p4-en-1980",
+    "p4-ja-1980",
+    "c1-zero-60",
+    "c1-nonverbal-60"
+  ],
+  "public_example_policy": "License-eligible source candidates only, not publication authorization or waiver of content/privacy holds. Source license/attribution/modification terms retained; no corpus-to-MIT relicensing.",
+  "rights_purpose": "Owner states noncommercial OSS including promotion. Promotion alone does not establish commercial use. Actual external provider input-grant compatibility remains route-specific and unresolved; no provider calls performed.",
+  "blockers": [
+    {
+      "criterion": "ASCEND original linked natural P2/P3/T1 windows and nine main/four development T1 parents",
+      "missing": "Authoritative paired original recording/part/clock mapping and actual intervening continuous audio or equivalent evidence, then enough reviewed nonoverlapping group-separated windows.",
+      "evidence": "Original full archive, all metadata and current test-shard comparison retained; concrete same-stem timestamp reset and omitted UNK intervals recorded in ascend.json. No eligible T1 count or impossibility theorem inferred.",
+      "consequence": "No T1 parent handoff or R3 generation; fixed corpus freeze blocked."
+    },
+    {
+      "criterion": "Remaining candidate audible-reference/endpoints and nonverbal C1 suitability",
+      "missing": "Targeted additional acoustic/content evidence resolving named disagreements, uncertain source annotations and crop shoulders. Not a mandatory human-only gate.",
+      "evidence": "Per-candidate reviews bound above; inadequate SAPI, out-of-contract long Reazon and empty-prompt Qwen attempts retained separately.",
+      "consequence": "Do not silently count held candidates as accepted."
+    },
+    {
+      "criterion": "External-service/publication scope",
+      "missing": "Concrete intended provider-route input rights/settings compatibility and separate owner publication authorization for actual source-bearing release.",
+      "consequence": "No service-input or public-media clearance inferred from source preparation."
+    }
+  ],
+  "verification": {
+    "focused_tests_passed": 21,
+    "actual_offline_materializers_passed": 3,
+    "materialized_unique_ids_hash_checked": 38,
+    "provider_calls": 0,
+    "benchmark_app_replays": 0,
+    "historical_corpus_modified": false,
+    "full_suite_or_typecheck_claimed": false
+  },
+  "remote_state": "No push, PR publication, issue closure or Project mutation authorized/performed in this task; issue remains open."
+}
