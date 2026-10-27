@@ -438,13 +438,80 @@ def _source_prefix(bound, units, cutoff):
     return {"quality_eligible": eligible, "units": included}
 
 
+def _attempt_bounds(records, attempt, work, manifest, scope):
+    starts = [row for row in records if row.get("record") == "attempt_start"]
+    ends = [row for row in records if row.get("record") == "attempt_end"]
+    unknown = {"status": "unknown", "reason": "Selected trace lacks unique, valid attempt boundaries"}
+    if len(starts) != 1 or len(ends) != 1:
+        return unknown
+    start, end = starts[0], ends[0]
+    lower, upper = start.get("t_ns"), end.get("t_ns")
+    if (type(lower) is not int or type(upper) is not int or not 0 <= lower <= upper
+            or any(start.get(key) != value for key, value in (
+                ("profile", work["profile"]), ("episode_id", work["episode_id"]),
+                ("attempt", attempt["id"]), ("pass_id", work["pass_id"])))
+            or end.get("state") != attempt["state"]
+            or not isinstance(start.get("clock_session"), str) or not start["clock_session"]
+            or scope.get("clock_session", start["clock_session"]) != start["clock_session"]
+            or not isinstance(manifest.get("run"), str) or not manifest["run"]
+            or start.get("run") != manifest["run"]):
+        return unknown
+    for key, boundary in (("start_ns", lower), ("end_ns", upper)):
+        if key in attempt and (type(attempt[key]) is not int
+                or key == "start_ns" and attempt[key] > boundary
+                or key == "end_ns" and attempt[key] < boundary):
+            return unknown
+    return {"status": "bounded", "start_ns": lower, "end_ns": upper,
+            "clock_session": start["clock_session"], "run": manifest["run"],
+            "attempt_start": start, "attempt_end": end}
+
+
+def _unrelated_diagnostics(events, origins, bounds, interpretations, profile):
+    if bounds["status"] != "bounded":
+        return []
+    protected = {row.get(key) for row in interpretations or [] if isinstance(row, dict)
+                 for key in ("event_index", "replaces_event_index") if type(row.get(key)) is int}
+    excluded = []
+    for index, (event, origin) in enumerate(zip(events, origins)):
+        if (origin["source"] != "run_stream" or index in protected
+                or event.get("record") != "native_collector_evidence"
+                or not isinstance(event.get("loss_or_gap"), str) or not event["loss_or_gap"]
+                or event.get("profile") != profile or event.get("config", profile) != profile
+                or event.get("run") != bounds["run"] or event.get("clock_session") != bounds["clock_session"]
+                or any(event.get(key) is not None for key in (
+                    "episode_id", "attempt", "attempt_id", "pass_id", "role", "input_channel", "channel", "target_language", "capture_phase"))):
+            continue
+        interval = event.get("event_time_interval")
+        if interval is not None:
+            mapping = event.get("clock_mapping", {})
+            evidence = mapping.get("evidence") if isinstance(mapping, dict) else None
+            if (not isinstance(interval, dict) or interval.get("clock_session") != bounds["clock_session"]
+                    or not isinstance(evidence, list) or not evidence
+                    or not all(isinstance(item, str) and item.strip() for item in evidence)):
+                continue
+            lower, upper = interval.get("earliest_ns"), interval.get("latest_ns")
+        else:
+            lower = upper = event.get("collector_received_monotonic")
+            if (type(event.get("t_ns")) is not int or event["t_ns"] != lower
+                    or event.get("clock_mapping") is not None
+                    or any(key in event for key in ("start_ns", "end_ns", "gap_start_ns", "gap_end_ns"))):
+                continue
+        if type(lower) is not int or type(upper) is not int or lower > upper:
+            continue
+        if upper < bounds["start_ns"] or lower > bounds["end_ns"]:
+            excluded.append({"event_index": index, "event": event, "origin": origin,
+                             "reason": "diagnostic_interval_before_selected_attempt" if upper < bounds["start_ns"]
+                                       else "diagnostic_interval_after_selected_attempt"})
+    return excluded
+
+
 def _selection(selection, base, profile, episode_id, role):
     """Load only explicitly selected, checksummed native evidence, read-only."""
     if not isinstance(selection, dict):
         raise ValueError("Role selection must be an object")
     if ("run_manifest" in selection) == ("history" in selection):
         raise ValueError("Select exactly one run_manifest or standalone history binding")
-    artifacts = []
+    artifacts, origins = [], []
     manifest, source_clocks, clock_status, input_error, horizon_ns = None, {}, {}, None, None
     if "history" in selection:
         path = _artifact(selection["history"], base)
@@ -471,11 +538,18 @@ def _selection(selection, base, profile, episode_id, role):
         events = list(trace_records)
         artifacts.extend([{"path": str(manifest_path), "sha256": digest(manifest_path)},
                           {"path": str(trace), "sha256": digest(trace)}])
+        origins = [{"source": "selected_trace", "artifact": artifacts[1], "record_index": index}
+                   for index in range(len(trace_records))]
         for stream in manifest.get("streams", []):
             path = _artifact(stream, manifest_path.parent)
+            artifact = {"path": str(path), "sha256": digest(path)}
             existing = {canonical(event) for event in events}
-            events.extend(event for event in _records(path) if canonical(event) not in existing)
-            artifacts.append({"path": str(path), "sha256": digest(path)})
+            for index, event in enumerate(_records(path)):
+                if canonical(event) not in existing:
+                    events.append(event)
+                    origins.append({"source": "run_stream", "artifact": artifact,
+                                    "record_index": index})
+            artifacts.append(artifact)
         scope = {"episode": episode_id, "profile": profile, "attempt": attempt["id"], "pass_id": work["pass_id"],
                  **selection.get("scope", {})}
         if scope["episode"] != episode_id or scope["profile"] != profile or scope["attempt"] != attempt["id"] or scope["pass_id"] != work["pass_id"]:
@@ -534,12 +608,20 @@ def _selection(selection, base, profile, episode_id, role):
         if "input_available_until_ns" in clock and type(clock["input_available_until_ns"]) is not int:
             raise ValueError("Input availability must be integer nanoseconds")
         scope["clock_session"] = clock["clock_session"]
+    bounds = _attempt_bounds(trace_records, attempt, work, manifest, scope) if manifest is not None else {"status": "standalone"}
+    if manifest is not None:
+        bounds["trace"] = artifacts[1]
+    exclusions = _unrelated_diagnostics(events, origins, bounds, interpretations, profile)
+    excluded_indexes = {row["event_index"] for row in exclusions}
     return {"events": events, "scope": scope, "outcome": outcome, "clock": clock,
             "source_clocks": source_clocks, "input_error": input_error, "horizon_ns": horizon_ns if manifest is not None else clock.get("horizon_ns"),
+            "history_event_indexes": [index for index in range(len(events)) if index not in excluded_indexes],
+            "diagnostic_exclusions": exclusions,
             "interpretations": interpretations, "artifacts": artifacts, "manifest": manifest,
             "binding": {"selection": selection, "artifacts": artifacts, "role": role,
                         "source_clock_kind": ("runner_callbacks" if manifest is not None else "standalone_linear") if clock else "unavailable",
-                        "source_clocks": source_clocks, "source_clock_status": clock_status, "input_error": input_error}}
+                        "source_clocks": source_clocks, "source_clock_status": clock_status, "input_error": input_error,
+                        "attempt_bounds": bounds, "excluded_stream_diagnostics": exclusions}}
 
 
 def _outcome(bound, role):
@@ -586,11 +668,67 @@ def _final_input_reason(bound, units, role):
     return None
 
 
+def _restore_history_indexes(history, indexes):
+    """Restore derived view indexes without touching raw event/rule payloads."""
+    visited = set()
+    def item_id(value):
+        if isinstance(value, str) and value.startswith("event:") and value[6:].isdigit():
+            index = int(value[6:])
+            if index < len(indexes):
+                return "event:" + str(indexes[index])
+        return value
+    def visit(value):
+        if not isinstance(value, (dict, list)) or id(value) in visited:
+            return
+        visited.add(id(value))
+        if isinstance(value, list):
+            for child in value:
+                visit(child)
+            return
+        for key in ("event_index", "replaces_event_index"):
+            index = value.get(key)
+            if type(index) is int and 0 <= index < len(indexes):
+                value[key] = indexes[index]
+        if "derived_item_id" in value:
+            value["derived_item_id"] = item_id(value["derived_item_id"])
+        if "archived_item_ids" in value:
+            value["archived_item_ids"] = [item_id(item) for item in value["archived_item_ids"]]
+        for key, child in value.items():
+            if key not in ("event", "raw_evidence", "rule"):
+                visit(child)
+    visit(history)
+    return history
+
+
 def _history(bound, role, cutoff=None):
-    from .history import reconstruct_history
-    return reconstruct_history(bound["events"], role=role, cutoff_ns=cutoff,
-                               horizon_ns=bound["horizon_ns"],
-                               interpretations=bound["interpretations"], **bound["scope"])
+    from .history import event_sha256, reconstruct_history
+    exclusions = bound["diagnostic_exclusions"]
+    if not exclusions:
+        return reconstruct_history(bound["events"], role=role, cutoff_ns=cutoff,
+                                   horizon_ns=bound["horizon_ns"],
+                                   interpretations=bound["interpretations"], **bound["scope"])
+    indexes = bound["history_event_indexes"]
+    positions = {raw: view for view, raw in enumerate(indexes)}
+    interpretations = []
+    for row in bound["interpretations"] or []:
+        if not isinstance(row, dict):
+            interpretations.append(row)  # Let the shared validator reject it.
+            continue
+        mapped = dict(row)
+        for key in ("event_index", "replaces_event_index"):
+            if type(row.get(key)) is int and row[key] in positions:
+                mapped[key] = positions[row[key]]
+        interpretations.append(mapped)
+    history = reconstruct_history([bound["events"][index] for index in indexes], role=role, cutoff_ns=cutoff,
+                                  horizon_ns=bound["horizon_ns"], interpretations=interpretations, **bound["scope"])
+    _restore_history_indexes(history, indexes)
+    for row in exclusions:
+        event = row["event"]
+        history["excluded_events"].append({
+            "citation": {"event_index": row["event_index"], "event_sha256": event_sha256(event),
+                         "stream_sequence": event.get("stream_sequence"), "raw_evidence": event.get("raw_evidence")},
+            "reason": row["reason"]})
+    return history
 
 
 def _no_output_observed(history):

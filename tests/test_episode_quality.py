@@ -1173,3 +1173,233 @@ def test_actual_ingcrowd_annotation_speakers_survive_blinded_scored_context(monk
         assert [row["original_person"] for row in data["context"]] == ["speaker-one", "speaker-two"]
         assert all(row["original_person_scope"] == "dialogue_local" for row in data["context"])
         assert all(row["role"] == "A" and row["scored"] is True for row in data["context"])
+
+
+def runwide_gap(seconds=2, **extra):
+    ns = round(seconds * 1e9)
+    return {"record": "native_collector_evidence", "run": "controlled-run", "clock_session": "clock",
+            "profile": "TEST", "config": "TEST", "kind": "gap", "loss_or_gap": "collector_disconnected",
+            "generation": 1, "failure_kind": "transport_disconnect",
+            "collector_received_monotonic": ns, "t_ns": ns, **extra}
+
+
+def scoped_attempt_fixture(tmp_path, *, stream=None, no_output=False):
+    path, spec, manifest, records = run_fixture(tmp_path, events=[] if no_output else [event(seconds=11.25)])
+    records[0].update(t_ns=5_000_000_000, profile="TEST", episode_id="ep", attempt=1, pass_id="A",
+                      clock_session="clock", run="controlled-run")
+    records.append({"record": "attempt_end", "t_ns": 34_000_000_000, "state": "done"})
+    manifest["run"] = "controlled-run"
+    manifest["attempts"][0].update(start_ns=4_900_000_000, end_ns=34_100_000_000)
+    if stream is not None:
+        manifest["streams"] = [dump(tmp_path / "run-stream.json", stream)]
+    save_run(path, spec, manifest, records)
+    return path, spec, manifest, records
+
+
+@pytest.mark.parametrize("seconds", [2, 40])
+@pytest.mark.parametrize("no_output", [False, True])
+def test_disjoint_runwide_diagnostic_does_not_contaminate_selected_attempt(monkeypatch, tmp_path, seconds, no_output):
+    transport = ControlledTransport()
+    install(monkeypatch, transport)
+    gap = runwide_gap(seconds)
+    path, _, _, _ = scoped_attempt_fixture(tmp_path, stream=[gap], no_output=no_output)
+    before = (tmp_path / "run-stream.json").read_bytes()
+    report = evaluate(path, tmp_path / "report.json", transport_path="controlled")
+    result = role_result(report)
+    assert result["quality"]["score"] == (0 if no_output else 96.5)
+    assert result["checkpoints"][0]["status"] == ("unmet" if no_output else "met")
+    assert len(report["calls"]) == (0 if no_output else 7)
+    assert result["provenance"]["attempt_bounds"]["start_ns"] == 5_000_000_000
+    assert result["provenance"]["attempt_bounds"]["end_ns"] == 34_000_000_000
+    excluded, = result["provenance"]["excluded_stream_diagnostics"]
+    assert excluded["event"] == gap
+    assert excluded["origin"]["record_index"] == 0
+    assert excluded["origin"]["artifact"]["sha256"] == digest(tmp_path / "run-stream.json")
+    assert any(row["citation"]["event_sha256"] == event_sha256(gap) and "selected_attempt" in row["reason"]
+               for row in result["history"]["excluded_events"])
+    assert (tmp_path / "run-stream.json").read_bytes() == before
+
+
+@pytest.mark.parametrize("gap", [
+    runwide_gap(5), runwide_gap(6.5), runwide_gap(11),
+    runwide_gap(2, event_time_interval={"earliest_ns": 4_000_000_000, "latest_ns": 6_000_000_000, "clock_session": "clock"},
+                clock_mapping={"evidence": ["Controlled interval crossing selected start"]}),
+    runwide_gap(2, event_time_interval={"earliest_ns": 2_000_000_000, "latest_ns": 5_000_000_000, "clock_session": "clock"},
+                clock_mapping={"evidence": ["Controlled interval ending exactly at selected start"]}),
+])
+def test_preparation_equal_start_and_overlapping_gaps_remain_unknown(monkeypatch, tmp_path, gap):
+    transport = ControlledTransport()
+    install(monkeypatch, transport)
+    path, _, _, _ = scoped_attempt_fixture(tmp_path, stream=[gap])
+    report = evaluate(path, tmp_path / "report.json", transport_path="controlled")
+    result = role_result(report)
+    assert result["quality"]["status"] == "unknown_output" and result["quality"]["score"] is None
+    assert "native_history_gap" in result["history"]["reasons"]
+    assert result["provenance"]["excluded_stream_diagnostics"] == []
+    assert report["calls"] == [] and transport.requests == []
+
+
+def test_gap_at_selected_attempt_end_remains_available_to_existing_horizon_rules(monkeypatch, tmp_path):
+    transport = ControlledTransport()
+    install(monkeypatch, transport)
+    gap = runwide_gap(34)
+    path, _, _, _ = scoped_attempt_fixture(tmp_path, stream=[gap])
+    result = role_result(evaluate(path, tmp_path / "report.json", transport_path="controlled"))
+    assert result["provenance"]["excluded_stream_diagnostics"] == []
+    assert any(row["citation"]["event_sha256"] == event_sha256(gap) for row in result["history"]["late_events"])
+    assert result["quality"]["score"] == 96.5
+    assert result["checkpoints"][0]["status"] == "unknown"
+
+
+@pytest.mark.parametrize("problem", [
+    "missing_start", "duplicate_start", "missing_end", "duplicate_end", "reversed_bounds",
+    "missing_session", "wrong_start_profile", "wrong_start_attempt", "wrong_start_run",
+    "ledger_start_conflict", "ledger_end_conflict", "wrong_terminal_state",
+])
+def test_missing_or_ambiguous_attempt_bounds_do_not_guess_diagnostic_scope(tmp_path, problem):
+    path, spec, manifest, records = scoped_attempt_fixture(tmp_path, stream=[runwide_gap()])
+    if problem == "missing_start":
+        records[0].pop("t_ns")
+    elif problem == "duplicate_start":
+        records.insert(1, dict(records[0]))
+    elif problem == "missing_end":
+        records.pop()
+    elif problem == "duplicate_end":
+        records.append(dict(records[-1]))
+    elif problem == "reversed_bounds":
+        records[-1]["t_ns"] = 4_000_000_000
+    elif problem == "missing_session":
+        records[0].pop("clock_session")
+    elif problem == "wrong_start_profile":
+        records[0]["profile"] = "OTHER"
+    elif problem == "wrong_start_attempt":
+        records[0]["attempt"] = 99
+    elif problem == "wrong_start_run":
+        records[0]["run"] = "OTHER-RUN"
+    elif problem == "ledger_start_conflict":
+        manifest["attempts"][0]["start_ns"] = 6_000_000_000
+    elif problem == "ledger_end_conflict":
+        manifest["attempts"][0]["end_ns"] = 33_000_000_000
+    else:
+        records[-1]["state"] = "invalid"
+    spec["populations"][0]["roles"][0]["selection"]["interpretations"] = [
+        interpretation(records, index) for index, row in enumerate(records) if row.get("record") == "native_output_event"]
+    save_run(path, spec, manifest, records)
+    result = role_result(evaluate(path, tmp_path / "report.json"))
+    assert result["provenance"]["attempt_bounds"]["status"] == "unknown"
+    assert result["provenance"]["excluded_stream_diagnostics"] == []
+    assert result["quality"]["status"] == "unknown_output" and result["quality"]["score"] is None
+    assert "native_history_gap" in result["history"]["reasons"]
+
+
+@pytest.mark.parametrize("extra", [
+    {"clock_session": None}, {"collector_received_monotonic": None}, {"t_ns": 6_000_000_000},
+    {"t_ns": True}, {"start_ns": 4_000_000_000, "end_ns": 6_000_000_000},
+    {"loss_or_gap": {"start_ns": 4_000_000_000, "end_ns": 6_000_000_000}},
+    {"clock_mapping": {"evidence": ["No interval supplied"]}},
+    {"event_time_interval": {"earliest_ns": 4, "latest_ns": 2, "clock_session": "clock"},
+     "clock_mapping": {"evidence": ["Invalid interval"]}},
+    {"event_time_interval": {"earliest_ns": 1, "latest_ns": 2, "clock_session": "clock"}, "clock_mapping": None},
+    {"event_time_interval": {"earliest_ns": 1, "latest_ns": 2, "clock_session": "OTHER"},
+     "clock_mapping": {"evidence": ["Unrelated clock"]}},
+])
+def test_uncertain_diagnostic_times_cannot_be_trimmed_into_false_success(tmp_path, extra):
+    gap = runwide_gap(**extra)
+    path, _, _, _ = scoped_attempt_fixture(tmp_path, stream=[gap], no_output=True)
+    result = role_result(evaluate(path, tmp_path / "report.json"))
+    assert result["provenance"]["excluded_stream_diagnostics"] == []
+    assert result["quality"]["score"] is None and result["quality"]["status"] == "unknown_output"
+
+
+def test_selected_trace_gap_is_not_discarded_by_a_conflicting_runwide_timestamp(tmp_path):
+    path, spec, manifest, records = scoped_attempt_fixture(tmp_path)
+    records.insert(1, runwide_gap())
+    spec["populations"][0]["roles"][0]["selection"]["interpretations"] = [
+        interpretation(records, index) for index, row in enumerate(records) if row.get("record") == "native_output_event"]
+    save_run(path, spec, manifest, records)
+    result = role_result(evaluate(path, tmp_path / "report.json"))
+    assert result["quality"]["status"] == "unknown_output"
+    assert "native_history_gap" in result["history"]["reasons"]
+    assert result["provenance"]["excluded_stream_diagnostics"] == []
+
+
+def test_diagnostic_scope_uses_attempt_not_source_mapping_availability(monkeypatch, tmp_path):
+    transport = ControlledTransport()
+    install(monkeypatch, transport)
+    path, spec, manifest, records = scoped_attempt_fixture(tmp_path, stream=[runwide_gap()])
+    records[:] = [row for row in records if row.get("record") != "audio_callback"]
+    spec["populations"][0]["roles"][0]["selection"]["interpretations"] = [
+        interpretation(records, index) for index, row in enumerate(records) if row.get("record") == "native_output_event"]
+    save_run(path, spec, manifest, records)
+    report = evaluate(path, tmp_path / "report.json", transport_path="controlled")
+    result = role_result(report)
+    assert result["provenance"]["attempt_bounds"]["status"] == "bounded"
+    assert result["provenance"]["source_clock_kind"] == "unavailable"
+    assert result["quality"]["score"] == 96.5 and len(report["calls"]) == 2
+    assert result["checkpoints"][0]["status"] == "unknown"
+
+
+def test_history_view_preserves_raw_indexes_hashes_replacements_and_payloads(monkeypatch, tmp_path):
+    transport = ControlledTransport()
+    install(monkeypatch, transport)
+    path, spec, manifest, records = scoped_attempt_fixture(tmp_path, no_output=True)
+    gap = runwide_gap()
+    rows = [gap, event(seconds=11.25, event_index=789,
+                       raw_evidence={"sha256": "wire", "event_index": 987, "derived_item_id": "event:987"}),
+            event("买十二张票。", seconds=12), event("", seconds=13), event("", seconds=13.1)]
+    manifest["streams"] = [dump(tmp_path / "run-stream.json", rows)]
+    base = len(records)
+    combined = records + rows
+    selection = spec["populations"][0]["roles"][0]["selection"]
+    selection["interpretations"] = [interpretation(combined, base + 1), interpretation(combined, base + 2, "replace", base + 1),
+                                   interpretation(combined, base + 3, "clear"), interpretation(combined, base + 4, "delete", base + 2)]
+    manifest["work"][0]["outcome"] = "output_observed"
+    manifest["attempts"][0]["detail"]["role_outcomes"]["A"]["status"] = "output_observed"
+    save_run(path, spec, manifest, records)
+    result = role_result(evaluate(path, tmp_path / "report.json", transport_path="controlled"))
+    history = result["history"]
+    assert result["quality"]["score"] == 96.5
+    assert history["items"][0]["derived_item_id"] == "event:" + str(base + 1)
+    assert [row["citation"]["event_index"] for row in history["revisions"]] == list(range(base + 1, base + 5))
+    assert history["revisions"][1]["replaces_event_index"] == base + 1
+    assert history["revisions"][2]["archived_item_ids"] == ["event:" + str(base + 1)]
+    assert history["revisions"][3]["replaces_event_index"] == base + 2
+    assert [row["citation"]["event_index"] for row in history["events"]] == list(range(base + 1, base + 5))
+    assert [row["citation"]["event_index"] for row in history["emissions"]] == list(range(base + 1, base + 5))
+    assert history["events"][0]["event"] == rows[1]
+    assert history["events"][0]["citation"]["event_sha256"] == event_sha256(rows[1])
+    assert history["events"][0]["citation"]["raw_evidence"]["event_index"] == 987
+    assert result["provenance"]["excluded_stream_diagnostics"][0]["event_index"] == base
+    assert result["selection"]["interpretations"] == selection["interpretations"]
+
+
+def test_explicit_diagnostic_interpretation_is_not_silently_discarded(tmp_path):
+    path, spec, manifest, records = scoped_attempt_fixture(tmp_path, stream=[runwide_gap()])
+    combined = records + [runwide_gap()]
+    spec["populations"][0]["roles"][0]["selection"]["interpretations"].append(interpretation(combined, len(records), "ignore"))
+    save_run(path, spec, manifest, records)
+    result = role_result(evaluate(path, tmp_path / "report.json"))
+    assert result["quality"]["status"] == "unknown_output"
+    assert result["provenance"]["excluded_stream_diagnostics"] == []
+
+
+def test_filtered_diagnostic_does_not_weaken_native_interpretation_hash_validation(tmp_path):
+    path, spec, manifest, records = scoped_attempt_fixture(tmp_path, stream=[runwide_gap()])
+    spec["populations"][0]["roles"][0]["selection"]["interpretations"][0]["event_sha256"] = "wrong"
+    save_run(path, spec, manifest, records)
+    with pytest.raises(ValueError, match="does not match the cited native event"):
+        evaluate(path, tmp_path / "report.json")
+
+
+def test_appending_disjoint_runwide_diagnostic_preserves_existing_stage_cache(monkeypatch, tmp_path):
+    transport = ControlledTransport()
+    install(monkeypatch, transport)
+    path, spec, manifest, records = scoped_attempt_fixture(tmp_path)
+    first = evaluate(path, tmp_path / "report.json", transport_path="controlled")
+    manifest["streams"] = [dump(tmp_path / "run-stream.json", [runwide_gap()])]
+    save_run(path, spec, manifest, records)
+    second = evaluate(path, tmp_path / "report.json", transport_path="controlled")
+    assert role_result(second)["quality"]["score"] == 96.5
+    assert len(first["calls"]) == len(second["calls"]) == len(transport.requests) == 7
+    assert role_result(second)["quality"]["errors_stage"]["cached"]
+    assert all(row["judgment"]["cached"] for row in role_result(second)["checkpoints"][0]["observations"])
