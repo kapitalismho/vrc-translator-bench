@@ -1,0 +1,75 @@
+{
+  "issue": "https://github.com/kapitalismho/vrc-translator-bench/issues/19",
+  "activity": "Local cost implementation and deterministic reconciliation; not app admission or measured translation-app billing",
+  "date": "2026-10-28",
+  "boundaries": {
+    "applications_launched": false,
+    "provider_or_account_calls": false,
+    "paid_calls": false,
+    "synthetic_arithmetic_is_measured_billing": false,
+    "maintained_docs_edited_by_worker": false,
+    "git_mutations": false
+  },
+  "focused_tests": {
+    "command": "python -m pytest tests/test_costs.py tests/test_cost_usage.py tests/test_cost_repairs.py tests/test_episode_costs.py -q",
+    "final_outcome": "147 passed in 2.89s",
+    "earlier_outcomes": [
+      "133 passed before additional regressions and final identity/ledger refinements",
+      "139 passed, 1 failed: new privacy test incorrectly rejected the harmless provenance kind string run_manifest",
+      "Privacy repair exposed a second incidental substring collision: request invented-b versus source label invented-bills",
+      "Privacy assertion now rejects exact raw selection keys and exact request-ID JSON values; private-path and request-ID protection retained"
+    ],
+    "scope": "Cost inputs, usage pricing/containment, attribution, inventories, historical evidence, all four split-self profiles, simultaneous roles, partial/invalid input, production/TTS/judge separation, actual R4 offline report consumption, revisions, source protection, and supported CLI"
+  },
+  "cli": {
+    "command_template": "python -m bench.cli costs --spec <spec> --output .data/r5-cost-smoke/<name>.json",
+    "cases": [
+      {"name": "mixed", "spec": "tests/fixtures/costs/split-example/mixed-spec.json", "exit": 0, "status": "complete", "cost_usd": 0.035, "product_retry_in_tail_usd": 0.005, "logical_episode_seconds": 60, "physical_replay_seconds": 120, "per_input_hour_usd": 2.1, "separate_other_groups_usd": {"repeat": 1, "preparation": 1, "harness_invalid": 1, "harness_retry": 1}},
+      {"name": "split", "spec": "tests/fixtures/costs/split-example/spec.json", "exit": 0, "status": "complete", "cost_usd": 0.03, "logical_episode_seconds": 60, "physical_replay_seconds": 120, "per_input_hour_usd": 1.8},
+      {"name": "incomplete", "spec": "tests/fixtures/costs/split-example/incomplete-spec.json", "exit": 0, "status": "pending", "known_numeric_subtotal_usd": 0.03, "missing_services": ["asr"], "cost": null, "per_input_hour": null},
+      {"name": "coarse", "spec": "tests/fixtures/costs/split-example/coarse-spec.json", "exit": 0, "status": "pending", "known_wave_bucket_usd": 0.03, "cost": null, "per_input_hour": null},
+      {"name": "subscription", "spec": "tests/fixtures/costs/subscription-example/spec.json", "exit": 0, "status": "pending", "component_status": "subscription", "cost": null, "per_input_hour": null},
+      {"name": "pending", "spec": "tests/fixtures/costs/split-example/pending-spec.json", "exit": 0, "status": "pending", "logical_episode_seconds": 60, "cost": null, "per_input_hour": null},
+      {"name": "historical", "spec": "tests/fixtures/costs/real-missing-spec.json", "exit": 0, "status": "historical_evidence_only", "common_report": null, "populations": [], "attempt_replayed_seconds": [null, null, 10, 40], "app_cost": null},
+      {"name": "calculated", "spec": "tests/fixtures/costs/synthetic-spec.json", "exit": 0, "status": "pending", "actual_subtotal_usd": 0.005, "calculated_subtotal_usd": 0.001, "calculated_cost_usd": 0.006, "calculated_per_input_hour_usd": 1.08, "cost": null, "per_input_hour": null}
+    ],
+    "earlier_fixture_failures": "First five generated split/subscription invocations exited 2 on manifest checksum mismatch. Cause: temporary Windows text generation and retained LF bytes differed, including trace hashes. Rebound leaf traces, manifests, then R4 reports to actual retained bytes; pinned cost fixtures as binary in .gitattributes. Added retained-input regression coverage. All five repaired invocations exited 0.",
+    "later_revision": {
+      "spec": ".data/r5-cost-smoke/later-spec.json",
+      "output": ".data/r5-cost-smoke/later.json",
+      "two_invocations_exit": [0, 0],
+      "revision_id": "owner-evidence-example-2",
+      "evidence_sha256": "34903360ffb322f086d69f6ae12b951d3a8d581c29a7edc0a5d80f4e30abb965",
+      "previous_id": "split-pending",
+      "previous_file_sha256_before_and_after": "0f97e8c5d72e7abc533950f4f6040d63c10a3e62ef2a79c33b31196e7d15aa05",
+      "common_report_sha256_before_and_after": "fed328d59bb8a57b54b94e316ae7f3643f95a9597db05751bcab55016971e952",
+      "later_file_sha256_after_idempotent_ingestion": "1c7fba53a43ab8a740a1d9de581e441eed455b37ffc1691cfd741561b68f5f1d",
+      "cost_usd": 0.03,
+      "per_input_hour_usd": 1.8,
+      "limits": "Invented local owner-evidence arithmetic records, not real owner billing"
+    }
+  },
+  "retained_real_production_consumption": {
+    "source": "corpus/r3/status.json",
+    "sha256": "d7a465f1daf34cb72e90692ea572d06a3ae800f6ad189f3f12f308a58c5b56fa",
+    "ledger": "tts",
+    "pilot_known_subtotal_usd": 0.1151360,
+    "main_known_subtotal_usd": 0.1444215,
+    "combined_known_subtotal_usd": 0.2595575,
+    "unknown_calls": ["pilot-01", "main-09"],
+    "total": null,
+    "basis": "Retained reported model-consumption summary, not native export or cash/credit/fee/tax proof",
+    "limits": "Raw .data/r3 reconciliation records are unavailable in this checkout. HTTP404 unknown calls remain pending. Production consumption never enters the application input-hour numerator."
+  },
+  "real_application_billing_gap": {
+    "available": "Historical VRCS2 capture derivative/provenance and native input timing, not provider billing export",
+    "missing": [
+      "Permitted attributable OpenRouter export for retained capture",
+      "Returned actual model/upstream/key identity",
+      "Selected-run complete coverage and account isolation evidence",
+      "Actual Gemini project usage/tier export or complete submitted-audio ledger"
+    ],
+    "update_path": "Supply inspected permitted local evidence through the existing allowlisted source mappings and coverage claims; create a distinct revision ID/output with previous path/SHA256. Episode mode must reference the exact same immutable R4 common-report hash. Historical evidence-only mode can be reconciled later without inventing accepted episode quality/time or new episode normalization."
+  },
+  "remaining_ownership": "Director integrates maintained docs and Git/GitHub changes; R6 verifies assembled episode/pass/result binding and final app admission. No full-suite, type-check, app/runtime or real translation-app billing claim is made."
+}

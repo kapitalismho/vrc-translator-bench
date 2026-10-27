@@ -1,0 +1,10 @@
+[
+  {
+    "request_id": "invented-bucket",
+    "start": "2026-10-20T12:00:00Z",
+    "end": "2026-10-20T13:00:00Z",
+    "model": "synthetic/gemma",
+    "key_alias": "shared",
+    "cost": ".03"
+  }
+]

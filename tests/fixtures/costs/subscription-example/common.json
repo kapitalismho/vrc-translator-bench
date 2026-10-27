@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "kind": "episode_quality",
+  "report_version": "r4-episode-quality-v1",
+  "status": "incomplete",
+  "protocol_revision": "synthetic-offline-cost-counterexample",
+  "synthetic_judgments": true,
+  "planned_episodes": [
+    {
+      "episode_id": "conversation",
+      "kind": "T1",
+      "language_pair": "en-zh"
+    }
+  ],
+  "populations": [
+    {
+      "profile": "KIKI2",
+      "measurement_condition": "self/split",
+      "condition": {
+        "ordinary_input": "self",
+        "t1_mode": "split_self",
+        "roles": {
+          "A": "self",
+          "B": "self"
+        }
+      },
+      "cost_binding_id": "existing-r4-population-binding",
+      "role_results": [
+        {
+          "episode_id": "conversation",
+          "role": "A",
+          "selection": {
+            "run_manifest": {
+              "path": "manifest.json",
+              "sha256": "a43b47446af84dbbfdbbc6c5c791725cf27357a21f006361ac13a286a1cabe86"
+            },
+            "attempt_id": 1,
+            "pass_id": "A"
+          },
+          "cost_binding_id": "existing-r4-role-A",
+          "quality": {
+            "status": "unknown",
+            "score": null
+          },
+          "checkpoints": []
+        },
+        {
+          "episode_id": "conversation",
+          "role": "B",
+          "selection": {
+            "run_manifest": {
+              "path": "manifest.json",
+              "sha256": "a43b47446af84dbbfdbbc6c5c791725cf27357a21f006361ac13a286a1cabe86"
+            },
+            "attempt_id": 2,
+            "pass_id": "B"
+          },
+          "cost_binding_id": "existing-r4-role-B",
+          "quality": {
+            "status": "unknown",
+            "score": null
+          },
+          "checkpoints": []
+        }
+      ]
+    }
+  ]
+}

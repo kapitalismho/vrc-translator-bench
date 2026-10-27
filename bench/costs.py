@@ -9,10 +9,10 @@ from datetime import timedelta
 from decimal import Decimal
 from pathlib import Path
 
-from .cost_inputs import Inputs, TOKENS, identifier, number, timestamp
-from .storage import atomic_json, utc_now
+from .cost_inputs import Inputs, TOKENS, SCOPE_FIELDS, fingerprint, identifier, number, timestamp
+from .storage import atomic_json, digest, utc_now
 
-VERSION = "costs-v1"
+VERSION = "r5-cost-evidence-v1"
 SLACK_SECONDS = 30
 
 
@@ -30,7 +30,7 @@ def deduplicate(records):
     """Keep request alternatives; never turn uncertain copies into additive charges."""
     by_source_row, by_request, result = {}, {}, []
     fields = ("provider", "upstream_provider", "component", "granularity", "scope", "start", "end",
-              "model", "key_alias", "currency", "cost", "audio_seconds", "submitted_audio_interval", *TOKENS)
+              "model", "key_alias", "currency", "cost", "audio_seconds", "submitted_audio_interval", "product_retry", *TOKENS)
     for row in records:
         source_key = (row["kind"], row["_source_hash"], row["_record_container"], row["source_rows"][0]["row"])
         request_key = (row["kind"], row["provider"], row["request_hash"]) if row["request_hash"] else None
@@ -97,17 +97,25 @@ def attribute(row, windows, components):
     start = timestamp(row["start"]) if row["start"] is not None else None
     end = timestamp(row["end"]) if row["end"] else None
     for window in windows:
-        if any(row["scope"].get(key) is not None and row["scope"][key] != window[key] for key in ("run", "wave")):
+        if any(row["scope"].get(key) is not None and
+               (row["scope"][key] not in window.get("roles", []) if key == "role" else
+                str(row["scope"][key]) != str(window.get("id" if key == "window_id" else key)))
+               for key in SCOPE_FIELDS):
             continue
-        begin, stop = timestamp(window["start"]), timestamp(window["end"]) + timedelta(seconds=SLACK_SECONDS)
+        if window.get("ledger", "evaluation") == "evaluation" and row["scope"].get("ledger") not in (None, "evaluation"):
+            continue
+        begin, stop = timestamp(window["start"]), timestamp(window["end"])
+        stop += timedelta(seconds=SLACK_SECONDS if window.get("historical") else 0)
         in_time = start is None or (begin <= start <= stop if row["granularity"] == "request" else start <= stop and end > begin)
         if not in_time:
             continue
         for component in components:
-            if component["profile"] != window["profile"]:
+            if (component["profile"] != window["profile"]
+                    or component.get("ledger", "evaluation") != window.get("ledger", "evaluation")):
                 continue
             candidate = {"window_id": window["id"], "component_id": component["id"],
-                         "run": window["run"], "wave": window["wave"]}
+                         "run": window["run"], "wave": window["wave"],
+                         **{key: window.get(key) for key in ("episode_id", "pass_id", "attempt_id", "roles", "purpose", "ledger")}}
             if _identity_matches(row, component):
                 candidates.append(candidate)
             elif _identity_matches(row, component, allow_unexpected=True):
@@ -122,7 +130,7 @@ def attribute(row, windows, components):
     if row["granularity"] != "request":
         scopes = sorted({(item["run"], item["wave"]) for item in candidates})
         row["attribution"].update(status="coarse", scopes=[{"run": run, "wave": wave} for run, wave in scopes],
-                                  reason="Bucket retained at export granularity; no chunk division")
+                                  reason="Bucket retained at export granularity; no episode/pass division")
         return
     if len(candidates) != 1:
         row["attribution"].update(status="ambiguous", reason="Multiple matching windows/components; no subtraction or allocation")
@@ -135,7 +143,7 @@ def attribute(row, windows, components):
     if missing or not isolated:
         row["attribution"].update(status="conditional", reason="Missing actual identity: " + ", ".join(missing) if missing else "Account isolation unverified; planned sole consumer is not proof")
         return
-    row["attribution"].update(status="attributed", reason=None, window_id=candidate["window_id"], component_id=candidate["component_id"])
+    row["attribution"].update(status="attributed", reason=None, **candidate)
 
 
 def exclude_overlaps(records):
@@ -271,13 +279,21 @@ def component_report(component, records, windows, tables):
                  and (row["attribution"]["status"] != "attributed" or row.get("exclusion"))]
     treatment = component["treatment"]
     result = {"id": cid, "profile": component["profile"], "provider": component["provider"], "treatment": treatment,
+              "ledger": component.get("ledger", "evaluation"),
               "services": component.get("services", []), "services_evidence": component.get("services_evidence"),
               "coverage": coverage, "access": access_report(component.get("access", {})),
               "internal_usage": usage_summary(internal), "provider_records": len(provider),
               "approximate_start_records": sum(bool(row.get("start_basis")) for row in usable),
               "all_bound_internal_usage": usage_summary([row for row in records if row["component"] == cid and row["kind"] != "provider_export"]),
               "unresolved_record_ids": [row["id"] for row in uncertain], "known_subtotal": None, "cost": None,
-              "currency": "USD", "status": "unknown", "reason": None}
+              "calculated_cost": None, "calculated_subtotal": None,
+              "amount_basis": "actual_provider_billing" if treatment == "provider" else "evidenced_free" if treatment == "free" else treatment,
+              "observed_amounts_by_currency": {},
+              "currency": "USD", "status": "pending", "reason": None}
+    for row in provider:
+        if row["cost"] is not None:
+            currency = row["currency"] or "unknown"
+            result["observed_amounts_by_currency"][currency] = result["observed_amounts_by_currency"].get(currency, Decimal(0)) + row["cost"]
     calculations = [{"record_id": row["id"], **calculate(row, tables, component.get("price_table"))} for row in internal]
     result["internal_calculation"] = {"known_subtotal": sum((row["value"] for row in calculations if row["value"] is not None), Decimal(0)) if calculations else None,
                                       "priced_calls": sum(row["value"] is not None for row in calculations), "calls": len(internal), "records": calculations}
@@ -303,7 +319,8 @@ def component_report(component, records, windows, tables):
     if treatment == "provider":
         amounts = [row["cost"] for row in provider if row["currency"] == "USD" and row["cost"] is not None]
         result["known_subtotal"] = sum(amounts, Decimal(0)) if amounts else None
-        complete = complete and bool(provider) and len(amounts) == len(provider)
+        covered_windows = {row["attribution"]["window_id"] for row in provider}
+        complete = complete and bool(provider) and len(amounts) == len(provider) and selected.issubset(covered_windows)
         result["reason"] = "Attributable complete provider records required" if not complete else None
         if component["profile"] == "PP1":
             internal_value = result["internal_calculation"]["known_subtotal"]
@@ -317,9 +334,14 @@ def component_report(component, records, windows, tables):
                                         "interpretation": "Difference compares selected observed records, not a billing audit or resolution of shared-account remainder"}
     elif treatment == "usage":
         amounts = [row["value"] for row in calculations if row["value"] is not None]
-        result["known_subtotal"] = sum(amounts, Decimal(0)) if amounts else None
-        complete = complete and bool(internal) and len(amounts) == len(internal)
-        result["reason"] = "Complete actual usage and dated prices required" if not complete else None
+        result["calculated_subtotal"] = sum(amounts, Decimal(0)) if amounts else None
+        covered_windows = {row["attribution"]["window_id"] for row in internal}
+        complete = complete and bool(internal) and len(amounts) == len(internal) and selected.issubset(covered_windows)
+        result.update(amount_basis="usage_times_dated_price_not_billing",
+                      calculated_cost=result["calculated_subtotal"] if complete else None,
+                      status="calculated" if complete else "partial" if amounts else "pending",
+                      reason="Usage × dated price is calculated, not actual billing")
+        return result
     elif treatment == "unknown":
         complete = False
         result["reason"] = component.get("missing_reason", "Usage/access evidence absent")
@@ -351,6 +373,12 @@ def access_report(access):
 
 def validate_components(components):
     for component in components:
+        for key in ("id", "profile"):
+            identifier(component[key])
+        if component.get("ledger", "evaluation") not in ("evaluation", "production", "tts", "judge"):
+            raise ValueError("Unknown cost ledger")
+        if component.get("ledger", "evaluation") != "evaluation":
+            continue
         profile, provider, treatment = (component[key] for key in ("profile", "provider", "treatment"))
         if provider == "openrouter" and profile in ("PP1", "VRCT3", "VRCS1", "VRCS2") and treatment != "provider":
             raise ValueError("This profile's OpenRouter component must use governing provider records")
@@ -387,63 +415,178 @@ def profile_report(profile, components):
             covered.update(services)
     missing = sorted(required - covered)
     same_coverage = len({tuple(sorted(row["coverage"]["window_ids"])) for row in selected}) == 1
-    complete = not missing and not issues and same_coverage and all(row["cost"] is not None for row in selected)
+    complete = bool(selected) and not missing and not issues and same_coverage and all(row["cost"] is not None for row in selected)
+    calculated = (bool(selected) and not missing and not issues and same_coverage
+                  and all(row["cost"] is not None or row["calculated_cost"] is not None for row in selected))
     return {"profile": profile, "component_ids": [row["id"] for row in selected],
             "required_services": sorted(required), "covered_services": sorted(covered),
             "missing_services": missing, "inventory_issues": issues,
             "window_ids": selected[0]["coverage"]["window_ids"] if same_coverage else None,
             "cost": sum((row["cost"] for row in selected), Decimal(0)) if complete else None,
+            "calculated_cost": sum((row["cost"] if row["cost"] is not None else row["calculated_cost"] for row in selected), Decimal(0)) if calculated and not complete else None,
+            "calculated_subtotal": sum((row["calculated_subtotal"] for row in selected if row["calculated_subtotal"] is not None), Decimal(0)) if any(row["calculated_subtotal"] is not None for row in selected) else None,
             "known_numeric_subtotal": sum((row["known_subtotal"] for row in selected if row["known_subtotal"] is not None), Decimal(0)) if any(row["known_subtotal"] is not None for row in selected) else None,
             "reason": "Missing required services: " + ", ".join(missing) if missing else
                       "; ".join(issues) if issues else None if complete else "Missing, partial, subscription or unequal-coverage component prevents complete numeric total"}
 
 
-def denominator_report(definition, components, profiles, windows):
-    identifier(definition["id"])
-    selected = definition["window_ids"]
-    known = {row["id"]: row for row in windows}
-    if not selected or len(selected) != len(set(selected)) or not set(selected).issubset(known):
-        raise ValueError("Denominators require unique observed windows")
-    component_ids = definition["component_ids"]
-    chosen = [row for row in components if row["id"] in component_ids]
-    if len(chosen) != len(component_ids) or not chosen:
-        raise ValueError("Denominators require unique known component IDs")
-    scope = definition.get("scope", "profile")
-    if scope not in ("profile", "component"):
-        raise ValueError("Denominator scope must be profile or component")
-    profile_ids = {row["profile"] for row in chosen}
-    if len(profile_ids) != 1:
-        raise ValueError("A denominator must identify one profile's component inventory")
-    profile = next(row for row in profiles if row["profile"] in profile_ids)
-    supported = all(row["cost"] is not None and set(row["coverage"]["window_ids"]) == set(selected) for row in chosen)
-    reason = None if supported else "Complete component costs on exactly the covered subset required"
-    if scope == "profile" and (profile["cost"] is None or set(component_ids) != set(profile["component_ids"])):
-        supported = False
-        reason = "Complete profile service/component inventory required; " + (profile["reason"] or "declared components omitted")
-    if not definition.get("evidence"):
-        supported, reason = False, "Explicit real denominator evidence required"
-    seconds = number(definition["replay_seconds"]) if definition.get("replay_seconds") is not None else None
-    sentences = number(definition["reference_sentences"]) if definition.get("reference_sentences") is not None else None
-    observed = sum((number(known[key]["replayed_seconds"]) if known[key].get("replayed_seconds") is not None else
-                    number((timestamp(known[key]["end"]) - timestamp(known[key]["start"])).total_seconds()) for key in selected), Decimal(0))
-    consistent = seconds == observed if seconds else None
-    if consistent is False:
-        supported, reason = False, "Supplied replay_seconds contradict selected observed replay duration"
-    total = sum((row["cost"] for row in chosen), Decimal(0)) if supported else None
-    populations = sorted({known[key].get("population") or "unspecified" for key in selected})
-    return {"id": definition["id"], "scope": scope, "cost_kind": "profile_total" if scope == "profile" else "component_subtotal",
-            "profile": profile["profile"], "window_ids": selected, "component_ids": component_ids,
-            "population": definition["population"], "window_populations": populations, "mixed_populations": len(populations) > 1,
-            "evidence": definition.get("evidence"), "replay_seconds": seconds, "observed_replay_seconds": observed,
-            "replay_seconds_consistent": consistent, "reference_sentences": sentences, "cost": total,
-            "per_replayed_conversation_hour": total * 3600 / seconds if total is not None and seconds else None,
-            "per_1000_reference_sentences": total * 1000 / sentences if total is not None and sentences else None,
-            "reason": reason if reason else None if seconds and sentences else "Explicit real positive denominators required"}
+def _slice_components(components, records, windows, tables, selected, profile):
+    """Reconcile the exact selected pass subset, never a mixed-population total."""
+    result = []
+    for component in components:
+        if component["profile"] != profile or component.get("ledger", "evaluation") != "evaluation":
+            continue
+        claim = component.get("coverage", {})
+        covered = set(claim.get("window_ids", []))
+        scoped = {**component, "coverage": {**claim, "window_ids": sorted(set(selected) & covered),
+                                           "complete": claim.get("complete") is True and set(selected).issubset(covered)}}
+        result.append(component_report(scoped, records, windows, tables))
+    return result
+
+
+def _selected_window(selection, role, episode, profile, windows):
+    if selection is None:
+        return None
+    matches = []
+    for window in windows:
+        if (window.get("ledger", "evaluation") != "evaluation" or window["profile"] != profile
+                or window.get("episode_id") != episode or role not in window.get("roles", [])):
+            continue
+        if "run_manifest" in selection:
+            same = (window.get("manifest_sha256") == selection["run_manifest"]["sha256"]
+                    and window.get("attempt_id") == str(selection["attempt_id"])
+                    and window.get("pass_id") == selection["pass_id"])
+        else:
+            same = window.get("role_bindings", {}).get(role) == fingerprint(selection)
+        if same:
+            matches.append(window)
+    if len(matches) > 1:
+        raise ValueError("Common report selection binds multiple physical windows")
+    return matches[0] if matches else None
+
+
+def population_reports(inputs, components, records, windows, tables):
+    if inputs.common is None:
+        return []
+    episodes = inputs.common["planned_episodes"]
+    if len({row["episode_id"] for row in episodes}) != len(episodes):
+        raise ValueError("Common report has duplicate planned episodes")
+    result, identities = [], set()
+    for population in inputs.common["populations"]:
+        profile, condition = population["profile"], population["measurement_condition"]
+        if (profile, condition) in identities:
+            raise ValueError("Common report has duplicate profile/condition populations")
+        identities.add((profile, condition))
+        roles = {(row["episode_id"], row["role"]): row for row in population["role_results"]}
+        if len(roles) != len(population["role_results"]):
+            raise ValueError("Common report has duplicate role results")
+        selected, episode_rows, binding_rows, issues = set(), [], [], []
+        total_seconds, timeline_complete, input_complete = Decimal(0), True, True
+        for episode in episodes:
+            eid = episode["episode_id"]
+            timeline = inputs.timelines.get(eid)
+            seconds = number(timeline["seconds"]) if timeline else None
+            if seconds is None:
+                timeline_complete = False
+                issues.append(eid + ": frozen timeline evidence missing")
+            else:
+                total_seconds += seconds
+            episode_windows = set()
+            for role in ("A", "B") if episode["kind"] == "T1" else ("A",):
+                row = roles.get((eid, role), {})
+                selection = row.get("selection")
+                window = _selected_window(selection, role, eid, profile, windows)
+                binding = {"episode_id": eid, "role": role, "cost_binding_id": row.get("cost_binding_id"),
+                           "window_id": window["id"] if window else None,
+                           "selection_sha256": fingerprint(selection) if selection is not None else None}
+                if window:
+                    binding.update({key: window.get(key) for key in ("run", "pass_id", "attempt_id", "state", "purpose")})
+                    authoritative = population.get("condition", {})
+                    structured = authoritative.get("ordinary_input") in ("self", "peer") and authoritative.get("t1_mode") in ("split_self", "simultaneous")
+                    if structured:
+                        expected_pass = ((role if authoritative["t1_mode"] == "split_self" else "simultaneous")
+                                         if episode["kind"] == "T1" else "ordinary-" + authoritative["ordinary_input"])
+                        if window["pass_id"] != expected_pass:
+                            raise ValueError("Cost pass contradicts common report measurement condition")
+                    else:
+                        input_complete = False
+                        issues.append(f"{eid}/{role}: authoritative structured measurement condition missing")
+                    role_seconds = window.get("role_replayed_seconds", {}).get(role, window.get("replayed_seconds"))
+                    full = (seconds is not None and role_seconds is not None and number(role_seconds) == seconds
+                            and window.get("input_complete") is True and window["state"] in ("done", "product_failure")
+                            and window.get("purpose") == "main")
+                    if not full:
+                        input_complete = False
+                        issues.append(f"{eid}/{role}: partial, invalid or non-main input; not comparable to full main execution")
+                    episode_windows.add(window["id"])
+                    selected.add(window["id"])
+                else:
+                    input_complete = False
+                    issues.append(f"{eid}/{role}: selected observed pass missing")
+                binding_rows.append(binding)
+            episode_rows.append({"episode_id": eid, "timeline_seconds": seconds,
+                                 "timeline_evidence": timeline, "window_ids": sorted(episode_windows)})
+        scoped = _slice_components(components, records, windows, tables, selected, profile)
+        summary = profile_report(profile, scoped)
+        if not scoped:
+            issues.append("Profile service/component inventory missing")
+        comparable = bool(episodes) and timeline_complete and input_complete
+        actual = summary["cost"] if comparable else None
+        calculated = summary["calculated_cost"] if comparable else None
+        chosen = [row for row in windows if row["id"] in selected]
+        pass_costs = []
+        for window in chosen:
+            sliced = _slice_components(components, records, windows, tables, [window["id"]], profile)
+            subtotal = profile_report(profile, sliced)
+            pass_costs.append({"window_id": window["id"], "episode_id": window["episode_id"],
+                               "run": window["run"], "pass_id": window["pass_id"], "attempt_id": window["attempt_id"],
+                               "roles": window["roles"], "cost": subtotal["cost"],
+                               "calculated_cost": subtotal["calculated_cost"],
+                               "known_numeric_subtotal": subtotal["known_numeric_subtotal"]})
+        result.append({"profile": profile, "measurement_condition": condition,
+                       "cost_binding_id": population.get("cost_binding_id"),
+                       "status": "complete" if actual is not None else "calculated" if calculated is not None else "pending",
+                       "currency": "USD", "cost": actual, "calculated_cost": calculated,
+                       "calculated_basis": "usage_times_dated_price_plus_any_attributed_bills_not_actual_total",
+                       "known_numeric_subtotal": summary["known_numeric_subtotal"],
+                       "calculated_subtotal": summary["calculated_subtotal"],
+                       "logical_episode_seconds": total_seconds if timeline_complete else None,
+                       "physical_replay_seconds": sum((number(row["replayed_seconds"]) for row in chosen), Decimal(0)) if chosen else None,
+                       "submitted_role_timeline_seconds": sum((sum((number(value) for value in row["role_replayed_seconds"].values()), Decimal(0))
+                                                               if row.get("role_replayed_seconds") else number(row["replayed_seconds"]) * len(row["roles"])
+                                                               for row in chosen), Decimal(0)) if chosen else None,
+                       "full_main_input_observed": comparable,
+                       "per_input_hour": actual * 3600 / total_seconds if actual is not None and total_seconds else None,
+                       "calculated_per_input_hour": calculated * 3600 / total_seconds if calculated is not None and total_seconds else None,
+                       "episodes": episode_rows, "role_bindings": binding_rows, "pass_costs": pass_costs,
+                       "components": scoped, "missing_services": summary["missing_services"],
+                       "issues": issues, "reason": "; ".join(issues) if issues else summary["reason"]})
+    return result
+
+
+def _protect_output(inputs, output_path):
+    targets = (output_path, output_path.with_name(output_path.name + ".tmp"))
+    for target in targets:
+        if target in inputs.paths:
+            raise ValueError("Cost output must not overwrite a frozen artifact, prior revision or raw input")
+        if target.exists() and any(path.exists() and target.samefile(path) for path in inputs.paths):
+            raise ValueError("Cost output must not overwrite a raw input through a hard-link alias")
+    if targets[1].exists():
+        raise ValueError("Cost output temporary path already exists; refusing to overwrite it")
 
 
 def derive(spec_path, output_path):
     inputs = Inputs(spec_path)
     spec = inputs.spec
+    revision_id = identifier(spec["revision"]["id"])
+    previous = None
+    if spec["revision"].get("previous"):
+        path = inputs.artifact(spec["revision"]["previous"], "previous-revision", "cost_revision")
+        import json
+        previous = json.loads(path.read_text(encoding="utf-8-sig"))
+        if (previous.get("version") != VERSION or previous.get("common_report") != inputs.common_binding
+                or previous["revision"]["id"] == revision_id):
+            raise ValueError("Later cost revision requires a distinct ID and the same immutable common report")
     components = spec.get("components", [])
     ids = [identifier(row["id"]) for row in components]
     if not ids or len(ids) != len(set(ids)):
@@ -464,26 +607,67 @@ def derive(spec_path, output_path):
             coarse.append({"record_id": row["id"], "scope": row["scope"], "candidate_scopes": row["attribution"]["scopes"],
                            "granularity": row["granularity"], "cost": row["cost"] if attributable and row["currency"] == "USD" else None,
                            "known_export_amount": row["cost"], "currency": row["currency"], "mixed_workload_possible": not row["isolation_verified"],
-                           "reason": "Known export bucket/wave only; not a chunk amount" if attributable else "Coarse scope/isolation/overlap unresolved"})
-    profile_reports = [profile_report(profile, reports) for profile in sorted({row["profile"] for row in reports})]
-    unmatched = sum(not row["attribution"]["candidates"] for row in records)
-    synthetic = spec.get("synthetic", False) or any(item.get("synthetic", False) for item in inputs.provenance) or any(row.get("actual_dac_observed") is False for row in windows)
-    result = {"version": VERSION, "generated_at": utc_now(), "currency": "USD", "synthetic": synthetic,
-              "privacy": "Selected normalized benchmark-candidate evidence only; no raw rows, request IDs, credentials or input paths. Operator must map only nonsecret model/aliases and supply publication-safe labels/evidence. Source hashes can identify complete private files; no account-audit or automatic redaction claim.",
-              "rules": {"request_time": "START only; timezone-aware; inclusive window start through end+30s", "slack_seconds": SLACK_SECONDS,
-                        "ambiguity": "Retain candidates once; never subtract uncertain PP estimates to derive VRCS2", "coarse": "Retain bucket/wave; never split into chunks",
-                        "denominators": "Explicit actual selected subset only; plans/attempt wall duration never substitute",
-                        "excluded_costs": ["power", "setup", "hardware", "TTS"]},
+                           "reason": "Known export bucket/wave only; not an episode amount" if attributable else "Coarse scope/isolation/overlap unresolved"})
+    evaluation = [row for row in reports if row["ledger"] == "evaluation"]
+    profile_reports = [profile_report(profile, evaluation) for profile in sorted({row["profile"] for row in evaluation})]
+    populations = population_reports(inputs, components, records, windows, tables)
+    groups = []
+    for ledger, purpose in sorted({(row.get("ledger", "evaluation"),
+                                   "harness_invalid" if row["state"] == "invalid" else row.get("purpose", "historical"))
+                                  for row in windows}):
+        group = [row for row in windows if row.get("ledger", "evaluation") == ledger
+                 and ("harness_invalid" if row["state"] == "invalid" else row.get("purpose", "historical")) == purpose]
+        selected = {row["id"] for row in group}
+        grouped_components = []
+        for component in components:
+            if component.get("ledger", "evaluation") != ledger:
+                continue
+            claim = component.get("coverage", {})
+            covered = set(claim.get("window_ids", [])) & selected
+            if not covered:
+                continue
+            scoped = {**component, "coverage": {**claim, "window_ids": sorted(covered)}}
+            grouped_components.append(component_report(scoped, records, windows, tables))
+        groups.append({"ledger": ledger, "purpose": purpose, "window_ids": sorted(selected),
+                       "physical_replay_seconds": sum((number(row["replayed_seconds"]) for row in group if row.get("replayed_seconds") is not None), Decimal(0)),
+                       "record_ids": [row["id"] for row in records if row["attribution"].get("window_id") in selected],
+                       "components": grouped_components})
+    consumption_summaries = inputs.consumption_summaries()
+    synthetic = (spec.get("synthetic", False) or any(item.get("synthetic", False) for item in inputs.provenance)
+                 or any(row.get("actual_dac_observed") is False for row in windows)
+                 or bool(inputs.common and inputs.common.get("synthetic_judgments")))
+    result = {"version": VERSION, "mode": spec.get("mode", "episode"),
+              "currency": "USD", "synthetic": synthetic, "common_report": inputs.common_binding,
+              "status": "historical_evidence_only" if inputs.common is None else
+                        "complete" if populations and all(row["status"] == "complete" for row in populations) else "pending",
+              "privacy": "Selected allowlisted local evidence only; no raw rows, request IDs or paths. Labels/evidence/aliases require operator inspection; hashes may identify private files. No account-audit or automatic redaction claim.",
+              "rules": {"request_time": "START only; timezone-aware; explicit observed bounds include tail; historical windows retain end+30s",
+                        "ambiguity": "Keep unresolved candidates without allocation or subtraction",
+                        "normalization": "Both passes/roles billed; frozen logical episode timeline once; full main input only",
+                        "calculated": "Usage times dated price is never actual billing",
+                        "separate_ledgers": ["production", "tts", "judge"],
+                        "separate_purposes": ["main", "repeat", "preparation", "harness_retry", "harness_invalid"]},
               "provenance": inputs.provenance,
               "price_tables": [{key: table[key] for key in ("id", "provider", "model", "date", "valid_from", "valid_until", "currency", "basis", "per_tokens", "rates", "per_second", "input_includes_cached", "output_includes_reasoning", "evidence") if key in table} for table in tables],
-              "windows": windows, "attempts": attempts,
-              "records": records, "unmatched_record_count": unmatched,
+              "windows": windows, "attempts": attempts, "records": records,
+              "unmatched_record_count": sum(not row["attribution"]["candidates"] for row in records),
               "components": reports, "profiles": profile_reports, "coarse_costs": coarse,
-              "denominators": [denominator_report(row, reports, profile_reports, windows) for row in spec.get("denominators", [])]}
-    output_path = Path(output_path).resolve()
-    if output_path in inputs.paths or output_path.with_name(output_path.name + ".tmp") in inputs.paths:
-        raise ValueError("Cost output must not overwrite a raw input")
-    output_path.parent.mkdir(parents=True, exist_ok=True)
+              "populations": populations, "ledger_groups": groups,
+              "auxiliary_components": [row for row in reports if row["ledger"] != "evaluation"],
+              "consumption_summaries": consumption_summaries}
     result = _json(result)
+    evidence_hash = fingerprint(result)
+    result["revision"] = {"id": revision_id, "evidence_sha256": evidence_hash,
+                          "previous": {"id": previous["revision"]["id"], "sha256": spec["revision"]["previous"]["sha256"]} if previous else None}
+    output_path = Path(output_path).resolve()
+    _protect_output(inputs, output_path)
+    if output_path.exists():
+        import json
+        old = json.loads(output_path.read_text(encoding="utf-8-sig"))
+        if old.get("revision") == result["revision"] and {key: value for key, value in old.items() if key != "generated_at"} == result:
+            return old
+        raise ValueError("Cost evidence revisions are immutable; choose a new revision ID/output and bind previous")
+    result["generated_at"] = utc_now()
+    output_path.parent.mkdir(parents=True, exist_ok=True)
     atomic_json(output_path, result)
     return result

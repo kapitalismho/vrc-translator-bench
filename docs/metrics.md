@@ -17,6 +17,8 @@ Both language pairs receive 0.5. Within each pair P1/P2/P3/T1/P4 receive 0.10/0.
 
 Quantiles pool the weighted CDF, never average episode or language quantiles. Observations at 0/2/5/10/15 seconds produce intervals, not midpoints. Known no-output and persistent incorrect output remain in the denominator as unmet. Unknown observation, missing roles, or unjudged checkpoints make the integrated timing result incomplete. Quality and time can complete independently. A fully observed no-output quality zero is marked as protocol-derived, not as a judge response.
 
+Costs bind this frozen common report through a separate [R5 evidence revision](costs.md). They use actual attributable app charges over the logical episode timeline counted once, not the quality type weights, checkpoint count, reference sentences or summed split-pass duration. Missing bills and calculated usage prices do not alter quality or timing completeness. The historical cost-population notes below describe the retired stage/sentence accounting, not the active episode denominator.
+
 ## Historical OSC measurements
 
 > **Retired evaluation contract.** Everything below describes the removed `bench metrics`/`metrics-batch` and old alignment implementation at [the pre-reset revision](https://github.com/kapitalismho/vrc-translator-bench/tree/fbab10a0455d91d5419d9673499d25b7ac86c566). It is not active instructions or accepted new-benchmark results. Historical analysis remains under its integrity hold. No delivery/FOL/LUL field is an alias for the current episode quality or semantic-wait metrics.

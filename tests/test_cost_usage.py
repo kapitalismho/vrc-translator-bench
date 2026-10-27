@@ -113,7 +113,8 @@ def test_invalid_interrupted_attempt_keeps_actual_partial_replay(tmp_path):
                               "start_wall": "2026-10-20T12:00:00Z", "end_wall": "2026-10-20T12:00:05Z", "trace": trace.name, "checksum": digest(trace)}]}
     path = tmp_path / "manifest.json"
     path.write_text(json.dumps(manifest), encoding="utf-8")
-    spec = {"version": 1, "synthetic": True, "manifests": [{"id": "interrupted", "path": str(path), "populations": {"0": "development"}}],
+    spec = {"schema_version": 2, "mode": "historical_evidence_only", "revision": {"id": "interrupted"},
+            "synthetic": True, "manifests": [{"id": "interrupted", "path": str(path), "populations": {"0": "development"}}],
             "components": [{"id": "VRCS2.translation", "profile": "VRCS2", "provider": "openrouter", "treatment": "provider",
                             "coverage": {"window_ids": ["interrupted.attempt-1"], "complete": False, "evidence": "Synthetic interrupted run"}}]}
     result = report(tmp_path, spec)
@@ -122,16 +123,17 @@ def test_invalid_interrupted_attempt_keeps_actual_partial_replay(tmp_path):
     assert result["attempts"][0]["replayed_seconds"] == 2
     assert result["windows"][0]["start"] == "2026-10-20T12:00:01+00:00"
     assert result["windows"][0]["end"] == "2026-10-20T12:00:03+00:00"
-    assert not result["denominators"]
+    assert not result["populations"]
     assert result["components"][0]["cost"] is None
 
 
-def test_empty_real_denominators_are_unknown_not_zero(tmp_path):
+def test_missing_frozen_timeline_is_unknown_not_zero(tmp_path):
     spec = specification()
-    spec["denominators"][0].update(replay_seconds=None, reference_sentences=None)
+    spec["timelines"] = []
     result = report(tmp_path, spec)
-    assert result["denominators"][0]["per_replayed_conversation_hour"] is None
-    assert result["denominators"][0]["per_1000_reference_sentences"] is None
+    assert result["populations"][0]["logical_episode_seconds"] is None
+    assert result["populations"][0]["per_input_hour"] is None
+    assert result["populations"][0]["calculated_per_input_hour"] is None
 
 
 def test_recognition_terminal_bytes_do_not_become_asr_usage(tmp_path):

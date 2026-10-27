@@ -1,0 +1,160 @@
+{
+  "schema_version": 2,
+  "synthetic": true,
+  "revision": {
+    "id": "split-main-retries-separated"
+  },
+  "common_report": {
+    "path": "common.json",
+    "sha256": "fed328d59bb8a57b54b94e316ae7f3643f95a9597db05751bcab55016971e952"
+  },
+  "manifests": [
+    {
+      "id": "capture",
+      "path": "manifest.json",
+      "sha256": "29c6b305e6451b08dfc75dbadf2205f8110d87386a37c651d036d6d540cea3f7",
+      "purpose": "main"
+    }
+  ],
+  "components": [
+    {
+      "id": "VRCLT2.route",
+      "profile": "VRCLT2",
+      "provider": "qwen",
+      "treatment": "provider",
+      "models": [
+        "synthetic/gemma"
+      ],
+      "key_aliases": [
+        "shared"
+      ],
+      "services": [
+        "asr",
+        "translation"
+      ],
+      "services_evidence": "Invented all-in-one arithmetic route, not a real model price",
+      "coverage": {
+        "window_ids": [
+          "capture.attempt-1",
+          "capture.attempt-2",
+          "repeat-done",
+          "preparation-done",
+          "main-invalid",
+          "harness_retry-done"
+        ],
+        "complete": true,
+        "evidence": "Complete synthetic bills for both passes"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "invented-bills",
+      "path": "mixed-bills.json",
+      "kind": "provider_export",
+      "provider": "qwen",
+      "format": "json",
+      "permitted": true,
+      "synthetic": true,
+      "benchmark_only": true,
+      "selection_evidence": "Invented selected records; no account activity",
+      "currency": "USD",
+      "fields": {
+        "start": "start",
+        "end": "end",
+        "model": "model",
+        "key_alias": "key_alias",
+        "cost": "cost",
+        "request_id": "request_id",
+        "window_id": "window_id",
+        "product_retry": "product_retry"
+      },
+      "isolation": {
+        "verified": true,
+        "evidence": "Synthetic isolated fixture, not account proof"
+      }
+    }
+  ],
+  "windows": [
+    {
+      "id": "repeat-done",
+      "run": "other-run",
+      "wave": "wave",
+      "profile": "VRCLT2",
+      "episode_id": "conversation",
+      "pass_id": "A",
+      "attempt_id": "4",
+      "roles": [
+        "A"
+      ],
+      "kind": "T1",
+      "purpose": "repeat",
+      "state": "done",
+      "replayed_seconds": 12,
+      "input_complete": false,
+      "start": "2026-10-20T12:08:00Z",
+      "end": "2026-10-20T12:08:27Z",
+      "evidence": "Invented separate-purpose input"
+    },
+    {
+      "id": "preparation-done",
+      "run": "other-run",
+      "wave": "wave",
+      "profile": "VRCLT2",
+      "episode_id": "conversation",
+      "pass_id": "A",
+      "attempt_id": "5",
+      "roles": [
+        "A"
+      ],
+      "kind": "T1",
+      "purpose": "preparation",
+      "state": "done",
+      "replayed_seconds": 12,
+      "input_complete": false,
+      "start": "2026-10-20T12:10:00Z",
+      "end": "2026-10-20T12:10:27Z",
+      "evidence": "Invented separate-purpose input"
+    },
+    {
+      "id": "main-invalid",
+      "run": "other-run",
+      "wave": "wave",
+      "profile": "VRCLT2",
+      "episode_id": "conversation",
+      "pass_id": "A",
+      "attempt_id": "6",
+      "roles": [
+        "A"
+      ],
+      "kind": "T1",
+      "purpose": "main",
+      "state": "invalid",
+      "replayed_seconds": 12,
+      "input_complete": false,
+      "start": "2026-10-20T12:12:00Z",
+      "end": "2026-10-20T12:12:27Z",
+      "evidence": "Invented separate-purpose input"
+    },
+    {
+      "id": "harness_retry-done",
+      "run": "other-run",
+      "wave": "wave",
+      "profile": "VRCLT2",
+      "episode_id": "conversation",
+      "pass_id": "A",
+      "attempt_id": "7",
+      "roles": [
+        "A"
+      ],
+      "kind": "T1",
+      "purpose": "harness_retry",
+      "state": "done",
+      "replayed_seconds": 12,
+      "input_complete": false,
+      "start": "2026-10-20T12:14:00Z",
+      "end": "2026-10-20T12:14:27Z",
+      "evidence": "Invented separate-purpose input"
+    }
+  ]
+}

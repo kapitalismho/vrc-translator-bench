@@ -1,0 +1,47 @@
+{
+  "schema_version": 2,
+  "synthetic": true,
+  "revision": {
+    "id": "split-pending"
+  },
+  "common_report": {
+    "path": "common.json",
+    "sha256": "fed328d59bb8a57b54b94e316ae7f3643f95a9597db05751bcab55016971e952"
+  },
+  "manifests": [
+    {
+      "id": "capture",
+      "path": "manifest.json",
+      "sha256": "29c6b305e6451b08dfc75dbadf2205f8110d87386a37c651d036d6d540cea3f7",
+      "purpose": "main"
+    }
+  ],
+  "components": [
+    {
+      "id": "VRCLT2.route",
+      "profile": "VRCLT2",
+      "provider": "qwen",
+      "treatment": "provider",
+      "models": [
+        "synthetic/gemma"
+      ],
+      "key_aliases": [
+        "shared"
+      ],
+      "services": [
+        "asr",
+        "translation"
+      ],
+      "services_evidence": "Invented all-in-one arithmetic route, not a real model price",
+      "coverage": {
+        "window_ids": [
+          "capture.attempt-1",
+          "capture.attempt-2"
+        ],
+        "complete": true,
+        "evidence": "Complete synthetic bills for both passes"
+      }
+    }
+  ],
+  "sources": []
+}

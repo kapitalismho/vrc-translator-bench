@@ -35,7 +35,7 @@ def parser():
     playback.add_argument("audio", type=Path)
     playback.add_argument("--output-device", required=True)
     playback.add_argument("--output", type=Path, default=Path(".data/calibration/playback.json"))
-    costs = commands.add_parser("costs")
+    costs = commands.add_parser("costs", help="Reconcile local evidence into an immutable cost revision bound to an R4 report")
     costs.add_argument("--spec", type=Path, required=True)
     costs.add_argument("--output", type=Path, required=True)
     quality = commands.add_parser("quality", help="Evaluate bound episode histories; preserve incomplete quality and waiting results")
@@ -61,8 +61,9 @@ def main(argv=None):
             from .costs import derive
             result = derive(args.spec, args.output)
             print(json.dumps({"report": str(args.output), "version": result["version"],
+                              "revision": result["revision"]["id"], "status": result["status"],
                               "components": len(result["components"]), "records": len(result["records"]),
-                              "unknown_profiles": sum(row["cost"] is None for row in result["profiles"])}, indent=2))
+                              "pending_populations": sum(row["cost"] is None for row in result["populations"])}, indent=2))
             return 0
         if args.command == "profiles":
             result = inspect_catalog(args.catalog, check_ports=args.check_ports)

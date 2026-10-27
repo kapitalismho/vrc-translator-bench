@@ -1,0 +1,66 @@
+[
+  {
+    "start": "2026-10-20T12:00:01Z",
+    "end": "2026-10-20T12:05:00Z",
+    "model": "synthetic/gemma",
+    "key_alias": "shared",
+    "cost": ".01",
+    "request_id": "invented-a",
+    "window_id": "capture.attempt-1"
+  },
+  {
+    "start": "2026-10-20T12:02:01Z",
+    "end": "2026-10-20T12:05:00Z",
+    "model": "synthetic/gemma",
+    "key_alias": "shared",
+    "cost": ".02",
+    "request_id": "invented-b",
+    "window_id": "capture.attempt-2"
+  },
+  {
+    "start": "2026-10-20T12:01:10Z",
+    "end": "2026-10-20T12:01:11Z",
+    "model": "synthetic/gemma",
+    "key_alias": "shared",
+    "cost": ".005",
+    "request_id": "invented-product-retry",
+    "window_id": "capture.attempt-1",
+    "product_retry": true
+  },
+  {
+    "start": "2026-10-20T12:08:01Z",
+    "end": "2026-10-20T12:08:02Z",
+    "model": "synthetic/gemma",
+    "key_alias": "shared",
+    "cost": "1",
+    "request_id": "invented-repeat-done",
+    "window_id": "repeat-done"
+  },
+  {
+    "start": "2026-10-20T12:10:01Z",
+    "end": "2026-10-20T12:10:02Z",
+    "model": "synthetic/gemma",
+    "key_alias": "shared",
+    "cost": "1",
+    "request_id": "invented-preparation-done",
+    "window_id": "preparation-done"
+  },
+  {
+    "start": "2026-10-20T12:12:01Z",
+    "end": "2026-10-20T12:12:02Z",
+    "model": "synthetic/gemma",
+    "key_alias": "shared",
+    "cost": "1",
+    "request_id": "invented-main-invalid",
+    "window_id": "main-invalid"
+  },
+  {
+    "start": "2026-10-20T12:14:01Z",
+    "end": "2026-10-20T12:14:02Z",
+    "model": "synthetic/gemma",
+    "key_alias": "shared",
+    "cost": "1",
+    "request_id": "invented-harness_retry-done",
+    "window_id": "harness_retry-done"
+  }
+]

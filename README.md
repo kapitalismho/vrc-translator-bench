@@ -9,7 +9,7 @@ A community benchmark for conversation translation. The approved [final plan](do
 - Windows WASAPI playback/calibration, episode/role/pass routing, app-native output collection, durable attempt history, interruption/resume and owned-process cleanup.
 - All 14 application profiles, independent native feasibility scopes and retained historical configuration, capture, failure and source evidence.
 - `bench quality --spec ... --output ...` for bound episode/role evaluation, with explicit selected GPT 6 Astra / Sign in with ChatGPT transport, durable raw calls and independent quality/time completeness. Omit transport for offline reconstruction and cache reuse.
-- Local cost-log ingestion, attribution, Decimal arithmetic, subscription/free/unknown treatment and original-evidence protection. New episode/pass normalization is not implemented.
+- Local cost-log ingestion, episode/role/pass attribution, once-counted logical timelines, separate billing revisions, Decimal arithmetic, subscription/free/unknown treatment and original-evidence protection.
 - Separate path-redacted capture exports; publication still needs content and rights inspection.
 - Offline ASCEND, IngCrowd and FLEURS/C1 materializers for 51 main source episodes, 12 development episodes and two controls, with source/sample/reference checks and nine main/four development ASCEND T1 parents. Runtime execution plans and R6 admission remain separate.
 - [R3 reviewed JA/KO T1 inputs](docs/corpus.md#r3-japanesekorean-t1-preparation): four development and nine main first takes locally frozen with role audio, actual timelines, hashes, production-cost evidence and mandatory uncertainty-bearing references. Pilot owner listening and automatic main review are disclosed separately; no main take was discarded or regenerated. R6 runtime admission remains separate.
@@ -40,7 +40,7 @@ python -m bench.cli costs --spec tests/fixtures/costs/synthetic-spec.json --outp
 python -m bench.cli costs --spec tests/fixtures/costs/real-missing-spec.json --output .data/costs/real-missing.json
 ```
 
-The first input is synthetic arithmetic. The second binds a historical VRCS2 capture with missing usage evidence and must retain null costs. Neither supplies measured provider billing. See [costs](docs/costs.md) for the existing format and its migration limits.
+The first input is synthetic arithmetic, with usage-based calculations distinguished from actual billing. The second retains a historical VRCS2 capture with missing usage evidence and null costs, without inventing new episode identities. Neither supplies measured provider billing. See [costs](docs/costs.md) for the active schema-2 specification, immutable R4 result binding and later owner-evidence update path.
 
 ## Historical evidence, not a new baseline
 
