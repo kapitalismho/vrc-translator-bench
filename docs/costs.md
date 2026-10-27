@@ -41,7 +41,11 @@ Use non-secret IDs and aliases. The common report owns planned episodes, source 
 
 Schema-2 Runner manifests supply `run`, `work.profile/episode_id/pass_id`, attempt identity/state and role routing. Cost ingestion verifies trace checksums and derives observed input from callback frames/sample rate and the retained wall/monotonic mapping. The frozen episode frames/rate supplies the logical timeline; an attempt wall duration is not a substitute. Separate attempts, resumed history, incomplete input and invalid attempts remain visible.
 
-Standalone windows require `id`, `run`, `wave`, `profile`, `episode_id`, `pass_id`, `attempt_id`, `roles`, `purpose`, `state`, timezone-aware `start`/`end`, observed `replayed_seconds`, `input_complete`, and `evidence`. Their `role_bindings` map each role to the SHA-256 of its canonical R4 selection. A standalone timeline is an explicit hash-bound operator claim, not automatically independently measured audio. Do not manufacture bindings for historical captures.
+Callback gaps, overlaps, unusable DAC mapping and nonempty callback status leave the affected attempt's replay duration and completeness unknown; they do not invalidate a healthy selected resumed attempt. Attributable failed-attempt charges remain in its separate ledger. Replay aggregates stay null if any contributing duration is unknown, rather than summing only the known subset. Physical channel/role routing must agree with the frozen R4 condition. A frozen pilot/preparation run cannot be promoted to main by a cost specification.
+
+Standalone evaluation windows require `id`, `run`, `wave`, `profile`, `episode_id`, `pass_id`, `attempt_id`, `roles`, `purpose`, `state`, timezone-aware `start`/`end`, observed `replayed_seconds`, `input_complete`, and `evidence`. Their `role_bindings` map each role to the SHA-256 of its canonical R4 selection; the fingerprint does not override contradictory run/pass/attempt scope. Auxiliary production/TTS/judge windows need not invent episode/role identities. A standalone timeline is an explicit hash-bound operator claim, not automatically independently measured audio. Do not manufacture bindings for historical captures.
+
+Essential standalone run/profile/episode/pass/attempt identity must be established by the immutable selection scope. Missing identity stays pending. In particular, an R4 standalone history without run identity is not sufficient for a complete normalized bill; its fingerprint does not supply the missing fact. Manifest-selected Runner/R4 inputs provide the stronger complete binding.
 
 Active window bounds include the evidenced observation interval. Request-start attribution uses those bounds, not an implicit extra 30 seconds. Replay seconds remain separate from observation/preparation time. Only historical stage-manifest evidence retains the former playback-end +30-second rule. Coarse or overlapping windows do not authorize nearest-window attribution.
 
@@ -125,7 +129,7 @@ Optional `consumption_summaries` are restricted to `production`, `tts` or `judge
 4. Add selected local sources and applicable dated pricing evidence. Do not replace missing bills with an estimate or rewrite quality/time to make the join work.
 5. Run `bench costs` to a new output path and inspect actual versus calculated totals, missing components and populations. Identical re-ingestion is idempotent, not another charge or revision.
 
-The revision records its evidence identity and previous linkage. Later billing is a separate evidence update, not permission for new provider usage, app reruns or account scraping.
+The revision records its evidence identity and previous linkage. Already-established logical timeline content hashes and selected physical-input identity/timing are also frozen across revisions; preserving only the common-report bytes is insufficient. A 20-second input cannot become a 40-second denominator in a billing-only update. Missing billing may be added, but a changed experimental time basis requires a separately identified result. Later billing is not permission for new provider usage, app reruns or account scraping.
 
 ## Retained evidence and exact gaps
 

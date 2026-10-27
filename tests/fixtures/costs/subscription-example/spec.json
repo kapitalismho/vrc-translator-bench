@@ -6,13 +6,13 @@
   },
   "common_report": {
     "path": "common.json",
-    "sha256": "88cebd2cdd6e7864755030ddde3d60b8310113bf13b8ddcf2961c26974363421"
+    "sha256": "34592030391d94870a55f14802c81b3e294ea08aaf0975d7bb9781d0f33981bb"
   },
   "manifests": [
     {
       "id": "capture",
       "path": "manifest.json",
-      "sha256": "a43b47446af84dbbfdbbc6c5c791725cf27357a21f006361ac13a286a1cabe86",
+      "sha256": "40c99e7bf8d9ac28db123ef4312f3596fac66369e903159beb2a1c3bb6ffe9a8",
       "purpose": "main"
     }
   ],

@@ -51,7 +51,7 @@ def example(tmp_path, profile="VRCLT2", simultaneous=False):
                          "clock_session": "synthetic-clock", "playback_dac_start_ns": start_ns,
                          "actual_dac_observed": False, "audio_sha256": "synthetic-audio-" + role},
                         {"record": "audio_callback", "input_channel": channel, "source_frame": 0,
-                         "source_frames": 60000, "dac_t_ns": start_ns}]
+                         "source_frames": 60000, "dac_t_ns": start_ns, "status": ""}]
         trace = tmp_path / f"attempt-{index}.jsonl"
         trace.write_text("".join(json.dumps(record) + "\n" for record in records), encoding="utf-8")
         manifest["plan"]["passes"].append({"episode_id": "conversation", "pass_id": pass_id, "wave": "wave",
@@ -392,6 +392,7 @@ def test_real_r4_report_is_consumed_without_judge_dispatch_or_quality_mutation(t
     costs = derive(path, tmp_path / "cost.json")
     assert costs["populations"][0]["logical_episode_seconds"] == 20
     assert costs["populations"][0]["cost"] is None
+    assert costs["populations"][0]["full_main_input_observed"] is False  # R4 standalone scope has no run identity.
     assert quality_path_out.read_bytes() == frozen
 
 

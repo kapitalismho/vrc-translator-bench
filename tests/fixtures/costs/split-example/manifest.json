@@ -96,7 +96,7 @@
       "end_wall": "2026-10-20T12:01:15Z",
       "end_ns": 76000000000,
       "trace": "attempt-1.jsonl",
-      "checksum": "8006ff6b5116f93ef9133665c32e0b27d8898043feeedb56c0d099d9151e9859",
+      "checksum": "c94ca2241169ecef0a108cdf14d68e9b00f358f800e2a23ea3ac621b6f3d0c04",
       "reason": null,
       "detail": {
         "observation_end_ns": 76000000000
@@ -112,7 +112,7 @@
       "end_wall": "2026-10-20T12:03:15Z",
       "end_ns": 76000000000,
       "trace": "attempt-2.jsonl",
-      "checksum": "3e99e3a4d29e95859f8c5297b8eb4eaa0a293325816c868cc8f1f0168a011281",
+      "checksum": "52dfc9554af1018b2d022f392b2dc159618f082c59e52c13bfb5a3a225bb2f0b",
       "reason": null,
       "detail": {
         "observation_end_ns": 76000000000

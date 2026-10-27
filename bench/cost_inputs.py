@@ -135,7 +135,7 @@ class Inputs:
             if self.spec.get("mode") == "historical_evidence_only":
                 raise ValueError("Historical evidence-only mode ingests retained manifests, not invented windows")
             ledger = supplied.get("ledger", "evaluation")
-            keys = ("id", "run", "wave", "profile", "episode_id", "pass_id", "attempt_id", "kind", "purpose", "state", "roles")
+            keys = ("id", "run", "wave", "profile", "episode_id", "pass_id", "attempt_id", "kind", "purpose", "state", "roles", "clock_session", "pass_channels")
             row = {key: supplied.get(key) for key in keys}
             for key in ("id", "run", "wave", "profile"):
                 identifier(row[key])
@@ -181,6 +181,8 @@ class Inputs:
             self.paths.add((path.parent / name).resolve())
         plan = manifest["plan"]
         episodes = {row["episode_id"]: row for row in plan["episodes"]}
+        if len(episodes) != len(plan["episodes"]):
+            raise ValueError("Frozen manifest contains duplicate episode IDs")
         for eid, episode in episodes.items():
             source_identity = {"kind": episode["kind"], "language_pair": episode["language_pair"],
                                "source_case_id": episode.get("source_case_id"),
@@ -191,7 +193,9 @@ class Inputs:
             self.episode_sources[eid] = source_identity
             if self.common:
                 planned = next((row for row in self.common["planned_episodes"] if row["episode_id"] == eid), None)
-                if planned and any(planned.get(key) != episode.get(key) for key in ("kind", "language_pair")):
+                if planned and (any(planned.get(key) != episode.get(key) for key in ("kind", "language_pair"))
+                                or planned.get("source_case_id") is not None and episode.get("source_case_id") is not None
+                                and planned["source_case_id"] != episode["source_case_id"]):
                     raise ValueError("Frozen episode contradicts common report population")
             formats = {(row["frames"], row["sample_rate"]) for row in episode["roles"].values()}
             if len(formats) != 1:
@@ -206,6 +210,8 @@ class Inputs:
             self.timelines[eid] = {"seconds": seconds, "sha256": self.hashes[path],
                                    "basis": "frozen_episode_frames/sample_rate"}
         work = {row["id"]: row for row in manifest["work"]}
+        if len(work) != len(manifest["work"]) or len({row["id"] for row in manifest["attempts"]}) != len(manifest["attempts"]):
+            raise ValueError("Frozen manifest work and attempt identities must be unique")
         for attempt in manifest["attempts"]:
             item = work[attempt["work_id"]]
             matches = [row for row in plan["passes"] if row["episode_id"] == item["episode_id"]
@@ -239,11 +245,11 @@ class Inputs:
                     ("run", manifest["run"]), ("profile", item["profile"]), ("episode_id", item["episode_id"]),
                     ("pass_id", item["pass_id"]), ("attempt", attempt["id"]))):
                 raise ValueError("Trace anchor contradicts manifest attempt identity")
-            replay, origins, stops, actual = {}, [], [], []
+            replay, origins, stops, actual, callback_integrity = {}, [], [], [], {}
             for channel, binding in physical["roles"].items():
                 sources = [row for row in rows if row.get("record") == "source_playback" and row.get("input_channel") == channel]
                 callbacks = [row for row in rows if row.get("record") == "audio_callback"
-                             and row.get("input_channel") == channel and row.get("source_frames", 0) > 0]
+                             and row.get("input_channel") == channel]
                 if not sources or not callbacks:
                     continue
                 if len(sources) != 1:
@@ -257,19 +263,28 @@ class Inputs:
                 frozen = episodes[item["episode_id"]]["roles"][binding["role"]]
                 if playback.get("audio_sha256") != frozen["audio_sha256"]:
                     raise ValueError("Playback source differs from frozen episode")
-                frame = 0
+                frame, previous_dac, valid = 0, None, bool(callbacks)
                 for callback in callbacks:
-                    if callback["source_frame"] != frame or type(callback["source_frames"]) is not int:
-                        raise ValueError("Playback callbacks overlap or omit source frames")
-                    frame += callback["source_frames"]
-                if frame > frozen["frames"]:
-                    raise ValueError("Callbacks exceed frozen source")
-                seconds = Decimal(frame) / frozen["sample_rate"]
+                    first, count, dac = (callback.get(key) for key in ("source_frame", "source_frames", "dac_t_ns"))
+                    if (any(type(value) is not int for value in (first, count, dac))
+                            or first != frame or count < 0 or first + count > frozen["frames"]
+                            or callback.get("status") != ""
+                            or count and previous_dac is not None and dac < previous_dac):
+                        valid = False
+                        break
+                    frame += count
+                    if count:
+                        previous_dac = dac
+                valid = (valid and frame > 0
+                         and next(callback["dac_t_ns"] for callback in callbacks if callback["source_frames"] > 0) == playback.get("playback_dac_start_ns"))
+                callback_integrity[binding["role"]] = valid
+                seconds = Decimal(frame) / frozen["sample_rate"] if valid else None
                 start_ns = playback.get("input_origin_ns")
                 start_ns = playback["playback_dac_start_ns"] if start_ns is None else start_ns
                 start = timestamp(anchor["wall"]) + timedelta(seconds=(start_ns - anchor["t_ns"]) / 1e9)
                 origins.append(start)
-                stops.append(start + timedelta(seconds=float(seconds)))
+                if seconds is not None:
+                    stops.append(start + timedelta(seconds=float(seconds)))
                 replay[binding["role"]] = seconds
                 actual.append(playback.get("actual_dac_observed"))
             if not replay:
@@ -280,23 +295,35 @@ class Inputs:
             end_ns = detail.get("observation_end_ns", attempt.get("end_ns"))
             observed_end = (timestamp(anchor["wall"]) + timedelta(seconds=(end_ns - anchor["t_ns"]) / 1e9)
                             if type(end_ns) is int else timestamp(attempt["end_wall"]))
-            stop = max(stops)
+            stop = max(stops) if stops and all(value is not None for value in replay.values()) else None
             purpose = source.get("purpose", "main" if plan.get("execution_scope", {}).get("kind") == "main" else "preparation")
+            execution_scope = plan.get("execution_scope", {}).get("kind")
+            if purpose == "main" and execution_scope not in ("main", "synthetic"):
+                raise ValueError("Main cost selection requires frozen main execution scope; pilot/preparation cannot be promoted")
             if purpose not in ("main", "repeat", "preparation", "harness_retry"):
                 raise ValueError("Manifest purpose must distinguish main/repeat/preparation/harness_retry")
             roles = sorted(value["role"] for value in physical["roles"].values())
             complete = (set(replay) == set(roles) and
-                        all(seconds == number(self.timelines[item["episode_id"]]["seconds"]) for seconds in replay.values()))
+                        all(seconds == number(self.timelines[item["episode_id"]]["seconds"]) for seconds in replay.values())
+                        and all(callback_integrity.values()))
             window = {**retained, "id": aid, "wave": physical["wave"], "roles": roles,
                       "ledger": "evaluation", "purpose": purpose, "manifest_sha256": self.hashes[path],
-                      "start": min(origins).isoformat(), "end": max(stop, observed_end).isoformat(),
-                      "input_end": stop.isoformat(), "replayed_seconds": max(replay.values()),
+                      "frozen_execution_scope": execution_scope,
+                      "pass_channels": {channel: value["role"] for channel, value in physical["roles"].items()},
+                      "frozen_source_identity_sha256": fingerprint(self.episode_sources[item["episode_id"]]),
+                      "callback_integrity": callback_integrity,
+                      "start": min(origins).isoformat(), "end": max(stop or observed_end, observed_end).isoformat(),
+                      "input_end": stop.isoformat() if stop else None,
+                      "replayed_seconds": max(replay.values()) if all(value is not None for value in replay.values()) else None,
                       "role_replayed_seconds": replay, "input_complete": complete,
                       "actual_dac_observed": all(value is True for value in actual),
                       "clock_session": anchor.get("clock_session"), "evidence": aid,
                       "window_basis": "actual submitted callbacks per role; UTC from retained wall/monotonic anchor"}
             windows.append(window)
             retained.update(window_id=aid, replayed_seconds=window["replayed_seconds"])
+            if not all(callback_integrity.values()):
+                retained["window_reason"] = "Uncertain source callback accounting; replay duration is unknown for the affected role"
+                window["window_reason"] = retained["window_reason"]
 
     def _historical_manifest(self, source, windows, attempts):
         sid = identifier(source["id"])

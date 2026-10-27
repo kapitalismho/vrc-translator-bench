@@ -459,10 +459,29 @@ def _selected_window(selection, role, episode, profile, windows):
         else:
             same = window.get("role_bindings", {}).get(role) == fingerprint(selection)
         if same:
+            scope = selection.get("scope", {})
+            scope_keys = {"run": "run", "profile": "profile", "episode_id": "episode",
+                          "pass_id": "pass_id", "attempt_id": "attempt", "wave": "wave",
+                          "clock_session": "clock_session"}
+            if (any(scope.get(source_key) is not None and window.get(window_key) is not None
+                    and str(scope[source_key]) != str(window[window_key])
+                    for window_key, source_key in scope_keys.items())
+                    or scope.get("role", role) != role):
+                raise ValueError("Observed cost window contradicts common report selection scope")
+            if "run_manifest" not in selection and (
+                    any(scope.get(key) in (None, "") for key in ("run", "profile", "episode", "pass_id", "attempt"))
+                    or any(scope.get(source_key) is not None and window.get(window_key) is None
+                           for window_key, source_key in scope_keys.items())):
+                continue  # A copied fingerprint cannot establish missing physical identity.
             matches.append(window)
     if len(matches) > 1:
         raise ValueError("Common report selection binds multiple physical windows")
     return matches[0] if matches else None
+
+
+def _known_sum(values):
+    values = list(values)
+    return sum((number(value) for value in values), Decimal(0)) if values and all(value is not None for value in values) else None
 
 
 def population_reports(inputs, components, records, windows, tables):
@@ -502,12 +521,24 @@ def population_reports(inputs, components, records, windows, tables):
                 if window:
                     binding.update({key: window.get(key) for key in ("run", "pass_id", "attempt_id", "state", "purpose")})
                     authoritative = population.get("condition", {})
-                    structured = authoritative.get("ordinary_input") in ("self", "peer") and authoritative.get("t1_mode") in ("split_self", "simultaneous")
+                    structured = (authoritative.get("ordinary_input") in ("self", "peer")
+                                  and authoritative.get("t1_mode") in ("split_self", "simultaneous")
+                                  and isinstance(authoritative.get("roles"), dict)
+                                  and set(authoritative["roles"]) == {"A", "B"}
+                                  and set(authoritative["roles"].values()).issubset({"self", "peer"}))
                     if structured:
                         expected_pass = ((role if authoritative["t1_mode"] == "split_self" else "simultaneous")
                                          if episode["kind"] == "T1" else "ordinary-" + authoritative["ordinary_input"])
                         if window["pass_id"] != expected_pass:
                             raise ValueError("Cost pass contradicts common report measurement condition")
+                        channels = ({authoritative["roles"][role]: role} if episode["kind"] == "T1" and authoritative["t1_mode"] == "split_self"
+                                    else {channel: logical for logical, channel in authoritative["roles"].items()} if episode["kind"] == "T1"
+                                    else {authoritative["ordinary_input"]: "A"})
+                        if window.get("pass_channels") is not None and window["pass_channels"] != channels:
+                            raise ValueError("Cost physical role/channel routing contradicts common report measurement condition")
+                        selected_channel = selection.get("scope", {}).get("channel")
+                        if selected_channel is not None and channels.get(selected_channel) != role:
+                            raise ValueError("Selected cost input channel contradicts common report measurement condition")
                     else:
                         input_complete = False
                         issues.append(f"{eid}/{role}: authoritative structured measurement condition missing")
@@ -551,10 +582,11 @@ def population_reports(inputs, components, records, windows, tables):
                        "known_numeric_subtotal": summary["known_numeric_subtotal"],
                        "calculated_subtotal": summary["calculated_subtotal"],
                        "logical_episode_seconds": total_seconds if timeline_complete else None,
-                       "physical_replay_seconds": sum((number(row["replayed_seconds"]) for row in chosen), Decimal(0)) if chosen else None,
-                       "submitted_role_timeline_seconds": sum((sum((number(value) for value in row["role_replayed_seconds"].values()), Decimal(0))
-                                                               if row.get("role_replayed_seconds") else number(row["replayed_seconds"]) * len(row["roles"])
-                                                               for row in chosen), Decimal(0)) if chosen else None,
+                       "physical_replay_seconds": _known_sum(row.get("replayed_seconds") for row in chosen),
+                       "submitted_role_timeline_seconds": _known_sum(
+                           _known_sum(row["role_replayed_seconds"].values()) if row.get("role_replayed_seconds")
+                           else number(row["replayed_seconds"]) * len(row["roles"]) if row.get("replayed_seconds") is not None else None
+                           for row in chosen),
                        "full_main_input_observed": comparable,
                        "per_input_hour": actual * 3600 / total_seconds if actual is not None and total_seconds else None,
                        "calculated_per_input_hour": calculated * 3600 / total_seconds if calculated is not None and total_seconds else None,
@@ -562,6 +594,33 @@ def population_reports(inputs, components, records, windows, tables):
                        "components": scoped, "missing_services": summary["missing_services"],
                        "issues": issues, "reason": "; ".join(issues) if issues else summary["reason"]})
     return result
+
+
+def _check_frozen_inputs(previous, populations, windows):
+    """Billing revisions may fill evidence gaps, never replace known experiment inputs."""
+    current_populations = {(row["profile"], row["measurement_condition"]): row for row in populations}
+    old_windows = {row["id"]: row for row in previous["windows"]}
+    current_windows = {row["id"]: row for row in windows}
+    fields = ("id", "run", "wave", "profile", "episode_id", "pass_id", "attempt_id", "roles", "kind",
+              "state", "purpose", "ledger", "manifest_sha256", "frozen_execution_scope", "pass_channels",
+              "frozen_source_identity_sha256", "clock_session", "start", "end", "input_end",
+              "replayed_seconds", "role_replayed_seconds", "input_complete", "callback_integrity",
+              "actual_dac_observed", "window_basis")
+    for old in previous["populations"]:
+        current = current_populations[(old["profile"], old["measurement_condition"])]
+        episodes = {row["episode_id"]: row for row in current["episodes"]}
+        for episode in old["episodes"]:
+            if episode.get("timeline_evidence") is not None and episode["timeline_evidence"] != episodes[episode["episode_id"]].get("timeline_evidence"):
+                raise ValueError("Later cost revision cannot change frozen logical timeline evidence")
+        bindings = {(row["episode_id"], row["role"]): row for row in current["role_bindings"]}
+        for binding in old["role_bindings"]:
+            if binding.get("window_id") is None:
+                continue
+            old_window = old_windows[binding["window_id"]]
+            current_binding = bindings[(binding["episode_id"], binding["role"])]
+            window = current_windows.get(current_binding.get("window_id"))
+            if window is None or any(old_window.get(key) != window.get(key) for key in fields if key in old_window):
+                raise ValueError("Later cost revision cannot change frozen selected physical input identity or timing")
 
 
 def _protect_output(inputs, output_path):
@@ -611,6 +670,8 @@ def derive(spec_path, output_path):
     evaluation = [row for row in reports if row["ledger"] == "evaluation"]
     profile_reports = [profile_report(profile, evaluation) for profile in sorted({row["profile"] for row in evaluation})]
     populations = population_reports(inputs, components, records, windows, tables)
+    if previous:
+        _check_frozen_inputs(previous, _json(populations), _json(windows))
     groups = []
     for ledger, purpose in sorted({(row.get("ledger", "evaluation"),
                                    "harness_invalid" if row["state"] == "invalid" else row.get("purpose", "historical"))
@@ -629,7 +690,7 @@ def derive(spec_path, output_path):
             scoped = {**component, "coverage": {**claim, "window_ids": sorted(covered)}}
             grouped_components.append(component_report(scoped, records, windows, tables))
         groups.append({"ledger": ledger, "purpose": purpose, "window_ids": sorted(selected),
-                       "physical_replay_seconds": sum((number(row["replayed_seconds"]) for row in group if row.get("replayed_seconds") is not None), Decimal(0)),
+                       "physical_replay_seconds": _known_sum(row.get("replayed_seconds") for row in group),
                        "record_ids": [row["id"] for row in records if row["attribution"].get("window_id") in selected],
                        "components": grouped_components})
     consumption_summaries = inputs.consumption_summaries()

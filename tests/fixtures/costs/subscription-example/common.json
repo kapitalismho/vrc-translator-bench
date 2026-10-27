@@ -32,7 +32,7 @@
           "selection": {
             "run_manifest": {
               "path": "manifest.json",
-              "sha256": "a43b47446af84dbbfdbbc6c5c791725cf27357a21f006361ac13a286a1cabe86"
+              "sha256": "40c99e7bf8d9ac28db123ef4312f3596fac66369e903159beb2a1c3bb6ffe9a8"
             },
             "attempt_id": 1,
             "pass_id": "A"
@@ -50,7 +50,7 @@
           "selection": {
             "run_manifest": {
               "path": "manifest.json",
-              "sha256": "a43b47446af84dbbfdbbc6c5c791725cf27357a21f006361ac13a286a1cabe86"
+              "sha256": "40c99e7bf8d9ac28db123ef4312f3596fac66369e903159beb2a1c3bb6ffe9a8"
             },
             "attempt_id": 2,
             "pass_id": "B"
