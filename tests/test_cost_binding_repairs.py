@@ -373,3 +373,64 @@ def test_r5_rv1_every_declared_simultaneous_role_retains_nullable_duration(tmp_p
         assert result["ledger_groups"][0]["physical_replay_seconds"] is None
         assert population["status"] == "pending"
         assert population["cost"] is population["per_input_hour"] is None
+
+
+@pytest.mark.parametrize("missing", ["trace", "anchor", "source", "selection", "role"])
+def test_missing_selected_split_pass_keeps_population_durations_unknown(tmp_path, missing):
+    path, spec, common, manifest = example(tmp_path)
+    if missing == "trace":
+        manifest["attempts"][1]["trace"] = "unavailable.jsonl"
+    elif missing in ("anchor", "source"):
+        records = [json.loads(line) for line in (tmp_path / "attempt-2.jsonl").read_text().splitlines()]
+        omitted = "attempt_start" if missing == "anchor" else "source_playback"
+        save_trace(tmp_path, manifest, [record for record in records if record["record"] != omitted], index=1)
+    if missing in ("trace", "anchor", "source"):
+        spec["components"][0]["coverage"]["window_ids"] = ["capture.attempt-1"]
+        spec["components"][0]["coverage"]["complete"] = False
+    bind_manifest(tmp_path, path, spec, common, manifest)
+    if missing == "selection":
+        common["populations"][0]["role_results"][1]["selection"] = None
+    elif missing == "role":
+        common["populations"][0]["role_results"].pop()
+    spec["common_report"] = dump(tmp_path / "common.json", common)
+    dump(path, spec)
+    result = derive(path, tmp_path / "cost.json")
+    population = result["populations"][0]
+    assert population["status"] == "pending"
+    assert population["cost"] is population["per_input_hour"] is None
+    assert population["physical_replay_seconds"] is population["submitted_role_timeline_seconds"] is None
+    assert population["logical_episode_seconds"] == 60
+    assert population["full_main_input_observed"] is False
+    assert population["known_numeric_subtotal"] == .01
+    assert population["episodes"][0]["window_ids"] == ["capture.attempt-1"]
+    assert population["role_bindings"][1]["window_id"] is None
+    assert population["pass_costs"][0]["known_numeric_subtotal"] == .01
+    assert next(window for window in result["windows"] if window["id"] == "capture.attempt-1")["replayed_seconds"] == 60
+    assert "conversation/B: selected observed pass missing" in population["issues"]
+
+
+@pytest.mark.parametrize("simultaneous", [False, True])
+@pytest.mark.parametrize("incomplete", [None, "partial", "billing", "nonmain"])
+def test_known_window_coverage_preserves_durations_independently_of_completeness(tmp_path, simultaneous, incomplete):
+    path, spec, common, manifest = example(tmp_path, "VRCS2" if simultaneous else "VRCLT2",
+                                           simultaneous=simultaneous)
+    if incomplete == "partial":
+        records = [json.loads(line) for line in (tmp_path / "attempt-1.jsonl").read_text().splitlines()]
+        for record in records:
+            if record["record"] == "audio_callback":
+                record["source_frames"] = 17000
+        save_trace(tmp_path, manifest, records)
+    elif incomplete == "billing":
+        spec["sources"] = []
+    elif incomplete == "nonmain":
+        spec["manifests"][0]["purpose"] = "preparation"
+    bind_manifest(tmp_path, path, spec, common, manifest)
+    population = derive(path, tmp_path / "cost.json")["populations"][0]
+    assert population["logical_episode_seconds"] == 60
+    assert population["physical_replay_seconds"] == ((17 if simultaneous else 77) if incomplete == "partial"
+                                                     else 60 if simultaneous else 120)
+    assert population["submitted_role_timeline_seconds"] == ((34 if simultaneous else 77)
+                                                             if incomplete == "partial" else 120)
+    assert population["status"] == ("complete" if incomplete is None else "pending")
+    assert population["full_main_input_observed"] is (incomplete in (None, "billing"))
+    assert population["cost"] == (.03 if incomplete is None else None)

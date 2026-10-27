@@ -501,6 +501,7 @@ def population_reports(inputs, components, records, windows, tables):
             raise ValueError("Common report has duplicate role results")
         selected, episode_rows, binding_rows, issues = set(), [], [], []
         total_seconds, timeline_complete, input_complete = Decimal(0), True, True
+        window_coverage_complete = True
         for episode in episodes:
             eid = episode["episode_id"]
             timeline = inputs.timelines.get(eid)
@@ -552,6 +553,7 @@ def population_reports(inputs, components, records, windows, tables):
                     episode_windows.add(window["id"])
                     selected.add(window["id"])
                 else:
+                    window_coverage_complete = False
                     input_complete = False
                     issues.append(f"{eid}/{role}: selected observed pass missing")
                 binding_rows.append(binding)
@@ -582,11 +584,11 @@ def population_reports(inputs, components, records, windows, tables):
                        "known_numeric_subtotal": summary["known_numeric_subtotal"],
                        "calculated_subtotal": summary["calculated_subtotal"],
                        "logical_episode_seconds": total_seconds if timeline_complete else None,
-                       "physical_replay_seconds": _known_sum(row.get("replayed_seconds") for row in chosen),
+                       "physical_replay_seconds": _known_sum(row.get("replayed_seconds") for row in chosen) if window_coverage_complete else None,
                        "submitted_role_timeline_seconds": _known_sum(
                            _known_sum(row["role_replayed_seconds"].values()) if row.get("role_replayed_seconds")
                            else number(row["replayed_seconds"]) * len(row["roles"]) if row.get("replayed_seconds") is not None else None
-                           for row in chosen),
+                           for row in chosen) if window_coverage_complete else None,
                        "full_main_input_observed": comparable,
                        "per_input_hour": actual * 3600 / total_seconds if actual is not None and total_seconds else None,
                        "calculated_per_input_hour": calculated * 3600 / total_seconds if calculated is not None and total_seconds else None,
