@@ -291,6 +291,90 @@ prerequisite or a completed historical-fidelity claim.
 All fixed cells and weights remain required. No replacement dataset, synthetic
 EN/ZH conversation, reduced count or redistributed weight is authorized.
 
+## R3 Japanese/Korean T1 preparation
+
+[Issue #17](https://github.com/kapitalismho/vrc-translator-bench/issues/17) uses
+the [owner-amended TTS contract](benchmark-final-plan.md#43-일한-대본과-tts-제작).
+The selected route is OpenRouter `google/gemini-3.8-flash-tts`, not a different
+model or a replacement for IngCrowd/English/Chinese human speech.
+
+### Scripts and source limitations
+
+Local `.data/r3/scripts-v1/development.json` contains four dialogues, 69 complete
+same-person turns and 113 source clips. `main.json` contains nine dialogues,
+46 complete turns and 198 source clips. A remains Japanese/Puck and B
+Korean/Kore. The four development dialogues share their original people17/18
+dependency group; their extra takes do not add independent cases.
+
+Every selected original CSV text is hash-bound to the frozen ASCEND catalogue.
+The original parent manifest was restored with its exact
+`c52dcae7526906b7c9ac4cedf8138f7b3687cec6fac0b2096cee5c2e50013556`
+SHA256. Complete original reference JSON/curation audit bodies remain unavailable.
+The owner explicitly chose practical source-linked continuation rather than
+making restoration of those old logs a new execution gate. Their original
+reference hashes remain provenance declarations, not freshly verified files.
+No replacement old ASR/alignment records were invented.
+
+The owner approved omitting only the ten originally unintelligible `[UNK]`
+spans: four development and six main. Each omission retains its source position,
+known surrounding text and reason. Known ambiguity and labelled contextual
+readings remain visible; they are not silently corrected into a new source.
+Independent automatic text review covered all 311 source clips and 115 turns.
+A development singular-to-plural repair was corrected and independently
+reverified. These are text checks, not human listening or pronunciation passes.
+All source-bearing scripts, comparisons and review records remain local.
+
+The approximate six-turn/30–45-second development targets do not authorize
+cutting these already selected conversations. Development turn counts remain
+22/13/27/7. Generated duration and actual boundaries must come from the new
+audio, not copied source timestamps.
+
+### Bounded pilot operations
+
+`tools/prepare_tts.py` prepares source-linked requests offline, submits one
+explicitly approved development request at a time, reconciles its generation ID,
+and applies recorded actual-audio sample boundaries. It does not grant approval
+or certify the truth of a supplied reviewer statement.
+
+```powershell
+python tools/prepare_tts.py prepare --scripts .data/r3/scripts-v1/development.json --parents .data/r3/recovered-r2/t1-parent-manifest.json --source-cache <retained-ASCEND-directory> --output .data/r3/pilot
+python tools/prepare_tts.py generate --run .data/r3/pilot --approval <owner-confirmation-record.json> --call pilot-01 --env-file <main-worktree>/.env.local
+python tools/prepare_tts.py reconcile --run .data/r3/pilot --call pilot-01 --env-file <main-worktree>/.env.local
+python tools/prepare_tts.py split --wav <retained-generated.wav> --review <actual-audio-review.json> --output <fresh-split-directory>
+```
+
+The explicit secret file supplies only `VRC_BENCH_GEMINI_API_KEY`; the owner
+identified its value as an OpenRouter key. The variable's name is retained.
+There is no ambient credential discovery, dotenv execution, key copying or
+secret logging. `.env.local` is ignored.
+
+The owner-approved initial allowance is six **client** generation POSTs:
+development1/2/3/4, then development1/3 again. Each request reserves $0.151552
+before transmission; six reservations total $0.909312 under the $1 pre-tax API
+cap at the researched rates. Failed or uncertain submissions consume a slot.
+No client retries, allowance refill, production calls, turn fallback, top-up or
+account changes are included. A separate usage GET is not a new speech take.
+OpenRouter internal routing is not claimed disabled or pinned; data-collection
+denial and ZDR are policy filters, not proof of a single upstream attempt.
+
+The whole dialogue is one `input` array. Natural conversation instructions are
+outside spoken text; no time compression, added vocalizations or overlap is
+requested. Success returns raw 24kHz mono PCM16LE, which is retained and wrapped
+once as WAV. Actual consumption comes from generation metadata when available;
+cash, purchased/promotional credit, fees and review work remain separate and
+unknown where unsupported.
+
+### Adoption remains an audio decision
+
+The owner can arrange Japanese and Korean listening reviewers. Availability
+does not mean a review occurred. Review the original and both role inputs for
+content, pronunciation, naturalness, speaker identity, clipping, overlap and
+boundaries before adopting a method or producing the nine main dialogues.
+The split operation preserves equal-length buffers and checks exact samplewise
+A+B reconstruction. That arithmetic cannot establish genuine speaker/content
+assignment. No benchmark apps or regenerated speech are required merely for
+the R3-to-R6 handoff.
+
 ## Historical corpus record
 
 > **Historical reference only.** The AMI/AliMeeting/YODAS2 preparation, six-direction index/check and old control-track builder have been removed from the current package. Commands and completion records below describe the [pre-reset implementation](https://github.com/kapitalismho/vrc-translator-bench/tree/fbab10a0455d91d5419d9673499d25b7ac86c566), not available current commands. Frozen `corpus/` metadata and local audio/reference bytes are preserved. The [final plan §§3–5](benchmark-final-plan.md) selects ASCEND, IngCrowd, FLEURS and the bounded JA/KO T1 reconstruction; [new preparation work](benchmark-implementation-plan.md) must not overwrite or relabel this historical index.
