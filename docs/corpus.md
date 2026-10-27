@@ -291,6 +291,275 @@ prerequisite or a completed historical-fidelity claim.
 All fixed cells and weights remain required. No replacement dataset, synthetic
 EN/ZH conversation, reduced count or redistributed weight is authorized.
 
+## R3 Japanese/Korean T1 preparation
+
+[Issue #17](https://github.com/kapitalismho/vrc-translator-bench/issues/17) uses
+the [owner-amended TTS contract](benchmark-final-plan.md#43-일한-대본과-tts-제작).
+The selected route is OpenRouter `google/gemini-3.8-flash-tts`, not a different
+model or a replacement for IngCrowd/English/Chinese human speech.
+
+### Scripts and source limitations
+
+Local `.data/r3/scripts-v1/development.json` contains four dialogues, 69 complete
+same-person turns and 113 source clips. `main.json` contains nine dialogues,
+46 complete turns and 198 source clips. A remains Japanese/Puck and B
+Korean/Kore. The four development dialogues share their original people17/18
+dependency group; their extra takes do not add independent cases.
+
+Every selected original CSV text is hash-bound to the frozen ASCEND catalogue.
+The original parent manifest was restored with its exact
+`c52dcae7526906b7c9ac4cedf8138f7b3687cec6fac0b2096cee5c2e50013556`
+SHA256. Complete original reference JSON/curation audit bodies remain unavailable.
+The owner explicitly chose practical source-linked continuation rather than
+making restoration of those old logs a new execution gate. Their original
+reference hashes remain provenance declarations, not freshly verified files.
+No replacement old ASR/alignment records were invented.
+
+The owner approved omitting only the ten originally unintelligible `[UNK]`
+spans: four development and six main. Each omission retains its source position,
+known surrounding text and reason. Known ambiguity and labelled contextual
+readings remain visible; they are not silently corrected into a new source.
+Independent automatic text review covered all 311 source clips and 115 turns.
+A development singular-to-plural repair was corrected and independently
+reverified. These are text checks, not human listening or pronunciation passes.
+All source-bearing scripts, comparisons and review records remain local.
+
+The approximate six-turn/30–45-second development targets do not authorize
+cutting these already selected conversations. Development turn counts remain
+22/13/27/7. Generated duration and actual boundaries must come from the new
+audio, not copied source timestamps.
+
+### Bounded pilot operations
+
+`tools/prepare_tts.py` prepares source-linked requests offline, submits one
+explicitly approved development request at a time, reconciles its generation ID,
+and applies recorded actual-audio sample boundaries. It does not grant approval
+or certify the truth of a supplied reviewer statement.
+
+```powershell
+python tools/prepare_tts.py prepare --scripts .data/r3/scripts-v1/development.json --parents .data/r3/recovered-r2/t1-parent-manifest.json --source-cache <retained-ASCEND-directory> --output .data/r3/pilot
+python tools/prepare_tts.py generate --run .data/r3/pilot --approval <owner-confirmation-record.json> --call pilot-01 --env-file <main-worktree>/.env.local
+python tools/prepare_tts.py reconcile --run .data/r3/pilot --call pilot-01 --env-file <main-worktree>/.env.local
+python tools/prepare_tts.py split --wav <retained-generated.wav> --review <actual-audio-review.json> --output <fresh-split-directory>
+```
+
+The explicit secret file supplies only `VRC_BENCH_GEMINI_API_KEY`; the owner
+identified its value as an OpenRouter key. The variable's name is retained.
+An optional literal `export` prefix and matching quotes are accepted without
+executing the file. There is no ambient credential discovery, dotenv expansion,
+key copying or secret logging. `.env.local` is ignored.
+
+The owner-approved initial allowance is six **client** generation POSTs:
+development1/2/3/4, then development1/3 again. Each request reserves $0.151552
+before transmission; six reservations total $0.909312 under the $1 pre-tax API
+cap at the researched rates. Failed or uncertain submissions consume a slot.
+No client retries, allowance refill, production calls, turn fallback, top-up or
+account changes are included. A separate usage GET is not a new speech take.
+OpenRouter internal routing is not claimed disabled or pinned; data-collection
+denial and ZDR are policy filters, not proof of a single upstream attempt.
+The confirmation record binds both the exact plan hash and one canonical
+`run_directory`; copying a prepared directory does not refill that approval.
+Known accounting that exhausts the cap or contradicts the per-request estimate
+stops further submission. Unknown outcomes keep their conservative reservation.
+If a body read fails after headers arrive, retain the available generation ID
+for the separately authorized accounting lookup without retrying speech.
+
+The whole dialogue is one `input` array. Natural conversation instructions are
+outside spoken text; no time compression, added vocalizations or overlap is
+requested. Success returns raw 24kHz mono PCM16LE, which is retained and wrapped
+once as WAV. Actual consumption comes from generation metadata when available;
+cash, purchased/promotional credit, fees and review work remain separate and
+unknown where unsupported.
+
+### Separately approved main preparation
+
+The same tool supports the fixed nine-parent main phase with `prepare --split
+main`; the default remains the four-dialogue/six-call development phase. Each
+main dialogue has one request, `main-01` through `main-09`. Mixed, missing or
+wrong-split script sets are rejected. Offline preparation does not assert that
+the pilot method has been adopted.
+
+```powershell
+python tools/prepare_tts.py prepare --split main --scripts .data/r3/scripts-v1/main.json --parents .data/r3/recovered-r2/t1-parent-manifest.json --source-cache <retained-ASCEND-directory> --output <fresh-main-run-directory>
+python tools/prepare_tts.py generate --run <main-run-directory> --approval <main-approval.json> --pilot-method <adopted-pilot-method.json> --call main-01 --env-file <main-worktree>/.env.local
+python tools/prepare_tts.py reconcile --run <main-run-directory> --call main-01 --env-file <main-worktree>/.env.local
+```
+
+The actual nine-script preparation already succeeded at `.data/r3/main`;
+do not overwrite or recreate that run to refill an allowance. Its plan hash is
+`8e0cb463a8430a5cbb79b59f04b2c8d98516183d5527fb3200d175dbb172c2c0`.
+All nine approved main POSTs are now consumed; no retry or new take is authorized.
+
+The main approval binds that exact plan and canonical directory, scope
+`nine-openrouter-main-whole-dialogue-client-posts`, nine POSTs, the additional
+$1.50 cap and `pilot_method_receipt_sha256`. The supplied `--pilot-method`
+receipt must match that hash and identify the same parent manifest, model,
+Puck/Kore roles, natural-delivery instruction hash, all four development parents
+and the reviewed pilot plan. It records genuine bilingual quality approval,
+actual role-boundary verification, method adoption, reviewer, time and evidence.
+The tool checks these attestations before reading the secret or reserving a
+POST; it cannot certify their truth. Spending approval alone does not satisfy
+the method gate. Each main attempt retains the exact receipt, and generated main
+audio still requires its own review.
+
+### Actual pilot checkpoint
+
+The [R3 status record](../corpus/r3/status.json) binds the six retained actual
+takes, source/script hashes, durations, consumption evidence and open review
+requirements. All six authorized client POSTs returned valid PCM/WAV:
+four first takes plus the planned development1/3 repeats, totaling 463.24 seconds.
+Each WAV decodes exactly to its retained original PCM. This is audio-container
+integrity, not a listening, dialogue-completion or speaker-assignment pass.
+
+Five generation-ID lookups report a combined $0.1151360 API consumption and
+the actual model `google/gemini-3.8-flash-tts-20260922` through Google. The first
+take's lookup returned HTTP 404; its consumption and returned model attribution
+remain unknown. No lookup was polled or retried, and the full six-take charge is
+not presented as the known five-take subtotal. Cash/credit, fees, taxes and human
+review cost are not inferred from token consumption.
+
+All six pilot generation slots are consumed. The owner subsequently reported
+actual Japanese/Korean listening and approved content, pronunciation and
+naturalness. This is an owner review attestation, not automated listening proof;
+individual reviewer qualifications, work time and per-take decisions were not
+separately supplied. Four whole first takes were subsequently adopted on this
+attestation plus independently accepted actual technical role evidence below.
+
+The owner also separately approved nine main-dialogue client POSTs, one per
+prepared main script, with an additional $1.50 pre-tax API consumption cap and
+non-generative usage lookups. At the unchanged researched rates, nine conservative
+reservations total $1.363968. No retry, extra take, turn fallback, top-up or account
+change is included; stop if rates or limits change. The old pilot allowance is
+not refilled. Main generation followed pilot role-boundary verification and
+method adoption; the owner did not approve generating before that review.
+
+The owner subsequently instructed retaining main takes unless a genuinely
+critical error is demonstrated. Preserve each first take; minor delivery or
+pronunciation variation, ASR disagreement and quantized alignment uncertainty
+alone are not rejection or regeneration reasons. Material meaning loss/change,
+severe truncation/corruption, or actual inseparable role contamination requires
+concrete evidence and separate disposition. Retain even a critically defective
+original and its costs; replacement speech is not implicitly authorized.
+Use the pilot's native per-language turn tokenization and actual acoustic/content
+checks rather than equating model timestamp overlap with physical voice overlap.
+This retention rule does not certify unperformed review or waive final input
+integrity.
+
+Open `.data/r3/pilot-review/index.html` directly in a browser for all six original
+WAV players and exact JA/KO turns. Reviewers can enter judgments and observed
+seconds, then export local feedback JSON; export before closing because answers
+are not autosaved. The page was exercised in Chromium through the actual Windows
+file route, including playback and downloaded feedback. That UI smoke was not
+human listening and its synthetic feedback was removed.
+
+The initial Japanese-only whole-dialogue tokenization yielded unusable mixed
+turn mappings and raw timestamps. That failed observation remains unchanged.
+The corrected local method tokenizes each exact turn with its native Japanese
+or Korean tokenizer, preserving unit ownership while using the same installed
+classifier. Six actual whole-take observations and five bounded full-two-turn
+refinements initially produced **109 cut candidates across 112 joins**. Raw
+anomalies and that unreviewed proposal snapshot remain retained.
+
+The subsequent actual technical inspection resolved the three remaining joins:
+`pilot-03-join-17` at83.372s, `pilot-06-join-12` at65.723s, and
+`pilot-06-join-17` at78.425s. The middle join has an independently measured504ms
+quiet interval despite the classifier's false overlap. The other two use
+observed acknowledgement decay, a new consonant attack and a different voiced
+regime, with explicit approximately17–20ms transition uncertainty—not invented
+silence or sample-accurate speaker truth. Unhinted side-content checks and
+same-take voice controls corroborate the assignments, including final short
+acknowledgements in pilot-01/05. Ambiguous ASR language labels for short nasal
+acknowledgements are not treated as wrong-language defects.
+
+Open `.data/r3/pilot-boundary-resolution/index.html` for all six original/role
+triples, actual spectra, source-linked references and timelines. All112 cuts are
+specified:110 measured quiet intervals and two estimated spectral transitions.
+The six written pairs passed actual full-frame samplewise A+B reconstruction,
+disjointness and unchanged-source-value checks. Those arithmetic checks are
+separate from actual content/voice evidence and do not certify speaker identity.
+Thirteen additional offline unhinted ASR observations are retained with their
+same-Qwen-family limitations. No provider or paid-ASR request was made.
+
+The first four whole takes were adopted for the four development scenes after
+independent evidence review at `e123668` found no material findings. The two
+repeats remain variability evidence, not additional mandatory adopted inputs.
+`.data/r3/pilot-adopted-method.json` records Director adoption, review limits and
+the bound source/evidence identities before any main POST. No human role-buffer
+listening is claimed. Earlier failed/raw alignment and review artifacts remain
+unchanged; no paid generation was replayed.
+
+### Frozen R3 handoff and review limits
+
+All nine main dialogues were generated exactly once after method adoption.
+The original nine 24kHz mono PCM16/WAV pairs total 683.64 seconds, and each complete
+decoded WAV payload equals its retained response PCM. No retries, extra takes or
+discarded takes. `.data/r3/main-generation-receipt.json` binds every original
+hash, frame count, duration and separate accounting result.
+
+Eight one-time usage lookups report a combined **$0.1444215** main API consumption.
+Main09's lookup returnedHTTP404, so its cost remains unknown despite successful
+speech generation; no polling or retry. Combined with the five known pilot
+charges, the known subtotal is **$0.2595575**, not the total for all15generations.
+Pilot01 and main09 remain unknown; cash/credit, taxes, fees and human work are not
+inferred. The original generation result and later reconciliation result are
+separate immutable observations.
+
+The canonical local handoff is `.data/r3/frozen-t1-manifest.json`, SHA-256
+`ec824ea2a283546e514433bc09c7cfdd1fdb597c3979b53241fd4b9e893c8525`.
+It freezes four development dialogues and all nine main first takes: 26 role
+buffers/references and 115 complete turns. Development's unique adopted duration
+is 299.08 seconds; main duration is 683.64 seconds. Complete phase consumption per
+adopted minute remains unknown because one charge in each phase is unknown.
+The two planned pilot repeats remain cost/variability evidence, not extra adopted
+dialogues or independent source groups.
+
+Actual main review covered all 46 complete turns and 37 measured quiet boundaries.
+Nine role pairs and 46 source-turn crops preserve the exact original samples and
+clock. Independent semantic review inspected the complete-turn observations.
+Bounded, cached Reazon and Whisper checks resolved or countered the mythology
+and clothing-negation concerns without new TTS or paid ASR. All nine first takes
+were adopted; no confirmed critical defect was established by the bounded
+review. This is not human main listening or a guarantee of perfect pronunciation.
+
+Use the manifest's **canonical `reviewed_reference` for each role**, not the
+historical pending materialization or bare intended script. Every affected
+reference carries its actual recognition and localized uncertainty inline:
+
+- Main01 A5: the known intended university is 上海交通大学. Qwen/Whisper favor 情報;
+  Reazon gives 浄工. No recognizer corroborates exact 交通. The actual name remains
+  substantively uncertain, not equivalent aliases or an invented Mandarin reading.
+- Main04 final short acknowledgement: intended A retained with underdetermined
+  acoustic voice/language attribution; no demonstrated material contamination.
+- Main05 A2: 江湖 transcription remains locally uncertain.
+- Main08 B3: independent Whisper supports 뭘 over Qwen 못, but exact tomorrow/ending
+  wording remains uncertain. The full convenience argument and 5–10-minute claim
+  remain supported; no confirmed negation reversal.
+
+Do not penalize or certify unresolved literal distinctions using bare script
+gold; retain all supported surrounding meaning and every complete turn.
+`.data/r3/final-adjudication.json` and `main-semantic-review.json` preserve the
+decisions and contrary evidence. All source omissions, roles and parent/group
+identities remain unchanged. Historical analysis files retain their original
+pending statuses; the later canonical freeze is authoritative for adoption.
+
+The actual freeze command and a separate fresh-process `--verify` both succeeded,
+checking 13 timelines, 26 references, 115 turns and all four inline uncertainty
+records against reviewed hashes. Chromium exercised 78 media players, nine
+equal-length original/A/B triples and actual muted playback; that is surface
+verification, not listening. Open `.data/r3/main-review/index.html` for the
+retained originals, roles, full-turn evidence and diagnostic limits.
+
+No current R3-specific scoring consumer was found in `bench`, `tools` or `tests`.
+R6 must ingest the canonical references with their annotations and bind logical
+roles to its actual device/profile plans. This handoff does not claim that R6
+ingestion or per-profile admission was exercised. No benchmark app was launched,
+no public audio redistribution was granted and no remote publication performed.
+
+The split operation preserves equal-length buffers and checks exact samplewise
+A+B reconstruction. That arithmetic cannot establish genuine speaker/content
+assignment. No benchmark apps or regenerated speech are required merely for
+the R3-to-R6 handoff.
+
 ## Historical corpus record
 
 > **Historical reference only.** The AMI/AliMeeting/YODAS2 preparation, six-direction index/check and old control-track builder have been removed from the current package. Commands and completion records below describe the [pre-reset implementation](https://github.com/kapitalismho/vrc-translator-bench/tree/fbab10a0455d91d5419d9673499d25b7ac86c566), not available current commands. Frozen `corpus/` metadata and local audio/reference bytes are preserved. The [final plan §§3–5](benchmark-final-plan.md) selects ASCEND, IngCrowd, FLEURS and the bounded JA/KO T1 reconstruction; [new preparation work](benchmark-implementation-plan.md) must not overwrite or relabel this historical index.

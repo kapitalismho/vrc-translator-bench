@@ -227,7 +227,7 @@ The owner approved consolidating integrated verification in R6 rather than repea
 - **Collection:** full text and usable timing are separate admissions. A missing producer timestamp alone is not a reason to build invasive instrumentation; verify a useful observation interval. Real truncation, missing intermediate history, ambiguous roles and collector gaps remain substantive limits.
 - **ASCEND T1:** apply the owner-approved `ascend-reconstruction-v1` condition: actual original-person speech and supported conversational order, approximate offset first or declared reconstructed gaps, reviewed common playback timing, both substantive targets and group separation. Original recorder-clock proof and missing-gap audio are superseded prerequisites, not required external inputs. Insufficient eligible counts/content/role integrity still block source acceptance. No synthetic English/Chinese parents or undisclosed gap editing is authorized.
 - **IngCrowd:** adoption is settled, but actual use-purpose/noncommercial compatibility, external-service input and public examples need rights review. Do not substitute another source silently.
-- **Gemini 3.8 Flash TTS:** before any live request, including development generation, ask the owner to configure an appropriate Google Gemini API key locally for the selected model. Specify the actual configuration location, required project/model/billing access and proposed bounded usage. Wait for setup confirmation and scoped usage authorization; never request or expose the secret value in issues/chat/source/logs, borrow another app's credentials or substitute a provider. Both JA and KO still require actual content/listening/role-boundary review.
+- **Gemini 3.8 Flash TTS:** the owner-selected OpenRouter route and explicit main-worktree `.env.local` / `VRC_BENCH_GEMINI_API_KEY` were used for the same model. All six pilot and nine separately approved main POSTs are consumed. Actual pilot quality/technical review and method adoption preceded main generation. Four development and nine main first takes are now locally frozen with actual role inputs and mandatory uncertainty-bearing references. No retries, extra takes, top-ups or account changes are authorized. Source unknown-word omissions and practical recovered-parent inputs follow the [R3 amendment](benchmark-final-plan.md#43-일한-대본과-tts-제작); local review limits and unknown charges remain explicit.
 - **Judge:** use the selected existing Astra subscription route; no paid fallback. Real two-stage discrimination and bounded variability remain unmeasured.
 - **Billing:** the owner will provide permitted logs later. Implement bindings now; retain pending/unknown cost without delaying otherwise valid quality/time reporting or inventing zero.
 
@@ -317,7 +317,38 @@ Use **Gemini 3.8 Flash TTS only** for JA/KO T1. Own scripts, actual generation, 
 
 Follow final-plan §§4.3–4.6 and 11.3: whole-dialogue request per episode first, two stock voices, four separate development dialogues and bounded method checks, documented complete-turn fallback only when necessary. Preserve negation/numbers/conditions/repair, parent identity, failed takes and regeneration causes. Use actual generated timing, equal-length role buffers and frozen hashes; do not concatenate WAV file bytes or compress silent role intervals.
 
-Before the first live TTS request, including the four-dialogue development pilot, ask the owner to configure an appropriate Google Gemini API key locally for `gemini-3.8-flash-tts`. State the exact environment variable or secret-setting location used by the implementation, required model/project/billing access, proposed calls and cost cap. Wait for the owner's setup confirmation and scoped usage approval. Never request the key value in issues or chat, commit/log it, reuse another app's credentials without approval, or silently change provider. Missing configuration/access blocks generation, not independent script preparation.
+The owner subsequently selected **OpenRouter** for the same model and confirmed the secret location as the main worktree's `.env.local`, variable `VRC_BENCH_GEMINI_API_KEY`. This supersedes direct Google API-key/project setup, not the pre-generation authorization gate. The approved initial scope is four development dialogues plus additional takes of development1/development3: at most six client generation POSTs, USD1 pre-tax API consumption, and non-generative generation-ID reconciliation. No client retries, production calls, top-ups or account changes. Never expose or copy the secret. Use OpenRouter's whole-dialogue speech schema and explicit data-policy filters; do not claim undocumented provider-pinning or internal-failover controls.
+
+After the six actual pilot takes, the owner explicitly attested actual bilingual
+listening and approved their content, pronunciation and naturalness. Individual
+reviewer/work-time and per-take details remain unspecified, not fabricated.
+The owner separately approved **nine main POSTs / additional USD1.50**, one whole
+dialogue per main script, including non-generative usage reconciliation but no
+retries, extra takes, turn fallback, top-ups or account changes. The existing
+pilot allowance remains exhausted. Pilot role-boundary verification and method
+adoption preceded all nine main requests; approval did not waive this ordering
+or preapprove the quality of ungenerated main audio. Actual main generation and
+review are complete: 9/9 first takes adopted without retry or discard, with
+localized uncertainties preserved inline in the frozen role references.
+
+The owner's subsequent main-retention instruction keeps each first take unless
+a genuinely critical error is demonstrated. Minor pronunciation/delivery
+variation and automatic recognition/alignment uncertainty alone do not justify
+discarding or regenerating audio. Preserve actual differences and review limits.
+Material meaning loss/change, severe truncation/corruption or actual inseparable
+role contamination requires evidence and separate disposition; retain even that
+original and its costs. This instruction does not authorize extra calls or
+replace actual input review with a fabricated pass. Apply the pilot's corrected
+per-language tokenization and actual signal/content checks before treating a
+timestamp anomaly as an audio defect.
+
+The local R3 handoff is `.data/r3/frozen-t1-manifest.json`, binding four development
+and nine main dialogues, 26 role buffers/references and 115 full turns. Main
+content/routing review is automatic with independent evidence assessment, not
+invented human main listening. The intended script, actual recognition and
+reviewed uncertainties remain distinct. R6 must ingest the canonical references,
+including the unresolved university-name distinction and short-response/wording
+limits, rather than treating bare source scripts as exact acoustic gold.
 
 ### Completion Criteria
 
@@ -328,6 +359,8 @@ Retain the approved four-dialogue method pilot and adopted-input review; they pr
 ### Decisions and Evidence
 
 R2 eligible parents and rights precede production; R1 feasibility precedes corpus spending. Model choice is approved, but spending/account/terms actions need their scoped authorization. Independent ASR is advisory and does not certify pronunciation/naturalness.
+
+Owner-approved source handling preserves the exact recovered parent manifest, verified original CSV content and source-conditioned notes without requiring byte-perfect restoration of unavailable old ASR/curation sidecars before R3. Keep that preservation gap explicit; do not fabricate old evidence. Omit only the ten originally unintelligible `[UNK]` spans, retaining their positions, known surrounding content and meaningful repairs. Keep known ambiguity rather than inventing intended meaning. The model, nine/four episode counts, roles, groups, actual-audio review and cost reporting remain unchanged.
 
 ## R4 — [GPT] Produce auditable episode quality and semantic-wait results
 
