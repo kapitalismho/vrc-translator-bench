@@ -210,11 +210,11 @@
     "ascend-p1-main-1",
     "ingcrowd-main-P1-01",
     "ingcrowd-main-P2-01",
-    "ingcrowd-main-P3-01",
+    "ingcrowd-main-P3-03",
     "p4-en-1980",
     "p4-ja-1980"
   ],
-  "repetition_selection_basis": "First preselected main candidate in every presently prepared pair/type cell, before benchmark output; no extra sample/weight credit. Held candidates require source acceptance before execution. EN/ZH P2/P3/T1 and JA/KO T1 repeat candidates remain pending original inputs.",
+  "repetition_selection_basis": "Preserve IngCrowd's original pre-result source-catalogue subset (P1-01/P2-01/P3-03); use the first preselected ASCEND P1 and FLEURS main candidate for their currently prepared cells. This reconciles an integration-index transcription error, not a source reselection. No benchmark output was viewed and no extra sample/weight credit is added. Held candidates require source acceptance before execution. EN/ZH P2/P3/T1 and JA/KO T1 repeat candidates remain pending original inputs.",
   "pre_result_public_example_candidate_ids": [
     "ascend-p1-main-1",
     "ingcrowd-main-P1-01",
