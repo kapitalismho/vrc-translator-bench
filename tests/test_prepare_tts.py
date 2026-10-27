@@ -6,6 +6,7 @@ import http.client
 import io
 import json
 from pathlib import Path
+import shutil
 import socket
 import struct
 import subprocess
@@ -120,7 +121,7 @@ def prepare_inputs(inputs, output):
 def prepared(inputs, tmp_path):
     run = tmp_path / "run"
     result = prepare_inputs(inputs, run)
-    approval = {"schema_version": 1, "plan_sha256": result["plan_sha256"], "owner": "synthetic owner",
+    approval = {"schema_version": 1, "plan_sha256": result["plan_sha256"], "run_directory": str(run.resolve()), "owner": "synthetic owner",
                 "approved_at": "2026-10-27T00:00:00Z", "expires_on": "2026-12-31", "scope": tts.SCOPE,
                 "max_client_posts": 6, "api_cap_usd": "1.00", "api": tts.ENDPOINT, "model": tts.MODEL,
                 "rates_usd_per_million": tts.RATES, "provider_policy": tts.POLICY,
@@ -236,7 +237,7 @@ def test_unresolved_or_draft_scripts_block_preparation(inputs, tmp_path, draft):
     assert not (tmp_path / "not-ready").exists()
 
 
-@pytest.mark.parametrize("mutation", ["missing", "plan_hash", "setup", "rights", "source", "expiry", "scope", "route",
+@pytest.mark.parametrize("mutation", ["missing", "plan_hash", "run_directory", "setup", "rights", "source", "expiry", "scope", "route",
                                        "model", "rates", "privacy", "main", "request", "scripts", "evidence", "unresolved"])
 def test_preflight_never_reads_key_or_submits(prepared, mutation):
     run, approval_path, env_file = prepared
@@ -245,6 +246,8 @@ def test_preflight_never_reads_key_or_submits(prepared, mutation):
         approval_path.unlink()
     elif mutation == "plan_hash":
         approval["plan_sha256"] = "0" * 64
+    elif mutation == "run_directory":
+        del approval["run_directory"]
     elif mutation == "setup":
         approval["setup_confirmed"] = False
     elif mutation == "rights":
@@ -437,8 +440,9 @@ def test_missing_selected_secret_file_has_no_ambient_fallback(prepared, monkeypa
     assert not (run / "attempts/pilot-01").exists()
 
 
-@pytest.mark.parametrize("partial,error", [(False, False), (True, False), (False, True)])
-def test_real_stdlib_transport_allowlists_headers_and_reads_once(monkeypatch, partial, error):
+@pytest.mark.parametrize("partial,error,read_error", [(False, False, None), (True, False, None), (False, True, None),
+                                                    (False, False, TimeoutError), (False, False, OSError)])
+def test_real_stdlib_transport_allowlists_headers_and_reads_once(monkeypatch, partial, error, read_error):
     seen = []
 
     class Headers:
@@ -456,6 +460,8 @@ def test_real_stdlib_transport_allowlists_headers_and_reads_once(monkeypatch, pa
         def read(self):
             if partial:
                 raise http.client.IncompleteRead(PCM, 10)
+            if read_error:
+                raise read_error("Sensitive body-read failure must not be logged")
             return PCM
 
     class Opener:
@@ -475,7 +481,8 @@ def test_real_stdlib_transport_allowlists_headers_and_reads_once(monkeypatch, pa
     monkeypatch.setattr(tts.urllib.request, "build_opener", build)
     status, headers, body, complete = POST_ONCE(b"{}", "synthetic-key")
     assert status == (500 if error else 200) and headers == HEADERS
-    assert body == (b"failure" if error else PCM) and complete is (not partial)
+    assert body == (b"failure" if error else b"" if read_error else PCM)
+    assert complete is (not partial and read_error is None)
     assert len(seen) == 1
 
 
@@ -487,7 +494,7 @@ def generate_for_accounting(prepared, monkeypatch):
     return run, env_file
 
 
-@pytest.mark.parametrize("cost", [None, 0, 0.012345])
+@pytest.mark.parametrize("cost", [None, 0, 0.012345, 0.151552])
 def test_one_shot_accounting_preserves_metadata_nulls_and_never_refunds(prepared, monkeypatch, cost):
     run, env_file = generate_for_accounting(prepared, monkeypatch)
     original_result = (run / "attempts/pilot-01/result.json").read_bytes()
@@ -538,6 +545,7 @@ def test_failed_accounting_remains_unknown_and_cannot_poll(prepared, monkeypatch
         tts.reconcile(run, "pilot-01", env_file)
     assert len(called) == 1
     assert all(SYNTHETIC_KEY.encode() not in p.read_bytes() for p in run.rglob("*") if p.is_file())
+    assert tts.generate(run, prepared[1], "pilot-02", env_file)["reserved_client_posts"] == 2
 
 
 def test_accounting_requires_recorded_generation_id_before_secret_read(prepared, monkeypatch):
@@ -707,3 +715,173 @@ def test_selected_secret_inside_run_is_rejected_without_copying_or_consuming(pre
         tts.generate(run, approval, "pilot-01", selected)
     assert selected.read_bytes() == original
     assert not (run / "attempts/pilot-01").exists()
+
+
+def test_one_approval_allows_original_alias_but_rejects_seven_preoperation_copies(prepared, monkeypatch, tmp_path):
+    run, approval, env_file = prepared
+    copies = [tmp_path / f"copied-run-{i}" for i in range(7)]
+    for copied in copies:
+        shutil.copytree(run, copied)  # Every copy predates the first reservation.
+    posted = []
+    enable_synthetic_key(monkeypatch)
+
+    def post(*args):
+        posted.append(args)
+        return 200, HEADERS, PCM, True
+    monkeypatch.setattr(tts, "post_once", post)
+    alias = run / ".." / run.name
+    assert tts.generate(alias, approval, "pilot-01", env_file)["reserved_client_posts"] == 1
+    monkeypatch.setattr(tts, "load_key", lambda *args: pytest.fail("Relocated copy must fail before credential access"))
+    for copied in copies:
+        with pytest.raises(ValueError, match="canonical run directory"):
+            tts.generate(copied, approval, "pilot-01", env_file)
+        assert not (copied / "attempts").exists()
+    assert len(posted) == 1
+    copied_result = tmp_path / "copied-after-generation"
+    shutil.copytree(run, copied_result)
+    with pytest.raises(ValueError, match="canonical run directory"):
+        tts.reconcile(copied_result, "pilot-01", env_file)
+    assert not (copied_result / "attempts/pilot-01/reconciliation").exists()
+
+
+@pytest.mark.parametrize("cost", [1.01, 1.00, 0.16, 0.151553])
+def test_recorded_overcap_or_overreservation_cost_blocks_next_post(prepared, monkeypatch, cost):
+    run, env_file = generate_for_accounting(prepared, monkeypatch)
+    monkeypatch.setattr(tts, "get_generation_once", lambda *args:
+                        (200, {"Content-Type": "application/json"}, tts.json_bytes({"data": {"total_cost": cost}}), True))
+    assert tts.reconcile(run, "pilot-01", env_file)["api_consumption_usd"] == cost
+    accounting_path = run / "attempts/pilot-01/reconciliation/result.json"
+    retained = accounting_path.read_bytes()
+    monkeypatch.setattr(tts, "load_key", lambda *args: pytest.fail("Known budget contradiction must precede credential access"))
+    monkeypatch.setattr(tts, "post_once", lambda *args: pytest.fail("Known budget contradiction cannot authorize another POST"))
+    with pytest.raises(ValueError, match="cap|reservation"):
+        tts.generate(run, prepared[1], "pilot-02", env_file)
+    assert not (run / "attempts/pilot-02").exists()
+    assert accounting_path.read_bytes() == retained
+    assert read(run / "attempts/pilot-01/reservation.json")["client_post_allowance_consumed"] is True
+
+
+@pytest.mark.parametrize("mutation", ["disagree", "missing", "partial", "interrupted"])
+def test_malformed_retained_budget_evidence_fails_closed(prepared, monkeypatch, mutation):
+    run, env_file = generate_for_accounting(prepared, monkeypatch)
+    monkeypatch.setattr(tts, "get_generation_once", lambda *args:
+                        (200, {"Content-Type": "application/json"}, b'{"data":{"total_cost":0}}', True))
+    assert tts.reconcile(run, "pilot-01", env_file)["status"] == "accounting_recorded"
+    path = run / "attempts/pilot-01/reconciliation/result.json"
+    record = read(path)
+    if mutation == "disagree":
+        record["metadata"]["total_cost"] = 0.01
+    elif mutation == "missing":
+        del record["api_consumption_usd"]
+    if mutation == "partial":
+        path.write_bytes(b"{")
+    elif mutation == "interrupted":
+        path.unlink()
+    else:
+        save(path, record)
+    monkeypatch.setattr(tts, "load_key", lambda *args: pytest.fail("Malformed budget evidence must fail before credential access"))
+    monkeypatch.setattr(tts, "post_once", lambda *args: pytest.fail("Malformed budget evidence cannot authorize another POST"))
+    assert tts.main(["generate", "--run", str(run), "--approval", str(prepared[1]), "--call", "pilot-02",
+                     "--env-file", str(env_file)]) == 1
+    assert not (run / "attempts/pilot-02").exists()
+
+
+def test_header_timeout_accounting_and_budget_stop_through_fresh_cli_processes(prepared, tmp_path):
+    run, approval, env_file = prepared
+    observations = tmp_path / "controlled-http-methods.txt"
+    code = """
+import socket, sys
+from pathlib import Path
+from datetime import datetime, timezone
+from tools import prepare_tts as t
+def denied(*args, **kwargs):
+    raise RuntimeError('network disabled')
+socket.socket.connect = denied
+socket.create_connection = denied
+t.datetime = type('Clock', (), {'now': staticmethod(lambda tz=None: datetime(2026, 10, 27, tzinfo=timezone.utc))})
+mode = sys.argv.pop(1)
+class Response:
+    status = 200
+    def __init__(self, audio):
+        self.audio = audio
+        self.headers = HEADERS if audio else {'Content-Type': 'application/json'}
+    def __enter__(self):
+        return self
+    def __exit__(self, *args):
+        pass
+    def read(self):
+        if self.audio:
+            raise TimeoutError('synthetic failure after actual headers')
+        return b'{"data":{"total_cost":1.01}}'
+class Opener:
+    def open(self, request, timeout):
+        with Path(OBSERVATIONS).open('a', encoding='utf-8') as output:
+            output.write(request.method + '\\n')
+        if mode == 'before-headers':
+            raise TimeoutError('synthetic failure before headers')
+        return Response(request.method == 'POST')
+t.urllib.request.build_opener = lambda *handlers: Opener()
+raise SystemExit(t.main())
+""".replace("HEADERS", repr(HEADERS)).replace("OBSERVATIONS", repr(str(observations)))
+    base = [sys.executable, "-c", code]
+    common = ["--run", str(run), "--env-file", str(env_file)]
+    for mode, command, expected_code in (
+        ("before-headers", ["generate"] + common + ["--approval", str(approval), "--call", "pilot-01"], 1),
+        ("body-timeout", ["generate"] + common + ["--approval", str(approval), "--call", "pilot-02"], 1),
+        ("account", ["reconcile"] + common + ["--call", "pilot-02"], 0),
+        ("unused", ["generate"] + common + ["--approval", str(approval), "--call", "pilot-03"], 1),
+        ("account", ["reconcile"] + common + ["--call", "pilot-02"], 1)):
+        result = subprocess.run(base + [mode] + command, cwd=Path(tts.__file__).resolve().parents[1],
+                                env={"PYTHONIOENCODING": "utf-8"}, text=True, encoding="utf-8", capture_output=True, timeout=20)
+        assert result.returncode == expected_code, result.stderr
+    unidentified = run / "attempts/pilot-01"
+    assert read(unidentified / "result.json")["generation_id"] is None
+    assert not (unidentified / "response-metadata.json").exists()
+    interrupted = run / "attempts/pilot-02"
+    metadata = read(interrupted / "response-metadata.json")
+    assert metadata["http_status"] == 200 and metadata["headers"] == HEADERS and metadata["body_complete"] is False
+    assert read(interrupted / "result.json")["generation_id"] == HEADERS["X-Generation-Id"]
+    assert read(interrupted / "reservation.json")["client_post_allowance_consumed"] is True
+    assert (interrupted / "audio.pcm").read_bytes() == b""
+    assert not (interrupted / "audio.wav").exists()
+    assert read(interrupted / "reconciliation/result.json")["api_consumption_usd"] == 1.01
+    assert observations.read_text().splitlines() == ["POST", "POST", "GET"]
+    assert not (run / "attempts/pilot-03").exists()
+
+
+@pytest.mark.parametrize("cost", ["NaN", "Infinity", -0.01, True, "not-money"])
+def test_invalid_reported_cost_is_retained_unknown_and_blocks_more_spending(prepared, monkeypatch, cost):
+    run, env_file = generate_for_accounting(prepared, monkeypatch)
+    body = tts.json_bytes({"data": {"total_cost": cost}})
+    monkeypatch.setattr(tts, "get_generation_once", lambda *args:
+                        (200, {"Content-Type": "application/json"}, body, True))
+    result = tts.reconcile(run, "pilot-01", env_file)
+    assert result["status"] == "accounting_unknown" and result["api_consumption_usd"] is None
+    output = run / "attempts/pilot-01/reconciliation"
+    assert (output / "response.safe.json").read_bytes() == body
+    assert read(output / "result.json")["metadata"]["total_cost"] == cost
+    monkeypatch.setattr(tts, "load_key", lambda *args: pytest.fail("Invalid known budget evidence must precede credential access"))
+    monkeypatch.setattr(tts, "post_once", lambda *args: pytest.fail("Invalid known budget evidence cannot authorize another POST"))
+    with pytest.raises(ValueError, match="accounting cost"):
+        tts.generate(run, prepared[1], "pilot-02", env_file)
+    assert not (run / "attempts/pilot-02").exists()
+
+
+def test_zero_cost_reconciliation_never_refills_six_post_slots(prepared, monkeypatch):
+    run, approval, env_file = prepared
+    enable_synthetic_key(monkeypatch)
+    posted = []
+
+    def post(*args):
+        posted.append(args)
+        return 200, {**HEADERS, "X-Generation-Id": f"gen-zero-{len(posted)}"}, PCM, True
+    monkeypatch.setattr(tts, "post_once", post)
+    monkeypatch.setattr(tts, "get_generation_once", lambda generation_id, key:
+                        (200, {"Content-Type": "application/json"}, tts.json_bytes({"data": {"id": generation_id, "total_cost": 0}}), True))
+    for i in range(1, 7):
+        call_id = f"pilot-{i:02}"
+        assert tts.generate(run, approval, call_id, env_file)["reserved_client_posts"] == i
+        assert tts.reconcile(run, call_id, env_file)["api_consumption_usd"] == 0
+    with pytest.raises(ValueError, match="exhausted"):
+        tts.generate(run, approval, "pilot-07", env_file)
+    assert len(posted) == 6

@@ -356,6 +356,12 @@ No client retries, allowance refill, production calls, turn fallback, top-up or
 account changes are included. A separate usage GET is not a new speech take.
 OpenRouter internal routing is not claimed disabled or pinned; data-collection
 denial and ZDR are policy filters, not proof of a single upstream attempt.
+The confirmation record binds both the exact plan hash and one canonical
+`run_directory`; copying a prepared directory does not refill that approval.
+Known accounting that exhausts the cap or contradicts the per-request estimate
+stops further submission. Unknown outcomes keep their conservative reservation.
+If a body read fails after headers arrive, retain the available generation ID
+for the separately authorized accounting lookup without retrying speech.
 
 The whole dialogue is one `input` array. Natural conversation instructions are
 outside spoken text; no time compression, added vocalizations or overlap is

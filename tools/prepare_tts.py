@@ -12,7 +12,7 @@ from array import array
 from contextlib import contextmanager
 import csv
 from datetime import date, datetime, timezone
-from decimal import Decimal
+from decimal import Decimal, InvalidOperation
 from email.message import Message
 import hashlib
 import http.client
@@ -294,6 +294,10 @@ def open_once(request):
             return response.status, headers, response.read(), True
         except http.client.IncompleteRead as failure:
             return response.status, headers, failure.partial, False
+        except Exception:
+            # Headers are already evidence even when no body bytes are available.
+            # Never invent partial bytes from a timeout or log its exception text.
+            return response.status, headers, b"", False
 
 
 def post_once(payload, key):
@@ -364,12 +368,53 @@ def checked_run(run):
     return plan, sha256(plan_bytes), requests
 
 
+def check_run_directory(run, approval):
+    directory = approval.get("run_directory")
+    require(nonempty(directory) and Path(directory).is_absolute()
+            and Path(directory).resolve() == run.resolve(), "Approval binds one canonical run directory")
+
+
+def accounting_cost(value):
+    if value is None:
+        return None
+    require(type(value) in (int, float, str), "Invalid retained accounting cost")
+    try:
+        cost = Decimal(str(value))
+    except InvalidOperation:
+        raise ValueError("Invalid retained accounting cost") from None
+    require(cost.is_finite() and cost >= 0, "Invalid retained accounting cost")
+    return cost
+
+
+def check_retained_budget(attempts, consumed):
+    exposure, known_total = Decimal(0), Decimal(0)
+    for call_id in consumed:
+        reconciliation = attempts / call_id / "reconciliation"
+        cost = None
+        if reconciliation.exists():
+            # An interrupted/malformed accounting record needs investigation, not
+            # a silent replacement with zero. Ordinary missing usage remains null.
+            record = json.loads((reconciliation / "result.json").read_bytes())
+            require(record["status"] in ("accounting_recorded", "accounting_unknown"), "Invalid retained accounting status")
+            cost = accounting_cost(record["api_consumption_usd"])
+            reported = accounting_cost(record["metadata"]["total_cost"])
+            require(cost == reported, "Retained accounting costs disagree")
+            if cost is not None:
+                require(cost < CAP_USD, "Known pilot consumption exhausts approved cap")
+                require(cost <= ATTEMPT_USD, "Recorded cost contradicts documented client-POST reservation")
+                known_total += cost
+        # Reconciled small/zero costs never refund reserved allowance or slots.
+        exposure += ATTEMPT_USD if cost is None else max(ATTEMPT_USD, cost)
+    require(known_total < CAP_USD and exposure + ATTEMPT_USD <= CAP_USD, "Pilot consumption/reservations exhaust approved cap")
+
+
 def generate(run, approval_path, call_id, env_file):
     run = Path(run)
     with run_lock(run):
         plan, plan_hash, requests = checked_run(run)
         approval_bytes = Path(approval_path).read_bytes()
         approval = json.loads(approval_bytes)
+        check_run_directory(run, approval)
         require(approval["schema_version"] == 1 and approval["plan_sha256"] == plan_hash, "Approval must bind exact plan bytes")
         require(approval["scope"] == SCOPE and approval["max_client_posts"] == 6 and approval["api_cap_usd"] == "1.00"
                 and approval["api"] == ENDPOINT and approval["model"] == MODEL
@@ -385,7 +430,8 @@ def generate(run, approval_path, call_id, env_file):
         calls = plan["calls"]
         consumed = {p.name for p in attempts.iterdir()}
         require(consumed == {c["id"] for c in calls[:len(consumed)]}, "Unrecognized attempt state; stop for investigation")
-        require(len(consumed) < 6 and ATTEMPT_USD * (len(consumed) + 1) <= CAP_USD, "Pilot client-POST allowance exhausted")
+        require(len(consumed) < 6, "Pilot client-POST allowance exhausted")
+        check_retained_budget(attempts, consumed)
         call = calls[len(consumed)]
         require(call_id == call["id"], "Submit only the next planned client POST; retries are not authorized")
         require(not Path(env_file).resolve().is_relative_to(run.resolve()), "Selected secret file must stay outside run outputs")
@@ -443,6 +489,8 @@ def reconcile(run, call_id, env_file):
         attempt = run / "attempts" / call_id
         reservation = json.loads((attempt / "reservation.json").read_bytes())
         require(reservation["plan_sha256"] == plan_hash, "Reservation plan mismatch")
+        approval = json.loads((attempt / "approval.json").read_bytes())
+        check_run_directory(run, approval)
         generated = json.loads((attempt / "result.json").read_bytes())
         metadata = json.loads((attempt / "response-metadata.json").read_bytes())
         generation_id = generation_id_from(metadata)
@@ -468,8 +516,7 @@ def reconcile(run, call_id, env_file):
             result["metadata"] = {field: data.get(field) for field in ACCOUNTING_FIELDS}
             cost = data.get("total_cost")
             if cost is not None:
-                require(type(cost) in (int, float, str) and Decimal(str(cost)).is_finite()
-                        and Decimal(str(cost)) >= 0, "Invalid accounting cost")
+                accounting_cost(cost)
                 result["api_consumption_usd"] = cost
                 result["billing_status"] = "reported_model_consumption_not_cash_or_credit_proof"
             result["status"] = "accounting_recorded"
