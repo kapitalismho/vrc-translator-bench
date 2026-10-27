@@ -188,7 +188,9 @@
       "focused_result": "143 passed in 10.48s",
       "real_cli_result": "Nine real main scripts prepared offline at .data/r3/main; no main POST or adopted-method receipt created.",
       "plan_sha256": "8e0cb463a8430a5cbb79b59f04b2c8d98516183d5527fb3200d175dbb172c2c0",
-      "review_state": "Resumed main-scope checkpoint review pending; earlier pilot review remains applicable to unchanged behavior."
+      "reviewed_candidate": "e62a6282d0643c7eaf1d36aa6c3c761a0417babf",
+      "review_state": "Independent whole-checkpoint FULL_REVIEW found no material findings. This does not accept the whole issue or certify role boundaries.",
+      "reboot_recovery": "Fresh-process checked_run accepted both persisted plans; all six pilot PCM/WAV hashes matched, main attempts remained zero, no operation locks or replayed paid requests."
     }
   },
   "local_evidence": {
@@ -198,7 +200,12 @@
     "pre_network_failure": ".data/r3/pilot-preflight-failure.json",
     "human_review_page": ".data/r3/pilot-review/index.html",
     "browser_evidence": ".data/r3/pilot-review/browser-evidence.json",
-    "raw_rejected_alignment": ".data/r3/pilot-review/pilot-01-alignment.json"
+    "raw_rejected_alignment": ".data/r3/pilot-review/pilot-01-alignment.json",
+    "reboot_recovery": ".data/r3/reboot-recovery.json",
+    "role_preview_page": ".data/r3/pilot-role-review/index.html",
+    "focused_boundary_page": ".data/r3/pilot-role-review/refined-joins/index.html",
+    "updated_boundary_proposals": ".data/r3/pilot-role-review/refined-joins/updated-role-proposals.json",
+    "boundary_browser_evidence": ".data/r3/pilot-role-review/refined-joins/browser-evidence.json"
   },
   "human_review_packet": {
     "audio": "Six original WAV players, with 118 exact scripted turn occurrences across the six takes.",
@@ -211,9 +218,28 @@
       "raw_units": 80,
       "flagged_units": 12,
       "flags": "Five reversed, four nonmonotonic/overlapping, one zero-duration, two crossing script-turn boundaries.",
-      "handling": "Raw predictions and mappings retained without interpolation or repair. No extension to the other five takes, no alternative timing pipeline, no role-buffer generation.",
+      "handling": "This initial Japanese-only tokenization attempt was rejected and not extended. Its raw predictions remain unchanged; later corrected per-turn tokenization observations are reported separately below.",
       "limits": "Forced known-text timing does not establish words spoken, acoustic silence, speaker identity or pronunciation. Human boundaries remain required."
     }
+  },
+  "role_boundary_proposals": {
+    "status": "unreviewed_not_adopted",
+    "corrected_method": "Native Japanese/Korean tokenization per exact scripted turn, preserving unit-to-turn ownership; unchanged installed offline classifier and raw predictions without interpolation, clamping or sorting.",
+    "whole_take_observations": 6,
+    "bounded_full_two_turn_refinements": 5,
+    "total_joins": 112,
+    "measured_gap_cut_candidates": 109,
+    "unresolved_joins": [
+      "pilot-03-join-17",
+      "pilot-06-join-12",
+      "pilot-06-join-17"
+    ],
+    "analysis_only_preview_pairs": ["pilot-01", "pilot-02", "pilot-04", "pilot-05"],
+    "preview_arithmetic": "Actual file readback verified equal original lengths and exact samplewise A+B reconstruction for the four available pairs; each retained sample is original or zero. Not genuine speaker/leakage proof.",
+    "withheld_preview_pairs": ["pilot-03", "pilot-06"],
+    "advisory_asr": "Seven earlier no-hints local windows; ambiguous short acknowledgement and mixed-language recognition limitations retained. Same Qwen family, not independent truth.",
+    "remaining_review": "Confirm candidate routing, quiet-gap ownership and short acknowledgements; decide three unresolved role joins from the supplied original-audio windows. Touching/overlapping classifier predictions are not proof of physical overlap.",
+    "surface_verification": "After reboot, actual Chromium loaded ten focused-window players and eight role-preview players, exercised muted playback and downloaded feedback. Smoke feedback removed; no boundary acceptance inferred."
   },
   "remaining_prerequisites": [
     "Actual role-boundary and separated-input review on the retained pilot takes; owner-reported listening quality approval is recorded separately.",

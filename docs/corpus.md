@@ -439,11 +439,31 @@ are not autosaved. The page was exercised in Chromium through the actual Windows
 file route, including playback and downloaded feedback. That UI smoke was not
 human listening and its synthetic feedback was removed.
 
-One offline forced-alignment observation on the first take yielded unusable
-mixed-language turn mappings and invalid raw timestamps. The raw result is
-retained rather than repaired into supposed ground truth; the other five takes
-were not aligned. No proposed timing was adopted. Human reviewers can supply
-seconds and gap/overlap notes without constructing sample-integer JSON.
+The initial Japanese-only whole-dialogue tokenization yielded unusable mixed
+turn mappings and raw timestamps. That failed observation remains unchanged.
+The corrected local method tokenizes each exact turn with its native Japanese
+or Korean tokenizer, preserving unit ownership while using the same installed
+classifier. Six actual whole-take observations and five bounded full-two-turn
+refinements produced **109 cut candidates across 112 joins**. Raw anomalies are
+retained, not interpolated into ground truth. These remain unreviewed proposals.
+
+Open `.data/r3/pilot-role-review/refined-joins/index.html` for the latest focused
+review. Three joins still need an actual boundary decision:
+`pilot-03-join-17`, `pilot-06-join-12`, and `pilot-06-join-17`.
+The page provides short original crops and full adjacent-turn windows; touching
+or overlapping model predictions do not establish physical speech overlap.
+Confirm candidate cuts in groups and correct exceptions rather than manually
+entering all 118 turn timestamps. The prior listening-quality approval is not
+being repeated or withdrawn.
+
+The linked role page contains explicitly **UNREVIEWED** A/B preview pairs for
+pilot-01/02/04/05. File readback verified original frame counts and exact
+samplewise A+B reconstruction; that arithmetic does not certify speaker
+ownership or leakage. Full previews for pilot-03/06 remain withheld because of
+their unresolved joins. Actual Chromium rendering, local media playback and
+feedback download were exercised after reboot; smoke-only feedback was removed.
+Both persisted generation plans and all six pilot PCM/WAV hashes survived the
+restart. No paid generation was replayed and no main request has been sent.
 
 ### Adoption remains an audio decision
 
