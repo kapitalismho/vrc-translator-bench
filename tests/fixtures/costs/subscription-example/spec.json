@@ -1,0 +1,74 @@
+{
+  "schema_version": 2,
+  "synthetic": true,
+  "revision": {
+    "id": "subscription-observed"
+  },
+  "common_report": {
+    "path": "common.json",
+    "sha256": "34592030391d94870a55f14802c81b3e294ea08aaf0975d7bb9781d0f33981bb"
+  },
+  "manifests": [
+    {
+      "id": "capture",
+      "path": "manifest.json",
+      "sha256": "40c99e7bf8d9ac28db123ef4312f3596fac66369e903159beb2a1c3bb6ffe9a8",
+      "purpose": "main"
+    }
+  ],
+  "components": [
+    {
+      "id": "KIKI2.route",
+      "profile": "KIKI2",
+      "provider": "openrouter",
+      "treatment": "subscription",
+      "models": [
+        "synthetic/gemma"
+      ],
+      "key_aliases": [
+        "shared"
+      ],
+      "services": [
+        "asr",
+        "translation"
+      ],
+      "services_evidence": "Invented all-in-one arithmetic route, not a real model price",
+      "coverage": {
+        "window_ids": [
+          "capture.attempt-1",
+          "capture.attempt-2"
+        ],
+        "complete": true,
+        "evidence": "Complete synthetic bills for both passes"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "invented-bills",
+      "path": "bills.json",
+      "kind": "provider_export",
+      "provider": "openrouter",
+      "format": "json",
+      "permitted": true,
+      "synthetic": true,
+      "benchmark_only": true,
+      "selection_evidence": "Invented selected records; no account activity",
+      "currency": "USD",
+      "fields": {
+        "start": "start",
+        "end": "end",
+        "model": "model",
+        "key_alias": "key_alias",
+        "cost": "cost",
+        "request_id": "request_id",
+        "window_id": "window_id",
+        "product_retry": "product_retry"
+      },
+      "isolation": {
+        "verified": true,
+        "evidence": "Synthetic isolated fixture, not account proof"
+      }
+    }
+  ]
+}

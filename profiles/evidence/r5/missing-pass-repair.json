@@ -1,0 +1,91 @@
+{
+  "record_version": 1,
+  "activity": "PR29 bounded missing-selected-pass duration repair",
+  "date": "2026-10-28",
+  "authority": "https://github.com/kapitalismho/vrc-translator-bench/issues/19 final-plan section 11",
+  "accepted_finding": "https://github.com/kapitalismho/vrc-translator-bench/pull/29#discussion_r4394870317",
+  "failed_published_candidate": "62198400f9cecde372634cf4cadc625f92d89cf4",
+  "workflow_checkout": "R5 worktree at that HEAD with local bounded repair; no Git/GitHub mutations performed",
+  "base_main_supplied_by_director": "026f561",
+  "source_identities_sha256": {
+    "bench/costs.py": "cf476b0b1ffb1263cf484f6586a004cea4e112a440db720e98fac75f0e433cc8",
+    "tests/test_cost_binding_repairs.py": "587bbcb77ec5044e2d6105775ecd3020b818d488d285e9b690eed9d7085e3b56",
+    "bench/cost_inputs.py": "9727cc9cc0f43eb92ef5be1db25e565e75f714d55d451ad487df7c7de4b1f953",
+    "bench/cli.py": "622e864026274d5fcd8da39d7336b960ee966aa564a103078afed3f3aa8546b8"
+  },
+  "diagnosis": "An expected selected role without an observed window never entered chosen. The existing known sum therefore produced a complete-looking 60-second population total from A alone. Cost and normalized rate already remained pending; they were not the defect.",
+  "change": "Track expected selected-window coverage independently of input comparability and billing completeness. If any planned episode/role cannot bind an observed window, both population duration totals are null. Keep per-window evidence, known bills, logical timelines, and existing explicit-null callback-role behavior unchanged.",
+  "check_rationale": "Negative cases require both aggregate durations to be unknown while preserving known A evidence and cost. Positive split/simultaneous and known contiguous partial controls prevent conflating missing-window coverage with incomplete execution, non-main purpose, or missing billing. A fresh CLI process closes the gap between direct derive tests and the supported command/output artifact.",
+  "regression_tests": {
+    "test_missing_selected_split_pass_keeps_population_durations_unknown": ["trace unavailable", "anchor unavailable", "source playback unavailable", "selection null", "planned B role result absent"],
+    "test_known_window_coverage_preserves_durations_independently_of_completeness": "8 cases: split/simultaneous crossed with complete, contiguous partial, missing billing, preparation purpose",
+    "existing_protection_retained": "test_r5_rv1_every_declared_simultaneous_role_retains_nullable_duration and all existing five-suite assertions unchanged"
+  },
+  "failure_history": [
+    {
+      "attempt": "baseline-regressions-initial",
+      "command": "python -m pytest -q tests/test_cost_binding_repairs.py -k missing_selected_split_pass",
+      "exit_code": 1,
+      "result": "5 failed, 44 deselected in 0.41s",
+      "detail": "Trace/anchor/source fixtures incorrectly claimed coverage of an unobserved B window and hit existing coverage validation. Null-selection/absent-role cases reached the target assertion and exposed 60 seconds instead of null.",
+      "correction": "For unavailable-window fixtures claim only observed A and mark component coverage incomplete; preserve unknown B instead of inventing a window. No product change to coverage validation."
+    },
+    {
+      "attempt": "baseline-regressions-valid-fixtures",
+      "command": "python -m pytest -q tests/test_cost_binding_repairs.py -k missing_selected_split_pass --tb=short",
+      "exit_code": 1,
+      "result": "5 failed, 44 deselected in 0.31s",
+      "detail": "All five cases reached the aggregate duration assertion; both totals incorrectly contained 60 instead of null. Source was still the published baseline."
+    },
+    {
+      "attempt": "first-post-repair-five-suites",
+      "command": "python -m pytest -q tests/test_costs.py tests/test_cost_repairs.py tests/test_cost_usage.py tests/test_episode_costs.py tests/test_cost_binding_repairs.py",
+      "exit_code": 1,
+      "result": "3 failed, 193 passed in 4.97s",
+      "detail": "All target aggregate-duration assertions passed. Trace/anchor/source cases then failed an overstrong test expectation that incomplete component coverage yielded a complete per-pass cost.",
+      "correction": "Assert per-pass known_numeric_subtotal equals 0.01 instead of complete cost. This matches deliberately incomplete coverage and retains explicit known-bill protection; no existing assertion, skip, tolerance, fixture baseline, or product billing guarantee was weakened."
+    }
+  ],
+  "final_focused_suites": {
+    "command": "python -m pytest -q tests/test_costs.py tests/test_cost_repairs.py tests/test_cost_usage.py tests/test_episode_costs.py tests/test_cost_binding_repairs.py",
+    "exit_code": 0,
+    "result": "196 passed in 4.64s",
+    "failed": 0,
+    "skipped": 0,
+    "interrupted": false,
+    "scope": "All tests in the requested five files, including 13 new parameterized cases; no selection filter"
+  },
+  "supported_cli": {
+    "command_template": "python -m bench.cli costs --spec <isolated-temp>/<case>/cost-spec.json --output <isolated-temp>/<case>/cost.json",
+    "execution": "Two fresh subprocesses using the current Python executable and current checkout; parsed stdout and read actual saved JSON artifacts",
+    "fixture_source": "tests/test_episode_costs.py::example and tests/test_cost_binding_repairs.py::bind_manifest",
+    "cases": [
+      {
+        "case": "missing-b-trace",
+        "mutation": "Selected manifest B trace points to an unavailable file; component coverage claims only observed A, incomplete",
+        "exit_code": 0,
+        "stderr": "",
+        "stdout": {"version": "r5-cost-evidence-v1", "revision": "observed-example", "status": "pending", "components": 1, "records": 2, "pending_populations": 1},
+        "population": {"status": "pending", "cost": null, "per_input_hour": null, "logical_episode_seconds": 60, "physical_replay_seconds": null, "submitted_role_timeline_seconds": null, "known_numeric_subtotal": 0.01, "full_main_input_observed": false},
+        "observed_window_ids": ["capture.attempt-1"],
+        "retained_A_window_seconds": 60,
+        "retained_A_pass_cost": null,
+        "retained_A_pass_known_numeric_subtotal": 0.01
+      },
+      {
+        "case": "complete-split-control",
+        "mutation": "None; valid synthetic split A and B traces and invented bills",
+        "exit_code": 0,
+        "stderr": "",
+        "stdout": {"version": "r5-cost-evidence-v1", "revision": "observed-example", "status": "complete", "components": 1, "records": 2, "pending_populations": 0},
+        "population": {"status": "complete", "cost": 0.03, "per_input_hour": 1.8, "logical_episode_seconds": 60, "physical_replay_seconds": 120, "submitted_role_timeline_seconds": 120, "known_numeric_subtotal": 0.03, "full_main_input_observed": true},
+        "observed_window_ids": ["capture.attempt-1", "capture.attempt-2"],
+        "per_pass_costs": {"A": 0.01, "B": 0.02}
+      }
+    ],
+    "isolation": "Synthetic fixtures and outputs under owned TemporaryDirectory only. Cost CLI reads local allowlisted inputs; no app launch, provider call, account access, discovery, audio device, paid request, or external service was used.",
+    "cleanup": "TemporaryDirectory removed all owned CLI fixture/output files. No retained private paths or raw account material. Pytest uses its normal managed temporary directories."
+  },
+  "schema_and_docs": "No schema/version change, new subtotal API, or caller migration. Existing nullable totals now honor the unknown contract. No maintained documentation changed because Director owns docs; proposed clarification: population duration totals require an observed window for every planned selected role, independently of full-main comparability and billing completeness. Known partial durations remain numeric when all windows are present.",
+  "limits": "Offline deterministic accounting and CLI evidence only; no measured app billing or real audio execution claimed. Repository-wide validation, review approval, Git history, publication, and acceptance remain with Director."
+}

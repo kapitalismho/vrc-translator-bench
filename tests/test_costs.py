@@ -6,8 +6,9 @@ from pathlib import Path
 
 import pytest
 
-from bench.cost_inputs import timestamp
+from bench.cost_inputs import fingerprint, timestamp
 from bench.costs import derive
+from bench.storage import digest
 
 FIXTURES = Path(__file__).parent / "fixtures" / "costs"
 
@@ -19,13 +20,44 @@ def specification(name="synthetic-spec.json"):
             source["path"] = str((FIXTURES / source["path"]).resolve())
             if "export_provenance" in source:
                 source["export_provenance"] = str((FIXTURES / source["export_provenance"]).resolve())
+    for summary in spec.get("consumption_summaries", []):
+        summary["artifact"]["path"] = str((FIXTURES / summary["artifact"]["path"]).resolve())
+    if "common_report" in spec:
+        spec["common_report"]["path"] = str((FIXTURES / spec["common_report"]["path"]).resolve())
+    for timeline in spec.get("timelines", []):
+        timeline["artifact"]["path"] = str((FIXTURES / timeline["artifact"]["path"]).resolve())
     return spec
 
 
 def report(tmp_path, spec):
-    spec_path = tmp_path / "spec.json"
+    directory = tmp_path / f"reconciliation-{len(list(tmp_path.glob('reconciliation-*')))}"
+    directory.mkdir()
+    if spec.get("mode") != "historical_evidence_only":
+        # Low-level ingestion cases vary profiles/windows. Keep a truthful,
+        # incomplete synthetic common report for that test's selected input.
+        common = json.loads((FIXTURES / "synthetic-common.json").read_text(encoding="utf-8"))
+        profiles = sorted({window["profile"] for window in spec.get("windows", [])})
+        common["populations"] = []
+        for profile in profiles:
+            windows = [window for window in spec["windows"] if window["profile"] == profile]
+            window = windows[0]
+            selection = {"history": {"path": str(FIXTURES / "synthetic-history.json"),
+                                     "sha256": digest(FIXTURES / "synthetic-history.json")},
+                         "scope": {"episode": window["episode_id"], "profile": profile,
+                                   "run": window["run"], "pass_id": window["pass_id"], "attempt": window["attempt_id"]}}
+            window["role_bindings"] = {"A": fingerprint(selection)}
+            common["populations"].append({"profile": profile, "measurement_condition": "peer/simultaneous",
+                                          "condition": {"ordinary_input": "peer", "t1_mode": "simultaneous",
+                                                        "roles": {"A": "peer", "B": "self"}},
+                                          "role_results": [{"episode_id": window["episode_id"], "role": "A",
+                                                            "selection": selection, "quality": {"status": "unknown", "score": None},
+                                                            "checkpoints": []}]})
+        common_path = directory / "common.json"
+        common_path.write_text(json.dumps(common), encoding="utf-8")
+        spec["common_report"] = {"path": str(common_path), "sha256": digest(common_path)}
+    spec_path = directory / "spec.json"
     spec_path.write_text(json.dumps(spec), encoding="utf-8")
-    return derive(spec_path, tmp_path / "report.json")
+    return derive(spec_path, directory / "report.json")
 
 
 def provider_spec(tmp_path, rows, *, provider="openrouter", granularity="request", isolation=True):
@@ -41,7 +73,6 @@ def provider_spec(tmp_path, rows, *, provider="openrouter", granularity="request
     spec["components"][0]["provider"] = provider
     if provider == "qwen":
         spec["windows"][0]["profile"] = spec["components"][0]["profile"] = "VRCLT2"
-    spec["denominators"] = []
     return spec
 
 
@@ -64,10 +95,13 @@ def test_hand_reconciled_selected_output(tmp_path):
     assert translation["internal_calculation"]["known_subtotal"] == pytest.approx(.00235)
     assert translation["reconciliation"]["difference_provider_minus_internal"] == pytest.approx(.00265)
     assert asr["internal_usage"]["audio_seconds"]["known"] == 10
-    assert asr["cost"] == pytest.approx(.001)
-    assert result["profiles"][0]["cost"] == pytest.approx(.006)
-    assert result["denominators"][0]["per_replayed_conversation_hour"] == pytest.approx(1.08)
-    assert result["denominators"][0]["per_1000_reference_sentences"] == pytest.approx(.6)
+    assert asr["cost"] is None
+    assert asr["calculated_cost"] == pytest.approx(.001)
+    assert asr["amount_basis"] == "usage_times_dated_price_not_billing"
+    assert result["profiles"][0]["cost"] is None
+    assert result["profiles"][0]["calculated_cost"] == pytest.approx(.006)
+    assert result["populations"][0]["per_input_hour"] is None
+    assert result["populations"][0]["calculated_per_input_hour"] == pytest.approx(1.08)
     serialized = json.dumps(result)
     for private in ("DO_NOT_COPY_THIS", "PRIVATE_UNRELATED", "private/unrelated", "unrelated-account-record", str(tmp_path), "synthetic-1", "successful_bytes"):
         assert private not in serialized
@@ -196,7 +230,7 @@ def test_partial_provider_coverage_and_missing_asr_never_complete_total(tmp_path
     assert result["components"][0]["cost"] is None
     assert result["components"][1]["cost"] is None
     assert result["profiles"][0]["cost"] is None
-    assert result["denominators"][0]["per_replayed_conversation_hour"] is None
+    assert result["populations"][0]["per_input_hour"] is None
 
 
 def test_subscription_equivalent_is_not_actual_and_gemini_stays_separate(tmp_path):
@@ -217,9 +251,11 @@ def test_subscription_equivalent_is_not_actual_and_gemini_stays_separate(tmp_pat
     assert subscription["known_subtotal"] is None
     assert subscription["status"] == "subscription"
     assert subscription["supplementary_api_equivalent"]["known_subtotal"] == pytest.approx(.00235)
-    assert asr["cost"] == pytest.approx(.001)
+    assert asr["cost"] is None
+    assert asr["calculated_cost"] == pytest.approx(.001)
     assert result["profiles"][0]["cost"] is None
-    assert result["profiles"][0]["known_numeric_subtotal"] == pytest.approx(.001)
+    assert result["profiles"][0]["known_numeric_subtotal"] is None
+    assert result["profiles"][0]["calculated_subtotal"] == pytest.approx(.001)
 
 
 @pytest.mark.parametrize("eligible", [False, True])
@@ -278,9 +314,11 @@ def test_real_manifest_missing_cost_uses_actual_40s_not_60s_attempt(tmp_path):
     assert chunk["clock_session"] == "5ebe4e0a8c9f40a2b48f6780ec3b49c7"
     assert all(item["cost"] is None for item in result["components"])
     assert result["profiles"][0]["cost"] is None
-    denominator = result["denominators"][0]
-    assert denominator["replay_seconds"] == 40 and denominator["reference_sentences"] == 9
-    assert denominator["per_1000_reference_sentences"] is None
+    assert result["common_report"] is None and result["populations"] == []
+    assert result["status"] == "historical_evidence_only"
+    assert result["consumption_summaries"][0]["known_subtotal"] == pytest.approx(.1151360)
+    assert result["consumption_summaries"][1]["known_subtotal"] == pytest.approx(.1444215)
+    assert all(row["total"] is None for row in result["consumption_summaries"])
     assert any(item["kind"] == "capture_export_provenance" for item in result["provenance"])
 
 

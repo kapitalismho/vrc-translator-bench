@@ -146,25 +146,15 @@ def test_f3_selected_outside_windows_remains_safe_unmatched_evidence(tmp_path):
     assert result["unmatched_record_count"] == 1
 
 
-def test_f4_omitted_pp_asr_blocks_profile_and_default_normalization_but_not_component(tmp_path):
+def test_f4_omitted_pp_asr_blocks_public_total_but_not_component(tmp_path):
     spec = specification()
     spec["components"] = spec["components"][:1]
     spec["sources"] = spec["sources"][:2]
-    spec["denominators"][0]["component_ids"] = ["PP1.translation"]
     result = report(tmp_path, spec)
     assert result["components"][0]["cost"] == .005
-    assert result["profiles"][0]["cost"] is None
     assert result["profiles"][0]["missing_services"] == ["asr"]
-    assert "asr" in result["profiles"][0]["reason"]
-    assert result["denominators"][0]["scope"] == "profile"
-    assert result["denominators"][0]["cost"] is None
-    assert result["denominators"][0]["per_replayed_conversation_hour"] is None
-    spec["denominators"][0]["scope"] = "component"
-    result = report(tmp_path, spec)
-    subtotal = result["denominators"][0]
-    assert subtotal["cost_kind"] == "component_subtotal" and subtotal["cost"] == .005
-    assert subtotal["per_replayed_conversation_hour"] == pytest.approx(.9)
-    assert result["profiles"][0]["cost"] is None
+    assert result["populations"][0]["cost"] is None
+    assert result["populations"][0]["per_input_hour"] is None
 
 
 def test_f4_missing_service_inventory_never_completes_generic_profile(tmp_path):
@@ -174,7 +164,8 @@ def test_f4_missing_service_inventory_never_completes_generic_profile(tmp_path):
         component["profile"] = "GENERIC"
         component.pop("services")
     result = report(tmp_path, spec)
-    assert [item["cost"] for item in result["components"]] == [.005, .001]
+    assert [item["cost"] for item in result["components"]] == [.005, None]
+    assert result["components"][1]["calculated_cost"] == .001
     assert result["profiles"][0]["cost"] is None
     assert result["profiles"][0]["missing_services"] == ["asr", "translation"]
     assert len(result["profiles"][0]["inventory_issues"]) == 2
@@ -208,59 +199,51 @@ def test_f4_known_pp_obligations_cannot_be_relabelled(tmp_path, profile, provide
         report(tmp_path, spec)
 
 
-def test_f4_profile_denominator_cannot_omit_declared_unknown_or_paid_component(tmp_path):
+def test_f4_public_cost_cannot_omit_declared_unknown_or_calculated_component(tmp_path):
     spec = specification()
-    spec["denominators"][0]["component_ids"] = ["PP1.translation"]
     result = report(tmp_path, spec)
-    assert result["profiles"][0]["cost"] == .006
-    assert result["denominators"][0]["cost"] is None
-    assert "omitted" in result["denominators"][0]["reason"]
+    assert result["profiles"][0]["cost"] is None
+    assert result["profiles"][0]["calculated_cost"] == .006
+    assert result["populations"][0]["per_input_hour"] is None
     spec["components"][1]["coverage"]["complete"] = False
     result = report(tmp_path, spec)
-    assert result["denominators"][0]["cost"] is None
+    assert result["populations"][0]["calculated_per_input_hour"] is None
 
 
 @pytest.mark.parametrize("supplied", [1, 19, 21])
-def test_f5_positive_replay_denominator_contradiction_is_unknown_not_overridden(tmp_path, supplied):
+def test_f5_positive_replay_contradiction_cannot_rank_partial_input(tmp_path, supplied):
     spec = specification()
-    spec["denominators"][0]["replay_seconds"] = supplied
+    spec["windows"][0]["replayed_seconds"] = supplied
     result = report(tmp_path, spec)
-    denominator = result["denominators"][0]
-    assert denominator["replay_seconds"] == supplied
-    assert denominator["observed_replay_seconds"] == 20
-    assert denominator["replay_seconds_consistent"] is False
-    assert denominator["cost"] is None
-    assert denominator["per_replayed_conversation_hour"] is None
-    assert denominator["per_1000_reference_sentences"] is None
-    assert "contradict" in denominator["reason"]
-    assert result["profiles"][0]["cost"] == .006
+    population = result["populations"][0]
+    assert population["logical_episode_seconds"] == 20
+    assert population["physical_replay_seconds"] == supplied
+    assert population["full_main_input_observed"] is False
+    assert population["cost"] is None
+    assert population["calculated_per_input_hour"] is None
+    assert result["components"][0]["cost"] == .005
 
 
-def test_f5_native_callback_duration_wins_over_wall_tail_and_remains_explicit(tmp_path):
-    spec = specification("real-missing-spec.json")
-    result = report(tmp_path, spec)
-    assert result["denominators"][0]["observed_replay_seconds"] == 40
-    assert result["denominators"][0]["replay_seconds_consistent"] is True
-    spec["denominators"][0]["replay_seconds"] = 60
-    result = report(tmp_path, spec)
-    assert result["denominators"][0]["replay_seconds_consistent"] is False
-    assert result["denominators"][0]["cost"] is None
+def test_f5_historical_callbacks_remain_evidence_not_new_episode_results(tmp_path):
+    result = report(tmp_path, specification("real-missing-spec.json"))
+    assert [row["replayed_seconds"] for row in result["windows"]] == [10, 40]
+    assert result["common_report"] is None
+    assert result["populations"] == []
+    assert all(row["cost"] is None for row in result["components"])
 
 
-def test_f5_mixed_population_profile_names_exact_observed_subset(tmp_path):
+def test_f5_repeat_is_separate_from_selected_main_timeline(tmp_path):
     spec = specification()
-    other = {**spec["windows"][0], "id": "repeat", "population": "repeat", "start": "2026-10-20T12:02:00Z", "end": "2026-10-20T12:02:10Z"}
+    other = {**spec["windows"][0], "id": "repeat", "purpose": "repeat", "attempt_id": "2",
+             "start": "2026-10-20T12:02:00Z", "end": "2026-10-20T12:02:10Z", "replayed_seconds": 10}
     spec["windows"].append(other)
     for component in spec["components"]:
         component["coverage"]["window_ids"].append("repeat")
-    spec["denominators"][0].update(window_ids=["pilot-chunk", "repeat"], replay_seconds=30,
-                                   population="Explicit synthetic development plus repeat")
     result = report(tmp_path, spec)
-    denominator = result["denominators"][0]
-    assert denominator["observed_replay_seconds"] == 30
-    assert denominator["replay_seconds_consistent"] is True
-    assert denominator["window_populations"] == ["development", "repeat"] and denominator["mixed_populations"] is True
-    assert denominator["cost"] == .006
+    assert result["populations"][0]["physical_replay_seconds"] == 20
+    assert result["populations"][0]["logical_episode_seconds"] == 20
+    assert result["populations"][0]["calculated_cost"] == .006
+    assert {row["purpose"] for row in result["ledger_groups"]} == {"main", "repeat"}
 
 
 @pytest.mark.parametrize("artifact", ["setup", "direction", "resume_setup", "stream", "diagnostic", "extra", "audio", "override", "ledger"])
@@ -292,7 +275,8 @@ def test_f6_protects_all_manifest_linked_raw_artifacts_without_parsing(tmp_path,
         manifest["ledger"] = str(target)
     manifest_path = tmp_path / "manifest.json"
     manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
-    spec = {"version": 1, "manifests": [source], "components": [
+    spec = {"schema_version": 2, "mode": "historical_evidence_only", "revision": {"id": "protection"},
+            "manifests": [source], "components": [
         {"id": "unknown", "profile": "GENERIC", "services": ["translation", "asr"], "services_evidence": "Synthetic combined route",
          "provider": "unknown", "treatment": "unknown"}]}
     spec_path = tmp_path / "spec.json"
@@ -316,7 +300,7 @@ def test_f7_provider_charge_cannot_be_erased_by_free_eligibility(tmp_path, charg
     assert result["profiles"][0]["cost"] == expected
     assert result["records"][0]["cost"] == float(charge)
     if charge != "0":
-        assert result["components"][0]["status"] == "unknown"
+        assert result["components"][0]["status"] == "pending"
         assert result["components"][0]["access_conflict_record_ids"] == [result["records"][0]["id"]]
         assert "contradict" in result["components"][0]["reason"]
 
@@ -332,23 +316,20 @@ def test_f4_combined_service_evidence_requires_an_explanation_not_a_flag(tmp_pat
 
 
 @pytest.mark.parametrize("asr_complete", [True, False])
-def test_f8_profile_retains_partial_actual_subtotals_without_normalizing(tmp_path, asr_complete):
+def test_f8_profile_retains_partial_actual_and_calculated_subtotals(tmp_path, asr_complete):
     spec = specification()
     spec["components"][0]["coverage"]["complete"] = False
     spec["components"][1]["coverage"]["complete"] = asr_complete
     result = report(tmp_path, spec)
     translation, asr = result["components"]
-    assert translation["known_subtotal"] == pytest.approx(.005)
-    assert translation["cost"] is None
-    assert asr["known_subtotal"] == pytest.approx(.001)
-    assert asr["cost"] == (.001 if asr_complete else None)
-    profile = result["profiles"][0]
-    assert profile["known_numeric_subtotal"] == pytest.approx(.006)
-    assert profile["cost"] is None
-    denominator = result["denominators"][0]
-    assert denominator["cost"] is None
-    assert denominator["per_replayed_conversation_hour"] is None
-    assert denominator["per_1000_reference_sentences"] is None
+    assert translation["known_subtotal"] == .005 and translation["cost"] is None
+    assert asr["known_subtotal"] is None and asr["cost"] is None
+    assert asr["calculated_subtotal"] == pytest.approx(.001)
+    assert asr["calculated_cost"] == (.001 if asr_complete else None)
+    assert result["profiles"][0]["known_numeric_subtotal"] == .005
+    assert result["profiles"][0]["calculated_subtotal"] == .001
+    assert result["populations"][0]["per_input_hour"] is None
+    assert result["populations"][0]["calculated_per_input_hour"] is None
 
 
 @pytest.mark.parametrize("known_zero", [False, True])

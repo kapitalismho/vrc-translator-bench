@@ -1,2 +1,3 @@
 corpus/** -text
 profiles/** -text
+tests/fixtures/costs/** -text

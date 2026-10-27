@@ -1,0 +1,450 @@
+{
+  "schema_version": 1,
+  "kind": "r5_binding_repair_execution",
+  "task": "R5 #19 consolidated repair",
+  "baseline": "026f561c394ac6e269c858f13760e3390aa4a1ca",
+  "reviewed_candidate": "e84dd95676bff0774042799635942a3a3264015a",
+  "observed_at_utc": "2026-10-27T22:06:00.347654+00:00",
+  "source_record": {
+    "path": ".data/r5-repair/execution.json",
+    "sha256": "497a26f765d173bb56573e5045b08e6c52faf6330f4496468a077407c0cabdfe",
+    "availability": "Task-local original; public-safe selected execution evidence retained here."
+  },
+  "interpreter": {
+    "name": "Python",
+    "version": "3.14.7"
+  },
+  "imported_cost_module": "bench/costs.py",
+  "source_hashes": {
+    "bench/cost_inputs.py": "9743ce760669513701eea2577700619c974fafc10af7d156bd2a712eeb9a4159",
+    "bench/costs.py": "0833cd16032c90be1724d58011595a201515d7f7886b2ccb05879823781334d4",
+    "tests/test_cost_binding_repairs.py": "53fb690260f052991539af0a040663200eb50cad7334414025128c3ab4ed7ec0",
+    "tests/test_episode_costs.py": "581a88853378ec53ee162850357b6897e7d5c41b3fd5aa8f85ceee3ca85b905b"
+  },
+  "corrected_findings": {
+    "R5-F1": "Reject contradictory available immutable standalone scope identities despite an exact selection fingerprint; missing essential run/profile/episode/pass/attempt identity stays pending. Matching standalone input still completes.",
+    "R5-F2": "Scope unusable callback mapping to its affected attempt/role with null replay and false completeness, retaining attributable invalid-attempt costs while healthy selected resumed passes remain complete.",
+    "R5-F3": "Freeze established timeline content/hash and selected physical-input identity/timing against the prior billing revision; missing billing may arrive idempotently without changing frozen input.",
+    "neighboring_binding_invariants": "Enforce trace checksum/source/anchor/role identity, condition-specific physical channel routing and frozen non-main execution scope; preserve valid scheduled-silence callbacks."
+  },
+  "check_rationale": "Pair rejection with complete healthy accounting: exact fingerprints cannot override immutable identities; gapped invalid history remains scoped and billable while selected resumed A/B stays complete; known standalone timing cannot change across billing revisions; absent billing alone can arrive idempotently. Real Runner/Ledger/R4 consumers are covered with controlled boundaries and explicit unmapped-clock pending versus mapped synthetic callback success.",
+  "checks": [
+    {
+      "command": "python -m pytest tests/test_cost_binding_repairs.py tests/test_episode_costs.py tests/test_costs.py tests/test_cost_usage.py tests/test_cost_repairs.py -q",
+      "outcome": "179 passed in 4.07s",
+      "failures": 0,
+      "skips": 0,
+      "tool_wall_seconds": 4.85
+    }
+  ],
+  "failure_history": [
+    {
+      "artifact": "artifact://77",
+      "command": "same focused five suites before fixture corrections",
+      "outcome": "2 failed, 175 passed in 6.13s",
+      "diagnosis": [
+        "New test mismatched reference source_case_id after renaming logical episode.",
+        "New run scope field was not supported by actual R4 history reconstruction; removed invented identity. Real standalone R4 lacking run remains safely pending."
+      ],
+      "repair": "Preserved original reference source case and actual R4 scope; added explicit pending assertion."
+    },
+    {
+      "artifact": "artifact://79",
+      "command": "two corrected integration fixtures",
+      "outcome": "1 failed, 1 passed in 0.35s",
+      "diagnosis": "ClockPlayback intentionally emits synthetic-start metadata rather than measured source-frame mapping. Completeness assertion was a test observation error, not evidence of observed DAC input.",
+      "repair": "Parameterized real Runner/Ledger/R4 integration: native ClockPlayback stays pending with known attributed bill; controlled callback-producing audio boundary establishes full synthetic arithmetic. No product fallback added."
+    }
+  ],
+  "cli_transport_notes": "Commands use the recorded Python interpreter version with executable spelling normalized to python; spec/output paths are relative to .data/r5-repair/cli. Successful stdout is parsed JSON with only its personal absolute report path replaced by the corresponding relative output argument. Exit codes, other stdout fields and stderr are unchanged.",
+  "cli_runs": [
+    {
+      "label": "mismatched-run-attempt",
+      "command": [
+        "python",
+        "-m",
+        "bench.cli",
+        "costs",
+        "--spec",
+        "identity-mismatch/spec.json",
+        "--output",
+        "identity-mismatch/rejected.json"
+      ],
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "bench: Observed cost window contradicts common report selection scope\n"
+    },
+    {
+      "label": "invalid-history-healthy-resume",
+      "command": [
+        "python",
+        "-m",
+        "bench.cli",
+        "costs",
+        "--spec",
+        "healthy-resume/cost-spec.json",
+        "--output",
+        "healthy-resume/cost.json"
+      ],
+      "exit_code": 0,
+      "stdout": {
+        "report": "healthy-resume/cost.json",
+        "version": "r5-cost-evidence-v1",
+        "revision": "observed-example",
+        "status": "complete",
+        "components": 1,
+        "records": 3,
+        "pending_populations": 0
+      },
+      "stderr": ""
+    },
+    {
+      "label": "known-20-second-basis",
+      "command": [
+        "python",
+        "-m",
+        "bench.cli",
+        "costs",
+        "--spec",
+        "timing-drift/spec.json",
+        "--output",
+        "timing-drift/first.json"
+      ],
+      "exit_code": 0,
+      "stdout": {
+        "report": "timing-drift/first.json",
+        "version": "r5-cost-evidence-v1",
+        "revision": "initial",
+        "status": "complete",
+        "components": 1,
+        "records": 1,
+        "pending_populations": 0
+      },
+      "stderr": ""
+    },
+    {
+      "label": "known-20-to-40-timing-drift",
+      "command": [
+        "python",
+        "-m",
+        "bench.cli",
+        "costs",
+        "--spec",
+        "timing-drift/spec.json",
+        "--output",
+        "timing-drift/rejected.json"
+      ],
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "bench: Later cost revision cannot change frozen logical timeline evidence\n"
+    },
+    {
+      "label": "missing-bill-pending",
+      "command": [
+        "python",
+        "-m",
+        "bench.cli",
+        "costs",
+        "--spec",
+        "missing-bill-update/spec.json",
+        "--output",
+        "missing-bill-update/pending.json"
+      ],
+      "exit_code": 0,
+      "stdout": {
+        "report": "missing-bill-update/pending.json",
+        "version": "r5-cost-evidence-v1",
+        "revision": "initial",
+        "status": "pending",
+        "components": 1,
+        "records": 0,
+        "pending_populations": 1
+      },
+      "stderr": ""
+    },
+    {
+      "label": "missing-bill-arrived",
+      "command": [
+        "python",
+        "-m",
+        "bench.cli",
+        "costs",
+        "--spec",
+        "missing-bill-update/spec.json",
+        "--output",
+        "missing-bill-update/later.json"
+      ],
+      "exit_code": 0,
+      "stdout": {
+        "report": "missing-bill-update/later.json",
+        "version": "r5-cost-evidence-v1",
+        "revision": "bill-arrived",
+        "status": "complete",
+        "components": 1,
+        "records": 1,
+        "pending_populations": 0
+      },
+      "stderr": ""
+    },
+    {
+      "label": "missing-bill-idempotent-fresh-process",
+      "command": [
+        "python",
+        "-m",
+        "bench.cli",
+        "costs",
+        "--spec",
+        "missing-bill-update/spec.json",
+        "--output",
+        "missing-bill-update/later.json"
+      ],
+      "exit_code": 0,
+      "stdout": {
+        "report": "missing-bill-update/later.json",
+        "version": "r5-cost-evidence-v1",
+        "revision": "bill-arrived",
+        "status": "complete",
+        "components": 1,
+        "records": 1,
+        "pending_populations": 0
+      },
+      "stderr": ""
+    }
+  ],
+  "cli_summary": {
+    "identity_mismatch": "rejected; no output",
+    "healthy_resume": {
+      "status": "complete",
+      "cost": 0.03,
+      "per_input_hour": 1.8,
+      "logical_seconds": 60.0,
+      "physical_seconds": 120.0,
+      "invalid_cost": 0.007,
+      "invalid_replay_seconds": null
+    },
+    "timing_drift": "rejected; same R4 and prior hashes unchanged; no revised output",
+    "later_bill": {
+      "status": "complete",
+      "cost": 0.005,
+      "per_input_hour": 0.9,
+      "fresh_process_idempotent": true,
+      "frozen_before": {
+        "common.json": "9dd6236a97b982b78573c144e7742027dbd3709ff0c8d79fe72274327742ff25",
+        "timeline.json": "ca05e5abcaab053fb666c10f8e9e7dbab99d445d10401ae2d174a790126cc385"
+      },
+      "frozen_after": {
+        "common.json": "9dd6236a97b982b78573c144e7742027dbd3709ff0c8d79fe72274327742ff25",
+        "timeline.json": "ca05e5abcaab053fb666c10f8e9e7dbab99d445d10401ae2d174a790126cc385"
+      },
+      "prior_sha256": "cc101b900504b8e3d5a90c6edd534bb938dfa1ea7b83ea838fa17ceac6c42e51",
+      "later_sha256": "24c81d9ff90a05880fe1f1d99f0c9078c4a0a6aa77323a73237dbff85a7eee86"
+    }
+  },
+  "controlled_runtime_boundary": {
+    "consumers": "Real Runner, Ledger and R4 evaluate consumers, plus current local cost module and fresh-process costs CLI.",
+    "replaced_boundaries": "In-process fake application adapter and native collector; synthetic audio only. No applications, real audio devices, providers, account access or paid calls.",
+    "native_clock_playback": "Synthetic-start metadata is not measured source-frame mapping: input remains pending while the attributable invented $0.01 bill is retained.",
+    "controlled_callback_audio": "A controlled callback-producing audio boundary supports complete synthetic 2-second accounting for an invented $0.01 bill ($18/input-hour).",
+    "standalone_r4_scope": "An actual R4 standalone report lacking run identity is retained pending; no invented run identity or permissive product fallback was added.",
+    "claim_limit": "Consumer and arithmetic evidence only; not live admission, measured device behavior or authenticated real application billing."
+  },
+  "limits": [
+    "No apps, real audio devices, providers, account access or paid calls.",
+    "All bills invented; no authenticated real app export available.",
+    "R1/R4 integration uses real consumers with in-process fake app/collector and synthetic audio boundaries; not live admission.",
+    "Prior 147-test and Director 371-test evidence remains old-candidate evidence; no full repository suite or type checker run here.",
+    "No maintained docs or Git mutations. Synthetic input/output artifacts intentionally retained under .data/r5-repair/cli; no services started."
+  ],
+  "publication": "Public-safe compact derivative. Personal executable/report/temp paths excluded; all costs are invented local examples. Maintained docs, Git integration, independent repair review and acceptance remain Director-owned.",
+  "repair_revisions": [
+    {
+      "finding": "R5-RV1",
+      "severity": "P2",
+      "previous_repaired_candidate": "35165cf6aba0cdd07a1c7968b2ade15019604cd4",
+      "observed_at_utc": "2026-10-27T22:14:43.538578+00:00",
+      "accepted_failure": "One simultaneous role without source/callback mapping disappeared from nullable accounting, publishing its known peer duration as the submitted-role total. This review observation was accepted and not re-reproduced before repair.",
+      "repair": "Initialize every declared role replay to null and callback integrity to false before checking its source/callback map. Missing role evidence stays in the map and propagates null through existing physical and submitted-role aggregation. Preserve the no-observed-origin/no-window guard.",
+      "preserved_original_closures": [
+        "R5-F1",
+        "R5-F2",
+        "R5-F3"
+      ],
+      "source_hashes": {
+        "bench/cost_inputs.py": "9727cc9cc0f43eb92ef5be1db25e565e75f714d55d451ad487df7c7de4b1f953",
+        "bench/costs.py": "0833cd16032c90be1724d58011595a201515d7f7886b2ccb05879823781334d4",
+        "tests/test_cost_binding_repairs.py": "1e96cb9f50eafbe262cebf639287b598d29d0da392e5797775794bbe15c77c16"
+      },
+      "check_rationale": "A pending cost alone could hide false-precision durations. Assert both declared role entries, null physical/submitted-role totals for missing maps, preserved attributed bills, and fully mapped positive totals/cost. Include missing callback, missing source and missing-both cases.",
+      "checks": [
+        {
+          "command": "python -m pytest tests/test_cost_binding_repairs.py tests/test_episode_costs.py tests/test_costs.py tests/test_cost_usage.py tests/test_cost_repairs.py -q",
+          "outcome": "183 passed in 4.41s",
+          "failures": 0,
+          "skips": 0,
+          "tool_wall_seconds": 5.01,
+          "new_regression_cases": 4
+        }
+      ],
+      "cli_api_runs": [
+        {
+          "case": "one-valid-one-missing",
+          "cli": {
+            "command": [
+              "python",
+              "-m",
+              "bench.cli",
+              "costs",
+              "--spec",
+              "one-valid-one-missing/cost-spec.json",
+              "--output",
+              "one-valid-one-missing/cli.json"
+            ],
+            "exit_code": 0,
+            "stdout": {
+              "report": "one-valid-one-missing/cli.json",
+              "version": "r5-cost-evidence-v1",
+              "revision": "observed-example",
+              "status": "pending",
+              "components": 1,
+              "records": 2,
+              "pending_populations": 1
+            },
+            "stderr": ""
+          },
+          "api": {
+            "command": [
+              "python",
+              "-c",
+              "import json, sys\nfrom bench.costs import derive\nresult = derive(sys.argv[1], sys.argv[2])\npopulation = result['populations'][0]\nwindow = result['windows'][0]\nprint(json.dumps({'status': population['status'], 'roles': window['roles'], 'role_replayed_seconds': window['role_replayed_seconds'], 'callback_integrity': window['callback_integrity'], 'window_replayed_seconds': window['replayed_seconds'], 'physical_replay_seconds': population['physical_replay_seconds'], 'submitted_role_timeline_seconds': population['submitted_role_timeline_seconds'], 'logical_episode_seconds': population['logical_episode_seconds'], 'full_main_input_observed': population['full_main_input_observed'], 'cost': population['cost'], 'per_input_hour': population['per_input_hour'], 'known_numeric_subtotal': population['known_numeric_subtotal'], 'component_cost': result['components'][0]['cost'], 'record_attribution_statuses': [row['attribution']['status'] for row in result['records']]}))\n",
+              "one-valid-one-missing/cost-spec.json",
+              "one-valid-one-missing/api.json"
+            ],
+            "exit_code": 0,
+            "stdout": {
+              "status": "pending",
+              "roles": [
+                "A",
+                "B"
+              ],
+              "role_replayed_seconds": {
+                "A": 60.0,
+                "B": null
+              },
+              "callback_integrity": {
+                "A": true,
+                "B": false
+              },
+              "window_replayed_seconds": null,
+              "physical_replay_seconds": null,
+              "submitted_role_timeline_seconds": null,
+              "logical_episode_seconds": 60.0,
+              "full_main_input_observed": false,
+              "cost": null,
+              "per_input_hour": null,
+              "known_numeric_subtotal": 0.03,
+              "component_cost": 0.03,
+              "record_attribution_statuses": [
+                "attributed",
+                "attributed"
+              ]
+            },
+            "stderr": ""
+          },
+          "api_cli_results_equal_except_generated_at": true,
+          "input_sha256": {
+            "cost-spec.json": "542b779b842d48dd5812d9201361067e8633e80b241e0342dd5ce3935653d1ff",
+            "common.json": "49ef43f4b903f419d5356c9889291e3f36ccc4db4fc72a6f84e10f5be8c1298a",
+            "manifest.json": "96ea162c0ad05b0421f9ed87a78e1c7ab9ed578a8d9d007c6acc0944c1e8b929",
+            "attempt-1.jsonl": "cca9992adf3ea89512ab5f3d35403106d965c69641835961128d653b6e676b79",
+            "bills.json": "177649ce172ed7c86158f1c6eed2ee0753c2af2f298cf102f898c370ac085a27"
+          }
+        },
+        {
+          "case": "both-complete",
+          "cli": {
+            "command": [
+              "python",
+              "-m",
+              "bench.cli",
+              "costs",
+              "--spec",
+              "both-complete/cost-spec.json",
+              "--output",
+              "both-complete/cli.json"
+            ],
+            "exit_code": 0,
+            "stdout": {
+              "report": "both-complete/cli.json",
+              "version": "r5-cost-evidence-v1",
+              "revision": "observed-example",
+              "status": "complete",
+              "components": 1,
+              "records": 2,
+              "pending_populations": 0
+            },
+            "stderr": ""
+          },
+          "api": {
+            "command": [
+              "python",
+              "-c",
+              "import json, sys\nfrom bench.costs import derive\nresult = derive(sys.argv[1], sys.argv[2])\npopulation = result['populations'][0]\nwindow = result['windows'][0]\nprint(json.dumps({'status': population['status'], 'roles': window['roles'], 'role_replayed_seconds': window['role_replayed_seconds'], 'callback_integrity': window['callback_integrity'], 'window_replayed_seconds': window['replayed_seconds'], 'physical_replay_seconds': population['physical_replay_seconds'], 'submitted_role_timeline_seconds': population['submitted_role_timeline_seconds'], 'logical_episode_seconds': population['logical_episode_seconds'], 'full_main_input_observed': population['full_main_input_observed'], 'cost': population['cost'], 'per_input_hour': population['per_input_hour'], 'known_numeric_subtotal': population['known_numeric_subtotal'], 'component_cost': result['components'][0]['cost'], 'record_attribution_statuses': [row['attribution']['status'] for row in result['records']]}))\n",
+              "both-complete/cost-spec.json",
+              "both-complete/api.json"
+            ],
+            "exit_code": 0,
+            "stdout": {
+              "status": "complete",
+              "roles": [
+                "A",
+                "B"
+              ],
+              "role_replayed_seconds": {
+                "A": 60.0,
+                "B": 60.0
+              },
+              "callback_integrity": {
+                "A": true,
+                "B": true
+              },
+              "window_replayed_seconds": 60.0,
+              "physical_replay_seconds": 60.0,
+              "submitted_role_timeline_seconds": 120.0,
+              "logical_episode_seconds": 60.0,
+              "full_main_input_observed": true,
+              "cost": 0.03,
+              "per_input_hour": 1.8,
+              "known_numeric_subtotal": 0.03,
+              "component_cost": 0.03,
+              "record_attribution_statuses": [
+                "attributed",
+                "attributed"
+              ]
+            },
+            "stderr": ""
+          },
+          "api_cli_results_equal_except_generated_at": true,
+          "input_sha256": {
+            "cost-spec.json": "c6f535ac7b3e252d9ce77a3ce51eabb67dbee177d1d538415e763c5b5d870ed2",
+            "common.json": "972967009cee032da40ad788f06d151d1856c35b86bd4cc72e1a75824c89aba7",
+            "manifest.json": "ea3093d19220c509e35bfcefe0e971a5dd3df4a52409b62e3222090f1b954db8",
+            "attempt-1.jsonl": "6d4317d5c5fb86d01862d966c351d725a50713368d25261844cb0665e463cad3",
+            "bills.json": "177649ce172ed7c86158f1c6eed2ee0753c2af2f298cf102f898c370ac085a27"
+          }
+        }
+      ],
+      "failure_history": [
+        {
+          "phase": "smoke harness setup",
+          "outcome": "NameError: name example is not defined",
+          "product_invoked": false,
+          "correction": "Imported the existing synthetic example helper and retried only the unexecuted smoke step; the failed setup temporary directory was cleaned automatically."
+        }
+      ],
+      "runtime_boundary": "Fresh Python processes import the current checkout for derive API and supported costs CLI. Inputs are invented local simultaneous manifests/traces/bills. No file-transport mocks, applications, provider/account/paid calls or audio devices. CLI and API output agree except generated_at.",
+      "publication_normalization": "Executable spelling is python and owned temporary input/output paths are case-relative. Successful CLI stdout report paths alone are normalized; other stdout fields and stderr are unchanged. No personal temporary path is retained.",
+      "cleanup": "Both smoke-case directories and outputs were removed by the owned TemporaryDirectory context after results and hashes were captured.",
+      "limits": "Synthetic deterministic accounting only, not authenticated billing or live input admission. Prior review/check evidence remains attached to its original candidate; this run establishes the current affected five-suite and two-state CLI/API results."
+    }
+  ]
+}

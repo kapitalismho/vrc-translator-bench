@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "kind": "episode_quality",
+  "report_version": "r4-episode-quality-v1",
+  "status": "incomplete",
+  "protocol_revision": "synthetic-cost-example",
+  "synthetic_judgments": true,
+  "planned_episodes": [
+    {
+      "episode_id": "synthetic-episode",
+      "language_pair": "en-zh",
+      "kind": "P1"
+    }
+  ],
+  "populations": [
+    {
+      "profile": "PP1",
+      "measurement_condition": "peer/simultaneous",
+      "condition": {
+        "ordinary_input": "peer",
+        "t1_mode": "simultaneous",
+        "roles": {
+          "A": "peer",
+          "B": "self"
+        }
+      },
+      "cost_binding_id": "synthetic-cost-binding",
+      "role_results": [
+        {
+          "episode_id": "synthetic-episode",
+          "role": "A",
+          "selection": {
+            "history": {
+              "path": "synthetic-history.json",
+              "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+            },
+            "scope": {
+              "episode": "synthetic-episode",
+              "profile": "PP1",
+              "run": "synthetic-pilot",
+              "attempt": 1,
+              "pass_id": "ordinary-peer",
+              "channel": "peer"
+            }
+          },
+          "quality": {
+            "status": "unknown",
+            "score": null
+          },
+          "checkpoints": [],
+          "cost_binding_id": "synthetic-role-cost-binding"
+        }
+      ]
+    }
+  ]
+}

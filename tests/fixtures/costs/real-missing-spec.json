@@ -1,17 +1,122 @@
 {
-  "version": 1,
   "synthetic": false,
   "manifests": [
-    {"id": "vrcs2-pilot", "path": "../../../profiles/evidence/issue45/vrcs2-gui-initial/manifest.json", "export_provenance": "../../../profiles/evidence/issue45/vrcs2-gui-initial/export-provenance.json", "populations": {"2": "output_check", "3": "development"}}
+    {
+      "id": "vrcs2-pilot",
+      "path": "../../../profiles/evidence/issue45/vrcs2-gui-initial/manifest.json",
+      "export_provenance": "../../../profiles/evidence/issue45/vrcs2-gui-initial/export-provenance.json",
+      "populations": {
+        "2": "output_check",
+        "3": "development"
+      }
+    }
   ],
   "evidence_files": [
-    {"id": "native-reference-unit-evidence", "path": "../../../profiles/evidence/issue45/metrics/vrcs2-metrics-result.json"}
+    {
+      "id": "native-reference-unit-evidence",
+      "path": "../../../profiles/evidence/issue45/metrics/vrcs2-metrics-result.json"
+    }
   ],
   "components": [
-    {"id": "VRCS2.translation", "profile": "VRCS2", "services": ["translation"], "provider": "openrouter", "treatment": "provider", "coverage": {"window_ids": ["vrcs2-pilot.attempt-4"], "complete": false, "evidence": "No permitted authenticated export or returned model/key identity available"}, "access": {"condition": "Owner-approved paid requested Gemma route; actual returned model/upstream unknown", "limit_status": "unknown"}},
-    {"id": "VRCS2.asr", "profile": "VRCS2", "services": ["asr"], "provider": "gemini", "treatment": "unknown", "missing_reason": "No actual Gemini project-tier/usage export or complete submitted-audio ledger", "coverage": {"window_ids": ["vrcs2-pilot.attempt-4"], "complete": false, "evidence": "Pilot capture is not provider usage evidence"}, "access": {"condition": "Gemini ASR effective tier unknown; not assigned zero", "limit_status": "unknown"}}
+    {
+      "id": "VRCS2.translation",
+      "profile": "VRCS2",
+      "services": [
+        "translation"
+      ],
+      "provider": "openrouter",
+      "treatment": "provider",
+      "coverage": {
+        "window_ids": [
+          "vrcs2-pilot.attempt-4"
+        ],
+        "complete": false,
+        "evidence": "No permitted authenticated export or returned model/key identity available"
+      },
+      "access": {
+        "condition": "Owner-approved paid requested Gemma route; actual returned model/upstream unknown",
+        "limit_status": "unknown"
+      }
+    },
+    {
+      "id": "VRCS2.asr",
+      "profile": "VRCS2",
+      "services": [
+        "asr"
+      ],
+      "provider": "gemini",
+      "treatment": "unknown",
+      "missing_reason": "No actual Gemini project-tier/usage export or complete submitted-audio ledger",
+      "coverage": {
+        "window_ids": [
+          "vrcs2-pilot.attempt-4"
+        ],
+        "complete": false,
+        "evidence": "Pilot capture is not provider usage evidence"
+      },
+      "access": {
+        "condition": "Gemini ASR effective tier unknown; not assigned zero",
+        "limit_status": "unknown"
+      }
+    }
   ],
-  "denominators": [
-    {"id": "vrcs2-development-only", "window_ids": ["vrcs2-pilot.attempt-4"], "component_ids": ["VRCS2.translation", "VRCS2.asr"], "population": "real 40-second D1 development chunk; excludes separate 10-second output check", "replay_seconds": 40, "reference_sentences": 9, "evidence": "native-reference-unit-evidence; existing native reference units, not OSC packet count"}
+  "schema_version": 2,
+  "mode": "historical_evidence_only",
+  "revision": {
+    "id": "historical-capture-pending"
+  },
+  "consumption_summaries": [
+    {
+      "id": "r3-tts-pilot",
+      "ledger": "tts",
+      "permitted": true,
+      "selection_evidence": "Inspected tracked R3 production-consumption summary; separate from translation-app billing",
+      "artifact": {
+        "path": "../../../corpus/r3/status.json",
+        "sha256": "d7a465f1daf34cb72e90692ea572d06a3ae800f6ad189f3f12f308a58c5b56fa"
+      },
+      "currency": "USD",
+      "fields": {
+        "known_subtotal": [
+          "costs",
+          "known_api_consumption_subtotal"
+        ],
+        "total": [
+          "costs",
+          "total_api_consumption"
+        ],
+        "unknown_calls": [
+          "costs",
+          "unknown_api_consumption_calls"
+        ]
+      },
+      "limitations": "Raw .data/r3 reconciliation records unavailable in this checkout; reported consumption is not native billing export, cash/credit/fee/tax proof. HTTP404 call remains unknown."
+    },
+    {
+      "id": "r3-tts-main",
+      "ledger": "tts",
+      "permitted": true,
+      "selection_evidence": "Inspected tracked R3 production-consumption summary; separate from translation-app billing",
+      "artifact": {
+        "path": "../../../corpus/r3/status.json",
+        "sha256": "d7a465f1daf34cb72e90692ea572d06a3ae800f6ad189f3f12f308a58c5b56fa"
+      },
+      "currency": "USD",
+      "fields": {
+        "known_subtotal": [
+          "main_generation",
+          "known_api_consumption_subtotal_usd"
+        ],
+        "total": [
+          "main_generation",
+          "total_api_consumption_usd"
+        ],
+        "unknown_calls": [
+          "main_generation",
+          "unknown_cost_calls"
+        ]
+      },
+      "limitations": "Raw .data/r3 reconciliation records unavailable in this checkout; reported consumption is not native billing export, cash/credit/fee/tax proof. HTTP404 call remains unknown."
+    }
   ]
 }

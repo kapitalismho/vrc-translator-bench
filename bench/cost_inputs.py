@@ -12,7 +12,8 @@ from pathlib import Path
 from .storage import digest
 
 TOKENS = ("input_tokens", "cached_tokens", "output_tokens", "reasoning_tokens")
-FIELDS = {"request_id", "start", "end", "model", "upstream_provider", "key_alias", "cost", "currency", "audio_seconds", "audio_start", "audio_end", *TOKENS}
+SCOPE_FIELDS = ("run", "wave", "profile", "episode_id", "pass_id", "role", "attempt_id", "window_id", "ledger")
+FIELDS = {"request_id", "start", "end", "model", "upstream_provider", "key_alias", "cost", "currency", "audio_seconds", "audio_start", "audio_end", "product_retry", *TOKENS, *SCOPE_FIELDS}
 SAFE_ID = re.compile(r"[A-Za-z0-9_.:-]+\Z")
 
 
@@ -53,14 +54,51 @@ class Inputs:
         self.spec_path = Path(spec_path).resolve()
         self.base = self.spec_path.parent
         self.spec = json.loads(self.spec_path.read_text(encoding="utf-8-sig"))
-        if self.spec.get("version") != 1:
-            raise ValueError("Cost specification version must be 1")
+        if self.spec.get("schema_version") != 2 or "denominators" in self.spec:
+            raise ValueError("Cost specification requires schema_version 2; chunk/sentence normalization is historical only")
         self.provenance = [{"id": "spec", "kind": "specification", "sha256": digest(self.spec_path)}]
         self.paths = {self.spec_path}
         self.hashes = {self.spec_path: self.provenance[0]["sha256"]}
         self.source_ids = {"spec"}
         for evidence in self.spec.get("evidence_files", []):
             self.file(evidence["path"], identifier(evidence["id"]), "supporting_evidence")
+        self.timelines = {}
+        self.episode_sources = {}
+        self.common = None
+        self.common_binding = None
+        mode = self.spec.get("mode", "episode")
+        if mode not in ("episode", "historical_evidence_only"):
+            raise ValueError("Cost mode must be episode or historical_evidence_only")
+        if mode == "episode":
+            from .quality import REPORT_VERSION
+            path = self.artifact(self.spec["common_report"], "common-report", "frozen_common_report")
+            self.common = json.loads(path.read_text(encoding="utf-8-sig"))
+            if (self.common.get("schema_version") != 1 or self.common.get("kind") != "episode_quality"
+                    or self.common.get("report_version") != REPORT_VERSION):
+                raise ValueError("Costs bind the R4 common episode report, not a separate result schema")
+            self._protect_manifest_paths(self.common, path.parent)
+            original_spec = self.common.get("spec", {}).get("path")
+            if original_spec:
+                self._protect_manifest_paths(self.common, (path.parent / original_spec).resolve().parent)
+            self.common_binding = {"schema_version": 1, "kind": self.common["kind"],
+                                   "report_version": REPORT_VERSION, "sha256": self.hashes[path],
+                                   "protocol_revision": self.common["protocol_revision"]}
+            for timeline in self.spec.get("timelines", []):
+                eid = identifier(timeline["episode_id"])
+                artifact = self.artifact(timeline["artifact"], "timeline." + eid, "standalone_timeline")
+                value = json.loads(artifact.read_text(encoding="utf-8-sig"))
+                if value.get("episode_id") != eid or number(value["timeline_seconds"]) <= 0:
+                    raise ValueError("Standalone timeline requires matching episode and positive timeline_seconds")
+                self.timelines[eid] = {"seconds": value["timeline_seconds"], "sha256": self.hashes[artifact],
+                                       "basis": "operator_supplied_hash_bound_timeline"}
+        elif self.spec.get("common_report") or self.spec.get("timelines"):
+            raise ValueError("Historical evidence cannot claim an episode/common-result binding")
+
+    def artifact(self, definition, source_id, kind):
+        path = self.file(definition["path"], source_id, kind)
+        if self.hashes[path] != definition["sha256"]:
+            raise ValueError(f"{kind} checksum differs from supplied SHA-256")
+        return path
 
     def file(self, name, source_id, kind, **metadata):
         if source_id in self.source_ids:
@@ -94,10 +132,28 @@ class Inputs:
     def windows(self):
         windows, attempts = [], []
         for supplied in self.spec.get("windows", []):
-            row = {key: supplied.get(key) for key in ("id", "run", "wave", "profile", "chunk", "kind", "population", "state")}
+            if self.spec.get("mode") == "historical_evidence_only":
+                raise ValueError("Historical evidence-only mode ingests retained manifests, not invented windows")
+            ledger = supplied.get("ledger", "evaluation")
+            keys = ("id", "run", "wave", "profile", "episode_id", "pass_id", "attempt_id", "kind", "purpose", "state", "roles", "clock_session", "pass_channels")
+            row = {key: supplied.get(key) for key in keys}
             for key in ("id", "run", "wave", "profile"):
                 identifier(row[key])
-            row.update(start=timestamp(supplied["start"]).isoformat(), end=timestamp(supplied["end"]).isoformat(),
+            if ledger == "evaluation":
+                for key in ("episode_id", "pass_id"):
+                    identifier(row[key])
+                if row["attempt_id"] is None or not row["roles"] or set(row["roles"]) - {"A", "B"}:
+                    raise ValueError("Observed evaluation windows require attempt and logical roles")
+                if supplied.get("replayed_seconds") is None:
+                    raise ValueError("Actual replayed_seconds required separately from observation bounds")
+            if row["purpose"] not in ("main", "repeat", "preparation", "harness_retry"):
+                raise ValueError("Windows require main/repeat/preparation/harness_retry purpose")
+            if ledger not in ("evaluation", "production", "tts", "judge"):
+                raise ValueError("Unknown cost ledger")
+            row.update(ledger=ledger, attempt_id=str(row["attempt_id"]) if row["attempt_id"] is not None else None,
+                       replayed_seconds=number(supplied["replayed_seconds"]) if supplied.get("replayed_seconds") is not None else None,
+                       role_bindings=supplied.get("role_bindings", {}), input_complete=supplied.get("input_complete") is True,
+                       start=timestamp(supplied["start"]).isoformat(), end=timestamp(supplied["end"]).isoformat(),
                        evidence=supplied["evidence"], window_basis="explicit_observed_window")
             if timestamp(row["end"]) < timestamp(row["start"]) or not row["evidence"]:
                 raise ValueError("Observed windows require ordered bounds and evidence")
@@ -110,6 +166,168 @@ class Inputs:
         return windows, attempts
 
     def _manifest(self, source, windows, attempts):
+        path = (self.base / source["path"]).resolve()
+        manifest = json.loads(path.read_text(encoding="utf-8-sig"))
+        if manifest.get("schema_version") != 2:
+            if self.spec.get("mode") != "historical_evidence_only":
+                raise ValueError("Historical stage manifests require historical_evidence_only mode")
+            return self._historical_manifest(source, windows, attempts)
+        sid = identifier(source["id"])
+        path = self.file(source["path"], sid, "run_manifest")
+        if source.get("sha256") and source["sha256"] != self.hashes[path]:
+            raise ValueError("Run manifest checksum differs from supplied SHA-256")
+        self._protect_manifest_paths(manifest, path.parent)
+        for name in ("ledger.sqlite", "frozen-plan.json", "execution-plan.json"):
+            self.paths.add((path.parent / name).resolve())
+        plan = manifest["plan"]
+        episodes = {row["episode_id"]: row for row in plan["episodes"]}
+        if len(episodes) != len(plan["episodes"]):
+            raise ValueError("Frozen manifest contains duplicate episode IDs")
+        for eid, episode in episodes.items():
+            source_identity = {"kind": episode["kind"], "language_pair": episode["language_pair"],
+                               "source_case_id": episode.get("source_case_id"),
+                               "roles": {role: {key: value[key] for key in ("frames", "sample_rate", "audio_sha256")}
+                                         for role, value in episode["roles"].items()}}
+            if eid in self.episode_sources and self.episode_sources[eid] != source_identity:
+                raise ValueError("Same episode ID has conflicting frozen source identities")
+            self.episode_sources[eid] = source_identity
+            if self.common:
+                planned = next((row for row in self.common["planned_episodes"] if row["episode_id"] == eid), None)
+                if planned and (any(planned.get(key) != episode.get(key) for key in ("kind", "language_pair"))
+                                or planned.get("source_case_id") is not None and episode.get("source_case_id") is not None
+                                and planned["source_case_id"] != episode["source_case_id"]):
+                    raise ValueError("Frozen episode contradicts common report population")
+            formats = {(row["frames"], row["sample_rate"]) for row in episode["roles"].values()}
+            if len(formats) != 1:
+                raise ValueError("Frozen roles must share one logical episode timeline")
+            frames, rate = next(iter(formats))
+            if type(frames) is not int or type(rate) is not int or frames <= 0 or rate <= 0:
+                raise ValueError("Frozen timeline requires positive frames/sample_rate")
+            seconds = Decimal(frames) / rate
+            old = self.timelines.get(eid)
+            if old and number(old["seconds"]) != seconds:
+                raise ValueError("Frozen episode timelines contradict one another")
+            self.timelines[eid] = {"seconds": seconds, "sha256": self.hashes[path],
+                                   "basis": "frozen_episode_frames/sample_rate"}
+        work = {row["id"]: row for row in manifest["work"]}
+        if len(work) != len(manifest["work"]) or len({row["id"] for row in manifest["attempts"]}) != len(manifest["attempts"]):
+            raise ValueError("Frozen manifest work and attempt identities must be unique")
+        for attempt in manifest["attempts"]:
+            item = work[attempt["work_id"]]
+            matches = [row for row in plan["passes"] if row["episode_id"] == item["episode_id"]
+                       and row["pass_id"] == item["pass_id"] and item["profile"] in row["profiles"]]
+            if len(matches) != 1:
+                raise ValueError("Attempt must bind exactly one frozen episode/profile/pass")
+            physical = matches[0]
+            aid = f"{sid}.attempt-{attempt['id']}"
+            retained = {"id": aid, "run": manifest["run"], "profile": item["profile"],
+                        "episode_id": item["episode_id"], "pass_id": item["pass_id"],
+                        "attempt_id": str(attempt["id"]), "kind": item["kind"], "state": attempt["state"],
+                        "number": attempt["number"], "resumed": bool(attempt["resumed"]),
+                        "attempt_start": attempt["start_wall"], "attempt_end": attempt["end_wall"],
+                        "window_id": None, "replayed_seconds": None,
+                        "reason": attempt.get("reason") if attempt.get("reason") in (None, "interrupted", "no_output", "limit")
+                                  else "source_reason_retained_locally"}
+            attempts.append(retained)
+            if attempt["state"] == "running":
+                raise ValueError("Cannot reconcile a running capture attempt")
+            trace_name = attempt.get("trace")
+            if not trace_name or not (path.parent / trace_name).is_file():
+                retained["window_reason"] = "Actual attempt trace unavailable; no planned input substituted"
+                continue
+            trace = self.artifact({"path": str(path.parent / trace_name), "sha256": attempt["checksum"]}, aid, "attempt_trace")
+            rows = [json.loads(line) for line in trace.read_text(encoding="utf-8-sig").splitlines() if line.strip()]
+            anchor = next((row for row in rows if row.get("record") == "attempt_start"), None)
+            if not anchor or anchor.get("wall") is None or anchor.get("t_ns") is None:
+                retained["window_reason"] = "Actual wall/monotonic anchor unavailable"
+                continue
+            if any(anchor.get(key) != value for key, value in (
+                    ("run", manifest["run"]), ("profile", item["profile"]), ("episode_id", item["episode_id"]),
+                    ("pass_id", item["pass_id"]), ("attempt", attempt["id"]))):
+                raise ValueError("Trace anchor contradicts manifest attempt identity")
+            replay, origins, stops, actual, callback_integrity = {}, [], [], [], {}
+            for channel, binding in physical["roles"].items():
+                replay[binding["role"]] = None
+                callback_integrity[binding["role"]] = False
+                sources = [row for row in rows if row.get("record") == "source_playback" and row.get("input_channel") == channel]
+                callbacks = [row for row in rows if row.get("record") == "audio_callback"
+                             and row.get("input_channel") == channel]
+                if not sources or not callbacks:
+                    continue
+                if len(sources) != 1:
+                    raise ValueError("Ambiguous source playback identity")
+                playback = sources[0]
+                if (playback.get("clock_session") != anchor.get("clock_session")
+                        or any(playback.get(key) != value for key, value in (
+                            ("profile", item["profile"]), ("episode_id", item["episode_id"]), ("pass_id", item["pass_id"]),
+                            ("attempt", attempt["id"]), ("role", binding["role"])))):
+                    raise ValueError("Playback clock/role differs from retained attempt")
+                frozen = episodes[item["episode_id"]]["roles"][binding["role"]]
+                if playback.get("audio_sha256") != frozen["audio_sha256"]:
+                    raise ValueError("Playback source differs from frozen episode")
+                frame, previous_dac, valid = 0, None, bool(callbacks)
+                for callback in callbacks:
+                    first, count, dac = (callback.get(key) for key in ("source_frame", "source_frames", "dac_t_ns"))
+                    if (any(type(value) is not int for value in (first, count, dac))
+                            or first != frame or count < 0 or first + count > frozen["frames"]
+                            or callback.get("status") != ""
+                            or count and previous_dac is not None and dac < previous_dac):
+                        valid = False
+                        break
+                    frame += count
+                    if count:
+                        previous_dac = dac
+                valid = (valid and frame > 0
+                         and next(callback["dac_t_ns"] for callback in callbacks if callback["source_frames"] > 0) == playback.get("playback_dac_start_ns"))
+                callback_integrity[binding["role"]] = valid
+                seconds = Decimal(frame) / frozen["sample_rate"] if valid else None
+                start_ns = playback.get("input_origin_ns")
+                start_ns = playback["playback_dac_start_ns"] if start_ns is None else start_ns
+                start = timestamp(anchor["wall"]) + timedelta(seconds=(start_ns - anchor["t_ns"]) / 1e9)
+                origins.append(start)
+                if seconds is not None:
+                    stops.append(start + timedelta(seconds=float(seconds)))
+                replay[binding["role"]] = seconds
+                actual.append(playback.get("actual_dac_observed"))
+            if not origins:
+                retained["window_reason"] = "No actual submitted source callbacks"
+                continue
+            detail = attempt.get("detail", {})
+            detail = json.loads(detail) if isinstance(detail, str) else detail
+            end_ns = detail.get("observation_end_ns", attempt.get("end_ns"))
+            observed_end = (timestamp(anchor["wall"]) + timedelta(seconds=(end_ns - anchor["t_ns"]) / 1e9)
+                            if type(end_ns) is int else timestamp(attempt["end_wall"]))
+            stop = max(stops) if stops and all(value is not None for value in replay.values()) else None
+            purpose = source.get("purpose", "main" if plan.get("execution_scope", {}).get("kind") == "main" else "preparation")
+            execution_scope = plan.get("execution_scope", {}).get("kind")
+            if purpose == "main" and execution_scope not in ("main", "synthetic"):
+                raise ValueError("Main cost selection requires frozen main execution scope; pilot/preparation cannot be promoted")
+            if purpose not in ("main", "repeat", "preparation", "harness_retry"):
+                raise ValueError("Manifest purpose must distinguish main/repeat/preparation/harness_retry")
+            roles = sorted(value["role"] for value in physical["roles"].values())
+            complete = (set(replay) == set(roles) and
+                        all(seconds == number(self.timelines[item["episode_id"]]["seconds"]) for seconds in replay.values())
+                        and all(callback_integrity.values()))
+            window = {**retained, "id": aid, "wave": physical["wave"], "roles": roles,
+                      "ledger": "evaluation", "purpose": purpose, "manifest_sha256": self.hashes[path],
+                      "frozen_execution_scope": execution_scope,
+                      "pass_channels": {channel: value["role"] for channel, value in physical["roles"].items()},
+                      "frozen_source_identity_sha256": fingerprint(self.episode_sources[item["episode_id"]]),
+                      "callback_integrity": callback_integrity,
+                      "start": min(origins).isoformat(), "end": max(stop or observed_end, observed_end).isoformat(),
+                      "input_end": stop.isoformat() if stop else None,
+                      "replayed_seconds": max(replay.values()) if all(value is not None for value in replay.values()) else None,
+                      "role_replayed_seconds": replay, "input_complete": complete,
+                      "actual_dac_observed": all(value is True for value in actual),
+                      "clock_session": anchor.get("clock_session"), "evidence": aid,
+                      "window_basis": "actual submitted callbacks per role; UTC from retained wall/monotonic anchor"}
+            windows.append(window)
+            retained.update(window_id=aid, replayed_seconds=window["replayed_seconds"])
+            if not all(callback_integrity.values()):
+                retained["window_reason"] = "Uncertain source callback accounting; replay duration is unknown for the affected role"
+                window["window_reason"] = retained["window_reason"]
+
+    def _historical_manifest(self, source, windows, attempts):
         sid = identifier(source["id"])
         path = self.file(source["path"], sid, "run_manifest")
         manifest = json.loads(path.read_text(encoding="utf-8-sig"))
@@ -176,7 +394,8 @@ class Inputs:
             start = timestamp(anchor["wall"]) + timedelta(seconds=(start_ns - anchor["t_ns"]) / 1e9)
             window = {"id": aid, "run": manifest["run"], "wave": stage["wave"], "profile": item["profile"],
                       "chunk": stage.get("chunk"), "kind": item["kind"], "population": source.get("populations", {}).get(str(item["stage"]), "unspecified"),
-                      "state": attempt["state"], "start": start.isoformat(), "end": (start + timedelta(seconds=seconds)).isoformat(),
+                      "state": attempt["state"], "historical": True,
+                      "start": start.isoformat(), "end": (start + timedelta(seconds=seconds)).isoformat(),
                       "replayed_seconds": seconds, "attempt_id": aid, "evidence": aid,
                       "clock_session": anchor.get("clock_session"),
                       "actual_dac_observed": playback.get("actual_dac_observed") if playback else None,
@@ -241,6 +460,39 @@ class Inputs:
                 records.extend(self._source_identity([normalize(selected, source, index)], path, source))
         return records
 
+    def consumption_summaries(self):
+        """Retained owner summaries are evidence, not authenticated billing exports."""
+        result = []
+        for source in self.spec.get("consumption_summaries", []):
+            if source.get("permitted") is not True or not source.get("selection_evidence"):
+                raise ValueError("Retained consumption summaries require permission and inspected selection evidence")
+            if source.get("ledger") not in ("production", "tts", "judge"):
+                raise ValueError("Retained consumption summaries cannot enter evaluation billing")
+            sid = identifier(source["id"])
+            path = self.artifact(source["artifact"], sid, "retained_consumption_summary")
+            document = json.loads(path.read_text(encoding="utf-8-sig"))
+            self._protect_manifest_paths(document, path.parent)
+            values = {}
+            if set(source["fields"]) != {"known_subtotal", "total", "unknown_calls"}:
+                raise ValueError("Summary mapping requires known_subtotal, total and unknown_calls")
+            for key, pointer in source["fields"].items():
+                value = document
+                for field in pointer:
+                    value = value[field]
+                values[key] = value
+            unknown = [identifier(call) for call in values["unknown_calls"]]
+            subtotal = number(values["known_subtotal"]) if values["known_subtotal"] is not None else None
+            total = number(values["total"]) if values["total"] is not None else None
+            if unknown and total is not None:
+                raise ValueError("Incomplete retained consumption summary cannot have a complete total")
+            result.append({"id": sid, "ledger": source["ledger"], "currency": source["currency"],
+                           "known_subtotal": subtotal, "total": total, "unknown_calls": unknown,
+                           "status": "partial" if unknown or total is None else "complete",
+                           "amount_basis": "retained_reported_model_consumption_not_native_export_or_cash_payment",
+                           "selection_evidence": source["selection_evidence"],
+                           "limitations": source.get("limitations"), "sha256": self.hashes[path]})
+        return result
+
     def _source_identity(self, rows, path, source):
         source_hash = self.hashes[path]
         container = (source.get("format", source["kind"]),
@@ -255,13 +507,20 @@ def normalize(selected, source, index):
     sid = source["id"]
     row = {"id": f"{sid}.row-{index}", "sources": [sid], "source_rows": [{"source": sid, "row": index}],
            "kind": source["kind"], "provider": source.get("provider"), "component": source.get("component"),
-           "granularity": source.get("granularity", "request"), "scope": {key: source.get("scope", {}).get(key) for key in ("run", "wave")},
+           "granularity": source.get("granularity", "request"),
+           "scope": {key: selected.get(key, source.get("scope", {}).get(key)) for key in SCOPE_FIELDS},
+           "product_retry": selected.get("product_retry"),
            "isolation_verified": source.get("isolation", {}).get("verified") is True,
            "isolation_evidence": source.get("isolation", {}).get("evidence"),
            "scope_evidence": source.get("scope_evidence"),
            "start": None, "end": None, "model": selected.get("model"), "key_alias": selected.get("key_alias"),
            "upstream_provider": selected.get("upstream_provider"),
            "currency": selected.get("currency", source.get("currency")), "request_hash": None}
+    for key, value in row["scope"].items():
+        if value is not None and key != "attempt_id":
+            identifier(value)
+    if row["product_retry"] is not None and type(row["product_retry"]) is not bool:
+        raise ValueError("product_retry must be a boolean when observed")
     if row["key_alias"] is not None:
         identifier(row["key_alias"])
     if selected.get("request_id") is not None:

@@ -1,0 +1,123 @@
+{
+  "schema_version": 2,
+  "run": "synthetic-capture",
+  "plan": {
+    "execution_scope": {
+      "kind": "synthetic"
+    },
+    "episodes": [
+      {
+        "episode_id": "conversation",
+        "kind": "T1",
+        "language_pair": "en-zh",
+        "wave": "wave",
+        "roles": {
+          "A": {
+            "sample_rate": 1000,
+            "frames": 60000,
+            "audio_sha256": "synthetic-audio-A"
+          },
+          "B": {
+            "sample_rate": 1000,
+            "frames": 60000,
+            "audio_sha256": "synthetic-audio-B"
+          }
+        }
+      }
+    ],
+    "passes": [
+      {
+        "episode_id": "conversation",
+        "pass_id": "A",
+        "wave": "wave",
+        "profiles": [
+          "KIKI2"
+        ],
+        "roles": {
+          "self": {
+            "role": "A"
+          }
+        }
+      },
+      {
+        "episode_id": "conversation",
+        "pass_id": "B",
+        "wave": "wave",
+        "profiles": [
+          "KIKI2"
+        ],
+        "roles": {
+          "self": {
+            "role": "B"
+          }
+        }
+      }
+    ],
+    "profiles": [
+      {
+        "id": "KIKI2",
+        "condition": {
+          "ordinary_input": "self",
+          "t1_mode": "split_self",
+          "roles": {
+            "A": "self",
+            "B": "self"
+          }
+        }
+      }
+    ]
+  },
+  "work": [
+    {
+      "id": 1,
+      "profile": "KIKI2",
+      "episode_id": "conversation",
+      "pass_id": "A",
+      "kind": "T1",
+      "outcome": "unknown_no_output"
+    },
+    {
+      "id": 2,
+      "profile": "KIKI2",
+      "episode_id": "conversation",
+      "pass_id": "B",
+      "kind": "T1",
+      "outcome": "unknown_no_output"
+    }
+  ],
+  "attempts": [
+    {
+      "id": 1,
+      "work_id": 1,
+      "number": 1,
+      "resumed": false,
+      "state": "done",
+      "start_wall": "2026-10-20T12:00:00Z",
+      "end_wall": "2026-10-20T12:01:15Z",
+      "end_ns": 76000000000,
+      "trace": "attempt-1.jsonl",
+      "checksum": "155e268e33666ae866d7d5cdb7e3d9cbbfc706d5d9b31b3b1fd52fa183caac38",
+      "reason": null,
+      "detail": {
+        "observation_end_ns": 76000000000
+      }
+    },
+    {
+      "id": 2,
+      "work_id": 2,
+      "number": 1,
+      "resumed": false,
+      "state": "done",
+      "start_wall": "2026-10-20T12:02:00Z",
+      "end_wall": "2026-10-20T12:03:15Z",
+      "end_ns": 76000000000,
+      "trace": "attempt-2.jsonl",
+      "checksum": "20d1982cee3fbe50fcca5222d424737834f8c7b95ae4f6940b167997f44b9571",
+      "reason": null,
+      "detail": {
+        "observation_end_ns": 76000000000
+      }
+    }
+  ],
+  "streams": []
+}
