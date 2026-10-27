@@ -1,0 +1,162 @@
+{
+  "schema_version": 1,
+  "kind": "r4_final_selected_route_two_stage_evidence",
+  "application_measurement": false,
+  "input": {
+    "data": {
+      "source_language": "en",
+      "target_language": "zh",
+      "source": "Do not buy 12 tickets.",
+      "output": "买二十张票。",
+      "context": []
+    },
+    "bindings": {
+      "source_binding": "task-owned-small-text",
+      "native_endpoint": "task-owned-translation",
+      "endpoint_stage": "translation_output",
+      "native_semantics": "single complete output",
+      "scope": "R4 minimal judge protocol proof; not an application result"
+    }
+  },
+  "upstream_commit": "bf1f113479c26f555e564659df1a491dde606adf",
+  "stages": [
+    {
+      "id": 1,
+      "input_hash": "5dda2a7a6124acbbc967b013b3475f8fa3b585693056c1eb1dc5e01fb3d83c09",
+      "prompt_hash": "3c7a90126dde90ec88630fc1fe0eb610b9d5482327ec24946fb8026048af7b4e",
+      "actual_model": "gpt-6-astra",
+      "state": "completed",
+      "stage": "errors",
+      "result": {
+        "errors": [
+          {
+            "category": "accuracy/omission",
+            "explanation": "The negation is omitted, reversing a prohibition against buying tickets into an instruction to buy them.",
+            "quote": {
+              "occurrence": 1,
+              "side": "source",
+              "text": "Do not"
+            },
+            "severity": "major"
+          },
+          {
+            "category": "accuracy/mistranslation",
+            "explanation": "The quantity 12 is mistranslated as twenty.",
+            "quote": {
+              "occurrence": 1,
+              "side": "output",
+              "text": "二十"
+            },
+            "severity": "major"
+          }
+        ]
+      },
+      "result_sha256": "7e4cd36e8733fb536288b003f9a4c16a1a41e3b23439eb41f737d01c18c4f0d0",
+      "raw_envelope_sha256": "aee81ea434a5defa227973ab4fc36e8ab6752f1fddb6697df24b1fe61e9c8985",
+      "model_identity_evidence": {
+        "event_index": 106,
+        "event_type": "response.completed",
+        "model": "gpt-6-astra",
+        "requested_model": "gpt-6-astra",
+        "response_id": "resp_0d5a100bcc24283d016ae0c4d497348191bf619e00f4ce0e4e",
+        "source": "raw inference response.model"
+      },
+      "bridge": {
+        "inference_posts": 1,
+        "isolation": {
+          "agent_runtime": false,
+          "conversation_messages": 1,
+          "fresh_process": true,
+          "inherited_instructions": false,
+          "maximum_inference_posts": 1,
+          "service_tier": "default",
+          "tools": 0
+        },
+        "payload_isolation_checked": true,
+        "requested_model": "gpt-6-astra",
+        "route": "Sign in with ChatGPT",
+        "runtime": "bun 1.3.14",
+        "sdk": "@oh-my-pi/pi-ai",
+        "sdk_version": "18.12.3"
+      },
+      "observed_start_utc": "2026-10-27T15:35:46.997Z",
+      "observed_end_utc": "2026-10-27T15:35:52.667Z"
+    },
+    {
+      "id": 2,
+      "input_hash": "c057a4c50ada61475d62efd7ab4deab23ef0e870138944e976f644b661f43abc",
+      "prompt_hash": "96f6bdda38a32811d7742e06b5309db6b8b2849cc875cecdc27474667a199345",
+      "actual_model": "gpt-6-astra",
+      "state": "completed",
+      "stage": "score",
+      "result": {
+        "score": 25
+      },
+      "result_sha256": "d6300eca0d4a7f7dfc3ad69c89f1ab14e61e18cc6c1892bddf6f6234e02f74ce",
+      "raw_envelope_sha256": "43f7e1705c20f997dd0d37cb70cab2ae873409f7cba654af2519e584cd7a823a",
+      "model_identity_evidence": {
+        "event_index": 13,
+        "event_type": "response.completed",
+        "model": "gpt-6-astra",
+        "requested_model": "gpt-6-astra",
+        "response_id": "resp_09cc57628d5a6180016ae0c4da16b881918c02c77561da8048",
+        "source": "raw inference response.model"
+      },
+      "bridge": {
+        "inference_posts": 1,
+        "isolation": {
+          "agent_runtime": false,
+          "conversation_messages": 1,
+          "fresh_process": true,
+          "inherited_instructions": false,
+          "maximum_inference_posts": 1,
+          "service_tier": "default",
+          "tools": 0
+        },
+        "payload_isolation_checked": true,
+        "requested_model": "gpt-6-astra",
+        "route": "Sign in with ChatGPT",
+        "runtime": "bun 1.3.14",
+        "sdk": "@oh-my-pi/pi-ai",
+        "sdk_version": "18.12.3"
+      },
+      "observed_start_utc": "2026-10-27T15:35:52.727Z",
+      "observed_end_utc": "2026-10-27T15:35:54.953Z"
+    }
+  ],
+  "fresh_process_reuse": {
+    "status": "complete",
+    "call_ids": [
+      1,
+      2
+    ],
+    "call_count_before": 2,
+    "call_count_after": 2,
+    "both_cached": true,
+    "transport_supplied": false
+  },
+  "retention": {
+    "raw_calls": "Local final R4 quality.sqlite calls rows 1 and 2; raw envelopes and immutable r4_job settings retained",
+    "hash_encoding": "SHA-256 of UTF-8 JSON, ensure_ascii=false, sorted keys, compact separators, nonfinite values forbidden"
+  },
+  "limits": [
+    "Task-owned tiny source/output, not a translation-app capture or an R2/R3 corpus sample.",
+    "One real negation/number counterexample does not establish general judge calibration, ranking validity or repeat variance.",
+    "R6 owns remaining live contrasts, variation and assembled path; reuse these results when their identities remain applicable.",
+    "No application launch, audio playback, paid API or alternate judge was used."
+  ],
+  "candidate": "6848f3b052a3895849a635e2197e58c723cd182f",
+  "source_module_sha256": {
+    "bench/quality.py": "e0666ecd457c035e183d9bccb795ddfdcf6387e56e12bb342167e283b15d0ddc",
+    "bench/quality_prompts.py": "e8cf504ead9be1655f94a6d4caa560b4cc1cd17914aea1885db223fcbd53db95",
+    "bench/quality_bridge.mjs": "f24678320eef1e3c338eff19400466e64413f4859b16f33c92e006aa036e60d4"
+  },
+  "predecessor": {
+    "path": "minimal-judge.json",
+    "status": "retained_original_prompt_evidence_not_final_prompt_confirmation",
+    "reason_for_new_calls": "The adapted scope instruction changed to preserve every audible speaker assigned to the scored logical role. Original prompt hashes were not reused or repinned.",
+    "original_score": 33,
+    "final_score": 25,
+    "comparison_limit": "Different prompt identities and generated error evidence; not a controlled unchanged-method repeat-variance study or score-tuning exercise."
+  }
+}

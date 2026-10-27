@@ -65,6 +65,8 @@ The report uses `kind: "episode_quality"`, `report_version: "r4-episode-quality-
 
 For a bounded two-stage check, `bench.quality.judge_role(data, store_path=..., transport_path=..., measurements_ended=True, bindings=...)` uses the same stage executor without launching capture or asserting a complete weighted population. Its `data` contains `source_language`, `target_language`, `source`, `output` and `context`; provenance belongs in `bindings`, outside the blinded prompt.
 
+The [retained final selected-route sample](../profiles/evidence/r4/minimal-judge-final.json) binds actual returned model, upstream/prompt/input/result/raw hashes, isolated per-stage payload evidence and fresh-process cache reuse. It is one task-owned negation/number counterexample, not app quality, a calibrated ranking, or completed R6 variation testing.
+
 ## Historical scoring reference
 
 Everything below records the [pre-reset implementation](https://github.com/kapitalismho/vrc-translator-bench/tree/fbab10a0455d91d5419d9673499d25b7ac86c566). Its old subcommands/extras are not compatibility aliases for the current `bench quality --spec` interface, and its successful observations do not validate the new methodology. Historical scoring/sampling/MetricX and queue commands remain retired. The selected transport configuration and isolation principles remain useful.
