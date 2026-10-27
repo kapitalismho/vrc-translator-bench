@@ -22,9 +22,20 @@ bench run --resume pilot
 
 For an explicitly named, uniquely resolved WASAPI endpoint, the current exact device name must match the measured calibration. Enumeration indices may change; the run retains current playback device indices alongside the untouched calibration's historical indices, offset and raw hash. Numeric selectors retain the index check. Wrong or ambiguous names are rejected. Name-preserving reuse is not a new precision calibration or a persistent hardware-identity guarantee.
 
-Capture acquires the per-user activity lock across worktrees/run roots. It cannot discover arbitrary unmanaged CPU-heavy work. Do not take screenshots, operate the GUI or run unrelated checks during input and the observation tail. Judging must acquire the same exclusion; there is no scoring command here.
+Capture and `quality` acquire the same per-user activity lock across worktrees/run roots. The lock cannot discover arbitrary unmanaged CPU-heavy work. Do not take screenshots, operate the GUI or run unrelated checks during input and the observation tail.
 
 `status` exposes pending episode/pass work, attempts, outcomes, artifacts and hashes. Remaining duration is an estimate excluding setup/retries. Inspection returns 0 even if recorded work failed. Run exit codes distinguish terminal success (0), product failure (1), operational/configuration invalidity (2), and interruption (130); inspect N/A and unknown role outcomes separately.
+
+## Evaluate retained episode histories
+
+```powershell
+bench quality --spec evaluation.json --output .data/r4/result.json
+bench quality --spec evaluation.json --output .data/r4/result.json --transport judge.json
+```
+
+The first form reconstructs locally and reuses accepted cached calls; it never dispatches a provider request. The second enables new isolated calls through the explicitly configured selected route after `measurements_ended: true` and activity-lock acquisition. Neither starts a translation app or replays audio. Use a new output/store for this versioned method, not an old quality queue.
+
+The spec binds all planned episodes, reviewed reference hashes, selected immutable attempts or retained native artifacts, logical roles and measurement conditions. Missing results keep their original planned weight. The report preserves separate quality and semantic-wait completeness, raw call identities, and protocol-derived no-output outcomes. Exit 0 means complete quality and timing for the declared full design; exit 2 can accompany a valid partial report and must not be read as “no report written.” See [quality input/result contracts](quality.md) and [weighted metrics](metrics.md).
 
 ## Profile scope
 

@@ -13,12 +13,14 @@ The [maintained final benchmark plan](benchmark-final-plan.md), including the ow
 | `bench/native.py`, `native_formats.py`, `native_transports.py`, `osc.py` | Read-only CLI/WebSocket/UDP/file collection, allowlisted native events, raw evidence, receipt clocks and gaps | Missing producer time, IDs, revision links or finality remain unknown; receipt is not rendering |
 | `bench/storage.py`, `activity.py` | Atomic artifacts, hashes, journal, episode/pass ledger and OS locks | Keep original evidence immutable; callers must acquire the appropriate lock |
 | `bench/profiles.py` | All 14 profiles' independent native feasibility scopes and fixed wave constraints | Historical self findings never promote a new scope; R1 cannot grant R6 final admission |
-| `bench/quality_store.py` | Durable call/raw-response/cache/recovery ledger | Not a scheduler, rubric, result validator or two-stage evaluation implementation |
-| `bench/quality_transport.py`, `quality_process.py`, `quality_judge.py`, `quality_bridge.mjs` | Selected Astra subscription transport, isolated request payload, observed identity and owned Windows process tree | No public scoring command or paid/model fallback; future orchestration must acquire activity exclusion and validate judgments |
+| `bench/history.py` | Evidence-bound append/replace/clear reconstruction, native citations, earlier pages and time/source snapshots | No guessed IDs, prefix deduplication, fabricated clock mapping or endpoint substitution |
+| `bench/quality.py`, `quality_prompts.py`, `quality_store.py` | Independent GEMBA-ESA error/score calls, exact-quote validation, semantic decisions, durable stage identities and versioned reports | Missing scope remains incomplete; protocol no-output zero is not a judge response |
+| `bench/aggregation.py` | Planned language/type/episode/role weights and interval-valued weighted CDF | Missing roles/cells/checkpoints retain weight; C1 excluded; quality/time complete independently |
+| `bench/quality_transport.py`, `quality_process.py`, `quality_judge.py`, `quality_bridge.mjs` | Selected Astra subscription transport, isolated request payload, observed identity and owned Windows process tree | No paid/model fallback; orchestration acquires measurement exclusion and validates judgments |
 | `bench/cost_inputs.py`, `costs.py` | Selected local usage records, attribution, dated Decimal calculations, partial/unknown/subscription conditions | Existing run/chunk normalization, not logical episode + role/pass cost binding |
 | `tools/export_pilot_evidence.py` | Separate capture derivatives with original/export hashes and path redaction | Not a generic secret scrubber or permission to publish transcripts/logs |
 
-The public CLI retains `run`, `status`, `calibrate`, `playback`, `profiles`, and `costs`. Obsolete `metrics`, `metrics-batch`, `quality`, `prepare-english`, corpus builders and generated-pilot commands have no compatibility aliases.
+The public CLI provides `run`, `status`, `calibrate`, `playback`, `profiles`, `costs`, and the new `quality --spec --output` interface. Obsolete `metrics`, `metrics-batch`, historical quality queue/subcommands, `prepare-english`, retired corpus builders and generated-pilot commands have no compatibility aliases.
 
 R2's standalone `tools/prepare_ascend.py`, `prepare_ingcrowd.py` and
 `prepare_read_controls.py` reproduce the pinned offline source bundle, not the
@@ -38,7 +40,7 @@ Collectors begin before measured input and remain active through the common last
 
 Kikitan control and collection use distinct clients of the same stock loopback WebSocket server. Only the controller sends supported app commands. The collector preserves recognition messages but excludes secret-bearing state/configuration frames before raw persistence. Kikitan's owned controller/app lifetime ends at round teardown so KIKI1 and KIKI2 can use the same fixed port/settings in their separate waves; this does not serialize other wave members or change split-pass weighting. Outstanding controller cleanup is durable and separate from capture ownership and completed attempt results.
 
-Later outcomes supply frozen corpus/checkpoints, native-output reconstruction, independent GEMBA-ESA error and score calls, weighted semantic-wait CDFs, logical-episode cost binding, and a common report consumed by Claude's presentation. The existing cost path remains historical run/chunk accounting until R5; do not pass new episodes through it as if normalization had migrated. No legacy evaluator or renamed score is retained.
+R4 binds reviewed source/checkpoints, selected immutable attempts, native-history interpretation, independent GEMBA-ESA calls and weighted semantic-wait CDFs in a versioned result for downstream consumers. R6 owns assembled live input-to-result verification and final admission; component checks do not certify all profiles or conditions. The existing cost path remains historical run/chunk accounting until R5; do not pass new episodes through it as if normalization had migrated. No legacy evaluator or renamed score is retained.
 
 ## Evidence and ownership
 

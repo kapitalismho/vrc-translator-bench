@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "kind": "r4_selected_route_two_stage_evidence",
+  "application_measurement": false,
+  "input": {
+    "data": {
+      "source_language": "en",
+      "target_language": "zh",
+      "source": "Do not buy 12 tickets.",
+      "output": "买二十张票。",
+      "context": []
+    },
+    "bindings": {
+      "source_binding": "task-owned-small-text",
+      "native_endpoint": "task-owned-translation",
+      "endpoint_stage": "translation_output",
+      "native_semantics": "single complete output",
+      "scope": "R4 minimal judge protocol proof; not an application result"
+    }
+  },
+  "upstream_commit": "bf1f113479c26f555e564659df1a491dde606adf",
+  "stages": [
+    {
+      "id": 1,
+      "input_hash": "5dda2a7a6124acbbc967b013b3475f8fa3b585693056c1eb1dc5e01fb3d83c09",
+      "prompt_hash": "79f7951b8942a8e6aaba7e35492ec284b6c0c26ab9853c58bc50826b1a4aec70",
+      "actual_model": "gpt-6-astra",
+      "state": "completed",
+      "stage": "errors",
+      "result": {
+        "errors": [
+          {
+            "category": "accuracy/omission",
+            "explanation": "The prohibition is omitted, reversing the instruction from not buying tickets to buying them.",
+            "quote": {
+              "occurrence": 1,
+              "side": "source",
+              "text": "Do not"
+            },
+            "severity": "major"
+          },
+          {
+            "category": "accuracy/mistranslation",
+            "explanation": "The quantity 12 is translated as twenty rather than 十二 (twelve).",
+            "quote": {
+              "occurrence": 1,
+              "side": "output",
+              "text": "二十"
+            },
+            "severity": "major"
+          }
+        ]
+      },
+      "result_sha256": "a02035caebdd89e79c411c432d971a8df04a963f0e41dc4caada771ee7c7d4d5",
+      "raw_envelope_sha256": "497aa399e53a6600ac4b6c204f90000fe88b1e7f6a461bfbb6323b757cecdce9",
+      "model_identity_evidence": {
+        "event_index": 107,
+        "event_type": "response.completed",
+        "model": "gpt-6-astra",
+        "requested_model": "gpt-6-astra",
+        "response_id": "resp_04f4d0296a3fbdff016ae0b7d8f2b881918508f04f39ac98ef",
+        "source": "raw inference response.model"
+      },
+      "bridge": {
+        "inference_posts": 1,
+        "isolation": {
+          "agent_runtime": false,
+          "conversation_messages": 1,
+          "fresh_process": true,
+          "inherited_instructions": false,
+          "maximum_inference_posts": 1,
+          "service_tier": "default",
+          "tools": 0
+        },
+        "payload_isolation_checked": true,
+        "requested_model": "gpt-6-astra",
+        "route": "Sign in with ChatGPT",
+        "runtime": "bun 1.3.14",
+        "sdk": "@oh-my-pi/pi-ai",
+        "sdk_version": "18.12.3"
+      },
+      "observed_start_utc": "2026-10-27T14:40:22.359Z",
+      "observed_end_utc": "2026-10-27T14:40:28.054Z"
+    },
+    {
+      "id": 2,
+      "input_hash": "19f6d721a2c59ed2441ec2c7ef82861319a98932328517ac6eabb9b5420004df",
+      "prompt_hash": "4617a10dd0109002152420857b6fbd3a82db66015ab77d45e48f7470d987873a",
+      "actual_model": "gpt-6-astra",
+      "state": "completed",
+      "stage": "score",
+      "result": {
+        "score": 33
+      },
+      "result_sha256": "c0f8000f5a4dc12e387443946c5bf50ccb7c0fefc54f9b65dea77eeaab17785b",
+      "raw_envelope_sha256": "a63dce0babaf5a76250b6ef0910142ccf0ce3a67871993ada861888d3fce7dbf",
+      "model_identity_evidence": {
+        "event_index": 15,
+        "event_type": "response.completed",
+        "model": "gpt-6-astra",
+        "requested_model": "gpt-6-astra",
+        "response_id": "resp_06ff8c61baef6835016ae0b7de6e9081918b536b39debe8522",
+        "source": "raw inference response.model"
+      },
+      "bridge": {
+        "inference_posts": 1,
+        "isolation": {
+          "agent_runtime": false,
+          "conversation_messages": 1,
+          "fresh_process": true,
+          "inherited_instructions": false,
+          "maximum_inference_posts": 1,
+          "service_tier": "default",
+          "tools": 0
+        },
+        "payload_isolation_checked": true,
+        "requested_model": "gpt-6-astra",
+        "route": "Sign in with ChatGPT",
+        "runtime": "bun 1.3.14",
+        "sdk": "@oh-my-pi/pi-ai",
+        "sdk_version": "18.12.3"
+      },
+      "observed_start_utc": "2026-10-27T14:40:28.108Z",
+      "observed_end_utc": "2026-10-27T14:40:34.240Z"
+    }
+  ],
+  "fresh_process_reuse": {
+    "status": "complete",
+    "call_ids": [
+      1,
+      2
+    ],
+    "call_count_before": 2,
+    "call_count_after": 2,
+    "both_cached": true,
+    "transport_supplied": false
+  },
+  "retention": {
+    "raw_calls": "Local R4 quality.sqlite calls rows 1 and 2; raw envelopes and immutable r4_job settings retained",
+    "hash_encoding": "SHA-256 of UTF-8 JSON, ensure_ascii=false, sorted keys, compact separators, nonfinite values forbidden"
+  },
+  "limits": [
+    "Task-owned tiny source/output, not a translation-app capture or an R2/R3 corpus sample.",
+    "One real negation/number counterexample does not establish general judge calibration, ranking validity or repeat variance.",
+    "R6 owns remaining live contrasts, variation and assembled path; reuse these results when their identities remain applicable.",
+    "No application launch, audio playback, paid API or alternate judge was used."
+  ]
+}

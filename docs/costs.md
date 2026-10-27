@@ -4,6 +4,8 @@
 
 **Reset boundary:** this executable `costs-v1` format is retained, including its historical run/chunk and sentence denominators. It does **not** implement the new logical-episode/role/pass binding. Before using it for the [final plan §11](benchmark-final-plan.md), [the cost migration outcome](benchmark-implementation-plan.md) must count each T1 conversation timeline once, sum both VRCLT self-pass costs, separate physical replay time and TTS/judge production ledgers, and support later evidence revisions without changing quality/timing originals. Do not feed split passes into the old denominator and publish the result as the new benchmark cost.
 
+R4 now provides the versioned [`r4-episode-quality-v1` result](quality.md#input-and-result-bindings): planned episode/source identities, selected attempt/pass/role bindings, measurement conditions, optional cost binding IDs, and independent quality/time completeness. R5 must join that evidence without rejudging or renormalizing missing weight. VRCLT **and Kikitan** split-self costs sum both physical passes while the logical episode duration is counted once. The existing `costs-v1` command is intentionally unchanged by R4 and must not claim this new denominator already works.
+
 ## Run
 
 Python 3.11+ and the standard library are sufficient. From the repository root:

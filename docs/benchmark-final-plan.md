@@ -1,6 +1,6 @@
 # 글로벌 대화 번역 벤치마크 최종 계획
 
-- 상태: **로컬 reset, R1 episode-native 구현·대표 앱 소규모 실측, R2 오프라인 소스 준비·근사 ASCEND 재구성을 마쳤다.** R2는 본평가 소스 51개·개발 12개·C1 2개와 영중 T1 본 9개·개발 4개 부모를 제공한다. 현재 구현·근거 범위는 [구현 기록](benchmark-implementation-plan.md)을 따른다. 일한 T1 생성·검수, 새 judge 통합·R6 최종 진입 판정·본 평가는 완료되지 않았다.
+- 상태: **R1 episode-native 구현·대표 앱 실측, R2 소스 준비·근사 ASCEND 재구성, R3 일한 T1 생성·검수와 R4 평가 구성요소 구현을 진행한 상태다.** R2는 본평가 소스 51개·개발 12개·C1 2개와 영중 T1 본 9개·개발 4개 부모를 제공하며, R3의 현재 동결·검수 범위는 해당 인계 기록을 따른다. R4의 보존 이력 로컬 처리와 실제 최소 2단계 judge 근거는 [구현 기록](benchmark-implementation-plan.md#r4-episode-quality-and-semantic-waiting)에 남긴다. R6 조립 경로·최종 진입 판정, 남은 judge 변별력·반복 변동 확인과 본 평가는 완료되지 않았다.
 - 우선순위: 이 문서가 평가 계약의 기준이다. [구현 계획·보존/폐기 분류·이슈별 계약](benchmark-implementation-plan.md)은 실제 코드에서 출발하는 구현 순서와 GPT/Claude 분담을 정한다. [기존 개편 논의](benchmark-redesign.md)는 선택 이력으로만 보존한다.
 - 최신 사용자 결정: **낭독 10%, 짧은 말 10%, T1 주고받기 30%, IngCrowd 채택, 일한 T1의 영중 T1 기반 Gemini 3.8 Flash TTS 재구성, 최소 커스텀 GEMBA-ESA, 화면 캡처 없는 ‘앱의 번역 출력’ 평가, VRCLT와 Kikitan은 전부 self로 측정하고 T1의 양방향은 별도 self 실행**.
 - 계획 승인과 실행 승인은 구분한다. 오너는 새 이슈 게시와 기존 이슈 삭제를 별도로 승인했다. 이 승인은 유료 TTS 호출, 계정·앱 설정 변경, 본 실험이나 원격 코드 push까지 허용하지 않는다.

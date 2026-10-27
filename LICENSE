@@ -23,3 +23,10 @@ SOFTWARE.
 This license applies to benchmark code and documentation, not source or
 transformed corpus assets, transcripts, or timelines. Those retain the
 asset-specific terms recorded in corpus metadata.
+
+The adapted GEMBA-ESA prompt module bench/quality_prompts.py is separately
+licensed under Creative Commons Attribution-ShareAlike 4.0 International:
+https://creativecommons.org/licenses/by-sa/4.0/legalcode
+It incorporates MicrosoftTranslator/GEMBA content at commit
+bf1f113479c26f555e564659df1a491dde606adf. Attribution, source link and modification
+notice are retained in that module. The MIT grant above does not relicense it.
