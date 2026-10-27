@@ -94,7 +94,7 @@
   "condition": "ascend-reconstruction-v1",
   "privacy": "Metadata and hashes only. Source transcripts, semantic definitions, actual PCM, source-only ASR and review addenda remain local under .data/r2/ascend/reconstruction-v1. This is a source catalogue, not a device/profile/calibration-ready executable benchmark plan.",
   "input_policy": "Preserve every selected whole native mono PCM16 16000-Hz clip and all within-clip samples/gaps at gain1, ratio1:1. P1 native WAVs stay byte-identical. P2/T1 attempt a declared conditional metadata offset first, otherwise add exactly4800 samples per join. P3 retains same-person local explanation order and filename-local gaps. Uncovered spans are explicitly reconstructed zeros, not recovered historical silence; no missing utterance is invented.",
-  "review_level": "Limited automatic source review:734 new actual offline no-hints Qwen observations across individual source clips and role/mixed playback, plus4 reusable P1 observations; raw failed/inconclusive reference readings retained. Released human text remains verbatim beside labelled hypotheses and contextual semantic addenda.65 fixed checkpoint maps use raw supplied-text endpoint/waveform proposals, with source-edge/invalid-unit limits disclosed;80ms is a model grid, not calibrated accuracy. No human listening, clean quiet-leakage certificate, historical synchrony, provider/app replay or runtime admission claim.",
+  "review_level": "Limited automatic source review:734 actual offline no-hints Qwen observations plus4 reusable P1 observations remain valid; no new recognition was needed for the checkpoint-scope repair. Released human text remains verbatim beside labelled hypotheses and contextual semantic addenda.62 checkpoint maps now bind required meaning to explicit scored translation spans, with Chinese context kept as non-credit, non-required output constraints. Raw endpoint/waveform proposals and source-edge limits remain disclosed;80ms is a model grid, not calibrated accuracy. No human listening, clean quiet-leakage certificate, historical synchrony, provider/app replay or runtime admission claim.",
   "review_policy": "Offline source acceptance does not wait on provider accounts, public-example authorization, perfect ASR or calibrated phonetic endpoints. Core meanings, fixed original-person roles, actual source/output samples, complete fixed cells and connected-person separation are reviewed under the approved reconstruction condition. Named literal uncertainties are preserved locally and are not silently made source truth or used as new checkpoint distinctions. External-route use and publication conditions remain separate, as do R6 device/profile/route admission and executable speech_intervals.",
   "split_reservations": {
     "main_reserved_original_groups": [
@@ -19673,9 +19673,9 @@
     }
   ],
   "curation": {
-    "path": ".data/r2/ascend/reconstruction-v1/curation.json",
-    "sha256": "881042983171bf0e8febf73c5a4ceb39e4d49ed2a939cb7e8bf460700c55f96d",
-    "contains": "Full source-linked released references/hypotheses, result-blind semantic definitions, exact selected story/role identities, named content readings and fixed automatic operational anchors."
+    "path": ".data/r2/ascend/reconstruction-v1/checkpoint-scope-repair-v1/curation.json",
+    "sha256": "ef579fcd64275a4b00827c92c7a24e98dbe4d5609d287c180e178ceb96806987",
+    "contains": "Immutable checkpoint-scope repair:62 curated semantic maps, explicit scored source-character evidence and distinct unscored context; all source observations, whole-episode translation-quality spans, stories and original source/role identities retained."
   },
   "reconstruction_policy": {
     "sample_rate": 16000,
@@ -19813,11 +19813,11 @@
     "pilot_assembly": ".data/r2/ascend/reconstruction-v1/pilot/assembly.json",
     "pilot_review": ".data/r2/ascend/reconstruction-v1/pilot-review.json",
     "source_review": {
-      "path": ".data/r2/ascend/reconstruction-v1/curation.json",
-      "sha256": "881042983171bf0e8febf73c5a4ceb39e4d49ed2a939cb7e8bf460700c55f96d",
-      "contains": "Full source-linked released references/hypotheses, result-blind semantic definitions, exact selected story/role identities, named content readings and fixed automatic operational anchors."
+      "path": ".data/r2/ascend/reconstruction-v1/checkpoint-scope-repair-v1/curation.json",
+      "sha256": "ef579fcd64275a4b00827c92c7a24e98dbe4d5609d287c180e178ceb96806987",
+      "contains": "Immutable checkpoint-scope repair:62 curated semantic maps, explicit scored source-character evidence and distinct unscored context; all source observations, whole-episode translation-quality spans, stories and original source/role identities retained."
     },
-    "endpoint_review": ".data/r2/ascend/reconstruction-v1/endpoint-review-final.json",
+    "endpoint_review": ".data/r2/ascend/reconstruction-v1/checkpoint-scope-repair-v1/endpoint-review.json",
     "original_attempts_preserved": true,
     "source_only_review_not_application_admission": true
   },

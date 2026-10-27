@@ -127,9 +127,11 @@ executable capture plan or R6 admission. Full text/audio/model outputs stay in
 ignored `.data/r2/`; public catalogues contain provenance, hashes, concepts,
 rights and limits rather than a redistributed corpus.
 
-The integrated handoff is under `.data/r2/integration-reconstruction-v1/`.
-Its ASCEND `t1-parent-manifest.json` pins nine main and four development parents
-(SHA-256 `fe64af849500faa154238076936b158dbf9129ee46b7cc474e9573e1b1d48298`).
+The unchanged IngCrowd/FLEURS/C1 handoff remains under
+`.data/r2/integration-reconstruction-v1/`. The current ASCEND handoff is
+`.data/r2/ascend/reconstruction-v1/checkpoint-scope-repair-v1/materialized-v1/`;
+its `t1-parent-manifest.json` pins nine main and four development parents
+(SHA-256 `c52dcae7526906b7c9ac4cedf8138f7b3687cec6fac0b2096cee5c2e50013556`).
 R3 preserves the original ASCEND → reconstructed EN/ZH → JA/KO dependency chain;
 JA/KO gets its own actual generated timing. Extra development takes use parents
 1 and 3 without becoming independent originals.
@@ -161,15 +163,26 @@ existing local `sherpa_onnx`/NumPy environment and pinned Reazon files; its
 token times and CER are diagnostics, not certified endpoints or pass thresholds.
 Reuse the retained reviews instead of running inference merely for a handoff.
 
-Integration executed all three final-catalogue materializers in fresh local
-directories and verified all **65 source episode IDs**, including 589 ASCEND
-source clips, 13 equal-clock T1 role pairs and 127 semantic checkpoint maps.
-Original-source/sample/reference/hash checks, source-use nonoverlap, linked-group
-development/main separation and the nine available repeat cells passed.
-**55 focused tests passed, with no failures or skips.** The earlier ineffective
-negative test fixture and its repair remain recorded; no product assertion was
-weakened. No full-suite, typecheck, app replay, external-service call or human
-listening is claimed. Historical source and corpus bytes were not overwritten.
+Initial integration executed all three materializers in fresh local directories.
+Independent review found Chinese context incorrectly required as translated
+meaning in ASCEND checkpoints. The bounded repair removed three context-only
+waiting checkpoints, narrowed related definitions and added 129 scored-source
+citations across 62 retained points. Context is separately marked as neither
+required output nor translation credit. Source-span membership is checked in
+code; semantic entailment still requires curated review, not a fabricated R4
+scorer. Whole-episode translation-quality spans, all 589 source reference
+partitions and all audio remain unchanged.
+
+Fresh actual ASCEND materialization and derivative checks cover the repair;
+unchanged source and sibling evidence remains applicable. The current bundle
+contains **65 source episode IDs**, 13 equal-clock T1 role pairs and 124 semantic
+checkpoint maps. Original-source/sample/reference/hash checks, source-use
+nonoverlap, linked-group development/main separation and the nine available
+repeat cells passed. **61 focused tests passed, with no failures or skips.**
+The earlier ineffective negative fixture, its repair and superseded semantic
+definitions remain recorded; no product assertion was weakened. No full-suite,
+typecheck, app replay, external-service call or human listening is claimed.
+Historical source and corpus bytes were not overwritten.
 
 ### Source identities and rights
 

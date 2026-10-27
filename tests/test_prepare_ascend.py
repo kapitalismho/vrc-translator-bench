@@ -187,22 +187,94 @@ def test_checkpoint_maps_to_actual_clip_and_never_future_context_or_wrong_role()
     clips = [clip(1, 100, 10), clip(2, 120, 8, "B", 18), clip(3, 140, 5)]
     candidate = {"kind": "T1", "clips": clips}
     mapping = timeline(clips, "T1", relative_offset=0)
+    texts = {1: "Will you wait? 已经是中文背景", 2: "我会等候。already English", 3: "Later."}
     definitions = [{"id": "a", "role": "A", "end_L": 1, "evidence_Ls": [1],
-                    "required_concepts": ["synthetic question"], "allowed_paraphrase_concepts": ["equivalent question"],
-                    "source_evidence_end_sample_proposal": 7},
+                    "required_concepts": ["request to wait"], "allowed_paraphrase_concepts": ["ask the listener to wait"],
+                    "source_evidence_end_sample_proposal": 7,
+                    "scored_translation_evidence": [{"annotation_L": 1, "source_characters": [0, 14]}],
+                    "unscored_context_constraints": []},
                    {"id": "b", "role": "B", "end_L": 2, "evidence_Ls": [1, 2],
-                    "required_concepts": ["synthetic answer"], "allowed_paraphrase_concepts": ["equivalent answer"],
-                    "source_evidence_end_sample_proposal": 6}]
-    result = checkpoint_map(candidate, definitions, mapping)
+                    "required_concepts": ["will wait"], "allowed_paraphrase_concepts": ["agree to wait"],
+                    "source_evidence_end_sample_proposal": 6,
+                    "scored_translation_evidence": [{"annotation_L": 2, "source_characters": [0, 4]}],
+                    "unscored_context_constraints": []}]
+    result = checkpoint_map(candidate, definitions, mapping, texts)
     assert [c["playback_evidence_end_sample_proposal"] for c in result] == [7, 26]
     assert all(c["observation_offsets_seconds"] == [0, 2, 5, 10, 15] for c in result)
     assert not any(c["certified_phonetic_endpoint"] for c in result)
+    assert [c["scored_translation_evidence"][0]["language"] for c in result] == ["en", "zh"]
     for mutation in ({"end_L": 99}, {"role": "B"}, {"evidence_Ls": [1, 3]},
-                     {"source_evidence_end_sample_proposal": 11}):
+                     {"source_evidence_end_sample_proposal": 11},
+                     {"scored_translation_evidence": [{"annotation_L": 2, "source_characters": [0, 4]}]}):
         with pytest.raises(ValueError):
-            checkpoint_map(candidate, [{**definitions[0], **mutation}, definitions[1]], mapping)
+            checkpoint_map(candidate, [{**definitions[0], **mutation}, definitions[1]], mapping, texts)
     with pytest.raises(ValueError, match="Both T1"):
-        checkpoint_map(candidate, definitions[:1], mapping)
+        checkpoint_map(candidate, definitions[:1], mapping, texts)
+
+
+@pytest.fixture
+def mixed_checkpoint_source():
+    text = "I come from Korea. 这段中文已经说明两台设备都用overseas和top只是词"
+    clips = [clip(1, 0, 100)]
+    candidate = {"kind": "P2", "clips": clips}
+    definition = {"id": "origin", "role": "A", "end_L": 1, "evidence_Ls": [1],
+                  "required_concepts": ["speaker origin"], "allowed_paraphrase_concepts": ["comes from Korea"],
+                  "source_evidence_end_sample_proposal": 100,
+                  "scored_translation_evidence": [{"annotation_L": 1, "source_characters": [0, 18]}],
+                  "unscored_context_constraints": [
+                      {"meaning": "Both devices are used; this is already-Chinese input context",
+                       "evidence_Ls": [1]}]}
+    return candidate, definition, timeline(clips, "P1"), {1: text}
+
+
+def test_context_output_is_not_required_and_cannot_supply_translation_credit(mixed_checkpoint_source):
+    candidate, definition, mapping, texts = mixed_checkpoint_source
+    result = checkpoint_map(candidate, [definition], mapping, texts)[0]
+    evidence = result["scored_translation_evidence"]
+    assert all(e["language"] == "en" for e in evidence)
+    assert all(e["source_characters"][1] <= texts[1].index("这") for e in evidence)
+    assert not any("\u3400" <= character <= "\u9fff" for e in evidence for character in e["text"])
+    assert result["unscored_context_constraints"][0]["required_in_output"] is False
+    assert result["unscored_context_constraints"][0]["translation_credit"] is False
+    # This checks evidence projection, not a mock translation judge: semantic
+    # entailment of required concepts still needs curated source review.
+    assert "only to the scored translation evidence" in result["output_scope"]
+
+
+@pytest.mark.parametrize("scope", ["chinese_only", "mixed_with_loanwords", "empty", "punctuation_only"])
+def test_chinese_passthrough_and_loanwords_do_not_certify_a_chinese_proposition(mixed_checkpoint_source, scope):
+    candidate, definition, mapping, texts = mixed_checkpoint_source
+    text = texts[1]
+    if scope == "empty":
+        definition["scored_translation_evidence"] = []
+    else:
+        start, end = {
+            "chinese_only": (text.index("这"), text.index("overseas")),
+            "mixed_with_loanwords": (text.index("这"), len(text)),
+            "punctuation_only": (text.index("."), text.index(".") + 1),
+        }[scope]
+        definition["scored_translation_evidence"][0]["source_characters"] = [start, end]
+    with pytest.raises(ValueError, match="translation evidence|translation-target spans"):
+        checkpoint_map(candidate, [definition], mapping, texts)
+
+
+def test_reverse_t1_cannot_use_already_english_context_as_chinese_translation_evidence():
+    clips = [clip(1, 0, 10), clip(2, 20, 10, "B", 18)]
+    texts = {1: "Please wait.", 2: "我会等候 English context"}
+    definitions = [
+        {"id": "a", "role": "A", "end_L": 1, "evidence_Ls": [1],
+         "required_concepts": ["wait request"], "allowed_paraphrase_concepts": ["please wait"],
+         "source_evidence_end_sample_proposal": 10,
+         "scored_translation_evidence": [{"annotation_L": 1, "source_characters": [0, 12]}],
+         "unscored_context_constraints": []},
+        {"id": "b", "role": "B", "end_L": 2, "evidence_Ls": [1, 2],
+         "required_concepts": ["wait agreement"], "allowed_paraphrase_concepts": ["will wait"],
+         "source_evidence_end_sample_proposal": 10,
+         "scored_translation_evidence": [{"annotation_L": 2, "source_characters": [5, len(texts[2])]}],
+         "unscored_context_constraints": []},
+    ]
+    with pytest.raises(ValueError, match="translation-target spans"):
+        checkpoint_map({"kind": "T1", "clips": clips}, definitions, timeline(clips, "T1", relative_offset=0), texts)
 
 
 def test_released_unknown_tokens_are_never_certified_english_targets():

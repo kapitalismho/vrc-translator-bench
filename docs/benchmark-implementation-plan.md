@@ -106,17 +106,23 @@ unchanged audio and two narrowly corrected audible references alongside the
 preserved upstream text. Both historical-parent C1 crops are accepted at the
 automatic source-review level; the AMI speech minute remains excluded.
 
-The development ASCEND assembly preceded expansion. Final integration ran all
-three materializers, verified 65 source episode IDs, original sample/reference
-bindings, known-group separation, 13 T1 role pairs and 127 checkpoint maps.
-**55 focused tests passed, no failures or skips.** Earlier worker failures,
-inconclusive recognitions, source clipping and uncalibrated endpoint limits
-remain recorded. Review is automatic, not human listening or model-family
-independence; unknown repeated participants are not certified independent.
+The development ASCEND assembly preceded expansion. Initial integration ran all
+three materializers. Independent review then found Chinese context leaking into
+required translated meanings. A bounded ASCEND repair removed three context-only
+waiting checkpoints, narrowed related meanings and bound 129 actual target-span
+citations across 62 retained checkpoints; whole-episode translation-quality
+scope and all audio stayed unchanged. Fresh ASCEND materialization and derivative
+checks cover that repair; unchanged sibling/source checks remain applicable.
+The final bundle has 65 source episode IDs, 13 T1 role pairs and 124 checkpoint
+maps. **61 focused tests passed, no failures or skips.** Earlier worker failures,
+superseded curation, inconclusive recognitions, source clipping and uncalibrated
+endpoint limits remain recorded. Review is automatic, not human listening or
+model-family independence; unknown repeated participants are not certified
+independent.
 
 R3's source handoff is the immutable
-`.data/r2/integration-reconstruction-v1/ascend/t1-parent-manifest.json`, SHA-256
-`fe64af849500faa154238076936b158dbf9129ee46b7cc474e9573e1b1d48298`.
+`.data/r2/ascend/reconstruction-v1/checkpoint-scope-repair-v1/materialized-v1/t1-parent-manifest.json`,
+SHA-256 `c52dcae7526906b7c9ac4cedf8138f7b3687cec6fac0b2096cee5c2e50013556`.
 R3 still owns nine main/four development JA/KO descendants, the separate
 key/cost/route authorization, actual generation and bilingual review. R6 still
 owns source-to-device/app integration and final runtime admission.

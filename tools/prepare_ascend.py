@@ -275,7 +275,13 @@ def reference_spans(text):
             for m in re.finditer(r"\[UNK\]|[\u3400-\u9fff]+|[A-Za-z0-9][A-Za-z0-9 '?,.\-]*", text)]
 
 
-def checkpoint_map(candidate, definitions, mapping):
+def checkpoint_map(candidate, definitions, mapping, source_texts):
+    """Bind curated meanings to actual scored source spans, not context echoes.
+
+    Membership, language, person and chronology are executable guarantees.
+    Whether a concept is entailed by the cited words remains curated semantic
+    review; English loanwords cannot mechanically certify a Chinese proposition.
+    """
     result = []
     selected = {clip["annotation_L"]: (i, clip) for i, clip in enumerate(candidate["clips"])}
     for checkpoint in definitions:
@@ -288,7 +294,38 @@ def checkpoint_map(candidate, definitions, mapping):
                 or not checkpoint["required_concepts"] or not checkpoint["allowed_paraphrase_concepts"]
                 or any(L not in selected or L > end_L for L in checkpoint["evidence_Ls"])):
             raise ValueError("Checkpoint evidence must preserve role, meaning and past-only source scope")
-        result.append({**checkpoint, "natural_source_key": clip["natural_source_key"],
+        target = "zh" if candidate["kind"] == "T1" and checkpoint["role"] == "B" else "en"
+        citations = checkpoint["scored_translation_evidence"]
+        if not citations:
+            raise ValueError("Checkpoint requires actual scored translation evidence, not context alone")
+        scored = []
+        for citation in citations:
+            L = citation["annotation_L"]
+            if L not in checkpoint["evidence_Ls"] or L not in selected or L > end_L:
+                raise ValueError("Scored translation evidence must belong to past checkpoint source scope")
+            _, source = selected[L]
+            if source["logical_role"] != checkpoint["role"]:
+                raise ValueError("Scored translation evidence must belong to the checkpoint person")
+            text = source_texts[L]
+            start, end = citation["source_characters"]
+            spans = reference_spans(text)
+            if (not 0 <= start < end <= len(text)
+                    or not any(s["language"] == target and s["source_characters"][0] <= start
+                               and end <= s["source_characters"][1] for s in spans)
+                    or not re.search(r"[\u3400-\u9fff]" if target == "zh" else r"[A-Za-z]", text[start:end])):
+                raise ValueError("Scored checkpoint evidence must be inside actual translation-target spans")
+            scored.append({**citation, "natural_source_key": source["natural_source_key"],
+                           "role": source["logical_role"], "language": target, "text": text[start:end]})
+        constraints = []
+        for constraint in checkpoint["unscored_context_constraints"]:
+            if (not constraint["meaning"] or not constraint["evidence_Ls"]
+                    or any(L not in selected or L > end_L for L in constraint["evidence_Ls"])):
+                raise ValueError("Unscored checkpoint context must preserve past-only source scope")
+            constraints.append({**constraint, "required_in_output": False, "translation_credit": False})
+        result.append({**checkpoint, "scored_translation_evidence": scored,
+                       "unscored_context_constraints": constraints,
+                       "output_scope": "Required concepts apply only to the scored translation evidence. Context constrains interpretation but its echo is neither required nor translation credit.",
+                       "natural_source_key": clip["natural_source_key"],
                        "playback_evidence_end_sample_proposal": mapping["positions"][index] + anchor,
                        "observation_offsets_seconds": [0, 2, 5, 10, 15],
                        "certified_phonetic_endpoint": False})
@@ -365,8 +402,11 @@ def materialize(catalogue, cache, evidence_path, findings_path, output, curation
         references[clip["natural_source_key"]] = row, text
     # Validate and assemble all inputs before making any output directory.
     prepared = [(c, *assemble(c, pcm_by_key)) for c in record["candidates"]]
-    checkpoints_by_id = {c["id"]: checkpoint_map(c, curation["episodes"][c["id"]]["checkpoints"], mapping)
-                         for c, mapping, _, _ in prepared}
+    checkpoints_by_id = {
+        c["id"]: checkpoint_map(c, curation["episodes"][c["id"]]["checkpoints"], mapping,
+                                {clip["annotation_L"]: references[clip["natural_source_key"]][0]["transcription"]
+                                 for clip in c["clips"]})
+        for c, mapping, _, _ in prepared}
     output.mkdir(parents=True)
     for folder in ("audio", "decoded", "references", "provenance", "sources"):
         (output / folder).mkdir()
@@ -423,6 +463,12 @@ def materialize(catalogue, cache, evidence_path, findings_path, output, curation
                      "semantic_checkpoints": checkpoints, "source_to_playback": source_maps,
                      "timeline": mapping, "review_level": record["review_level"],
                      "reference_policy": curation["reference_policy"],
+                     "unscored_context_constraints": [
+                         {**constraint, "required_in_output": False, "translation_credit": False,
+                          "available_after_playback_sample": max(
+                              m["playback_samples"][1] for m in source_maps
+                              if m["annotation_L"] in constraint["evidence_Ls"])}
+                         for constraint in curation["episodes"][identity]["unscored_context_constraints"]],
                      "context_rule": "Only source input through the observation point; never use future answers retrospectively."}
         save_json(output / "references" / (identity + ".json"), reference)
         episodes.append({"id": identity, "kind": candidate["kind"], "project_split": candidate["project_split"],
