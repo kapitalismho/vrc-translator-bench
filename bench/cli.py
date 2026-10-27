@@ -38,6 +38,10 @@ def parser():
     costs = commands.add_parser("costs")
     costs.add_argument("--spec", type=Path, required=True)
     costs.add_argument("--output", type=Path, required=True)
+    quality = commands.add_parser("quality", help="Evaluate bound episode histories; preserve incomplete quality and waiting results")
+    quality.add_argument("--spec", type=Path, required=True)
+    quality.add_argument("--output", type=Path, required=True)
+    quality.add_argument("--transport", type=Path, help="Explicit selected-route configuration; omit for offline reconstruction/cache reuse")
     profiles = commands.add_parser("profiles", help="Inspect all 14 profiles' native early feasibility; R6 owns final admission")
     profiles.add_argument("--catalog", type=Path, default=Path("profiles/catalog.json"))
     profiles.add_argument("--check-ports", action="store_true")
@@ -47,6 +51,12 @@ def parser():
 def main(argv=None):
     args = parser().parse_args(argv)
     try:
+        if args.command == "quality":
+            from .quality import evaluate
+            result = evaluate(args.spec, args.output, transport_path=args.transport)
+            print(json.dumps({"report": str(args.output), "schema_version": result["schema_version"],
+                              "status": result["status"]}, indent=2))
+            return 0 if result["status"] == "complete" else 2
         if args.command == "costs":
             from .costs import derive
             result = derive(args.spec, args.output)

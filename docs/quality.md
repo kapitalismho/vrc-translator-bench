@@ -1,16 +1,77 @@
-# Judge foundations and historical quality scoring
+# Episode GEMBA-ESA quality and semantic checkpoints
 
-## Current retained foundation
+## Current evaluation
 
-The reset retains `quality_store.QualityStore` (durable calls, raw responses, model-bound cache and unresolved recovery), `quality_transport`, `quality_process`, `quality_judge`, and the packaged `quality_bridge.mjs`. The selected route remains **GPT 6 Astra / Sign in with ChatGPT**, with no paid/model fallback. Windows process containment and payload/actual-model evidence are independent of the retired rubric.
+`bench quality --spec SPEC.json --output RESULT.json [--transport JUDGE.json]` evaluates explicitly bound episode/role histories. Without `--transport`, it reconstructs locally and reuses validated stored judgments; missing judgments remain incomplete. A transport permits new calls only after the spec declares `measurements_ended: true` and the evaluator acquires the same user-wide `activity.exclusive_activity()` lock as capture. No translation app is launched by evaluation.
 
-There is currently **no `bench quality` command, prompt/rubric, scheduler or quality report generator**. The single-call ESA, tone/Korean sampling and MetricX runtime were removed. The two independent GEMBA-ESA stages, quote validation, episode/role input binding, new cache identities and semantic checkpoints remain [implementation work](benchmark-implementation-plan.md) under [the final plan §§7–9](benchmark-final-plan.md). Do not open or mutate a historical queue as a migration operation.
+The selected route remains **GPT 6 Astra / Sign in with ChatGPT**, with no paid/model fallback. `quality_store.QualityStore`, `quality_transport`, `quality_process`, `quality_judge`, and `quality_bridge.mjs` retain durable calls/raw responses, returned model identity and Windows child containment. A new result owns a separate store; historical queues, scores and alignment caches are not migrated.
 
-The low-level store and transport do not acquire measurement exclusion or validate a new judgment by themselves. A future orchestration caller must acquire `activity.exclusive_activity()`, establish that timed measurements have ended, validate stage/model/input/prompt identity and preserve unknown/failed calls. Stored old prompt hashes must never be reused for a new methodology.
+### Two independent stages
+
+The upstream methodology is pinned to [MicrosoftTranslator/GEMBA `bf1f113479c26f555e564659df1a491dde606adf`](https://github.com/MicrosoftTranslator/GEMBA/blob/bf1f113479c26f555e564659df1a491dde606adf/gemba/gemba_esa.py), source SHA-256 `9c109e163ad2db8c172ce7005c7452999158252914cd14b885fa762c4a98c29f`.
+
+Upstream GEMBA code and data are **CC BY-SA 4.0**, not MIT. The adapted `bench/quality_prompts.py` module retains that license, attribution, source link, modification notice and warranty disclaimer; see [LICENSE](../LICENSE). Other original benchmark modules retain the repository's MIT terms. This attribution change does not alter the actual prompt bytes or invalidate stored prompt identities.
+
+1. Identify errors using the upstream taxonomy and minor/major definitions. Validate exact source/translation quotes and occurrences; malformed evidence is rejected, not silently repaired.
+2. In a new conversation, supply the same source/translation and accepted first-stage evidence for a direct continuous 0–100 score. Preserve anchors 0/33/66/100; do not calculate scores from error counts.
+
+The three original few-shot examples and answers are retained as labelled demonstrations in the system message. This explicit serialization adapts upstream's eight-message example sequence to the retained bridge's exactly-one-system/one-user contract. Both stages use separate calls, not continued conversation state. Upstream identity, adapted prompt identity, complete blinded inputs, raw response, parsed result and actual returned model remain separately auditable. Failed/unresolved calls are retained rather than retried implicitly or treated as no errors.
+
+One target language and one logical role are judged per input. Other audible speakers and code-switched context remain available with their scored/context-only scope. Product/model/price/speed metadata stays outside the blinded request. Natural source repetition and accurate paraphrase are not inherently errors. Missing reviewed references, uncertain text extraction and unknown observation opportunity are not zero scores.
+
+### Native reconstruction and waiting
+
+`bench.history` keeps raw events unchanged. Evidence-bound append/replace/clear interpretation preserves genuine repetition, revision chains and earlier emitted pages. A presentation clear does not retract prior meaning. String-prefix similarity, last-packet selection and invented native IDs are not reconstruction rules. Ambiguous endpoint relationships remain unavailable until supported by evidence; a separate FINAL log is not a substitute for earlier OSC output.
+
+Semantic decisions use only source units and native output available at each checkpoint's 0/2/5/10/15-second cutoff. Future answers or late corrections cannot satisfy an earlier cutoff. First correct output, later wrong revision and correction remain separate evidence. Unknown clock mapping or an interval crossing a cutoff remains uncertain, not an exact receipt-time claim. Native-output waiting is not screen-rendering or human-response latency.
+
+Checkpoint-only quotes may name `side: "history"` with an opaque `history_index`, exact `text` and one-based `occurrence`. The index selects an admitted append/replace emission in that observation's blinded history, not a native event ID. Validation searches its emitted text, never an invented quote or `previous_text`; future/unavailable indexes and presentation-only operations are rejected. `native_history_citations` maps accepted local indexes back to raw-event evidence. This preserves first-correct meaning even when the correct emission is replaced between observation points, without mixing superseded errors into final-quality text.
+
+For Runner manifests, input timing is derived from the hash-bound role WAV format and actual submitted callback ranges: `input_ns = callback.dac_t_ns + round((sample - source_frame) / sample_rate * 1e9) + measured_calibration_offset_ns`. Prepending scheduled silence does not submit source frames. A first input origin alone does not prove a linear clock. Frame gaps, overlaps and callback status errors remain unknown input even if a later record says playback completed. Missing timing evidence alone need not discard defensible final quality.
+
+Each pass retains the original common final-speech +15-second horizon. Use the profile classification deadline, not a later round/collector completion time. No-output certification also checks scoped arrays, extraction, clock, attribution and gap evidence; empty primary text fields are insufficient.
+
+Fully observed total no-output with a genuine translation target yields protocol-derived quality 0 and waiting unmet, with no fabricated judge call. Harness interruption, unsupported/unplayed work, ambiguous references or output, and judge failure remain distinct incomplete outcomes. Planned missing episodes, roles and checkpoints keep their weight. [Weighted result fields and CDF rules](metrics.md#current-weighted-result-contract) apply independently to quality and waiting.
+
+R4 component verification is not R6 assembled-path admission. Retained R1 logs may legitimately replay to unknown because producer time or native revision relationships were never established. R3 requires the actual uncertainty-bearing reviewed reference, not an intended script relabelled as acoustic gold. Remaining live contrast/repeat-variation checks and profile admission belong to R6.
+
+### Input and result bindings
+
+The evaluation spec uses `schema_version: 1`, a nonempty `protocol_revision`, explicit `episodes`, and explicit `populations`. Artifact bindings contain `path` and `sha256`; relative paths are resolved from the spec, or from the run manifest for its own artifacts. Hash mismatch is an input error, not permission to repair a frozen reference.
+
+The report destination and its atomic `.tmp` sibling must not alias any consumed source, reference, manifest, trace, stream, interpretation, transport configuration, profile catalog or spec. Resolved-path and existing hard-link collisions are rejected before opening the judge store or dispatching.
+
+| Object | Required meaning |
+|---|---|
+| Episode | `episode_id`, `source_case_id`, `language_pair` (`en-zh`/`ja-ko`), `kind`, and checksummed `reference`; optional reference `case_id` selects one case |
+| Population | `profile`, `measurement_condition`, selected `roles`, and optional explicit structured `condition` for custom inputs; missing planned roles remain incomplete |
+| Role selection | `episode_id`, logical `role`, and exactly one checksummed `run_manifest` or standalone `history` selection |
+| Manifest selection | `attempt_id`, `pass_id`; checksummed trace and frozen source/route evidence must match the planned profile/episode/pass. Explicit `clock` overrides are rejected |
+| Standalone selection | Explicit `scope`, `outcome`, and optional evidence-bound `clock`/`interpretations`; historical exports are not assumed to be full Runner attempts |
+| Standalone clock | Integer `origin_ns`, `horizon_ns`, nonempty `clock_session`, retained mapping `evidence`, and optional integer `input_available_until_ns`; an absent mapping is not a zero offset |
+| Normalized reference | `source_case_id`, exact `source_units`, and `semantic_checkpoints`; preserve upstream source and uncertainty citations |
+| Source unit | Unique `id`, logical `role`, exact `text`, relative integer `start_ns`/`end_ns`, nonempty `citations`; optional `translation_targets`, `context_only`, and localized `uncertainty` |
+| Checkpoint | Unique `checkpoint_id`, role, `evidence_end_seconds`, required meaning/concepts and fixed `[0,2,5,10,15]` observation offsets |
+
+The normalized reference is a consumer contract, not authority to rewrite source text. Ordinary mixed-speaker input has one runtime role A while preserving original speaker identity; T1 keeps A/B separately. Preserve target-language context without awarding translation credit. R3 mappings must carry actual reviewed uncertainty and descendant timing, never the English/Chinese parent's timing or a bare intended script.
+
+IngCrowd's original `speaker` is preserved as `original_person` with `original_person_scope: "dialogue_local"` in the blinded context; it is not a globally identified participant. Explicit standalone `input_available_until_ns` bounds also gate final quality and protocol no-output zero. If required role input was not fully available, final quality is `unknown_input`/null regardless of a contradictory completion flag; earlier supported checkpoints may still be retained independently.
+
+Canonical profile conditions come from `profiles/catalog.json`; a selected manifest's `plan.profiles[].condition` must agree. Structured conditions use `ordinary_input`, `t1_mode` and role-to-channel `roles`. Their normalized labels are `self/split` or `peer/simultaneous`: canonical Kikitan/VRCLT cannot be relabelled as peer/simultaneous. Selected channels, passes and role routing must match. Populations, roles and selected-role provenance retain `condition` and `condition_evidence` with authority hashes. Custom labels without structured authority remain explicitly population-declared, not a verified physical mapping.
+
+`bench.history.reconstruct_history` accepts raw events and explicit role/scope/cutoff/horizon bindings. Interpretations bind a zero-based `event_index` and canonical `event_sha256` to an operation plus `rule: {id, description, evidence}`. `replace`/`delete` name `replaces_event_index`; optional exact `text_field`/`text_span` extraction cannot introduce replacement wording. A mapped `event_time_interval` requires clock-mapping evidence. Canonical event hashes identify the retained JSON object; original-wire `raw_evidence.sha256` retains its different meaning.
+
+Run-wide collector diagnostics are scoped using the selected checksummed trace's unique `attempt_start`/`attempt_end`, validated against its run, profile, episode, attempt, pass, clock and available ledger bounds. Only unscoped stream gap records proved wholly outside that interval are excluded; preparation-time gaps, touching/overlapping intervals, uncertain clocks/bounds, selected-trace records and explicitly interpreted records remain subject to normal history rules. This does not use first audio input as the attempt start. `attempt_bounds` and `excluded_stream_diagnostics` retain the boundary proof, raw excluded event and stream artifact/index; history citations and interpretation indexes continue to refer to the original combined records.
+
+The report uses `kind: "episode_quality"`, `report_version: "r4-episode-quality-v1"`, `schema_version: 1`, and `status: "complete" | "incomplete"`. `planned_episodes` preserves the denominator. Each population contains `role_results` and one `aggregate`; condition labels remain attached. `calls` links durable raw responses and stage identities to the separate `RESULT.json.store/quality.sqlite` store. Keep this store and the referenced immutable artifacts with a result handoff; the summary JSON alone is not the raw evidence archive.
+
+For a bounded two-stage check, `bench.quality.judge_role(data, store_path=..., transport_path=..., measurements_ended=True, bindings=...)` uses the same stage executor without launching capture or asserting a complete weighted population. Its `data` contains `source_language`, `target_language`, `source`, `output` and `context`; provenance belongs in `bindings`, outside the blinded prompt.
+
+The [retained final selected-route sample](../profiles/evidence/r4/minimal-judge-final.json) binds actual returned model, upstream/prompt/input/result/raw hashes, isolated per-stage payload evidence and fresh-process cache reuse. It is one task-owned negation/number counterexample, not app quality, a calibrated ranking, or completed R6 variation testing.
 
 ## Historical scoring reference
 
-Everything below records the [pre-reset implementation](https://github.com/kapitalismho/vrc-translator-bench/tree/fbab10a0455d91d5419d9673499d25b7ac86c566). Its commands/extras are no longer available in this checkout, and its successful observations do not validate the new methodology. The selected transport configuration and safety principles remain useful; references to a scorer acquiring locks or validating results describe the removed orchestration, not automatic guarantees of the retained low-level modules.
+Everything below records the [pre-reset implementation](https://github.com/kapitalismho/vrc-translator-bench/tree/fbab10a0455d91d5419d9673499d25b7ac86c566). Its old subcommands/extras are not compatibility aliases for the current `bench quality --spec` interface, and its successful observations do not validate the new methodology. Historical scoring/sampling/MetricX and queue commands remain retired. The selected transport configuration and isolation principles remain useful.
 
 This is the automatic quality layer for [issue #6](https://github.com/kapitalismho/vrc-translator-bench/issues/6). It consumes the [issue #5 report contract](metrics.md), not application ASR as reference text. Scoring infrastructure and synthetic checks do not establish a completed application comparison. The planned judge is **GPT 6 Astra through Sign in with ChatGPT**; no API-paid fallback is provided.
 

@@ -1,6 +1,25 @@
-# Historical OSC measurements
+# Episode quality and semantic waiting
 
-> **Retired evaluation contract.** `bench metrics`, `metrics-batch`, all `bench/metrics*.py` modules and their old alignment dependencies have been removed. Definitions, commands and observations below explain retained historical artifacts at [the pre-reset revision](https://github.com/kapitalismho/vrc-translator-bench/tree/fbab10a0455d91d5419d9673499d25b7ac86c566); they are not active instructions or accepted new-benchmark results. The old analysis remains under an integrity hold. Episode quality and separate weighted semantic-wait p50/p90 are specified in [the final plan §§7–10](benchmark-final-plan.md) and remain [implementation work](benchmark-implementation-plan.md). No old delivery/FOL/LUL field is a new metric alias.
+## Current weighted result contract
+
+`bench.aggregation.aggregate_results(episodes, role_results)` emits schema version 1. Its input is the **planned** population, not just successful observations. Each episode names its language pair, type and frozen `checkpoint_ids` by logical role; absent results become unknown placeholders. `bench quality` binds these contributions to the source/reference, selected attempt, native history, measurement condition and judge evidence. See [quality](quality.md) for execution and input binding.
+
+| Result | Meaning |
+|---|---|
+| `quality.score` | Complete weighted 0–100 quality, or null when required weight is missing |
+| `quality.partial_contribution` | Observed contribution on the original full-population denominator; not a renormalized score |
+| `planned_weight`, `completed_weight`, `missing_weight` | Coverage tracked independently for quality and semantic waiting |
+| `semantic_wait.p50`, `semantic_wait.p90` | Independent weighted-CDF outcomes: `met` with `interval_seconds`, `unmet`, or `incomplete` |
+| `cells`, `roles`, `coverage` | Type/language/role contributions, planned missing cells and roles, and checkpoint weights |
+| `excluded_controls` | C1 evidence with zero aggregate weight, not quality 100 or waiting zero |
+
+Both language pairs receive 0.5. Within each pair P1/P2/P3/T1/P4 receive 0.10/0.30/0.20/0.30/0.10. Planned episodes within a cell are equal; T1 A/B each receive half the episode weight, then checkpoints divide their role weight equally. A missing cell retains its design weight. Split-self T1 remains one episode, not two samples.
+
+Quantiles pool the weighted CDF, never average episode or language quantiles. Observations at 0/2/5/10/15 seconds produce intervals, not midpoints. Known no-output and persistent incorrect output remain in the denominator as unmet. Unknown observation, missing roles, or unjudged checkpoints make the integrated timing result incomplete. Quality and time can complete independently. A fully observed no-output quality zero is marked as protocol-derived, not as a judge response.
+
+## Historical OSC measurements
+
+> **Retired evaluation contract.** Everything below describes the removed `bench metrics`/`metrics-batch` and old alignment implementation at [the pre-reset revision](https://github.com/kapitalismho/vrc-translator-bench/tree/fbab10a0455d91d5419d9673499d25b7ac86c566). It is not active instructions or accepted new-benchmark results. Historical analysis remains under its integrity hold. No delivery/FOL/LUL field is an alias for the current episode quality or semantic-wait metrics.
 
 This is the calculation and report-data layer for [issue #5](https://github.com/kapitalismho/vrc-translator-bench/issues/5). It consumes prepared references from [#2](https://github.com/kapitalismho/vrc-translator-bench/issues/2) and captured endpoint records from [#3](https://github.com/kapitalismho/vrc-translator-bench/issues/3). Application-specific interpretation evidence belongs to [#4](https://github.com/kapitalismho/vrc-translator-bench/issues/4); judging belongs to [#6](https://github.com/kapitalismho/vrc-translator-bench/issues/6). These measurements are not a public scorecard, a semantic-completion detector, or a single overall score.
 
