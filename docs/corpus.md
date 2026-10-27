@@ -388,7 +388,7 @@ python tools/prepare_tts.py reconcile --run <main-run-directory> --call main-01 
 The actual nine-script preparation already succeeded at `.data/r3/main`;
 do not overwrite or recreate that run to refill an allowance. Its plan hash is
 `8e0cb463a8430a5cbb79b59f04b2c8d98516183d5527fb3200d175dbb172c2c0`.
-No main speech POST has occurred.
+All nine approved main POSTs are now consumed; no retry or new take is authorized.
 
 The main approval binds that exact plan and canonical directory, scope
 `nine-openrouter-main-whole-dialogue-client-posts`, nine POSTs, the additional
@@ -422,14 +422,15 @@ All six pilot generation slots are consumed. The owner subsequently reported
 actual Japanese/Korean listening and approved content, pronunciation and
 naturalness. This is an owner review attestation, not automated listening proof;
 individual reviewer qualifications, work time and per-take decisions were not
-separately supplied. No role boundaries or final input takes are yet adopted.
+separately supplied. Four whole first takes were subsequently adopted on this
+attestation plus independently accepted actual technical role evidence below.
 
 The owner also separately approved nine main-dialogue client POSTs, one per
 prepared main script, with an additional $1.50 pre-tax API consumption cap and
 non-generative usage lookups. At the unchanged researched rates, nine conservative
 reservations total $1.363968. No retry, extra take, turn fallback, top-up or account
 change is included; stop if rates or limits change. The old pilot allowance is
-not refilled. Main generation still follows pilot role-boundary verification and
+not refilled. Main generation followed pilot role-boundary verification and
 method adoption; the owner did not approve generating before that review.
 
 The owner subsequently instructed retaining main takes unless a genuinely
@@ -479,19 +480,81 @@ separate from actual content/voice evidence and do not certify speaker identity.
 Thirteen additional offline unhinted ASR observations are retained with their
 same-Qwen-family limitations. No provider or paid-ASR request was made.
 
-The first four whole takes supply the four development-scene candidates; the two
-repeats remain variability evidence, not two additional mandatory adopted inputs.
-Technical boundary review is complete; independent acceptance and method
-adoption remain pending. No human role-buffer listening is claimed. Earlier
-failed/raw alignment, focused review and preview artifacts remain unchanged.
-No paid generation was replayed and no main request has been sent.
+The first four whole takes were adopted for the four development scenes after
+independent evidence review at `e123668` found no material findings. The two
+repeats remain variability evidence, not additional mandatory adopted inputs.
+`.data/r3/pilot-adopted-method.json` records Director adoption, review limits and
+the bound source/evidence identities before any main POST. No human role-buffer
+listening is claimed. Earlier failed/raw alignment and review artifacts remain
+unchanged; no paid generation was replayed.
 
-### Adoption remains an audio decision
+### Frozen R3 handoff and review limits
 
-The owner's actual-listening quality approval and the actual technical boundary
-evidence are distinct. Independently assess the source, role routing, cut
-uncertainty and content evidence before method adoption and the nine main
-requests; do not turn an automated technical review into a human-listening claim.
+All nine main dialogues were generated exactly once after method adoption.
+The original nine 24kHz mono PCM16/WAV pairs total 683.64 seconds, and each complete
+decoded WAV payload equals its retained response PCM. No retries, extra takes or
+discarded takes. `.data/r3/main-generation-receipt.json` binds every original
+hash, frame count, duration and separate accounting result.
+
+Eight one-time usage lookups report a combined **$0.1444215** main API consumption.
+Main09's lookup returnedHTTP404, so its cost remains unknown despite successful
+speech generation; no polling or retry. Combined with the five known pilot
+charges, the known subtotal is **$0.2595575**, not the total for all15generations.
+Pilot01 and main09 remain unknown; cash/credit, taxes, fees and human work are not
+inferred. The original generation result and later reconciliation result are
+separate immutable observations.
+
+The canonical local handoff is `.data/r3/frozen-t1-manifest.json`, SHA-256
+`ec824ea2a283546e514433bc09c7cfdd1fdb597c3979b53241fd4b9e893c8525`.
+It freezes four development dialogues and all nine main first takes: 26 role
+buffers/references and 115 complete turns. Development's unique adopted duration
+is 299.08 seconds; main duration is 683.64 seconds. Complete phase consumption per
+adopted minute remains unknown because one charge in each phase is unknown.
+The two planned pilot repeats remain cost/variability evidence, not extra adopted
+dialogues or independent source groups.
+
+Actual main review covered all 46 complete turns and 37 measured quiet boundaries.
+Nine role pairs and 46 source-turn crops preserve the exact original samples and
+clock. Independent semantic review inspected the complete-turn observations.
+Bounded, cached Reazon and Whisper checks resolved or countered the mythology
+and clothing-negation concerns without new TTS or paid ASR. All nine first takes
+were adopted; no confirmed critical defect was established by the bounded
+review. This is not human main listening or a guarantee of perfect pronunciation.
+
+Use the manifest's **canonical `reviewed_reference` for each role**, not the
+historical pending materialization or bare intended script. Every affected
+reference carries its actual recognition and localized uncertainty inline:
+
+- Main01 A5: the known intended university is 上海交通大学. Qwen/Whisper favor 情報;
+  Reazon gives 浄工. No recognizer corroborates exact 交通. The actual name remains
+  substantively uncertain, not equivalent aliases or an invented Mandarin reading.
+- Main04 final short acknowledgement: intended A retained with underdetermined
+  acoustic voice/language attribution; no demonstrated material contamination.
+- Main05 A2: 江湖 transcription remains locally uncertain.
+- Main08 B3: independent Whisper supports 뭘 over Qwen 못, but exact tomorrow/ending
+  wording remains uncertain. The full convenience argument and 5–10-minute claim
+  remain supported; no confirmed negation reversal.
+
+Do not penalize or certify unresolved literal distinctions using bare script
+gold; retain all supported surrounding meaning and every complete turn.
+`.data/r3/final-adjudication.json` and `main-semantic-review.json` preserve the
+decisions and contrary evidence. All source omissions, roles and parent/group
+identities remain unchanged. Historical analysis files retain their original
+pending statuses; the later canonical freeze is authoritative for adoption.
+
+The actual freeze command and a separate fresh-process `--verify` both succeeded,
+checking 13 timelines, 26 references, 115 turns and all four inline uncertainty
+records against reviewed hashes. Chromium exercised 78 media players, nine
+equal-length original/A/B triples and actual muted playback; that is surface
+verification, not listening. Open `.data/r3/main-review/index.html` for the
+retained originals, roles, full-turn evidence and diagnostic limits.
+
+No current R3-specific scoring consumer was found in `bench`, `tools` or `tests`.
+R6 must ingest the canonical references with their annotations and bind logical
+roles to its actual device/profile plans. This handoff does not claim that R6
+ingestion or per-profile admission was exercised. No benchmark app was launched,
+no public audio redistribution was granted and no remote publication performed.
+
 The split operation preserves equal-length buffers and checks exact samplewise
 A+B reconstruction. That arithmetic cannot establish genuine speaker/content
 assignment. No benchmark apps or regenerated speech are required merely for

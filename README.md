@@ -12,7 +12,7 @@ A community benchmark for conversation translation. The approved [final plan](do
 - Local cost-log ingestion, attribution, Decimal arithmetic, subscription/free/unknown treatment and original-evidence protection. New episode/pass normalization is not implemented.
 - Separate path-redacted capture exports; publication still needs content and rights inspection.
 - Offline ASCEND, IngCrowd and FLEURS/C1 materializers for 51 main source episodes, 12 development episodes and two controls, with source/sample/reference checks and nine main/four development ASCEND T1 parents. Runtime execution plans and R6 admission remain separate.
-- [R3 JA/KO T1 preparation](docs/corpus.md#r3-japanesekorean-t1-preparation): source-linked scripts, owner-authorized bounded OpenRouter TTS pilot operations, separate consumption records and reviewed-boundary role splitting. Generated-audio listening and method adoption are separate from text or sample-integrity checks.
+- [R3 reviewed JA/KO T1 inputs](docs/corpus.md#r3-japanesekorean-t1-preparation): four development and nine main first takes locally frozen with role audio, actual timelines, hashes, production-cost evidence and mandatory uncertainty-bearing references. Pilot owner listening and automatic main review are disclosed separately; no main take was discarded or regenerated. R6 runtime admission remains separate.
 
 The runner accepts **episode schema 2**, not historical stage plans. Ordinary inputs are peer; T1 uses simultaneous peer/self. The owner-approved VRCLT and Kikitan exceptions use self for ordinary cases and separate A/B self passes for T1, with one logical episode. Native receipt clocks do not certify producer completion or screen rendering. Historical profile readiness is not new-protocol admission.
 

@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
   "issue": "https://github.com/kapitalismho/vrc-translator-bench/issues/17",
-  "status": "pilot_technical_role_review_complete__method_adoption_pending",
-  "goal_complete": false,
-  "method_adopted": false,
-  "main_audio_generated": 0,
+  "status": "reviewed_ja_ko_t1_inputs_frozen_locally",
+  "goal_complete": true,
+  "method_adopted": true,
+  "main_audio_generated": 9,
   "main_audio_required": 9,
-  "production_frozen": false,
+  "production_frozen": true,
   "authority": {
     "route": "owner-selected OpenRouter",
     "model": "google/gemini-3.8-flash-tts",
@@ -22,10 +22,13 @@
       "client_posts_maximum": 9,
       "additional_api_cap_usd": "1.50",
       "conditional_current_rate_reservation_usd": "1.363968",
-      "client_posts_sent": 0,
+      "client_posts_sent": 9,
+      "client_posts_remaining": 0,
       "non_generative_usage_lookups": true,
       "local_owner_decision": ".data/r3/main-owner-decision.json",
-      "condition": "Remaining pilot role-boundary verification and reviewed-method adoption precede main POSTs. This does not refill the six-take pilot allowance.",
+      "condition": "Actual pilot evidence independently accepted and method adopted before all nine main POSTs. The exhausted six-take pilot allowance was not refilled.",
+      "local_execution_approval": ".data/r3/main-owner-approval.json",
+      "execution_approval_sha256": "901fd9a68c8c0f67c784bee0dd0e120cb20e0076aa816cead62de253bcad4e10",
       "excluded": "Retries, extra takes, turn fallback, top-ups, account changes and paid ASR/judge."
     },
     "rights_boundary": "Owner-authorized local preparation and provider transmission; no new public corpus/audio redistribution grant.",
@@ -63,11 +66,11 @@
     "audio_quality_passes": null,
     "human_reviewed_takes": null,
     "quality_rejected_takes": null,
-    "adopted_takes": 0,
+    "adopted_takes": 4,
     "regeneration_causes": null,
     "owner_reported_pilot_quality_approved": true,
     "quality_evidence": "Owner explicitly attested actual Japanese/Korean listening and approved content, pronunciation and naturalness. Per-take judgments, individual reviewer identities/qualifications and review times were not separately supplied; numerical per-take pass/reject counts remain unknown. Boundary review is separate.",
-    "note": "The two repeat takes were approved method checks, not repair regenerations. Owner-reported quality approval does not adopt role boundaries or final inputs. A local credential parser failure preceded any POST or reservation and is retained separately."
+    "note": "The two repeat takes were approved variability checks, not repair regenerations. Director adopted the four whole first takes after independent acceptance of actual technical role evidence plus owner listening-quality attestation. A local credential parser failure preceded any POST or reservation and is retained separately."
   },
   "audio": {
     "format": "24kHz mono PCM16LE; original response retained and wrapped as WAV",
@@ -76,7 +79,7 @@
     "role_buffers_generated": 12,
     "role_pairs_generated": 6,
     "role_sum_integrity": "All six written pairs read back with original frame counts; exact samplewise A+B reconstruction, disjoint nonzero buffers and unchanged retained source samples.",
-    "genuine_speaker_content_assignment": "Bounded actual PCM/spectral/content evidence and same-take voice controls support technical routing; independent acceptance and method adoption remain pending. Arithmetic is not speaker proof.",
+    "genuine_speaker_content_assignment": "Bounded actual PCM/spectral/content evidence and same-take voice controls independently accepted for four-scene Director method adoption. Arithmetic alone is not speaker proof; technical-review limits remain explicit.",
     "limits": "Owner actual bilingual quality approval is separate from automated technical boundary inspection. No human role-buffer listening or exact single-sample phonetic attribution is claimed."
   },
   "takes": [
@@ -91,7 +94,7 @@
       "api_consumption_usd": null,
       "observed_model": null,
       "observed_provider": null,
-      "status": "pilot_quality_approved__technical_role_evidence_complete__adoption_pending",
+      "status": "adopted_four_scene_pilot_first_take__technical_role_review",
       "audio": ".data/r3/pilot/attempts/pilot-01/audio.wav"
     },
     {
@@ -105,7 +108,7 @@
       "api_consumption_usd": "0.0124385",
       "observed_model": "google/gemini-3.8-flash-tts-20260922",
       "observed_provider": "Google",
-      "status": "pilot_quality_approved__technical_role_evidence_complete__adoption_pending",
+      "status": "adopted_four_scene_pilot_first_take__technical_role_review",
       "audio": ".data/r3/pilot/attempts/pilot-02/audio.wav"
     },
     {
@@ -119,7 +122,7 @@
       "api_consumption_usd": "0.0328315",
       "observed_model": "google/gemini-3.8-flash-tts-20260922",
       "observed_provider": "Google",
-      "status": "pilot_quality_approved__technical_role_evidence_complete__adoption_pending",
+      "status": "adopted_four_scene_pilot_first_take__technical_role_review",
       "audio": ".data/r3/pilot/attempts/pilot-03/audio.wav"
     },
     {
@@ -133,7 +136,7 @@
       "api_consumption_usd": "0.022625",
       "observed_model": "google/gemini-3.8-flash-tts-20260922",
       "observed_provider": "Google",
-      "status": "pilot_quality_approved__technical_role_evidence_complete__adoption_pending",
+      "status": "adopted_four_scene_pilot_first_take__technical_role_review",
       "audio": ".data/r3/pilot/attempts/pilot-04/audio.wav"
     },
     {
@@ -147,7 +150,7 @@
       "api_consumption_usd": "0.0155975",
       "observed_model": "google/gemini-3.8-flash-tts-20260922",
       "observed_provider": "Google",
-      "status": "pilot_quality_approved__technical_role_evidence_complete__adoption_pending",
+      "status": "retained_whole_take_variability_evidence__technical_role_review",
       "audio": ".data/r3/pilot/attempts/pilot-05/audio.wav"
     },
     {
@@ -161,7 +164,7 @@
       "api_consumption_usd": "0.0316435",
       "observed_model": "google/gemini-3.8-flash-tts-20260922",
       "observed_provider": "Google",
-      "status": "pilot_quality_approved__technical_role_evidence_complete__adoption_pending",
+      "status": "retained_whole_take_variability_evidence__technical_role_review",
       "audio": ".data/r3/pilot/attempts/pilot-06/audio.wav"
     }
   ],
@@ -181,7 +184,7 @@
     "taxes_fx": null,
     "human_review_cost": null,
     "editing_cost": null,
-    "review_work": "Automatic source/script reviews and actual technical PCM/spectral/content boundary inspection completed. Thirteen new offline unhinted ASR observations took approximately23.26 process seconds, not human review time or paid consumption. Owner attested actual JA/KO listening quality approval; individual reviewer/work-time/cost details remain unspecified. Independent technical acceptance and method adoption are pending.",
+    "review_work": "Automatic source/script reviews and actual technical PCM/spectral/content boundary inspection completed and independently accepted for four-scene method adoption. Thirteen new offline unhinted ASR observations took approximately23.26 process seconds, not human review time or paid consumption. Owner attested actual JA/KO listening quality approval; individual reviewer/work-time/cost details remain unspecified.",
     "benchmark_application_costs_included": false
   },
   "verification": {
@@ -194,7 +197,7 @@
       "implementation_baseline": "5421047bcd006a90fc154d678cc1ededca6ab799",
       "focused_command": "python -m pytest tests/test_prepare_tts.py -q",
       "focused_result": "143 passed in 10.48s",
-      "real_cli_result": "Nine real main scripts prepared offline at .data/r3/main; no main POST or adopted-method receipt created.",
+      "real_cli_result": "Historical pre-generation checkpoint: nine real main scripts prepared offline at .data/r3/main before any main POST or adopted-method receipt existed.",
       "plan_sha256": "8e0cb463a8430a5cbb79b59f04b2c8d98516183d5527fb3200d175dbb172c2c0",
       "reviewed_candidate": "e62a6282d0643c7eaf1d36aa6c3c761a0417babf",
       "review_state": "Independent whole-checkpoint FULL_REVIEW found no material findings. This does not accept the whole issue or certify role boundaries.",
@@ -217,7 +220,11 @@
     "technical_boundary_manifest": ".data/r3/pilot-boundary-resolution/technical-role-inputs.json",
     "technical_boundary_page": ".data/r3/pilot-boundary-resolution/index.html",
     "technical_boundary_decisions": ".data/r3/pilot-boundary-resolution/boundary-decisions.json",
-    "technical_verification": ".data/r3/pilot-boundary-resolution/verification-evidence.json"
+    "technical_verification": ".data/r3/pilot-boundary-resolution/verification-evidence.json",
+    "pilot_adoption_review": ".data/r3/pilot-adoption-review.json",
+    "pilot_adopted_method": ".data/r3/pilot-adopted-method.json",
+    "main_execution_approval": ".data/r3/main-owner-approval.json",
+    "main_generation_receipt": ".data/r3/main-generation-receipt.json"
   },
   "human_review_packet": {
     "audio": "Six original WAV players, with 118 exact scripted turn occurrences across the six takes.",
@@ -264,18 +271,81 @@
     "resolved_seconds": {"pilot-03-join-17": 83.372, "pilot-06-join-12": 65.723, "pilot-06-join-17": 78.425},
     "decisive_evidence": "Pilot06 join12 has an actual504ms quiet gap despite false model overlap. Pilot03/06 join17 use observed low-pitch acknowledgement decay, new consonant attack and higher-pitch Korean speech, corroborated by unhinted side-content and same-take voice controls. Final01/05 acknowledgements match measured same-take A controls.",
     "uncertainty": "Two nonsilent transitions retain approximately17–20ms acoustic uncertainty. No exact one-sample speaker classifier or exhaustive independent listening guarantee.",
-    "four_scene_first_take_candidates": ["pilot-01", "pilot-02", "pilot-03", "pilot-04"],
+    "adopted_four_scene_first_takes": ["pilot-01", "pilot-02", "pilot-03", "pilot-04"],
     "retained_variability_checks": ["pilot-05", "pilot-06"],
     "critical_error_detected_by_bounded_inspection": false,
-    "method_adopted": false,
+    "method_adopted": true,
+    "adoption_receipt_sha256": "ac68202177eafe7fe05b725f3c390624a9f1d5899ee535b7a695dc7136595d7b",
+    "independent_acceptance": "r3-pilot-evidence-audit turn4 accepted the bounded actual pilot-method evidence at e123668e09b9a26e7144cf549228ab331a6111bd; no material findings. Director subsequently adopted before main generation.",
     "new_provider_requests": 0,
     "paid_asr_requests": 0,
     "additional_local_unhinted_asr_observations": 13
   },
-  "remaining_prerequisites": [
-    "Independent assessment of the completed actual technical pilot evidence; owner-reported bilingual listening quality approval is recorded separately.",
-    "Review-supported four-scene method adoption, retaining the two repeated whole takes as variability evidence rather than requiring six adopted inputs.",
-    "Bind the separately approved nine-main-POST/USD1.50 scope to the prepared main plan and adopted pilot-method evidence before transmission.",
-    "Reviewed main inputs and final R3 evidence handoff; do not close issue or regenerate speech for R6."
+  "main_generation": {
+    "receipt": ".data/r3/main-generation-receipt.json",
+    "receipt_sha256": "8168f76ddf281130058127871d8a4aaad2a5f60f43f74ff01dac1ad2933ebab5",
+    "whole_dialogue_first_takes": 9,
+    "http_200_retained_pcm_wav_pairs": 9,
+    "client_retries": 0,
+    "extra_takes": 0,
+    "discarded_takes": 0,
+    "duration_seconds_by_main_call": [55.0, 38.28, 58.28, 47.24, 137.76, 57.12, 66.64, 116.28, 107.04],
+    "total_seconds": 683.64,
+    "actual_wav_payload_equals_retained_pcm": "9/9 full payloads,24kHz mono PCM16LE",
+    "accounting_GETs": 9,
+    "accounting_retries": 0,
+    "known_api_consumption_subtotal_usd": "0.1444215",
+    "total_api_consumption_usd": null,
+    "unknown_cost_calls": ["main-09"],
+    "accounting_limit": "Main09 lookup returnedHTTP404; its speech generation succeededHTTP200. Preserve unknown cost, not zero; no polling or retry. Eight other lookups reported actual consumption.",
+    "known_combined_pilot_main_subtotal_usd": "0.2595575",
+    "combined_unknown_cost_calls": ["pilot-01", "main-09"],
+    "cash_credit_fees_taxes": null,
+    "adopted_first_takes": 9,
+    "confirmed_critical_defects_in_bounded_review": 0,
+    "review": "Actual technical content/role review and independent semantic reconciliation completed. All nine first takes adopted with inline uncertainty-bearing references; no main human listening or word-perfect acoustic transcription claimed."
+  },
+  "main_review": {
+    "complete_turns": 46,
+    "actual_quiet_boundaries": 37,
+    "equal_length_role_pairs": 9,
+    "samplewise_source_reconstruction": "9/9 written pairs; unchanged retained samples, disjoint nonzero masks and original24kHz clock. Separate from speaker/content evidence.",
+    "complete_turn_recognition": "46 unhinted offline Qwen observations plus five bounded diagnostic crops; EOS versus output cap not reported, not invented.",
+    "independent_corroboration": "Two actual cached Reazon Japanese crops and two actual cached Whisper crops; no paid ASR, download or benchmark-app launch.",
+    "semantic_review": ".data/r3/main-semantic-review.json",
+    "semantic_review_sha256": "e59d80c170eb5f6b40c483037ea50617892645fbdb3aa525a704662d8c8aab36",
+    "adjudication": ".data/r3/final-adjudication.json",
+    "substantive_name_uncertainty": "Main01 A5 上海交通大学 is not corroborated exactly by any inspected recognizer; Qwen/Whisper favor情報, Reazon gives浄工. Actual name realization remains unresolved, not a proven alias or certified critical defect.",
+    "other_inline_limits": "Main04 short-ack voice/language attribution; main05 江湖 transcription; main08 clothing-phrase exact wording. Independent Whisper counters the unsupported claim that 못 proves an actual negation reversal.",
+    "resolved_diagnostics": "Independent Reazon supports main05 神話らしい; bounded recognition supports main08 言い分. Neither is a human-listening certification.",
+    "reference_contract": "Every affected canonical role reference embeds its uncertainty with intended text and actual recognition. Bare scripts are not word-perfect gold. No unsupported literal distinction is charged to or certified for an app; all turns and supported numeric/relational meaning remain.",
+    "browser": "Actual Chromium loaded78 media, nine equal original/A/B duration triplets and advanced muted main08 role-B playback; visual proof retained. Later notice/link-only update did not change media.",
+    "browser_evidence": ".data/r3/main-review/browser-evidence.json",
+    "human_main_listening_claimed": false
+  },
+  "frozen_handoff": {
+    "manifest": ".data/r3/frozen-t1-manifest.json",
+    "manifest_sha256": "ec824ea2a283546e514433bc09c7cfdd1fdb597c3979b53241fd4b9e893c8525",
+    "reference_format": "r3-reviewed-reference-v1",
+    "canonical_references": ".data/r3/frozen-references/",
+    "development_dialogues": 4,
+    "main_dialogues": 9,
+    "role_audio_buffers_and_references": 26,
+    "complete_turns": 115,
+    "development_unique_adopted_seconds": 299.08,
+    "main_adopted_seconds": 683.64,
+    "pilot_api_usd_per_unique_adopted_minute": null,
+    "main_api_usd_per_adopted_minute": null,
+    "normalized_cost_limit": "Full phase consumption / unique adopted minutes is unknown while pilot01 and main09 charges remain unknown. Planned repeated pilot takes remain in the cost numerator, not the adopted-duration denominator.",
+    "actual_smoke": "Freeze operation and separate fresh-process --verify both exited0; all13 timelines,26 role references,115 turns and four inline uncertainty records reload with reviewed source/role/timeline hashes.",
+    "verification": ".data/r3/freeze-verification.json",
+    "consumer_boundary": "R3 hands over logical A/B media and mandatory uncertainty-bearing references. No current R3-specific scoring consumer found in bench/tools/tests; R6 must import these records, not bare source scripts. Runtime ingestion/profile admission is not claimed.",
+    "rights": "Local-only artifacts; no public source-media/TTS redistribution grant or remote publication."
+  },
+  "remaining_prerequisites": [],
+  "separate_downstream_obligations": [
+    "R6 source-to-device/app integration, mandatory reference-uncertainty ingestion and final per-profile runtime admission.",
+    "Optional later permitted billing evidence for pilot01/main09 and unknown cash/credit/fees/taxes/review labor; no fabricated totals.",
+    "Remote push, PR, merge and issue closure require separate authority; none performed here."
   ]
 }
