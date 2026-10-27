@@ -371,6 +371,27 @@ once as WAV. Actual consumption comes from generation metadata when available;
 cash, purchased/promotional credit, fees and review work remain separate and
 unknown where unsupported.
 
+### Actual pilot checkpoint
+
+The [R3 status record](../corpus/r3/status.json) binds the six retained actual
+takes, source/script hashes, durations, consumption evidence and open review
+requirements. All six authorized client POSTs returned valid PCM/WAV:
+four first takes plus the planned development1/3 repeats, totaling 463.24 seconds.
+Each WAV decodes exactly to its retained original PCM. This is audio-container
+integrity, not a listening, dialogue-completion or speaker-assignment pass.
+
+Five generation-ID lookups report a combined $0.1151360 API consumption and
+the actual model `google/gemini-3.8-flash-tts-20260922` through Google. The first
+take's lookup returned HTTP 404; its consumption and returned model attribution
+remain unknown. No lookup was polled or retried, and the full six-take charge is
+not presented as the known five-take subtotal. Cash/credit, fees, taxes and human
+review cost are not inferred from token consumption.
+
+All six generation slots are consumed. No take is yet adopted or quality
+rejected, no role buffers are yet speaker-reviewed, and no main audio has been
+generated. The nine prepared main scripts remain gated on actual pilot listening
+and boundary review, method adoption and separate generation authorization.
+
 ### Adoption remains an audio decision
 
 The owner can arrange Japanese and Korean listening reviewers. Availability

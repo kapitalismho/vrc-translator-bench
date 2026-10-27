@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "issue": "https://github.com/kapitalismho/vrc-translator-bench/issues/17",
+  "status": "development_pilot_generated__actual_bilingual_audio_and_boundary_review_required",
+  "goal_complete": false,
+  "method_adopted": false,
+  "main_audio_generated": 0,
+  "main_audio_required": 9,
+  "production_frozen": false,
+  "authority": {
+    "route": "owner-selected OpenRouter",
+    "model": "google/gemini-3.8-flash-tts",
+    "natural_delivery": "conversational pacing and modest contextual intonation; no added words, vocalizations or overlap",
+    "client_posts_approved": 6,
+    "client_posts_sent": 6,
+    "client_posts_remaining": 0,
+    "api_cap_usd": "1.00",
+    "approval_plan_sha256": "aa0d89dd7c7705a00468f977b880bea2f15e4756af83d10b01cb4050c9bf809f",
+    "local_approval": ".data/r3/pilot-owner-approval.json",
+    "main_generation_authorized": false,
+    "rights_boundary": "Owner-authorized local preparation and provider transmission; no new public corpus/audio redistribution grant."
+  },
+  "source": {
+    "parent_manifest_sha256": "c52dcae7526906b7c9ac4cedf8138f7b3687cec6fac0b2096cee5c2e50013556",
+    "development_scripts_sha256": "4382b62a4dbcfc8405d6129065690631a78e6aa878f5807b6ebedf21cedca00f",
+    "main_scripts_sha256": "6d2671ed4ef98b85a86e4c40fc9e0f5f236467b4e30aca31385474c2ae717950",
+    "development_dialogues": 4,
+    "development_turns": 69,
+    "development_clips": 113,
+    "main_scripts": 9,
+    "main_turns": 46,
+    "main_clips": 198,
+    "development_dependency_group": "ascend-original-people-17-18",
+    "independent_development_groups": 1,
+    "owner_approved_unknown_omissions": {
+      "development": 4,
+      "main": 6
+    },
+    "limits": "Original selected CSV text and recovered exact parent manifest verified. Original complete reference/curation sidecars unavailable; their declared old hashes are not freshly verified files. Only originally unintelligible spans omitted with retained dispositions; known ambiguity and meaningful repair preserved."
+  },
+  "outcomes": {
+    "first_takes": 4,
+    "planned_additional_takes": 2,
+    "client_http_successes": 6,
+    "retained_transport_or_pcm_failures": 0,
+    "audio_quality_passes": null,
+    "human_reviewed_takes": 0,
+    "quality_rejected_takes": null,
+    "adopted_takes": 0,
+    "regeneration_causes": null,
+    "note": "The two repeat takes were approved method checks, not repair regenerations. Quality outcomes remain unreviewed, not zero-error. A local credential parser failure preceded any POST or reservation and is retained separately."
+  },
+  "audio": {
+    "format": "24kHz mono PCM16LE; original response retained and wrapped as WAV",
+    "total_seconds": 463.24,
+    "wav_pcm_equality_verified": "6/6 actual generated WAV payloads exactly equal retained PCM; frame counts and stored SHA256 values match",
+    "role_buffers_generated": 0,
+    "role_sum_integrity": null,
+    "genuine_speaker_content_assignment": null,
+    "limits": "Transport/PCM checks do not establish complete words, naturalness, pronunciation, identity or turn boundaries."
+  },
+  "takes": [
+    {
+      "call": "pilot-01",
+      "episode_id": "ja-ko-t1-development-1",
+      "take": 1,
+      "seconds": 53.64,
+      "frames": 1287360,
+      "wav_sha256": "b880b9dd7cb335165c321f201d3602959c48807f1720207d704d0561dabb87f8",
+      "pcm16le_sha256": "0ff00804b3b1cc3b0ee2afa3f5e8f0217ac36be62e26a648218a46894c134e23",
+      "api_consumption_usd": null,
+      "observed_model": null,
+      "observed_provider": null,
+      "status": "pending_actual_audio_review",
+      "audio": ".data/r3/pilot/attempts/pilot-01/audio.wav"
+    },
+    {
+      "call": "pilot-02",
+      "episode_id": "ja-ko-t1-development-2",
+      "take": 1,
+      "seconds": 42.52,
+      "frames": 1020480,
+      "wav_sha256": "19a1d41d829141eadf66757aaab1afdd3eb12d5986dcf34d7ca0d8897b4ba66f",
+      "pcm16le_sha256": "99e687d2d433c7972a42804e52ffd1ba58dbbdadf4e069e91e4d26b97f35e11a",
+      "api_consumption_usd": "0.0124385",
+      "observed_model": "google/gemini-3.8-flash-tts-20260922",
+      "observed_provider": "Google",
+      "status": "pending_actual_audio_review",
+      "audio": ".data/r3/pilot/attempts/pilot-02/audio.wav"
+    },
+    {
+      "call": "pilot-03",
+      "episode_id": "ja-ko-t1-development-3",
+      "take": 1,
+      "seconds": 117.4,
+      "frames": 2817600,
+      "wav_sha256": "150421d24a711faf6df30e3b8854f3144ef1396117475aff8e1b5e633f071d4c",
+      "pcm16le_sha256": "b9ac969f0a8a0e963a0ac1f5481cf17c11d27be4e47700ee5a9a5b40ea7cc3f9",
+      "api_consumption_usd": "0.0328315",
+      "observed_model": "google/gemini-3.8-flash-tts-20260922",
+      "observed_provider": "Google",
+      "status": "pending_actual_audio_review",
+      "audio": ".data/r3/pilot/attempts/pilot-03/audio.wav"
+    },
+    {
+      "call": "pilot-04",
+      "episode_id": "ja-ko-t1-development-4",
+      "take": 1,
+      "seconds": 85.52,
+      "frames": 2052480,
+      "wav_sha256": "4076a5754fb000e5e02550050af848e14dfc897bb5d6985544ccc2dbf18dbe8d",
+      "pcm16le_sha256": "7a6e6369bafd000d65d87e69f22208baba36e21905aa444b0eda3673ec69a8ac",
+      "api_consumption_usd": "0.022625",
+      "observed_model": "google/gemini-3.8-flash-tts-20260922",
+      "observed_provider": "Google",
+      "status": "pending_actual_audio_review",
+      "audio": ".data/r3/pilot/attempts/pilot-04/audio.wav"
+    },
+    {
+      "call": "pilot-05",
+      "episode_id": "ja-ko-t1-development-1",
+      "take": 2,
+      "seconds": 52.04,
+      "frames": 1248960,
+      "wav_sha256": "a103a5a735bf981936ee185e982f51beb0999bebddec58a3531ccb79c13b6e87",
+      "pcm16le_sha256": "258d6bf90fcaf2229f92d06ec5895cf2f9b6df661ab7b2af745ecc7de44c2b93",
+      "api_consumption_usd": "0.0155975",
+      "observed_model": "google/gemini-3.8-flash-tts-20260922",
+      "observed_provider": "Google",
+      "status": "pending_actual_audio_review",
+      "audio": ".data/r3/pilot/attempts/pilot-05/audio.wav"
+    },
+    {
+      "call": "pilot-06",
+      "episode_id": "ja-ko-t1-development-3",
+      "take": 2,
+      "seconds": 112.12,
+      "frames": 2690880,
+      "wav_sha256": "395983de9ae95814ef570d65fdf58682db2f5429aacba8011f3871ebd956a94b",
+      "pcm16le_sha256": "dbf1a4093cb979687bf958e3cc80d773572c1835383b675027f38bde6136669e",
+      "api_consumption_usd": "0.0316435",
+      "observed_model": "google/gemini-3.8-flash-tts-20260922",
+      "observed_provider": "Google",
+      "status": "pending_actual_audio_review",
+      "audio": ".data/r3/pilot/attempts/pilot-06/audio.wav"
+    }
+  ],
+  "costs": {
+    "currency": "USD",
+    "known_api_consumption_subtotal": "0.1151360",
+    "total_api_consumption": null,
+    "unknown_api_consumption_calls": [
+      "pilot-01"
+    ],
+    "reason": "First generation-ID accounting GET returned HTTP404; retained as unknown, not zero. No accounting polling or retries performed. Five other explicit GETs returned actual consumption.",
+    "six_post_preflight_reservation": "0.909312",
+    "reservation_is_actual_charge": false,
+    "cash_paid": null,
+    "credit_applied": null,
+    "purchase_fees": null,
+    "taxes_fx": null,
+    "human_review_cost": null,
+    "editing_cost": null,
+    "review_work": "Automatic source/script content review and checkpoint code review completed. Actual Japanese/Korean human listening and boundary review not yet performed.",
+    "benchmark_application_costs_included": false
+  },
+  "verification": {
+    "candidate": "f39f08cdc2e46b106173cb17c42ae38cd56d2980",
+    "focused_command": "python -m pytest tests/test_prepare_tts.py -q",
+    "focused_result": "113 passed in 5.86s",
+    "independent_code_review": "Whole-checkpoint review followed by consolidated repair verification and bounded literal-export parser verification; repair_verified. Not whole-issue acceptance.",
+    "actual_surface": "Real prepare CLI, six authorized real OpenRouter TTS POSTs, six explicit accounting GETs, actual generated WAV/PCM comparisons."
+  },
+  "local_evidence": {
+    "run": ".data/r3/pilot",
+    "development_scripts": ".data/r3/scripts-v1/development.json",
+    "main_scripts": ".data/r3/scripts-v1/main.json",
+    "pre_network_failure": ".data/r3/pilot-preflight-failure.json"
+  },
+  "remaining_prerequisites": [
+    "Actual JA and KO listening/content, voice, naturalness and boundary reviews on the retained pilot takes.",
+    "Review-supported method adoption and genuine role-buffer attribution, with separate samplewise reconstruction proof.",
+    "Separately approved main-generation scope and cost cap before producing nine main reconstructions.",
+    "Reviewed main inputs and final R3 evidence handoff; do not close issue or regenerate speech for R6."
+  ]
+}
