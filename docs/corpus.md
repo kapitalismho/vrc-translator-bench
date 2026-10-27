@@ -345,8 +345,9 @@ python tools/prepare_tts.py split --wav <retained-generated.wav> --review <actua
 
 The explicit secret file supplies only `VRC_BENCH_GEMINI_API_KEY`; the owner
 identified its value as an OpenRouter key. The variable's name is retained.
-There is no ambient credential discovery, dotenv execution, key copying or
-secret logging. `.env.local` is ignored.
+An optional literal `export` prefix and matching quotes are accepted without
+executing the file. There is no ambient credential discovery, dotenv expansion,
+key copying or secret logging. `.env.local` is ignored.
 
 The owner-approved initial allowance is six **client** generation POSTs:
 development1/2/3/4, then development1/3 again. Each request reserves $0.151552

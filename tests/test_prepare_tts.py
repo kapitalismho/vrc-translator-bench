@@ -409,6 +409,8 @@ def test_malformed_truncated_or_wrong_format_response_retained(prepared, monkeyp
     ("VRC_BENCH_GEMINI_API_KEY=literal-key", "literal-key"),
     (' VRC_BENCH_GEMINI_API_KEY = "literal-key" ', "literal-key"),
     ("VRC_BENCH_GEMINI_API_KEY='literal-key'", "literal-key"),
+    ('export VRC_BENCH_GEMINI_API_KEY="literal-key"', "literal-key"),
+    ("export VRC_BENCH_GEMINI_API_KEY=one\nVRC_BENCH_GEMINI_API_KEY=two", None),
     ("OPENROUTER_API_KEY=ambient\nGOOGLE_API_KEY=ambient", None),
     ("VRC_BENCH_GEMINI_API_KEY=", None),
     ("VRC_BENCH_GEMINI_API_KEY=one\nVRC_BENCH_GEMINI_API_KEY=two", None),

@@ -245,7 +245,7 @@ def load_key(env_file):
     """Parse only the exact owner-selected literal assignment; never source dotenv."""
     values = []
     for line in Path(env_file).read_text(encoding="utf-8-sig").splitlines():
-        match = re.fullmatch(r"\s*" + KEY_NAME + r"\s*=(.*)", line)
+        match = re.fullmatch(r"\s*(?:export\s+)?" + KEY_NAME + r"\s*=(.*)", line)
         if match:
             value = match[1].strip()
             if value[:1] in ("'", '"'):
