@@ -86,35 +86,49 @@ The final focused repair suite passed **162 tests in 141.11 seconds**, including
 
 Final shared Windows Python 3.12 verification after this PR repair: **446 tests passed in 152.38 seconds**. Product/test sources were frozen before that run; only this maintained verification text was updated afterward.
 
-### R2 source-preparation checkpoint — production freeze blocked
+### R2 source freeze — approved approximate reconstruction
 
-[R2's coverage/evidence index](../corpus/r2/status.json) and
-[corpus guide](corpus.md#r2-source-review-and-preparation) preserve the fixed
-60-episode design while recording 27 typed main candidates, six development
-candidates, two C1 candidates and three unclassified ASCEND explanations.
-The three offline materializers preserve pinned sources, original grouping,
-sample mappings, references and hashes without changing historical corpus bytes.
-Actual final-catalogue materialization, output-byte/group checks and **21 focused
-tests** passed. Source-only local ASR and waveform/alignment evidence are retained
-with their failed/inconclusive attempts; no provider calls or app replay occurred.
+The owner approved `ascend-reconstruction-v1` in
+[final-plan §3.1](benchmark-final-plan.md#31-ascend): approximate speaker-offset
+reconstruction first, explicit paced fallback, and same-speaker P3 explanation.
+The original-clock and missing-intervening-audio gate is **superseded**, not
+passed. Actual speech, source/group identity, content/roles, counts and weights
+remain required. The earlier partial checkpoint and failed/inconclusive
+observations remain preserved rather than relabeled as successful restoration.
 
-This is not issue #16 completion. ASCEND's released utterances do not yet supply
-verified paired original-recording/clock mapping or actual intervening sound for
-the required P2/P3/T1 windows. Nine main and four development T1 parents remain
-unaccepted, so R3 receives no frozen parent list. IngCrowd's prepared mixed-input
-candidates retain named content/boundary review limits; FLEURS retains four
-specific acoustic/reference/endpoint holds; nonverbal C1 speech absence is
-unresolved. Automatic review is disclosed without inventing a mandatory
-human-only R2 gate. Unknown repeated speakers are not certified independent.
+[R2's current coverage/evidence index](../corpus/r2/status.json) and
+[corpus guide](corpus.md#r2-source-review-and-preparation) bind **51 main source
+episodes, 12 development episodes and two C1 controls**. ASCEND supplies 27+7
+from 589 distinct whole clips, including nine main/four development T1 parents
+with equal-length role buffers. IngCrowd supplies 18+3 with its original 54
+checkpoints and two justified crop-boundary repairs. FLEURS supplies 6+2 with
+unchanged audio and two narrowly corrected audible references alongside the
+preserved upstream text. Both historical-parent C1 crops are accepted at the
+automatic source-review level; the AMI speech minute remains excluded.
 
-The owner clarified noncommercial OSS use including promotion; promotion alone
-does not establish a CC BY-NC violation. Source-license eligibility, actual
-provider-route input terms and owner authorization to publish source-bearing
-examples remain separate. Pre-result examples/repeat candidates are recorded
-without inspecting benchmark-app results. No source substitution, reduced
-counts, weight redistribution, TTS request, code push or issue closure occurred.
-Resolve the named missing original-source and review/rights evidence before
-production acceptance; reuse existing valid artifacts across issue boundaries.
+The development ASCEND assembly preceded expansion. Final integration ran all
+three materializers, verified 65 source episode IDs, original sample/reference
+bindings, known-group separation, 13 T1 role pairs and 127 checkpoint maps.
+**55 focused tests passed, no failures or skips.** Earlier worker failures,
+inconclusive recognitions, source clipping and uncalibrated endpoint limits
+remain recorded. Review is automatic, not human listening or model-family
+independence; unknown repeated participants are not certified independent.
+
+R3's source handoff is the immutable
+`.data/r2/integration-reconstruction-v1/ascend/t1-parent-manifest.json`, SHA-256
+`fe64af849500faa154238076936b158dbf9129ee46b7cc474e9573e1b1d48298`.
+R3 still owns nine main/four development JA/KO descendants, the separate
+key/cost/route authorization, actual generation and bilingual review. R6 still
+owns source-to-device/app integration and final runtime admission.
+
+Offline source freeze is not blanket external-service or public-media
+clearance. The owner's stated noncommercial OSS promotion purpose is retained;
+route-specific input-grant/settings facts and publication authorization are
+separate gates. The status index freezes source identities; final Director
+Goal acceptance binds independent review at the exact candidate. No TTS or
+provider call, app replay, remote push, PR publication or issue closure is
+claimed by this checkpoint.
+
 
 ### What “through issue #8” means
 
@@ -205,7 +219,7 @@ The owner approved consolidating integrated verification in R6 rather than repea
 
 - **Kikitan:** use the approved headless WebSocket microphone/self route with `desktop_translation=false`, `send_user_data=false`, `send_to_chatbox=false` and the exact cable microphone. Preserve ordinary self and separate A/B self passes. The accepted KIKI2 EN→ZH experiment supports only that bounded route; KIKI1's earlier headless capture crash remains a separate unresolved risk. Do not launch VRChat, spoof a process, patch the app, relabel self as peer or copy historical chatbox success to unobserved WebSocket scopes.
 - **Collection:** full text and usable timing are separate admissions. A missing producer timestamp alone is not a reason to build invasive instrumentation; verify a useful observation interval. Real truncation, missing intermediate history, ambiguous roles and collector gaps remain substantive limits.
-- **ASCEND T1:** verify both original sides and common timing before making parents. Insufficient eligible material blocks the fixed corpus freeze; it does not authorize synthetic English/Chinese parents or arbitrary gaps.
+- **ASCEND T1:** apply the owner-approved `ascend-reconstruction-v1` condition: actual original-person speech and supported conversational order, approximate offset first or declared reconstructed gaps, reviewed common playback timing, both substantive targets and group separation. Original recorder-clock proof and missing-gap audio are superseded prerequisites, not required external inputs. Insufficient eligible counts/content/role integrity still block source acceptance. No synthetic English/Chinese parents or undisclosed gap editing is authorized.
 - **IngCrowd:** adoption is settled, but actual use-purpose/noncommercial compatibility, external-service input and public examples need rights review. Do not substitute another source silently.
 - **Gemini 3.8 Flash TTS:** before any live request, including development generation, ask the owner to configure an appropriate Google Gemini API key locally for the selected model. Specify the actual configuration location, required project/model/billing access and proposed bounded usage. Wait for setup confirmation and scoped usage authorization; never request or expose the secret value in issues/chat/source/logs, borrow another app's credentials or substitute a provider. Both JA and KO still require actual content/listening/role-boundary review.
 - **Judge:** use the selected existing Astra subscription route; no paid fallback. Real two-stage discrimination and bounded variability remain unmeasured.
@@ -271,7 +285,7 @@ Prepare ASCEND EN/ZH P1–P3/T1 parents, IngCrowd JA P1–P3, FLEURS EN/JA P4, d
 
 ### Requirements
 
-Implement final-plan §§2–5 selection, fixed cell counts/weights, audible references, context-versus-translation scope, original-group split, nonoverlapping intervals, role buffers and pre-result semantic checkpoints. Pin source revision/split/IDs/files/licenses and actual audio/reference hashes. Prove EN/ZH T1 common origin, both sides and substantive translation targets before freezing R3 parents. Select permitted public-example candidates before viewing app results.
+Implement final-plan §§2–5 selection, including the owner-approved `ascend-reconstruction-v1` amendment, fixed cell counts/weights, audible references, context-versus-translation scope, original-group split, nonoverlapping source uses, role buffers and pre-result semantic checkpoints. Pin source revision/split/IDs/files/licenses and actual audio/reference hashes. Establish EN/ZH T1 source relationships, both original-person sides, substantive translation targets and the explicitly reconstructed common playback timeline before freezing R3 parents. Select permitted public-example candidates before viewing app results.
 
 ### Completion Criteria
 

@@ -1,7 +1,41 @@
 {
   "schema_version": 1,
   "issue": "https://github.com/kapitalismho/vrc-translator-bench/issues/16",
-  "status": "prepared_candidates_not_production_freeze",
+  "status": "source_accepted_frozen",
+  "source_acceptance": {
+    "status": "accepted",
+    "scope": "source artifact freeze, not R6 app admission or blanket external-processing/publication clearance",
+    "accepted_main": {
+      "P1": 3,
+      "P2": 9,
+      "P3": 6
+    },
+    "accepted_development": {
+      "P1": 1,
+      "P2": 1,
+      "P3": 1
+    },
+    "specific_holds_remaining": 0,
+    "source_review_path": ".data/r2/ingcrowd/source-acceptance-v1/source-review.json",
+    "source_review_sha256": "2b2909363f039c05de9ad980728c872e9a6501a3c71d62ee2b4c2c80ca8cbfa7",
+    "verification_path": ".data/r2/ingcrowd/source-acceptance-v1/verification.json",
+    "verification_sha256": "74c29b1873abc2d22957f349512b5c2d3a86a13c20aacf82e472623531d9f9db",
+    "materialization_path": ".data/r2/ingcrowd/source-acceptance-v1/prepared/materialization.json",
+    "materialization_sha256": "954df9724082d3fa96b3bf801bd2bf2a0d8d6bf3e130b49d3913d3485724d9fe",
+    "executed_checks": "12 focused tests passed; fresh materializer exited0 and rendered all21 source-accepted cases with fixed counts, original hashes, decoded/sample roundtrips, references,54 checkpoints, gap/nonoverlap and dialogue/known-group checks.",
+    "execution_metadata_notice": "These execution bindings were added after the actual smoke. Its exact input catalogue snapshot is retained in the prepared directory; candidate WAV/reference parameters are unchanged by this evidence-only addition.",
+    "review_level": "Original human EAF semantics plus actual original-source waveform/sample analysis and retained87Reazon/24Qwen observations; no new ASR run, no listening",
+    "boundary_changed_ids": [
+      "ingcrowd-main-P2-06",
+      "ingcrowd-main-P3-03"
+    ],
+    "reference_changes": "New accepted-reference schema and explicit per-annotation source-review notes for all21; original EAF text/annotation sets and54 checkpoint definitions unchanged. Only two crop-relative sample origins/durations change.",
+    "repeat_selection": "Original P3-03 and all other repeat/public-example selections retained. No app results viewed.",
+    "unknown_recurring_speakers_independent": false,
+    "source_bytes_changed": false,
+    "historical_materializations_preserved": true,
+    "uncertainty_policy": "Original human unknown fragments remain verbatim and unresolved only at the marker. No invented lexical target or blanket sentence exemption; surrounding intelligible meaning, numbers, conditions and all speakers remain in reference and score scope."
+  },
   "source": {
     "dataset": "IngCrowd/japanese-themed-dialogue",
     "revision": "e2eed8769400269f20821deb0e47e68b40012e8b",
@@ -84,45 +118,51 @@
     },
     "weights_redistributed": false,
     "episode_weighting": "equal within each fixed cell; checkpoints/utterances/speakers are not extra samples",
-    "T1": "outside IngCrowd: R3, selected ASCEND parents prerequisite remains blocked",
+    "T1": "Outside IngCrowd: R3 JA/KO T1 derives from ASCEND parents under the owner-approved reconstruction protocol; no IngCrowd substitution.",
     "P4": "separate R2 FLEURS artifact; no IngCrowd replacement"
   },
   "counts": {
     "P1": {
       "main_required": 3,
       "main_materialized_candidates": 3,
-      "main_accepted_frozen": 0,
-      "main_not_frozen": 3,
+      "main_accepted_frozen": 3,
+      "main_not_frozen": 0,
       "main_asr_core_supported_candidates": 3,
       "main_held_for_specific_content_or_boundary_review": 0,
       "development_required_minimum": 1,
       "development_materialized_candidates": 1,
-      "development_accepted_frozen": 0,
-      "reason": "All three main P1 core meanings now have source-only ASR support. The targeted Qwen observation corroborates the previously omitted primary request on the unchanged crop; core support is not complete audible-reference/endpoint certification or production freeze."
+      "development_accepted_frozen": 1,
+      "reason": "All required IngCrowd source cases accepted at the declared automatic source-review level. Source freeze is distinct from R6 app admission and external-provider/publication permission; no exact phonetic or perfect recognizer agreement claim.",
+      "main_source_accepted": 3,
+      "development_source_accepted": 1
     },
     "P2": {
       "main_required": 9,
       "main_materialized_candidates": 9,
-      "main_accepted_frozen": 0,
-      "main_not_frozen": 9,
+      "main_accepted_frozen": 9,
+      "main_not_frozen": 0,
       "main_asr_core_supported_candidates": 5,
-      "main_held_for_specific_content_or_boundary_review": 4,
+      "main_held_for_specific_content_or_boundary_review": 0,
       "development_required_minimum": 1,
       "development_materialized_candidates": 1,
-      "development_accepted_frozen": 0,
-      "reason": "All nine mixed-input candidates remain materialized. Targeted second observations resolve the named core-content holds in P2-01 through P2-05 within the disclosed limits. P2-06 through P2-09 retain specific boundary/reference/lexical questions. No ASR string-agreement requirement, cell substitution or weight redistribution."
+      "development_accepted_frozen": 1,
+      "reason": "All required IngCrowd source cases accepted at the declared automatic source-review level. Source freeze is distinct from R6 app admission and external-provider/publication permission; no exact phonetic or perfect recognizer agreement claim.",
+      "main_source_accepted": 9,
+      "development_source_accepted": 1
     },
     "P3": {
       "main_required": 6,
       "main_materialized_candidates": 6,
-      "main_accepted_frozen": 0,
-      "main_not_frozen": 6,
+      "main_accepted_frozen": 6,
+      "main_not_frozen": 0,
       "main_asr_core_supported_candidates": 3,
-      "main_held_for_specific_content_or_boundary_review": 3,
+      "main_held_for_specific_content_or_boundary_review": 0,
       "development_required_minimum": 1,
       "development_materialized_candidates": 1,
-      "development_accepted_frozen": 0,
-      "reason": "All six complete explanation candidates are materialized. Three have independent support for their core checkpoints; three retain specific content/uncertainty/endpoint questions. No automatic full-fidelity certification or production freeze is claimed."
+      "development_accepted_frozen": 1,
+      "reason": "All required IngCrowd source cases accepted at the declared automatic source-review level. Source freeze is distinct from R6 app admission and external-provider/publication permission; no exact phonetic or perfect recognizer agreement claim.",
+      "main_source_accepted": 6,
+      "development_source_accepted": 1
     }
   },
   "pre_result_selection": {
@@ -153,15 +193,15 @@
     "targeted_second_observation": "R2-TERMINAL-1: actually executed the already exercised offline no-hints Qwen standalone procedure on 24 bounded views of the 15 previously held cases only. All processes exited zero with actual audio-conditioning and generation markers. One summer-failure view corroborates its initial target clause but then degenerates repetitively; that partial failure is retained. Current per-case outcomes and remaining questions are recorded in targeted_terminal_review.",
     "actual_listening": false,
     "acoustic_fidelity_certified": false,
-    "annotation_uncertainty": "Literal uncertainty/laughter markers retained locally. Full EAF includes both speakers; no product ASR replacement.",
-    "mixed_policy": "P1/P2/P3 use the original mixed WAV; all source gaps and overlapping speakers remain. No individual-track leakage-free or role-isolation claim."
+    "annotation_uncertainty": "Original unknown markers retained only for their inline fragments, never as full-annotation exemptions. Clear surrounding lexical content, numbers, conditions and nonlexical reactions stay in scope.",
+    "mixed_policy": "P1/P2/P3 use the original mixed WAV; all source gaps and overlapping speakers remain. No individual-track leakage-free or role-isolation claim.",
+    "source_acceptance": "All21 source cases accepted after concrete boundary repairs for P2-06/P3-03 and bounded source-reference decisions for the other six holds. Original human words/unknown markers and all54 checkpoint definitions retained; see source_acceptance."
   },
   "freeze_gates": [
-    "Resolve each specifically held audible-reference or crop-boundary question using suitable source/audio evidence. Automatic source-semantic/waveform/independent-ASR evidence can support R2 within its declared limits; human listening is not a mandatory gate and CER is not an acceptance threshold.",
-    "Preserve whole-dialogue and all discoverable known connected-participant grouping; unknown recurring participants are not independently certified.",
-    "External-provider compatibility must be cleared separately for each intended actual route/account before transmission.",
-    "Source-bearing public examples require publication authorization, CC conditions and content/privacy review; preselection is not publication approval.",
-    "Global #16 freeze remains blocked by unavailable ASCEND T1 parents; do not replace data or redistribute weights."
+    "IngCrowd source acceptance is complete at the declared automatic review level. R6 app routing/capture admission is separate, not a prerequisite for this source freeze.",
+    "Preserve whole-dialogue and all discoverable known connected-participant grouping; unknown recurring participants are not certified independent.",
+    "Before external transmission, clear the actual route/account input-rights and retention settings separately.",
+    "Before source-bearing public examples, obtain publication authorization and apply CC BY-NC attribution/modification/privacy conditions."
   ],
   "execution_evidence": {
     "materialization": {
@@ -266,7 +306,7 @@
     "core_support_does_not_mean_frozen": true,
     "development_asr_core_supported_candidates": {"P1": 1, "P2": 1, "P3": 0},
     "development_held_candidates": {"P1": 0, "P2": 0, "P3": 1},
-    "observations_phase": "The following observations and statuses preserve the original Reazon stage unchanged. Current statuses for the 15 followed-up cases are in targeted_terminal_review.outcomes; counts above include that later evidence.",
+    "observations_phase": "Historical Reazon/Qwen screening observations and counters are preserved below. Source acceptance, its concrete hold closures and current21-case acceptance state are recorded in source_acceptance; recognizer noncorroboration is not a current source rejection.",
     "observations": [
       {"id": "ingcrowd-main-P1-01", "status": "core_checkpoint_supported", "observation": "Independent ASR corroborates the complete recent-electricity-price question. Boundary 50ms RMS is -53.14/-67.46 dBFS. No concrete sensitive disclosure found in the selected source row; public-example authorization remains separate."},
       {"id": "ingcrowd-main-P1-02", "status": "held_specific_content", "observation": "ASR recognizes the interlocutor's follow-up question but not the primary attention request. This is noncorroboration, not proof the request is inaudible. Trailing EAF shoulder is 90ms."},
@@ -294,7 +334,7 @@
   "targeted_terminal_review": {
     "finding": "R2-TERMINAL-1",
     "classification": "Bounded missing verification completed; no product defect or product repair established.",
-    "current_status_precedence": "These outcomes supersede only the earlier Reazon-stage status for the same named held case. Earlier failed/inconclusive observations, source audio, original references, checkpoints, repeats and selection remain unchanged.",
+    "current_status_precedence": "Historical second-observation outcomes before the eight residual source decisions. The source_acceptance record now supersedes those holds without erasing failed/inconclusive observations or changing their raw evidence.",
     "newly_core_supported_main": 6,
     "newly_core_supported_development": 1,
     "current_core_supported_main": {"P1": 3, "P2": 5, "P3": 3},
@@ -340,11 +380,11 @@
       {"id": "ingcrowd-development-P2-01", "status": "core_checkpoints_supported", "views": ["missed-classes"], "result": "Dream nonattendance/oversleeping causal meaning corroborated. Qwen substitutes a graduation noun for the human class noun; exact lexical fidelity is not certified and the original class word stays unchanged."},
       {"id": "ingcrowd-development-P3-01", "status": "held_specific_content", "views": ["milking-frequency", "dry-period"], "result": "Twice-daily milking broadly supported, but morning/evening and dry-period/milk terms remain garbled. Original a190 uncertainty and precise lexical/condition interpretation remain unresolved."}
     ],
-    "remaining_prerequisite_policy": "Settle the eight specifically remaining reference/lexical/boundary treatments and final anchors with suitable source/acoustic evidence before source acceptance. This bounded second-observation assignment does not require recognizer agreement, mandatory human-only review, endless models or changed/easier playback. General full-fidelity and provisional-time limits still apply even to core-supported cases.",
+    "remaining_prerequisite_policy": "Historical eight residual questions are all closed by the bound source-acceptance-v1 decisions: two source-quality boundary repairs and explicit original-human-reference/unknown-fragment treatment. No perfect recognizer agreement, mandatory human review or exact phonetic certification was added.",
     "no_changes": "No source/production audio, human references, pre-result selection/checkpoints, materializer, tests, maintained docs, Git or remote state changed. Prior observations remain retained. Global ASCEND blocker was not used to avoid this reachable review."
   },
   "reproduction": {
-    "prepare_command": "python tools/prepare_ingcrowd.py prepare --retained .data/r2/ingcrowd/sources --output .data/r2/ingcrowd/prepared-v1",
+    "prepare_command": "python tools/prepare_ingcrowd.py prepare --retained .data/r2/ingcrowd/sources --output .data/r2/ingcrowd/source-acceptance-v1/prepared",
     "download_method": "Fetch each sources[].wav_url/eaf_url and source.card_url as pinned direct public downloads to matching retained paths, and verify SHA256; no dataset loader, provider or account settings.",
     "playback_format": "mono PCM16 WAV 16000 Hz, exact original mixed-track sample crop; R6 owns app routing and any separately pinned conversion.",
     "local_output": "playback WAVs, original-human-EAF references with literal quotes/checkpoints and materialization evidence under .data/r2/ingcrowd/",
@@ -520,11 +560,11 @@
           ]
         }
       ],
-      "status": "materialized_candidate_not_accepted",
-      "acoustic_review": "pending; no listening or certified endpoints",
+      "status": "source_accepted",
+      "acoustic_review": "automatic source semantic/waveform review complete with retained limits; not listening or exact phonetic certification",
       "selection_basis": "original human EAF semantics before any benchmark app results",
       "playback_s16le_sha256": "ce87532ccfeeb49fe357289a7a8a4833b3051aea331284159d21089a7cb523ad",
-      "reference_json_sha256": "486462b531dd17aa2f82b66b3311658cf2145e203b4bdcf8b05d2d6cdee0cbff",
+      "reference_json_sha256": "2a243822ebe8181f11d97d0c63110bdc589c23002efa220eb6de27ad4a2631c3",
       "playback_wav_sha256": "6f851f1d13359c9ab918d5250ac3ef2772e2e5d2ca76d3dd1b521f1987ae5288",
       "boundary_shoulders_ms": [
         230,
@@ -532,7 +572,13 @@
       ],
       "boundary_review_flags": [],
       "duration_seconds": 3.22,
-      "duration_exception": null
+      "duration_exception": null,
+      "source_review": {
+        "status": "accepted",
+        "decision_id": "source-acceptance-v1/ingcrowd-main-P1-01",
+        "annotation_notes": {},
+        "timing_policy": "Fixed original human EAF evidence-end anchors in the original16kHz sample clock, reviewed before app results; approximate acoustic ends, not phonetic calibration."
+      }
     },
     {
       "id": "ingcrowd-main-P1-02",
@@ -578,11 +624,11 @@
           ]
         }
       ],
-      "status": "materialized_candidate_not_accepted",
-      "acoustic_review": "pending; no listening or certified endpoints",
+      "status": "source_accepted",
+      "acoustic_review": "automatic source semantic/waveform review complete with retained limits; not listening or exact phonetic certification",
       "selection_basis": "original human EAF semantics before any benchmark app results",
       "playback_s16le_sha256": "0b3d3b857d749eacc290f2a93e5f829f0a34860600872c221f4db946c72b8312",
-      "reference_json_sha256": "3133884e78593734246056e3ca53e2ad47b4b0e2a31db590b278269b0661f53a",
+      "reference_json_sha256": "52fe79cab7f9148eb2c543c605adec3a9bc89e505979126581461d6d0cf7a541",
       "playback_wav_sha256": "b840c840ccaf78285508b930f9fde1d73152fb2da1952a47a4e6b6e7b888690b",
       "boundary_shoulders_ms": [
         250,
@@ -592,7 +638,13 @@
         "short_annotated_shoulder_under_100ms"
       ],
       "duration_seconds": 3.66,
-      "duration_exception": null
+      "duration_exception": null,
+      "source_review": {
+        "status": "accepted",
+        "decision_id": "source-acceptance-v1/ingcrowd-main-P1-02",
+        "annotation_notes": {},
+        "timing_policy": "Fixed original human EAF evidence-end anchors in the original16kHz sample clock, reviewed before app results; approximate acoustic ends, not phonetic calibration."
+      }
     },
     {
       "id": "ingcrowd-main-P1-03",
@@ -628,11 +680,11 @@
           ]
         }
       ],
-      "status": "materialized_candidate_not_accepted",
-      "acoustic_review": "pending; no listening or certified endpoints",
+      "status": "source_accepted",
+      "acoustic_review": "automatic source semantic/waveform review complete with retained limits; not listening or exact phonetic certification",
       "selection_basis": "original human EAF semantics before any benchmark app results",
       "playback_s16le_sha256": "74905842df3e9155ec8c4746d34c1fc15f7538e207e067ebc352f5669146c100",
-      "reference_json_sha256": "e06e7b847d7710c636260d95fe368792528d7028a751fa8967299de811338360",
+      "reference_json_sha256": "43c948fdc78ac16c15031b564ee398967497df5e96f6786a0ba6b552e0f8aad6",
       "playback_wav_sha256": "3bb72dd02326b7b41537aa700f5dbb08b0c344892e0279ab0e847eadc9dbd694",
       "boundary_shoulders_ms": [
         245,
@@ -640,7 +692,13 @@
       ],
       "boundary_review_flags": [],
       "duration_seconds": 4.985,
-      "duration_exception": null
+      "duration_exception": null,
+      "source_review": {
+        "status": "accepted",
+        "decision_id": "source-acceptance-v1/ingcrowd-main-P1-03",
+        "annotation_notes": {},
+        "timing_policy": "Fixed original human EAF evidence-end anchors in the original16kHz sample clock, reviewed before app results; approximate acoustic ends, not phonetic calibration."
+      }
     },
     {
       "id": "ingcrowd-main-P2-01",
@@ -732,11 +790,11 @@
           ]
         }
       ],
-      "status": "materialized_candidate_not_accepted",
-      "acoustic_review": "pending; no listening or certified endpoints",
+      "status": "source_accepted",
+      "acoustic_review": "automatic source semantic/waveform review complete with retained limits; not listening or exact phonetic certification",
       "selection_basis": "original human EAF semantics before any benchmark app results",
       "playback_s16le_sha256": "70fa04f8aecd39e7c5837435d4a84802084c9ec1599931b440d34a475e8c378d",
-      "reference_json_sha256": "4d3899ac44b88fb6ffcfd2199c0d2fddee4b520171cf75e271623f7a906344ce",
+      "reference_json_sha256": "9399e164638ec32fdefd3dd3876feb30414a9f8883895852cc149a3acd537cb4",
       "playback_wav_sha256": "1b5ea04201b2d27dc6bd10b50f7fada251e5a893ef522ac9ee279d8bd3a63aca",
       "boundary_shoulders_ms": [
         250,
@@ -744,7 +802,13 @@
       ],
       "boundary_review_flags": [],
       "duration_seconds": 56.995,
-      "duration_exception": null
+      "duration_exception": null,
+      "source_review": {
+        "status": "accepted",
+        "decision_id": "source-acceptance-v1/ingcrowd-main-P2-01",
+        "annotation_notes": {},
+        "timing_policy": "Fixed original human EAF evidence-end anchors in the original16kHz sample clock, reviewed before app results; approximate acoustic ends, not phonetic calibration."
+      }
     },
     {
       "id": "ingcrowd-main-P2-02",
@@ -832,11 +896,11 @@
           ]
         }
       ],
-      "status": "materialized_candidate_not_accepted",
-      "acoustic_review": "pending; no listening or certified endpoints",
+      "status": "source_accepted",
+      "acoustic_review": "automatic source semantic/waveform review complete with retained limits; not listening or exact phonetic certification",
       "selection_basis": "original human EAF semantics before any benchmark app results",
       "playback_s16le_sha256": "d4e3203db6cb70354aa3a1464d413ea3e4ea35008904858b3fa177e233d34faa",
-      "reference_json_sha256": "b15e2b9b958f65e989a7f813acd857f55bfd69ef08ca38c403cebec25ff20f3a",
+      "reference_json_sha256": "cd1fd30852f5a0a9e4711502b38aaafb99e0b403e1ff88563b1b60b6eb9549d9",
       "playback_wav_sha256": "78ddbaadfc501ea17b2c3fc782497eb7b1646970975e46397d19348bf3845fb9",
       "boundary_shoulders_ms": [
         250,
@@ -844,7 +908,13 @@
       ],
       "boundary_review_flags": [],
       "duration_seconds": 55.36,
-      "duration_exception": null
+      "duration_exception": null,
+      "source_review": {
+        "status": "accepted",
+        "decision_id": "source-acceptance-v1/ingcrowd-main-P2-02",
+        "annotation_notes": {},
+        "timing_policy": "Fixed original human EAF evidence-end anchors in the original16kHz sample clock, reviewed before app results; approximate acoustic ends, not phonetic calibration."
+      }
     },
     {
       "id": "ingcrowd-main-P2-03",
@@ -929,11 +999,11 @@
           ]
         }
       ],
-      "status": "materialized_candidate_not_accepted",
-      "acoustic_review": "pending; no listening or certified endpoints",
+      "status": "source_accepted",
+      "acoustic_review": "automatic source semantic/waveform review complete with retained limits; not listening or exact phonetic certification",
       "selection_basis": "original human EAF semantics before any benchmark app results",
       "playback_s16le_sha256": "9d92843f5ea8bfcfcb4d41d12efccac3fb4eb5e5140d2b70288a93b6f47e059d",
-      "reference_json_sha256": "8fa431f2aab431017e695309bcbb4b72e13e5fcf0356f9ac36312ad24290f01a",
+      "reference_json_sha256": "1ca15d666f8ad551f31b57e1208b0b1dec215802f2609d934a4ef7d0442a1e06",
       "playback_wav_sha256": "4078d6854d59a19a7fce649d08f3f656e6e704b725ddf7bbb207259f3fb31134",
       "boundary_shoulders_ms": [
         250,
@@ -943,7 +1013,13 @@
         "short_annotated_shoulder_under_100ms"
       ],
       "duration_seconds": 58.22,
-      "duration_exception": null
+      "duration_exception": null,
+      "source_review": {
+        "status": "accepted",
+        "decision_id": "source-acceptance-v1/ingcrowd-main-P2-03",
+        "annotation_notes": {},
+        "timing_policy": "Fixed original human EAF evidence-end anchors in the original16kHz sample clock, reviewed before app results; approximate acoustic ends, not phonetic calibration."
+      }
     },
     {
       "id": "ingcrowd-main-P2-04",
@@ -1049,11 +1125,11 @@
           ]
         }
       ],
-      "status": "materialized_candidate_not_accepted",
-      "acoustic_review": "pending; no listening or certified endpoints",
+      "status": "source_accepted",
+      "acoustic_review": "automatic source semantic/waveform review complete with retained limits; not listening or exact phonetic certification",
       "selection_basis": "original human EAF semantics before any benchmark app results",
       "playback_s16le_sha256": "d6e77321a5dcecdcaa0039217c8de578fbfd319dd70877729260476516c59390",
-      "reference_json_sha256": "6430e33aed1d36bc7ae0d6e1d6c16c085d9f9a2e47767394fb5111286cb99f92",
+      "reference_json_sha256": "6f045c1d5c3a1a95fed43f13edc7fa5ae267165061e18eb650b6eaa315152759",
       "playback_wav_sha256": "1a762582bbe97486ac44e8b3a45a4881814000ade2eab2a5e118273586292366",
       "boundary_shoulders_ms": [
         250,
@@ -1061,7 +1137,13 @@
       ],
       "boundary_review_flags": [],
       "duration_seconds": 101.91,
-      "duration_exception": "Kept complete source semantic/context unit rather than trimming to the approximate 30–90 s work target."
+      "duration_exception": "Kept complete source semantic/context unit rather than trimming to the approximate 30–90 s work target.",
+      "source_review": {
+        "status": "accepted",
+        "decision_id": "source-acceptance-v1/ingcrowd-main-P2-04",
+        "annotation_notes": {},
+        "timing_policy": "Fixed original human EAF evidence-end anchors in the original16kHz sample clock, reviewed before app results; approximate acoustic ends, not phonetic calibration."
+      }
     },
     {
       "id": "ingcrowd-main-P2-05",
@@ -1166,11 +1248,11 @@
           ]
         }
       ],
-      "status": "materialized_candidate_not_accepted",
-      "acoustic_review": "pending; no listening or certified endpoints",
+      "status": "source_accepted",
+      "acoustic_review": "automatic source semantic/waveform review complete with retained limits; not listening or exact phonetic certification",
       "selection_basis": "original human EAF semantics before any benchmark app results",
       "playback_s16le_sha256": "79bd63fe62040d15990bd7e6ffb512bfbb2ef04d4c5cd1ef3808476a9027cdf7",
-      "reference_json_sha256": "7eaa8f65e694b4eb479085e938c1012cee7cc1f2582d818b7636a06f22c64502",
+      "reference_json_sha256": "86e6a3efb41caa01c0350edebf7fe2c6c4c9edb41ecd2de02a49517f4262e2f5",
       "playback_wav_sha256": "580a7528464a004468bd3cff4321a5e306af099e1e89cd8d4d6c6aac7057640f",
       "boundary_shoulders_ms": [
         152,
@@ -1178,7 +1260,13 @@
       ],
       "boundary_review_flags": [],
       "duration_seconds": 81.002,
-      "duration_exception": null
+      "duration_exception": null,
+      "source_review": {
+        "status": "accepted",
+        "decision_id": "source-acceptance-v1/ingcrowd-main-P2-05",
+        "annotation_notes": {},
+        "timing_policy": "Fixed original human EAF evidence-end anchors in the original16kHz sample clock, reviewed before app results; approximate acoustic ends, not phonetic calibration."
+      }
     },
     {
       "id": "ingcrowd-main-P2-06",
@@ -1186,11 +1274,11 @@
       "project_split": "main",
       "dialogue": "06",
       "source_samples": [
-        5943120,
+        5938960,
         7520480
       ],
       "source_milliseconds": [
-        371445,
+        371185,
         470030
       ],
       "annotation_ids": [
@@ -1288,19 +1376,29 @@
           ]
         }
       ],
-      "status": "materialized_candidate_not_accepted",
-      "acoustic_review": "pending; no listening or certified endpoints",
+      "status": "source_accepted",
+      "acoustic_review": "automatic source semantic/waveform review complete with retained limits; not listening or exact phonetic certification",
       "selection_basis": "original human EAF semantics before any benchmark app results",
-      "playback_s16le_sha256": "6e5749580e6fc810449a35f979d030cb454e69a2bbb41858bcd2443b2a005c1e",
-      "reference_json_sha256": "3459db32f7cf2f4b9736bf20490e7ec003707d07371f77379385621d6ee00876",
-      "playback_wav_sha256": "b3020472574e4ff40d709d579e526a137f6329e974b5feb9316ff123a9cd93f4",
+      "playback_s16le_sha256": "fb23662e9845685406869317588a7535c94204cbf53714bdddd2bf3cd05b8bc6",
+      "reference_json_sha256": "bf1f02478f305620481082d2a1e51f74f4bc0694cd40bf9760a03ba863d25f81",
+      "playback_wav_sha256": "05542ef7f647476574eb9e22c5cd7c50dd677d6fc1674772fc58e30498ebfad8",
       "boundary_shoulders_ms": [
-        250,
+        510,
         250
       ],
       "boundary_review_flags": [],
-      "duration_seconds": 98.585,
-      "duration_exception": "Kept complete source semantic/context unit rather than trimming to the approximate 30–90 s work target."
+      "duration_seconds": 98.845,
+      "duration_exception": "Kept complete source semantic/context unit rather than trimming to the approximate 30–90 s work target.",
+      "source_review": {
+        "status": "accepted",
+        "decision_id": "source-acceptance-v1/ingcrowd-main-P2-06",
+        "annotation_notes": {
+          "a234": {
+            "decision": "Leading EAF start is loose: retain the complete source vocal onset from the newly selected preceding acoustic valley. EAF text and end anchor unchanged."
+          }
+        },
+        "timing_policy": "Fixed original human EAF evidence-end anchors in the original16kHz sample clock, reviewed before app results; approximate acoustic ends, not phonetic calibration."
+      }
     },
     {
       "id": "ingcrowd-main-P2-07",
@@ -1394,11 +1492,11 @@
           ]
         }
       ],
-      "status": "materialized_candidate_not_accepted",
-      "acoustic_review": "pending; no listening or certified endpoints",
+      "status": "source_accepted",
+      "acoustic_review": "automatic source semantic/waveform review complete with retained limits; not listening or exact phonetic certification",
       "selection_basis": "original human EAF semantics before any benchmark app results",
       "playback_s16le_sha256": "27814cc318b61b27bd4958816f6e4499700c60cd1a5d9cd6fa133b80a1854a66",
-      "reference_json_sha256": "d4cf0d31f329af916ee82b3cf7315dc17841960c2d4959c06474d33484f5450b",
+      "reference_json_sha256": "f3dd53e527141ca4a28ed57187afc44cfc77d0d20cc3492093fade3d435b955d",
       "playback_wav_sha256": "0e07d148245de3fbe0b2b115665bbb23a42e6b6ceaedc0a92ed1a9ef2c46d752",
       "boundary_shoulders_ms": [
         65,
@@ -1408,7 +1506,17 @@
         "short_annotated_shoulder_under_100ms"
       ],
       "duration_seconds": 72.64,
-      "duration_exception": null
+      "duration_exception": null,
+      "source_review": {
+        "status": "accepted",
+        "decision_id": "source-acceptance-v1/ingcrowd-main-P2-07",
+        "annotation_notes": {
+          "a98": {
+            "decision": "Use original human homework word and tablet/summer context; inconsistent recognizer alternatives are screening errors, not a source correction."
+          }
+        },
+        "timing_policy": "Fixed original human EAF evidence-end anchors in the original16kHz sample clock, reviewed before app results; approximate acoustic ends, not phonetic calibration."
+      }
     },
     {
       "id": "ingcrowd-main-P2-08",
@@ -1512,11 +1620,11 @@
           ]
         }
       ],
-      "status": "materialized_candidate_not_accepted",
-      "acoustic_review": "pending; no listening or certified endpoints",
+      "status": "source_accepted",
+      "acoustic_review": "automatic source semantic/waveform review complete with retained limits; not listening or exact phonetic certification",
       "selection_basis": "original human EAF semantics before any benchmark app results",
       "playback_s16le_sha256": "b934aac23ce7ea2616c2fe4b83eacbdd14e358ade5ae285c832ab05085cd0a43",
-      "reference_json_sha256": "0ff36b24f230d85ccc313d158f1ac72e74cca50f2cde2b32767f8dfe4f07c39b",
+      "reference_json_sha256": "c60b52a687a3498f9ab875d479cf4a5041e08003b001ad05056cfde6debc0830",
       "playback_wav_sha256": "011e04a1acc782bd4bb81e33c82e154b58dd3fef1fd610fb751dbc52b1971383",
       "boundary_shoulders_ms": [
         12,
@@ -1526,7 +1634,18 @@
         "short_annotated_shoulder_under_100ms"
       ],
       "duration_seconds": 85.438,
-      "duration_exception": null
+      "duration_exception": null,
+      "source_review": {
+        "status": "accepted",
+        "decision_id": "source-acceptance-v1/ingcrowd-main-P2-08",
+        "annotation_notes": {
+          "a183": {
+            "uncertainty_scope": "original_marker_only",
+            "decision": "Unknown inline fragment remains unknown. Installer advice and all surrounding lexical content remain translation targets; do not invent a manufacturer or exempt the sentence."
+          }
+        },
+        "timing_policy": "Fixed original human EAF evidence-end anchors in the original16kHz sample clock, reviewed before app results; approximate acoustic ends, not phonetic calibration."
+      }
     },
     {
       "id": "ingcrowd-main-P2-09",
@@ -1598,11 +1717,11 @@
           ]
         }
       ],
-      "status": "materialized_candidate_not_accepted",
-      "acoustic_review": "pending; no listening or certified endpoints",
+      "status": "source_accepted",
+      "acoustic_review": "automatic source semantic/waveform review complete with retained limits; not listening or exact phonetic certification",
       "selection_basis": "original human EAF semantics before any benchmark app results",
       "playback_s16le_sha256": "1b2418198fc4cb7f3bd62401d69fa38a77a46e9afc140ea1f75ec90a1a258943",
-      "reference_json_sha256": "d8ed57ac66648b37b22087b7d1221706ffe9be658e3c1cb4c0682a876c62fff4",
+      "reference_json_sha256": "6d83911e63246986d0ed2cfb84e6879c1a67ccf6006c7ba85ff8be5ac73525b0",
       "playback_wav_sha256": "991ab3530db2201c2f18bd46a4ee733b7d7d83315a71fe2cda7920bdbcd52ea2",
       "boundary_shoulders_ms": [
         120,
@@ -1610,7 +1729,20 @@
       ],
       "boundary_review_flags": [],
       "duration_seconds": 46.45,
-      "duration_exception": null
+      "duration_exception": null,
+      "source_review": {
+        "status": "accepted",
+        "decision_id": "source-acceptance-v1/ingcrowd-main-P2-09",
+        "annotation_notes": {
+          "a170": {
+            "decision": "Retain the human product-name spelling; normal Korean product-name transliterations are allowed, not substitution of a different service."
+          },
+          "a28": {
+            "decision": "Retain occasional falsehood, not always false; this short remark overlaps the other participant introduction and ASR is not a replacement reference."
+          }
+        },
+        "timing_policy": "Fixed original human EAF evidence-end anchors in the original16kHz sample clock, reviewed before app results; approximate acoustic ends, not phonetic calibration."
+      }
     },
     {
       "id": "ingcrowd-main-P3-01",
@@ -1706,11 +1838,11 @@
           ]
         }
       ],
-      "status": "materialized_candidate_not_accepted",
-      "acoustic_review": "pending; no listening or certified endpoints",
+      "status": "source_accepted",
+      "acoustic_review": "automatic source semantic/waveform review complete with retained limits; not listening or exact phonetic certification",
       "selection_basis": "original human EAF semantics before any benchmark app results",
       "playback_s16le_sha256": "6c49bfef5f9fb755a061fd5fc0897c6bc21bdd48681135ab5519f50c7ae233bd",
-      "reference_json_sha256": "6893cb3385af1178f502e57529349ee6b085f3ef34e4beedb93e84944ac557b4",
+      "reference_json_sha256": "db0117e36915217c1d151eb1e3259e55b1615bf805de8365630f074f4e599eec",
       "playback_wav_sha256": "0ff3d7eef0042357ea632d9577e902472d5b05e5f4a5913453021674db705ef8",
       "boundary_shoulders_ms": [
         250,
@@ -1718,7 +1850,13 @@
       ],
       "boundary_review_flags": [],
       "duration_seconds": 87.62,
-      "duration_exception": null
+      "duration_exception": null,
+      "source_review": {
+        "status": "accepted",
+        "decision_id": "source-acceptance-v1/ingcrowd-main-P3-01",
+        "annotation_notes": {},
+        "timing_policy": "Fixed original human EAF evidence-end anchors in the original16kHz sample clock, reviewed before app results; approximate acoustic ends, not phonetic calibration."
+      }
     },
     {
       "id": "ingcrowd-main-P3-02",
@@ -1791,11 +1929,11 @@
           ]
         }
       ],
-      "status": "materialized_candidate_not_accepted",
-      "acoustic_review": "pending; no listening or certified endpoints",
+      "status": "source_accepted",
+      "acoustic_review": "automatic source semantic/waveform review complete with retained limits; not listening or exact phonetic certification",
       "selection_basis": "original human EAF semantics before any benchmark app results",
       "playback_s16le_sha256": "48f812bce5395cf6a17aa3d1815c583366f406d8885a81b379b47bcb33a156d6",
-      "reference_json_sha256": "d842ab348989be3c9ee1790d42bf69164edf1925a3f522b040e1e2290e5f1d21",
+      "reference_json_sha256": "c4df157395beb92a4135adc48c157bac64607e34633d929677b28c0bf2f7ba01",
       "playback_wav_sha256": "78715ebb1edc5e88cefebc47eb5a5ab75c03b063cdc472a095a664349e2e48de",
       "boundary_shoulders_ms": [
         250,
@@ -1803,7 +1941,13 @@
       ],
       "boundary_review_flags": [],
       "duration_seconds": 63.102,
-      "duration_exception": null
+      "duration_exception": null,
+      "source_review": {
+        "status": "accepted",
+        "decision_id": "source-acceptance-v1/ingcrowd-main-P3-02",
+        "annotation_notes": {},
+        "timing_policy": "Fixed original human EAF evidence-end anchors in the original16kHz sample clock, reviewed before app results; approximate acoustic ends, not phonetic calibration."
+      }
     },
     {
       "id": "ingcrowd-main-P3-03",
@@ -1812,11 +1956,11 @@
       "dialogue": "06",
       "source_samples": [
         967760,
-        1813632
+        1810960
       ],
       "source_milliseconds": [
         60485,
-        113352
+        113185
       ],
       "annotation_ids": [
         "a14",
@@ -1902,19 +2046,29 @@
           ]
         }
       ],
-      "status": "materialized_candidate_not_accepted",
-      "acoustic_review": "pending; no listening or certified endpoints",
+      "status": "source_accepted",
+      "acoustic_review": "automatic source semantic/waveform review complete with retained limits; not listening or exact phonetic certification",
       "selection_basis": "original human EAF semantics before any benchmark app results",
-      "playback_s16le_sha256": "41f70d4d63065deeb4f226f613bd54f91908717e8783b00192f6a462741999f9",
-      "reference_json_sha256": "fff04efa2094e5444970d5cdd81c431beb6a1a0acc940a45506e300c2c182382",
-      "playback_wav_sha256": "ff1673f6bc3030cf7c6d37339d6357c318878ab24df3e74cdd567b1630244952",
+      "playback_s16le_sha256": "52353f7ebdb5081cfee8e28c32b216151604117239de6e0891163c80cd5df2a3",
+      "reference_json_sha256": "675f484b668a4581331bdc5816e0d8c6fa8290e71b1c680daebc94f6df80f0d4",
+      "playback_wav_sha256": "2150752e8fe23621b1f4761178d713512fbbbb5e8e026b31daedcf60c86db522",
       "boundary_shoulders_ms": [
         215,
-        217
+        50
       ],
       "boundary_review_flags": [],
-      "duration_seconds": 52.867,
-      "duration_exception": null
+      "duration_seconds": 52.7,
+      "duration_exception": null,
+      "source_review": {
+        "status": "accepted",
+        "decision_id": "source-acceptance-v1/ingcrowd-main-P3-03",
+        "annotation_notes": {
+          "a28": {
+            "decision": "Keep the complete final acknowledgment/laughter and end the crop in the following source valley before the next renewed signal. No annotation or semantic checkpoint removed."
+          }
+        },
+        "timing_policy": "Fixed original human EAF evidence-end anchors in the original16kHz sample clock, reviewed before app results; approximate acoustic ends, not phonetic calibration."
+      }
     },
     {
       "id": "ingcrowd-main-P3-04",
@@ -2055,11 +2209,11 @@
           ]
         }
       ],
-      "status": "materialized_candidate_not_accepted",
-      "acoustic_review": "pending; no listening or certified endpoints",
+      "status": "source_accepted",
+      "acoustic_review": "automatic source semantic/waveform review complete with retained limits; not listening or exact phonetic certification",
       "selection_basis": "original human EAF semantics before any benchmark app results",
       "playback_s16le_sha256": "698552554321a935e01b5681e5ac172c8b3182e444696b00f19f725e7474c7ae",
-      "reference_json_sha256": "866f21141b339abf642dc26cf70a57297806402772bcab246760f16ec86dc9d3",
+      "reference_json_sha256": "d46e9faa236609eaa7e3c0d653d6a108e7b27246c5cbd6860dc050f942a1bbc9",
       "playback_wav_sha256": "f5c9a735d32de604bfb2c9ef38961e09917a0bfb6796de892313799798cfc5ca",
       "boundary_shoulders_ms": [
         250,
@@ -2067,7 +2221,18 @@
       ],
       "boundary_review_flags": [],
       "duration_seconds": 135.56,
-      "duration_exception": null
+      "duration_exception": null,
+      "source_review": {
+        "status": "accepted",
+        "decision_id": "source-acceptance-v1/ingcrowd-main-P3-04",
+        "annotation_notes": {
+          "a12": {
+            "uncertainty_scope": "original_marker_only",
+            "decision": "Keep clear device agreement as a translation target. Preserve the trailing original unknown fragment without inventing extra words."
+          }
+        },
+        "timing_policy": "Fixed original human EAF evidence-end anchors in the original16kHz sample clock, reviewed before app results; approximate acoustic ends, not phonetic calibration."
+      }
     },
     {
       "id": "ingcrowd-main-P3-05",
@@ -2196,11 +2361,11 @@
           ]
         }
       ],
-      "status": "materialized_candidate_not_accepted",
-      "acoustic_review": "pending; no listening or certified endpoints",
+      "status": "source_accepted",
+      "acoustic_review": "automatic source semantic/waveform review complete with retained limits; not listening or exact phonetic certification",
       "selection_basis": "original human EAF semantics before any benchmark app results",
       "playback_s16le_sha256": "c7b364dbed84386dcbbf83a0740ab6a52d5ae1e3f46d4a2782097bfc91dd29a4",
-      "reference_json_sha256": "1432867e77917f9fd3c7d846681c0e4beba914bad845f338c3f8c7cb2c511b48",
+      "reference_json_sha256": "9e53af1e54fa05c853a041fb9c73787592dfb265f9701ac4c26f8664390e457c",
       "playback_wav_sha256": "b33ff21f9b0388f9b44b8201d6f42034cae9ab9526e048a2bf077ab09793c0df",
       "boundary_shoulders_ms": [
         90,
@@ -2210,7 +2375,18 @@
         "short_annotated_shoulder_under_100ms"
       ],
       "duration_seconds": 120.95,
-      "duration_exception": null
+      "duration_exception": null,
+      "source_review": {
+        "status": "accepted",
+        "decision_id": "source-acceptance-v1/ingcrowd-main-P3-05",
+        "annotation_notes": {
+          "a3": {
+            "uncertainty_scope": "original_marker_only",
+            "decision": "Preserve uncertain fragment and nonlexical surprised reaction in context. Score intelligible surrounding content; generated repetitive elongation is not reference text."
+          }
+        },
+        "timing_policy": "Fixed original human EAF evidence-end anchors in the original16kHz sample clock, reviewed before app results; approximate acoustic ends, not phonetic calibration."
+      }
     },
     {
       "id": "ingcrowd-main-P3-06",
@@ -2292,11 +2468,11 @@
           ]
         }
       ],
-      "status": "materialized_candidate_not_accepted",
-      "acoustic_review": "pending; no listening or certified endpoints",
+      "status": "source_accepted",
+      "acoustic_review": "automatic source semantic/waveform review complete with retained limits; not listening or exact phonetic certification",
       "selection_basis": "original human EAF semantics before any benchmark app results",
       "playback_s16le_sha256": "ec3fb9a2be35e00bd44d8ff3acf12c0b5deecace5abc5f78ad20bb37fad10a11",
-      "reference_json_sha256": "4d2e8c3128a3ff4a0256eaab678e55832bbdf3ccbe40738bbdb6876665c8c491",
+      "reference_json_sha256": "de4c7bdc677e085ee50f3d00e575929facc904e2fc548e13baec8d97daeadce7",
       "playback_wav_sha256": "e29ccdd18e87c1d520eb458d7c709b7672cb9708b6be47def9b12c57d0acd176",
       "boundary_shoulders_ms": [
         250,
@@ -2304,7 +2480,13 @@
       ],
       "boundary_review_flags": [],
       "duration_seconds": 60.062,
-      "duration_exception": null
+      "duration_exception": null,
+      "source_review": {
+        "status": "accepted",
+        "decision_id": "source-acceptance-v1/ingcrowd-main-P3-06",
+        "annotation_notes": {},
+        "timing_policy": "Fixed original human EAF evidence-end anchors in the original16kHz sample clock, reviewed before app results; approximate acoustic ends, not phonetic calibration."
+      }
     },
     {
       "id": "ingcrowd-development-P1-01",
@@ -2337,11 +2519,11 @@
           ]
         }
       ],
-      "status": "materialized_candidate_not_accepted",
-      "acoustic_review": "pending; no listening or certified endpoints",
+      "status": "source_accepted",
+      "acoustic_review": "automatic source semantic/waveform review complete with retained limits; not listening or exact phonetic certification",
       "selection_basis": "original human EAF semantics before any benchmark app results",
       "playback_s16le_sha256": "0a755a62125f55a91378b7d4e23e60500b9b37ed5721a2b8e00138698e26bfa1",
-      "reference_json_sha256": "5620aef6525f668a09fc7a1a3cf42c5c6d5786a25ee3dfa78a699f00c421d29b",
+      "reference_json_sha256": "0327b475ec440667c6ff5dfc76b04fed308b353715c805a920ade65e2e97c625",
       "playback_wav_sha256": "7590b4181123ca8d6f96afefebbbdbf8ea70f7f14163213e31ce68a0d66274a4",
       "boundary_shoulders_ms": [
         250,
@@ -2349,7 +2531,13 @@
       ],
       "boundary_review_flags": [],
       "duration_seconds": 4.57,
-      "duration_exception": null
+      "duration_exception": null,
+      "source_review": {
+        "status": "accepted",
+        "decision_id": "source-acceptance-v1/ingcrowd-development-P1-01",
+        "annotation_notes": {},
+        "timing_policy": "Fixed original human EAF evidence-end anchors in the original16kHz sample clock, reviewed before app results; approximate acoustic ends, not phonetic calibration."
+      }
     },
     {
       "id": "ingcrowd-development-P2-01",
@@ -2452,11 +2640,11 @@
           ]
         }
       ],
-      "status": "materialized_candidate_not_accepted",
-      "acoustic_review": "pending; no listening or certified endpoints",
+      "status": "source_accepted",
+      "acoustic_review": "automatic source semantic/waveform review complete with retained limits; not listening or exact phonetic certification",
       "selection_basis": "original human EAF semantics before any benchmark app results",
       "playback_s16le_sha256": "0d6c7c33dd4710179f9ac390c495b090d21ad47c1c52add562a109a4f8eaa514",
-      "reference_json_sha256": "bc7c54c181147cc06afaa90f080165eeae296f4291fd513258f28fcf35070126",
+      "reference_json_sha256": "ad15c685e79a492d2e90aa2ba787dba065ff3828f0b1435a1826964fd232cfa5",
       "playback_wav_sha256": "d628bb4d8809ea7fa742ce9286c1c7763b16d19f15655a7846cd2106a5668799",
       "boundary_shoulders_ms": [
         250,
@@ -2464,7 +2652,13 @@
       ],
       "boundary_review_flags": [],
       "duration_seconds": 78.34,
-      "duration_exception": null
+      "duration_exception": null,
+      "source_review": {
+        "status": "accepted",
+        "decision_id": "source-acceptance-v1/ingcrowd-development-P2-01",
+        "annotation_notes": {},
+        "timing_policy": "Fixed original human EAF evidence-end anchors in the original16kHz sample clock, reviewed before app results; approximate acoustic ends, not phonetic calibration."
+      }
     },
     {
       "id": "ingcrowd-development-P3-01",
@@ -2581,11 +2775,11 @@
           ]
         }
       ],
-      "status": "materialized_candidate_not_accepted",
-      "acoustic_review": "pending; no listening or certified endpoints",
+      "status": "source_accepted",
+      "acoustic_review": "automatic source semantic/waveform review complete with retained limits; not listening or exact phonetic certification",
       "selection_basis": "original human EAF semantics before any benchmark app results",
       "playback_s16le_sha256": "11a5d47346ccbf39a1704237c924a7aa895b625481603feb0b9081223acc0ee7",
-      "reference_json_sha256": "531b5593ea44be11482da346da125cca35732138db7ae0e8e122c2ebbcfdd88a",
+      "reference_json_sha256": "e948947f996f98d69d5213cca6a70f7602a58caeba039e45b66f1087fa7c9937",
       "playback_wav_sha256": "5714e962c0db87d265d4a41a232a3b83d14ad36f91eb09f5d3d2d13a6142d308",
       "boundary_shoulders_ms": [
         250,
@@ -2593,7 +2787,21 @@
       ],
       "boundary_review_flags": [],
       "duration_seconds": 111.255,
-      "duration_exception": null
+      "duration_exception": null,
+      "source_review": {
+        "status": "accepted",
+        "decision_id": "source-acceptance-v1/ingcrowd-development-P3-01",
+        "annotation_notes": {
+          "a190": {
+            "uncertainty_scope": "original_marker_only",
+            "decision": "Retain usual morning/evening twice daily and individual exceptions. The original unknown fragment between clauses has no invented lexical target; surrounding conditions and numbers remain required."
+          },
+          "a193": {
+            "decision": "Retain human dry-period term and reduced milk-production explanation; malformed ASR nouns do not establish a different source condition."
+          }
+        },
+        "timing_policy": "Fixed original human EAF evidence-end anchors in the original16kHz sample clock, reviewed before app results; approximate acoustic ends, not phonetic calibration."
+      }
     }
   ]
 }

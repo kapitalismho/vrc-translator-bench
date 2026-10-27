@@ -2,7 +2,7 @@
 
 A community benchmark for conversation translation. The approved [final plan](docs/benchmark-final-plan.md) replaces the original six-direction microphone-to-OSC evaluation with a peer-centered EN→ZH / JA→KO comparison, episode-level GEMBA-ESA quality, separate semantic-wait p50/p90, and evidence-bound costs.
 
-**Current state: native capture and bounded source preparation, not a completed benchmark.** R1 supplies episode/role/pass execution and early feasibility. [R2 preparation](docs/corpus.md#r2-source-review-and-preparation) supplies pinned local candidates and actual source-review evidence; production freeze remains blocked by ASCEND original-dialogue evidence and named review/rights gaps. Two-stage judging, final all-profile admission and public results remain separate work. The [implementation plan and published R0–R10 issues](docs/benchmark-implementation-plan.md) preserve the GPT/backend versus Claude/presentation split.
+**Current state: native capture and source preparation, not a completed benchmark.** R1 supplies episode/role/pass execution and early feasibility. [R2 preparation](docs/corpus.md#r2-source-review-and-preparation) supplies pinned local candidates and actual source-review evidence. The owner-approved ASCEND amendment permits approximate speaker-offset reconstruction, declared paced fallback and same-speaker P3 continuations; it supersedes the original-clock/missing-gap-audio gate, not the remaining content, role, grouping or rights checks. Two-stage judging, final all-profile admission and public results remain separate work. The [implementation plan and published R0–R10 issues](docs/benchmark-implementation-plan.md) preserve the GPT/backend versus Claude/presentation split.
 
 ## What remains usable
 
@@ -11,7 +11,7 @@ A community benchmark for conversation translation. The approved [final plan](do
 - GPT 6 Astra / Sign in with ChatGPT transport, Windows child containment and low-level durable call storage. There is currently **no scoring CLI**.
 - Local cost-log ingestion, attribution, Decimal arithmetic, subscription/free/unknown treatment and original-evidence protection. New episode/pass normalization is not implemented.
 - Separate path-redacted capture exports; publication still needs content and rights inspection.
-- Offline ASCEND, IngCrowd and FLEURS/C1 candidate materializers with source/sample/hash checks, separate from an accepted frozen corpus or executable capture plan.
+- Offline ASCEND, IngCrowd and FLEURS/C1 materializers for 51 main source episodes, 12 development episodes and two controls, with source/sample/reference checks and nine main/four development ASCEND T1 parents. Runtime execution plans and R6 admission remain separate.
 
 The runner accepts **episode schema 2**, not historical stage plans. Ordinary inputs are peer; T1 uses simultaneous peer/self. The owner-approved VRCLT and Kikitan exceptions use self for ordinary cases and separate A/B self passes for T1, with one logical episode. Native receipt clocks do not certify producer completion or screen rendering. Historical profile readiness is not new-protocol admission.
 

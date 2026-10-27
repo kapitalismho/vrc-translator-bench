@@ -7,27 +7,37 @@
 R1 supplies the capture contract and early feasibility. Per-app replay is not an
 R2 acceptance requirement; R6 owns the remaining input-to-app integration.
 
-Preparation and production freeze are different states. A prepared candidate has
-source-linked local bytes and recorded review evidence. A production-frozen
-episode additionally has accepted audible references, semantic endpoints,
-source-group separation and applicable use rights. A checksum proves identity,
-not that the words, speaker attribution or timing are correct.
+The owner subsequently approved `ascend-reconstruction-v1` in
+[final-plan §3.1](benchmark-final-plan.md#31-ascend): approximate speaker-offset
+reconstruction first, explicit paced reconstruction when ambiguous, and
+same-speaker continuations for P3. Original-clock and missing-gap-audio
+prerequisites are **superseded**, not satisfied. Actual source speech, content,
+roles, grouping, counts and weights remain required. The new source bundle now
+contains all R2-owned cells under that condition.
 
-### Prepared inputs and exact coverage
+Source preparation, offline source freeze and integrated production admission
+are separate states. The current source freeze binds reviewed references,
+practical semantic anchors, source-group separation and source-license-based
+offline use. It does not grant provider transmission, public release or R6 app
+admission. A checksum proves identity, not the correctness of words or roles.
+
+### Frozen offline inputs and exact coverage
 
 The [R2 status and evidence index](../corpus/r2/status.json) binds the three
 source catalogues, final materialization reports and acoustic review addenda.
-It records **27 typed main candidates, six development candidates and two C1
-candidates**, not a completed corpus. Three additional ASCEND explanations are
-unclassified and receive no cell credit. No production-frozen main episode is
-claimed while the required source/review/rights gates remain open.
+It records **51 typed main source episodes, 12 development episodes and two C1
+controls**. The remaining nine main/four development JA/KO T1 episodes are
+R3-owned synthetic descendants; their ASCEND parents are available. One retained
+ASCEND leftover is unclassified and receives no count credit. The index is the
+current source-freeze layer over immutable preparation-stage snapshots; final
+Director acceptance separately binds the independently reviewed commit.
 
-| Pair | Type | Required main | Prepared main candidates | Prepared development |
+| Pair | Type | Required main | Source-frozen main | Source-frozen development |
 |---|---|---:|---:|---:|
 | EN/ZH | P1 | 3 | 3 | 1 |
-| EN/ZH | P2 | 9 | 0 | 0 |
-| EN/ZH | P3 | 6 | 0 | 0 |
-| EN/ZH | T1 | 9 | 0 | 0 of 4 parents |
+| EN/ZH | P2 | 9 | 9 | 1 |
+| EN/ZH | P3 | 6 | 6 | 1 |
+| EN/ZH | T1 | 9 | 9 | 4 parents |
 | EN/ZH | P4 | 3 | 3 | 1 |
 | JA/KO | P1 | 3 | 3 | 1 |
 | JA/KO | P2 | 9 | 9 | 1 |
@@ -39,40 +49,58 @@ Both pairs retain 50% weight; within each pair P1/P2/P3/T1/P4 retain
 10/30/20/30/10%. T1 roles retain 50:50. Candidate files, checkpoint count, C1,
 unclassified explanations and planned repeats add no weight.
 
-- **[ASCEND](../corpus/r2/ascend.json):** four intact native 16-kHz P1 files.
-  Source-only no-hints Qwen ASR corroborates their human references and required
-  meanings; separate supplied-text alignment and actual waveforms support
-  bounded endpoint proposals on an 80-ms grid. That grid is not a calibrated
-  error bound. The development endpoint lies near the file edge. Original
-  people and known connected groups are reserved across all types, not merely
-  across filename speakers or upstream splits. No T1 role buffers were made.
-- **[IngCrowd](../corpus/r2/ingcrowd.json):** 21 exact 16-kHz mixed-track crops
-  with 54 pre-result checkpoint candidates. All original samples, gaps,
-  overlaps and intersecting annotations from both speakers remain; no splices,
+- **[ASCEND](../corpus/r2/ascend.json):** 27 main and seven development
+  episodes use 589 distinct whole 16-kHz clips, 47 playback WAVs and 65 fixed
+  checkpoint maps. Four P1 WAVs remain byte-identical. Sixteen episodes use
+  conditional metadata offsets, seven dialogues use explicit 300-ms gaps at
+  clip joins, and seven P3 explanations use same-person filename-local gaps.
+  None claims recovered historical silence or synchrony. Eight main connected
+  original-person groups are disjoint from development people 17/18; the four
+  development parents are not four independent groups. A 23-clip development
+  assembly preceded expansion; its unclear opening was excluded from the final
+  parent rather than silently repaired. 734 new actual offline no-hints
+  observations plus four reused P1 observations support automatic content/role
+  review, with original human text, hypotheses and contextual readings separate.
+  The sustained main P3 cases last approximately 42–85 seconds; short leftover
+  clips were not counted as replacements. Raw alignment and waveform proposals
+  retain 80-ms-grid, source-edge and invalid-prediction limits.
+- **[IngCrowd](../corpus/r2/ingcrowd.json):** 18 main and three development
+  source-accepted 16-kHz mixed-track crops with 54 fixed pre-result checkpoints.
+  All original samples, gaps, overlaps and intersecting annotations from both speakers remain; no splices,
   added silence or individual-track isolation claim. Dialogue 10 is development;
   main uses dialogues 01–04 and 06–09. Known links are retained and unknown
   recurring speakers are not certified independent. Bounded no-hints Reazon
-  and a targeted Qwen addendum corroborate core meanings for 11 main and two
-  development candidates; eight retain specific content/boundary holds.
-  The addendum observed 24 views of only the 15 previously held cases, including
-  the complete primary request on its unchanged 3.66-second crop. A repetitive
-  Qwen tail remains an explicitly partial failed observation, not a valid full
-  transcript. Core corroboration is not full-fidelity or precise-endpoint
-  certification; no original reference, playback or selection was changed.
+  and a targeted Qwen addendum support the source review. The eight earlier
+  holds are closed by concrete waveform/reference decisions: P2-06 starts
+  260 ms earlier to retain its leading vocal cue; P3-03 ends 167 ms earlier in
+  a quiet valley before unreferenced sound. No annotated content or checkpoint
+  was removed, and P3-03 remains the original repeat selection. Other human EAF
+  wording is retained where inconsistent recognizer errors do not establish
+  a contradictory source proposition. Original inline unknown fragments remain
+  marked, not invented or expanded into whole-sentence scoring exemptions.
+  The prior Qwen repetitive tail remains an observation failure. Acceptance
+  is at the stated automatic source-review level, not exact phonetic fidelity.
 - **[FLEURS](../corpus/r2/read-controls.json):** main sentence IDs
   1980/1914/1771 and development ID 151 are joined across EN/JA by sentence ID,
   not row order. The six main recordings have three shared text-dependence
   groups. Full native float32/16-kHz sources are retained with an explicit
   full-timeline PCM16/48-kHz conversion, no gain or time compression.
-  Automatic preparation passes cover EN 1980, EN 1771, JA 1771 and development
-  EN 151. Holds remain for EN 1914's 320-ms endpoint discrepancy, JA 1980's
-  driver-word disagreement, JA 1914's clipping/lexical detail and development
-  JA 151's named-group disagreement. Original references are not replaced with
-  recognizer outputs.
+  All eight source preparations are accepted at the automatic review level.
+  EN 1914 uses the complete-word 5.60-second proposal; its earlier 320-ms
+  alignment disagreement remains recorded. Two narrow audible-word corrections
+  in JA 1980 and development JA 151 are supported by source-only Reazon/Qwen
+  and additional no-hints CTC; upstream references remain separate and unchanged.
+  JA 1914 retains its known clipping: 165 full-scale samples in 164 runs, at most
+  two samples per run, with none in the disputed aligned word or final ending.
+  Audio is not de-clipped or replaced. Practical checkpoint coordinates are
+  reviewed automatically, not calibrated phonetic endpoints.
 - **C1:** unchanged historical samples `[0, 2880000)` are exactly zero;
   `[2880000, 5760000)` retain keyboard/coin/snaps and their original gaps.
-  Incidental speech in the latter remains unresolved. The historical AMI speech
-  minute `[5760000, 8640000)` is excluded, not relabeled as nonspeech.
+  Both controls are source-accepted automatically. Four overlapping no-hints
+  Qwen views cover the complete nonverbal minute and return no lexical output;
+  an actual-inference zero negative control is also empty. This supplements
+  source/event/waveform evidence, not a human-forensic absence guarantee.
+  The historical AMI speech minute `[5760000, 8640000)` is excluded, not relabeled as nonspeech.
   C1 contributes neither quality nor meaning-wait credit. Runtime quiet/reset
   and carryover checks remain R6-owned.
 
@@ -84,10 +112,11 @@ inference, and Reazon's initial over-length inputs remain recorded as inadequate
 observations rather than corpus failures. Corrected Reazon screening uses
 20-second diagnostic windows with two-second overlaps without changing playback.
 
-The status index fixes public-example candidates and one repeat candidate per
-currently prepared pair/type cell before app results. Held examples still need
-their named review; selection grants neither publication nor execution. Missing
-cells remain pending rather than receiving substitute repeat/example material.
+The status index fixes source-bearing example candidates and one repeat per
+R2-covered pair/type cell before app results. ASCEND repeats are P1-main-1,
+P2-main-2, P3-main-1 and T1-main-2; the original IngCrowd and FLEURS choices remain.
+Preselection grants neither publication nor execution. JA/KO T1 selection is
+completed with R3's descendants, not substituted by another source.
 
 ### Reuse and local reproduction
 
@@ -98,10 +127,25 @@ executable capture plan or R6 admission. Full text/audio/model outputs stay in
 ignored `.data/r2/`; public catalogues contain provenance, hashes, concepts,
 rights and limits rather than a redistributed corpus.
 
+The integrated handoff is under `.data/r2/integration-reconstruction-v1/`.
+Its ASCEND `t1-parent-manifest.json` pins nine main and four development parents
+(SHA-256 `fe64af849500faa154238076936b158dbf9129ee46b7cc474e9573e1b1d48298`).
+R3 preserves the original ASCEND → reconstructed EN/ZH → JA/KO dependency chain;
+JA/KO gets its own actual generated timing. Extra development takes use parents
+1 and 3 without becoming independent originals.
+
+ASCEND source-reference A/B labels identify original people. Ordinary P2 has
+both people in its single `assets.peer` input; R6 maps that asset to the ordinary
+logical A role and the profile's approved physical channel. Only T1 has separate
+A/B playback assets. Do not feed source-catalogue person labels directly into
+the executable episode-role contract or treat ordinary speaker B as self.
+
 The scripts below **materialize already acquired pinned sources offline**;
-they do not download models, call providers, launch apps or certify a freeze.
-Source URLs and expected hashes are in the catalogues. Supply the retained
-source layout described by each script and choose a fresh output directory;
+they do not download models, call providers, launch apps or grant R6 admission.
+Source URLs and expected hashes are in the catalogues. Retain the hash-bound
+local acceptance records and audible references as well as source bytes; the
+accepted materializers verify these inputs rather than silently reverting to
+unreviewed annotations. Supply the source layout described by each script and choose a fresh output directory;
 existing outputs are not overwritten.
 
 ```powershell
@@ -118,11 +162,14 @@ token times and CER are diagnostics, not certified endpoints or pass thresholds.
 Reuse the retained reviews instead of running inference merely for a handoff.
 
 Integration executed all three final-catalogue materializers in fresh local
-directories, verified the actual 38 output IDs' WAV/PCM/reference hashes and
-sample counts (including unclassified files), and checked known-group
-development/main separation. **21 focused tests passed.** No full-suite,
-typecheck, app replay, external-service call or human-listening claim is made.
-Historical source and corpus bytes were not overwritten.
+directories and verified all **65 source episode IDs**, including 589 ASCEND
+source clips, 13 equal-clock T1 role pairs and 127 semantic checkpoint maps.
+Original-source/sample/reference/hash checks, source-use nonoverlap, linked-group
+development/main separation and the nine available repeat cells passed.
+**55 focused tests passed, with no failures or skips.** The earlier ineffective
+negative test fixture and its repair remain recorded; no product assertion was
+weakened. No full-suite, typecheck, app replay, external-service call or human
+listening is claimed. Historical source and corpus bytes were not overwritten.
 
 ### Source identities and rights
 
@@ -145,6 +192,15 @@ Keep these permissions distinct:
 
 - Local preparation is not a public dataset release or permission to launch
   benchmark apps/providers.
+- R2 may accept and freeze **offline source artifacts under the source license**
+  while particular outbound routes remain conditional. This requires the source
+  content, roles, mappings, grouping and counts to pass; it is not blanket
+  external-execution clearance or R6's integrated production admission.
+  IngCrowd preparation relies on the stated noncommercial project purpose, not
+  an assertion that all OSS promotion is necessarily noncommercial.
+- R3 may receive accepted ASCEND parents and prepare offline derived scripts.
+  Its first actual Gemini TTS call still needs the specific recipient/terms,
+  key and bounded-usage authorization. IngCrowd is not that script's parent.
 - The existing NC grant is the starting point for noncommercial clips,
   transcripts and adaptations; do not demand a separate commercial license
   merely because results promote an OSS project.
@@ -165,7 +221,29 @@ Keep these permissions distinct:
   is certified by this source review. Resolve a concrete out-of-grant use for
   that route rather than declaring the whole project prohibited.
 
-### ASCEND original-dialogue blocker
+Before outbound execution, R3/R6 must bind only the material facts for the actual
+route; no provider call is necessary merely to review terms. Catalog labels
+such as `Paid`, local ASR or an old successful pilot are not account-policy proof.
+No fully local end-to-end profile is established by the current catalog.
+
+| Recipient / affected profiles | Remaining route-specific facts |
+|---|---|
+| OpenRouter translation: PP1, VRCT3, VRCS1, VRCS2 | Actual backend terms and account/provider input-use, commercial-reuse, private-log and training settings; distinguish service operation from independent reuse under [§6](https://openrouter.ai/terms) |
+| Gemini ASR/live: PP1–PP3, VRCS2, VRCLT1, KIKI2; separately R3 TTS | Applicable project paid/unpaid tier and regional terms; reconcile service-specific limits with the incorporated API input grant |
+| ChatGPT-linked translation: PP2 | Actual supported-client/product/workspace terms and [data-use controls](https://help.openai.com/en/articles/7730893-data-controls-in-chatgpt); subscription status is not a no-training guarantee |
+| Index translation: PP3, PP4 | Operator, endpoint/input terms and effective recipient, including any documented fallback; PP4's local ASR does not make the translator local |
+| Google web recognition/translation: VRCT1–VRCT3, KIKI1; Bing recognition: KIKI1 | Exact product/endpoint and its terms; do not substitute Azure/Cloud API terms for bundled web clients |
+| Alibaba Beijing MAAS: VRCLT2 | Applicable ordinary-service terms versus special-plan/third-party exceptions; [domestic agreement](https://terms.alicdn.com/legal-agreement/terms/common_platform_service/20230728213935489/20230728213935489.html) §§6.2–7 limit ordinary processing, but §5.2.2 permits improvement uses for specified personal/coding plans |
+| Developer recognition/translation: VRCLS1 | Operator, applicable input terms and actual downstream recipient chain, currently unidentified in the public catalog |
+
+These are scoped unresolved facts, not findings that the source licenses
+prohibit inference. No account was inspected or changed for this review.
+ASCEND ShareAlike applies to sharing protected adaptations, not automatically
+to a provider's proprietary software; it does not by itself forbid hosted
+processing. An extra provider input grant still needs a concrete compatibility
+decision. This is a project risk record, not a legal assurance.
+
+### ASCEND original-timing limits and approved reconstruction
 
 The inspected full legacy archive contains 12,314 utterance WAVs, not the
 continuous paired recordings described in the source paper. The legacy loader
@@ -183,14 +261,19 @@ counterexample to blindly sorting filename timestamps is
 offset. Omitted all-`[UNK]` utterances also prevent treating every missing
 interval as silence.
 
-Do not stitch these clips with inferred gaps and call the result original
-natural conversation. Nine main T1 parents and four separate development T1
-parents remain unaccepted; R3 must not generate descendants as if those parents
-were frozen. ASCEND P2/P3 continuity and their required counts also remain to be
-established. Isolated complete P1 utterances can be prepared independently.
-Additional authoritative paired originals and recording/clock mapping would
-allow this work to resume; the investigation does not prove ASCEND inherently
-contains no eligible dialogue.
+These facts constrain historical-fidelity claims; they no longer prohibit
+the owner-approved approximate reconstruction condition. Estimate offsets only
+within coherent pair/reset-local windows, or explicitly design the new gaps.
+Preserve original PCM, code-switching, fixed original-person roles, source keys
+and linked speaker groups. Missing audio is not recreated by zero padding.
+Label the result as ASCEND human speech on an approximately reconstructed
+timeline, never as recovered original continuous conversation.
+
+One existing-development-group dialogue was assembled and reviewed before
+production expansion. Nine main and four development T1 parents now have source,
+role, reference and checkpoint mappings in the bound handoff. Original recording
+maps or shared acoustic anchors remain useful optional evidence, not an external
+prerequisite or a completed historical-fidelity claim.
 
 All fixed cells and weights remain required. No replacement dataset, synthetic
 EN/ZH conversation, reduced count or redistributed weight is authorized.

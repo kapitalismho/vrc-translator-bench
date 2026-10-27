@@ -1,8 +1,8 @@
-"""Prepare R2 IngCrowd candidates, never an accepted/frozen benchmark plan.
+"""Prepare pinned R2 IngCrowd source inputs, not an executable benchmark plan.
 
-Only pinned local source bytes are used. References are derived from the original
-human EAF, not recognizer output. The optional local Reazon review is independent
-ASR screening, not listening, transcript certification, or endpoint acceptance.
+Only pinned local source bytes are used. References retain the original human
+EAF, with separately recorded automatic source-review decisions. ASR is a
+discrepancy screen, not a replacement transcript or phonetic certification.
 Corpus audio/EAF/derived references stay outside the MIT code tree in .data.
 """
 from __future__ import annotations
@@ -122,6 +122,17 @@ def reference(candidate, rows):
                "logical_role": "A", "language": "ja", "scope": "translation_and_context",
                "uncertain_marker_present": "<?>" in row["text"]} for row in selected]
     by_id = {row["id"]: row for row in mapped}
+    review = candidate.get("source_review", {})
+    notes = review.get("annotation_notes", {})
+    if set(notes) - set(by_id):
+        raise ValueError("Source review notes must bind selected original annotations")
+    for identity, note in notes.items():
+        uncertainty = note.get("uncertainty_scope")
+        if uncertainty is not None:
+            if uncertainty != "original_marker_only" or "<?>" not in by_id[identity]["text"]:
+                raise ValueError("Only an original uncertainty marker may lack a lexical target")
+        by_id[identity]["source_review_note"] = note
+    accepted = review.get("status") == "accepted"
     checkpoints = []
     for index, checkpoint in enumerate(candidate["checkpoints"], 1):
         evidence = [by_id[identity] for identity in checkpoint["evidence_annotation_ids"]]
@@ -132,19 +143,27 @@ def reference(candidate, rows):
                             "eaf_evidence_end_seconds": utterance_end / 16000,
                             "observation_offsets_seconds": [0, 2, 5, 10, 15],
                             "certified_acoustic_end_sample": None,
-                            "timing_status": "provisional EAF utterance end; acoustic review pending"})
-    return {"id": candidate["id"], "status": "candidate_not_frozen", "reference_origin": "original_human_eaf",
-            "scope": "All annotated lexical Japanese from both mixed-input speakers is translation target and context; laughter is nonlexical. Unknown/unannotated audible content remains a review gate.",
-            "speaker_labels": "EAF-local labels only; no cross-dialogue identity or globally verified individual-track mapping",
-            "annotations": mapped, "checkpoints": checkpoints,
-            "uncertain_content_policy": "Preserve literal <?> and <la>; never silently turn uncertain spans into certified lexical text",
-            "review_level": "source_semantics_and_signal_plus_independent_ASR_if_separately_recorded; no actual listening"}
+                            "timing_status": "fixed source-reviewed EAF evidence end; approximate acoustic endpoint, not phonetic calibration"
+                            if accepted else "provisional EAF utterance end; acoustic review pending"})
+    bound = {"id": candidate["id"], "status": "source_accepted" if accepted else "candidate_not_frozen",
+             "reference_origin": "original_human_eaf",
+             "scope": "All annotated lexical Japanese from both mixed-input speakers is translation target and context; laughter is nonlexical. Original uncertainty markers do not license invented words or exemption of surrounding lexical content.",
+             "speaker_labels": "EAF-local labels only; no cross-dialogue identity or globally verified individual-track mapping",
+             "annotations": mapped, "checkpoints": checkpoints,
+             "uncertain_content_policy": "Preserve literal <?> and <la>; only the original unknown fragment lacks a required lexical output, never the surrounding annotation or a stated number/condition",
+             "review_level": "original human EAF plus recorded source semantics, waveform and independent ASR screening; no actual listening or exact phonetic certification"}
+    if review:
+        bound["source_review"] = review
+    return bound
 
 
 def materialize(catalogue, retained, output):
     catalogue, retained, output = map(Path, (catalogue, retained, output))
     record = json.loads(catalogue.read_text(encoding="utf-8"))
     grouping = check_selection(record)
+    accepted = record.get("source_acceptance", {}).get("status") == "accepted"
+    if accepted and any(c.get("source_review", {}).get("status") != "accepted" for c in record["candidates"]):
+        raise ValueError("Source acceptance requires a recorded decision for every selected case")
     if output.exists():
         raise ValueError("Use a fresh output directory; do not overwrite evidence")
     checked_bytes(retained / "README.md", record["source"]["card_sha256"])
@@ -205,7 +224,7 @@ def materialize(catalogue, retained, output):
             gaps.append([cursor, len(pcm) // 2])
         # Gaps are unannotated original signal, not synthesized/digital silence.
         episodes.append({"id": identity, "kind": candidate["kind"], "project_split": candidate["project_split"],
-                         "dialogue": candidate["dialogue"], "status": "materialized_not_frozen",
+                         "dialogue": candidate["dialogue"], "status": "source_accepted" if accepted else "materialized_not_frozen",
                          "input_channel": "peer", "logical_role": "A", "speakers": ["speaker_1", "speaker_2"],
                          "source_language": "ja", "target_language": "ko", "source_track": "mixed",
                          "playback_path": f"playback/{identity}.wav", "reference_path": f"references/{identity}.json",
@@ -219,11 +238,13 @@ def materialize(catalogue, retained, output):
                          "signal": signal(pcm), "annotation_count": len(mapped),
                          "uncertain_annotations": [r["id"] for r in mapped if r["uncertain_marker_present"]],
                          "checkpoint_count": len(bound["checkpoints"]),
+                         "source_review": candidate.get("source_review"),
                          "certified_acoustic_boundaries": False})
-    report = {"schema_version": 1, "status": "materialized_not_frozen", "offline": True,
+    report = {"schema_version": 1, "status": "source_accepted" if accepted else "materialized_not_frozen", "offline": True,
               "catalogue_sha256": sha256(catalogue.read_bytes()), "grouping": grouping,
               "episodes": episodes, "counts": record["counts"], "rights": record["rights"],
               "review_level": "original EAF semantic curation plus decoded mixed-WAV signal and exact-sample binding; not listening",
+              "source_acceptance": record.get("source_acceptance"),
               "freeze_gates": record["freeze_gates"]}
     save_json(output / "materialization.json", report)
     return report

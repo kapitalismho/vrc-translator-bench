@@ -1,5 +1,6 @@
 """Synthetic checks only; no IngCrowd expressive content is embedded here."""
 from copy import deepcopy
+import json
 
 import pytest
 
@@ -7,6 +8,7 @@ from tools.prepare_ingcrowd import (
     annotations,
     check_selection,
     deduplicate_window_tokens,
+    materialize,
     reference,
     review_windows,
 )
@@ -115,3 +117,49 @@ def test_overlap_deduplication_is_comparison_only_and_keeps_original_offsets():
     assert tokens[1]["approximate_playback_sample"] == round(19.2 * 16000)
     assert tokens[1]["window_index"] == 1
     assert windows == original
+
+
+def test_source_acceptance_retains_unknown_marker_and_all_surrounding_targets():
+    candidate = selected()
+    candidate["source_review"] = {
+        "status": "accepted",
+        "annotation_notes": {"a1": {"uncertainty_scope": "original_marker_only",
+                                     "decision": "Retain the unknown fragment, not an exemption of the response"}},
+    }
+    bound = reference(candidate, annotations(EAF))
+    assert bound["status"] == "source_accepted"
+    assert bound["annotations"][1]["text"] == "synthetic response <?>"
+    assert bound["annotations"][1]["scope"] == "translation_and_context"
+    assert bound["checkpoints"][0]["must_preserve"] == ["question"]
+    assert bound["checkpoints"][0]["eaf_evidence_end_playback_sample"] == 1520
+    assert "fixed source-reviewed" in bound["checkpoints"][0]["timing_status"]
+    assert bound["checkpoints"][0]["certified_acoustic_end_sample"] is None
+
+
+@pytest.mark.parametrize("notes", [
+    {"a1": {"uncertainty_scope": "entire_annotation"}},
+    {"a9": {"uncertainty_scope": "original_marker_only"}},
+])
+def test_acceptance_cannot_hide_annotation_or_invent_original_uncertainty(notes):
+    candidate = selected()
+    candidate["source_review"] = {"status": "accepted", "annotation_notes": notes}
+    with pytest.raises(ValueError, match="Only an original uncertainty marker"):
+        reference(candidate, annotations(EAF))
+
+
+def test_review_note_must_name_an_included_original_annotation():
+    candidate = selected()
+    candidate["source_review"] = {"status": "accepted", "annotation_notes": {"outside": {"decision": "invalid"}}}
+    with pytest.raises(ValueError, match="bind selected original annotations"):
+        reference(candidate, annotations(EAF))
+
+
+def test_full_source_acceptance_cannot_skip_a_case_decision(tmp_path):
+    record = catalogue()
+    record["source_acceptance"] = {"status": "accepted"}
+    path = tmp_path / "catalogue.json"
+    path.write_text(json.dumps(record), encoding="utf-8")
+    output = tmp_path / "prepared"
+    with pytest.raises(ValueError, match="every selected case"):
+        materialize(path, tmp_path, output)
+    assert not output.exists()
