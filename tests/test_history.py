@@ -109,7 +109,8 @@ def test_late_correction_separate_from_final_observation_horizon():
     ("wave", "other-wave", {"wave": "selected-wave"}),
 ])
 def test_explicit_scope_never_consumes_other_role_pass_clock_or_attempt(field, value, scope):
-    rows = [event("right"), event("UNSELECTED NATIVE TEXT", time=2, **{field: value})]
+    rows = [event("right", run="selected-run", wave="selected-wave"),
+            event("UNSELECTED NATIVE TEXT", time=2, **{field: value})]
     result = reconstruct(rows, ["append", "append"], **scope)
     assert result["text"] == "right"
     assert "UNSELECTED NATIVE TEXT" not in json.dumps(result)
@@ -123,6 +124,31 @@ def test_ambiguous_execution_identity_cannot_merge_histories(field):
     assert result["text"] is None
     assert result["quality_eligible"] is False
     assert "ambiguous_" + field in result["reasons"]
+
+
+@pytest.mark.parametrize("field", ["run", "wave"])
+@pytest.mark.parametrize("inferred", [False, True])
+@pytest.mark.parametrize("missing_value", [None, "absent"])
+def test_selected_or_inferred_execution_identity_requires_actual_membership(field, inferred, missing_value):
+    rows = [event("known member", **{field: "selected"}),
+            event("UNATTRIBUTED OUTPUT", **{field: missing_value})]
+    if missing_value == "absent":
+        rows[1].pop(field)
+    scope = {} if inferred else {field: "selected"}
+    original = copy.deepcopy(rows)
+    result = reconstruct(rows, ["append", "append"], **scope)
+    assert result["scope"][field] == "selected"
+    assert result["text"] is None and result["quality_eligible"] is False
+    assert result["observed_text"] == "known member"
+    assert "missing_" + field in result["reasons"]
+    assert not result["no_output_certified"]
+    assert rows == original
+
+
+def test_legacy_history_without_execution_identity_remains_eligible():
+    result = reconstruct([event("legacy output")], ["append"])
+    assert result["text"] == "legacy output" and result["quality_eligible"]
+    assert result["scope"]["run"] is None and result["scope"]["wave"] is None
 
 
 def test_omitted_ambiguous_attempt_cannot_silently_merge_histories():

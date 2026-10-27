@@ -876,7 +876,8 @@ def _condition_selection(bound, episode, role, condition):
             continue
         if any(event.get(field) is not None and value is not None and event[field] != value for field, value in (
                 ("profile", scope.get("profile")), ("episode_id", episode["episode_id"]),
-                ("attempt", scope.get("attempt")), ("pass_id", selected_pass))):
+                ("attempt", scope.get("attempt")), ("pass_id", selected_pass),
+                ("run", scope.get("run")), ("wave", scope.get("wave")))):
             continue
         actual_role = event.get("role")
         actual_channel = event.get("input_channel", event.get("channel"))

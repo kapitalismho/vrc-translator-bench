@@ -277,6 +277,8 @@ def reconstruct_history(events, *, role, cutoff_ns=None, clock_session=None,
         missing = conflicts + ["missing_" + name for name in
                                ("episode_id", "profile", "attempt", "pass_id", "input_channel", "target_language")
                                if actual[name] is None]
+        missing.extend("missing_" + name for name in ("run", "wave")
+                       if scope[name] is not None and actual[name] is None)
         if actual_role is None:
             missing.append("role_extraction_unknown")
         if actual["clock_session"] is None and cutoff_ns is not None and not interpretation.get("event_time_interval"):
