@@ -175,7 +175,25 @@
     "run": ".data/r3/pilot",
     "development_scripts": ".data/r3/scripts-v1/development.json",
     "main_scripts": ".data/r3/scripts-v1/main.json",
-    "pre_network_failure": ".data/r3/pilot-preflight-failure.json"
+    "pre_network_failure": ".data/r3/pilot-preflight-failure.json",
+    "human_review_page": ".data/r3/pilot-review/index.html",
+    "browser_evidence": ".data/r3/pilot-review/browser-evidence.json",
+    "raw_rejected_alignment": ".data/r3/pilot-review/pilot-01-alignment.json"
+  },
+  "human_review_packet": {
+    "audio": "Six original WAV players, with 118 exact scripted turn occurrences across the six takes.",
+    "feedback": "Blank reviewer identity, per-take/per-turn judgments and human-observed seconds; local JSON export only. No automatic saving, submission, acceptance or splitter-ready timeline.",
+    "surface_verification": "Actual Windows file-page rendering, six media durations, muted playback advancing, time-note capture and downloaded feedback round-trip verified. Smoke-only feedback removed; no human review occurred.",
+    "automatic_timing": {
+      "observed_take": "pilot-01",
+      "engine": "Existing offline Qwen3ForcedAligner with native Japanese/nagisa tokenization; mixed-language accuracy not assumed.",
+      "result": "Rejected as unusable for ordered turn proposals.",
+      "raw_units": 80,
+      "flagged_units": 12,
+      "flags": "Five reversed, four nonmonotonic/overlapping, one zero-duration, two crossing script-turn boundaries.",
+      "handling": "Raw predictions and mappings retained without interpolation or repair. No extension to the other five takes, no alternative timing pipeline, no role-buffer generation.",
+      "limits": "Forced known-text timing does not establish words spoken, acoustic silence, speaker identity or pronunciation. Human boundaries remain required."
+    }
   },
   "remaining_prerequisites": [
     "Actual JA and KO listening/content, voice, naturalness and boundary reviews on the retained pilot takes.",

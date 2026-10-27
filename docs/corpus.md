@@ -392,6 +392,19 @@ rejected, no role buffers are yet speaker-reviewed, and no main audio has been
 generated. The nine prepared main scripts remain gated on actual pilot listening
 and boundary review, method adoption and separate generation authorization.
 
+Open `.data/r3/pilot-review/index.html` directly in a browser for all six original
+WAV players and exact JA/KO turns. Reviewers can enter judgments and observed
+seconds, then export local feedback JSON; export before closing because answers
+are not autosaved. The page was exercised in Chromium through the actual Windows
+file route, including playback and downloaded feedback. That UI smoke was not
+human listening and its synthetic feedback was removed.
+
+One offline forced-alignment observation on the first take yielded unusable
+mixed-language turn mappings and invalid raw timestamps. The raw result is
+retained rather than repaired into supposed ground truth; the other five takes
+were not aligned. No proposed timing was adopted. Human reviewers can supply
+seconds and gap/overlap notes without constructing sample-integer JSON.
+
 ### Adoption remains an audio decision
 
 The owner can arrange Japanese and Korean listening reviewers. Availability
