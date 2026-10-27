@@ -26,6 +26,8 @@ class FixtureApplication:
         self.failure = None
         self.generation = 0
         self.collector = None
+        self.server = None
+        self.clients = set()
         self.save()
 
     def save(self):
@@ -45,9 +47,15 @@ class FixtureApplication:
                 elif event.get("invalid"):
                     self.failure = {"operational": event["invalid"]}
                 else:
-                    address = event.get("address", "/microphone/translated" if self.collector["family"] == "kikitan" else "/chatbox/input")
-                    arguments = event.get("args", [event["text"]] if self.collector["family"] == "kikitan" else [event["text"], True, False])
-                    self.udp.sendto(encode(address, arguments), (self.collector["host"], self.collector["port"]))
+                    if self.collector["family"] == "kikitan":
+                        message = json.dumps({"method": "recognition", "data": json.dumps({
+                            "transcription": event.get("source", ""), "translation": event["text"], "final": event.get("final", False)})})
+                        for client in list(self.clients):
+                            client.send(message)
+                    else:
+                        address = event.get("address", "/chatbox/input")
+                        arguments = event.get("args", [event["text"], True, False])
+                        self.udp.sendto(encode(address, arguments), (self.collector["host"], self.collector["port"]))
 
     def call(self, method, params, controller=0):
         with self.lock:
@@ -55,6 +63,17 @@ class FixtureApplication:
             result = {}
             if method == "preflight":
                 self.collector = params["profile"]["collector"]
+                if self.collector["family"] == "kikitan" and self.server is None:
+                    from websockets.sync.server import serve
+                    def connected(client):
+                        self.clients.add(client)
+                        try:
+                            for _ in client:
+                                raise ValueError("Collector must be read-only")
+                        finally:
+                            self.clients.discard(client)
+                    self.server = serve(connected, "127.0.0.1", 18378)
+                    threading.Thread(target=self.server.serve_forever, daemon=True).start()
                 result = {"ready": True, "supported": not self.scenario.get("unsupported", False),
                           "metadata": {"model": self.scenario.get("model"), "synthetic": True}}
             elif method == "reset_session":
@@ -104,6 +123,13 @@ class FixtureApplication:
             self.save()
             return result
 
+    def close(self):
+        if self.server is not None:
+            for client in list(self.clients):
+                client.close()
+            self.server.shutdown()
+        self.udp.close()
+
 
 def main():
     parser = argparse.ArgumentParser()
@@ -120,7 +146,7 @@ def main():
                 reply = {"id": request["id"], "error": {"kind": "operational", "message": str(error)}}
             print(json.dumps(reply), flush=True)
     finally:
-        app.udp.close()
+        app.close()
 
 
 if __name__ == "__main__":

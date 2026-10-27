@@ -1,6 +1,6 @@
 # Episode-native capture runner
 
-The [final plan](benchmark-final-plan.md), [Kikitan self/split amendment](https://github.com/kapitalismho/vrc-translator-bench/issues/14#issuecomment-6406954100) and [implementation sequence](benchmark-implementation-plan.md) govern this runner. No translator is bundled. Schema-1 stage plans and old runs are not executable through a compatibility path; keep their original artifacts and use the pinned historical implementation for inspection.
+The maintained [final plan](benchmark-final-plan.md), including the approved Kikitan headless WebSocket cutover, and [implementation sequence](benchmark-implementation-plan.md) govern this runner. The [published self/split amendment](https://github.com/kapitalismho/vrc-translator-bench/issues/14#issuecomment-6406954100) retains the input exception; its former UDP-primary requirement is superseded locally. No translator is bundled. Schema-1 stage plans and old runs are not executable through a compatibility path; keep their original artifacts and use the pinned historical implementation for inspection.
 
 ## Install and operate
 
@@ -19,6 +19,8 @@ bench run --resume pilot
 `python -m bench.cli` is equivalent to `bench`. `run` and `status` accept `--root` (default `.data/runs`). Resume uses the stored plan, not a replacement input. `--audio-backend clock` requires both `synthetic: true` and a synthetic execution scope; simulated input cannot establish product observation opportunity.
 
 `calibrate` measures the selected output→input path with a seeded synthetic probe and preserves checksummed NPZ evidence. `playback` is an audio-path probe, not a translation pilot. Both accept `--output-device`; calibration also accepts `--input-device`. Use explicitly enumerated WASAPI device names or indices, never a default microphone. Calibration for one path does not establish another path's offset. Disable translated voice and keep raw passthrough away from the injection endpoint.
+
+For an explicitly named, uniquely resolved WASAPI endpoint, the current exact device name must match the measured calibration. Enumeration indices may change; the run retains current playback device indices alongside the untouched calibration's historical indices, offset and raw hash. Numeric selectors retain the index check. Wrong or ambiguous names are rejected. Name-preserving reuse is not a new precision calibration or a persistent hardware-identity guarantee.
 
 Capture acquires the per-user activity lock across worktrees/run roots. It cannot discover arbitrary unmanaged CPU-heavy work. Do not take screenshots, operate the GUI or run unrelated checks during input and the observation tail. Judging must acquire the same exclusion; there is no scoring command here.
 
@@ -63,7 +65,7 @@ C1 optionally supplies both `quiet_seconds` and `quiet_max_wait_seconds`, with m
 | `vrct` | Loopback `url`, `token_env`; `ocr_disabled: true` and independent `ocr_evidence` for peer attribution | Authenticated WebSocket; SENT=self, RECEIVED=peer only with OCR excluded. OCR shares RECEIVED and the socket omits the UI-only source marker. |
 | `vrcs` | Loopback `/v1/events` `url`, optional existing `token_env` | External API WebSocket, matching connected/subscribed ACKs; source microphone/self and speaker/peer. No replay. |
 | `vrclt` | Loopback `host`, unique `port`, required `log_path`; optional sender restriction | `/chatbox/input` display text plus independent FINAL-log crosscheck. Mixed display text is not falsely called a translation-only field. |
-| `kikitan` | Loopback `host`, fixed `port: 7272`; optional sender restriction | `/microphone/recognized`, `/microphone/translated`, `/microphone/final` user-data. No fabricated adjacency links or finality. Desktop/VRChat is outside the approved condition. |
+| `kikitan` | `url: "ws://127.0.0.1:18378/"`; no token or UDP fields | Installed `--no-ui` microphone `recognition` callback. Separate source/translation/native-final fields in nested JSON; no producer timestamps or IDs. One profile owns this fixed endpoint at a time. |
 | `vrcls` | Existing `log_path` or `log_dir` | Read-only `vrcls-*.log` tail, Desktop/peer and Mic/self. Preserve physical-line and multiline uncertainty; exclude configuration snapshots. |
 
 Collectors are read-only: they do not launch translator hosts or configure providers. Authentication tokens are read from named environment variables and excluded from persisted connection URLs/raw evidence. UDP listener continuity does not guarantee packet completeness. File rotation/truncation, malformed payloads, explicit producer gaps and disconnections remain observable gaps; reconnect cannot invent missing history. PuriPuly filtered sequence jumps alone are not loss.
@@ -72,7 +74,9 @@ Windows file tails open existing logs read-only with read/write/delete sharing, 
 
 VRCS collector startup returns only after validating the server's `system.connected` and matching `system.subscribed` acknowledgements, before the runner may start the app/input. Missing acknowledgements fail within the five-second subscription deadline; rejected subscriptions or connection errors also fail startup and close the transport. The same receive loop retains ACK-adjacent and later events without reconnecting. PuriPuly's CLI exposes no subscription acknowledgement, so this barrier does not invent one or wait indefinitely for its first translation.
 
-Installed Kikitan 2.0.2's user-data serializer casts UTF-16 characters to single bytes, irreversibly corrupting Chinese before UDP transmission. The [observed blocker](../profiles/evidence/r1/kikitan-unicode-blocker.json) prevents KIKI2 ordinary EN→ZH confirmation; decoder replacement or GUI text cannot recover or substitute the primary native output. This is distinct from the UTF-8-capable historical chatbox path. No product patch or alternate endpoint is silently introduced.
+Kikitan's collector connects before capture starts and sends no control or subscription messages. It preserves each valid `recognition` payload and its independently decoded `transcription`, `translation` and boolean `final`, including empty translations, duplicate snapshots and cumulative updates. The socket also broadcasts configuration/state messages containing credentials: those are excluded before raw persistence, with only safe diagnostic metadata retained. Malformed recognition and unexpected disconnects remain gaps; there is no reconnect/replay fallback.
+
+Installed Kikitan 2.0.2's former user-data serializer irreversibly narrows Unicode before UDP transmission. The [original blocker and invalid attempt](../profiles/evidence/r1/kikitan-unicode-blocker.json) remain history. The owner explicitly adopted the existing UTF-8 WebSocket route after a bounded actual KIKI2 EN→ZH experiment; this is not a decoder workaround, product patch, chatbox substitution or proof that the UDP defect or KIKI1's earlier headless capture crash was repaired.
 
 `native_output_event` records bind profile/config, episode, pass, wave, attempt, physical channel and logical role. Manifest-selected languages are separate from producer-reported languages. Preserve actual translated/source/display text, IDs, revisions and boundary fields only when emitted. Producer time/clock and `collector_received_monotonic` are different fields. Missing time mapping, finality, revisions or IDs remain null/unknown. Native producer stages differ; none is automatically user-visible rendering or provider-return time.
 
@@ -95,6 +99,37 @@ One subprocess per active profile communicates via UTF-8 newline-delimited JSON.
 Asynchronous `product_failure` (crash/provider/disconnection/limit) and `operational_error` events retain their observed receipt time. stderr/diagnostics are separate from native translation records. Sanitize free text at the controller: named-field redaction is not a generic secret scrubber. A separate settings path does not isolate keyrings or shared providers.
 
 Preparation stops prior owned capture, stops the prior collector generation, genuinely resets the conversation, configures/verifies channels, establishes identity, starts collection, then starts capture before audio. Cleanup intent is recorded before start; failed acknowledgements do not remove cleanup responsibility. Resume reconciles previous ownership even for terminal work, without replaying it.
+
+## Kikitan headless controller
+
+Use the installed Windows Photino executable, not the separate Console project or a modified build. The Python environment must have `.[native]` installed. A profile fragment for KIKI2 is:
+
+```json
+{
+  "id": "KIKI2",
+  "adapter": [
+    "python", "-m", "bench.kikitan_adapter",
+    "--directory", "C:/benchmark/kiki2-owner",
+    "--executable", "C:/installed/KikitanTranslator.Photino.exe",
+    "--profile", "KIKI2"
+  ],
+  "collector": {
+    "family": "kikitan",
+    "url": "ws://127.0.0.1:18378/"
+  },
+  "expected_state": {"voice_output": false}
+}
+```
+
+Replace the example paths with absolute local paths and supply the normal schema-2 `routes` and `episodes`. `python` must resolve to the intended installed harness environment. Use KIKI1 with its own owner directory/profile for Bing+Google; the controller preserves the profile's planned model choice. Do not put credentials into the plan or arguments. The app still uses its shared `%APPDATA%/Kikitan Translator/config.json`; there is no executable config-path override.
+
+The controller refuses pre-existing/unrelated Kikitan instances or fixed-port ownership. It launches its own stopped `--no-ui` instance, verifies executable/process birth and listener ownership, applies supported settings only while stopped and reads them back. Keep desktop, user-data and chatbox output disabled. The first fresh owned instance can establish the first episode reset; a reused capture session requires an actual owned restart, not merely OFF/ON or clearing displayed text.
+
+`read_state` exposes an allowlisted `app_settings` object and those public settings at the top level, plus `running`, native `status`, `voice_output` and `channels`. Input device and configured languages come from app state. Logical role and output-device bindings come from the frozen harness pass and are explicitly labelled as such, not invented app observations. The no-voice claim uses the stock microphone TEXT/no-TTS pipeline basis. Native state polling does not prove uninterrupted input/provider health; liveness preserves those unknowns.
+
+Kikitan round teardown stops capture, closes the collector, then shuts down its controller and owned app before the next pass/profile needs the shared port/settings. Controller EOF performs supported OFF/quit and guarded settings restoration. Keep its owner directory for frozen-argv recovery; do not delete it to bypass outstanding ownership or a concurrent-settings conflict. Restoration happens only after owned process exit and must not overwrite concurrent changes. Cleanup failures are retained independently of completed attempts and must not return a successful run exit; resume reconciles cleanup rather than replaying completed audio.
+
+The app performs normal update checks, discovery, device enumeration and logging even before ON. Headless operation is not a zero-network sandbox, a separate credential store or proof of disabled vendor logging. Never publish whole settings, state messages or vendor diagnostics. The successful small KIKI2 experiment is not KIKI1, long-session, other-language, split-T1, wave or final quality/time admission.
 
 ## Actual GUI bridge
 

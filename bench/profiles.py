@@ -37,7 +37,7 @@ ENDPOINTS = {
     "VRCT": {"transport": "websocket", "host": "127.0.0.1", "path": "/", "channels": {"peer": "RECEIVED", "self": "SENT"}},
     "VRCS": {"transport": "websocket", "host": "127.0.0.1", "path": "/v1/events", "channels": {"peer": "speaker", "self": "microphone"}, "event": "translation.completed"},
     "VRCLT": {"transport": "osc", "host": "127.0.0.1", "path": "/chatbox/input", "channels": {"self": "self"}, "cross_check": "%LOCALAPPDATA%/vrclt/logs/vrclt.log:FINAL"},
-    "kikitan": {"transport": "osc", "host": "127.0.0.1", "path": "/microphone/translated", "channels": {"self": "self"}, "related": ["/microphone/recognized", "/microphone/final"]},
+    "kikitan": {"transport": "websocket", "host": "127.0.0.1", "path": "/", "channels": {"self": "microphone"}, "event": "recognition"},
     "VRCLS": {"transport": "file", "path": "%APPDATA%/VRCLS/logs/vrcls-*.log", "channels": {"peer": "Desktop", "self": "Mic"}},
 }
 
@@ -79,8 +79,8 @@ def _endpoint(native, identity):
         port = endpoint["port"]
         if type(port) is not int or not 1 <= port <= 65535:
             raise ValueError(f"{identity} has an invalid native port")
-        if family == "kikitan" and port != 7272:
-            raise ValueError(f"{identity} user-data native port must be 7272, not chatbox OSC")
+        if family == "kikitan" and port != 18378:
+            raise ValueError(f"{identity} headless native port must be 18378")
         return ("udp" if expected["transport"] == "osc" else "tcp", port)
     return None
 

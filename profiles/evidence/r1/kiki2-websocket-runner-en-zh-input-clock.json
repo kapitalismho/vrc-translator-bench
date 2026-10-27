@@ -1,0 +1,106 @@
+{
+  "kind": "installed_integrated_Runner_smoke_input_clock_derivative",
+  "profile": "KIKI2",
+  "source_sha256": "b214d5288ed05ce51e6c18a7e8b2b3101218331122a8cf19192e9dc398c33926",
+  "source_format": {
+    "sample_rate": 48000,
+    "frames": 1920000,
+    "duration_seconds": 40,
+    "channels": 1,
+    "encoding": "PCM16"
+  },
+  "input_channel": "self",
+  "role": "A",
+  "configured_source_language": "en",
+  "configured_target_language": "zh",
+  "current_playback_devices": {
+    "output": [
+      19,
+      {
+        "name": "CABLE Input(VB-Audio Virtual Cable)",
+        "index": 19,
+        "hostapi": 2,
+        "max_input_channels": 0,
+        "max_output_channels": 2,
+        "default_low_input_latency": 0.0,
+        "default_low_output_latency": 0.002,
+        "default_high_input_latency": 0.0,
+        "default_high_output_latency": 0.01,
+        "default_samplerate": 48000.0
+      }
+    ],
+    "exclusive": false
+  },
+  "historical_calibration_devices": {
+    "output": [
+      22,
+      {
+        "name": "CABLE Input(VB-Audio Virtual Cable)",
+        "index": 22,
+        "hostapi": 2,
+        "max_input_channels": 0,
+        "max_output_channels": 2,
+        "default_low_input_latency": 0.0,
+        "default_low_output_latency": 0.002,
+        "default_high_input_latency": 0.0,
+        "default_high_output_latency": 0.01,
+        "default_samplerate": 48000.0
+      }
+    ],
+    "input": [
+      23,
+      {
+        "name": "CABLE Output(VB-Audio Virtual Cable)",
+        "index": 23,
+        "hostapi": 2,
+        "max_input_channels": 1,
+        "max_output_channels": 0,
+        "default_low_input_latency": 0.003,
+        "default_low_output_latency": 0.0,
+        "default_high_input_latency": 0.01,
+        "default_high_output_latency": 0.0,
+        "default_samplerate": 48000.0
+      }
+    ],
+    "exclusive": false
+  },
+  "calibration_sha256": "ff8c74a66eff13e838c27772287b0050463f56c207edc1b64ae83a71f3d70550",
+  "calibration_offset_ns": 113409500,
+  "calibration_reuse_basis": "explicit_unique_WASAPI_name; indices_are_enumeration_not_persistent_identity; historical_offset_not_fresh_precision_certification",
+  "clock_session": "c44adc1e6ef34e7daa940d3b05ed3783",
+  "playback_dac_start_ns": 16759313600667,
+  "reported_playback_end_ns": 16799313041067,
+  "input_origin_ns": 16759427010167,
+  "common_speech_end_dac_ns": 16799313041067,
+  "observation_deadline_ns": 16814426450567,
+  "observation_end_ns": 16814439485900,
+  "tail_after_reported_calibrated_input_end_seconds": 15.013035333,
+  "reported_playback_complete": true,
+  "callback_ledger": {
+    "classification": "callback ledger evidence loss",
+    "persisted_frames": 1896000,
+    "expected_frames": 1920000,
+    "missing_frames": 24000,
+    "callback_rows": 3972,
+    "gap_count": 50,
+    "first_missing_frame_range": [
+      7915,
+      8395
+    ],
+    "complete_serialized_frame_accounting": false,
+    "explanation": "Consumer advanced cursor to live list length after iterating a snapshot; concurrently appended rows were skipped. No callbacks reconstructed or real replay made. Reported playback completion is retained separately from serialized evidence completeness."
+  },
+  "continuity_established_flags": {
+    "app": false,
+    "input": false,
+    "collector": false
+  },
+  "opportunity_established": false,
+  "limits": [
+    "Same named WASAPI route, unchanged historical measurement/hash/offset; mutable indices19/20 versus22/23 are retained, not relabelled. No fresh precision/hardware identity certification.",
+    "No new independent cable recording; accepted historical pilot separately supplies full waveform/cable proof for same source.",
+    "Producer timestamps/IDs/revisions absent. Native receipt times are not producer times.",
+    "Sampled status/process and open collector do not certify uninterrupted app/provider/internal input health.",
+    "The immutable sole real run predates the callback-cursor repair. Controlled post-repair proof does not repair missing real-run rows."
+  ]
+}

@@ -17,7 +17,7 @@ import time
 from pathlib import Path
 
 from .adapter import OperationalError
-from .native_formats import LOG_TIME, log_record, osc, puripuly, vrct, vrcs
+from .native_formats import LOG_TIME, kikitan, kikitan_json, log_record, osc, puripuly, vrct, vrcs
 from .native_transports import CLI, UDP, FileTail, WebSocket
 from .osc import decode
 from .storage import Journal
@@ -156,16 +156,16 @@ class NativeSink:
             config = self.profiles[profile]["collector"]
             family = config["family"]
             factory = {"puripuly": CLI, "vrct": WebSocket, "vrcs": WebSocket,
-                       "vrclt": UDP, "kikitan": UDP, "vrcls": FileTail}.get(family)
+                       "vrclt": UDP, "kikitan": WebSocket, "vrcls": FileTail}.get(family)
             if factory is None:
                 raise ValueError("Unsupported native collector family")
             if family == "vrclt" and not config.get("log_path"):
                 raise ValueError("VRCLT requires a separate FINAL log crosscheck")
-            if family in ("vrclt", "kikitan"):
+            if family == "vrclt":
                 endpoint = (config.get("host", "127.0.0.1"), config["port"])
                 for other in self.transports:
                     other_config = self.profiles[other]["collector"]
-                    if other_config["family"] in ("vrclt", "kikitan") and endpoint == (other_config.get("host", "127.0.0.1"), other_config["port"]):
+                    if other_config["family"] == "vrclt" and endpoint == (other_config.get("host", "127.0.0.1"), other_config["port"]):
                         raise OperationalError("OSC bind identity is already owned by another profile")
             state = self.states[profile]
             generation = state["generation"] + 1
@@ -281,13 +281,30 @@ class NativeSink:
 
     def json(self, profile, family, data, received, expected_channel=None):
         try:
-            value = json.loads(data)
+            value = kikitan_json(data) if family == "kikitan" else json.loads(data)
             if not isinstance(value, dict):
                 raise ValueError("Not an object")
         except (UnicodeError, ValueError, TypeError):
             self.diagnostic(profile, "invalid_native_json", raw_evidence=self._raw(data))
             self.gap(profile, "unparseable_native_message")
             return None
+        if family == "kikitan":
+            # Filter before any raw/base64 persistence: non-recognition data is
+            # intentionally never inspected or retained, even as nested strings.
+            try:
+                fields = kikitan(value)
+            except (ValueError, TypeError):
+                self.diagnostic(profile, "invalid_recognition", raw_evidence=self._raw(data))
+                self.gap(profile, "malformed_recognition")
+                return None
+            if fields is None:
+                self.diagnostic(profile, "excluded_nonrecognition", raw_evidence=self._raw(data))
+                return None
+            encoded = data.encode("utf-8") if isinstance(data, str) else data
+            evidence = self._raw(encoded, message_base64=base64.b64encode(encoded).decode("ascii"),
+                                 original_not_persisted=False)
+            self._event(profile, fields, evidence, received, "websocket")
+            return value
         raw, fields = {"puripuly": puripuly, "vrct": vrct, "vrcs": vrcs}[family](value)
         evidence = self._raw(data, allowlisted_projection=raw, original_not_persisted=True)
         if not fields:

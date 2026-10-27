@@ -40,7 +40,7 @@ def main():
             atomic_json(args.ready, {"pid": app.state["pid"], "port": server.server_address[1]})
             server.serve_forever(poll_interval=0.02)
     finally:
-        app.udp.close()
+        app.close()
 
 
 if __name__ == "__main__":

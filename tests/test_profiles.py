@@ -281,9 +281,12 @@ def test_native_port_conflicts_are_transport_specific_and_wave_local(catalog):
     profile(value, "VRCS2")["native_protocol"]["endpoint"]["port"] = 2231
     with pytest.raises(ValueError, match="conflicting native ports"):
         inspect_catalog(save())
-    profile(value, "VRCS2")["native_protocol"]["endpoint"]["port"] = 7272
-    # TCP 7272 and Kikitan UDP 7272 are distinct sockets. KIKI1/2 and VRCLT1/2
-    # reuse their ports only in separate fixed waves.
+    profile(value, "VRCS2")["native_protocol"]["endpoint"]["port"] = 18378
+    with pytest.raises(ValueError, match="conflicting native ports"):
+        inspect_catalog(save())
+    profile(value, "VRCS2")["native_protocol"]["endpoint"]["port"] = 19131
+    # TCP 19131 and VRCLT UDP 19131 are distinct. KIKI1/2 reuse TCP18378
+    # only in separate fixed waves.
     assert inspect_catalog(save())["new_protocol_status"] == "unverified"
 
 
@@ -297,7 +300,7 @@ def test_probes_inspect_native_tcp_udp_only_and_release_all_sockets(catalog):
         observations = result["port_observations"]
         assert next(row for row in observations if (row["transport"], row["port"]) == ("tcp", port))["available"] is False
         assert result["new_protocol_status"] == "unverified"
-        assert ("udp", 7272) in {(row["transport"], row["port"]) for row in observations}
+        assert ("tcp", 18378) in {(row["transport"], row["port"]) for row in observations}
         assert ("udp", 19104) not in {(row["transport"], row["port"]) for row in observations}
         for row in observations:
             if row["available"]:

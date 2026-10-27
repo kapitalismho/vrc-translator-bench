@@ -6,7 +6,7 @@
 
 Ordinary inputs are peer and T1 is simultaneous peer/self, except **VRCLT and Kikitan**: ordinary self and separate A/B self passes, without VRChat. Both passes preserve the original timeline and one logical episode. Follow the [final plan](benchmark-final-plan.md) and [capture CLI contract](cli.md), not historical operating instructions below. Fixed model comparisons and W1–W4 membership remain unchanged.
 
-Actual early evidence is stored under `profiles/evidence/r1/` and bound by each confirmed catalog scope. A native event collector's connection alone is insufficient. Representative success never promotes another model, language, type, full wave, quality score or latency admission. Missing producer timestamps, UDP completeness and GUI-only continuous-state uncertainty remain explicit.
+Actual early evidence is stored under `profiles/evidence/r1/` and bound by each confirmed catalog scope. Kikitan's approved primary is the installed `--no-ui` WebSocket `recognition` callback, not the former UDP user-data or chatbox route. A native event collector's connection alone is insufficient. Representative success never promotes another model, language, type, full wave, quality score or latency admission. Missing producer timestamps, transport completeness and internal input/provider continuity remain explicit; headless state polling does not remove those unknowns.
 
 ## Historical self/OSC record
 

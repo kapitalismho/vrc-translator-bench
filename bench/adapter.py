@@ -128,18 +128,32 @@ class Adapter:
                 raise OperationalError(event.get("message", "Adapter observed invalid application settings"))
 
     def close(self):
+        forced = False
         if self.process.poll() is None:
-            self.process.terminate()
             try:
-                self.process.wait(timeout=5)
-            except subprocess.TimeoutExpired:
-                self.process.kill()
-                self.process.wait()
+                # EOF permits owned controllers to stop/quit and restore shared
+                # settings. Legacy controllers retain bounded termination fallback.
+                self.process.stdin.close()
+                self.process.wait(timeout=self.timeout)
+            except (OSError, subprocess.TimeoutExpired):
+                forced = True
+                self.process.terminate()
+                try:
+                    self.process.wait(timeout=5)
+                except subprocess.TimeoutExpired:
+                    self.process.kill()
+                    self.process.wait()
         self.reader.join(timeout=2)
         self.errors.join(timeout=2)
+        cleanup_failed = forced and self.profile.get("collector", {}).get("family") == "kikitan"
+        self.cleanup_evidence = []
         while True:
             try:
-                self._record("event", self.events.get_nowait())
+                event = self.events.get_nowait()
+                self._record("event", event)
+                cleanup_failed |= event.get("event") == "operational_error"
+                if event.get("event") == "operational_error" and self.profile.get("collector", {}).get("family") == "kikitan":
+                    self.cleanup_evidence.append({key: event.get(key) for key in ("reason", "message")})
             except queue.Empty:
                 break
         for pipe in (self.process.stdin, self.process.stdout, self.process.stderr):
@@ -147,4 +161,7 @@ class Adapter:
                 pipe.close()
             except OSError:
                 pass
-        return self.log.finalize()
+        artifact = self.log.finalize()
+        if cleanup_failed:
+            raise OSError(f"Adapter cleanup failed; diagnostic {artifact[0]} sha256={artifact[1]}")
+        return artifact

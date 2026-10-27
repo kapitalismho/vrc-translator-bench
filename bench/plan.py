@@ -12,6 +12,7 @@ from . import __version__
 from .adapter import redact
 from .audio import wave_info
 from .storage import digest
+from .native_transports import kikitan_endpoint
 
 
 IDENTIFIER = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.-]{0,79}$")
@@ -119,6 +120,8 @@ def load_plan(path, run_id):
         family = profile.get("collector", {}).get("family")
         if family not in ("puripuly", "vrct", "vrcs", "vrclt", "kikitan", "vrcls"):
             raise ValueError("Profile requires a native collector family")
+        if family == "kikitan":
+            kikitan_endpoint(profile["collector"])
         canonical = canonical_profiles.get(identity)
         if canonical is not None and family != canonical["application"].lower():
             raise ValueError(f"Canonical profile {identity} requires collector.family={canonical['application'].lower()}")

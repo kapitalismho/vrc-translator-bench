@@ -427,3 +427,83 @@ def test_round_collection_does_not_extend_another_profiles_output_cutoff(tmp_pat
         assert window["observation_end_ns"] == cutoff and window["round_collection_deadline_ns"] == 26_320_000_000
         event, = [row for row in rows if row.get("record") == "native_output_event"]
         assert event["collector_received_monotonic"] == receipt_ns
+
+
+@pytest.mark.parametrize("selector,current_name,accepted", [
+    ("measured-cable", "measured-cable", True),
+    ("measured-cable", "wrong-cable", False),
+    ("19", "measured-cable", False),
+])
+def test_measured_named_route_survives_reindex_not_wrong_name_or_numeric_guess(tmp_path, monkeypatch, selector, current_name, accepted):
+    path = make_plan(tmp_path / "input", {"P1": "vrclt"}, kinds=("P1",))
+    plan = load_plan(path, "named-route")
+    plan["synthetic"] = False
+    route = plan["profiles"][0]["routes"]["self"]
+    route["output_device"] = selector
+    route["calibration"] = {"status": "measured", "offset_ns": 113409500,
+                            "devices": {"output": [22, {"name": "measured-cable"}]}}
+    class ReindexedPlayback(ClockPlayback):
+        def __init__(self, path, selected):
+            super().__init__(path, selected)
+            self.devices = {"output": [19, {"name": current_name}]}
+    monkeypatch.setattr(runner_module, "Playback", ReindexedPlayback)
+    root = tmp_path / "run"
+    root.mkdir()
+    runner = runner_module.Runner(root, plan, False)
+    try:
+        if accepted:
+            players, bindings = runner._players({"P1": plan["passes"][0]}, ["P1"])
+            assert next(iter(players.values())).devices["output"][0] == 19
+            assert bindings["P1"]["self"][1]["calibration"]["devices"]["output"][0] == 22
+            assert bindings["P1"]["self"][1]["calibration"]["offset_ns"] == 113409500
+        else:
+            with pytest.raises(runner_module.OperationalError, match="measured route calibration"):
+                runner._players({"P1": plan["passes"][0]}, ["P1"])
+    finally:
+        runner.ledger.close()
+
+
+def test_explicit_WASAPI_name_rejects_ambiguous_endpoints(monkeypatch):
+    import bench.audio as audio
+    devices = [{"name": "same-cable", "hostapi": 0, "max_output_channels": 2},
+               {"name": "same-cable", "hostapi": 0, "max_output_channels": 2}]
+    sd = SimpleNamespace(query_devices=lambda: devices, query_hostapis=lambda: [{"name": "Windows WASAPI"}],
+                         PortAudioError=RuntimeError)
+    monkeypatch.setattr(audio, "_modules", lambda: (None, sd))
+    with pytest.raises(audio.OperationalError, match="exactly one explicit"):
+        audio.wasapi_device("same-cable", "max_output_channels")
+
+
+def test_callback_cursor_consumes_snapshot_not_concurrent_append(tmp_path, runtime, monkeypatch):
+    _, run = runtime
+    class AppendingPlayback(ClockPlayback):
+        instance = None
+        def __init__(self, path, device):
+            super().__init__(path, device)
+            self.appended = False
+            self.__class__.instance = self
+        def start(self, scheduled_start_ns=None):
+            super().start(scheduled_start_ns)
+            self.records = [{"source_frame": 0, "source_frames": self.info["frames"] // 2,
+                             "dac_t_ns": self.first_dac_ns, "synthetic": True}]
+    original_record = runner_module.Runner._record
+    def record(self, profile, row):
+        original_record(self, profile, row)
+        player = AppendingPlayback.instance
+        if row.get("record") == "audio_callback" and not player.appended:
+            # Deterministically append while the consumer journals its sliced
+            # snapshot, before it updates its cursor. Existing rows never mutate.
+            player.appended = True
+            half = player.info["frames"] // 2
+            player.records.append({"source_frame": half, "source_frames": player.info["frames"] - half,
+                                   "dac_t_ns": player.first_dac_ns + 60_000_000, "synthetic": True})
+    monkeypatch.setattr(runner_module, "ClockPlayback", AppendingPlayback)
+    monkeypatch.setattr(runner_module.Runner, "_record", record)
+    root, result = run(make_plan(tmp_path / "input", {"P1": "vrclt"}, kinds=("P1",), duration=.12))
+    attempt, = result["attempts"]
+    callbacks = [row for row in trace(root, attempt) if row.get("record") == "audio_callback"]
+    assert [(row["source_frame"], row["source_frames"]) for row in callbacks] == [(0, 2880), (2880, 2880)]
+    assert sum(row["source_frames"] for row in callbacks) == 5760
+    detail = json.loads(attempt["detail"])
+    assert detail["observation_end_ns"] >= detail["observation_deadline_ns"]
+    assert detail["playback"]["self"]["complete"] is True

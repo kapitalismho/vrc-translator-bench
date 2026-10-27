@@ -41,7 +41,8 @@ def make_plan(root, families=None, kinds=("P1", "T1"), duration=0.12, scenarios=
         log = root / f"{name}.log"
         log.touch()
         profiles.append({"id": name, "adapter": [sys.executable, str(ADAPTER), "--state", str(root / f"{name}-state.json"), "--scenario", str(scenario)],
-                         "collector": {"family": family, "host": "127.0.0.1", "port": free_port(), "log_path": str(log)},
+                         "collector": ({"family": family, "url": "ws://127.0.0.1:18378/"} if family == "kikitan" else
+                                       {"family": family, "host": "127.0.0.1", "port": free_port(), "log_path": str(log)}),
                          "routes": {channel: {"output_device": f"synthetic-{name}-{channel}", "input_device": f"synthetic-{name}-{channel}-capture"} for channel in ("self", "peer")},
                          "expected_state": {"voice_output": False}, "metadata": {"model": "configured-test-model", "detected_language": None}})
     episodes = []
@@ -178,6 +179,7 @@ class FakeSink:
 
 class FakeAdapter:
     instances = {}
+    all_instances = []
     failure = None
     continuous = True
     refuse = False
@@ -191,6 +193,7 @@ class FakeAdapter:
         self.failed = False
         self.log = Journal(Path(root) / f"diagnostic-{self.profile}-{session}.tmp")
         self.__class__.instances[self.profile] = self
+        self.__class__.all_instances.append(self)
 
     def observe(self):
         pass
@@ -227,6 +230,7 @@ def runtime(tmp_path, monkeypatch):
     clock = VirtualClock()
     FakeSink.instances, FakeSink.output, FakeSink.continuity_value, FakeSink.fail_at = [], False, True, None
     FakeAdapter.instances, FakeAdapter.failure, FakeAdapter.continuous = {}, None, True
+    FakeAdapter.all_instances = []
     FakeAdapter.refuse, FakeAdapter.bad_reset, FakeAdapter.start_error = False, False, False
     monkeypatch.setattr(runner_module, "time", clock)
     monkeypatch.setattr(audio_module, "time", clock)
@@ -278,9 +282,9 @@ def test_fixed_roles_full_common_horizon_and_reset_only_per_pass(tmp_path, runti
     path = make_plan(tmp_path, {"P1": family}, kinds=("T1",), duration=2)
     root, result = run(path)
     assert result["counts"]["done"] == passes
-    adapter = FakeAdapter.instances["P1"]
-    assert sum(method == "reset_session" for method, _, _ in adapter.calls) == passes
-    assert sum(method == "start" for method, _, _ in adapter.calls) == passes
+    calls = [call for adapter in FakeAdapter.all_instances if adapter.profile == "P1" for call in adapter.calls]
+    assert sum(method == "reset_session" for method, _, _ in calls) == passes
+    assert sum(method == "start" for method, _, _ in calls) == passes
     for attempt in result["attempts"]:
         rows = trace(root, attempt)
         detail = json.loads(attempt["detail"])
@@ -478,6 +482,8 @@ def test_canonical_ids_cannot_change_family_or_measurement_condition(tmp_path, m
         load_plan(path, "family")
     for profile in plan["profiles"]:
         profile["collector"]["family"] = {"PP4": "puripuly", "KIKI2": "kikitan", "VRCLT1": "vrclt", "VRCT3": "vrct"}[profile["id"]]
+        if profile["collector"]["family"] == "kikitan":
+            profile["collector"] = {"family": "kikitan", "url": "ws://127.0.0.1:18378/"}
     plan["profiles"][0]["condition"] = {"ordinary_input": "self", "t1_mode": "split_self", "roles": {"A": "self", "B": "self"}}
     atomic_json(path, plan)
     with pytest.raises(ValueError, match="cannot override its approved measurement condition"):

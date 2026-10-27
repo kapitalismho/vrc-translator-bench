@@ -63,8 +63,8 @@ def udp_port():
 
 
 class Peer:
-    def __init__(self, handler, process_request=None):
-        self.server = serve(handler, "127.0.0.1", 0, process_request=process_request)
+    def __init__(self, handler, process_request=None, port=0):
+        self.server = serve(handler, "127.0.0.1", port, process_request=process_request)
         self.port = self.server.socket.getsockname()[1]
         self.thread = threading.Thread(target=self.server.serve_forever, daemon=True)
         self.thread.start()
@@ -243,42 +243,65 @@ def test_vrcs_actual_bearer_subscribe_ack_partial_gap_disconnect(tmp_path, monke
         peer.close()
 
 
-def test_kikitan_fixed_udp_separate_messages_no_adjacent_grouping(tmp_path):
-    p = profile("kikitan", host="127.0.0.1", port=7272)
-    sink = NativeSink(tmp_path, "run", "s", [p])
+def test_kikitan_websocket_unicode_snapshots_private_frames_and_disconnect(tmp_path):
+    release = threading.Event()
+    messages = [{"method": "state", "data": json.dumps({"config": {"gemini_api_key": "nested-secret-marker"}})},
+                {"method": "notification", "data": json.dumps({"msg": "https://private.invalid/?key=nested-secret-marker"})}]
+    snapshots = [("", "", False), ("source only", "", False), ("你好", "好", False),
+                 ("你好", "好", False), ("你好世界", "好世界🦊", False), ("你好世界", "修正\\n한국어", True)]
+    messages += [{"method": "recognition", "data": json.dumps(dict(zip(("transcription", "translation", "final"), snapshot)), ensure_ascii=False)}
+                 for snapshot in snapshots]
+    wire = [json.dumps(message, ensure_ascii=False) for message in messages]
+    def handler(ws):
+        for message in wire:
+            ws.send(message)
+        with pytest.raises(TimeoutError):
+            ws.recv(timeout=.1)  # no subscription/auth/control writes
+        release.wait(5)
+    peer = Peer(handler, port=18378)
+    p = profile("kikitan", url="ws://127.0.0.1:18378/")
+    sink = NativeSink(tmp_path, "run", "s", [p, {**p, "id": "Q"}])
     journal = attach(sink, tmp_path, {"self": {"role": "B", "source_language": "zh", "target_language": "en"}})
-    sender = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     try:
         sink.start("P")
-        state = sink.continuity("P")
-        assert state["continuous"] is None and state["listener_uninterrupted"] is True
-        for address, args in [("/microphone/translated", ["hello"]), ("/microphone/final", [True]),
-                              ("/microphone/recognized", ["你好"]), ("/desktop/translated", ["unexpected desktop"])]:
-            sender.sendto(encode(address, args), ("127.0.0.1", 7272))
-        wait_for(lambda: len(outputs(tmp_path)) == 4)
+        with pytest.raises(OperationalError):
+            sink.start("Q")
+        wait_for(lambda: len(outputs(tmp_path)) == len(snapshots))
         events = outputs(tmp_path)
-        assert events[0]["translated_text"] == "hello" and events[0]["source_text"] is None
-        assert events[1]["translated_text"] is None and events[1]["native_final_signal"] is True
-        assert events[1]["update_kind"] is None and events[1]["native_id"] is None
-        assert events[2]["source_text"] == "你好" and events[2]["translated_text"] is None
-        assert events[0]["input_channel"] == "self" and events[0]["role"] == "B"
-        assert events[0]["raw_evidence"]["packet_base64"]
-        assert events[3]["input_channel"] == "peer" and events[3]["role"] is None
-        assert all(e["event_time_interval"] is None for e in events)
-        sink.stop("P")
-        sink.start("P")
-        assert sink.continuity("P")["generation"] == 2 and sink.continuity("P")["gaps"] == []
+        assert [(e["source_text"], e["translated_text"], e["native_final_signal"]) for e in events] == snapshots
+        assert all(e["input_channel"] == "self" and e["role"] == "B" and e["endpoint_stage"] == "translation_output" for e in events)
+        assert all(e["native_id"] is None and e["revision"] is None and e["update_kind"] is None and e["producer_time_raw"] is None for e in events)
+        import base64
+        assert [base64.b64decode(e["raw_evidence"]["message_base64"]).decode("utf-8") for e in events] == wire[2:]
+        assert sink.continuity("P")["continuous"] is None
+        assert "nested-secret-marker" not in json.dumps(rows(tmp_path))
+        assert sum(e.get("kind") == "excluded_nonrecognition" for e in rows(tmp_path)) == 2
+        release.set()
+        wait_for(lambda: sink.continuity("P")["connection"] == "disconnected")
+        with pytest.raises(OperationalError):
+            sink.check("P")
+        assert any(g["loss_or_gap"] == "collector_disconnected" for g in sink.continuity("P")["gaps"])
     finally:
-        sender.close()
+        release.set()
         sink.close()
         journal.finalize()
+        peer.close()
 
 
-def test_kikitan_rejects_configurable_port_and_shared_bind(tmp_path):
-    sink = NativeSink(tmp_path, "run", "s", [profile("kikitan", port=7273)])
-    with pytest.raises(OperationalError):
-        sink.start("P")
-    sink.close()
+@pytest.mark.parametrize("config", [{"url": "ws://127.0.0.1:18379/"}, {"url": "ws://localhost:18378/"},
+                                  {"url": "ws://127.0.0.1:18378/private"}, {"host": "127.0.0.1", "port": 7272},
+                                  {"url": "ws://127.0.0.1:18378/", "token_env": "SECRET"}])
+def test_kikitan_rejects_obsolete_and_wrong_endpoints(tmp_path, config):
+    sink = NativeSink(tmp_path, "run", "s", [profile("kikitan", **config)])
+    try:
+        with pytest.raises(OperationalError):
+            sink.start("P")
+        assert not sink.states["P"]["ready"]
+    finally:
+        sink.close()
+
+
+def test_vrclt_rejects_shared_bind(tmp_path):
     log = tmp_path / "vrclt.log"
     log.write_bytes(b"")
     p = profile("vrclt", port=udp_port(), log_path=str(log))
@@ -473,11 +496,11 @@ def test_vrcs_wrong_connection_ack_never_claims_ready(tmp_path, monkeypatch):
 
 
 def test_osc_raw_evidence_redacts_known_auth_and_config_payloads(tmp_path):
-    sink = NativeSink(tmp_path, "run", "s", [profile("kikitan", port=7272)])
+    sink = NativeSink(tmp_path, "run", "s", [profile("vrclt", port=19191)])
     sink.secret("synthetic-token")
     with sink.lock:
         for text in ("synthetic-token", "CONFIG_SNAPSHOT_V1 secret compressed settings"):
-            sink.udp("P", encode("/microphone/translated", [text]), ("127.0.0.1", 12345), time.perf_counter_ns())
+            sink.udp("P", encode("/chatbox/input", [text, True, False]), ("127.0.0.1", 12345), time.perf_counter_ns())
     events = outputs(tmp_path)
     assert all("packet_base64" not in e["raw_evidence"] for e in events)
     path, _ = sink.close()
@@ -644,3 +667,53 @@ def test_vrcs_missing_ack_fails_start_at_bounded_subscription_deadline(tmp_path)
         starter.join(timeout=5)
         sink.close()
         peer.close()
+
+
+@pytest.mark.parametrize("payload", [
+    {"transcription": "source", "translation": "目标", "final": 1},
+    {"transcription": None, "translation": "目标", "final": False},
+    {"transcription": "source", "translation": [], "final": False},
+    {"transcription": "source", "translation": "目标"},
+    {"transcription": "source", "translation": "目标", "final": False, "config": "secret-marker"},
+    "not-an-object",
+])
+def test_kikitan_malformed_recognition_is_hash_only_explicit_gap(tmp_path, payload):
+    sink = NativeSink(tmp_path, "run", "s", [profile("kikitan", url="ws://127.0.0.1:18378/")])
+    with sink.lock:
+        sink.json("P", "kikitan", json.dumps({"method": "recognition", "data": json.dumps(payload)}), time.perf_counter_ns())
+    assert not outputs(tmp_path)
+    assert any(g["loss_or_gap"] == "malformed_recognition" for g in sink.continuity("P")["gaps"])
+    assert "secret-marker" not in json.dumps(rows(tmp_path))
+    sink.close()
+
+
+def test_kikitan_failed_start_releases_endpoint_ownership(tmp_path):
+    p = profile("kikitan", url="ws://127.0.0.1:18378/")
+    sink = NativeSink(tmp_path, "run", "s", [p])
+    try:
+        with pytest.raises(OperationalError):
+            sink.start("P")
+        assert not sink.transports and sink.continuity("P")["continuous"] is False
+        release = threading.Event()
+        peer = Peer(lambda ws: release.wait(5), port=18378)
+        try:
+            sink.start("P")
+            assert sink.continuity("P")["listener_uninterrupted"] is True
+        finally:
+            release.set()
+            sink.stop("P")
+            peer.close()
+    finally:
+        sink.close()
+
+
+def test_kikitan_duplicate_JSON_keys_never_hide_private_data_in_raw(tmp_path):
+    sink = NativeSink(tmp_path, "run", "s", [profile("kikitan", url="ws://127.0.0.1:18378/")])
+    payload = json.dumps({"transcription": "source", "translation": "target", "final": False})
+    frame = '{"method":"state","data":"secret-marker","method":"recognition","data":' + json.dumps(payload) + '}'
+    with sink.lock:
+        sink.json("P", "kikitan", frame, time.perf_counter_ns())
+    assert not outputs(tmp_path)
+    assert sink.continuity("P")["gaps"]
+    assert "secret-marker" not in json.dumps(rows(tmp_path))
+    sink.close()

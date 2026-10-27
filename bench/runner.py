@@ -68,6 +68,7 @@ class Runner:
         self.profiles = {profile["id"]: profile for profile in plan["profiles"]}
         self.episodes = {episode["episode_id"]: episode for episode in plan["episodes"]}
         self.adapters, self.open_attempts = {}, {}
+        self.adapter_generations, self.cleanup_errors = {}, []
         self.running_profiles = set()
         self.sink = None
         self.wave = None
@@ -75,8 +76,27 @@ class Runner:
 
     def _adapter(self, profile):
         if profile not in self.adapters:
-            self.adapters[profile] = Adapter(self.profiles[profile], self.root, self.session)
+            generation = self.adapter_generations.get(profile, 0) + 1
+            self.adapter_generations[profile] = generation
+            diagnostic_session = f"{self.session}-{generation}"
+            if self.profiles[profile]["collector"]["family"] == "kikitan":
+                self.ledger.record("controller_cleanup_ownership", {"profile": profile, "owned": True,
+                                                                   "session": self.session})
+            self.adapters[profile] = Adapter(self.profiles[profile], self.root, diagnostic_session)
         return self.adapters[profile]
+
+    def _close_adapter(self, profile):
+        adapter = self.adapters.pop(profile)
+        try:
+            path, checksum = adapter.close()
+            self.ledger.record("diagnostic_artifact", {"profile": profile, "path": path, "sha256": checksum})
+            if self.profiles[profile]["collector"]["family"] == "kikitan":
+                self.ledger.record("controller_cleanup_ownership", {"profile": profile, "owned": False,
+                                                                   "session": self.session})
+        except (OperationalError, ProductError, OSError, ValueError) as error:
+            self.ledger.record("cleanup_failure", {"profile": profile, "error": str(error),
+                                                   "controller_cleanup_events": getattr(adapter, "cleanup_evidence", [])})
+            self.cleanup_errors.append(f"{profile}: {error}")
 
     def _context(self, item, attempt):
         return {"episode_id": item["episode_id"], "pass_id": item["pass_id"], "wave": item["wave"],
@@ -144,6 +164,16 @@ class Runner:
             elif state.get("running") is not True:
                 raise OperationalError(f"{profile} reconciliation did not establish capture state")
             else:
+                self._stop(profile)
+        # Shared-settings cleanup survives capture OFF and terminal attempts.
+        # Reopening the frozen controller argv does not launch an app; EOF
+        # reconciles/restores its durable owner without replaying terminal audio.
+        for profile in sorted(self.ledger.controller_owned_profiles() - set(owned)):
+            if profile not in self.profiles:
+                raise OperationalError("Cleanup owner absent from frozen plan")
+            state = self._state(profile)
+            self.ledger.record("controller_cleanup_reconciliation", {"profile": profile, "state": redact(state)})
+            if state.get("running") is True:
                 self._stop(profile)
 
     def _prepare(self, profile, item):
@@ -258,7 +288,8 @@ class Runner:
                         if not self.synthetic:
                             device = player.devices["output"]
                             calibration = route["calibration"]["devices"]["output"]
-                            if device[0] != calibration[0] or device[1]["name"] != calibration[1]["name"]:
+                            named = str(route["output_device"]) == calibration[1]["name"]
+                            if device[1]["name"] != calibration[1]["name"] or (not named and device[0] != calibration[0]):
                                 raise OperationalError("Playback device does not match measured route calibration")
                         physical = key[0] if self.synthetic else str(player.devices["output"][0])
                         if physical in occupied and occupied[physical] != key:
@@ -320,12 +351,15 @@ class Runner:
                     player.check()
                     if player.first_dac_ns is None and now > scheduled + 10_000_000_000:
                         raise OperationalError("Playback produced no actual source callback within ten seconds")
-                    for callback in player.records[positions[key]:]:
+                    # The producer appends during journal writes. Advance only
+                    # through this snapshot, never through a later list length.
+                    snapshot_end = len(player.records)
+                    for callback in player.records[positions[key]:snapshot_end]:
                         for profile in active:
                             for channel, (stream_key, _, _) in bindings[profile].items():
                                 if stream_key == key:
                                     self._record(profile, {"record": "audio_callback", "input_channel": channel, **callback})
-                    positions[key] = len(player.records)
+                    positions[key] = snapshot_end
                 for profile in active:
                     item = items[profile]
                     for channel, (key, route, source) in bindings[profile].items():
@@ -337,6 +371,9 @@ class Runner:
                                       "playback_dac_start_ns": player.first_dac_ns, "scheduled_start_ns": scheduled,
                                       "actual_dac_observed": not self.synthetic, "audio_sha256": source["audio_sha256"],
                                       "calibration": route["calibration"], "input_origin_ns": None if self.synthetic else player.first_dac_ns + offset,
+                                      "playback_devices": player.devices,
+                                      "calibration_reuse_basis": ("explicit_unique_WASAPI_name; indices_are_enumeration_not_persistent_identity; historical_offset_not_fresh_precision_certification"
+                                                                 if not self.synthetic else "synthetic_not_measured"),
                                       "synchronization": "host-monotonic scheduled start; independent device clocks, not sample-accurate"}
                             self.sink.source(profile, record)
                             self._record(profile, record)
@@ -394,6 +431,8 @@ class Runner:
                           "role_outcomes": role_outcomes,
                           "product_errors": errors[profile], "quiet": quiet,
                           "playback": {channel: {"dac_start_ns": players[key].first_dac_ns,
+                                                  "devices": players[key].devices,
+                                                  "calibration_devices": bindings[profile][channel][1]["calibration"].get("devices"),
                                                   "end_ns": players[key].finished_ns, "complete": players[key].done.is_set()}
                                        for channel, (key, _, _) in bindings[profile].items()}}
                 failure = errors[profile][0]["reason"] if errors[profile] else None
@@ -405,15 +444,26 @@ class Runner:
             raise
         finally:
             for player in players.values():
-                player.close()
+                try:
+                    player.close()
+                except (OperationalError, OSError, ValueError) as error:
+                    self.ledger.record("cleanup_failure", {"scope": "playback", "error": str(error)})
+                    self.cleanup_errors.append(str(error))
             for task in work:
                 profile = task["profile"]
-                try:
-                    if profile in self.running_profiles:
-                        self._stop(profile)
-                    self.sink.stop(profile)
-                except (OperationalError, ProductError, OSError, ValueError) as error:
-                    self.ledger.record("cleanup_failure", {"profile": profile, "error": str(error)})
+                for action in (lambda: self._stop(profile) if profile in self.running_profiles else None,
+                               lambda: self.sink.stop(profile)):
+                    try:
+                        action()
+                    except (OperationalError, ProductError, OSError, ValueError) as error:
+                        self.ledger.record("cleanup_failure", {"profile": profile, "error": str(error)})
+                        self.cleanup_errors.append(f"{profile}: {error}")
+                if profile in self.adapters and self.profiles[profile]["collector"]["family"] == "kikitan":
+                    # Release fixed endpoint/shared settings between profiles and
+                    # passes. Stop the collector before planned host shutdown.
+                    self._close_adapter(profile)
+            if self.cleanup_errors:
+                raise OperationalError("Owned round cleanup failed; terminal attempts preserved")
 
     def run(self):
         try:
@@ -442,7 +492,6 @@ class Runner:
                     self.ledger.record("wave_enter", {"wave": self.wave, "profiles": sorted({task["profile"] for task in work}),
                                                        "concurrency": "all first passes concurrent; split B in separate round"})
                 self._capture(execution_round)
-            return self.ledger.export(self.plan)
         except BaseException as error:
             self.ledger.record("interruption" if isinstance(error, KeyboardInterrupt) else "harness_invalid",
                                {"message": str(error), "type": type(error).__name__, "session": self.session})
@@ -454,14 +503,18 @@ class Runner:
                         self._stop(profile)
                 except (OperationalError, ProductError, OSError, ValueError) as error:
                     self.ledger.record("cleanup_failure", {"profile": profile, "error": str(error)})
+                    self.cleanup_errors.append(f"{profile}: {error}")
                 if profile in self.adapters:
-                    try:
-                        path, checksum = self.adapters[profile].close()
-                        self.ledger.record("diagnostic_artifact", {"profile": profile, "path": path, "sha256": checksum})
-                    except OSError as error:
-                        self.ledger.record("cleanup_failure", {"profile": profile, "error": str(error)})
+                    self._close_adapter(profile)
             if self.sink:
-                path, checksum = self.sink.close()
-                self.ledger.record("stream_artifact", {"path": path, "sha256": checksum})
+                try:
+                    path, checksum = self.sink.close()
+                    self.ledger.record("stream_artifact", {"path": path, "sha256": checksum})
+                except (OperationalError, OSError, ValueError) as error:
+                    self.ledger.record("cleanup_failure", {"scope": "native_sink", "error": str(error)})
+                    self.cleanup_errors.append(str(error))
             self.ledger.record("session_end", {"session": self.session, "wall": utc_now()})
             self.ledger.manifest(self.plan)
+            if self.cleanup_errors:
+                raise OperationalError("Owned cleanup failed; inspect durable cleanup_failure records") from None
+        return self.ledger.export(self.plan)

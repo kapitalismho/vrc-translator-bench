@@ -5,6 +5,7 @@ JSON is allowlisted here before it can reach the durable collector journal.
 """
 from __future__ import annotations
 
+import json
 import re
 
 
@@ -117,30 +118,45 @@ def vrcs(value):
     return raw, fields
 
 
-def osc(family, address, args):
-    if family == "vrclt":
-        if address not in ("/chatbox/input", "/chatbox/typing"):
-            return None
-        if address == "/chatbox/input" and (not args or not isinstance(args[0], str)):
-            return {"native_endpoint": address, "boundary": "invalid_chatbox_arguments"}
-        return {"input_channel": "self", "native_endpoint": address,
-                "endpoint_stage": "self_chatbox_udp", "display_text": args[0] if address == "/chatbox/input" else None,
-                "boundary": "unstructured_chatbox_text" if address == "/chatbox/input" else None}
-    parts = address.strip("/").split("/")
-    if len(parts) != 2 or parts[0] not in ("desktop", "microphone") or parts[1] not in ("recognized", "translated", "final"):
+def kikitan_json(data):
+    def unique(pairs):
+        result = {}
+        for key, value in pairs:
+            if key in result:
+                raise ValueError("Duplicate Kikitan JSON field")
+            result[key] = value
+        return result
+    return json.loads(data, object_pairs_hook=unique)
+
+
+def kikitan(value):
+    """Only the exact recognition envelope is safe to retain verbatim.
+
+    State/error/config frames contain nested JSON strings, including credentials.
+    Do not treat recursive named-field redaction as a privacy boundary.
+    """
+    if value.get("method") != "recognition":
         return None
-    kind = parts[1]
-    valid = len(args) == 1 and (isinstance(args[0], bool) if kind == "final" else isinstance(args[0], str))
-    fields = {"input_channel": "peer" if parts[0] == "desktop" else "self",
-              "native_endpoint": address, "endpoint_stage": "user_data_udp_" + kind,
-              "boundary": None if valid else "invalid_user_data_arguments"}
-    if valid:
-        if kind == "final":
-            fields["native_final_signal"] = args[0]
-            fields["boundary"] = "final_signal_has_no_message_link"
-        else:
-            fields["source_text" if kind == "recognized" else "translated_text"] = args[0]
-    return fields
+    if set(value) != {"method", "data"} or not isinstance(value["data"], str):
+        raise ValueError("Invalid Kikitan recognition envelope")
+    payload = kikitan_json(value["data"])
+    if (not isinstance(payload, dict) or set(payload) != {"transcription", "translation", "final"}
+            or not isinstance(payload["transcription"], str)
+            or not isinstance(payload["translation"], str) or type(payload["final"]) is not bool):
+        raise ValueError("Invalid Kikitan recognition payload")
+    return {"input_channel": "self", "native_endpoint": "recognition",
+            "endpoint_stage": "translation_output", "source_text": payload["transcription"],
+            "translated_text": payload["translation"], "native_final_signal": payload["final"]}
+
+
+def osc(family, address, args):
+    if family != "vrclt" or address not in ("/chatbox/input", "/chatbox/typing"):
+        return None
+    if address == "/chatbox/input" and (not args or not isinstance(args[0], str)):
+        return {"native_endpoint": address, "boundary": "invalid_chatbox_arguments"}
+    return {"input_channel": "self", "native_endpoint": address,
+            "endpoint_stage": "self_chatbox_udp", "display_text": args[0] if address == "/chatbox/input" else None,
+            "boundary": "unstructured_chatbox_text" if address == "/chatbox/input" else None}
 
 
 # Both file loggers use a millisecond wall-clock prefix. The family-specific

@@ -1,0 +1,62 @@
+{
+  "kind": "accepted_historical_pilot_input_and_clock_derivative",
+  "profile": "KIKI2",
+  "scope": "ordinary/en-zh",
+  "source_attempt": "a93622fb-8cb0-4d9b-aa3e-9a2fc88cbe63",
+  "source_audio": {
+    "description": "Retained AMI English development34-74, no redistributed audio here",
+    "sha256": "b214d5288ed05ce51e6c18a7e8b2b3101218331122a8cf19192e9dc398c33926",
+    "sample_rate": 48000,
+    "frames": 1920000,
+    "duration_seconds": 40
+  },
+  "route": {
+    "output_device": "CABLE Input(VB-Audio Virtual Cable)",
+    "input_device": "CABLE Output(VB-Audio Virtual Cable)",
+    "api": "WASAPI shared"
+  },
+  "input_evidence": {
+    "playback_source_frames": 1920000,
+    "playback_callback_count": 4022,
+    "playback_status_errors": [],
+    "independent_input_frames": 2688480,
+    "independent_input_callbacks": 5601,
+    "input_status_errors": [],
+    "matched_source_frames": 1920000,
+    "full_source_correlation": 0.9999990853943397
+  },
+  "clocks": {
+    "clock_session": "historical_pilot_process_local_perf_counter_ns",
+    "playback_dac_start_ns": 397293963632133,
+    "calibrated_input_origin_ns": 397294077041633,
+    "calibration_offset_ns": 113409500,
+    "calibration_sha256": "ff8c74a66eff13e838c27772287b0050463f56c207edc1b64ae83a71f3d70550",
+    "observation_end_ns": 397349093977500,
+    "full_tail_seconds": 15.016579167,
+    "producer_time": null,
+    "event_time_mapping": null
+  },
+  "cleanup": {
+    "observed_OFF_status": 0,
+    "quit_after_OFF": true,
+    "owned_exit_code": 0,
+    "original_and_restored_config_sha256": "b9dc5fcf4e5fb0d166dd62ed4396b15c7c03510187438b2c43bee5382c3fe5ed",
+    "fresh_config_reader_verified": true
+  },
+  "limits": [
+    "Reused accepted pilot; not new input, R6 admission or proof of continuous internal/provider ingestion.",
+    "Independent cable waveform identifies intended source, not the app internal callbacks.",
+    "Historical calibration is not a fresh precision certification.",
+    "Receipt times are not native producer times; no IDs/revision/semantic finality invented."
+  ],
+  "source_evidence_sha256": {
+    "completion.json": "0e566f8cdc452b1ddba1e7aea0f4a98528d0dec57312d104d8a22907a2dfe3b0",
+    "analysis.json": "6a19bc28d576461940d951256038e754974896549c31048ac5cba7881f6e19f9",
+    "report.json": "b329edf0e85ba46da62bdd55eb2f6ece47e9e65942f8d4de1f0b3eb2b07e3c24",
+    "preflight.json": "edaa91e93a2fa329e8931d0adbb116eba6694480f3fa6f3e3e7611f2321b04cd",
+    "recognition.jsonl": "d23a52218b2d703dcb0255c74d0b48519d232305b0198f8f4ee0763e08554ce9",
+    "playback-callbacks.json": "750d9618e8ed1801be135522822430e32de195985a9508fb993049f09b61ddb8",
+    "input-callbacks.json": "ef9e5ee6453ee500349cc6e0bd362f082585beea57a8cc664a0666f2ced6a05f",
+    "cable-observation.wav": "3d7d92beadbdc5a8dbd6e1a04900afc4aba7f5d559bb0f26e18c562225db561e"
+  }
+}

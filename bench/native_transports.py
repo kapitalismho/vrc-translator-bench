@@ -9,6 +9,7 @@ import socket
 import threading
 import time
 from pathlib import Path
+from .storage import RunLock
 from urllib.parse import urlencode, urlsplit, urlunsplit
 
 from .native_formats import LOG_TIME, VRCS_EVENTS
@@ -52,6 +53,14 @@ def loopback(host):
     return host
 
 
+KIKITAN_URL = "ws://127.0.0.1:18378/"
+
+
+def kikitan_endpoint(config):
+    if set(config) != {"family", "url"} or config.get("url") != KIKITAN_URL:
+        raise ValueError("Kikitan requires only family and url=ws://127.0.0.1:18378/")
+
+
 class WebSocket(Transport):
     def start(self):
         from websockets.sync.client import connect
@@ -62,6 +71,14 @@ class WebSocket(Transport):
         if url.scheme != "ws" or url.username or url.password or url.query or url.fragment:
             raise ValueError("Use a loopback ws URL without credentials, query or fragment")
         family = config["family"]
+        if family == "kikitan":
+            kikitan_endpoint(config)
+            # WebSockets permit duplicate clients. Serialize this endpoint across
+            # harness processes so two profiles cannot consume the same app.
+            directory = Path.home() / ".cache" / "vrc-translator-bench" / "kikitan-collector"
+            directory.mkdir(parents=True, exist_ok=True)
+            self.endpoint_owner = RunLock(directory)
+            self.endpoint_owner.__enter__()
         if family == "vrcs" and url.path != "/v1/events":
             raise ValueError("VRCS collector requires /v1/events")
         self.startup_done = threading.Event()
@@ -88,6 +105,8 @@ class WebSocket(Transport):
         # requires its application-level subscription acknowledgement.
         if family == "vrct":
             self.sink.ready(self.profile, "authenticated_websocket_upgrade")
+        elif family == "kikitan":
+            self.sink.ready(self.profile, "exclusive_readonly_websocket_connected", completeness_unknown=True)
         else:
             self.connected = None
             self.subscribed = False
@@ -147,8 +166,13 @@ class WebSocket(Transport):
                 self.stopping.wait(0.01)
 
     def interrupt(self):
-        if hasattr(self, "socket"):
-            self.socket.close()
+        try:
+            if hasattr(self, "socket"):
+                self.socket.close()
+        finally:
+            if getattr(self, "endpoint_owner", None) is not None:
+                self.endpoint_owner.__exit__(None, None, None)
+                self.endpoint_owner = None
 
 
 class UDP(Transport):
@@ -156,8 +180,6 @@ class UDP(Transport):
         config = self.config
         host = loopback(config.get("host", "127.0.0.1"))
         port = config["port"]
-        if config["family"] == "kikitan" and (host, port) != ("127.0.0.1", 7272):
-            raise ValueError("Kikitan user-data OSC is fixed at 127.0.0.1:7272")
         loopback(config.get("source_host", "127.0.0.1"))
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         try:

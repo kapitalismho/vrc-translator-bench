@@ -135,6 +135,16 @@ class Ledger:
                 owned.add(profile)
         return owned
 
+    def controller_owned_profiles(self):
+        owned = set()
+        for row in self.db.execute("SELECT detail FROM records WHERE kind='controller_cleanup_ownership' ORDER BY id"):
+            detail = json.loads(row["detail"])
+            if detail["owned"]:
+                owned.add(detail["profile"])
+            else:
+                owned.discard(detail["profile"])
+        return owned
+
     def work(self, pass_index):
         return [dict(row) for row in self.db.execute("SELECT * FROM work WHERE pass_index=? ORDER BY id", (pass_index,))]
 

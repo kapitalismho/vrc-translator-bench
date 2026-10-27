@@ -1,11 +1,12 @@
 # 글로벌 대화 번역 벤치마크 최종 계획
 
-- 상태: **기존 구현 정리와 로컬 `main` 병합을 마쳤다. 새 수집기·peer/T1 실측 파일럿·코퍼스 전체 검수·음성 생성·새 judge 실행은 아직 하지 않았다.**
+- 상태: **로컬 reset과 R1 episode-native 구현 및 대표 앱의 소규모 실측을 마쳤다.** 현재 구현·근거 범위는 [R1 기록](benchmark-implementation-plan.md#r1-implementation-and-actual-feasibility)을 따른다. 코퍼스 전체 검수·음성 생성·새 judge 통합·R6 최종 진입 판정·본 평가는 완료되지 않았다.
 - 우선순위: 이 문서가 평가 계약의 기준이다. [구현 계획·보존/폐기 분류·이슈별 계약](benchmark-implementation-plan.md)은 실제 코드에서 출발하는 구현 순서와 GPT/Claude 분담을 정한다. [기존 개편 논의](benchmark-redesign.md)는 선택 이력으로만 보존한다.
 - 최신 사용자 결정: **낭독 10%, 짧은 말 10%, T1 주고받기 30%, IngCrowd 채택, 일한 T1의 영중 T1 기반 Gemini 3.8 Flash TTS 재구성, 최소 커스텀 GEMBA-ESA, 화면 캡처 없는 ‘앱의 번역 출력’ 평가, VRCLT와 Kikitan은 전부 self로 측정하고 T1의 양방향은 별도 self 실행**.
 - 계획 승인과 실행 승인은 구분한다. 오너는 새 이슈 게시와 기존 이슈 삭제를 별도로 승인했다. 이 승인은 유료 TTS 호출, 계정·앱 설정 변경, 본 실험이나 원격 코드 push까지 허용하지 않는다.
 - 검증 운영 개정: **R1–R5는 자기 산출물의 최소 확인, R6는 최종 프로필 진입 판정과 통합 검증, R7은 본 실행·결과 확인**을 맡는다. 이슈가 바뀌었다는 이유만으로 파일럿·judge·전체 검증을 반복하지 않는다(§6.5, §14).
 - 2026-10-26 R1 실행 중 오너 승인 개정: **KIKI1·KIKI2도 §4.7 self 예외에 포함한다. VRChat은 실행하지 않는다.** 실제 desktop/peer 입력과 동시 T1 의무는 self·역할별 두 pass로 대체하며, peer 지원 검증 완료로 처리하지 않는다. 다른 앱의 peer/동시 T1, 모델·자료·가중치·wave는 유지한다.
+- 후속 오너 승인: **Kikitan 주 수집을 설치 앱의 `--no-ui` WebSocket `recognition`으로 전환한다.** 성공한 KIKI2 소규모 실험 뒤의 시행·재개 지시에 따른다. Kikitan GUI-only 및 UDP 7272 user-data 고정 의무만 대체하며, self/split 조건·14개 프로필·모델·wave·가중치·+15초 관찰은 유지한다. 이 로컬 개정은 원격 이슈 게시나 코드 push 승인을 뜻하지 않는다.
 
 ## 1. 평가 질문과 확정 범위
 
@@ -279,7 +280,7 @@ T1은 역할별 endpoint·명시적 source 필드가 우선이다. 같은 주소
 
 ### 6.3 전수조사 범위: 6개 앱·14개 프로필
 
-**2026-10-26 기준 정적 수집 경로 조사다.** 아래 모든 프로필의 새 peer/T1 및 VRCLT·Kikitan self 대체 실험은 미검증이다. ‘기존 기능으로 수집 후보가 있음’과 ‘현재 설정에서 실행 중임’, ‘품질·시간 모두 본 비교에 진입함’을 구분한다. 이전 self/OSC 성공 기록은 새 코퍼스·지표의 통과 증거로 승계하지 않는다.
+아래 표는 **현재 승인된 수집 계약**이다. 정적 경로 조사와 실제 확인을 구분하고, 확인된 범위는 [catalog](../profiles/catalog.json)와 [R1 실측 기록](benchmark-implementation-plan.md#r1-implementation-and-actual-feasibility)에 따른다. 대표 일반 EN→ZH 성공은 다른 모델·언어·T1이나 최종 품질·시간 진입으로 승계하지 않는다. 이전 self/OSC 기록도 역사적 근거로 보존한다.
 
 프로필 인벤토리는 [catalog](../profiles/catalog.json)의 14개를 모두 유지한다. 모델 열은 기존 비교 의도이며 실제 peer 모델·설정·사용량은 새 manifest에 명시한다. 특히 PuriPuly의 peer ASR은 self ASR와 별도 설정이다.
 
@@ -296,11 +297,11 @@ T1은 역할별 endpoint·명시적 source 필드가 우선이다. 같은 주소
 | VRCS2 | Gemini Transcribe + OpenRouter Gemma | 같은 External API | 양쪽 세션의 auto 감지·언어 필드 누락·중간 결과 검수 |
 | VRCLT1 | Gemini Live Translate | self `/chatbox/input` OSC + `FINAL` 로그 대조 | self-only; 일반 영→중·일→한, T1 양방향 별도 self 세션; 누적/잘림 검수 |
 | VRCLT2 | Qwen LiveTranslate / 기존 Beijing 경로 | 같은 self OSC와 파일 로그 | 같은 self-only 조건; 기존 workspace·모델 유지 |
-| KIKI1 | Bing ASR + Google 번역 | self `/microphone/*` user-data OSC | self-only; 정확한 가상 케이블 마이크, desktop OFF, user-data ON, 고정 방향 및 T1 별도 self 세션 |
-| KIKI2 | Gemini Live Translate | 같은 self user-data OSC | 같은 self-only 조건과 누적 출력·`final` 의미 검수 |
+| KIKI1 | Bing ASR + Google 번역 | headless WebSocket `recognition` | self-only; 정확한 가상 케이블 마이크, desktop/user-data/chatbox OFF, 고정 방향 및 T1 별도 self 세션; 과거 headless 캡처 충돌은 미해결 이력 |
+| KIKI2 | Gemini Live Translate | 같은 headless WebSocket | ordinary EN→ZH 소규모 실측 근거 재사용; 다른 범위와 누적 출력·`final` 의미는 별도 검수 |
 | VRCLS1 | 기존 remote ASR + Developer 번역 | 설치 1015의 역할별 파일 로그 | named loopback/마이크 분리, 로그 경계·번역문 완전성 확인 |
 
-설정 변경은 향후 파일럿의 명시적 준비 작업이다. 이 조사에서는 기존 앱을 켜거나 peer/로그/API 설정을 변경하지 않았다. 새 peer 설정은 기존 self 실행 기록을 수정하지 않고 별도 revision으로 동결한다. 자격·과금·지원 조건을 모르는 provider로 자동 전환하지 않는다.
+설정 변경은 허용된 파일럿의 명시적 준비 작업이다. 실제 입력·앱·설정·출력 경로를 해당 실행의 revision으로 동결하며 과거 실행 기록을 수정하지 않는다. 자격·과금·지원 조건을 모르는 provider로 자동 전환하지 않는다.
 
 ### 6.4 앱별 수집 세부 계약
 
@@ -359,16 +360,16 @@ T1은 역할별 endpoint·명시적 source 필드가 우선이다. 같은 주소
 #### Kikitan — KIKI1–KIKI2
 
 - **버전 근거:** 2.0.2이며 설치 product version에 commit `175fb87f95d7b6592965fe3f099883ee2f830316`가 포함된 기록과 해당 소스를 확인했다.
-- **승인된 입력 조건:** KIKI1·KIKI2는 §4.7에 따라 실제 microphone/self 경로만 사용한다. `desktop_translation=false`, `send_user_data=true`를 동결하고 정확한 가상 케이블 입력 이름을 확인한다. 일반은 영→중·일→한, T1 A/B는 각각 정방향/역방향 별도 self 세션이다.
+- **승인된 입력·실행 조건:** KIKI1·KIKI2는 §4.7의 실제 microphone/self 입력을 설치 앱의 `--no-ui` 모드로 실행한다. `desktop_translation=false`, `send_user_data=false`, `send_to_chatbox=false`와 정확한 가상 케이블 입력 이름을 확인한다. 일반은 영→중·일→한, T1 A/B는 각각 정방향/역방향 별도 self 세션이다. 기존 GUI-only·UDP 7272 주 수집 의무는 대체되었으며 해당 결함이 수정됐다는 뜻이 아니다.
 - **대체된 desktop 의무:** 이 버전의 `Loopback.FindVRChat()`는 같은 Windows 세션의 `VRChat.exe` process tree 오디오만 선택한다. 오너는 VRChat 없이 수행하기 위해 self 예외를 승인했다. 실제 desktop/동시 self+peer 검증은 이번 비교 의무에서 대체되었으며 완료된 것이 아니다. VRChat 실행, 가짜 `VRChat.exe`, 앱 개조나 self→peer 이름 변경은 하지 않는다.
-- **주 수집:** `127.0.0.1:7272`의 `/microphone/recognized`, `/microphone/translated`, `/microphone/final`이다. chatbox용 `osc_port`와 별개인 고정 user-data 포트다. 예상하지 않은 `/desktop/*`은 정상 self 출력에 합치지 않는다.
-- **필드·단계:** 각각 문자열·문자열·boolean의 별도 UDP 메시지이며 앱 timestamp·message/revision ID는 없다. `OSC.IsDelayed()`는 false이므로 KIKI1에서는 번역 후 지연 출력 큐를 기다리는 chatbox와 다른 경로다. 인접한 세 패킷을 손실 없는 원자적 한 묶음으로 가정하지 않고 재정렬/누락/세션 귀속을 확인한다.
+- **주 수집:** `ws://127.0.0.1:18378/`의 `recognition` 메시지다. 외부 JSON의 `data` 문자열을 다시 JSON으로 해석하여 `transcription`, `translation`, boolean `final`을 보존한다. 정상 GUI의 Photino bridge에 연결하거나 provider 응답을 직접 수집하는 경로가 아니다. 읽기 전용 수집기는 제어·설정 변경·구독 요청을 보내지 않고, 연결 후 제어기가 capture를 시작한다.
+- **필드·단계:** 일반 마이크 출력 `Custom(SendRecognitionData, false)`의 즉시 콜백이다. 원문·번역·final은 같은 native 메시지에 있으나 앱 timestamp·message/revision/utterance ID는 없다. 수신 순번을 native ID로 만들지 않는다. WebSocket은 UTF-8/JSON을 사용하며 손실된 UDP 바이트를 복원하는 방식이 아니다. 연결 성공은 내부 입력·provider 연속성이나 누락 없는 갱신 이력의 보증이 아니다.
 - **언어·모델:** self는 `source_language→target_language`다. 일반과 T1 A는 en→zh/ja→ko, T1 B는 zh→en/ko→ja를 고정한다. KIKI1 Bing+Google 및 KIKI2 Gemini 구성은 유지하며 실제 선택·감지 언어를 별도로 보존한다. desktop의 역방향 규칙을 self에 적용하지 않는다.
 - **프로필별 한계:** KIKI1은 일반 ASR hypothesis의 번역이 비어 있을 수 있다. KIKI2는 누적 input/output transcription을 내보내며 기존 소스의 gap-reset/final 처리 한계가 있다. `final`을 모든 엔진에 공통인 발화 종료·의미 완료 표지로 쓰지 않고 원시 출력과 세션 경계를 보존한다.
-- **제외할 대안:** 일반 GUI는 Photino bridge를 사용한다. `ws://127.0.0.1:18378`은 `--no-ui`에서 여는 별도 경로이며 정상 GUI에 수집 클라이언트 하나를 더 붙이면 같은 이벤트를 받을 수 있다고 가정하지 않는다. 문자 수만 남는 진단 로그는 번역문 증거가 아니다.
-- **진입 조건:** 실제 self 입력부터 user-data OSC까지 먼저 증명한다. 고정 포트와 단일 앱 설정 때문에 인스턴스/프로필 귀속 및 기존 wave 충돌을 확인한다. T1 두 pass의 별도 원점·고정 방향·공통 관측 종료를 보존한다. source timestamp 부재와 final 의미의 한계를 시간·재구성 계약에 반영한다.
+- **수집·제어 안전:** 같은 고정 포트와 공유 설정을 사용하는 새 소유 인스턴스만 제어한다. 설정·상태 메시지는 키를 포함할 수 있으므로 원시 번역 기록에 섞지 않는다. 제어기는 정지 상태에서 설정을 적용·재확인하고, 독립 episode/pass에는 실제 새 세션을 만든다. 종료 후 소유 프로세스 퇴장을 확인하고 동시 사용자 변경을 덮어쓰지 않는 범위에서 설정을 복원한다. 시작 전 업데이트 검사·장치 열거·discovery 등은 별도 부수 효과로 남는다.
+- **근거와 남은 범위:** KIKI2의 기존 40초 EN→ZH 소규모 실행은 실제 중국어·누적 갱신과 전체 +15초 관찰을 확보했다. KIKI1의 과거 headless 마이크 충돌은 수정된 것으로 처리하지 않으며 이 성공을 KIKI1·다른 언어·T1에 복사하지 않는다. user-data Unicode 결함과 원래 무효 시도는 역사적 근거로 보존한다. T1 두 pass의 별도 원점·고정 방향·공통 관찰 종료와 R6의 최종 텍스트·시간 판정은 유지한다.
 
-근거: [desktop/microphone 출력 연결](https://github.com/YusufOzmen01/kikitan-translator/blob/175fb87f95d7b6592965fe3f099883ee2f830316/KikitanTranslator.Photino/Manager.cs), [OSC 주소·포트·payload](https://github.com/YusufOzmen01/kikitan-translator/blob/175fb87f95d7b6592965fe3f099883ee2f830316/KikitanTranslator.Base/Outputs/OSC.cs), [실제 process 캡처](https://github.com/YusufOzmen01/kikitan-translator/blob/175fb87f95d7b6592965fe3f099883ee2f830316/KikitanTranslator.Base/Capture/Loopback.cs), [역방향·지연 큐](https://github.com/YusufOzmen01/kikitan-translator/blob/175fb87f95d7b6592965fe3f099883ee2f830316/KikitanTranslator.Base/Kikitan.cs), [Gemini 방향·누적 출력](https://github.com/YusufOzmen01/kikitan-translator/blob/175fb87f95d7b6592965fe3f099883ee2f830316/KikitanTranslator.Base/Recognizers/Gemini.cs), [GUI/headless 구분](https://github.com/YusufOzmen01/kikitan-translator/blob/175fb87f95d7b6592965fe3f099883ee2f830316/KikitanTranslator.Photino/Program.cs), [설치 기록](../profiles/evidence/installed-apps.json).
+근거: [마이크 출력·JSON 필드](https://github.com/YusufOzmen01/kikitan-translator/blob/175fb87f95d7b6592965fe3f099883ee2f830316/KikitanTranslator.Photino/Manager.cs), [headless WebSocket](https://github.com/YusufOzmen01/kikitan-translator/blob/175fb87f95d7b6592965fe3f099883ee2f830316/KikitanTranslator.Photino/Connector.cs), [GUI/headless 구분](https://github.com/YusufOzmen01/kikitan-translator/blob/175fb87f95d7b6592965fe3f099883ee2f830316/KikitanTranslator.Photino/Program.cs), [역방향·지연 큐](https://github.com/YusufOzmen01/kikitan-translator/blob/175fb87f95d7b6592965fe3f099883ee2f830316/KikitanTranslator.Base/Kikitan.cs), [Gemini 누적 출력](https://github.com/YusufOzmen01/kikitan-translator/blob/175fb87f95d7b6592965fe3f099883ee2f830316/KikitanTranslator.Base/Recognizers/Gemini.cs), [기존 UDP 결함](../profiles/evidence/r1/kikitan-unicode-blocker.json), [설치 기록](../profiles/evidence/installed-apps.json).
 
 #### VRCLS — VRCLS1
 

@@ -14,6 +14,8 @@ A community benchmark for conversation translation. The approved [final plan](do
 
 The runner accepts **episode schema 2**, not historical stage plans. Ordinary inputs are peer; T1 uses simultaneous peer/self. The owner-approved VRCLT and Kikitan exceptions use self for ordinary cases and separate A/B self passes for T1, with one logical episode. Native receipt clocks do not certify producer completion or screen rendering. Historical profile readiness is not new-protocol admission.
 
+Kikitan's approved primary is its installed `--no-ui` WebSocket `recognition` output, not user-data OSC. The owner adopted this route after a bounded KIKI2 EN→ZH experiment. The original UDP Unicode defect and KIKI1 headless crash remain historical evidence; no application patch or automatic admission of other scopes is implied. See the [current Kikitan contract](docs/benchmark-final-plan.md#kikitan--kiki1kiki2).
+
 ## Install and inspect
 
 Use Python 3.11+; actual audio requires Windows WASAPI and `.[audio]`. WebSocket collectors require `.[native]`.
