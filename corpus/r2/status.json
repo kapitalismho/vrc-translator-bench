@@ -1,0 +1,413 @@
+{
+  "schema_version": 2,
+  "issue": "https://github.com/kapitalismho/vrc-translator-bench/issues/16",
+  "status": "offline_source_bundle_frozen__downstream_execution_separate",
+  "offline_source_frozen": true,
+  "production_frozen": false,
+  "scope_changed": true,
+  "authority": "docs/benchmark-final-plan.md#31-ascend",
+  "protocol_amendment": {
+    "id": "ascend-reconstruction-v1",
+    "approval": "Owner requested practical recovery without strict reconstruction and approved the proposed hybrid with: 네 제안대로 가자",
+    "prior_protocol": "https://github.com/kapitalismho/vrc-translator-bench/issues/14#issuecomment-6406764791",
+    "adopted": "P2/T1: local speaker-offset approximation first, explicitly paced source-order reconstruction when ambiguous. P3: same-speaker connected explanation. Verify one existing-development-group dialogue before production expansion.",
+    "superseded_not_satisfied": [
+      "Verified original recorder common clock as an ASCEND acceptance prerequisite",
+      "Actual missing intervening continuous audio as an ASCEND acceptance prerequisite"
+    ],
+    "preserved": "Actual original speech/content/roles/code-switching, fixed counts and weights, nonoverlapping source uses, connected-group separation, references/checkpoints and rights. No EN/ZH TTS, substitute corpus, provider spending or remote publication grant.",
+    "state": "Implemented: development pilot precedes all required reconstructed inputs; original-clock requirements are superseded, not passed.",
+    "publication": "Local authoritative amendment recorded; remote issue snapshot has not been amended."
+  },
+  "acceptance_boundary": "This index binds the current offline source freeze. Immutable preparation catalogues/reports retain their preparation-stage status; they are not self-issued Director Goal acceptance. Final Goal acceptance requires independent checkpoint/terminal evidence and a Director receipt bound to the exact commit. R6 integrated production admission and external-route/publication grants remain separate.",
+  "language_pair_weights": {
+    "en-zh": 0.5,
+    "ja-ko": 0.5
+  },
+  "t1_role_weights": {
+    "A": 0.5,
+    "B": 0.5
+  },
+  "cells": [
+    {
+      "language_pair": "en-zh",
+      "kind": "P1",
+      "owner": "R2",
+      "main_required": 3,
+      "development_required": 1,
+      "within_pair_weight": 0.1,
+      "main_prepared": 3,
+      "development_prepared": 1,
+      "main_source_frozen": 3,
+      "development_source_frozen": 1,
+      "main_production_admitted": 0,
+      "state": "offline_source_frozen",
+      "note": "Offline source acceptance is separate from R6 app admission and outbound/publication permissions"
+    },
+    {
+      "language_pair": "en-zh",
+      "kind": "P2",
+      "owner": "R2",
+      "main_required": 9,
+      "development_required": 1,
+      "within_pair_weight": 0.3,
+      "main_prepared": 9,
+      "development_prepared": 1,
+      "main_source_frozen": 9,
+      "development_source_frozen": 1,
+      "main_production_admitted": 0,
+      "state": "offline_source_frozen",
+      "note": "Approximate reconstructed ASCEND human speech; not original chronology"
+    },
+    {
+      "language_pair": "en-zh",
+      "kind": "P3",
+      "owner": "R2",
+      "main_required": 6,
+      "development_required": 1,
+      "within_pair_weight": 0.2,
+      "main_prepared": 6,
+      "development_prepared": 1,
+      "main_source_frozen": 6,
+      "development_source_frozen": 1,
+      "main_production_admitted": 0,
+      "state": "offline_source_frozen",
+      "note": "Approximate reconstructed ASCEND human speech; not original chronology"
+    },
+    {
+      "language_pair": "en-zh",
+      "kind": "T1",
+      "owner": "R2",
+      "main_required": 9,
+      "development_required": 4,
+      "within_pair_weight": 0.3,
+      "main_prepared": 9,
+      "development_prepared": 4,
+      "main_source_frozen": 9,
+      "development_source_frozen": 4,
+      "main_production_admitted": 0,
+      "state": "offline_source_frozen",
+      "note": "Approximate reconstructed ASCEND human speech; not original chronology"
+    },
+    {
+      "language_pair": "en-zh",
+      "kind": "P4",
+      "owner": "R2",
+      "main_required": 3,
+      "development_required": 1,
+      "within_pair_weight": 0.1,
+      "main_prepared": 3,
+      "development_prepared": 1,
+      "main_source_frozen": 3,
+      "development_source_frozen": 1,
+      "main_production_admitted": 0,
+      "state": "offline_source_frozen",
+      "note": "Offline source acceptance is separate from R6 app admission and outbound/publication permissions"
+    },
+    {
+      "language_pair": "ja-ko",
+      "kind": "P1",
+      "owner": "R2",
+      "main_required": 3,
+      "development_required": 1,
+      "within_pair_weight": 0.1,
+      "main_prepared": 3,
+      "development_prepared": 1,
+      "main_source_frozen": 3,
+      "development_source_frozen": 1,
+      "main_production_admitted": 0,
+      "state": "offline_source_frozen",
+      "note": "Offline source acceptance is separate from R6 app admission and outbound/publication permissions"
+    },
+    {
+      "language_pair": "ja-ko",
+      "kind": "P2",
+      "owner": "R2",
+      "main_required": 9,
+      "development_required": 1,
+      "within_pair_weight": 0.3,
+      "main_prepared": 9,
+      "development_prepared": 1,
+      "main_source_frozen": 9,
+      "development_source_frozen": 1,
+      "main_production_admitted": 0,
+      "state": "offline_source_frozen",
+      "note": "Offline source acceptance is separate from R6 app admission and outbound/publication permissions"
+    },
+    {
+      "language_pair": "ja-ko",
+      "kind": "P3",
+      "owner": "R2",
+      "main_required": 6,
+      "development_required": 1,
+      "within_pair_weight": 0.2,
+      "main_prepared": 6,
+      "development_prepared": 1,
+      "main_source_frozen": 6,
+      "development_source_frozen": 1,
+      "main_production_admitted": 0,
+      "state": "offline_source_frozen",
+      "note": "Offline source acceptance is separate from R6 app admission and outbound/publication permissions"
+    },
+    {
+      "language_pair": "ja-ko",
+      "kind": "T1",
+      "owner": "R3",
+      "main_required": 9,
+      "development_required": 4,
+      "within_pair_weight": 0.3,
+      "main_prepared": 0,
+      "development_prepared": 0,
+      "main_source_frozen": 0,
+      "development_source_frozen": 0,
+      "main_production_admitted": 0,
+      "state": "pending_R3_generation_and_review",
+      "note": "Accepted ASCEND parents available; synthetic descendants are R3-owned, no generation requested"
+    },
+    {
+      "language_pair": "ja-ko",
+      "kind": "P4",
+      "owner": "R2",
+      "main_required": 3,
+      "development_required": 1,
+      "within_pair_weight": 0.1,
+      "main_prepared": 3,
+      "development_prepared": 1,
+      "main_source_frozen": 3,
+      "development_source_frozen": 1,
+      "main_production_admitted": 0,
+      "state": "offline_source_frozen",
+      "note": "Offline source acceptance is separate from R6 app admission and outbound/publication permissions"
+    }
+  ],
+  "totals": {
+    "main_required_all_owners": 60,
+    "main_required_R2": 51,
+    "main_source_frozen_R2": 51,
+    "development_source_frozen_R2": 12,
+    "C1_source_frozen": 2,
+    "unique_source_episode_ids_R2": 65,
+    "remaining_R3_main": 9,
+    "remaining_R3_development": 4,
+    "unclassified_ASCEND_no_count_credit": 1,
+    "main_production_admitted": 0
+  },
+  "count_policy": "All R2 fixed cells are filled without redistribution. Episodes are equally weighted within type; T1 roles50:50. Source clips, checkpoints, C1, repeats, unclassified leftovers and extra TTS takes add no count/weight. Four development T1 parents share one known original-person group, not four independent groups.",
+  "source_catalogues": [
+    {
+      "path": "corpus/r2/ascend.json",
+      "sha256": "d7e0866e8fbe99339eb8bd1b1043166d22834d05967044ccb477374f727a4fbe"
+    },
+    {
+      "path": "corpus/r2/ingcrowd.json",
+      "sha256": "b9ff7332ee8815cc4f54b1fbb9d663f5a117bddc23fca53ed0bd17b6018cb82e"
+    },
+    {
+      "path": "corpus/r2/read-controls.json",
+      "sha256": "0fc516250cdc65130295d9cb48a88b1ea189c7162187386d9b7bc33a2d73dc3d"
+    }
+  ],
+  "source_handoff": {
+    "materializations": [
+      {
+        "path": ".data/r2/ascend/reconstruction-v1/checkpoint-scope-repair-v1/materialized-v1/preparation-report.json",
+        "sha256": "b96bbb271a4dd39cbd6059cb3cc6985fe6e07b7d86864220854a8bd32d1664c0"
+      },
+      {
+        "path": ".data/r2/ascend/reconstruction-v1/checkpoint-scope-repair-v1/materialized-v1/t1-parent-manifest.json",
+        "sha256": "c52dcae7526906b7c9ac4cedf8138f7b3687cec6fac0b2096cee5c2e50013556"
+      },
+      {
+        "path": ".data/r2/integration-reconstruction-v1/ingcrowd/materialization.json",
+        "sha256": "b195823fc96028b441aae3661115dea9eea652cb9bcccde04989d3939810bb50"
+      },
+      {
+        "path": ".data/r2/integration-reconstruction-v1/read-controls/materialization.json",
+        "sha256": "6bc6008ca597d17a4e4cc72e055671a0427e3aec54eb7e748d43c62e45a6c1c4"
+      }
+    ],
+    "source_reviews": [
+      {
+        "path": ".data/r2/ascend/reconstruction-v1/checkpoint-scope-repair-v1/curation.json",
+        "sha256": "ef579fcd64275a4b00827c92c7a24e98dbe4d5609d287c180e178ceb96806987"
+      },
+      {
+        "path": ".data/r2/ascend/reconstruction-v1/pilot-review.json",
+        "sha256": "7d39ccbd452f3d65db518a76369e8126b8dc83dd039f5d90f9bb8b4431734824"
+      },
+      {
+        "path": ".data/r2/ascend/reconstruction-v1/source-overlap-check.json",
+        "sha256": "9a3ad087d4ad143f1fa5afdc59b2997a4a94d0890696da5015d43d9b23d53544"
+      },
+      {
+        "path": ".data/r2/ingcrowd/source-acceptance-v1/source-review.json",
+        "sha256": "2b2909363f039c05de9ad980728c872e9a6501a3c71d62ee2b4c2c80ca8cbfa7"
+      },
+      {
+        "path": ".data/r2/ingcrowd/source-acceptance-v1/verification.json",
+        "sha256": "74c29b1873abc2d22957f349512b5c2d3a86a13c20aacf82e472623531d9f9db"
+      },
+      {
+        "path": ".data/r2/read-controls/source-acceptance-v1/acceptance.json",
+        "sha256": "ee7d7c242cb792a42474b452acf229a5081d663e598d51b3a865b325bfe19100"
+      },
+      {
+        "path": ".data/r2/read-controls/source-acceptance-v1/execution-report.json",
+        "sha256": "4061b132c72a2767a9615b10ac120226304a117e5eeed7f22433d3e1136ec752"
+      }
+    ],
+    "integration_verification": {
+      "path": ".data/r2/ascend/reconstruction-v1/checkpoint-scope-repair-v1/integrated-verification.json",
+      "sha256": "774b749beebfff323dc2143819dfb416b9e911b22f8135af7806971bcbd8cc38"
+    },
+    "policy": "Forward these exact source/playback/reference/checkpoint bytes and identities to R3/R4/R6. Do not regenerate merely at issue boundaries. Original failed and superseded attempts remain retained. These are source assets, not device/calibration/profile-ready executable plans."
+  },
+  "R3_parent_handoff": {
+    "manifest": ".data/r2/ascend/reconstruction-v1/checkpoint-scope-repair-v1/materialized-v1/t1-parent-manifest.json",
+    "sha256": "c52dcae7526906b7c9ac4cedf8138f7b3687cec6fac0b2096cee5c2e50013556",
+    "main_parent_ids": [
+      "ascend-t1-main-1",
+      "ascend-t1-main-2",
+      "ascend-t1-main-3",
+      "ascend-t1-main-4",
+      "ascend-t1-main-5",
+      "ascend-t1-main-6",
+      "ascend-t1-main-7",
+      "ascend-t1-main-8",
+      "ascend-t1-main-9"
+    ],
+    "development_parent_ids": [
+      "ascend-t1-development-1",
+      "ascend-t1-development-2",
+      "ascend-t1-development-3",
+      "ascend-t1-development-4"
+    ],
+    "additional_take_development_parent_ids": [
+      "ascend-t1-development-1",
+      "ascend-t1-development-3"
+    ],
+    "state": "Source parents ready for offline derivation; live Gemini TTS still requires its separate key/model/cost/route authorization and bilingual output review.",
+    "ancestry": "ASCEND original sources -> EN/ZH reconstructed parent -> JA/KO script -> generated audio; children retain parent/group identity but get their own observed timeline."
+  },
+  "source_review_summary": {
+    "ASCEND": "34 source episodes:27main+7development,589 distinct whole clips,47playback WAVs and62checkpoints. Four nativeP1,16 conditional-offset,7 explicit300ms-paced and7 same-person continuation cases.734 new source-only/role/mixed no-hints observations plus4 reusedP1 observations. Original text, contextual readings, literal uncertainties and raw failed predictions remain separate. Eight main connected-person groups vs development17/18. Checkpoint-scope repair removes3 context-only points and binds129 actual translation-target citations across62 retained points; whole-episode quality spans and audio remain unchanged. No original recorder-clock or quiet-leakage certificate.",
+    "IngCrowd": "18main+3development source-accepted;54 original checkpoints. P2-06 leading crop extended260ms;P3-03 trailing crop shortened167ms at reviewed boundaries. Other source words retained with bounded inline unknowns, never whole-sentence exemptions. Original repeat/public selections preserved. Unknown cross-dialogue participants are not certified independent.",
+    "FLEURS": "6main+2development source-accepted across3main sentence groups and1development group. All source/playback bytes unchanged. Two minimal audible-reference corrections inJA1980/JA151 preserve upstream text separately. EN1914 uses5.60s reviewed end;JA1914 retains documented clipping.",
+    "C1": "Two unchanged60s source controls accepted automatically. Exact digitalzero plus source/event/waveform evidence and complete overlapping no-hints nonverbal views. Historical AMI speech minute excluded. No quality/meaning-wait credit; runtimequiet/reset remainsR6.",
+    "level": "Automatic, not human listening; no model-family/training independence or calibrated exactphonetic claim."
+  },
+  "pre_result_repetition_candidate_ids": [
+    "ascend-p1-main-1",
+    "ascend-p2-main-2",
+    "ascend-p3-main-1",
+    "ascend-t1-main-2",
+    "ingcrowd-main-P1-01",
+    "ingcrowd-main-P2-01",
+    "ingcrowd-main-P3-03",
+    "p4-en-1980",
+    "p4-ja-1980"
+  ],
+  "pre_result_public_example_candidate_ids": [
+    "ascend-p1-main-1",
+    "ascend-p2-main-2",
+    "ascend-p3-main-1",
+    "ascend-t1-main-2",
+    "ingcrowd-main-P1-01",
+    "p4-en-1980",
+    "p4-ja-1980",
+    "c1-zero-60",
+    "c1-nonverbal-60"
+  ],
+  "selection_policy": "Source/meaning/role review before benchmark-app results; no source chosen for app performance. IngCrowd P3-03 original repeat and FLEURS1980 examples remain fixed. JA/KO T1 selection remains R3-owned after descendant preparation. Source-bearing publication is not authorized by preselection.",
+  "rights": {
+    "purpose": "Owner-stated noncommercial OSS including promotion; promotion/free status alone does not decideNC.",
+    "offline": "Source-license-based local preparation/acceptance; retain attribution, notices, declared modifications, BY-SA/NC and original reference/source provenance. Not corpus-to-MIT relicensing.",
+    "outbound": "Per-route recipient/terms/account reuse facts in docs/corpus.md remain conditional before actual transmission. Neither commercial service operation nor ShareAlike alone is an inference ban. No account/provider facts or calls are fabricated.",
+    "R3": "ASCEND—not IngCrowd—is the JA/KO T1 parent. Offline adaptation can proceed with source conditions; actual Gemini TTS authorization remains separate.",
+    "publication": "Owner approval and actual selected-content/privacy/license compliance are separate. No universal extra rights-holder letter is imposed for license-covered uses."
+  },
+  "offline_source_blockers": [],
+  "downstream_pending": [
+    {
+      "owner": "R3",
+      "criterion": "Nine main and four development JA/KO T1 descendants with scoped generation authorization, actual bilingual content/role review and production costs."
+    },
+    {
+      "owner": "R6",
+      "criterion": "Actual source-to-device/app input mapping, native output/role/clock admission, final profile conditions and C1quiet/reset/carryover."
+    },
+    {
+      "owner": "R3/R6",
+      "criterion": "Applicable outbound-recipient terms and material account/tier/reuse facts before the particular service receives audio/text."
+    },
+    {
+      "owner": "Owner/Director",
+      "criterion": "Separate remote code and source-bearing publication authority; no grant inferred."
+    }
+  ],
+  "verification": {
+    "focused_tests_passed": 61,
+    "focused_failures": 0,
+    "focused_skips": 0,
+    "actual_offline_materializers_passed": 3,
+    "unique_source_episode_ids_checked": 65,
+    "ASCEND_whole_clips_checked": 589,
+    "ASCEND_T1_role_pairs_checked": 13,
+    "semantic_checkpoint_maps": 124,
+    "provider_calls": 0,
+    "benchmark_app_replays": 0,
+    "TTS_calls": 0,
+    "historical_corpus_modified": false,
+    "full_suite_or_typecheck_claimed": false,
+    "retained_worker_test_failure": "ASCEND initial24pass/1ineffective negative-fixture mutation; fixture corrected to flip actual role, isolated repairpassed, earlier integrated55passed. After semantic checkpoint-scope repair, fresh integrated61passed. Original failure and superseded semantic curation retained."
+  },
+  "historical_pre_amendment_handoff": {
+    "materialization_reports": {
+      ".data/r2/integration-ascend/preparation-report.json": {
+        "sha256": "cdd5e17d2b4ccdd11d7c80fd782a504e73c15decf27a2b364f4932b0bb0d4fdf"
+      },
+      ".data/r2/integration-ingcrowd/materialization.json": {
+        "sha256": "391f17bc41bc35a1e69182ab8e5bd5335057e353240d78cdbb6ee481b67431fe"
+      },
+      ".data/r2/integration-read-controls/materialization.json": {
+        "sha256": "7f8e4cb407c0c2851d264bc99341a549bc9c10f90431b1e911c7c07e095603b7"
+      }
+    },
+    "review_bindings": [
+      {
+        "path": ".data/r2/ascend/review/qwen-review-binding.json",
+        "sha256": "f0e8aeee1e9c10ca91570baa682b28a1156d6595f577d538ec434583b20086f0"
+      },
+      {
+        "path": ".data/r2/ascend/review/endpoint-review.json",
+        "sha256": "d3c0d05b4c46edce06babaf53bbc8701fc7b6d2ef8d4b19ac8175088d922a108"
+      },
+      {
+        "path": ".data/r2/ingcrowd/reazon-windowed-review-v2.json",
+        "sha256": "07b54eaa088e09553fb333e6d653892d23a4fec39473538d7b73a67b4ba4657e"
+      },
+      {
+        "path": ".data/r2/ingcrowd/terminal-review-v1/review-addendum.json",
+        "sha256": "e52232d3010b3b7d1f9e08c64dfb570883f993dcb4b74a9c6fb540db2c1bd776"
+      },
+      {
+        "path": ".data/r2/ingcrowd/terminal-review-v1/qwen-output/batch.json",
+        "sha256": "f4456648d247e4c70fd88aa9a0bfbce12ca599a5a07566a2927f6fd88693c6e8"
+      },
+      {
+        "path": ".data/r2/read-controls/review/source-review.json",
+        "sha256": "f8249f707f0840016994fcdd90296a39d11006730d223423f2ab49635ce91efc"
+      },
+      {
+        "path": ".data/r2/read-controls/review/semantic-references-reviewed.json",
+        "sha256": "63c7f0549f1323f5136460c4b4f0d72e0eb40a91b9983721d010507d3baf1ce8"
+      }
+    ],
+    "integration_verification": {
+      "path": ".data/r2/integration-verification.json",
+      "sha256": "5ec7c90c7bbaee77dfb517a30022ec73462ed3bc96f73932586f7c7d10e62ec7"
+    },
+    "policy": "Keep these exact selected source/playback/reference/review bytes and identities; do not regenerate merely at R3/R4/R6 transitions. Review addenda do not overwrite earlier attempts. Materialization reports alone are not execution admission."
+  },
+  "remote_state": "No push, PR publication, issue closure or Project mutation authorized/performed. Issue16 remains open; no Project item exists. Local protocol amendment has not been published remotely."
+}
