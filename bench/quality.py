@@ -216,7 +216,8 @@ def _units(reference, kind):
                                           "review_level": reference.get("review_level")}})
     elif "annotations" in reference:
         rate = reference.get("sample_rate", 16000)
-        units = [{"id": row["id"], "role": row.get("logical_role", "A"), "text": row["text"],
+        units = [{"id": row["id"], "role": row.get("logical_role", "A") if kind == "T1" else "A",
+                  "original_person": row.get("speaker"), "original_person_scope": "dialogue_local", "text": row["text"],
                   "start_ns": _ns(row["playback_samples"][0] / rate),
                   "end_ns": _ns(row["playback_samples"][1] / rate),
                   "citations": [{"annotation_id": row["id"]}],
@@ -281,6 +282,8 @@ def _semantic_data(units, role, languages, output, *, checkpoint=None, history=N
                         "original_person": row.get("original_person"), "original_role": row.get("original_role"),
                         "scored": row["role"] == role and not row.get("context_only", False),
                         "uncertainty": row.get("uncertainty")})
+        if "original_person_scope" in row:
+            context[-1]["original_person_scope"] = row["original_person_scope"]
         if row["role"] != role or row.get("context_only", False):
             continue
         targets = row.get("translation_targets")
@@ -570,6 +573,19 @@ def _outcome(bound, role):
     return "eligible", None
 
 
+def _final_input_reason(bound, units, role):
+    available = bound["clock"].get("input_available_until_ns")
+    if available is None:
+        return None
+    for unit in units:
+        if unit["role"] != role:
+            continue
+        end = _source_time(bound["clock"], unit["end_ns"])
+        if end is None or end > available:
+            return "Retained input availability ends before the full required role input; final quality is unavailable"
+    return None
+
+
 def _history(bound, role, cutoff=None):
     from .history import reconstruct_history
     return reconstruct_history(bound["events"], role=role, cutoff_ns=cutoff,
@@ -635,6 +651,11 @@ def _checkpoint_results(executor, bound, role, units, languages, checkpoints, *,
                 observations.append({"offset_seconds": offset, "status": "unknown", "reason": "Checkpoint source endpoint has no callback mapping"})
                 unknown_before = True
                 continue
+            available = clock.get("input_available_until_ns")
+            if available is not None and evidence_end > available:
+                observations.append({"offset_seconds": offset, "status": "unknown", "reason": "Required checkpoint source was not fully input"})
+                unknown_before = True
+                continue
             cutoff = evidence_end + _ns(offset)
             if cutoff > clock["horizon_ns"]:
                 observations.append({"offset_seconds": offset, "status": "unknown", "reason": "Observation horizon ended before checkpoint"})
@@ -670,6 +691,8 @@ def _checkpoint_results(executor, bound, role, units, languages, checkpoints, *,
             observations.append({"offset_seconds": offset, "cutoff_ns": cutoff, "source_evidence_end_ns": evidence_end,
                                  **decision, "reversal": reversal, "correction": correction,
                                  "judgment": stage, "native_citations": snapshot.get("items", [])})
+            observations[-1]["native_history_citations"] = [
+                {"index": index, "citation": row["citation"]} for index, row in enumerate(revisions)]
             if status == "met" and first is None:
                 first = [0 if unknown_before else last_unmet, offset]
             elif first is None and status == "unmet":
@@ -865,6 +888,9 @@ def evaluate(spec_path, output_path, *, transport_path=None):
                             reason = "Reference explicitly declares unresolved/unsupported scored meaning"
                             result.update(quality={"status": "unknown_reference", "score": None, "reason": reason},
                                           checkpoints=_missing_checkpoints(cps, reason))
+                        elif (input_reason := _final_input_reason(bound, ref["units"], role)) is not None:
+                            result.update(quality={"status": "unknown_input", "score": None, "reason": input_reason},
+                                          checkpoints=_checkpoint_results(executor, bound, role, ref["units"], languages, cps))
                         elif status == "no_output" and _no_output_observed(history):
                             data = _semantic_data(ref["units"], role, languages, "")
                             if not data["source"].strip():

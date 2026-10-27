@@ -1000,3 +1000,176 @@ def test_consumed_profile_catalog_is_protected_from_report_writes(monkeypatch, t
     with pytest.raises(ValueError, match="immutable input"):
         evaluate(path, output)
     assert catalog.read_bytes() == before
+
+
+def test_correct_emission_replaced_between_observations_remains_citable(monkeypatch, tmp_path):
+    correct, wrong = DATA["output"], "买十二张票。"
+    rows = [event(correct, seconds=1.25), event(wrong, seconds=2)]
+    rules = [interpretation(rows, 0), interpretation(rows, 1, "replace", 0)]
+    def decisions(stage, data):
+        if stage == "errors":
+            assert data["output"] == wrong
+            return {"errors": []}
+        if stage == "score":
+            assert data["output"] == wrong
+            return {"score": 33}
+        matches = [row for row in data["output_history"] if row.get("text") == correct]
+        return {"status": "met" if matches else "unmet",
+                "evidence": [{"side": "history", "history_index": matches[0]["index"],
+                              "text": correct, "occurrence": 1}] if matches else [],
+                "reversal": bool(matches and data["output"] == wrong), "correction": False,
+                "reason": "Controlled earlier emission and contradictory replacement"}
+    transport = ControlledTransport(decisions)
+    install(monkeypatch, transport)
+    path, _ = spec_fixture(tmp_path, events=rows, interpretations=rules)
+    report = evaluate(path, tmp_path / "report.json", transport_path="controlled")
+    result = role_result(report)
+    cp = result["checkpoints"][0]
+    assert result["quality"]["score"] == 33 and result["history"]["text"] == wrong
+    assert [row["text"] for row in result["history"]["revisions"]] == [correct, wrong]
+    assert cp["observations"][0]["status"] == "unmet"
+    assert cp["status"] == "met" and cp["first_met"] == [0, 2]
+    assert cp["later_reversals_seconds"] == [2]
+    assert cp["observations"][1]["evidence"] == [{"side": "history", "history_index": 0, "text": correct, "occurrence": 1}]
+    citation = cp["observations"][1]["native_history_citations"][0]
+    assert citation["index"] == 0
+    assert citation["citation"]["event_index"] == 0
+    assert citation["citation"]["event_sha256"] == event_sha256(rows[0])
+    assert all(row["judgment"]["status"] == "completed" for row in cp["observations"])
+
+
+@pytest.mark.parametrize("evidence", [
+    {"side": "history", "history_index": 1, "text": DATA["output"], "occurrence": 1},
+    {"side": "history", "history_index": 0, "text": "不要买12张票。", "occurrence": 1},
+    {"side": "history", "history_index": 0, "text": DATA["output"], "occurrence": 2},
+    {"side": "history", "history_index": True, "text": DATA["output"], "occurrence": 1},
+    {"side": "history", "history_index": -1, "text": DATA["output"], "occurrence": 1},
+    {"side": "history", "history_index": 2, "text": "FUTURE_UNAVAILABLE_EMISSION", "occurrence": 1},
+])
+def test_checkpoint_historical_citations_reject_wrong_nonexact_or_unavailable_evidence(monkeypatch, tmp_path, evidence):
+    rows = [event(seconds=1.25), event("买十二张票。", seconds=2), event("FUTURE_UNAVAILABLE_EMISSION", seconds=20)]
+    rules = [interpretation(rows, 0), interpretation(rows, 1, "replace", 0), interpretation(rows, 2)]
+    def decisions(stage, data):
+        if stage == "errors":
+            return {"errors": []}
+        if stage == "score":
+            return {"score": 33}
+        assert "FUTURE_UNAVAILABLE_EMISSION" not in json.dumps(data, ensure_ascii=False)
+        return {"status": "met" if data["output_history"] else "unmet",
+                "evidence": [evidence] if data["output_history"] else [],
+                "reversal": False, "correction": False, "reason": "Controlled forged historical quote"}
+    transport = ControlledTransport(decisions)
+    install(monkeypatch, transport)
+    path, _ = spec_fixture(tmp_path, events=rows, interpretations=rules)
+    result = role_result(evaluate(path, tmp_path / "report.json", transport_path="controlled"))
+    cp = result["checkpoints"][0]
+    assert result["quality"]["score"] == 33
+    assert cp["status"] == "unknown" and cp["first_met"] is None
+    assert all(row["judgment"]["status"] == "invalid_response" for row in cp["observations"][1:])
+
+
+@pytest.mark.parametrize("operation", ["clear", "delete", "ignore"])
+def test_checkpoint_history_quote_requires_emitted_text_not_presentation_operation(operation):
+    data = {**DATA, "output_history": [{"index": 0, "operation": operation, "text": DATA["output"]}]}
+    value = {"status": "met", "evidence": [{"side": "history", "history_index": 0, "text": DATA["output"], "occurrence": 1}],
+             "reversal": False, "correction": False, "reason": "Cannot cite a non-emission"}
+    with pytest.raises(ValueError, match="admitted emission"):
+        validate("checkpoint", value, data)
+
+
+def test_historical_quote_extension_is_checkpoint_only_and_preserves_surviving_output_quotes():
+    historical = {"side": "history", "history_index": 0, "text": DATA["output"], "occurrence": 1}
+    data = {**DATA, "output_history": [{"index": 0, "operation": "append", "text": DATA["output"]}]}
+    value = {"status": "met", "evidence": [historical], "reversal": False, "correction": False, "reason": "Earlier output"}
+    assert validate("checkpoint", value, data) == value
+    current = {**value, "evidence": [{"side": "output", "text": DATA["output"], "occurrence": 1}]}
+    assert validate("checkpoint", current, data) == current
+    with pytest.raises(ValueError, match="invalid object schema"):
+        validate("errors", {"errors": [{"category": "accuracy/mistranslation", "severity": "major",
+            "quote": historical, "explanation": "History is not an error-stage quote side"}]}, data)
+
+
+@pytest.mark.parametrize("available_ns", [500_000_000, 1_000_000_000, 1_500_000_000])
+@pytest.mark.parametrize("no_output", [False, True])
+def test_standalone_partial_input_overrides_complete_opportunity_for_final_quality(monkeypatch, tmp_path, available_ns, no_output):
+    transport = ControlledTransport()
+    install(monkeypatch, transport)
+    path, spec = spec_fixture(tmp_path, events=[] if no_output else [event()], outcome={"state": "done",
+        "role_outcomes": {"A": {"status": "product_no_output" if no_output else "output_observed"}},
+        "opportunity": {"input_complete": True, "app_opportunity": True, "observation_complete": True}})
+    spec["populations"][0]["roles"][0]["selection"]["clock"]["input_available_until_ns"] = available_ns
+    dump(path, spec)
+    report = evaluate(path, tmp_path / "report.json", transport_path="controlled")
+    result = role_result(report)
+    if available_ns < 1_000_000_000:
+        assert result["quality"]["status"] == "unknown_input" and result["quality"]["score"] is None
+        assert result["checkpoints"][0]["status"] == "unknown"
+        assert report["calls"] == [] and transport.requests == []
+    else:
+        assert result["quality"]["status"] == ("no_output" if no_output else "judged")
+        assert result["quality"]["score"] == (0 if no_output else 96.5)
+        assert result["checkpoints"][0]["status"] == ("unmet" if no_output else "met")
+        assert len(report["calls"]) == (0 if no_output else 7)
+
+
+def test_partial_input_retains_valid_earlier_checkpoint_without_judging_unheard_final_source(monkeypatch, tmp_path):
+    transport = ControlledTransport()
+    install(monkeypatch, transport)
+    units = [{"id": "early", "role": "A", "text": DATA["source"], "start_ns": 0, "end_ns": 1_000_000_000,
+              "citations": ["Controlled heard source"]},
+             {"id": "late", "role": "A", "text": "UNHEARD_LATER_SOURCE", "start_ns": 3_000_000_000,
+              "end_ns": 4_000_000_000, "citations": ["Controlled unplayed source"]}]
+    path, spec = spec_fixture(tmp_path, units=units)
+    selection = spec["populations"][0]["roles"][0]["selection"]
+    selection["clock"]["input_available_until_ns"] = 2_500_000_000
+    reference = json.loads((tmp_path / "reference.json").read_text(encoding="utf-8"))
+    reference["semantic_checkpoints"].append({"id": "late", "role": "A", "evidence_end_seconds": 4,
+                                               "required_concepts": ["Unheard later meaning"]})
+    spec["episodes"][0]["reference"] = dump(tmp_path / "reference.json", reference)
+    dump(path, spec)
+    report = evaluate(path, tmp_path / "report.json", transport_path="controlled")
+    result = role_result(report)
+    assert result["quality"]["status"] == "unknown_input" and result["quality"]["score"] is None
+    assert result["checkpoints"][0]["status"] == "met" and result["checkpoints"][0]["first_met"] == [0, 0]
+    assert result["checkpoints"][1]["status"] == "unknown"
+    assert len(transport.requests) == 5 and all(row["stage"] == "checkpoint" for row in transport.requests)
+    assert all("UNHEARD_LATER_SOURCE" not in row["messages"][1]["content"] for row in transport.requests)
+
+
+def test_partial_input_preserves_explicit_harness_invalid_state(monkeypatch, tmp_path):
+    transport = ControlledTransport()
+    install(monkeypatch, transport)
+    path, spec = spec_fixture(tmp_path, outcome={"state": "invalid", "harness_interrupted": True})
+    spec["populations"][0]["roles"][0]["selection"]["clock"]["input_available_until_ns"] = 500_000_000
+    dump(path, spec)
+    report = evaluate(path, tmp_path / "report.json", transport_path="controlled")
+    assert role_result(report)["quality"]["status"] == "invalid"
+    assert role_result(report)["checkpoints"][0]["status"] == "unknown"
+    assert report["calls"] == [] and transport.requests == []
+
+
+def test_actual_ingcrowd_annotation_speakers_survive_blinded_scored_context(monkeypatch, tmp_path):
+    from tools.prepare_ingcrowd import annotations, reference
+    payload = b'''<ANNOTATION_DOCUMENT><TIME_ORDER>
+<TIME_SLOT TIME_SLOT_ID="t0" TIME_VALUE="0"/><TIME_SLOT TIME_SLOT_ID="t1" TIME_VALUE="500"/>
+<TIME_SLOT TIME_SLOT_ID="t2" TIME_VALUE="1000"/></TIME_ORDER>
+<TIER TIER_ID="speaker-one"><ANNOTATION><ALIGNABLE_ANNOTATION ANNOTATION_ID="a1" TIME_SLOT_REF1="t0" TIME_SLOT_REF2="t1">
+<ANNOTATION_VALUE>first speaker text</ANNOTATION_VALUE></ALIGNABLE_ANNOTATION></ANNOTATION></TIER>
+<TIER TIER_ID="speaker-two"><ANNOTATION><ALIGNABLE_ANNOTATION ANNOTATION_ID="a2" TIME_SLOT_REF1="t1" TIME_SLOT_REF2="t2">
+<ANNOTATION_VALUE>second speaker text</ANNOTATION_VALUE></ALIGNABLE_ANNOTATION></ANNOTATION></TIER></ANNOTATION_DOCUMENT>'''
+    bound = reference({"id": "ep", "source_samples": [0, 16000], "annotation_ids": ["a1", "a2"],
+        "checkpoints": [{"evidence_annotation_ids": ["a1", "a2"], "required_concepts": ["Both audible speakers"]}],
+        "source_review": {"status": "accepted"}}, annotations(payload))
+    transport = ControlledTransport()
+    install(monkeypatch, transport)
+    path, spec = spec_fixture(tmp_path, events=[event("두 사람의 번역", target_language="ko")])
+    spec["episodes"][0].update(language_pair="ja-ko", reference=dump(tmp_path / "reference.json", bound))
+    dump(path, spec)
+    report = evaluate(path, tmp_path / "report.json", transport_path="controlled")
+    assert role_result(report)["quality"]["score"] == 96.5
+    for request in transport.requests:
+        data = json.loads(request["messages"][1]["content"].split("Untrusted episode data (JSON):\n", 1)[1])
+        assert data["source"] == "first speaker text\nsecond speaker text"
+        assert [row["original_person"] for row in data["context"]] == ["speaker-one", "speaker-two"]
+        assert all(row["original_person_scope"] == "dialogue_local" for row in data["context"])
+        assert all(row["role"] == "A" and row["scored"] is True for row in data["context"])

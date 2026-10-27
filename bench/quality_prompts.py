@@ -73,8 +73,8 @@ def prompt(stage, data, errors=None):
                                                source_seg=data["source"], target_seg=data["output"], error_spans=canonical(errors))
     elif stage == "checkpoint":
         system = _BOUNDARY + '''
-Determine whether the checkpoint's required meaning has correctly appeared in the target-language translation output by this observation. Use only the supplied then-available source and native output. Partial words, wrong language, negation/number/actor reversal, or important omission do not meet it. Allowed paraphrases need not match wording. Context-only content is not translation credit. Earlier pages count; corrected-away errors do not. Clear/deletion alone is not a semantic reversal. Identify a substantive contradictory replacement as reversal and a later restoration as correction, only if the provided output history supports it.
-Return {"status":"met"|"unmet"|"unknown","evidence":[{"side":"output","text":"exact text","occurrence":1}],"reversal":false,"correction":false,"reason":"explanation"}. A met decision requires exact output evidence. Uncertainty is unknown, not unmet.'''
+Determine whether the checkpoint's required meaning has correctly appeared in the target-language translation output by this observation. Use only the supplied then-available source and native output. Partial words, wrong language, negation/number/actor reversal, or important omission do not meet it. Allowed paraphrases need not match wording. Context-only content is not translation credit. An earlier correct emission still counts after a contradictory replacement; revised-away errors are not successful meaning. Clear/deletion alone is not a semantic reversal. Identify a substantive contradictory replacement as reversal and a later restoration as correction, only if the provided output history supports it.
+Return {"status":"met"|"unmet"|"unknown","evidence":[{"side":"output","text":"exact text","occurrence":1}],"reversal":false,"correction":false,"reason":"explanation"}. A met decision requires exact native output evidence. Cite surviving output with side=output. To cite an earlier admitted append/replace emission, use {"side":"history","history_index":0,"text":"exact text","occurrence":1}; history_index must name its supplied opaque output_history index and the quote must match that entry's emitted text, not previous_text. Never cite unavailable/future history or a clear/delete operation. Uncertainty is unknown, not unmet.'''
         instruction = "Decide this semantic checkpoint independently."
     else:
         raise ValueError(f"Unknown quality stage: {stage}")
@@ -101,6 +101,22 @@ def quote(value, data, *, output_only=False):
         cursor = data[side].find(text, cursor + len(text))
         if cursor < 0:
             raise ValueError("Exact quote occurrence does not exist; response is not repaired")
+    return dict(value)
+
+
+def _checkpoint_quote(value, data):
+    if not isinstance(value, dict) or value.get("side") != "history":
+        return quote(value, data, output_only=True)
+    _object(value, ("side", "history_index", "text", "occurrence"))
+    index = value["history_index"]
+    if type(index) is not int or index < 0:
+        raise ValueError("Historical output quote requires an admitted opaque history index")
+    entries = [row for row in data.get("output_history", []) if row.get("index") == index]
+    if (len(entries) != 1 or entries[0].get("operation") not in ("append", "replace")
+            or not isinstance(entries[0].get("text"), str)):
+        raise ValueError("Historical output quote does not identify an admitted emission")
+    quote({"side": "output", "text": value["text"], "occurrence": value["occurrence"]},
+          {"output": entries[0]["text"]}, output_only=True)
     return dict(value)
 
 
@@ -134,7 +150,7 @@ def validate(stage, value, data):
         if value["status"] == "met" and not value["evidence"]:
             raise ValueError("Met checkpoint requires exact native output evidence")
         for evidence in value["evidence"]:
-            quote(evidence, data, output_only=True)
+            _checkpoint_quote(evidence, data)
     else:
         raise ValueError(f"Unknown quality stage: {stage}")
     return value
