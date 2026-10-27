@@ -50,7 +50,7 @@ Both pairs retain 50% weight; within each pair P1/P2/P3/T1/P4 retain
 unclassified explanations and planned repeats add no weight.
 
 - **[ASCEND](../corpus/r2/ascend.json):** 27 main and seven development
-  episodes use 589 distinct whole 16-kHz clips, 47 playback WAVs and 65 fixed
+  episodes use 589 distinct whole 16-kHz clips, 47 playback WAVs and 62 fixed
   checkpoint maps. Four P1 WAVs remain byte-identical. Sixteen episodes use
   conditional metadata offsets, seven dialogues use explicit 300-ms gaps at
   clip joins, and seven P3 explanations use same-person filename-local gaps.
