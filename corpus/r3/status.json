@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "issue": "https://github.com/kapitalismho/vrc-translator-bench/issues/17",
-  "status": "pilot_quality_owner_approved__role_boundary_verification_required",
+  "status": "pilot_technical_role_review_complete__method_adoption_pending",
   "goal_complete": false,
   "method_adopted": false,
   "main_audio_generated": 0,
@@ -28,7 +28,14 @@
       "condition": "Remaining pilot role-boundary verification and reviewed-method adoption precede main POSTs. This does not refill the six-take pilot allowance.",
       "excluded": "Retries, extra takes, turn fallback, top-ups, account changes and paid ASR/judge."
     },
-    "rights_boundary": "Owner-authorized local preparation and provider transmission; no new public corpus/audio redistribution grant."
+    "rights_boundary": "Owner-authorized local preparation and provider transmission; no new public corpus/audio redistribution grant.",
+    "main_retention_policy": {
+      "owner_decision": ".data/r3/main-retention-owner-decision.json",
+      "rule": "Retain each main first take unless a genuinely critical error is demonstrated. Minor pronunciation/delivery variation or automatic-analysis uncertainty alone does not justify rejection or regeneration.",
+      "critical_examples": "Material meaning loss/change, severe truncation/corruption, or actual role contamination preventing usable role-specific input.",
+      "failed_evidence": "Retain every original, cost and error observation, including critically defective takes; no replacement generation is implicitly authorized.",
+      "limits": "Preserve actual review levels and uncertainty. No invented human listening, speaker proof or successful freeze."
+    }
   },
   "source": {
     "parent_manifest_sha256": "c52dcae7526906b7c9ac4cedf8138f7b3687cec6fac0b2096cee5c2e50013556",
@@ -66,10 +73,11 @@
     "format": "24kHz mono PCM16LE; original response retained and wrapped as WAV",
     "total_seconds": 463.24,
     "wav_pcm_equality_verified": "6/6 actual generated WAV payloads exactly equal retained PCM; frame counts and stored SHA256 values match",
-    "role_buffers_generated": 0,
-    "role_sum_integrity": null,
-    "genuine_speaker_content_assignment": null,
-    "limits": "Transport/PCM checks do not establish complete words, naturalness, pronunciation, identity or turn boundaries."
+    "role_buffers_generated": 12,
+    "role_pairs_generated": 6,
+    "role_sum_integrity": "All six written pairs read back with original frame counts; exact samplewise A+B reconstruction, disjoint nonzero buffers and unchanged retained source samples.",
+    "genuine_speaker_content_assignment": "Bounded actual PCM/spectral/content evidence and same-take voice controls support technical routing; independent acceptance and method adoption remain pending. Arithmetic is not speaker proof.",
+    "limits": "Owner actual bilingual quality approval is separate from automated technical boundary inspection. No human role-buffer listening or exact single-sample phonetic attribution is claimed."
   },
   "takes": [
     {
@@ -83,7 +91,7 @@
       "api_consumption_usd": null,
       "observed_model": null,
       "observed_provider": null,
-      "status": "pilot_quality_approved__per_take_boundary_evidence_pending",
+      "status": "pilot_quality_approved__technical_role_evidence_complete__adoption_pending",
       "audio": ".data/r3/pilot/attempts/pilot-01/audio.wav"
     },
     {
@@ -97,7 +105,7 @@
       "api_consumption_usd": "0.0124385",
       "observed_model": "google/gemini-3.8-flash-tts-20260922",
       "observed_provider": "Google",
-      "status": "pilot_quality_approved__per_take_boundary_evidence_pending",
+      "status": "pilot_quality_approved__technical_role_evidence_complete__adoption_pending",
       "audio": ".data/r3/pilot/attempts/pilot-02/audio.wav"
     },
     {
@@ -111,7 +119,7 @@
       "api_consumption_usd": "0.0328315",
       "observed_model": "google/gemini-3.8-flash-tts-20260922",
       "observed_provider": "Google",
-      "status": "pilot_quality_approved__per_take_boundary_evidence_pending",
+      "status": "pilot_quality_approved__technical_role_evidence_complete__adoption_pending",
       "audio": ".data/r3/pilot/attempts/pilot-03/audio.wav"
     },
     {
@@ -125,7 +133,7 @@
       "api_consumption_usd": "0.022625",
       "observed_model": "google/gemini-3.8-flash-tts-20260922",
       "observed_provider": "Google",
-      "status": "pilot_quality_approved__per_take_boundary_evidence_pending",
+      "status": "pilot_quality_approved__technical_role_evidence_complete__adoption_pending",
       "audio": ".data/r3/pilot/attempts/pilot-04/audio.wav"
     },
     {
@@ -139,7 +147,7 @@
       "api_consumption_usd": "0.0155975",
       "observed_model": "google/gemini-3.8-flash-tts-20260922",
       "observed_provider": "Google",
-      "status": "pilot_quality_approved__per_take_boundary_evidence_pending",
+      "status": "pilot_quality_approved__technical_role_evidence_complete__adoption_pending",
       "audio": ".data/r3/pilot/attempts/pilot-05/audio.wav"
     },
     {
@@ -153,7 +161,7 @@
       "api_consumption_usd": "0.0316435",
       "observed_model": "google/gemini-3.8-flash-tts-20260922",
       "observed_provider": "Google",
-      "status": "pilot_quality_approved__per_take_boundary_evidence_pending",
+      "status": "pilot_quality_approved__technical_role_evidence_complete__adoption_pending",
       "audio": ".data/r3/pilot/attempts/pilot-06/audio.wav"
     }
   ],
@@ -173,7 +181,7 @@
     "taxes_fx": null,
     "human_review_cost": null,
     "editing_cost": null,
-    "review_work": "Automatic source/script content and checkpoint code reviews completed. Owner subsequently attested actual JA/KO listening quality approval. Individual reviewer/work-time/cost details were not supplied; role-boundary review remains pending.",
+    "review_work": "Automatic source/script reviews and actual technical PCM/spectral/content boundary inspection completed. Thirteen new offline unhinted ASR observations took approximately23.26 process seconds, not human review time or paid consumption. Owner attested actual JA/KO listening quality approval; individual reviewer/work-time/cost details remain unspecified. Independent technical acceptance and method adoption are pending.",
     "benchmark_application_costs_included": false
   },
   "verification": {
@@ -205,7 +213,11 @@
     "role_preview_page": ".data/r3/pilot-role-review/index.html",
     "focused_boundary_page": ".data/r3/pilot-role-review/refined-joins/index.html",
     "updated_boundary_proposals": ".data/r3/pilot-role-review/refined-joins/updated-role-proposals.json",
-    "boundary_browser_evidence": ".data/r3/pilot-role-review/refined-joins/browser-evidence.json"
+    "boundary_browser_evidence": ".data/r3/pilot-role-review/refined-joins/browser-evidence.json",
+    "technical_boundary_manifest": ".data/r3/pilot-boundary-resolution/technical-role-inputs.json",
+    "technical_boundary_page": ".data/r3/pilot-boundary-resolution/index.html",
+    "technical_boundary_decisions": ".data/r3/pilot-boundary-resolution/boundary-decisions.json",
+    "technical_verification": ".data/r3/pilot-boundary-resolution/verification-evidence.json"
   },
   "human_review_packet": {
     "audio": "Six original WAV players, with 118 exact scripted turn occurrences across the six takes.",
@@ -219,11 +231,11 @@
       "flagged_units": 12,
       "flags": "Five reversed, four nonmonotonic/overlapping, one zero-duration, two crossing script-turn boundaries.",
       "handling": "This initial Japanese-only tokenization attempt was rejected and not extended. Its raw predictions remain unchanged; later corrected per-turn tokenization observations are reported separately below.",
-      "limits": "Forced known-text timing does not establish words spoken, acoustic silence, speaker identity or pronunciation. Human boundaries remain required."
+      "limits": "Forced known-text timing does not establish words spoken, acoustic silence, speaker identity or pronunciation. Subsequent actual technical boundary evidence is reported separately, not substituted into these failed raw predictions."
     }
   },
   "role_boundary_proposals": {
-    "status": "unreviewed_not_adopted",
+    "status": "historical_unreviewed_proposals__superseded_by_technical_boundary_resolution",
     "corrected_method": "Native Japanese/Korean tokenization per exact scripted turn, preserving unit-to-turn ownership; unchanged installed offline classifier and raw predictions without interpolation, clamping or sorting.",
     "whole_take_observations": 6,
     "bounded_full_two_turn_refinements": 5,
@@ -238,12 +250,31 @@
     "preview_arithmetic": "Actual file readback verified equal original lengths and exact samplewise A+B reconstruction for the four available pairs; each retained sample is original or zero. Not genuine speaker/leakage proof.",
     "withheld_preview_pairs": ["pilot-03", "pilot-06"],
     "advisory_asr": "Seven earlier no-hints local windows; ambiguous short acknowledgement and mixed-language recognition limitations retained. Same Qwen family, not independent truth.",
-    "remaining_review": "Confirm candidate routing, quiet-gap ownership and short acknowledgements; decide three unresolved role joins from the supplied original-audio windows. Touching/overlapping classifier predictions are not proof of physical overlap.",
+    "remaining_review": "Historical three-join gap, subsequently resolved by the actual technical boundary inspection below. This retained proposal snapshot is not the current review/adoption status.",
     "surface_verification": "After reboot, actual Chromium loaded ten focused-window players and eight role-preview players, exercised muted playback and downloaded feedback. Smoke feedback removed; no boundary acceptance inferred."
   },
+  "role_boundary_resolution": {
+    "manifest": ".data/r3/pilot-boundary-resolution/technical-role-inputs.json",
+    "manifest_sha256": "f5636b89f8cd34780ece3cf3a9263954b5a1ff191e722f065a35d416e0ce49fc",
+    "review_level": "Automated actual PCM/spectral/content inspection with agent evidence assessment; not human role-buffer listening.",
+    "complete_role_pairs": 6,
+    "joins": 112,
+    "measured_quiet_interval_cuts": 110,
+    "estimated_spectral_transition_cuts": 2,
+    "resolved_seconds": {"pilot-03-join-17": 83.372, "pilot-06-join-12": 65.723, "pilot-06-join-17": 78.425},
+    "decisive_evidence": "Pilot06 join12 has an actual504ms quiet gap despite false model overlap. Pilot03/06 join17 use observed low-pitch acknowledgement decay, new consonant attack and higher-pitch Korean speech, corroborated by unhinted side-content and same-take voice controls. Final01/05 acknowledgements match measured same-take A controls.",
+    "uncertainty": "Two nonsilent transitions retain approximately17–20ms acoustic uncertainty. No exact one-sample speaker classifier or exhaustive independent listening guarantee.",
+    "four_scene_first_take_candidates": ["pilot-01", "pilot-02", "pilot-03", "pilot-04"],
+    "retained_variability_checks": ["pilot-05", "pilot-06"],
+    "critical_error_detected_by_bounded_inspection": false,
+    "method_adopted": false,
+    "new_provider_requests": 0,
+    "paid_asr_requests": 0,
+    "additional_local_unhinted_asr_observations": 13
+  },
   "remaining_prerequisites": [
-    "Actual role-boundary and separated-input review on the retained pilot takes; owner-reported listening quality approval is recorded separately.",
-    "Review-supported method adoption and genuine role-buffer attribution, with separate samplewise reconstruction proof.",
+    "Independent assessment of the completed actual technical pilot evidence; owner-reported bilingual listening quality approval is recorded separately.",
+    "Review-supported four-scene method adoption, retaining the two repeated whole takes as variability evidence rather than requiring six adopted inputs.",
     "Bind the separately approved nine-main-POST/USD1.50 scope to the prepared main plan and adopted pilot-method evidence before transmission.",
     "Reviewed main inputs and final R3 evidence handoff; do not close issue or regenerate speech for R6."
   ]

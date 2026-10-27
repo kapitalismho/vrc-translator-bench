@@ -432,6 +432,18 @@ change is included; stop if rates or limits change. The old pilot allowance is
 not refilled. Main generation still follows pilot role-boundary verification and
 method adoption; the owner did not approve generating before that review.
 
+The owner subsequently instructed retaining main takes unless a genuinely
+critical error is demonstrated. Preserve each first take; minor delivery or
+pronunciation variation, ASR disagreement and quantized alignment uncertainty
+alone are not rejection or regeneration reasons. Material meaning loss/change,
+severe truncation/corruption, or actual inseparable role contamination requires
+concrete evidence and separate disposition. Retain even a critically defective
+original and its costs; replacement speech is not implicitly authorized.
+Use the pilot's native per-language turn tokenization and actual acoustic/content
+checks rather than equating model timestamp overlap with physical voice overlap.
+This retention rule does not certify unperformed review or waive final input
+integrity.
+
 Open `.data/r3/pilot-review/index.html` directly in a browser for all six original
 WAV players and exact JA/KO turns. Reviewers can enter judgments and observed
 seconds, then export local feedback JSON; export before closing because answers
@@ -444,33 +456,42 @@ turn mappings and raw timestamps. That failed observation remains unchanged.
 The corrected local method tokenizes each exact turn with its native Japanese
 or Korean tokenizer, preserving unit ownership while using the same installed
 classifier. Six actual whole-take observations and five bounded full-two-turn
-refinements produced **109 cut candidates across 112 joins**. Raw anomalies are
-retained, not interpolated into ground truth. These remain unreviewed proposals.
+refinements initially produced **109 cut candidates across 112 joins**. Raw
+anomalies and that unreviewed proposal snapshot remain retained.
 
-Open `.data/r3/pilot-role-review/refined-joins/index.html` for the latest focused
-review. Three joins still need an actual boundary decision:
-`pilot-03-join-17`, `pilot-06-join-12`, and `pilot-06-join-17`.
-The page provides short original crops and full adjacent-turn windows; touching
-or overlapping model predictions do not establish physical speech overlap.
-Confirm candidate cuts in groups and correct exceptions rather than manually
-entering all 118 turn timestamps. The prior listening-quality approval is not
-being repeated or withdrawn.
+The subsequent actual technical inspection resolved the three remaining joins:
+`pilot-03-join-17` at83.372s, `pilot-06-join-12` at65.723s, and
+`pilot-06-join-17` at78.425s. The middle join has an independently measured504ms
+quiet interval despite the classifier's false overlap. The other two use
+observed acknowledgement decay, a new consonant attack and a different voiced
+regime, with explicit approximately17–20ms transition uncertainty—not invented
+silence or sample-accurate speaker truth. Unhinted side-content checks and
+same-take voice controls corroborate the assignments, including final short
+acknowledgements in pilot-01/05. Ambiguous ASR language labels for short nasal
+acknowledgements are not treated as wrong-language defects.
 
-The linked role page contains explicitly **UNREVIEWED** A/B preview pairs for
-pilot-01/02/04/05. File readback verified original frame counts and exact
-samplewise A+B reconstruction; that arithmetic does not certify speaker
-ownership or leakage. Full previews for pilot-03/06 remain withheld because of
-their unresolved joins. Actual Chromium rendering, local media playback and
-feedback download were exercised after reboot; smoke-only feedback was removed.
-Both persisted generation plans and all six pilot PCM/WAV hashes survived the
-restart. No paid generation was replayed and no main request has been sent.
+Open `.data/r3/pilot-boundary-resolution/index.html` for all six original/role
+triples, actual spectra, source-linked references and timelines. All112 cuts are
+specified:110 measured quiet intervals and two estimated spectral transitions.
+The six written pairs passed actual full-frame samplewise A+B reconstruction,
+disjointness and unchanged-source-value checks. Those arithmetic checks are
+separate from actual content/voice evidence and do not certify speaker identity.
+Thirteen additional offline unhinted ASR observations are retained with their
+same-Qwen-family limitations. No provider or paid-ASR request was made.
+
+The first four whole takes supply the four development-scene candidates; the two
+repeats remain variability evidence, not two additional mandatory adopted inputs.
+Technical boundary review is complete; independent acceptance and method
+adoption remain pending. No human role-buffer listening is claimed. Earlier
+failed/raw alignment, focused review and preview artifacts remain unchanged.
+No paid generation was replayed and no main request has been sent.
 
 ### Adoption remains an audio decision
 
-The owner's actual-listening quality approval does not settle the remaining
-role-boundary verification. Review both role inputs against the original for
-speaker identity, clipping, overlap, boundaries and conversational continuity
-before adopting the method or producing the nine main dialogues.
+The owner's actual-listening quality approval and the actual technical boundary
+evidence are distinct. Independently assess the source, role routing, cut
+uncertainty and content evidence before method adoption and the nine main
+requests; do not turn an automated technical review into a human-listening claim.
 The split operation preserves equal-length buffers and checks exact samplewise
 A+B reconstruction. That arithmetic cannot establish genuine speaker/content
 assignment. No benchmark apps or regenerated speech are required merely for

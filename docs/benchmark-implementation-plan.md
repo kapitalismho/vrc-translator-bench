@@ -329,6 +329,17 @@ pilot allowance remains exhausted. Remaining pilot role-boundary verification
 and method adoption still precede main generation; approval did not waive this
 ordering or accept any not-yet-generated main audio.
 
+The owner's subsequent main-retention instruction keeps each first take unless
+a genuinely critical error is demonstrated. Minor pronunciation/delivery
+variation and automatic recognition/alignment uncertainty alone do not justify
+discarding or regenerating audio. Preserve actual differences and review limits.
+Material meaning loss/change, severe truncation/corruption or actual inseparable
+role contamination requires evidence and separate disposition; retain even that
+original and its costs. This instruction does not authorize extra calls or
+replace actual input review with a fabricated pass. Apply the pilot's corrected
+per-language tokenization and actual signal/content checks before treating a
+timestamp anomaly as an audio defect.
+
 ### Completion Criteria
 
 Record secret-free owner setup confirmation and usage authorization before any generation. Actual JA and KO content/listening and boundary review supports the adopted method before nine main reconstructions are frozen. Show role-buffer sum/sample integrity and genuine speaker/content assignment separately. Report first-pass/rejected/adopted outcomes, API consumption, cash/credit, review work and unknown costs. Unavailable credentials, generation authority or bilingual review remain explicit prerequisites, not synthetic-quality passes.
