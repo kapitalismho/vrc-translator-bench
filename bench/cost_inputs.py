@@ -247,6 +247,8 @@ class Inputs:
                 raise ValueError("Trace anchor contradicts manifest attempt identity")
             replay, origins, stops, actual, callback_integrity = {}, [], [], [], {}
             for channel, binding in physical["roles"].items():
+                replay[binding["role"]] = None
+                callback_integrity[binding["role"]] = False
                 sources = [row for row in rows if row.get("record") == "source_playback" and row.get("input_channel") == channel]
                 callbacks = [row for row in rows if row.get("record") == "audio_callback"
                              and row.get("input_channel") == channel]
@@ -287,7 +289,7 @@ class Inputs:
                     stops.append(start + timedelta(seconds=float(seconds)))
                 replay[binding["role"]] = seconds
                 actual.append(playback.get("actual_dac_observed"))
-            if not replay:
+            if not origins:
                 retained["window_reason"] = "No actual submitted source callbacks"
                 continue
             detail = attempt.get("detail", {})

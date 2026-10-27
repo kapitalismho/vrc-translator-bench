@@ -190,6 +190,8 @@ The [repair execution record](../profiles/evidence/r5/binding-repair.json) prese
 
 The repaired five-suite cost run passed **179 tests in 4.07 seconds**. Director integration then passed **403 tests in 10.85 seconds** across those five suites, episode quality and profiles, plus `compileall`. The earlier 147/371 results remain evidence for their original candidate, not for unverified intermediate edits. Revised invented fixture hashes follow explicit callback-status additions; no historical real capture was changed.
 
+Bounded repair review verified the original three counterexamples closed, then found one remaining nullable-accounting defect: an entirely missing simultaneous role's callback map disappeared from the submitted-role total. The final repair retains an explicit null duration for every declared unmapped role. Four regressions cover both-complete input and a missing source, callbacks, or both. The final focused run passed **183 tests in 4.41 seconds**. Fresh-process API/CLI checks retained the incomplete role as null, both replay totals null and the known $0.03 bill without a complete rate; the fully mapped control retained 60 physical/120 submitted-role/60 logical seconds and $1.80/hour. This bounded delta leaves quality/profile sources unchanged; the prior broader integration coverage remains applicable there.
+
 ### What “through issue #8” means
 
 - Before replacement, issues #2–#7 were closed on their respective amended preparation/implementation scopes, while #1, #8 and #9–#11 were open. No linked Project items or repository Actions workflows were returned. The publication record above supersedes their page-existence/status information, not the historical implementation facts.

@@ -333,3 +333,43 @@ def test_valid_callbacks_with_scheduled_leading_silence_remain_complete(tmp_path
     population = derive(path, tmp_path / "cost.json")["populations"][0]
     assert population["full_main_input_observed"] is True
     assert population["cost"] == .03 and population["per_input_hour"] == 1.8
+
+
+def simultaneous_mapping_example(tmp_path, missing=None):
+    path, spec, common, manifest = example(tmp_path, "VRCS2", simultaneous=True)
+    if missing is not None:
+        records = [json.loads(line) for line in (tmp_path / "attempt-1.jsonl").read_text().splitlines()]
+        omitted = ({"audio_callback"} if missing == "callback" else {"source_playback"} if missing == "source"
+                   else {"source_playback", "audio_callback"})
+        records = [record for record in records
+                   if not (record.get("input_channel") == "self" and record.get("record") in omitted)]
+        save_trace(tmp_path, manifest, records)
+        bind_manifest(tmp_path, path, spec, common, manifest)
+    return path, spec, common, manifest
+
+
+@pytest.mark.parametrize("missing", [None, "callback", "source", "both"])
+def test_r5_rv1_every_declared_simultaneous_role_retains_nullable_duration(tmp_path, missing):
+    path, _, _, _ = simultaneous_mapping_example(tmp_path, missing)
+    result = derive(path, tmp_path / "cost.json")
+    window = result["windows"][0]
+    population = result["populations"][0]
+    assert window["roles"] == ["A", "B"]
+    assert window["role_replayed_seconds"] == {"A": 60, "B": 60 if missing is None else None}
+    assert window["callback_integrity"] == {"A": True, "B": missing is None}
+    assert population["logical_episode_seconds"] == 60
+    assert population["known_numeric_subtotal"] == result["components"][0]["cost"] == .03
+    assert all(record["attribution"]["status"] == "attributed" for record in result["records"])
+    if missing is None:
+        assert window["input_complete"] is population["full_main_input_observed"] is True
+        assert window["replayed_seconds"] == population["physical_replay_seconds"] == 60
+        assert population["submitted_role_timeline_seconds"] == 120
+        assert population["status"] == "complete"
+        assert population["cost"] == .03 and population["per_input_hour"] == 1.8
+    else:
+        assert window["input_complete"] is population["full_main_input_observed"] is False
+        assert window["replayed_seconds"] is window["input_end"] is None
+        assert population["physical_replay_seconds"] is population["submitted_role_timeline_seconds"] is None
+        assert result["ledger_groups"][0]["physical_replay_seconds"] is None
+        assert population["status"] == "pending"
+        assert population["cost"] is population["per_input_hour"] is None
