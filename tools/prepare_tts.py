@@ -1,9 +1,9 @@
-"""R3 OpenRouter pilot preparation, one-shot generation/accounting, reviewed split.
+"""R3 OpenRouter preparation, bounded generation/accounting, and reviewed split.
 
 No command grants approval or certifies speech. prepare is offline and never reads
-credentials. Six durable reservations bound CLIENT speech POSTs, not OpenRouter's
-upstream attempts. No retries, main production, turn fallback or provider pinning.
-Naturalness directions are metadata, never additions to the spoken transcript.
+credentials. Development is six CLIENT POSTs/$1; main is nine/$1.50 and requires
+separate spending approval plus an adopted-pilot-method attestation. No retries,
+turn fallback or provider pinning. Directions never enter the spoken transcript.
 """
 from __future__ import annotations
 
@@ -38,6 +38,9 @@ ATTEMPT_USD = Decimal("0.151552")
 CAP_USD = Decimal("1.00")
 EXPIRY = date(2026, 12, 31)
 SCOPE = "six-openrouter-development-whole-dialogue-client-posts"
+MAIN_SCOPE = "nine-openrouter-main-whole-dialogue-client-posts"
+MAIN_CAP_USD = Decimal("1.50")
+METHOD_SCOPE = "r3-adopted-whole-dialogue-pilot-method"
 RATES = {"input_text": "0.50", "output_audio": "9.00"}
 POLICY = {"data_collection": "deny", "zdr": True}
 IDENTIFIER = re.compile(r"[A-Za-z0-9][A-Za-z0-9_-]*\Z")
@@ -87,6 +90,14 @@ def nonempty(value):
     return isinstance(value, str) and bool(value.strip())
 
 
+def phase_contract(scope):
+    """Only the two owner-authorized batches, never arbitrary budget configuration."""
+    if scope == SCOPE:
+        return "development", 6, CAP_USD, "pilot"
+    require(scope == MAIN_SCOPE, "Unsupported generation scope")
+    return "main", 9, MAIN_CAP_USD, "main"
+
+
 def check_ready(bundle):
     require(bundle["schema_version"] == 1, "Unsupported script schema")
     require(bundle.get("preparation_status") != "draft_pending_source_restore_and_bilingual_review",
@@ -104,12 +115,13 @@ def request_for(episode):
                                                "google-vertex": {"maxOutputTokens": 16384}}}}
 
 
-def validate_bundle(bundle, parents_path, catalogue_path, source_cache):
+def validate_bundle(bundle, parents_path, catalogue_path, source_cache, split="development"):
     """Primary manifest/catalogue/CSV ancestry check, not semantic certification.
 
     Original reference digests remain identities only: absent historical JSON/ASR
     bodies are neither recreated nor claimed verified by this R3 derivation.
     """
+    require(split in ("development", "main"), "Unsupported preparation split")
     check_ready(bundle)
     parent_bytes, catalogue_bytes = Path(parents_path).read_bytes(), Path(catalogue_path).read_bytes()
     require(bundle["parent_manifest_sha256"] == sha256(parent_bytes), "Parent manifest checksum mismatch")
@@ -137,7 +149,7 @@ def validate_bundle(bundle, parents_path, catalogue_path, source_cache):
         parent, candidate = parents[parent_id], candidates[parent_id]
         for field in ("source_case_id", "dependency_group_id", "project_split"):
             require(episode[field] == parent[field] == candidate[field], "Parent identity or split mismatch")
-        require(episode["project_split"] in ("main", "development"), "Invalid project split")
+        require(episode["project_split"] == split, "Mixed or wrong preparation split")
         require(episode["parent_reference_sha256"] == parent["reference_sha256"], "Expected reference identity mismatch")
         require(parent["roles"] == candidate["roles"] and set(parent["roles"]) == {"A", "B"}
                 and len(set(parent["roles"].values())) == 2, "Invalid fixed parent roles")
@@ -151,11 +163,11 @@ def validate_bundle(bundle, parents_path, catalogue_path, source_cache):
             require((key, annotation, role, entry["original_person"]) ==
                     (clip["natural_source_key"], clip["annotation_L"], clip["logical_role"], clip["original_speaker_id"])
                     and entry["original_person"] == parent["roles"][role], "Source person/order/membership mismatch")
-            split, source_id = clip["upstream_split"], clip["upstream_id"]
+            source_split, source_id = clip["upstream_split"], clip["upstream_id"]
             index = int(source_id)
-            require(source_id == f"{index:05}" and 0 <= index < len(tables[split]), "Invalid split-local source row")
-            row = tables[split][index]
-            require(key == f"{catalogue['dataset']}@{catalogue['revision']}/{split}/{source_id}", "Source revision mismatch")
+            require(source_id == f"{index:05}" and 0 <= index < len(tables[source_split]), "Invalid split-local source row")
+            row = tables[source_split][index]
+            require(key == f"{catalogue['dataset']}@{catalogue['revision']}/{source_split}/{source_id}", "Source revision mismatch")
             require(row["file_name"] == clip["archive_member"] and int(row["original_speaker_id"]) == entry["original_person"],
                     "Original source file/person mismatch")
             require(sha256(row["transcription"].encode("utf-8")) == clip["reference_utf8_sha256"], "Original source text checksum mismatch")
@@ -187,21 +199,26 @@ def validate_bundle(bundle, parents_path, catalogue_path, source_cache):
         source_records.append({"parent_id": parent_id, "expected_parent_reference_sha256": parent["reference_sha256"],
                                "original_reference_body_verified": False, "source_entries": entries})
     development = [p["id"] for p in manifest["parents"] if p["project_split"] == "development"]
-    require(len(development) == 4 and set(development) <= episodes.keys(), "Pilot needs four complete development scripts")
+    require(len(development) == 4, "Frozen manifest needs four development parents")
+    selected = [p["id"] for p in manifest["parents"] if p["project_split"] == split]
+    require(len(selected) == (4 if split == "development" else 9) and set(selected) == episodes.keys(),
+            "Preparation requires the exact complete selected split")
     require(manifest["development_additional_take_parent_ids"] == [development[0], development[2]],
             "Additional takes must remain development parents 1 and 3")
     provenance = {"schema_version": 1, "parent_manifest_sha256": sha256(parent_bytes), "catalogue_sha256": sha256(catalogue_bytes),
-                  "source_metadata_sha256": metadata, "parents": source_records,
+                  "source_metadata_sha256": metadata, "parents": source_records, "development_parent_ids": development,
                   "original_reference_bodies_verified": False, "original_r2_handoff_complete": False,
                   "limitation": "Source-linked R3 derivation only; original reference/curation/ASR bodies are not recreated or verified. Shape does not certify JA/KO semantics."}
-    return episodes, development, provenance
+    return episodes, selected, provenance
 
 
-def prepare(scripts, parents, source_cache, output, catalogue=None):
+def prepare(scripts, parents, source_cache, output, catalogue=None, split="development"):
     catalogue = catalogue or Path(__file__).resolve().parents[1] / "corpus/r2/ascend.json"
     scripts_bytes = Path(scripts).read_bytes()
     bundle = json.loads(scripts_bytes)
-    episodes, development, provenance = validate_bundle(bundle, parents, catalogue, source_cache)
+    episodes, selected, provenance = validate_bundle(bundle, parents, catalogue, source_cache, split)
+    scope = SCOPE if split == "development" else MAIN_SCOPE
+    _, count, cap, prefix = phase_contract(scope)
     output = Path(output)
     output.mkdir(parents=True, exist_ok=False)
     (output / "requests").mkdir()
@@ -217,17 +234,19 @@ def prepare(scripts, parents, source_cache, output, catalogue=None):
                          "source_case_id": episode["source_case_id"], "dependency_group_id": episode["dependency_group_id"],
                          "parent_reference_sha256": episode["parent_reference_sha256"],
                          "project_split": episode["project_split"], "path": path, "sha256": sha256(payload)})
-    calls = [{"id": f"pilot-{i:02}", "episode_id": episodes[parent_id]["id"], "take": 1 if i <= 4 else 2}
-             for i, parent_id in enumerate(development + [development[0], development[2]], 1)]
-    plan = {"schema_version": 1, "run_id": uuid.uuid4().hex, "scope": SCOPE, "model": MODEL, "api": ENDPOINT,
+    sequence = selected + [selected[0], selected[2]] if split == "development" else selected
+    calls = [{"id": f"{prefix}-{i:02}", "episode_id": episodes[parent_id]["id"], "take": 2 if i > 4 and split == "development" else 1}
+             for i, parent_id in enumerate(sequence, 1)]
+    plan = {"schema_version": 1, "run_id": uuid.uuid4().hex, "scope": scope, "model": MODEL, "api": ENDPOINT,
             "api_docs": ["https://openrouter.ai/docs/api/api-reference/tts/create-speech",
                          "https://openrouter.ai/docs/guides/overview/multimodal/tts",
                          "https://openrouter.ai/docs/api/api-reference/generations/get-request-&-usage-metadata-for-a-generation"],
             "transport": "Python stdlib urllib, no client retries/proxy/redirect",
             "scripts_sha256": sha256(scripts_bytes), "source_validation_sha256": sha256(provenance_bytes),
             "parent_manifest_sha256": bundle["parent_manifest_sha256"], "requests": requests, "calls": calls,
-            "max_client_posts": 6, "client_post_reservation_usd": str(ATTEMPT_USD), "api_cap_usd": str(CAP_USD),
-            "six_client_posts_estimate_usd": str(ATTEMPT_USD * 6), "rates_usd_per_million": RATES,
+            "max_client_posts": count, "client_post_reservation_usd": str(ATTEMPT_USD), "api_cap_usd": str(cap),
+            ("six_client_posts_estimate_usd" if split == "development" else "nine_client_posts_estimate_usd"): str(ATTEMPT_USD * count),
+            "rates_usd_per_million": RATES,
             "rates_valid_through": EXPIRY.isoformat(), "provider_policy": POLICY,
             "budget_limitations": "Conditional current-rate token estimate, not observed cap enforcement or a bound on router upstream attempts. Stop on rate/limit changes; no automatic refill.",
             "documented_token_limits": {"input": 8192, "output": 16384, "effective_enforcement_observed": False},
@@ -236,7 +255,10 @@ def prepare(scripts, parents, source_cache, output, catalogue=None):
             "status": "prepared_not_authorized_not_audio_reviewed",
             "unknown_costs": ["cash_paid", "credit_applied", "purchase_fees", "taxes_fx", "human_review", "editing"],
             "privacy_limit": "ZDR/data-collection filters are requested, not a provider pin or independently certified universal retention policy.",
-            "limits": "Source shape and cost arithmetic are not content/speaker certification; main remains blocked."}
+            "limits": "Source shape and cost arithmetic are not content/speaker certification; main requires adopted pilot method evidence."}
+    if split == "main":
+        plan.update({"main_parent_ids": selected, "pilot_development_parent_ids": provenance["development_parent_ids"],
+                     "instructions_sha256": sha256(INSTRUCTIONS.encode("utf-8"))})
     save_json(output / "plan.json", plan)
     return {"plan_sha256": sha256((output / "plan.json").read_bytes()), "planned_client_posts": len(calls), "status": plan["status"]}
 
@@ -342,10 +364,11 @@ def inspect_pcm(body, content_type):
 def checked_run(run):
     plan_bytes = (run / "plan.json").read_bytes()
     plan = json.loads(plan_bytes)
-    require(plan["scope"] == SCOPE and plan["api"] == ENDPOINT and plan["model"] == MODEL
-            and plan["max_client_posts"] == 6 and plan["api_cap_usd"] == str(CAP_USD)
+    split, count, cap, prefix = phase_contract(plan["scope"])
+    require(plan["api"] == ENDPOINT and plan["model"] == MODEL
+            and plan["max_client_posts"] == count and plan["api_cap_usd"] == str(cap)
             and plan["client_post_reservation_usd"] == str(ATTEMPT_USD) and plan["rates_valid_through"] == EXPIRY.isoformat()
-            and plan["rates_usd_per_million"] == RATES and plan["provider_policy"] == POLICY, "Unsupported pilot plan")
+            and plan["rates_usd_per_million"] == RATES and plan["provider_policy"] == POLICY, "Unsupported generation plan")
     scripts_bytes = (run / "scripts.json").read_bytes()
     require(sha256(scripts_bytes) == plan["scripts_sha256"], "Frozen script bytes changed")
     require(sha256((run / "source-validation.json").read_bytes()) == plan["source_validation_sha256"], "Frozen source evidence changed")
@@ -361,11 +384,43 @@ def checked_run(run):
                 "Frozen request bytes changed")
         requests[entry["episode_id"]] = payload
     calls = plan["calls"]
-    require(len(calls) == 6 and [c["id"] for c in calls] == [f"pilot-{i:02}" for i in range(1, 7)], "Invalid six-POST sequence")
-    require([c["episode_id"] for c in calls[4:]] == [calls[0]["episode_id"], calls[2]["episode_id"]]
-            and len({c["episode_id"] for c in calls[:4]}) == 4, "Invalid development repeat sequence")
-    require(all(episodes[c["episode_id"]]["project_split"] == "development" for c in calls), "Main production is blocked")
+    require(len(calls) == count and [c["id"] for c in calls] == [f"{prefix}-{i:02}" for i in range(1, count + 1)],
+            "Invalid fixed batch sequence")
+    if split == "development":
+        require([c["episode_id"] for c in calls[4:]] == [calls[0]["episode_id"], calls[2]["episode_id"]]
+                and len({c["episode_id"] for c in calls[:4]}) == 4, "Invalid development repeat sequence")
+    else:
+        require(len(episodes) == len(bundle["episodes"]) == len(requests) == len(plan["requests"]) == 9
+                and set(c["episode_id"] for c in calls) == episodes.keys() == requests.keys()
+                and all(c["take"] == 1 for c in calls), "Main requires nine distinct one-take requests")
+        require([episodes[c["episode_id"]]["parent_id"] for c in calls] == plan["main_parent_ids"]
+                and len(set(plan["main_parent_ids"])) == 9, "Invalid exact main parent sequence")
+        require(len(plan["pilot_development_parent_ids"]) == len(set(plan["pilot_development_parent_ids"])) == 4
+                and plan["instructions_sha256"] == sha256(INSTRUCTIONS.encode("utf-8")), "Invalid pilot method identities")
+    require(all(episodes[c["episode_id"]]["project_split"] == split for c in calls), "Wrong generation split")
     return plan, sha256(plan_bytes), requests
+
+
+def checked_pilot_method(plan, approval, receipt_path):
+    """Check a bound review attestation, not proof that its factual claims are true."""
+    require(receipt_path is not None, "Main generation requires adopted pilot method evidence")
+    payload = Path(receipt_path).read_bytes()
+    require(sha256(payload) == approval["pilot_method_receipt_sha256"], "Pilot method receipt checksum mismatch")
+    receipt = json.loads(payload)
+    require(receipt["schema_version"] == 1 and receipt["scope"] == METHOD_SCOPE
+            and receipt["parent_manifest_sha256"] == plan["parent_manifest_sha256"]
+            and receipt["model"] == MODEL and receipt["voices"] == {"A": "Puck", "B": "Kore"}
+            and receipt["instructions_sha256"] == plan["instructions_sha256"]
+            and receipt["development_parent_ids"] == plan["pilot_development_parent_ids"],
+            "Foreign or incompatible pilot method evidence")
+    require(isinstance(receipt.get("pilot_plan_sha256"), str)
+            and re.fullmatch(r"[0-9a-f]{64}", receipt["pilot_plan_sha256"]), "Pilot plan identity is required")
+    require(all(receipt.get(flag) is True for flag in
+                ("actual_ja_ko_quality_review_approved", "actual_role_boundary_verification_approved", "method_adopted")),
+            "Pilot quality and actual role-boundary review must precede method adoption")
+    require(all(nonempty(receipt.get(field)) for field in ("reviewer", "reviewed_at", "evidence")),
+            "Pilot method reviewer evidence is required")
+    return payload
 
 
 def check_run_directory(run, approval):
@@ -386,7 +441,7 @@ def accounting_cost(value):
     return cost
 
 
-def check_retained_budget(attempts, consumed):
+def check_retained_budget(attempts, consumed, cap):
     exposure, known_total = Decimal(0), Decimal(0)
     for call_id in consumed:
         reconciliation = attempts / call_id / "reconciliation"
@@ -400,23 +455,24 @@ def check_retained_budget(attempts, consumed):
             reported = accounting_cost(record["metadata"]["total_cost"])
             require(cost == reported, "Retained accounting costs disagree")
             if cost is not None:
-                require(cost < CAP_USD, "Known pilot consumption exhausts approved cap")
+                require(cost < cap, "Known consumption exhausts approved phase cap")
                 require(cost <= ATTEMPT_USD, "Recorded cost contradicts documented client-POST reservation")
                 known_total += cost
         # Reconciled small/zero costs never refund reserved allowance or slots.
         exposure += ATTEMPT_USD if cost is None else max(ATTEMPT_USD, cost)
-    require(known_total < CAP_USD and exposure + ATTEMPT_USD <= CAP_USD, "Pilot consumption/reservations exhaust approved cap")
+    require(known_total < cap and exposure + ATTEMPT_USD <= cap, "Consumption/reservations exhaust approved phase cap")
 
 
-def generate(run, approval_path, call_id, env_file):
+def generate(run, approval_path, call_id, env_file, pilot_method=None):
     run = Path(run)
     with run_lock(run):
         plan, plan_hash, requests = checked_run(run)
+        split, count, cap, _ = phase_contract(plan["scope"])
         approval_bytes = Path(approval_path).read_bytes()
         approval = json.loads(approval_bytes)
         check_run_directory(run, approval)
         require(approval["schema_version"] == 1 and approval["plan_sha256"] == plan_hash, "Approval must bind exact plan bytes")
-        require(approval["scope"] == SCOPE and approval["max_client_posts"] == 6 and approval["api_cap_usd"] == "1.00"
+        require(approval["scope"] == plan["scope"] and approval["max_client_posts"] == count and approval["api_cap_usd"] == str(cap)
                 and approval["api"] == ENDPOINT and approval["model"] == MODEL
                 and approval["rates_usd_per_million"] == RATES and approval["provider_policy"] == POLICY, "Approval route/rates/policy/scope mismatch")
         require(all(approval.get(flag) is True for flag in ("setup_confirmed", "terms_and_rights_confirmed", "scripts_approved")),
@@ -425,26 +481,32 @@ def generate(run, approval_path, call_id, env_file):
                 "Record explicit owner confirmation source and faithful scope; never record a key")
         require(datetime.now(timezone.utc).date() <= date.fromisoformat(approval["expires_on"]) <= EXPIRY,
                 "Approval or current-rate budget has expired")
+        method_bytes = checked_pilot_method(plan, approval, pilot_method) if split == "main" else None
         attempts = run / "attempts"
         attempts.mkdir(exist_ok=True)
         calls = plan["calls"]
         consumed = {p.name for p in attempts.iterdir()}
         require(consumed == {c["id"] for c in calls[:len(consumed)]}, "Unrecognized attempt state; stop for investigation")
-        require(len(consumed) < 6, "Pilot client-POST allowance exhausted")
-        check_retained_budget(attempts, consumed)
+        require(len(consumed) < count, "Phase client-POST allowance exhausted")
+        check_retained_budget(attempts, consumed, cap)
         call = calls[len(consumed)]
         require(call_id == call["id"], "Submit only the next planned client POST; retries are not authorized")
         require(not Path(env_file).resolve().is_relative_to(run.resolve()), "Selected secret file must stay outside run outputs")
         key = load_key(env_file)
         require(key not in json.dumps(approval, ensure_ascii=False), "Approval must be secret-free")
+        require(method_bytes is None or key not in method_bytes.decode("utf-8"), "Pilot method receipt must be secret-free")
         attempt = attempts / call_id
         attempt.mkdir()  # Existence alone consumes this client-POST slot after interruption.
         save_new(attempt / "approval.json", approval_bytes)
-        save_json(attempt / "reservation.json", {"category": "pilot", "call": call, "plan_sha256": plan_hash,
-                  "request_sha256": sha256(requests[call["episode_id"]]), "approval_sha256": sha256(approval_bytes),
-                  "reserved_at": datetime.now(timezone.utc).isoformat(), "reserved_usd": str(ATTEMPT_USD),
-                  "status": "reserved_outcome_unknown", "client_post_allowance_consumed": True,
-                  "upstream_attempt_count": None})
+        reservation = {"category": "pilot" if split == "development" else "production", "call": call, "plan_sha256": plan_hash,
+                       "request_sha256": sha256(requests[call["episode_id"]]), "approval_sha256": sha256(approval_bytes),
+                       "reserved_at": datetime.now(timezone.utc).isoformat(), "reserved_usd": str(ATTEMPT_USD),
+                       "status": "reserved_outcome_unknown", "client_post_allowance_consumed": True,
+                       "upstream_attempt_count": None}
+        if method_bytes is not None:
+            save_new(attempt / "pilot-method.json", method_bytes)
+            reservation["pilot_method_receipt_sha256"] = sha256(method_bytes)
+        save_json(attempt / "reservation.json", reservation)
         result = {"status": "uncertain_transport_or_local_failure", "generation_id": None, "usage": None,
                   "api_consumption_usd": None, "billing_status": "unknown_pending_reconciliation", "adopted": False}
         try:
@@ -485,7 +547,7 @@ def reconcile(run, call_id, env_file):
     identifier(call_id)
     with run_lock(run):
         plan, plan_hash, _ = checked_run(run)
-        require(call_id in {c["id"] for c in plan["calls"]}, "Foreign pilot call")
+        require(call_id in {c["id"] for c in plan["calls"]}, "Foreign generation call")
         attempt = run / "attempts" / call_id
         reservation = json.loads((attempt / "reservation.json").read_bytes())
         require(reservation["plan_sha256"] == plan_hash, "Reservation plan mismatch")
@@ -610,9 +672,11 @@ def main(argv=None):
     for name in ("scripts", "parents", "source-cache", "output"):
         preparation.add_argument("--" + name, required=True)
     preparation.add_argument("--catalogue", default=str(Path(__file__).resolve().parents[1] / "corpus/r2/ascend.json"))
-    generation = commands.add_parser("generate", help="One explicitly approved development client POST, never retry")
+    preparation.add_argument("--split", choices=("development", "main"), default="development")
+    generation = commands.add_parser("generate", help="One explicitly approved phase call, never retry")
     for name in ("run", "approval", "call", "env-file"):
         generation.add_argument("--" + name, required=True)
+    generation.add_argument("--pilot-method", help="Main-only adopted method receipt, hash-bound by main approval")
     accounting = commands.add_parser("reconcile", help="One explicit non-generative accounting GET; no polling/refill")
     for name in ("run", "call", "env-file"):
         accounting.add_argument("--" + name, required=True)
@@ -622,9 +686,9 @@ def main(argv=None):
     args = parser.parse_args(argv)
     try:
         if args.command == "prepare":
-            result = prepare(args.scripts, args.parents, args.source_cache, args.output, args.catalogue)
+            result = prepare(args.scripts, args.parents, args.source_cache, args.output, args.catalogue, args.split)
         elif args.command == "generate":
-            result = generate(args.run, args.approval, args.call, args.env_file)
+            result = generate(args.run, args.approval, args.call, args.env_file, args.pilot_method)
         elif args.command == "reconcile":
             result = reconcile(args.run, args.call, args.env_file)
         else:

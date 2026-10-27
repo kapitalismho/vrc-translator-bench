@@ -57,7 +57,7 @@ def inputs(tmp_path):
     cache = tmp_path / "cache"
     cache.mkdir()
     parents, candidates, episodes, rows = [], [], [], []
-    for i in range(1, 6):
+    for i in range(1, 14):
         identity = f"synthetic-parent-{i}"
         split = "development" if i < 5 else "main"
         mapping, clips = [], []
@@ -107,14 +107,15 @@ def inputs(tmp_path):
                 "parents": parents, "development_additional_take_parent_ids": [parents[0]["id"], parents[2]["id"]]}
     manifest_path = tmp_path / "parents.json"
     save(manifest_path, manifest)
-    bundle = {"schema_version": 1, "parent_manifest_sha256": tts.sha256(manifest_path.read_bytes()), "episodes": episodes}
+    bundle = {"schema_version": 1, "parent_manifest_sha256": tts.sha256(manifest_path.read_bytes()), "episodes": episodes[:4]}
     scripts_path = tmp_path / "scripts.json"
     save(scripts_path, bundle)
-    return {"scripts": scripts_path, "parents": manifest_path, "catalogue": catalogue_path, "cache": cache, "bundle": bundle}
+    return {"scripts": scripts_path, "parents": manifest_path, "catalogue": catalogue_path, "cache": cache,
+            "bundle": bundle, "all_episodes": episodes}
 
 
-def prepare_inputs(inputs, output):
-    return tts.prepare(inputs["scripts"], inputs["parents"], inputs["cache"], output, inputs["catalogue"])
+def prepare_inputs(inputs, output, split="development"):
+    return tts.prepare(inputs["scripts"], inputs["parents"], inputs["cache"], output, inputs["catalogue"], split)
 
 
 @pytest.fixture
@@ -149,11 +150,11 @@ def test_source_linked_preparation_preserves_identity_without_missing_reference_
     assert plan["six_client_posts_estimate_usd"] == "0.909312"
     assert [c["episode_id"] for c in plan["calls"]] == [f"synthetic-ja-ko-{i}" for i in (1, 2, 3, 4, 1, 3)]
     assert [c["take"] for c in plan["calls"]] == [1, 1, 1, 1, 2, 2]
-    assert len(plan["requests"]) == 5  # Main may be dry-prepared, never submitted.
+    assert len(plan["requests"]) == 4
     evidence = read(run / "source-validation.json")
     assert evidence["original_reference_bodies_verified"] is False
     assert evidence["original_r2_handoff_complete"] is False
-    assert len(evidence["parents"]) == 5 and len(evidence["parents"][0]["source_entries"]) == 4
+    assert len(evidence["parents"]) == 4 and len(evidence["parents"][0]["source_entries"]) == 4
     assert evidence["parents"][0]["expected_parent_reference_sha256"] == inputs["bundle"]["episodes"][0]["parent_reference_sha256"]
     assert not (inputs["parents"].parent / "absent").exists()
     with pytest.raises(FileExistsError):
@@ -272,13 +273,13 @@ def test_preflight_never_reads_key_or_submits(prepared, mutation):
             target.write(b" ")
     else:
         plan = read(run / "plan.json")
+        bundle = read(run / "scripts.json")
         if mutation == "main":
-            plan["calls"][0]["episode_id"] = plan["calls"][4]["episode_id"] = "synthetic-ja-ko-5"
+            bundle["episodes"][0]["project_split"] = "main"
         else:
-            bundle = read(run / "scripts.json")
             bundle["episodes"][0]["unresolved_source_spans"] = [{"source_annotation_L": 1}]
-            save(run / "scripts.json", bundle)
-            plan["scripts_sha256"] = tts.sha256((run / "scripts.json").read_bytes())
+        save(run / "scripts.json", bundle)
+        plan["scripts_sha256"] = tts.sha256((run / "scripts.json").read_bytes())
         save(run / "plan.json", plan)
         approval["plan_sha256"] = tts.sha256((run / "plan.json").read_bytes())
     if mutation != "missing":
@@ -887,3 +888,248 @@ def test_zero_cost_reconciliation_never_refills_six_post_slots(prepared, monkeyp
     with pytest.raises(ValueError, match="exhausted"):
         tts.generate(run, approval, "pilot-07", env_file)
     assert len(posted) == 6
+
+
+@pytest.fixture
+def main_inputs(inputs):
+    bundle = copy.deepcopy(inputs["bundle"])
+    bundle["episodes"] = copy.deepcopy(inputs["all_episodes"][4:])
+    path = inputs["scripts"].parent / "main-scripts.json"
+    save(path, bundle)
+    return {**inputs, "scripts": path, "bundle": bundle}
+
+
+@pytest.fixture
+def main_prepared(main_inputs, prepared, tmp_path):
+    run = tmp_path / "main-run"
+    result = prepare_inputs(main_inputs, run, "main")
+    plan = read(run / "plan.json")
+    # This is isolated synthetic review data, never a real adoption receipt.
+    receipt = {"schema_version": 1, "scope": tts.METHOD_SCOPE,
+               "parent_manifest_sha256": plan["parent_manifest_sha256"], "model": tts.MODEL,
+               "voices": {"A": "Puck", "B": "Kore"}, "instructions_sha256": plan["instructions_sha256"],
+               "development_parent_ids": plan["pilot_development_parent_ids"],
+               "pilot_plan_sha256": tts.sha256((prepared[0] / "plan.json").read_bytes()),
+               "actual_ja_ko_quality_review_approved": True, "actual_role_boundary_verification_approved": True,
+               "method_adopted": True, "reviewer": "Synthetic reviewer", "reviewed_at": "2026-10-27",
+               "evidence": "Synthetic test attestation only, not real listening or boundary verification"}
+    receipt_path = tmp_path / "synthetic-pilot-method.json"
+    save(receipt_path, receipt)
+    approval = read(prepared[1])
+    approval.update({"plan_sha256": result["plan_sha256"], "run_directory": str(run.resolve()), "scope": tts.MAIN_SCOPE,
+                     "max_client_posts": 9, "api_cap_usd": "1.50",
+                     "pilot_method_receipt_sha256": tts.sha256(receipt_path.read_bytes())})
+    approval_path = tmp_path / "main-approval.json"
+    save(approval_path, approval)
+    return run, approval_path, prepared[2], receipt_path
+
+
+def test_main_offline_preparation_selects_exact_nine_without_method_adoption(main_inputs, tmp_path):
+    run = tmp_path / "main-offline"
+    result = prepare_inputs(main_inputs, run, "main")
+    assert result["planned_client_posts"] == 9
+    plan = read(run / "plan.json")
+    assert [call["id"] for call in plan["calls"]] == [f"main-{i:02}" for i in range(1, 10)]
+    assert len({call["episode_id"] for call in plan["calls"]}) == 9 and all(call["take"] == 1 for call in plan["calls"])
+    assert [entry["parent_id"] for entry in plan["requests"]] == [e["parent_id"] for e in main_inputs["bundle"]["episodes"]]
+    assert plan["api_cap_usd"] == "1.50" and plan["nine_client_posts_estimate_usd"] == "1.363968"
+    assert not (run / "attempts").exists() and not (run / "pilot-method.json").exists()
+    with pytest.raises(ValueError, match="split"):
+        prepare_inputs(main_inputs, tmp_path / "wrong-default-split")
+
+
+@pytest.mark.parametrize("mutation", ["missing", "mixed", "duplicate", "wrong_split", "foreign"])
+def test_main_preparation_rejects_incomplete_mixed_or_foreign_sources(main_inputs, tmp_path, mutation):
+    bundle = main_inputs["bundle"]
+    if mutation == "missing":
+        bundle["episodes"].pop()
+    elif mutation == "mixed":
+        bundle["episodes"].append(copy.deepcopy(main_inputs["all_episodes"][0]))
+    elif mutation == "duplicate":
+        bundle["episodes"].append(copy.deepcopy(bundle["episodes"][0]))
+    elif mutation == "wrong_split":
+        bundle["episodes"][0]["project_split"] = "development"
+    else:
+        bundle["episodes"][0]["parent_id"] = "foreign-parent"
+    save(main_inputs["scripts"], bundle)
+    with pytest.raises(ValueError):
+        prepare_inputs(main_inputs, tmp_path / "blocked-main", "main")
+    assert not (tmp_path / "blocked-main").exists()
+
+
+@pytest.mark.parametrize("target_main", [True, False])
+def test_phase_approvals_cannot_cross_even_if_plan_and_location_are_rebound(main_prepared, prepared, monkeypatch, tmp_path, target_main):
+    target = main_prepared if target_main else prepared
+    source = prepared if target_main else main_prepared
+    approval = read(source[1])
+    approval.update({"plan_sha256": tts.sha256((target[0] / "plan.json").read_bytes()), "run_directory": str(target[0].resolve())})
+    path = tmp_path / "foreign-phase-approval.json"
+    save(path, approval)
+    call = "main-01" if target_main else "pilot-01"
+    with pytest.raises(ValueError, match="scope mismatch"):
+        tts.generate(target[0], path, call, target[2], main_prepared[3] if target_main else None)
+    assert not (target[0] / "attempts").exists()
+
+
+@pytest.mark.parametrize("mutation", ["missing", "hash", "scope", "manifest", "model", "voices", "instructions",
+                                       "coverage", "quality", "boundaries", "adopted", "reviewer", "pilot_identity"])
+def test_main_method_gate_precedes_credentials_reservation_and_http(main_prepared, mutation):
+    run, approval_path, env_file, receipt_path = main_prepared
+    receipt, approval = read(receipt_path), read(approval_path)
+    selected = receipt_path
+    if mutation == "missing":
+        selected = None
+    elif mutation == "hash":
+        with receipt_path.open("ab") as output:
+            output.write(b" ")
+    else:
+        field = {"scope": "scope", "manifest": "parent_manifest_sha256", "model": "model", "voices": "voices",
+                 "instructions": "instructions_sha256", "coverage": "development_parent_ids", "quality": "actual_ja_ko_quality_review_approved",
+                 "boundaries": "actual_role_boundary_verification_approved", "adopted": "method_adopted", "reviewer": "reviewer",
+                 "pilot_identity": "pilot_plan_sha256"}[mutation]
+        if mutation in ("quality", "boundaries", "adopted"):
+            receipt[field] = False
+        elif mutation == "coverage":
+            receipt[field].pop()
+        elif mutation == "voices":
+            receipt[field] = {"A": "Kore", "B": "Puck"}
+        else:
+            receipt[field] = "" if mutation == "reviewer" else "foreign"
+        save(receipt_path, receipt)
+        approval["pilot_method_receipt_sha256"] = tts.sha256(receipt_path.read_bytes())
+        save(approval_path, approval)
+    with pytest.raises(ValueError):
+        tts.generate(run, approval_path, "main-01", env_file, selected)
+    assert not (run / "attempts").exists()
+
+
+@pytest.mark.parametrize("mutation", ["count", "cap", "prefix", "duplicate", "retake"])
+def test_main_fixed_batch_cannot_become_arbitrary_configuration(main_prepared, mutation):
+    run, approval_path, env_file, receipt_path = main_prepared
+    plan = read(run / "plan.json")
+    if mutation == "count":
+        plan["max_client_posts"] = 10
+    elif mutation == "cap":
+        plan["api_cap_usd"] = "2.00"
+    elif mutation == "prefix":
+        plan["calls"][0]["id"] = "pilot-01"
+    elif mutation == "duplicate":
+        plan["calls"][1]["episode_id"] = plan["calls"][0]["episode_id"]
+    else:
+        plan["calls"][0]["take"] = 2
+    save(run / "plan.json", plan)
+    approval = read(approval_path)
+    approval["plan_sha256"] = tts.sha256((run / "plan.json").read_bytes())
+    save(approval_path, approval)
+    with pytest.raises(ValueError):
+        tts.generate(run, approval_path, "main-01", env_file, receipt_path)
+    assert not (run / "attempts").exists()
+
+
+def test_main_nine_slots_retain_success_failed_and_uncertain_results(main_prepared, monkeypatch):
+    run, approval, env_file, receipt = main_prepared
+    enable_synthetic_key(monkeypatch)
+    posted = []
+
+    def post(*args):
+        posted.append(args)
+        if len(posted) in (2, 8):
+            raise TimeoutError("Synthetic uncertain main result")
+        if len(posted) == 4:
+            return 500, {"Content-Type": "application/json"}, b'{"error":"synthetic"}', True
+        return 200, {**HEADERS, "X-Generation-Id": f"gen-main-{len(posted)}"}, PCM, True
+    monkeypatch.setattr(tts, "post_once", post)
+    for i in range(1, 10):
+        call = f"main-{i:02}"
+        result = tts.generate(run, approval, call, env_file, receipt)
+        assert result["reserved_client_posts"] == i and result["client_post_allowance_consumed"] is True
+        attempt = run / "attempts" / call
+        assert (attempt / "pilot-method.json").read_bytes() == receipt.read_bytes()
+        assert read(attempt / "reservation.json")["category"] == "production"
+        if i not in (2, 4, 8):
+            assert tts.decode_wave((attempt / "audio.wav").read_bytes()) == PCM
+            assert (attempt / "audio.pcm").read_bytes() == PCM
+            assert read(attempt / "result.json")["adopted"] is False
+        else:
+            assert not (attempt / "audio.wav").exists()
+    with pytest.raises(ValueError, match="exhausted"):
+        tts.generate(run, approval, "main-10", env_file, receipt)
+    assert len(posted) == 9
+    assert sum(tts.Decimal(read(p / "reservation.json")["reserved_usd"]) for p in (run / "attempts").iterdir()) == tts.Decimal("1.363968")
+
+
+@pytest.mark.parametrize("cost", [1.51, 0.16])
+def test_main_known_cap_or_reservation_contradiction_stops_next_call(main_prepared, monkeypatch, cost):
+    run, approval, env_file, receipt = main_prepared
+    enable_synthetic_key(monkeypatch)
+    monkeypatch.setattr(tts, "post_once", lambda *args: (200, HEADERS, PCM, True))
+    tts.generate(run, approval, "main-01", env_file, receipt)
+    monkeypatch.setattr(tts, "get_generation_once", lambda *args:
+                        (200, {"Content-Type": "application/json"}, tts.json_bytes({"data": {"total_cost": cost}}), True))
+    assert tts.reconcile(run, "main-01", env_file)["api_consumption_usd"] == cost
+    monkeypatch.setattr(tts, "load_key", lambda *args: pytest.fail("Known main budget contradiction must precede secret access"))
+    with pytest.raises(ValueError, match="cap|reservation"):
+        tts.generate(run, approval, "main-02", env_file, receipt)
+    assert not (run / "attempts/main-02").exists()
+
+
+def test_actual_main_cli_receipt_gate_wavs_accounting_and_terminal_stop(main_prepared, tmp_path):
+    run, approval, env_file, receipt = main_prepared
+    guard = tmp_path / "main-cli-guard"
+    guard.mkdir()
+    observations = tmp_path / "main-cli-controlled-http.txt"
+    code = """
+import datetime, socket, sys, urllib.request
+from pathlib import Path
+class Clock(datetime.datetime):
+    @classmethod
+    def now(cls, tz=None):
+        return datetime.datetime(2026, 10, 27, tzinfo=datetime.timezone.utc)
+datetime.datetime = Clock
+def denied(*args, **kwargs):
+    raise RuntimeError('network disabled for synthetic main CLI')
+socket.socket.connect = denied
+socket.create_connection = denied
+class Response:
+    status = 200
+    def __init__(self, audio):
+        self.audio = audio
+        call = sys.argv[sys.argv.index('--call') + 1]
+        self.headers = {'Content-Type': 'audio/pcm;rate=24000;channels=1', 'X-Generation-Id': 'gen-synthetic-' + call} if audio else {'Content-Type': 'application/json'}
+    def __enter__(self):
+        return self
+    def __exit__(self, *args):
+        pass
+    def read(self):
+        return AUDIO_BYTES if self.audio else b'{"data":{"total_cost":0.01}}'
+class Opener:
+    def open(self, request, timeout):
+        with Path(OBSERVATIONS).open('a', encoding='utf-8') as output:
+            output.write(request.method + '\\n')
+        return Response(request.method == 'POST')
+urllib.request.build_opener = lambda *handlers: Opener()
+""".replace("AUDIO_BYTES", repr(PCM)).replace("OBSERVATIONS", repr(str(observations)))
+    (guard / "sitecustomize.py").write_text(code, encoding="utf-8")
+    env = {"PYTHONPATH": str(guard), "PYTHONIOENCODING": "utf-8"}
+    script = str(Path(tts.__file__).resolve())
+    base = [sys.executable, script, "generate", "--run", str(run), "--approval", str(approval), "--env-file", str(env_file)]
+
+    def invoke(args):
+        return subprocess.run(args, env=env, text=True, encoding="utf-8", capture_output=True, timeout=20)
+    blocked = invoke(base + ["--call", "main-01"])
+    assert blocked.returncode == 1 and not observations.exists() and not (run / "attempts").exists()
+    for i in range(1, 10):
+        call = f"main-{i:02}"
+        result = invoke(base + ["--call", call, "--pilot-method", str(receipt)])
+        assert result.returncode == 0, result.stderr
+        assert json.loads(result.stdout)["reserved_client_posts"] == i
+        attempt = run / "attempts" / call
+        assert tts.decode_wave((attempt / "audio.wav").read_bytes()) == PCM
+        assert read(attempt / "result.json")["pcm16le_sha256"] == tts.sha256(PCM)
+    for call in ("main-10", "main-01"):
+        assert invoke(base + ["--call", call, "--pilot-method", str(receipt)]).returncode == 1
+    accounting = invoke([sys.executable, script, "reconcile", "--run", str(run), "--env-file", str(env_file), "--call", "main-01"])
+    assert accounting.returncode == 0 and json.loads(accounting.stdout)["api_consumption_usd"] == 0.01
+    assert observations.read_text().splitlines() == ["POST"] * 9 + ["GET"]
+    assert not (run / "attempts/main-10").exists()
+    assert read(run / "attempts/main-01/reconciliation/result.json")["client_post_allowance_changed"] is False

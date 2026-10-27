@@ -371,6 +371,37 @@ once as WAV. Actual consumption comes from generation metadata when available;
 cash, purchased/promotional credit, fees and review work remain separate and
 unknown where unsupported.
 
+### Separately approved main preparation
+
+The same tool supports the fixed nine-parent main phase with `prepare --split
+main`; the default remains the four-dialogue/six-call development phase. Each
+main dialogue has one request, `main-01` through `main-09`. Mixed, missing or
+wrong-split script sets are rejected. Offline preparation does not assert that
+the pilot method has been adopted.
+
+```powershell
+python tools/prepare_tts.py prepare --split main --scripts .data/r3/scripts-v1/main.json --parents .data/r3/recovered-r2/t1-parent-manifest.json --source-cache <retained-ASCEND-directory> --output <fresh-main-run-directory>
+python tools/prepare_tts.py generate --run <main-run-directory> --approval <main-approval.json> --pilot-method <adopted-pilot-method.json> --call main-01 --env-file <main-worktree>/.env.local
+python tools/prepare_tts.py reconcile --run <main-run-directory> --call main-01 --env-file <main-worktree>/.env.local
+```
+
+The actual nine-script preparation already succeeded at `.data/r3/main`;
+do not overwrite or recreate that run to refill an allowance. Its plan hash is
+`8e0cb463a8430a5cbb79b59f04b2c8d98516183d5527fb3200d175dbb172c2c0`.
+No main speech POST has occurred.
+
+The main approval binds that exact plan and canonical directory, scope
+`nine-openrouter-main-whole-dialogue-client-posts`, nine POSTs, the additional
+$1.50 cap and `pilot_method_receipt_sha256`. The supplied `--pilot-method`
+receipt must match that hash and identify the same parent manifest, model,
+Puck/Kore roles, natural-delivery instruction hash, all four development parents
+and the reviewed pilot plan. It records genuine bilingual quality approval,
+actual role-boundary verification, method adoption, reviewer, time and evidence.
+The tool checks these attestations before reading the secret or reserving a
+POST; it cannot certify their truth. Spending approval alone does not satisfy
+the method gate. Each main attempt retains the exact receipt, and generated main
+audio still requires its own review.
+
 ### Actual pilot checkpoint
 
 The [R3 status record](../corpus/r3/status.json) binds the six retained actual
@@ -387,10 +418,19 @@ remain unknown. No lookup was polled or retried, and the full six-take charge is
 not presented as the known five-take subtotal. Cash/credit, fees, taxes and human
 review cost are not inferred from token consumption.
 
-All six generation slots are consumed. No take is yet adopted or quality
-rejected, no role buffers are yet speaker-reviewed, and no main audio has been
-generated. The nine prepared main scripts remain gated on actual pilot listening
-and boundary review, method adoption and separate generation authorization.
+All six pilot generation slots are consumed. The owner subsequently reported
+actual Japanese/Korean listening and approved content, pronunciation and
+naturalness. This is an owner review attestation, not automated listening proof;
+individual reviewer qualifications, work time and per-take decisions were not
+separately supplied. No role boundaries or final input takes are yet adopted.
+
+The owner also separately approved nine main-dialogue client POSTs, one per
+prepared main script, with an additional $1.50 pre-tax API consumption cap and
+non-generative usage lookups. At the unchanged researched rates, nine conservative
+reservations total $1.363968. No retry, extra take, turn fallback, top-up or account
+change is included; stop if rates or limits change. The old pilot allowance is
+not refilled. Main generation still follows pilot role-boundary verification and
+method adoption; the owner did not approve generating before that review.
 
 Open `.data/r3/pilot-review/index.html` directly in a browser for all six original
 WAV players and exact JA/KO turns. Reviewers can enter judgments and observed
@@ -407,10 +447,10 @@ seconds and gap/overlap notes without constructing sample-integer JSON.
 
 ### Adoption remains an audio decision
 
-The owner can arrange Japanese and Korean listening reviewers. Availability
-does not mean a review occurred. Review the original and both role inputs for
-content, pronunciation, naturalness, speaker identity, clipping, overlap and
-boundaries before adopting a method or producing the nine main dialogues.
+The owner's actual-listening quality approval does not settle the remaining
+role-boundary verification. Review both role inputs against the original for
+speaker identity, clipping, overlap, boundaries and conversational continuity
+before adopting the method or producing the nine main dialogues.
 The split operation preserves equal-length buffers and checks exact samplewise
 A+B reconstruction. That arithmetic cannot establish genuine speaker/content
 assignment. No benchmark apps or regenerated speech are required merely for

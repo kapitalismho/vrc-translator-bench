@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "issue": "https://github.com/kapitalismho/vrc-translator-bench/issues/17",
-  "status": "development_pilot_generated__actual_bilingual_audio_and_boundary_review_required",
+  "status": "pilot_quality_owner_approved__role_boundary_verification_required",
   "goal_complete": false,
   "method_adopted": false,
   "main_audio_generated": 0,
@@ -17,7 +17,17 @@
     "api_cap_usd": "1.00",
     "approval_plan_sha256": "aa0d89dd7c7705a00468f977b880bea2f15e4756af83d10b01cb4050c9bf809f",
     "local_approval": ".data/r3/pilot-owner-approval.json",
-    "main_generation_authorized": false,
+    "main_generation_authorized": true,
+    "main_scope": {
+      "client_posts_maximum": 9,
+      "additional_api_cap_usd": "1.50",
+      "conditional_current_rate_reservation_usd": "1.363968",
+      "client_posts_sent": 0,
+      "non_generative_usage_lookups": true,
+      "local_owner_decision": ".data/r3/main-owner-decision.json",
+      "condition": "Remaining pilot role-boundary verification and reviewed-method adoption precede main POSTs. This does not refill the six-take pilot allowance.",
+      "excluded": "Retries, extra takes, turn fallback, top-ups, account changes and paid ASR/judge."
+    },
     "rights_boundary": "Owner-authorized local preparation and provider transmission; no new public corpus/audio redistribution grant."
   },
   "source": {
@@ -44,11 +54,13 @@
     "client_http_successes": 6,
     "retained_transport_or_pcm_failures": 0,
     "audio_quality_passes": null,
-    "human_reviewed_takes": 0,
+    "human_reviewed_takes": null,
     "quality_rejected_takes": null,
     "adopted_takes": 0,
     "regeneration_causes": null,
-    "note": "The two repeat takes were approved method checks, not repair regenerations. Quality outcomes remain unreviewed, not zero-error. A local credential parser failure preceded any POST or reservation and is retained separately."
+    "owner_reported_pilot_quality_approved": true,
+    "quality_evidence": "Owner explicitly attested actual Japanese/Korean listening and approved content, pronunciation and naturalness. Per-take judgments, individual reviewer identities/qualifications and review times were not separately supplied; numerical per-take pass/reject counts remain unknown. Boundary review is separate.",
+    "note": "The two repeat takes were approved method checks, not repair regenerations. Owner-reported quality approval does not adopt role boundaries or final inputs. A local credential parser failure preceded any POST or reservation and is retained separately."
   },
   "audio": {
     "format": "24kHz mono PCM16LE; original response retained and wrapped as WAV",
@@ -71,7 +83,7 @@
       "api_consumption_usd": null,
       "observed_model": null,
       "observed_provider": null,
-      "status": "pending_actual_audio_review",
+      "status": "pilot_quality_approved__per_take_boundary_evidence_pending",
       "audio": ".data/r3/pilot/attempts/pilot-01/audio.wav"
     },
     {
@@ -85,7 +97,7 @@
       "api_consumption_usd": "0.0124385",
       "observed_model": "google/gemini-3.8-flash-tts-20260922",
       "observed_provider": "Google",
-      "status": "pending_actual_audio_review",
+      "status": "pilot_quality_approved__per_take_boundary_evidence_pending",
       "audio": ".data/r3/pilot/attempts/pilot-02/audio.wav"
     },
     {
@@ -99,7 +111,7 @@
       "api_consumption_usd": "0.0328315",
       "observed_model": "google/gemini-3.8-flash-tts-20260922",
       "observed_provider": "Google",
-      "status": "pending_actual_audio_review",
+      "status": "pilot_quality_approved__per_take_boundary_evidence_pending",
       "audio": ".data/r3/pilot/attempts/pilot-03/audio.wav"
     },
     {
@@ -113,7 +125,7 @@
       "api_consumption_usd": "0.022625",
       "observed_model": "google/gemini-3.8-flash-tts-20260922",
       "observed_provider": "Google",
-      "status": "pending_actual_audio_review",
+      "status": "pilot_quality_approved__per_take_boundary_evidence_pending",
       "audio": ".data/r3/pilot/attempts/pilot-04/audio.wav"
     },
     {
@@ -127,7 +139,7 @@
       "api_consumption_usd": "0.0155975",
       "observed_model": "google/gemini-3.8-flash-tts-20260922",
       "observed_provider": "Google",
-      "status": "pending_actual_audio_review",
+      "status": "pilot_quality_approved__per_take_boundary_evidence_pending",
       "audio": ".data/r3/pilot/attempts/pilot-05/audio.wav"
     },
     {
@@ -141,7 +153,7 @@
       "api_consumption_usd": "0.0316435",
       "observed_model": "google/gemini-3.8-flash-tts-20260922",
       "observed_provider": "Google",
-      "status": "pending_actual_audio_review",
+      "status": "pilot_quality_approved__per_take_boundary_evidence_pending",
       "audio": ".data/r3/pilot/attempts/pilot-06/audio.wav"
     }
   ],
@@ -161,7 +173,7 @@
     "taxes_fx": null,
     "human_review_cost": null,
     "editing_cost": null,
-    "review_work": "Automatic source/script content review and checkpoint code review completed. Actual Japanese/Korean human listening and boundary review not yet performed.",
+    "review_work": "Automatic source/script content and checkpoint code reviews completed. Owner subsequently attested actual JA/KO listening quality approval. Individual reviewer/work-time/cost details were not supplied; role-boundary review remains pending.",
     "benchmark_application_costs_included": false
   },
   "verification": {
@@ -169,7 +181,15 @@
     "focused_command": "python -m pytest tests/test_prepare_tts.py -q",
     "focused_result": "113 passed in 5.86s",
     "independent_code_review": "Whole-checkpoint review followed by consolidated repair verification and bounded literal-export parser verification; repair_verified. Not whole-issue acceptance.",
-    "actual_surface": "Real prepare CLI, six authorized real OpenRouter TTS POSTs, six explicit accounting GETs, actual generated WAV/PCM comparisons."
+    "actual_surface": "Real prepare CLI, six authorized real OpenRouter TTS POSTs, six explicit accounting GETs, actual generated WAV/PCM comparisons.",
+    "main_preparation": {
+      "implementation_baseline": "5421047bcd006a90fc154d678cc1ededca6ab799",
+      "focused_command": "python -m pytest tests/test_prepare_tts.py -q",
+      "focused_result": "143 passed in 10.48s",
+      "real_cli_result": "Nine real main scripts prepared offline at .data/r3/main; no main POST or adopted-method receipt created.",
+      "plan_sha256": "8e0cb463a8430a5cbb79b59f04b2c8d98516183d5527fb3200d175dbb172c2c0",
+      "review_state": "Resumed main-scope checkpoint review pending; earlier pilot review remains applicable to unchanged behavior."
+    }
   },
   "local_evidence": {
     "run": ".data/r3/pilot",
@@ -183,7 +203,7 @@
   "human_review_packet": {
     "audio": "Six original WAV players, with 118 exact scripted turn occurrences across the six takes.",
     "feedback": "Blank reviewer identity, per-take/per-turn judgments and human-observed seconds; local JSON export only. No automatic saving, submission, acceptance or splitter-ready timeline.",
-    "surface_verification": "Actual Windows file-page rendering, six media durations, muted playback advancing, time-note capture and downloaded feedback round-trip verified. Smoke-only feedback removed; no human review occurred.",
+    "surface_verification": "Actual Windows file-page rendering, six media durations, muted playback advancing, time-note capture and downloaded feedback round-trip verified. Smoke-only feedback removed; this UI smoke did not constitute human review.",
     "automatic_timing": {
       "observed_take": "pilot-01",
       "engine": "Existing offline Qwen3ForcedAligner with native Japanese/nagisa tokenization; mixed-language accuracy not assumed.",
@@ -196,9 +216,9 @@
     }
   },
   "remaining_prerequisites": [
-    "Actual JA and KO listening/content, voice, naturalness and boundary reviews on the retained pilot takes.",
+    "Actual role-boundary and separated-input review on the retained pilot takes; owner-reported listening quality approval is recorded separately.",
     "Review-supported method adoption and genuine role-buffer attribution, with separate samplewise reconstruction proof.",
-    "Separately approved main-generation scope and cost cap before producing nine main reconstructions.",
+    "Bind the separately approved nine-main-POST/USD1.50 scope to the prepared main plan and adopted pilot-method evidence before transmission.",
     "Reviewed main inputs and final R3 evidence handoff; do not close issue or regenerate speech for R6."
   ]
 }
