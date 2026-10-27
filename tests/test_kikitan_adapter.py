@@ -149,7 +149,9 @@ def test_fresh_frozen_argv_recovers_exited_owner_without_controlling_reused_PID(
     identity = client.call("identity")
     client.process.kill()
     client.process.wait(timeout=5)
-    client.close()
+    with pytest.raises(OSError, match="cleanup failed"):
+        client.close()
+    assert any(event["reason"] == "controller_abnormal_exit" for event in client.cleanup_evidence)
     wait_until(lambda: WindowsRuntime.__new__(WindowsRuntime).identity(identity["pid"]) is None)
     assert (root / "owner" / "config.dpapi").exists()
     recovered = Adapter(profile, root, "recovered")
@@ -201,11 +203,11 @@ def test_reused_owned_PID_is_never_controlled_and_bystanders_block_launch(tmp_pa
         controller.close()
 
 
-@pytest.mark.parametrize("cleanup_failure", [False, True])
+@pytest.mark.parametrize("cleanup_failure", [None, "hang_quit", "abrupt_teardown"])
 def test_actual_CLI_Runner_controller_and_local_websocket_assembly(setup, cleanup_failure):
     root, profile, original = setup
     if cleanup_failure:
-        atomic_json(root / "scenario.json", {"hang_quit": True})
+        atomic_json(root / "scenario.json", {cleanup_failure: True})
     path = make_plan(root / "input", {"KIKI2": "kikitan"}, kinds=("P1",), duration=.6)
     plan = json.loads(path.read_text())
     plan["profiles"][0]["adapter"] = profile["adapter"]
@@ -221,12 +223,27 @@ def test_actual_CLI_Runner_controller_and_local_websocket_assembly(setup, cleanu
     assert any(row["translated_text"] == "本地合成🦊修正" for row in outputs)
     assert not manifest["pending_passes"]
     assert next(row for row in host_events(root) if row["action"] == "control" and row["data"] == "ON")["clients"] == 2
-    assert (root / "config.json").read_bytes() == original
+    if cleanup_failure == "abrupt_teardown":
+        assert (root / "config.json").read_bytes() != original
+        assert (root / "owner" / "config.dpapi").exists()
+        assert (root / "ownership" / "active.json").exists()
+    else:
+        assert (root / "config.json").read_bytes() == original
     assert "synthetic-private-key-marker" not in json.dumps(manifest)
-    assert bool([row for row in manifest["records"] if row["kind"] == "cleanup_failure"]) is cleanup_failure
+    assert bool([row for row in manifest["records"] if row["kind"] == "cleanup_failure"]) == bool(cleanup_failure)
     if cleanup_failure:
         failure = next(json.loads(row["detail"]) for row in manifest["records"] if row["kind"] == "cleanup_failure")
-        assert failure["controller_cleanup_events"][0]["reason"] == "graceful_shutdown_failed_owned_host_terminated"
+        if cleanup_failure == "abrupt_teardown":
+            assert failure["controller_cleanup_events"] == [{"reason": "controller_abnormal_exit", "returncode": 7}]
+        else:
+            assert failure["controller_cleanup_events"][0]["reason"] == "graceful_shutdown_failed_owned_host_terminated"
+        from bench.storage import Ledger
+        ledger = Ledger(root / "runs" / "smoke")
+        try:
+            assert ledger.controller_owned_profiles() == {"KIKI2"}
+            assert ledger.owned_profiles() == set()  # capture OFF is not settings-cleanup completion
+        finally:
+            ledger.close()
         # Terminal translated input is not replayed to repair a cleanup outcome.
         attempts = manifest["attempts"]
         resumed = execute(command(root, resume=True), root, "cleanup-resume")
@@ -237,6 +254,9 @@ def test_actual_CLI_Runner_controller_and_local_websocket_assembly(setup, cleanu
         assert len([row for row in host_events(root) if row["action"] == "control" and row["data"] == "ON"]) == 1
         ownership = [json.loads(row["detail"]) for row in after["records"] if row["kind"] == "controller_cleanup_ownership"]
         assert ownership[-1]["owned"] is False
+        assert (root / "config.json").read_bytes() == original
+        assert not (root / "owner" / "config.dpapi").exists()
+        assert not (root / "ownership" / "active.json").exists()
 
 
 def test_failed_owned_startup_is_not_ready_and_restores_without_ON(setup):

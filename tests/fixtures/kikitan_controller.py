@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import os
+import json
 from pathlib import Path
 import subprocess
 import sys
@@ -47,7 +48,17 @@ class FixtureRuntime(WindowsRuntime):
 if __name__ == "__main__":
     root = Path(os.environ["KIKITAN_FIXTURE_ROOT"])
     factory = adapter.KikitanController
-    adapter.KikitanController = lambda directory, executable, profile: factory(
-        directory, executable, profile, runtime=FixtureRuntime(root), config_path=root / "config.json",
-        ownership_root=root / "ownership", timeout=.75)
+    def controller(directory, executable, profile):
+        instance = factory(directory, executable, profile, runtime=FixtureRuntime(root), config_path=root / "config.json",
+                           ownership_root=root / "ownership", timeout=.75)
+        normal_close = instance.close
+        def close():
+            marker = root / "abrupt-exit-once.json"
+            if json.loads((root / "scenario.json").read_text()).get("abrupt_teardown") and not marker.exists():
+                adapter.atomic_json(marker, {"returncode": 7})
+                os._exit(7)  # lose EOF cleanup before restoration, without an error event
+            normal_close()
+        instance.close = close
+        return instance
+    adapter.KikitanController = controller
     raise SystemExit(adapter.main())

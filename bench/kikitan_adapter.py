@@ -21,11 +21,20 @@ from .native_transports import KIKITAN_URL, kikitan_endpoint
 from .storage import RunLock, atomic_json, digest
 
 
-PUBLIC_FIELDS = ("recognizer", "translator", "source_language", "target_language", "microphone",
-                 "desktop_translation", "send_user_data", "send_to_chatbox", "speech_to_text_only",
-                 "disable_when_muted", "translation_only", "send_without_waiting_for_finish",
-                 "chatbox_wait_per_char_ms", "osc_port")
+PUBLIC_FIELDS = {
+    "recognizer": int, "translator": int,
+    "source_language": str, "target_language": str, "microphone": str,
+    "desktop_translation": bool, "send_user_data": bool, "send_to_chatbox": bool,
+    "speech_to_text_only": bool, "disable_when_muted": bool, "translation_only": bool,
+    "send_without_waiting_for_finish": bool, "chatbox_wait_per_char_ms": int, "osc_port": int,
+}
 VOICE_BASIS = "stock_2.0.2_microphone_TEXT_recognition_output_no_TTS_pipeline"
+
+
+def _public_value(value, expected_type):
+    if type(value) is not expected_type:
+        raise ValueError("Invalid Kikitan public state field type")
+    return value
 
 
 def _failure_reason(error):
@@ -260,11 +269,12 @@ class KikitanController:
 
     def _public_state(self, state):
         config = state["config"]
+        settings = {field: _public_value(config.get(field), expected_type)
+                    for field, expected_type in PUBLIC_FIELDS.items()}
         channels = {}
         for channel, binding in self.record["channels"].items():
-            channels[channel] = {**binding, "input_device": config.get("microphone"),
-                                 "source_language": config.get("source_language"), "target_language": config.get("target_language")}
-        settings = {field: config.get(field) for field in PUBLIC_FIELDS}
+            channels[channel] = {**binding, "input_device": settings["microphone"],
+                                 "source_language": settings["source_language"], "target_language": settings["target_language"]}
         return {**settings, "app_settings": settings, "running": state["status"] != 0,
                 "status": state["status"], "voice_output": False, "voice_output_basis": VOICE_BASIS,
                 "channels": channels, "channel_binding_basis": {"input_device_languages": "supported_app_state_readback",
@@ -328,7 +338,7 @@ class KikitanController:
                    "source_language": binding["source_language"], "target_language": binding["target_language"]}
         for field in PUBLIC_FIELDS:
             if field in requested:
-                if type(requested[field]) is not type(state["config"].get(field)):
+                if type(requested[field]) is not PUBLIC_FIELDS[field]:
                     raise ValueError("Requested Kikitan setting has an invalid type")
                 if field in desired and (type(requested[field]) is not type(desired[field]) or requested[field] != desired[field]):
                     raise ValueError("Requested settings conflict with Kikitan profile/self binding")
@@ -372,7 +382,7 @@ class KikitanController:
             if not self._owned_alive():
                 self._launch()
             state = self._state_until(lambda state: True)
-            return {"ready": True, "metadata": {"app_version": state.get("app_version"), "mode": "installed_no_ui",
+            return {"ready": True, "metadata": {"app_version": _public_value(state.get("app_version"), str), "mode": "installed_no_ui",
                     "endpoint": KIKITAN_URL, "startup_side_effects": "shared_vendor_logs_update_check_OSCQuery_device_enumeration_static_server",
                     "voice_output_basis": VOICE_BASIS}}
         if method in ("stop", "read_state") and (self.record is None or not self._owned_alive()):

@@ -145,17 +145,26 @@ class Adapter:
                     self.process.wait()
         self.reader.join(timeout=2)
         self.errors.join(timeout=2)
-        cleanup_failed = forced and self.profile.get("collector", {}).get("family") == "kikitan"
+        kikitan = self.profile.get("collector", {}).get("family") == "kikitan"
+        cleanup_failed = forced and kikitan
         self.cleanup_evidence = []
         while True:
             try:
                 event = self.events.get_nowait()
                 self._record("event", event)
                 cleanup_failed |= event.get("event") == "operational_error"
-                if event.get("event") == "operational_error" and self.profile.get("collector", {}).get("family") == "kikitan":
+                if event.get("event") == "operational_error" and kikitan:
                     self.cleanup_evidence.append({key: event.get(key) for key in ("reason", "message")})
             except queue.Empty:
                 break
+        if kikitan and self.process.returncode != 0:
+            # Exiting is not evidence that shared-settings cleanup completed.
+            # Keep the Runner's durable cleanup owner until a later successful
+            # frozen-argv reconciliation, even if capture was already OFF.
+            cleanup_failed = True
+            failure = {"reason": "controller_abnormal_exit", "returncode": self.process.returncode}
+            self.cleanup_evidence.append(failure)
+            self._record("cleanup_failure", failure)
         for pipe in (self.process.stdin, self.process.stdout, self.process.stderr):
             try:
                 pipe.close()

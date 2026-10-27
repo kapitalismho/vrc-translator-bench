@@ -507,3 +507,60 @@ def test_callback_cursor_consumes_snapshot_not_concurrent_append(tmp_path, runti
     detail = json.loads(attempt["detail"])
     assert detail["observation_end_ns"] >= detail["observation_deadline_ns"]
     assert detail["playback"]["self"]["complete"] is True
+
+
+def test_terminal_callback_is_drained_before_completed_attempt(tmp_path, runtime, monkeypatch):
+    clock, run = runtime
+    class Completion:
+        def __init__(self, player):
+            self.player = player
+        def is_set(self):
+            player = self.player
+            if clock.now < (player.finished_ns or float("inf")):
+                return False
+            if not player.final_appended:
+                # Publish the final append after the consumer's snapshot, at
+                # the first terminal completion observation.
+                player.records.append({"source_frame": player.info["frames"] - 480, "source_frames": 480,
+                                       "dac_t_ns": player.finished_ns - 10_000_000, "synthetic": True})
+                player.final_appended = True
+            return True
+    class TerminalPlayback(ClockPlayback):
+        instance = None
+        def __init__(self, path, device):
+            super().__init__(path, device)
+            self.final_appended = False
+            self.done = Completion(self)
+            self.__class__.instance = self
+        def start(self, scheduled_start_ns=None):
+            super().start(scheduled_start_ns)
+            self.records = [{"source_frame": 0, "source_frames": self.info["frames"] - 480,
+                             "dac_t_ns": self.first_dac_ns, "synthetic": True}]
+        def check(self):
+            pass  # Completion publishes append-before-done at its observation.
+    monkeypatch.setattr(runner_module, "ClockPlayback", TerminalPlayback)
+    path = make_plan(tmp_path / "input", {"P1": "vrclt"}, kinds=("P1",), duration=20)
+    plan = json.loads(path.read_text())
+    plan["episodes"][0]["roles"]["A"]["speech_intervals"] = [[0, 1]]
+    atomic_json(path, plan)
+    root, result = run(path)
+    attempt, = result["attempts"]
+    callbacks = [row for row in trace(root, attempt) if row.get("record") == "audio_callback"]
+    assert TerminalPlayback.instance.final_appended is True
+    assert [(row["source_frame"], row["source_frames"]) for row in callbacks] == [(0, 959520), (959520, 480)]
+    assert sum(row["source_frames"] for row in callbacks) == 960000
+    detail = json.loads(attempt["detail"])
+    assert detail["playback"]["self"]["complete"] is True
+    assert detail["observation_end_ns"] >= max(detail["observation_deadline_ns"], detail["playback"]["self"]["end_ns"])
+
+
+@pytest.mark.parametrize("family", ["kikitan", "vrclt"])
+def test_normal_EOF_controller_exit_finalizes_diagnostic(tmp_path, family):
+    from bench.adapter import Adapter
+    profile = {"id": "EOF", "collector": {"family": family},
+               "adapter": [sys.executable, "-c", "import sys; sys.stdin.read()"]}
+    adapter = Adapter(profile, tmp_path, "normal")
+    path, checksum = adapter.close()
+    assert adapter.process.returncode == 0
+    assert digest(tmp_path / path) == checksum
+    assert adapter.cleanup_evidence == []

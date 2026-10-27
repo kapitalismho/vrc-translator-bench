@@ -398,7 +398,12 @@ class Runner:
                 if now >= next_health:
                     self._health(active, observations, errors)
                     next_health = time.perf_counter_ns() + 1_000_000_000
-                if deadline is not None and now >= deadline and all(player.done.is_set() for player in players.values()):
+                # done publishes the producer's final append. Read the cursor
+                # bound after done so a terminal-iteration append is drained on
+                # the next iteration before any attempt is finalized.
+                if (deadline is not None and now >= deadline
+                        and all(player.done.is_set() and positions[key] == len(player.records)
+                                for key, player in players.items())):
                     break
                 time.sleep(0.01)
             self.sink.phase(active, "observation_end")
