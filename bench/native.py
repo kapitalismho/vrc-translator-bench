@@ -127,13 +127,17 @@ class NativeSink:
             row = self.diagnostic(profile, "gap", loss_or_gap=reason, **details)
             self.states[profile]["gaps"].append(row)
 
-    def failed(self, profile, reason):
+    def failed(self, profile, reason, *, transport_disconnected=False):
         with self.lock:
             profile = self._profile(profile)
             state = self.states[profile]
             if state["failure"] is None:
-                state.update(failure=reason, ready=False, connection="disconnected")
-                self.gap(profile, "collector_disconnected", error_kind=reason)
+                state["failure"] = reason
+            state.update(ready=False, connection="disconnected")
+            # Independent readers/faults must remain visible after an initial
+            # transport close; a confirmed app failure cannot hide them.
+            self.gap(profile, "collector_disconnected", error_kind=reason, generation=state["generation"],
+                     failure_kind="transport_disconnect" if transport_disconnected else "collector_fault")
 
     def ready(self, profile, reason, completeness_unknown=False):
         with self.lock:

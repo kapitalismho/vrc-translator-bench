@@ -73,6 +73,7 @@ class Runner:
         self.sink = None
         self.wave = None
         self.blocked_scopes = set()
+        self._collector_generations, self._product_disconnects = {}, {}
 
     def _adapter(self, profile):
         if profile not in self.adapters:
@@ -105,6 +106,8 @@ class Runner:
     def _begin(self, work, item):
         attempt = self.ledger.begin(work, self.resume)
         journal = _AttemptJournal(self.root / attempt["trace"])
+        self._collector_generations.pop(work["profile"], None)
+        self._product_disconnects.pop(work["profile"], None)
         self.open_attempts[work["profile"]] = attempt, journal
         journal.append({"record": "attempt_start", "t_ns": time.perf_counter_ns(), "wall": utc_now(),
                         "run": self.plan["run_id"], "profile": work["profile"], "pass_index": work["pass_index"],
@@ -207,6 +210,7 @@ class Runner:
         identity = adapter.call("identity")
         self.sink.identity(profile, identity)
         self.sink.start(profile)
+        self._collector_generations[profile] = self.sink.continuity(profile).get("generation")
         self._claim_capture(profile, "start_requested")
         if adapter.call("start").get("running") is not True:
             raise OperationalError(f"{profile} did not confirm capture running")
@@ -222,6 +226,55 @@ class Runner:
         self.ledger.record("quota_limit", {"profile": profile, "scope": scope,
                                            "future_work": "pending_not_played", "reached_ns": error.reached_ns})
 
+    def _product_error(self, profile, error, errors):
+        evidence = {"reason": error.reason, "message": str(error), "scope": error.scope,
+                    "reached_ns": error.reached_ns, "reached_wall": error.reached_wall}
+        errors[profile].append(evidence)
+        self._record(profile, {"record": "product_failure_observed", **evidence})
+        if error.reason == "limit":
+            self._block_limit(profile, error)
+
+    @staticmethod
+    def _transport_disconnect_only(state):
+        gaps = state.get("gaps", [])
+        return bool(gaps) and all(gap.get("loss_or_gap") == "collector_disconnected"
+                                  and gap.get("failure_kind") == "transport_disconnect" for gap in gaps)
+
+    def _check_collectors(self, profiles, observations, errors):
+        for profile in profiles:
+            if profile not in self._collector_generations:
+                continue  # No collector was started for this attempt; old gaps are historical.
+            generation = self._collector_generations[profile]
+            if profile in self._product_disconnects:
+                state = self.sink.continuity(profile)
+                if state.get("generation") != generation:
+                    raise OperationalError("Active native collector generation changed")
+                if self._transport_disconnect_only(state):
+                    continue
+            try:
+                self.sink.check(profile)
+            except OperationalError:
+                state = self.sink.continuity(profile)
+                if state.get("generation") != generation:
+                    raise OperationalError("Active native collector generation changed") from None
+                # Do not let a socket-first failure preempt independent app
+                # health. Parser/control faults stay invalid even if this poll
+                # also observes a ProductError, which remains in the attempt.
+                self._health([profile], observations, errors)
+                state = self.sink.continuity(profile)
+                if (state.get("generation") != generation or not errors[profile]
+                        or not self._transport_disconnect_only(state)):
+                    raise
+                self.sink.stop(profile)
+                state = self.sink.continuity(profile)
+                if state.get("generation") != generation or not self._transport_disconnect_only(state):
+                    raise OperationalError("Independent native collector fault during product disconnect") from None
+                evidence = {"generation": generation, "product_reason": errors[profile][0]["reason"],
+                            "product_reached_ns": errors[profile][0]["reached_ns"], "collector": state}
+                self._product_disconnects[profile] = evidence
+                self._record(profile, {"record": "product_collector_disconnect", **evidence})
+                self.ledger.record("product_collector_disconnect", {"profile": profile, **evidence})
+
     def _health(self, profiles, observations, errors):
         for profile in profiles:
             try:
@@ -235,10 +288,7 @@ class Runner:
                     raise ProductError(failure["reason"], failure.get("message", ""), failure.get("scope"))
             except ProductError as error:
                 health = {"alive": False if error.reason == "crash" else None}
-                errors[profile].append({"reason": error.reason, "message": str(error),
-                                        "reached_ns": error.reached_ns, "reached_wall": error.reached_wall})
-                if error.reason == "limit":
-                    self._block_limit(profile, error)
+                self._product_error(profile, error, errors)
             collector = _continuity(self.sink.continuity(profile))
             entry = {"record": "continuity", "t_ns": time.perf_counter_ns(), "alive": health.get("alive"),
                      "app": _continuity(health.get("app_continuity")),
@@ -252,7 +302,7 @@ class Runner:
         self.sink.phase(profiles, "quiet_precondition")
         next_health = 0
         while True:
-            self.sink.check()
+            self._check_collectors(profiles, observations, errors)
             if time.perf_counter_ns() >= next_health:
                 self._health(profiles, observations, errors)
                 next_health = time.perf_counter_ns() + 1_000_000_000
@@ -326,10 +376,13 @@ class Runner:
                     if self._prepare(profile, item):
                         active.append(profile)
                 except ProductError as error:
-                    if error.reason == "limit":
-                        self._block_limit(profile, error)
+                    self._product_error(profile, error, errors)
+                    self._check_collectors([profile], observations, errors)
                     self._finish(profile, "product_failure", error.reason,
-                                 {"opportunity": "not_played", "message": str(error)}, "unknown")
+                                 {"opportunity": "not_played", "opportunity_established": False, "message": str(error),
+                                  "product_errors": errors[profile],
+                                  "collector": self.sink.continuity(profile) if profile in self._collector_generations else None},
+                                 "unknown")
             if not active:
                 return
             players, bindings = self._players(items, active)
@@ -346,7 +399,7 @@ class Runner:
             next_health, deadline = 0, None
             while True:
                 now = time.perf_counter_ns()
-                self.sink.check()
+                self._check_collectors(active, observations, errors)
                 for key, player in players.items():
                     player.check()
                     if player.first_dac_ns is None and now > scheduled + 10_000_000_000:
@@ -408,7 +461,7 @@ class Runner:
                 time.sleep(0.01)
             self.sink.phase(active, "observation_end")
             self._health(active, observations, errors)
-            self.sink.check()
+            self._check_collectors(active, observations, errors)
             ended = time.perf_counter_ns()
             for profile in active:
                 item = items[profile]
@@ -417,7 +470,7 @@ class Runner:
                 windows = {channel: (players[key].first_dac_ns + (0 if self.synthetic else route["calibration"]["offset_ns"]),
                                      profile_deadlines[profile]) for channel, (key, route, _) in bindings[profile].items()}
                 channels_with_output, attribution_unknown = self.open_attempts[profile][1].outputs_between(windows)
-                opportunity = (all(continuity.values()) and not self.synthetic and not attribution_unknown
+                opportunity = (all(continuity.values()) and not errors[profile] and not self.synthetic and not attribution_unknown
                                and not (quiet and not quiet["quiet_precondition_met"]))
                 role_outcomes = {binding["role"]: {
                     "input_channel": channel,
@@ -435,6 +488,8 @@ class Runner:
                           "output_windows_ns": windows,
                           "role_outcomes": role_outcomes,
                           "product_errors": errors[profile], "quiet": quiet,
+                          "collector": self.sink.continuity(profile),
+                          "product_disconnect_correlated": self._product_disconnects.get(profile),
                           "playback": {channel: {"dac_start_ns": players[key].first_dac_ns,
                                                   "devices": players[key].devices,
                                                   "calibration_devices": bindings[profile][channel][1]["calibration"].get("devices"),
@@ -445,7 +500,10 @@ class Runner:
         except BaseException as error:
             for profile in list(self.open_attempts):
                 self._finish(profile, "invalid", "interrupted" if isinstance(error, KeyboardInterrupt) else str(error),
-                             {"opportunity_established": False, "continuity_observations": observations.get(profile, [])}, "invalid")
+                             {"opportunity_established": False, "continuity_observations": observations.get(profile, []),
+                              "product_errors": errors.get(profile, []),
+                              "collector": self.sink.continuity(profile) if profile in self._collector_generations else None,
+                              "product_disconnect_correlated": self._product_disconnects.get(profile)}, "invalid")
             raise
         finally:
             for player in players.values():

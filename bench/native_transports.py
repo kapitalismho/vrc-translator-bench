@@ -30,10 +30,13 @@ class Transport:
             except Exception as error:
                 if not self.stopping.is_set():
                     # Exception strings can contain auth URLs or provider diagnostics.
-                    self.sink.failed(self.profile, type(error).__name__)
+                    self.record_failure(error)
         thread = threading.Thread(target=guarded, daemon=True)
         self.threads.append(thread)
         thread.start()
+
+    def record_failure(self, error):
+        self.sink.failed(self.profile, type(error).__name__)
 
     def stop(self):
         self.stopping.set()
@@ -119,6 +122,16 @@ class WebSocket(Transport):
             if self.startup_error is not None or not self.subscribed:
                 raise ConnectionError("VRCS subscription did not become ready")
             self.sink.check(self.profile)
+
+    def record_failure(self, error):
+        from websockets.exceptions import ConnectionClosed
+        disconnected = isinstance(error, ConnectionClosed)
+        if disconnected:
+            # Framing/data, policy and extension failures remain instrumentation
+            # faults, even when a separate ProductError has already been observed.
+            disconnected = not any(frame is not None and frame.code in (1002, 1003, 1007, 1008, 1009, 1010)
+                                   for frame in (error.rcvd, error.sent))
+        self.sink.failed(self.profile, type(error).__name__, transport_disconnected=disconnected)
 
     def receive(self):
         try:
@@ -245,7 +258,7 @@ class CLI(Transport):
                     if self.ready_channels == set(self.config.get("channels", ["self", "peer"])):
                         self.sink.ready(self.profile, "projected_event_observed_on_each_subscription")
         if not self.stopping.is_set():
-            self.sink.failed(self.profile, "cli_disconnected")
+            self.sink.failed(self.profile, "cli_disconnected", transport_disconnected=True)
 
     def stderr(self, process):
         # Never persist stderr text: host diagnostics may disclose settings or keys.
