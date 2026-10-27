@@ -67,7 +67,8 @@ class DataPaths:
     @cached_property
     def primary(self):
         checkout = _checkout(self.anchor)
-        if checkout is None:
+        if (checkout is None or not _harness(checkout)
+                or self.anchor.resolve() != checkout / "bench" / "paths.py"):
             checkout = _checkout(self.cwd)
             if checkout is None or not _harness(checkout):
                 raise DataPathError(
@@ -87,9 +88,11 @@ class DataPaths:
             return path
         if path.parts and path.parts[0] == ".data":
             return (self.primary / path).resolve()
-        candidate = ((Path(base) if base is not None else self.cwd) / path).resolve()
-        checkout = _checkout(candidate)
-        if checkout is not None and candidate.is_relative_to(checkout / ".data"):
+        origin = (self.cwd / base).resolve() if base is not None else self.cwd
+        candidate = (origin / path).resolve()
+        checkout = _checkout(origin)
+        if (checkout is not None and _checkout(candidate) == checkout
+                and candidate.is_relative_to(checkout / ".data")):
             if _primary(checkout) == self.primary:
                 return self.primary / ".data" / candidate.relative_to(checkout / ".data")
         return candidate if base is not None else path
@@ -108,4 +111,10 @@ class DataPaths:
             raise DataPathError(
                 f"Refusing output inside linked checkout: {target}. Use primary data path {suggestion} instead."
             )
+        return target
+
+    def atomic_output(self, path):
+        """Preflight a CLI JSON output and the temporary file atomic_json opens."""
+        target = self.output(path)
+        self.output(target.with_name(target.name + ".tmp"))
         return target

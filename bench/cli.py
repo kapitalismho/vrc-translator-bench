@@ -54,7 +54,7 @@ def main(argv=None):
     try:
         paths = DataPaths()
         if hasattr(args, "output"):
-            args.output = paths.output(args.output)
+            args.output = paths.atomic_output(args.output)
         if args.command == "quality":
             paths.output(str(args.output) + ".store")
         if args.command == "calibrate":
@@ -109,6 +109,7 @@ def main(argv=None):
         if not IDENTIFIER.fullmatch(run_id):
             raise ValueError("Run ID must be a safe identifier")
         root = paths.output(args.root / run_id)
+        paths.atomic_output(root / "manifest.json")
         if args.command == "status":
             plan = json.loads((root / "execution-plan.json").read_text(encoding="utf-8"))
             ledger = Ledger(root)

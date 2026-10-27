@@ -12,6 +12,8 @@ Absolute inputs and paths embedded in immutable plans, manifests, references, ca
 
 Keep `.data/` private and preserve a verified copy before removing its owning checkout. Git ignores these assets: merging a PR does not back them up. A nonconventional or unidentified checkout fails explicitly for relative `.data` paths instead of falling back to disposable storage.
 
+The [initial cutover evidence](../profiles/evidence/r6/main-data-root.json) and [boundary-repair evidence](../profiles/evidence/r6/main-data-root-repair.json) record actual primary-root publication, installed-environment discovery, explicit linked-destination rejection and preflight of known atomic `.tmp` targets. Real filesystem-link cases preserve the linked target before report/store/device/provider work. These are CLI placement checks, not a universal filesystem sandbox for direct library callers.
+
 ## Install and operate
 
 Python 3.11+ is required. Real audio uses Windows WASAPI shared mode. WebSocket collectors require the native extra.

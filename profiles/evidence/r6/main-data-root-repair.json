@@ -1,0 +1,72 @@
+{
+  "reviewed_candidate": "efb1a142e6881b9e1c6896d569f17d193309de4a",
+  "accepted_findings": [
+    "PATH-F1",
+    "PATH-F2",
+    "PATH-F3"
+  ],
+  "changed_paths": [
+    "bench/paths.py",
+    "bench/cli.py",
+    "tests/test_data_paths.py"
+  ],
+  "repair_scope": {
+    "PATH-F1": "Only a genuine source harness anchor (<checkout>/bench/paths.py plus harness identity) wins. Installed anchors in unrelated or environment paths fall back to identifiable harness cwd; absolute external paths remain lazy and supported.",
+    "PATH-F2": "CLI-only atomic_output preflights the requested JSON and its actual .tmp sibling. Quality/costs/calibrate/playback use it before store/provider/device dispatch. Run/status/resume preflight the known atomic manifest target before Ledger/Runner. Calibration NPZ and quality store checks remain. Generic atomic_json/library APIs unchanged.",
+    "PATH-F3": "Non-leading .data rebasing requires the origin and resolved destination to be in the same checkout. Ordinary-relative explicit linked destinations retain meaning and then reject. Leading .data and same-checkout subdirectory ../.data aliases remain supported.",
+    "fixtures": "Existing synthetic Git topology now includes source harness files/project identity in primary and linked roots; no weakened expected-root assertions."
+  },
+  "before": {
+    "command": "python -B -m pytest -p no:cacheprovider --basetemp <primary>/.data/r6-data-paths-repair/pytest-before --junitxml=<primary>/.data/r6-data-paths-repair/before.xml tests/test_data_paths.py -q -k \"installed_anchor_inside or ordinary_relative_linked or atomic_temporary_link\"",
+    "outcome": "6 failed, 40 deselected in 0.30s, before product repair",
+    "observations": [
+      "F1 selected unrelated/.data instead of valid harness primary/.data.",
+      "F3 silently rebased explicitly addressed linked .data input, showing the redirection preceding output policy.",
+      "F2 actual filesystem .tmp links reached guarded quality/costs/calibration/playback dispatch; fail-fast guards prevented any provider/device work. No fake resolver subclasses."
+    ],
+    "evidence": [
+      "before.xml",
+      "artifact://281"
+    ]
+  },
+  "after": {
+    "focused": {
+      "outcome": "49 passed in 1.81s; no skips",
+      "junit": "after.xml",
+      "basetemp": "pytest-after"
+    },
+    "affected_actual_cli": {
+      "test": "tests/test_episode_costs.py::test_supported_cli_returns_revision_and_actual_arithmetic",
+      "outcome": "1 passed in 0.24s",
+      "junit": "affected-cli.xml"
+    },
+    "genuine_link_coverage": "6 successful filesystem symlink cases: quality, costs, calibrate, playback, status and resume. Rejection precedes guarded dispatch; symlinks remain, target sentinel bytes unchanged, no report/store created.",
+    "link_facility": "Supported on this workstation; no unavailable facility or skipped link case.",
+    "legitimate_progress": "Real cost CLI composition in focused test publishes a complete primary report with per_input_hour=1.8 and no .tmp residue."
+  },
+  "fresh_process_probes": [
+    {
+      "command": "python -B -m bench.cli costs --spec .data/r6-data-paths/smoke-inputs/cost-spec.json --output .data/r6-data-paths-repair/after-cost.json",
+      "cwd": "actual r6 linked checkout",
+      "outcome": "exit 0, primary after-cost.json read back: complete, observed-example, per_input_hour=1.8"
+    },
+    {
+      "command": "python -B -m bench.cli costs --spec .data/r6-data-paths/smoke-inputs/cost-spec.json --output <primary>/.data/r6-data-paths-repair/pytest-after/test_atomic_temporary_link_rej1/renamed-primary/.data/report.json",
+      "cwd": "actual r6 linked checkout",
+      "outcome": "exit 2, actual .tmp symlink target identified inside synthetic linked checkout; target read back as 'preserve linked target'; report absent"
+    },
+    {
+      "command": "python -B -c \"import runpy,sys; sys.path.insert(0, '<absolute-r6>'); runpy.run_module('bench.cli', run_name='__main__')\" costs --spec .data/r6-data-paths/smoke-inputs/cost-spec.json --output .worktrees/vrc-translator-bench/r6/.data/r6-data-paths-repair-rejection/result.json",
+      "cwd": "actual primary checkout (explicit r6 import pin)",
+      "outcome": "exit 2; ordinary-relative actual linked destination rejected with primary suggestion; rejected parent observed absent"
+    },
+    {
+      "command": "same pinned r6 module from primary cwd; costs --spec .data/r6-data-paths/smoke-inputs/cost-spec.json --output .data/r6-data-paths-repair/after-main-cost.json",
+      "outcome": "exit 0; primary after-main-cost.json read back: complete, observed-example, per_input_hour=1.8"
+    }
+  ],
+  "preserved": "Absolute inputs, credentials/env-file, source cache/model/executable semantics, immutable metadata/bindings and generic library paths are not broadened or relocated. Prior applicable 279-suite, performance and model/provider evidence is reused, not rerun/rejudged. One affected CLI test was refreshed separately as recorded.",
+  "limits_and_cleanup": "Synthetic/offline cost and filesystem boundary proof only, not provider billing, model quality, TTS or device/app admission. No new Git operations, documentation edits, providers, audio devices, registered worktrees or throwaway driver files. Synthetic fixture/link/input/result artifacts retained under primary scratch.",
+  "kind": "r6-primary-data-root-repair-evidence",
+  "private_evidence_root": "Primary checkout .data/r6-data-paths-repair/"
+}

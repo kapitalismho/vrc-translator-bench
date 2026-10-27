@@ -23,6 +23,10 @@ def linked_checkout(primary, linked, identity, *, absolute_gitdir=False):
     (linked / ".git").write_text("gitdir: " + pointer + "\n", encoding="utf-8")
     (gitdir / "commondir").write_text("../..\n", encoding="utf-8")
     (gitdir / "gitdir").write_text(os.path.relpath(linked / ".git", gitdir), encoding="utf-8")
+    (linked / "bench").mkdir()
+    (linked / "bench" / "cli.py").touch()
+    (linked / "bench" / "paths.py").touch()
+    (linked / "pyproject.toml").write_text((primary / "pyproject.toml").read_text(encoding="utf-8"), encoding="utf-8")
     return linked
 
 
@@ -33,6 +37,7 @@ def checkouts(tmp_path):
     (primary / ".git" / "HEAD").write_text("ref: refs/heads/not-main\n", encoding="utf-8")
     (primary / "bench").mkdir()
     (primary / "bench" / "cli.py").touch()
+    (primary / "bench" / "paths.py").touch()
     (primary / "pyproject.toml").write_text('[project]\nname = "vrc-translator-bench"\n', encoding="utf-8")
     linked = linked_checkout(primary, tmp_path / "arbitrary" / "deep" / "candidate", "opaque-admin-id")
     nested = linked_checkout(primary, primary / ".data" / "worktrees" / "nested", "nested-admin", absolute_gitdir=True)
@@ -111,6 +116,32 @@ def test_loaded_checkout_anchor_wins_and_installed_cwd_requires_harness(checkout
     assert DataPaths(anchor=installed, cwd=other).output(external) == external
 
 
+def test_installed_anchor_inside_unrelated_repository_uses_harness_cwd(checkouts):
+    primary, _, _ = checkouts
+    unrelated = primary.parent / "unrelated"
+    (unrelated / ".git").mkdir(parents=True)
+    installed = unrelated / ".venv/Lib/site-packages/bench/paths.py"
+    installed.parent.mkdir(parents=True)
+    installed.touch()
+    paths = DataPaths(anchor=installed, cwd=primary / "bench")
+    assert paths.output(".data/result.json") == primary / ".data/result.json"
+    with pytest.raises(DataPathError, match="Cannot identify the primary harness checkout"):
+        DataPaths(anchor=installed, cwd=unrelated).output(".data/result.json")
+    external = primary.parent / "isolated-export/result.json"
+    assert DataPaths(anchor=installed, cwd=unrelated).output(external) == external
+
+
+def test_ordinary_relative_linked_data_destination_is_not_shared_alias(checkouts):
+    primary, linked, _ = checkouts
+    paths = DataPaths(anchor=primary / "bench/paths.py", cwd=primary)
+    addressed = Path(os.path.relpath(linked / ".data/result.json", primary))
+    assert paths.input(addressed) == addressed
+    with pytest.raises(DataPathError, match="Refusing output inside linked checkout"):
+        paths.output(addressed)
+    assert not (primary / ".data/result.json").exists()
+    assert not (linked / ".data").exists()
+
+
 def test_nonconventional_worktree_layout_fails_without_guessing(checkouts):
     primary, linked, _ = checkouts
     marker = linked / ".git"
@@ -162,6 +193,58 @@ def test_bench_rejects_before_dispatch_or_files(checkouts, monkeypatch, command,
     assert cli.main([command, *arguments[command]]) == 2
     assert "Refusing output inside linked checkout" in capsys.readouterr().err
     assert not target.parent.exists()
+
+
+@pytest.mark.parametrize("command", ["quality", "costs", "calibrate", "playback", "status", "resume"])
+def test_atomic_temporary_link_rejected_before_report_dispatch(checkouts, monkeypatch, command, capsys):
+    primary, linked, _ = use_checkout(monkeypatch, checkouts)
+    output = primary / ".data" / "report.json"
+    if command in ("status", "resume"):
+        output = primary / ".data/runs/smoke/manifest.json"
+        output.parent.mkdir(parents=True)
+    target = linked / "unrelated-target.json"
+    target.write_bytes(b"preserve linked target")
+    temporary = output.with_name(output.name + ".tmp")
+    try:
+        temporary.symlink_to(target)
+    except OSError as error:
+        pytest.skip(f"Filesystem symlinks unavailable: {error}")
+    import bench.quality as quality
+    import bench.costs as costs
+    def denied(*args, **kwargs):
+        pytest.fail("Atomic output alias reached provider/store/audio/cost dispatch")
+    for module, name in [(quality, "evaluate"), (costs, "derive"), (cli, "calibrate"),
+                         (cli, "Playback"), (cli, "Ledger"), (cli, "Runner")]:
+        monkeypatch.setattr(module, name, denied)
+    arguments = {
+        "quality": ["--spec", "missing", "--output", str(output)],
+        "costs": ["--spec", "missing", "--output", str(output)],
+        "calibrate": ["--output", str(output), "--input-device", "unused", "--output-device", "unused"],
+        "playback": ["missing.wav", "--output", str(output), "--output-device", "unused"],
+        "status": ["smoke", "--root", ".data/runs"],
+        "resume": ["--resume", "smoke", "--root", ".data/runs"],
+    }
+    assert cli.main(["run" if command == "resume" else command, *arguments[command]]) == 2
+    assert "Refusing output inside linked checkout" in capsys.readouterr().err
+    assert temporary.is_symlink()
+    assert target.read_bytes() == b"preserve linked target"
+    assert not output.exists()
+    assert not Path(str(output) + ".store").exists()
+
+
+def test_supported_cost_cli_publishes_primary_report_without_temporary_residue(checkouts, monkeypatch):
+    primary, linked, _ = use_checkout(monkeypatch, checkouts)
+    from test_episode_costs import example
+    inputs = primary / ".data/cost-inputs"
+    inputs.mkdir()
+    example(inputs, "KIKI2")
+    assert cli.main(["costs", "--spec", ".data/cost-inputs/cost-spec.json", "--output", ".data/cost-report.json"]) == 0
+    output = primary / ".data/cost-report.json"
+    report = json.loads(output.read_text(encoding="utf-8"))
+    assert report["status"] == "complete"
+    assert report["populations"][0]["per_input_hour"] == 1.8
+    assert not output.with_name(output.name + ".tmp").exists()
+    assert not (linked / ".data").exists()
 
 
 @pytest.mark.parametrize("tool", ["ascend", "controls", "crowd", "asr", "tts-prepare", "tts-generate", "tts-reconcile", "tts-split", "export"])
