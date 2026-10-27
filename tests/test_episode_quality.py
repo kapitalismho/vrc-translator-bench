@@ -153,6 +153,26 @@ def role_result(report):
     return report["populations"][0]["role_results"][0]
 
 
+@pytest.mark.parametrize("field", ["run", "wave"])
+def test_standalone_execution_identity_selects_output_without_losing_cost_binding(tmp_path, field):
+    rows = [event("不要买十二张票。", run="selected-run", wave="selected-wave"),
+            event("UNRELATED OUTPUT", run="selected-run", wave="selected-wave")]
+    rows[1][field] = "another-execution"
+    path, spec = spec_fixture(tmp_path, events=rows)
+    selection = spec["populations"][0]["roles"][0]["selection"]
+    selection["scope"].update(run="selected-run", wave="selected-wave")
+    dump(path, spec)
+    history_bytes = (tmp_path / "history.json").read_bytes()
+
+    report = evaluate(path, tmp_path / "result.json")
+
+    result = role_result(report)
+    assert result["history"]["text"] == "不要买十二张票。"
+    assert result["history"]["excluded_events"][0]["reason"] == "scope_" + field
+    assert result["provenance"]["selection"]["scope"] == selection["scope"]
+    assert (tmp_path / "history.json").read_bytes() == history_bytes
+
+
 def test_two_stages_are_fresh_and_retain_durable_inputs_raw_results(monkeypatch, tmp_path):
     transport = ControlledTransport()
     install(monkeypatch, transport)

@@ -1,0 +1,897 @@
+{
+  "schema_version": 1,
+  "kind": "r6-retained-native-quality-cost-integration",
+  "issue": "https://github.com/kapitalismho/vrc-translator-bench/issues/20",
+  "recorded_date": "2026-10-28",
+  "status": "bounded_join_demonstrated_not_production_admission",
+  "result": {
+    "scope": "Retained R1 PP4 ordinary EN→ZH AMI development [34,74) → supported R4 common/detail report → authorized two-stage real judge → separate R5 pending cost revision. No new application/input measurement.",
+    "quality": {
+      "detail_status": "judged",
+      "detail_score": 81,
+      "score_source": "judge",
+      "major_errors": 1,
+      "minor_errors": 1,
+      "global_aggregate": {
+        "status": "incomplete",
+        "score": null,
+        "partial_contribution": 4.05,
+        "planned_weight": 1.0,
+        "completed_weight": 0.05,
+        "missing_weight": 0.95
+      },
+      "selected_cell": {
+        "status": "complete",
+        "score": 80.99999999999999,
+        "partial_contribution": 4.05,
+        "planned_weight": 0.05,
+        "completed_weight": 0.05,
+        "missing_weight": 0.0
+      }
+    },
+    "p50": {
+      "status": "incomplete",
+      "interval_seconds": null
+    },
+    "p90": {
+      "status": "incomplete",
+      "interval_seconds": null
+    },
+    "waiting_coverage": {
+      "status": "incomplete",
+      "planned_weight": 1.0,
+      "completed_weight": 0.0,
+      "missing_weight": 1.0,
+      "met_weight": 0.0,
+      "unmet_weight": 0.0,
+      "p50": {
+        "status": "incomplete",
+        "interval_seconds": null
+      },
+      "p90": {
+        "status": "incomplete",
+        "interval_seconds": null
+      }
+    },
+    "cost": {
+      "profile": "PP4",
+      "measurement_condition": "peer/simultaneous",
+      "status": "pending",
+      "cost": null,
+      "calculated_cost": null,
+      "known_numeric_subtotal": null,
+      "calculated_subtotal": null,
+      "logical_episode_seconds": 40.0,
+      "physical_replay_seconds": null,
+      "submitted_role_timeline_seconds": null,
+      "full_main_input_observed": false,
+      "per_input_hour": null,
+      "calculated_per_input_hour": null,
+      "role_bindings": [
+        {
+          "episode_id": "r1-ami-en-development-34-74",
+          "role": "A",
+          "cost_binding_id": "r1-ami-en-development-34-74",
+          "window_id": null,
+          "selection_sha256": "166c23c90ac38fc72fa11e8d55da2f0d73be57f6f5e042026da7d9f2ec257a01"
+        }
+      ],
+      "issues": [
+        "r1-ami-en-development-34-74/A: selected observed pass missing"
+      ]
+    },
+    "overall_common_report_status": "incomplete",
+    "production_freeze": false
+  },
+  "source": {
+    "source_kind": "AMI retained historical development, not final-plan R2/R3 population",
+    "original_parent_audio_sha256": "2cd64a1a493bf3794f02b58a5d78404128b9e6ab087ca82854b653601d9ef97e",
+    "sample_rate": 48000,
+    "channels": 1,
+    "sample_width_bytes": 2,
+    "parent_crop_frames": [
+      1632000,
+      3552000
+    ],
+    "crop_frames": 1920000,
+    "crop_seconds": 40,
+    "crop_wav_sha256": "b214d5288ed05ce51e6c18a7e8b2b3101218331122a8cf19192e9dc398c33926",
+    "crop_is_exact_retained_r1_input": true,
+    "crop_file_written_or_played": false,
+    "timeline": {
+      "path": "corpus/english/timelines/development-01.json",
+      "sha256": "933bc6bc01f17f0cb1e1c727feed72b0e8bfa3fd8ee11943c11b5b4330f6a191"
+    },
+    "reference": {
+      "path": ".data/r6-integration/retained-ami-reference.json",
+      "sha256": "1ef106584be724138ef7461542d6c0c0863ea28ef592989da0dffdf4d4462e8a",
+      "publication": "local-only execution artifact; preserve separately from public scalar evidence"
+    },
+    "source_units": 9,
+    "scored_lexical_words": 64,
+    "all_scored_dialogue_acts_wholly_inside_crop": true,
+    "source_text_rewritten": false,
+    "reference_level": "human transcript/manual dialogue acts; automatically forced-aligned source word times; not independently verified",
+    "nonlexical_events_preserved": 3,
+    "nonlexical_context": "Two other-headset laughs have uncertain bleed audibility; one target laugh retained without invented lexical text.",
+    "new_acoustic_or_human_reference_review": false,
+    "license": "CC-BY-4.0",
+    "attribution": "AMI Project — AMI Meeting Corpus"
+  },
+  "native": {
+    "profile": "PP4",
+    "language_pair": "en-zh",
+    "logical_role": "A",
+    "physical_input": "peer",
+    "measurement_condition": "peer/simultaneous",
+    "observed_scope": {
+      "run": "pp-en-zh-01",
+      "wave": "R1-representative-pilot",
+      "episode": "r1-ami-en-development-34-74",
+      "profile": "PP4",
+      "attempt": 1,
+      "pass_id": "ordinary-peer",
+      "channel": "peer",
+      "clock_session": "pp-en-zh-01",
+      "target_language": "zh"
+    },
+    "raw": {
+      "path": "profiles/evidence/r1/pp4-en-zh-native.jsonl",
+      "sha256": "e60d361aa33c402ee5c04586e6b978a41dc2cebb97c6d1388d1be3085c9836d8"
+    },
+    "input_clock": {
+      "path": "profiles/evidence/r1/pp4-en-zh-input-clock.json",
+      "sha256": "3a14418a7bc80c3605dd95a29edd63fd21bd3e0c2851c372e55e0f09c6632a60"
+    },
+    "confirmation": {
+      "path": "profiles/evidence/r1/pp4-en-zh-confirmation.json",
+      "sha256": "0408f0e7c7f1673ed6575f006274c68cbfd837ec102b6d6d4626003f76b30e19"
+    },
+    "observed_app_version": "2.9.1",
+    "observed_app_host_sha256": "32e496085be14372c71dd28db24fa90096b3912e33f44468f037421ce30a019b",
+    "selected_app_translation_route": "Index Translator/index_translate_35b/public_api",
+    "returned_app_upstream_model": null,
+    "endpoint_stage": "peer_post_overlay_projection",
+    "reconstruction_rule": "puripuly-cli-translation-unique-utterance-v1",
+    "reconstruction_override": null,
+    "emissions": 10,
+    "raw_citations": [
+      {
+        "event_index": 0,
+        "event_sha256": "0eb0d43522976b2edc2ba165cd07ef56c0b445c7630b7939fe92f5ee0d27cd03",
+        "original_wire_sha256": "bdb7fb2779aaf31f7c90e6d9a21daaa22c69481c040f4ce328ae74c8cbbc5ce5",
+        "original_wire_byte_count": 289,
+        "original_wire_not_persisted": true
+      },
+      {
+        "event_index": 1,
+        "event_sha256": "de5aac6ab4ddb619b1464d39fd1ec79ed4dede3ea37b52d6a12fd4a551bdc9d5",
+        "original_wire_sha256": "a547089fa6a092d681df8f28787dd61aa0bdca6bd62e4b77635e4eb1943204b0",
+        "original_wire_byte_count": 235,
+        "original_wire_not_persisted": true
+      },
+      {
+        "event_index": 2,
+        "event_sha256": "d197feb96462e9a151c2f8eeb9d97d5f160e52eba12616c98b90878275c1d5c2",
+        "original_wire_sha256": "ddc7a6852cde08414d258eae409d1b36f0513f61ebd490e8695e50c6076305a8",
+        "original_wire_byte_count": 265,
+        "original_wire_not_persisted": true
+      },
+      {
+        "event_index": 3,
+        "event_sha256": "aedc8729bfb351c14f1048e7f398eb5703f44e2b9103c9af35178478e0d280e6",
+        "original_wire_sha256": "b92724ce0fc3a1e7fb70f756b688e8844fae56a070cdb6d0924cbf1d10411f9b",
+        "original_wire_byte_count": 256,
+        "original_wire_not_persisted": true
+      },
+      {
+        "event_index": 4,
+        "event_sha256": "9bee09cb3b82c9a8b556e8b701c46e3928771d50e9863dc206b567f200c3b83d",
+        "original_wire_sha256": "aec235f7933f1bca1b107ed6291612b545326a7f310e1c8c3b6636b93ffeb2b6",
+        "original_wire_byte_count": 250,
+        "original_wire_not_persisted": true
+      },
+      {
+        "event_index": 5,
+        "event_sha256": "ed6855b5b12f1e4f2726513311c8e538c431e760c7fbaa0c6e31db36498c434d",
+        "original_wire_sha256": "177f9cbb0b357b10d2eedec6cb10f30bc739097008753b193ed124d97afc0751",
+        "original_wire_byte_count": 253,
+        "original_wire_not_persisted": true
+      },
+      {
+        "event_index": 6,
+        "event_sha256": "00ccf29d7db8ab32bd619bcef7148fdb2e93a9cb98bc0d5695d87d521b61aa82",
+        "original_wire_sha256": "7b6efa88f767ea2a6f4c23750e6e752b088b0d84112b385c0b4896b0d90e732b",
+        "original_wire_byte_count": 259,
+        "original_wire_not_persisted": true
+      },
+      {
+        "event_index": 7,
+        "event_sha256": "60e0b446c8cafc1729a9b67c790b8ab6a6e5089fde716f2caa986179c4569194",
+        "original_wire_sha256": "93d9c7d9c253793367bbc67941b0d2a9841de31dbd78581ac1f42680d4ca8c33",
+        "original_wire_byte_count": 232,
+        "original_wire_not_persisted": true
+      },
+      {
+        "event_index": 8,
+        "event_sha256": "8a53e29cea74c43428335bd3bb8b15ed61964e66286e75d6b1ff74299f4ca9c3",
+        "original_wire_sha256": "3de06f8f86a96df82939fede38cdabf82f0ca97f4b58faa314700f865e74610a",
+        "original_wire_byte_count": 346,
+        "original_wire_not_persisted": true
+      },
+      {
+        "event_index": 9,
+        "event_sha256": "c8b9f8f9d7d283594576ec8387b7b493e4e590131773b058a6b6b0612cf8874b",
+        "original_wire_sha256": "1fef3b72d44b615c67997c63dc243c4dec5a7227683c2ff9125a00db2c1becc2",
+        "original_wire_byte_count": 262,
+        "original_wire_not_persisted": true
+      }
+    ],
+    "history_text_sha256": "8c1f1f98b29afd3c4b9233be58f2c90bbce2dd8ead31965c5f5e6e59676b8624",
+    "history_quality_eligible": true,
+    "history_timing_eligible": false,
+    "history_timing_reasons": [
+      "event_time_unmapped"
+    ],
+    "receipt_before_retained_observation_end_for_all_events": true,
+    "retained_submitted_frames": 1920000,
+    "retained_callbacks": 4000,
+    "retained_frames_contiguous": true,
+    "retained_callback_status_errors": [],
+    "retained_observation_tail_seconds": 15.0075317,
+    "clock_override": null,
+    "accidental_concurrent_kikitan": true,
+    "opportunity_boundary": "Original derivative proves submitted source frames and observed native outputs/tail. First native event is not subscription ACK; no complete early app/collector opportunity, producer-time or internal-PCM admission is inferred."
+  },
+  "bindings": {
+    "quality_spec": {
+      "path": ".data/r6-integration/retained-quality-spec.json",
+      "sha256": "aadf72e2a9df1dbe74f32a0ab5fab5b13cca582a35a548b713a6a376811c67cb",
+      "publication": "local-only execution artifact; preserve separately from public scalar evidence"
+    },
+    "canonical_r5_selection_sha256": "166c23c90ac38fc72fa11e8d55da2f0d73be57f6f5e042026da7d9f2ec257a01",
+    "report_first_judged": {
+      "path": ".data/r6-integration/retained-quality-live-first.json",
+      "sha256": "24d4f82ee644b87fe28f173cd83dc384cf3df56d1ed41f82f57b4ce2c47315eb",
+      "publication": "local-only execution artifact; preserve separately from public scalar evidence"
+    },
+    "report_cached": {
+      "path": ".data/r6-integration/retained-quality-live.json",
+      "sha256": "53db732490e780336d9004183ccef3976d7595b61c2a628a508661f33bc28e0b",
+      "publication": "local-only execution artifact; preserve separately from public scalar evidence"
+    },
+    "quality_store": {
+      "path": ".data/r6-integration/retained-quality-live.json.store/quality.sqlite",
+      "sha256": "27e429be1b5cfb599042b58b90912fc5ba290a15a54ebe2537d25e3d8181b917",
+      "publication": "local-only execution artifact; preserve separately from public scalar evidence"
+    },
+    "cost_judged_spec": {
+      "path": ".data/r6-integration/retained-cost-judged-spec.json",
+      "sha256": "151b53aa595647c73ea9078395e51759716516e4120718db46eb5925be1952bb",
+      "publication": "local-only execution artifact; preserve separately from public scalar evidence"
+    },
+    "cost_judged_revision": {
+      "path": ".data/r6-integration/retained-cost-judged.json",
+      "sha256": "1b8e148e5321e8fa01b613fa3178388191047f18420eec5f7fe6752319ceab4f",
+      "publication": "local-only execution artifact; preserve separately from public scalar evidence"
+    },
+    "cost_common_report_sha256": "24d4f82ee644b87fe28f173cd83dc384cf3df56d1ed41f82f57b4ce2c47315eb",
+    "timeline": {
+      "path": ".data/r6-integration/retained-timeline.json",
+      "sha256": "6ce3c8d48b5c0399dc7b28884e2d53e5dd313c537be4dc9c0724be453fba54ac",
+      "publication": "local-only execution artifact; preserve separately from public scalar evidence"
+    },
+    "timeline_counted_once_seconds": 40,
+    "no_manufactured_cost_windows": true,
+    "missing_window_reason": "Retained native identity is real, but derivative lacks timezone-aware wall anchor and is a development pilot, not main. No fabricated wall/run/wave/attempt identity or purpose promotion.",
+    "bills_supplied": false
+  },
+  "judge": {
+    "authorization": "Director explicitly authorized only the missing actual retained PP4 final-quality two-stage join after contrast worker finished.",
+    "route": "GPT 6 Astra / Sign in with ChatGPT",
+    "requested_model": "gpt-6-astra",
+    "actual_models": [
+      "gpt-6-astra"
+    ],
+    "synthetic": false,
+    "new_calls": 2,
+    "checkpoint_calls": 0,
+    "calls": [
+      {
+        "id": 1,
+        "job": "errors:b51195175a3ff928e2591d906c3a7699db9cd739ace11cc0da664a8d826eb215",
+        "input_hash": "65a61bbd2606e8795c4bd4669c84b3310c98879b997f3fbac0d9ed26f6ff55e8",
+        "prompt_hash": "b51195175a3ff928e2591d906c3a7699db9cd739ace11cc0da664a8d826eb215",
+        "expected_model": "gpt-6-astra",
+        "actual_model": "gpt-6-astra",
+        "state": "completed",
+        "raw_envelope_sha256": "3691da5899f7f6553a772ba4e90f9b1b38d729a6d66e933c82f316a66a3157ed",
+        "result_sha256": "5884779ac40ed6cb622cfb29f807aeb3be3835601e00476525cceafe4ff45d45",
+        "model_identity_evidence": {
+          "event_index": 166,
+          "event_type": "response.completed",
+          "model": "gpt-6-astra",
+          "requested_model": "gpt-6-astra",
+          "source": "raw inference response.model"
+        }
+      },
+      {
+        "id": 2,
+        "job": "score:244d1cb496a9c3f8b162c4a27e8529438e7e2d2e1651529c18fced430a4fc231",
+        "input_hash": "0d4d3e662e9704cce1720c2f1db8ad52b91f52861150fd64fd19574d6b1f114f",
+        "prompt_hash": "244d1cb496a9c3f8b162c4a27e8529438e7e2d2e1651529c18fced430a4fc231",
+        "expected_model": "gpt-6-astra",
+        "actual_model": "gpt-6-astra",
+        "state": "completed",
+        "raw_envelope_sha256": "1f2b6065e2befb67fcec664cc231458d4d8bdec9fcad3ec9ac0635ec1dceb256",
+        "result_sha256": "27daa48531daa48a114ebf7daea247c6e52349f6b370e7e530667d7e27d62905",
+        "model_identity_evidence": {
+          "event_index": 13,
+          "event_type": "response.completed",
+          "model": "gpt-6-astra",
+          "requested_model": "gpt-6-astra",
+          "source": "raw inference response.model"
+        }
+      }
+    ],
+    "raw_hash_definition": "SHA-256 of exact canonical UTF-8 raw envelope/result strings retained in SQLite calls.raw/calls.result. Provider response IDs and raw content omitted here.",
+    "upstream": {
+      "method": "GEMBA-ESA",
+      "upstream_commit": "bf1f113479c26f555e564659df1a491dde606adf",
+      "upstream_url": "https://github.com/MicrosoftTranslator/GEMBA/blob/bf1f113479c26f555e564659df1a491dde606adf/gemba/gemba_esa.py",
+      "upstream_source_sha256": "9c109e163ad2db8c172ce7005c7452999158252914cd14b885fa762c4a98c29f",
+      "prompt_version": "r4-gemba-esa-episode-v1",
+      "error_template_sha256": "7f2b4ba3af10b5bf43a219227228c431c3260ffbe663242db621d27e1376e6a7",
+      "ranking_template_sha256": "8f8548fbb8350ce1366a6e0d9153876c51c760002c115ac8b7a6a91cd61dd387",
+      "fewshots_sha256": "3bcfc89bdc573c6acb6f85aa3657d7d63748efd553a1d5d7738359e13e283a77",
+      "adaptation": "Unchanged upstream taxonomy, severity, anchors and demonstrations; two-message episode/blinding/JSON adaptation"
+    },
+    "errors_input_same_as_frozen_offline": true
+  },
+  "fresh_process": {
+    "quality_without_transport": {
+      "command": [
+        "python",
+        "-B",
+        "-m",
+        "bench.cli",
+        "quality",
+        "--spec",
+        ".data/r6-integration/retained-quality-spec.json",
+        "--output",
+        ".data/r6-integration/retained-quality-live.json"
+      ],
+      "runtime": "CPython 3.14.7 Windows x64",
+      "cwd": "R6 worktree",
+      "started_utc": "2026-10-27T22:44:17.426284+00:00",
+      "ended_utc": "2026-10-27T22:44:17.583873+00:00",
+      "exit_code": 2,
+      "stdout_status": "incomplete",
+      "stderr_empty": true
+    },
+    "calls_before": 2,
+    "calls_after": 2,
+    "raw_calls_unchanged": true,
+    "errors_stage_cached": true,
+    "score_stage_cached": true,
+    "first_judged_report_preserved_sha256": "24d4f82ee644b87fe28f173cd83dc384cf3df56d1ed41f82f57b4ce2c47315eb",
+    "offline_report_preserved_sha256": "ee6e01a76d1f8bc360beb717d7129570109bd5b9aaef5cbf5e12e3a3f7fc85e0",
+    "offline_reconstruction_normalized_equal": true,
+    "offline_comparison_ignored_only": [
+      "created_utc",
+      "store"
+    ],
+    "cost_revision_idempotent": true
+  },
+  "pending_revision_chain": {
+    "scope": "Offline same-result evidence enrichment only; not new billing. Judged report has a distinct revision root because its report hash differs.",
+    "offline_common_report_sha256": "ee6e01a76d1f8bc360beb717d7129570109bd5b9aaef5cbf5e12e3a3f7fc85e0",
+    "first": {
+      "path": ".data/r6-integration/retained-cost-01.json",
+      "sha256": "9601a64957519e81b7622289f5007d54922c0438b9f8b3d7f5d5bf2d3f2b81b7",
+      "publication": "local-only execution artifact; preserve separately from public scalar evidence"
+    },
+    "second": {
+      "path": ".data/r6-integration/retained-cost-02.json",
+      "sha256": "b53117fcafb7008107ef99293cf296eb6ffcf6285b2ddb73c29d11caca2ba0b9",
+      "publication": "local-only execution artifact; preserve separately from public scalar evidence"
+    },
+    "second_previous": {
+      "id": "r6-retained-pending-01",
+      "sha256": "9601a64957519e81b7622289f5007d54922c0438b9f8b3d7f5d5bf2d3f2b81b7"
+    },
+    "second_common_report_sha256": "ee6e01a76d1f8bc360beb717d7129570109bd5b9aaef5cbf5e12e3a3f7fc85e0",
+    "new_evidence": [
+      "original retained PP4 input-clock derivative",
+      "original retained PP4 confirmation"
+    ],
+    "cost_unchanged": null,
+    "known_subtotal_unchanged": null,
+    "logical_seconds_unchanged": 40,
+    "fresh_reingestion_bytes_identical": true
+  },
+  "minimal_controlled_comparison": {
+    "scope": "One entirely authored split T1 relationship case; two canonical profile identities compare no-output and invalid handling only. No app/audio/model/provider calls and no actual profile admission.",
+    "quality_spec": {
+      "path": ".data/r6-integration/controlled-quality-spec.json",
+      "sha256": "8f514ed01c39ca4a3d3bd042f3b4bdae8d1d0ad07c7d1b341d46193f20c36af5",
+      "publication": "local-only execution artifact; preserve separately from public scalar evidence"
+    },
+    "quality_report": {
+      "path": ".data/r6-integration/controlled-quality.json",
+      "sha256": "b9c40a5220767b3893b02b3c85371e08f5167561d858e0c3cc571d806c0c2964",
+      "publication": "local-only execution artifact; preserve separately from public scalar evidence"
+    },
+    "cost_report": {
+      "path": ".data/r6-integration/controlled-cost.json",
+      "sha256": "af3dfa2760e5030aa12b8c10a4a08114f63ecefdab1cbe3dbdea257da8b961ce",
+      "publication": "local-only execution artifact; preserve separately from public scalar evidence"
+    },
+    "new_calls": 0,
+    "populations": [
+      {
+        "profile": "KIKI2",
+        "condition": "self/split",
+        "role_states": [
+          {
+            "role": "A",
+            "source_language": "en",
+            "target_language": "zh",
+            "quality_status": "not_judged",
+            "quality_score": null,
+            "checkpoint_status": "unknown",
+            "selection_sha256": "9982e100ba2a69d8b7a1902b04582649c7ac717e3fb0b4e52f8b60e5fef51453",
+            "raw_indices": [
+              0
+            ]
+          },
+          {
+            "role": "B",
+            "source_language": "zh",
+            "target_language": "en",
+            "quality_status": "no_output",
+            "quality_score": 0,
+            "checkpoint_status": "unmet",
+            "selection_sha256": "9a4253d709352b4dddfcbf1aeac343d626766e3ff9733e6803b73b4d125c3f3d",
+            "raw_indices": []
+          }
+        ],
+        "global_quality": {
+          "status": "incomplete",
+          "score": null,
+          "partial_contribution": 0.0,
+          "planned_weight": 1.0,
+          "completed_weight": 0.075,
+          "missing_weight": 0.925
+        },
+        "p50": {
+          "status": "incomplete",
+          "interval_seconds": null
+        },
+        "p90": {
+          "status": "incomplete",
+          "interval_seconds": null
+        },
+        "cost": {
+          "status": "pending",
+          "cost": null,
+          "calculated_cost": null,
+          "logical_episode_seconds": 10.0,
+          "physical_replay_seconds": 20.0,
+          "submitted_role_timeline_seconds": 20.0,
+          "full_main_input_observed": true,
+          "per_input_hour": null,
+          "role_bindings": [
+            {
+              "episode_id": "controlled-r6-split-join",
+              "role": "A",
+              "cost_binding_id": null,
+              "window_id": "controlled-r6-kiki2-a",
+              "selection_sha256": "9982e100ba2a69d8b7a1902b04582649c7ac717e3fb0b4e52f8b60e5fef51453",
+              "run": "controlled-r6-split-join",
+              "pass_id": "A",
+              "attempt_id": "1",
+              "state": "done",
+              "purpose": "main"
+            },
+            {
+              "episode_id": "controlled-r6-split-join",
+              "role": "B",
+              "cost_binding_id": null,
+              "window_id": "controlled-r6-kiki2-b",
+              "selection_sha256": "9a4253d709352b4dddfcbf1aeac343d626766e3ff9733e6803b73b4d125c3f3d",
+              "run": "controlled-r6-split-join",
+              "pass_id": "B",
+              "attempt_id": "2",
+              "state": "done",
+              "purpose": "main"
+            }
+          ],
+          "issues": []
+        }
+      },
+      {
+        "profile": "VRCLT2",
+        "condition": "self/split",
+        "role_states": [
+          {
+            "role": "A",
+            "source_language": "en",
+            "target_language": "zh",
+            "quality_status": "not_judged",
+            "quality_score": null,
+            "checkpoint_status": "unknown",
+            "selection_sha256": "435dfec19ec8d38671f34960a91bb0e4c94c7a15f7b1a125ffc5da45a0810a29",
+            "raw_indices": [
+              0
+            ]
+          },
+          {
+            "role": "B",
+            "source_language": "zh",
+            "target_language": "en",
+            "quality_status": "invalid",
+            "quality_score": null,
+            "checkpoint_status": "unknown",
+            "selection_sha256": "af76d1bbf9f4704901062be5ae1acfdd9972827498c9c793dc51cbd04f1ee9cd",
+            "raw_indices": []
+          }
+        ],
+        "global_quality": {
+          "status": "incomplete",
+          "score": null,
+          "partial_contribution": 0.0,
+          "planned_weight": 1.0,
+          "completed_weight": 0.0,
+          "missing_weight": 1.0
+        },
+        "p50": {
+          "status": "incomplete",
+          "interval_seconds": null
+        },
+        "p90": {
+          "status": "incomplete",
+          "interval_seconds": null
+        },
+        "cost": {
+          "status": "pending",
+          "cost": null,
+          "calculated_cost": null,
+          "logical_episode_seconds": 10.0,
+          "physical_replay_seconds": 11.0,
+          "submitted_role_timeline_seconds": 11.0,
+          "full_main_input_observed": false,
+          "per_input_hour": null,
+          "role_bindings": [
+            {
+              "episode_id": "controlled-r6-split-join",
+              "role": "A",
+              "cost_binding_id": null,
+              "window_id": "controlled-r6-vrclt2-a",
+              "selection_sha256": "435dfec19ec8d38671f34960a91bb0e4c94c7a15f7b1a125ffc5da45a0810a29",
+              "run": "controlled-r6-split-join",
+              "pass_id": "A",
+              "attempt_id": "1",
+              "state": "done",
+              "purpose": "main"
+            },
+            {
+              "episode_id": "controlled-r6-split-join",
+              "role": "B",
+              "cost_binding_id": null,
+              "window_id": "controlled-r6-vrclt2-b",
+              "selection_sha256": "af76d1bbf9f4704901062be5ae1acfdd9972827498c9c793dc51cbd04f1ee9cd",
+              "run": "controlled-r6-split-join",
+              "pass_id": "B",
+              "attempt_id": "2",
+              "state": "invalid",
+              "purpose": "main"
+            }
+          ],
+          "issues": [
+            "controlled-r6-split-join/B: partial, invalid or non-main input; not comparable to full main execution"
+          ]
+        }
+      }
+    ]
+  },
+  "executions": {
+    "failed_before_repair": {
+      "command": [
+        "python",
+        "-B",
+        "-m",
+        "bench.cli",
+        "quality",
+        "--spec",
+        ".data/r6-integration/retained-quality-spec.json",
+        "--output",
+        ".data/r6-integration/retained-quality.json"
+      ],
+      "runtime": "CPython 3.14.7 Windows x64",
+      "cwd": "R6 worktree",
+      "started_utc": "2026-10-27T22:40:56.684260+00:00",
+      "ended_utc": "2026-10-27T22:40:56.822980+00:00",
+      "exit_code": 1,
+      "stdout_status": null,
+      "stderr_empty": false,
+      "exception": "TypeError: reconstruct_history() got an unexpected keyword argument run",
+      "report_emitted": false
+    },
+    "after_director_repair": {
+      "command": [
+        "python",
+        "-B",
+        "-m",
+        "bench.cli",
+        "quality",
+        "--spec",
+        ".data/r6-integration/retained-quality-spec.json",
+        "--output",
+        ".data/r6-integration/retained-quality.json"
+      ],
+      "runtime": "CPython 3.14.7 Windows x64",
+      "cwd": "R6 worktree",
+      "started_utc": "2026-10-27T22:42:31.122376+00:00",
+      "ended_utc": "2026-10-27T22:42:31.261829+00:00",
+      "exit_code": 2,
+      "stdout_status": "incomplete",
+      "stderr_empty": true
+    },
+    "offline_cost_01": {
+      "command": [
+        "python",
+        "-B",
+        "-m",
+        "bench.cli",
+        "costs",
+        "--spec",
+        ".data/r6-integration/retained-cost-spec-01.json",
+        "--output",
+        ".data/r6-integration/retained-cost-01.json"
+      ],
+      "runtime": "CPython 3.14.7 Windows x64",
+      "cwd": "R6 worktree",
+      "started_utc": "2026-10-27T22:42:54.121527+00:00",
+      "ended_utc": "2026-10-27T22:42:54.284666+00:00",
+      "exit_code": 0,
+      "stdout_status": "pending",
+      "stderr_empty": true
+    },
+    "offline_cost_02": {
+      "command": [
+        "python",
+        "-B",
+        "-m",
+        "bench.cli",
+        "costs",
+        "--spec",
+        ".data/r6-integration/retained-cost-spec-02.json",
+        "--output",
+        ".data/r6-integration/retained-cost-02.json"
+      ],
+      "runtime": "CPython 3.14.7 Windows x64",
+      "cwd": "R6 worktree",
+      "started_utc": "2026-10-27T22:43:11.425757+00:00",
+      "ended_utc": "2026-10-27T22:43:11.578885+00:00",
+      "exit_code": 0,
+      "stdout_status": "pending",
+      "stderr_empty": true
+    },
+    "offline_cost_02_fresh": {
+      "command": [
+        "python",
+        "-B",
+        "-m",
+        "bench.cli",
+        "costs",
+        "--spec",
+        ".data/r6-integration/retained-cost-spec-02.json",
+        "--output",
+        ".data/r6-integration/retained-cost-02.json"
+      ],
+      "runtime": "CPython 3.14.7 Windows x64",
+      "cwd": "R6 worktree",
+      "started_utc": "2026-10-27T22:43:11.584338+00:00",
+      "ended_utc": "2026-10-27T22:43:11.726995+00:00",
+      "exit_code": 0,
+      "stdout_status": "pending",
+      "stderr_empty": true
+    },
+    "offline_quality_fresh": {
+      "command": [
+        "python",
+        "-B",
+        "-m",
+        "bench.cli",
+        "quality",
+        "--spec",
+        ".data/r6-integration/retained-quality-spec.json",
+        "--output",
+        ".data/r6-integration/retained-quality-fresh.json"
+      ],
+      "runtime": "CPython 3.14.7 Windows x64",
+      "cwd": "R6 worktree",
+      "started_utc": "2026-10-27T22:43:11.727010+00:00",
+      "ended_utc": "2026-10-27T22:43:11.862286+00:00",
+      "exit_code": 2,
+      "stdout_status": "incomplete",
+      "stderr_empty": true
+    },
+    "authorized_live_quality": {
+      "command": [
+        "python",
+        "-B",
+        "-m",
+        "bench.cli",
+        "quality",
+        "--spec",
+        ".data/r6-integration/retained-quality-spec.json",
+        "--output",
+        ".data/r6-integration/retained-quality-live.json",
+        "--transport",
+        ".data/r6-judge/judge.json"
+      ],
+      "runtime": "CPython 3.14.7 Windows x64",
+      "cwd": "R6 worktree",
+      "started_utc": "2026-10-27T22:43:41.936401+00:00",
+      "ended_utc": "2026-10-27T22:43:51.460971+00:00",
+      "exit_code": 2,
+      "stdout_status": "incomplete",
+      "stderr_empty": true
+    },
+    "judged_pending_cost": {
+      "command": [
+        "python",
+        "-B",
+        "-m",
+        "bench.cli",
+        "costs",
+        "--spec",
+        ".data/r6-integration/retained-cost-judged-spec.json",
+        "--output",
+        ".data/r6-integration/retained-cost-judged.json"
+      ],
+      "runtime": "CPython 3.14.7 Windows x64",
+      "cwd": "R6 worktree",
+      "started_utc": "2026-10-27T22:44:17.603072+00:00",
+      "ended_utc": "2026-10-27T22:44:17.776622+00:00",
+      "exit_code": 0,
+      "stdout_status": "pending",
+      "stderr_empty": true
+    },
+    "controlled_quality": {
+      "command": [
+        "python",
+        "-B",
+        "-m",
+        "bench.cli",
+        "quality",
+        "--spec",
+        ".data/r6-integration/controlled-quality-spec.json",
+        "--output",
+        ".data/r6-integration/controlled-quality.json"
+      ],
+      "runtime": "CPython 3.14.7 Windows x64",
+      "cwd": "R6 worktree",
+      "started_utc": "2026-10-27T22:44:38.939264+00:00",
+      "ended_utc": "2026-10-27T22:44:39.089287+00:00",
+      "exit_code": 2,
+      "stdout_status": "incomplete",
+      "stderr_empty": true
+    },
+    "controlled_cost": {
+      "command": [
+        "python",
+        "-B",
+        "-m",
+        "bench.cli",
+        "costs",
+        "--spec",
+        ".data/r6-integration/controlled-cost-spec.json",
+        "--output",
+        ".data/r6-integration/controlled-cost.json"
+      ],
+      "runtime": "CPython 3.14.7 Windows x64",
+      "cwd": "R6 worktree",
+      "started_utc": "2026-10-27T22:44:39.099739+00:00",
+      "ended_utc": "2026-10-27T22:44:39.246353+00:00",
+      "exit_code": 0,
+      "stdout_status": "pending",
+      "stderr_empty": true
+    }
+  },
+  "source_immutability": {
+    "checked_product_and_input_paths": 35,
+    "worker_product_edits": false,
+    "only_observed_product_change": {
+      "path": "bench/history.py",
+      "before_sha256": "8525265fe8c307c51049501bd303a6df395523fb344c783d807c7c1b733c434b",
+      "after_sha256": "b356d9b1bbf827bdcb00fda81d1773b1e81f661a343347374f05e8f0276f6c59",
+      "owner": "Director",
+      "change": "Preserve and select/infer optional real run/wave scope instead of dropping identity."
+    },
+    "all_other_checked_bytes_unchanged": true,
+    "reference_and_spec_unchanged": true,
+    "product_source_hashes": {
+      "bench/__init__.py": "667d4a15b970b851e20d17510224670c14646cfb6d5a1e388ca6b9cc6da8bf41",
+      "bench/activity.py": "e35b438c143586ce2b4336a2cce0b3bcdcf142dfd8bf0faadcd3af75d0a32686",
+      "bench/adapter.py": "939692cce1cfd60f02b4d77b29c18e56a6666c73831506e877e6ae7bf7d4ac6d",
+      "bench/aggregation.py": "a80817099c11d9788484d3859319fb8ee9f82032ad299560768e006cd1905c2d",
+      "bench/audio.py": "c698e1617729f606717e3d8be9496693a4667fcf5ee3c2a0c1a1e2e7b10195c0",
+      "bench/cli.py": "622e864026274d5fcd8da39d7336b960ee966aa564a103078afed3f3aa8546b8",
+      "bench/cost_inputs.py": "9727cc9cc0f43eb92ef5be1db25e565e75f714d55d451ad487df7c7de4b1f953",
+      "bench/costs.py": "cf476b0b1ffb1263cf484f6586a004cea4e112a440db720e98fac75f0e433cc8",
+      "bench/gui_operator_adapter.py": "be063b2ce8c879198b98a4d990350ae348534ea4dc882bc8c029f3ddee17532d",
+      "bench/history.py": "b356d9b1bbf827bdcb00fda81d1773b1e81f661a343347374f05e8f0276f6c59",
+      "bench/kikitan_adapter.py": "039c7c84b03baa4c868d129094d48a81ec573cb540a24547ff9976b88b5e3e13",
+      "bench/kikitan_runtime.py": "e7ee3de27a39117a81b22f479250af6499f8811f195d51cfca03386f6014a3fb",
+      "bench/native.py": "971698256614d4402eaa31cb80b8fea535a2ae637985d9103a502bba08620691",
+      "bench/native_file.py": "195092e28e000538694dc8d373cf5991e2e5e4921d15e39d3fa01d2d2a5d9ffa",
+      "bench/native_formats.py": "1bb9209946b7ac221fa98ad9bc18f52b095a3e70d7b312e0b8f9ea93a3d91e8e",
+      "bench/native_process.py": "e911bcfff72578d62b4f2ca3cd6d659ad7c9272d23884c7c6b3fe87a8dc36627",
+      "bench/native_transports.py": "834d1f862dd4d61164772d26fcb41d94c7837997182e79803d907dcc67a39069",
+      "bench/osc.py": "feb4f353fe49d3f561f1a943731fc14fd57e58ecdc36271210931dbcc640332b",
+      "bench/plan.py": "60abfe12a38d5d9f7f0b9562dd636cc1e93acc9ec959246eb5a15460a854b7e5",
+      "bench/profiles.py": "1725c57706ee3b98e3262597d328815a8249339bc879ffb1f787b05295de558e",
+      "bench/quality.py": "521bab87d94e858544223a2ce4243e95f39b57e973395280a00abd6dac41b8e5",
+      "bench/quality_bridge.mjs": "f24678320eef1e3c338eff19400466e64413f4859b16f33c92e006aa036e60d4",
+      "bench/quality_judge.py": "7a83d704ba38336a867d6c9eb36ec5978bd94aaf75bfa1145c86797aecf1f7b7",
+      "bench/quality_process.py": "b9ae92cd3b8e3631318370860165f7e8a3d8eb46d4e6540a2c596f72f63b74e1",
+      "bench/quality_prompts.py": "e8cf504ead9be1655f94a6d4caa560b4cc1cd17914aea1885db223fcbd53db95",
+      "bench/quality_store.py": "7e7255fd799c7680d1fed5b8439ff4df68de9d154778887a4b930902abc1a82e",
+      "bench/quality_transport.py": "17bd38703c6704ccd985e804050fb55c6c7f3d193051e87cb274147be108fb16",
+      "bench/runner.py": "12d821bc6025c829e7639f9e0d14052e485379a384f539080c1aeab039547362",
+      "bench/storage.py": "97a31cdc8f1f7821470873a1a619068c8fed76fcd7e38c0d1e3bd28ba9778983"
+    },
+    "local_proof": {
+      "path": ".data/r6-integration/source-immutability-proof.json",
+      "sha256": "2960a7aef16716cec121ba666dc1e7423b92f74a416c89678b1e4c0bf515c923",
+      "publication": "local-only execution artifact; preserve separately from public scalar evidence"
+    }
+  },
+  "reused_not_rerun": [
+    "R4 reconstruction of the other six retained native histories and unresolved revision/extraction/clock boundaries.",
+    "R4/R5 synthetic weighted-population, split-cost arithmetic, integrity, interruption/resume and source-protection component evidence in the maintained implementation plan.",
+    "Director owns affected regression checks for the newly repaired run/wave contract; this worker did not run test suites."
+  ],
+  "observation_failures": [
+    {
+      "kind": "product_contract",
+      "outcome": "Original frozen real run/wave selection failed once before Director repair; same spec succeeded after repair, both receipts retained."
+    },
+    {
+      "kind": "local_observation_harness",
+      "outcome": "cp949 default JSON inspection failed after a completed fresh CLI run. Explicit UTF-8 read corrected inspection without repeating CLI/calls."
+    },
+    {
+      "kind": "local_observation_harness",
+      "outcome": "Initial immutable summary did not normalize Windows separators when excluding Director repair. Raw hashes were already correct; boolean summary corrected, no extra source/CLI run."
+    }
+  ],
+  "limits": [
+    "Score 81 is one retained PP4 EN→ZH observed-output judgment, not a quality/time admission for this profile or any other profile.",
+    "The benchmark-wide aggregate keeps 0.95 missing quality weight and all 1.0 waiting weight; no complete integrated score or p50/p90 is claimed.",
+    "Unmapped producer time, uncertain original source forced-alignment precision, late collector readiness and accidental concurrent Kikitan remain unresolved; no exact waiting inference.",
+    "No second language pair, actual T1 split/simultaneous, wave or new app/input path established here.",
+    "AMI is not a replacement for missing original R2/R3 frozen audio/reference bodies; final-plan coverage and production freeze remain blocked.",
+    "No permitted app bills, actual returned app upstream model or timezone-aware cost window anchor; actual and calculated amounts/rates stay null.",
+    "The local raw store/spec/report/archive must be preserved outside the disposable worktree; public scalar JSON is not a raw evidence archive."
+  ],
+  "preservation": {
+    "required_local_roots": [
+      ".data/r6-integration",
+      ".data/r6-judge"
+    ],
+    "public_record": "profiles/evidence/r6/retained-integration.json",
+    "remove_throwaway_drivers": "None created; execution driver lived only in tool cells.",
+    "retained_inputs_stores_reports_receipts": true,
+    "cleanup_limits": "Did not delete/modify original corpus, retained history, managed authentication or shared activity-lock resources.",
+    "director_action": "Copy task-local evidence out of the disposable worktree before removal, then integrate/review the Director-owned code repair plus evidence. Do not freeze production."
+  },
+  "publication_boundary": {
+    "included": "Hashes, scalar judgments/coverage/missing states, safe run/wave/pass/attempt scope, command structure and local artifact locators.",
+    "excluded": "Source/native full text, judge raw responses, provider response IDs, personal paths, auth paths/tokens, account identifiers and private runtime configuration.",
+    "local_artifacts_are_not_public_clearance": true
+  }
+}

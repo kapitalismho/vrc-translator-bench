@@ -194,6 +194,63 @@ Bounded repair review verified the original three counterexamples closed, then f
 
 PR #29's Codex review found a related whole-pass gap: when selected split pass B had no usable trace/window, population replay totals summed only surviving A. The bounded repair separates observed-window coverage from input/billing completeness, returning null totals for missing expected windows while retaining known per-window durations, charges and logical time. Five missing-window/selection cases failed before the fix; thirteen new negative/positive cases preserve complete split/simultaneous, known partial, missing-bill and preparation behavior. The five affected cost suites passed **196 tests in 4.64 seconds**, and `compileall` passed. Two fresh actual CLI invocations retained missing-B totals as null with A's $0.01 known subtotal, while the full split control remained $0.03/$1.80 per hour. The [public-safe execution record](../profiles/evidence/r5/missing-pass-repair.json) preserves fixture/assertion corrections and synthetic/runtime limits.
 
+### R6 integration progress and blocked production freeze
+
+R6 starts at `9fec31d6824f74cbb3fe9c3250472984db8e8fb7`. The
+[fourteen-profile inventory](../profiles/evidence/r6/admission.json) keeps
+quality and timing admission separate. Six retained ordinary EN→ZH feasibility
+checks do not admit other profiles, languages, T1 conditions or complete waves.
+No production freeze or main-run authorization is claimed.
+
+The accepted R2/R3 inputs were created and reviewed, but their ignored local
+handoff trees are no longer available at their recorded locations. Original
+worktree-manager traces record successful removal of the R2 worktree at
+`2026-10-27T07:04:15.532Z` and R3 at `2026-10-27T14:25:28.749Z`, after their
+respective merges. The PRs retained code and status, not the ignored audio and
+reference bodies. This establishes a later preservation failure, not that the
+original generation/review never occurred. It does not identify who initiated
+removal or prove irreversible disk loss. Recover the unchanged accepted trees
+before corpus-dependent admission. Surviving upstream source files are not a
+replacement for the reviewed frozen handoff, and exhausted TTS allowances do
+not authorize regeneration.
+
+The [selected-route contrasts](../profiles/evidence/r6/judge-contrasts.json)
+retain eight preselected EN→ZH/JA→KO cases and two independent repeats, with
+20 completed error/score calls returning `gpt-6-astra`. All six preselected
+ordinal comparisons held; the two repeated scores were unchanged. Their
+score-stage repeats deliberately retain the original error evidence to keep
+the complete score prompt identical. This small check is not a general
+variance bound or human validation. A fresh process without transport reused
+all 20 stages without adding or changing calls. R4's unchanged final
+negation/number result remains prior evidence, not a new call.
+
+The retained-history integration exposed an actual CLI failure: standalone
+`run`/`wave` identity, required by cost attribution, was forwarded to a history
+API that rejected it. History now selects those identities instead of dropping
+them; conflicting executions are excluded and ambiguous unselected identities
+stay unknown. The same frozen retained-input specification subsequently
+produced an explicitly incomplete common report rather than a traceback.
+The affected history/episode-quality suites passed 223 tests. Neither that
+repair nor the contrast checks substitutes for the missing actual corpus,
+device/app, split-pass and all-profile admission evidence.
+
+The [retained-input join](../profiles/evidence/r6/retained-integration.json)
+binds the exact earlier AMI 34–74-second input crop, nine manual dialogue acts
+with their original uncertainty, and ten PP4 native emissions to two real
+selected-route judge calls. Its observed-output detail score is 81, not a
+profile ranking: integrated quality remains null with 0.95 missing weight,
+both p50/p90 remain incomplete, and app cost remains pending/null. The cost
+revision retains one 40-second logical timeline without inventing billing or
+historical wall-clock windows. A separate fresh-process offline evaluation
+reused both calls. Controlled split-self examples separately preserve
+no-output zero versus invalid/null, and once-counted logical time; these are
+not real Kikitan/VRCLT admission evidence.
+
+Keep private raw stores, source/reference bindings and execution records in a
+durable shared location outside disposable worktrees before cleanup. Preserve
+original bytes and hashes; a source-bearing private backup is not permission to
+publish those files.
+
 ### What “through issue #8” means
 
 - Before replacement, issues #2–#7 were closed on their respective amended preparation/implementation scopes, while #1, #8 and #9–#11 were open. No linked Project items or repository Actions workflows were returned. The publication record above supersedes their page-existence/status information, not the historical implementation facts.

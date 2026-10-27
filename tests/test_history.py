@@ -105,6 +105,8 @@ def test_late_correction_separate_from_final_observation_horizon():
     ("profile", "other", {"profile": "P"}), ("episode_id", "other", {"episode": "episode"}),
     ("attempt", 2, {"attempt": 1}), ("input_channel", "peer", {"channel": "self"}),
     ("target_language", "ko", {"target_language": "zh"}),
+    ("run", "other-run", {"run": "selected-run"}),
+    ("wave", "other-wave", {"wave": "selected-wave"}),
 ])
 def test_explicit_scope_never_consumes_other_role_pass_clock_or_attempt(field, value, scope):
     rows = [event("right"), event("UNSELECTED NATIVE TEXT", time=2, **{field: value})]
@@ -112,6 +114,15 @@ def test_explicit_scope_never_consumes_other_role_pass_clock_or_attempt(field, v
     assert result["text"] == "right"
     assert "UNSELECTED NATIVE TEXT" not in json.dumps(result)
     assert len(result["excluded_events"]) == 1
+
+
+@pytest.mark.parametrize("field", ["run", "wave"])
+def test_ambiguous_execution_identity_cannot_merge_histories(field):
+    rows = [event("first", **{field: "one"}), event("second", **{field: "two"})]
+    result = reconstruct(rows, ["append", "append"])
+    assert result["text"] is None
+    assert result["quality_eligible"] is False
+    assert "ambiguous_" + field in result["reasons"]
 
 
 def test_omitted_ambiguous_attempt_cannot_silently_merge_histories():
