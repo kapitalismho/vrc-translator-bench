@@ -6,7 +6,7 @@
 - 계획 승인과 실행 승인은 구분한다. 오너는 새 이슈 게시와 기존 이슈 삭제를 별도로 승인했다. 이 승인은 유료 TTS 호출, 계정·앱 설정 변경, 본 실험이나 원격 코드 push까지 허용하지 않는다.
 - 검증 운영 개정: **R1–R5는 자기 산출물의 최소 확인, R6는 최종 프로필 진입 판정과 통합 검증, R7은 본 실행·결과 확인**을 맡는다. 이슈가 바뀌었다는 이유만으로 파일럿·judge·전체 검증을 반복하지 않는다(§6.5, §14).
 - 2026-10-26 R1 실행 중 오너 승인 개정: **KIKI1·KIKI2도 §4.7 self 예외에 포함한다. VRChat은 실행하지 않는다.** 실제 desktop/peer 입력과 동시 T1 의무는 self·역할별 두 pass로 대체하며, peer 지원 검증 완료로 처리하지 않는다. 다른 앱의 peer/동시 T1, 모델·자료·가중치·wave는 유지한다.
-- 후속 오너 승인: **Kikitan 주 수집을 설치 앱의 `--no-ui` WebSocket `recognition`으로 전환한다.** 성공한 KIKI2 소규모 실험 뒤의 시행·재개 지시에 따른다. Kikitan GUI-only 및 UDP 7272 user-data 고정 의무만 대체하며, self/split 조건·14개 프로필·모델·wave·가중치·+15초 관찰은 유지한다. 이 로컬 개정은 원격 이슈 게시나 코드 push 승인을 뜻하지 않는다.
+- 후속 오너 승인: **Kikitan 주 수집을 설치 앱의 `--no-ui` WebSocket `recognition`으로 전환한다.** 성공한 KIKI2 소규모 실험 뒤의 시행·재개 지시에 따른다. Kikitan GUI-only 및 UDP 7272 user-data 고정 의무만 대체하며, self/split 조건·14개 프로필·모델·wave·가중치·+15초 관찰은 유지한다. 이후 오너가 R1 게시·`main` 병합·#15 종료를 별도로 승인했으며, [공개 개정 및 완료 범위](https://github.com/kapitalismho/vrc-translator-bench/issues/15#issuecomment-6431325473)에 변경 근거와 미검증 범위를 기록했다. 이 승인은 추가 유료 실행이나 R6 최종 진입 승인이 아니다.
 
 ## 1. 평가 질문과 확정 범위
 

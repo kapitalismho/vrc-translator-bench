@@ -1,6 +1,6 @@
 # Architecture
 
-The [maintained final benchmark plan](benchmark-final-plan.md), including the owner-approved Kikitan headless WebSocket cutover, owns the current local protocol. The [published self/split amendment](https://github.com/kapitalismho/vrc-translator-bench/issues/14#issuecomment-6406954100) records its earlier input exception; its UDP-primary requirement is superseded locally, not silently claimed updated remotely. The [implementation plan](benchmark-implementation-plan.md) owns outcome and publication boundaries. Native capture is a component, not an implemented or admitted end-to-end evaluation pipeline.
+The [maintained final benchmark plan](benchmark-final-plan.md), including the owner-approved Kikitan headless WebSocket cutover, owns the current protocol. The [published self/split amendment](https://github.com/kapitalismho/vrc-translator-bench/issues/14#issuecomment-6406954100) records its earlier input exception; the [published WebSocket amendment](https://github.com/kapitalismho/vrc-translator-bench/issues/15#issuecomment-6431325473) supersedes its UDP-primary requirement and records the delivered evidence limits. The [implementation plan](benchmark-implementation-plan.md) owns outcome and publication boundaries. Native capture is a component, not an implemented or admitted end-to-end evaluation pipeline.
 
 ## Retained executable surfaces
 

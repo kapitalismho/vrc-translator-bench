@@ -1,6 +1,6 @@
 # Episode-native capture runner
 
-The maintained [final plan](benchmark-final-plan.md), including the approved Kikitan headless WebSocket cutover, and [implementation sequence](benchmark-implementation-plan.md) govern this runner. The [published self/split amendment](https://github.com/kapitalismho/vrc-translator-bench/issues/14#issuecomment-6406954100) retains the input exception; its former UDP-primary requirement is superseded locally. No translator is bundled. Schema-1 stage plans and old runs are not executable through a compatibility path; keep their original artifacts and use the pinned historical implementation for inspection.
+The maintained [final plan](benchmark-final-plan.md), including the approved Kikitan headless WebSocket cutover, and [implementation sequence](benchmark-implementation-plan.md) govern this runner. The [published self/split amendment](https://github.com/kapitalismho/vrc-translator-bench/issues/14#issuecomment-6406954100) retains the input exception; its former UDP-primary requirement is superseded by the [published WebSocket amendment](https://github.com/kapitalismho/vrc-translator-bench/issues/15#issuecomment-6431325473). No translator is bundled. Schema-1 stage plans and old runs are not executable through a compatibility path; keep their original artifacts and use the pinned historical implementation for inspection.
 
 ## Install and operate
 
