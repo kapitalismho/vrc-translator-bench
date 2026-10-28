@@ -261,10 +261,14 @@ All task-created persistent data now uses the primary checkout's `.data/`, with
 CLI defaults and explicit relative `.data` paths resolving there and linked-worktree
 outputs rejected before side effects. The [path repair record](../profiles/evidence/r6/main-data-root-repair.json)
 retains failing-before/passing-after checks and actual CLI/symlink smoke evidence.
-Code remains on the local R6 branch; primary-checkout code was not merged or reset.
-Original bytes and hashes remain preserved, and a source-bearing private backup
-is not permission to publish those files. No push, PR, merge or issue closure
-is authorized by this local recovery.
+Primary-checkout code was not merged or reset during local recovery. Original bytes
+and hashes remain preserved, and a source-bearing private backup is not permission
+to publish those files. The owner subsequently requested publication, merge and
+issue closure after being informed that the original R6 criteria remained unmet.
+Record the completed recovery and the outstanding development/native integration,
+fourteen-profile admission and production-freeze requirements on issue #20 before
+closing it as not planned, not as a completed benchmark. This disposition does not
+authorize production measurement or deletion of local data, branches or worktrees.
 
 ### What “through issue #8” means
 
