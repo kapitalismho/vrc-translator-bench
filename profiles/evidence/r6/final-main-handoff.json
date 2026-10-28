@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "kind": "r6-final-only-source-reference-consumer-handoff",
+  "preceding_recovery_checkpoint": "1b8ce661f17b211fbe940b036fb3009ab30b4b25",
+  "core_adoption": {
+    "receipt": ".data/r6-recovery/director-core-adoption.json",
+    "review_record": ".data/r6-recovery/reviews/core-generation.json",
+    "review_record_sha256": "7c6698c633a2ca2393191585fff623b65468e971eb51cf8f93641b784da0ee3d",
+    "review_result": "no_material_findings",
+    "adopted_scope": "Recovered R2 final-main media/meaning and nine new R3 whole first takes with canonical uncertainty-bearing role references",
+    "limits": "No intended-university-name certification, bare-script gold, human main listening, biometric identity, or perfect phonetic/naturalness guarantee. Source uncertainty remains mandatory."
+  },
+  "immutable_candidates": {
+    "R3_core_manifest": {
+      "path": ".data/r3/final-main-recovery-v1/frozen-main-manifest.json",
+      "sha256": "c2f757fe565e07d67b202edecdd4748e3740b7c99fd5ae17f578db8e79a475b2"
+    },
+    "R3_additive_consumer_manifest": {
+      "path": ".data/r3/final-main-recovery-v1/consumer-revision-v4/additive-manifest.json",
+      "sha256": "4b3e8b3c7a01d6adcb6fc97c20ae2439b126f29c33dc8bba0064675ef3591466"
+    },
+    "full_main_manifest": {
+      "path": ".data/final-recovery-v1/manifest.json",
+      "sha256": "76e507426dc9913c3b403e8daed695f6d86c521a91bb93be25c762cf630df6d0"
+    },
+    "full_current_file_inventory": {
+      "path": ".data/final-recovery-v1/current-file-inventory.json",
+      "sha256": "609090aee4cb1bdb4c242dc46766fd61b9696d75dd74938638469c00c2acb9ae"
+    },
+    "handoff_result": {
+      "path": ".data/final-recovery-v1/result.json",
+      "sha256": "a85b58438cee3b0665fb8fc0900d94a042bf704b4916648376c7cb640eb868ea"
+    },
+    "generation_completion": {
+      "path": ".data/r6-recovery/r3-final/completion-report.json",
+      "sha256": "d1385cedee499b4faa222c3eebb959a76938119fbed51cd7f67c872f10053221"
+    }
+  },
+  "population": {
+    "main_episodes": 60,
+    "each_language_pair": 30,
+    "each_pair_type_counts": {"P1": 3, "P2": 9, "P3": 6, "T1": 9, "P4": 3},
+    "C1_controls_separate": 2,
+    "main_roles": 78,
+    "main_checkpoints": 121,
+    "quality_weight_total": "1",
+    "pair_weights": "50:50",
+    "within_pair_type_weights": "10/30/20/30/10",
+    "T1_role_weights": "50:50",
+    "checkpoint_weights": "Equal within each role; main05 A's two checkpoints share its role half",
+    "selection_groups_weights_unchanged": true,
+    "current_inventory_files": 905,
+    "original_source_files_hashed": 479,
+    "selected_ASCEND_annotations": 436,
+    "consumer_data_dependencies": "All current source/reference/media inputs under primary MAIN; historical missing ancestry declarations remain explicitly separate"
+  },
+  "consumer_adapter": {
+    "inherited_R3_checkpoints": 19,
+    "checkpoint_selection": "Preserves exact original IDs, roles, concepts, paraphrases and non-credit context; includes main05 A cp3",
+    "source_mapping": "Original evidence_Ls/end_L/scored meanings mapped to actual JA/KO semantic text spans; original EN/ZH character offsets are not copied",
+    "timing": "New native alignment and PCM evidence, not old times or blind whole-turn endpoints",
+    "timing_limits": "Practical operational anchors with raw flags retained, including main05 creative-praise terminal-start overlap. An 80ms alignment grid is not certified phonetic accuracy or a universal error bound.",
+    "semantic_units": 56,
+    "whole_turn_texts_reconstructed": 46,
+    "localized_uncertainties_retained": 13,
+    "source_notice_groups_retained": 8,
+    "prefix_proof": "Actual existing quality-reader prefix/blinded-prompt construction for all19 checkpoints/18 roles; seven future-content probes absent; zero judge calls",
+    "immutable_original_artifacts_preserved": 470,
+    "acceptance_at_checkpoint": "New semantic-span/endpoint adapters and full handoff await their own independent review; core source/media adoption does not preapprove them"
+  },
+  "actual_full_consumer": {
+    "command": "python -B MAIN/.data/final-recovery-v1/finalize_handoff.py",
+    "exit_code": 0,
+    "consumer": "Unmodified bench.quality.evaluate",
+    "consumer_sha256": "928c8c7cbcf94433351f07b61024c7399ab46056f9ebae7f1e82946d9faa246f",
+    "spec": ".data/final-recovery-v1/consumer-spec.json",
+    "spec_sha256": "abec87aaac0c7f4750c8fe5acc151fd52ecde034d861d1361971eed206dc49df",
+    "report": ".data/final-recovery-v1/consumer-report.json",
+    "report_sha256": "1c4fa7791e8c39931ecc4af45a00f31824e41d99938ac84472136bf2f950dc3f",
+    "report_status": "incomplete",
+    "missing_attempt_roles": 78,
+    "judge_calls": 0,
+    "native_selections": 0,
+    "transport": null,
+    "negative_digest": "Prior actual checksum rejection reused with identical quality.py and artifact-hash mechanism; no unnecessary repeat campaign"
+  },
+  "retained_failures": [
+    "Initial IngCrowd field-shape rejection; corrected only structural adapter fields using unchanged accepted meanings.",
+    "Initial source-path selector failure; corrected against actual restored inventory without copying media.",
+    "Initial full60 rejection for missing R3 semantic checkpoints, before this additive revision.",
+    "Intermediate diagnostic-window and adapter failures/revisions retained, not hidden as successes."
+  ],
+  "scope_limits": [
+    "Only final-main recovery; no new development/pilot/variability generation or retry.",
+    "No product reader weakening or additional paid judging/TTS.",
+    "Offline source/reference consumption is not measured translation quality, p50/p90, app/device/profile admission, or benchmark production freeze.",
+    "Original issue20 development and fourteen-profile acceptance obligations remain incomplete.",
+    "Raw source/audio/reference records remain private; no remote publication authority."
+  ]
+}
