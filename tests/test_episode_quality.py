@@ -153,6 +153,49 @@ def role_result(report):
     return report["populations"][0]["role_results"][0]
 
 
+@pytest.mark.parametrize("field", ["run", "wave"])
+def test_standalone_execution_identity_selects_output_without_losing_cost_binding(tmp_path, field):
+    rows = [event("不要买十二张票。", run="selected-run", wave="selected-wave"),
+            event("UNRELATED OUTPUT", run="selected-run", wave="selected-wave")]
+    rows[1][field] = "another-execution"
+    path, spec = spec_fixture(tmp_path, events=rows)
+    selection = spec["populations"][0]["roles"][0]["selection"]
+    selection["scope"].update(run="selected-run", wave="selected-wave")
+    dump(path, spec)
+    history_bytes = (tmp_path / "history.json").read_bytes()
+
+    report = evaluate(path, tmp_path / "result.json")
+
+    result = role_result(report)
+    assert result["history"]["text"] == "不要买十二张票。"
+    assert result["history"]["excluded_events"][0]["reason"] == "scope_" + field
+    assert result["provenance"]["selection"]["scope"] == selection["scope"]
+    assert (tmp_path / "history.json").read_bytes() == history_bytes
+
+
+@pytest.mark.parametrize("field", ["run", "wave"])
+@pytest.mark.parametrize("known_member", [False, True])
+def test_missing_selected_execution_identity_cannot_be_judged(monkeypatch, tmp_path, field, known_member):
+    transport = ControlledTransport()
+    install(monkeypatch, transport)
+    rows = [event("UNATTRIBUTED OUTPUT")]
+    if known_member:
+        rows.insert(0, event(**{field: "selected"}))
+    path, spec = spec_fixture(tmp_path, events=rows)
+    spec["populations"][0]["roles"][0]["selection"]["scope"][field] = "selected"
+    dump(path, spec)
+    history_bytes = (tmp_path / "history.json").read_bytes()
+    report = evaluate(path, tmp_path / "report.json", transport_path=tmp_path / "transport.json")
+    result = role_result(report)
+    assert result["quality"]["status"] == "unknown_output"
+    assert result["quality"]["score"] is None
+    assert result["history"]["text"] is None
+    assert "UNATTRIBUTED OUTPUT" not in result["history"]["observed_text"]
+    assert "missing_" + field in result["history"]["reasons"]
+    assert report["calls"] == [] and transport.requests == []
+    assert (tmp_path / "history.json").read_bytes() == history_bytes
+
+
 def test_two_stages_are_fresh_and_retain_durable_inputs_raw_results(monkeypatch, tmp_path):
     transport = ControlledTransport()
     install(monkeypatch, transport)
@@ -933,6 +976,38 @@ def test_canonical_peer_profile_keeps_simultaneous_role_mapping(tmp_path):
     assert population["role_results"][1]["quality"]["status"] == "missing_attempt"
 
 
+@pytest.mark.parametrize("field", ["run", "wave"])
+@pytest.mark.parametrize("record", ["native_output_event", "source_playback"])
+@pytest.mark.parametrize("selected_contradiction", [False, True])
+def test_canonical_condition_gate_respects_execution_scope(tmp_path, field, record, selected_contradiction):
+    path, spec, _, _ = condition_fixture(tmp_path, "PP4")
+    rows = [event(profile="PP4", pass_id="ordinary-peer", run="selected-run", wave="selected-wave"),
+            event("OTHER EXECUTION", profile="PP4", pass_id="ordinary-peer",
+                  run="selected-run", wave="selected-wave", role=None, input_channel="self", record=record)]
+    if not selected_contradiction:
+        rows[1][field] = "other"
+    selection = spec["populations"][0]["roles"][0]["selection"]
+    selection["scope"].update(run="selected-run", wave="selected-wave")
+    selection["outcome"] = {"state": "done", "role_outcomes": {"A": {"status": "output_observed"}}}
+    selection["history"] = dump(tmp_path / "history.json", rows)
+    selection["interpretations"] = [interpretation(rows, i) for i in range(len(rows))]
+    dump(path, spec)
+    if selected_contradiction:
+        with pytest.raises(ValueError, match="Native role/channel evidence contradicts"):
+            evaluate(path, tmp_path / "report.json")
+        assert not (tmp_path / "report.json.store").exists()
+    else:
+        report = evaluate(path, tmp_path / "report.json")
+        result = role_result(report)
+        assert result["history"]["text"] == DATA["output"]
+        assert result["history"]["quality_eligible"]
+        assert result["quality"]["status"] == "not_judged"
+        excluded = result["history"]["excluded_events"]
+        assert len(excluded) == 1 and excluded[0]["reason"] == "scope_input_channel"
+        assert excluded[0]["citation"]["event_sha256"] == event_sha256(rows[1])
+        assert report["calls"] == []
+
+
 def test_canonical_manifest_condition_and_physical_self_pass_are_retained(tmp_path):
     path, _, _, _ = condition_fixture(tmp_path, manifest_selection=True)
     report = evaluate(path, tmp_path / "report.json")
@@ -1184,7 +1259,8 @@ def runwide_gap(seconds=2, **extra):
 
 
 def scoped_attempt_fixture(tmp_path, *, stream=None, no_output=False):
-    path, spec, manifest, records = run_fixture(tmp_path, events=[] if no_output else [event(seconds=11.25)])
+    path, spec, manifest, records = run_fixture(tmp_path, events=[] if no_output else [
+        event(seconds=11.25, run="controlled-run")])
     records[0].update(t_ns=5_000_000_000, profile="TEST", episode_id="ep", attempt=1, pass_id="A",
                       clock_session="clock", run="controlled-run")
     records.append({"record": "attempt_end", "t_ns": 34_000_000_000, "state": "done"})

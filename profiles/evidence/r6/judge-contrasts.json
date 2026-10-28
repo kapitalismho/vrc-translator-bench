@@ -1,0 +1,2453 @@
+{
+  "schema_version": 1,
+  "kind": "r6_selected_route_judge_contrast_variation_evidence",
+  "application_measurement": false,
+  "created_utc": "2026-10-27T22:41:33.244841+00:00",
+  "frozen_utc": "2026-10-27T22:39:49.227462+00:00",
+  "status": "complete",
+  "frozen_inputs": {
+    "path": ".data/r6-judge/frozen-inputs.json",
+    "sha256": "b98d49cd420f29fd23a951418fbe5b450ca8ccbf67b90b9c9f5f8fb2851fb041",
+    "cases": [
+      {
+        "case_id": "en-accurate-paraphrase",
+        "contrast": "accurate_paraphrase",
+        "expected": "No errors; meaning and grammar preserved.",
+        "data": {
+          "source_language": "en",
+          "target_language": "zh",
+          "source": "Maya gave Leo the red notebook yesterday. Keep it in the locked drawer until Friday.",
+          "output": "昨天玛雅把红色笔记本交给了利奥。周五之前请一直把它放在上锁的抽屉里。",
+          "context": []
+        },
+        "errors_stage_identity": {
+          "input_hash": "acc1241ce3f40dba803daabbadb4208c4ee9057cdfeb8fd9b8a90582a4c4b0cf",
+          "prompt_hash": "04b7ea32e67d66a819c88f9546de60ff9bb10948390e0caa72efcdcb4eaac6c3",
+          "request_sha256": "2e8366c37b75202792eb7b5bad34da621772acefddd3719d6a748105d75d092a"
+        }
+      },
+      {
+        "case_id": "en-minor-error",
+        "contrast": "minor_error",
+        "expected": "Duplicated final 里 is a minor fluency/spelling defect; meaning remains understandable.",
+        "data": {
+          "source_language": "en",
+          "target_language": "zh",
+          "source": "Maya gave Leo the red notebook yesterday. Keep it in the locked drawer until Friday.",
+          "output": "昨天玛雅把红色笔记本交给了利奥。周五之前请一直把它放在上锁的抽屉里里。",
+          "context": []
+        },
+        "errors_stage_identity": {
+          "input_hash": "4937303cca7fc876937022341c0a7fe122c1d8e88a3f39596b1c7b1ed84ea1ec",
+          "prompt_hash": "4b17f0c9e222b60a91188eb17816d4b1b4aa40207926424471e12b45bf6d2277",
+          "request_sha256": "7b229a9cc03ecf0a83135b0c2aff42928691c7c631a5290999ad158145f9d079"
+        }
+      },
+      {
+        "case_id": "en-important-omission",
+        "contrast": "important_omission",
+        "expected": "Major omission of the instruction to keep it in the locked drawer until Friday.",
+        "data": {
+          "source_language": "en",
+          "target_language": "zh",
+          "source": "Maya gave Leo the red notebook yesterday. Keep it in the locked drawer until Friday.",
+          "output": "昨天玛雅把红色笔记本交给了利奥。",
+          "context": []
+        },
+        "errors_stage_identity": {
+          "input_hash": "b38bee62afaacf4c4117223a6df20f48fde94240e4979668e80110004eea5d83",
+          "prompt_hash": "ff0432a80acbd9184804c6736839f3bfb2eb77a9a4845de8b7914bd0940882b3",
+          "request_sha256": "ac028e3b7086501d11288a77b60fcb230e41a2d6f64dfb493bebd3282efa1a00"
+        }
+      },
+      {
+        "case_id": "en-actor-reversal",
+        "contrast": "actor_reversal",
+        "expected": "Major mistranslation reversing giver Maya and recipient Leo.",
+        "data": {
+          "source_language": "en",
+          "target_language": "zh",
+          "source": "Maya gave Leo the red notebook yesterday. Keep it in the locked drawer until Friday.",
+          "output": "昨天利奥把红色笔记本交给了玛雅。周五之前请一直把它放在上锁的抽屉里。",
+          "context": []
+        },
+        "errors_stage_identity": {
+          "input_hash": "b0ca2a7c634d41fc39e130437f4e7f95613a8727f42b978268925c4c1eb12a30",
+          "prompt_hash": "ad623607eb26caebd3f8d80a81baaa10c87d8a8ac2dd59a88f6ab889084bc161",
+          "request_sha256": "536212545b96d54d42a5246d0ba0273f4ab0dd3494236761f0421459f26c83c3"
+        }
+      },
+      {
+        "case_id": "en-wrong-language",
+        "contrast": "wrong_language",
+        "expected": "Major wrong-target-language/untranslated-text defect despite preserved English meaning.",
+        "data": {
+          "source_language": "en",
+          "target_language": "zh",
+          "source": "Maya gave Leo the red notebook yesterday. Keep it in the locked drawer until Friday.",
+          "output": "Yesterday, Maya handed Leo the red notebook. Keep it in the locked drawer until Friday.",
+          "context": []
+        },
+        "errors_stage_identity": {
+          "input_hash": "2e413a1b55ce24daa0a34ebd9326ba74fdfaff4d5254c28b21e7533ab9fa0b1d",
+          "prompt_hash": "fbab7366e10937c5655b4bad2729ffc2d431829fbf96dcef7f2a6432a1349a0e",
+          "request_sha256": "a79173deec7b19bdd922af3d0b1831c48d7ad00af203add932b80e0694d37ce8"
+        }
+      },
+      {
+        "case_id": "en-unrelated-output",
+        "contrast": "unrelated_output",
+        "expected": "Major unrelated content/omission; source meaning not preserved.",
+        "data": {
+          "source_language": "en",
+          "target_language": "zh",
+          "source": "Maya gave Leo the red notebook yesterday. Keep it in the locked drawer until Friday.",
+          "output": "今天的天气很好，我们去海边散步吧。",
+          "context": []
+        },
+        "errors_stage_identity": {
+          "input_hash": "e799dbbc202edb5f7c74c8131001c3c85a3c6fab3ca7bb5e1946f512a0d95c67",
+          "prompt_hash": "476b24ff9123eca2d1ac0eecb2953489af1763d58e316ae14de6dda3442a198a",
+          "request_sha256": "00da9d8771369350161b12ee3f5e28e08429f9034cbd125f1880c3ca11ad9574"
+        }
+      },
+      {
+        "case_id": "ja-accurate-paraphrase",
+        "contrast": "accurate_paraphrase",
+        "expected": "No errors; Korean accurately preserves both Japanese instructions.",
+        "data": {
+          "source_language": "ja",
+          "target_language": "ko",
+          "source": "明日の会議は午後三時に始まります。入口でユナさんに青い封筒を渡してください。",
+          "output": "내일 회의는 오후 세 시에 시작합니다. 입구에서 유나 씨에게 파란 봉투를 건네주세요.",
+          "context": []
+        },
+        "errors_stage_identity": {
+          "input_hash": "9396176e1ea55d5b1ec6037c96642f16be6d057519a98616742e7f91a18cd76c",
+          "prompt_hash": "1eb8190e3b792d4b83819987b5845c5d6b64fc6d8b7f51ae6f93f664ceea692b",
+          "request_sha256": "3cc8e06de395373a92f1a705b5b228ebdcbae7fb2761d85e7cafbf009f9aa3a1"
+        }
+      },
+      {
+        "case_id": "ja-important-omission",
+        "contrast": "important_omission",
+        "expected": "Major omission of the envelope handoff instruction, including recipient and location.",
+        "data": {
+          "source_language": "ja",
+          "target_language": "ko",
+          "source": "明日の会議は午後三時に始まります。入口でユナさんに青い封筒を渡してください。",
+          "output": "내일 회의는 오후 세 시에 시작합니다.",
+          "context": []
+        },
+        "errors_stage_identity": {
+          "input_hash": "75559e28b4c2a226bf33d2296aa44c3109f2027395977b5c644d738fa99482e5",
+          "prompt_hash": "da586d28b3e9d71d7ace70fcd47cef07698ca07c8b6696436744deefb41aa1ff",
+          "request_sha256": "0316efc4576b8369507158a8675db1429648b9a0aea0c059dc399d8973492962"
+        }
+      }
+    ],
+    "bindings": {
+      "source_binding": "task-owned-small-text",
+      "native_endpoint": "task-owned-translation",
+      "endpoint_stage": "translation_output",
+      "native_semantics": "single complete output",
+      "scope": "R6 bounded judge contrasts; not an application result"
+    },
+    "independent_repeat_selections": [
+      "en-minor-error",
+      "ja-important-omission"
+    ],
+    "repeat_protocol": "Separate empty stores, identical bindings/data/model. Repeat each error prompt separately. Repeat each original score prompt using that original accepted error-stage evidence, not the newly generated repeat evidence, so both stages truly retain identical prompts.",
+    "expected_order": [
+      [
+        "en-accurate-paraphrase",
+        "en-minor-error"
+      ],
+      [
+        "en-minor-error",
+        "en-important-omission"
+      ],
+      [
+        "en-minor-error",
+        "en-actor-reversal"
+      ],
+      [
+        "en-minor-error",
+        "en-wrong-language"
+      ],
+      [
+        "en-minor-error",
+        "en-unrelated-output"
+      ],
+      [
+        "ja-accurate-paraphrase",
+        "ja-important-omission"
+      ]
+    ],
+    "new_stage_call_bound": 20,
+    "automatic_retries": 0
+  },
+  "methodology": {
+    "method": "GEMBA-ESA",
+    "upstream_commit": "bf1f113479c26f555e564659df1a491dde606adf",
+    "upstream_url": "https://github.com/MicrosoftTranslator/GEMBA/blob/bf1f113479c26f555e564659df1a491dde606adf/gemba/gemba_esa.py",
+    "upstream_source_sha256": "9c109e163ad2db8c172ce7005c7452999158252914cd14b885fa762c4a98c29f",
+    "prompt_version": "r4-gemba-esa-episode-v1",
+    "error_template_sha256": "7f2b4ba3af10b5bf43a219227228c431c3260ffbe663242db621d27e1376e6a7",
+    "ranking_template_sha256": "8f8548fbb8350ce1366a6e0d9153876c51c760002c115ac8b7a6a91cd61dd387",
+    "fewshots_sha256": "3bcfc89bdc573c6acb6f85aa3657d7d63748efd553a1d5d7738359e13e283a77",
+    "adaptation": "Unchanged upstream taxonomy, severity, anchors and demonstrations; two-message episode/blinding/JSON adaptation"
+  },
+  "source_module_sha256": {
+    "bench/quality.py": "521bab87d94e858544223a2ce4243e95f39b57e973395280a00abd6dac41b8e5",
+    "bench/quality_prompts.py": "e8cf504ead9be1655f94a6d4caa560b4cc1cd17914aea1885db223fcbd53db95",
+    "bench/quality_judge.py": "7a83d704ba38336a867d6c9eb36ec5978bd94aaf75bfa1145c86797aecf1f7b7",
+    "bench/quality_transport.py": "17bd38703c6704ccd985e804050fb55c6c7f3d193051e87cb274147be108fb16",
+    "bench/quality_process.py": "b9ae92cd3b8e3631318370860165f7e8a3d8eb46d4e6540a2c596f72f63b74e1",
+    "bench/quality_store.py": "7e7255fd799c7680d1fed5b8439ff4df68de9d154778887a4b930902abc1a82e",
+    "bench/quality_bridge.mjs": "f24678320eef1e3c338eff19400466e64413f4859b16f33c92e006aa036e60d4",
+    "bench/activity.py": "e35b438c143586ce2b4336a2cce0b3bcdcf142dfd8bf0faadcd3af75d0a32686"
+  },
+  "runtime": {
+    "python_version": "3.12.10",
+    "os_name": "nt",
+    "sdk": "@oh-my-pi/pi-ai",
+    "sdk_version": "18.12.3",
+    "package_json_sha256": "072b8ea7101fe446319bd372c6dfea12b84751b4fad4387024a8be51ed6b80f3",
+    "bun_version": "1.3.14",
+    "quality_import_verified_in_assigned_checkout": true,
+    "identity_details": ".data/r6-judge/frozen-inputs.json (private local paths retained there only)"
+  },
+  "execution": {
+    "started_utc": "2026-10-27T22:39:55.289372+00:00",
+    "ended_utc": "2026-10-27T22:40:56.161187+00:00",
+    "new_call_count": 20,
+    "exception": null,
+    "stopped_after": null,
+    "route": "Sign in with ChatGPT",
+    "expected_and_returned_model": "gpt-6-astra",
+    "timed_measurements_excluded": "Director assertion plus supported StageJudge user-wide exclusive activity lock.",
+    "side_effect_boundaries": "Existing managed auth discovery/refresh only through bridge; no credentials read/exported, global setup change, app/audio/TTS/paid API/model substitution. Bridge creates/removes its owned temporary directory and uses Windows kill-on-close Job containment."
+  },
+  "contrasts": [
+    {
+      "case_id": "en-accurate-paraphrase",
+      "contrast": "accurate_paraphrase",
+      "expected": "No errors; meaning and grammar preserved.",
+      "observed_score": 100,
+      "errors": [],
+      "severity_expectation_met": true,
+      "semantic_explanation_review": "Inspect exact returned explanations below; automatic severity check alone does not prove the intended error was found."
+    },
+    {
+      "case_id": "en-minor-error",
+      "contrast": "minor_error",
+      "expected": "Duplicated final 里 is a minor fluency/spelling defect; meaning remains understandable.",
+      "observed_score": 97,
+      "errors": [
+        {
+          "category": "fluency/spelling",
+          "explanation": "The character “里” is accidentally duplicated; “抽屉里” is correct. The meaning remains clear.",
+          "quote": {
+            "occurrence": 1,
+            "side": "output",
+            "text": "里里"
+          },
+          "severity": "minor"
+        }
+      ],
+      "severity_expectation_met": true,
+      "semantic_explanation_review": "Inspect exact returned explanations below; automatic severity check alone does not prove the intended error was found."
+    },
+    {
+      "case_id": "en-important-omission",
+      "contrast": "important_omission",
+      "expected": "Major omission of the instruction to keep it in the locked drawer until Friday.",
+      "observed_score": 55,
+      "errors": [
+        {
+          "category": "accuracy/omission",
+          "explanation": "The entire instruction to keep the notebook in the locked drawer until Friday is omitted.",
+          "quote": {
+            "occurrence": 1,
+            "side": "source",
+            "text": "Keep it in the locked drawer until Friday."
+          },
+          "severity": "major"
+        }
+      ],
+      "severity_expectation_met": true,
+      "semantic_explanation_review": "Inspect exact returned explanations below; automatic severity check alone does not prove the intended error was found."
+    },
+    {
+      "case_id": "en-actor-reversal",
+      "contrast": "actor_reversal",
+      "expected": "Major mistranslation reversing giver Maya and recipient Leo.",
+      "observed_score": 74,
+      "errors": [
+        {
+          "category": "accuracy/mistranslation",
+          "explanation": "The giver and recipient are reversed: the source says Maya gave the notebook to Leo, but the translation says Leo gave it to Maya.",
+          "quote": {
+            "occurrence": 1,
+            "side": "output",
+            "text": "昨天利奥把红色笔记本交给了玛雅。"
+          },
+          "severity": "major"
+        }
+      ],
+      "severity_expectation_met": true,
+      "semantic_explanation_review": "Inspect exact returned explanations below; automatic severity check alone does not prove the intended error was found."
+    },
+    {
+      "case_id": "en-wrong-language",
+      "contrast": "wrong_language",
+      "expected": "Major wrong-target-language/untranslated-text defect despite preserved English meaning.",
+      "observed_score": 0,
+      "errors": [
+        {
+          "category": "non-translation",
+          "explanation": "The entire output is in English rather than the requested Chinese; it paraphrases the source without translating it into the target language.",
+          "quote": {
+            "occurrence": 1,
+            "side": "output",
+            "text": "Yesterday, Maya handed Leo the red notebook. Keep it in the locked drawer until Friday."
+          },
+          "severity": "major"
+        }
+      ],
+      "severity_expectation_met": true,
+      "semantic_explanation_review": "Inspect exact returned explanations below; automatic severity check alone does not prove the intended error was found."
+    },
+    {
+      "case_id": "en-unrelated-output",
+      "contrast": "unrelated_output",
+      "expected": "Major unrelated content/omission; source meaning not preserved.",
+      "observed_score": 0,
+      "errors": [
+        {
+          "category": "non-translation",
+          "explanation": "The output says the weather is nice today and suggests taking a walk by the sea. It is entirely unrelated to the source, which describes Maya giving Leo a red notebook yesterday and instructs that it be kept in a locked drawer until Friday.",
+          "quote": {
+            "occurrence": 1,
+            "side": "output",
+            "text": "今天的天气很好，我们去海边散步吧。"
+          },
+          "severity": "major"
+        }
+      ],
+      "severity_expectation_met": true,
+      "semantic_explanation_review": "Inspect exact returned explanations below; automatic severity check alone does not prove the intended error was found."
+    },
+    {
+      "case_id": "ja-accurate-paraphrase",
+      "contrast": "accurate_paraphrase",
+      "expected": "No errors; Korean accurately preserves both Japanese instructions.",
+      "observed_score": 100,
+      "errors": [],
+      "severity_expectation_met": true,
+      "semantic_explanation_review": "Inspect exact returned explanations below; automatic severity check alone does not prove the intended error was found."
+    },
+    {
+      "case_id": "ja-important-omission",
+      "contrast": "important_omission",
+      "expected": "Major omission of the envelope handoff instruction, including recipient and location.",
+      "observed_score": 48,
+      "errors": [
+        {
+          "category": "accuracy/omission",
+          "explanation": "The entire instruction to give Yuna the blue envelope at the entrance is omitted.",
+          "quote": {
+            "occurrence": 1,
+            "side": "source",
+            "text": "入口でユナさんに青い封筒を渡してください。"
+          },
+          "severity": "major"
+        }
+      ],
+      "severity_expectation_met": true,
+      "semantic_explanation_review": "Inspect exact returned explanations below; automatic severity check alone does not prove the intended error was found."
+    }
+  ],
+  "score_orders": [
+    {
+      "expected_higher": "en-accurate-paraphrase",
+      "expected_lower": "en-minor-error",
+      "higher_score": 100,
+      "lower_score": 97,
+      "strict_order_observed": true
+    },
+    {
+      "expected_higher": "en-minor-error",
+      "expected_lower": "en-important-omission",
+      "higher_score": 97,
+      "lower_score": 55,
+      "strict_order_observed": true
+    },
+    {
+      "expected_higher": "en-minor-error",
+      "expected_lower": "en-actor-reversal",
+      "higher_score": 97,
+      "lower_score": 74,
+      "strict_order_observed": true
+    },
+    {
+      "expected_higher": "en-minor-error",
+      "expected_lower": "en-wrong-language",
+      "higher_score": 97,
+      "lower_score": 0,
+      "strict_order_observed": true
+    },
+    {
+      "expected_higher": "en-minor-error",
+      "expected_lower": "en-unrelated-output",
+      "higher_score": 97,
+      "lower_score": 0,
+      "strict_order_observed": true
+    },
+    {
+      "expected_higher": "ja-accurate-paraphrase",
+      "expected_lower": "ja-important-omission",
+      "higher_score": 100,
+      "lower_score": 48,
+      "strict_order_observed": true
+    }
+  ],
+  "independent_variation": [
+    {
+      "case_id": "en-minor-error",
+      "stages": [
+        {
+          "stage": "errors",
+          "identical_input_and_prompts": true,
+          "separate_dispatches": true,
+          "response_ids": [
+            "resp_00400c269ff8d99c016ae1284873b481918deccc6b1b4825ed",
+            "resp_0445bd0e454f72a6016ae1287243108191b5cd0525fe6e8775"
+          ],
+          "original_result": {
+            "errors": [
+              {
+                "category": "fluency/spelling",
+                "explanation": "The character “里” is accidentally duplicated; “抽屉里” is correct. The meaning remains clear.",
+                "quote": {
+                  "occurrence": 1,
+                  "side": "output",
+                  "text": "里里"
+                },
+                "severity": "minor"
+              }
+            ]
+          },
+          "repeat_result": {
+            "errors": [
+              {
+                "category": "fluency/spelling",
+                "explanation": "The character “里” is accidentally duplicated; “抽屉里” is correct. The meaning remains understandable.",
+                "quote": {
+                  "occurrence": 1,
+                  "side": "output",
+                  "text": "里里"
+                },
+                "severity": "minor"
+              }
+            ]
+          },
+          "results_identical": false
+        },
+        {
+          "stage": "score",
+          "identical_input_and_prompts": true,
+          "separate_dispatches": true,
+          "response_ids": [
+            "resp_06a3e01c86229f74016ae1284ea848819186808fc96258f33a",
+            "resp_0a042cbed687c5b2016ae1287527ac8191a7da9bd806c3376e"
+          ],
+          "original_result": {
+            "score": 97
+          },
+          "repeat_result": {
+            "score": 97
+          },
+          "results_identical": true
+        }
+      ],
+      "original_score": 97,
+      "repeat_score": 97,
+      "signed_score_change": 0,
+      "absolute_score_change": 0
+    },
+    {
+      "case_id": "ja-important-omission",
+      "stages": [
+        {
+          "stage": "errors",
+          "identical_input_and_prompts": true,
+          "separate_dispatches": true,
+          "response_ids": [
+            "resp_03be1d6c0db23b09016ae1286d2f6c8191bfaea1d61c2ea422",
+            "resp_0a5f3f1e04746023016ae128771dbc8191a806e96e9f68a7e4"
+          ],
+          "original_result": {
+            "errors": [
+              {
+                "category": "accuracy/omission",
+                "explanation": "The entire instruction to give Yuna the blue envelope at the entrance is omitted.",
+                "quote": {
+                  "occurrence": 1,
+                  "side": "source",
+                  "text": "入口でユナさんに青い封筒を渡してください。"
+                },
+                "severity": "major"
+              }
+            ]
+          },
+          "repeat_result": {
+            "errors": [
+              {
+                "category": "accuracy/omission",
+                "explanation": "The entire instruction to hand the blue envelope to Yuna at the entrance is omitted.",
+                "quote": {
+                  "occurrence": 1,
+                  "side": "source",
+                  "text": "入口でユナさんに青い封筒を渡してください。"
+                },
+                "severity": "major"
+              }
+            ]
+          },
+          "results_identical": false
+        },
+        {
+          "stage": "score",
+          "identical_input_and_prompts": true,
+          "separate_dispatches": true,
+          "response_ids": [
+            "resp_08c86ee564abddc4016ae1287061208191be78cc3128374be0",
+            "resp_077cca36ea2d8557016ae12879e0588191903b26acd517b086"
+          ],
+          "original_result": {
+            "score": 48
+          },
+          "repeat_result": {
+            "score": 48
+          },
+          "results_identical": true
+        }
+      ],
+      "original_score": 48,
+      "repeat_score": 48,
+      "signed_score_change": 0,
+      "absolute_score_change": 0
+    }
+  ],
+  "samples": [
+    {
+      "label": "en-accurate-paraphrase",
+      "case_id": "en-accurate-paraphrase",
+      "independent_repeat": false,
+      "data": {
+        "source_language": "en",
+        "target_language": "zh",
+        "source": "Maya gave Leo the red notebook yesterday. Keep it in the locked drawer until Friday.",
+        "output": "昨天玛雅把红色笔记本交给了利奥。周五之前请一直把它放在上锁的抽屉里。",
+        "context": []
+      },
+      "score_evidence_origin": "own error result",
+      "score_evidence": {
+        "errors": []
+      },
+      "stages": [
+        {
+          "id": 1,
+          "stage": "errors",
+          "state": "completed",
+          "actual_model": "gpt-6-astra",
+          "input_hash": "acc1241ce3f40dba803daabbadb4208c4ee9057cdfeb8fd9b8a90582a4c4b0cf",
+          "prompt_hash": "04b7ea32e67d66a819c88f9546de60ff9bb10948390e0caa72efcdcb4eaac6c3",
+          "request_sha256": "2e8366c37b75202792eb7b5bad34da621772acefddd3719d6a748105d75d092a",
+          "result": {
+            "errors": []
+          },
+          "response_content": "{\"errors\":[]}",
+          "result_sha256": "debf84af8d66827e1cbc6791aa686504e3116d8cb20f4697fef23108333061f8",
+          "raw_envelope_sha256": "83f9dbfe1f423dfb43775f5458134b0dce83a69f62f3b118e6454cec7456f81c",
+          "model_identity_evidence": {
+            "event_index": 12,
+            "event_type": "response.completed",
+            "model": "gpt-6-astra",
+            "requested_model": "gpt-6-astra",
+            "response_id": "resp_0aba6480745538ca016ae1283f996c81919bab1f61a27e5792",
+            "source": "raw inference response.model"
+          },
+          "model_identity_event_verified": true,
+          "bridge": {
+            "inference_posts": 1,
+            "isolation": {
+              "agent_runtime": false,
+              "conversation_messages": 1,
+              "fresh_process": true,
+              "inherited_instructions": false,
+              "maximum_inference_posts": 1,
+              "service_tier": "default",
+              "tools": 0
+            },
+            "payload_isolation_checked": true,
+            "requested_model": "gpt-6-astra",
+            "route": "Sign in with ChatGPT",
+            "runtime": "bun 1.3.14",
+            "sdk": "@oh-my-pi/pi-ai",
+            "sdk_version": "18.12.3"
+          },
+          "isolation_verified": true,
+          "validated_result_matches_raw_content": true,
+          "started_utc": "2026-10-27T22:39:55.310441+00:00",
+          "ended_utc": "2026-10-27T22:39:59.424457+00:00",
+          "observed_start_utc": "2026-10-27T22:39:55.371Z",
+          "observed_end_utc": "2026-10-27T22:39:59.409Z",
+          "reason": null,
+          "cached_on_live_dispatch": false,
+          "raw_artifact": {
+            "database": ".data\\r6-judge\\stores\\en-accurate-paraphrase/quality.sqlite",
+            "table": "calls",
+            "id": 1
+          },
+          "job_artifact": {
+            "database": ".data\\r6-judge\\stores\\en-accurate-paraphrase/quality.sqlite",
+            "table": "settings",
+            "key": "r4_job:04b7ea32e67d66a819c88f9546de60ff9bb10948390e0caa72efcdcb4eaac6c3"
+          }
+        },
+        {
+          "id": 2,
+          "stage": "score",
+          "state": "completed",
+          "actual_model": "gpt-6-astra",
+          "input_hash": "8db1298159653ae8906302550d4de2e3f5f975d964509240edca9443e7ed1cd3",
+          "prompt_hash": "9408bd1500696ae4d928f22e74eb7da5d54eadc83ac2160ff8404c6ff6cf71ad",
+          "request_sha256": "03b29cd3f75e8a0da0d80b2e04aa5c8242c982e8297364553472ffa4a3e64a21",
+          "result": {
+            "score": 100
+          },
+          "response_content": "{\"score\":100}",
+          "result_sha256": "c4febd88d4c9e76761f047034a97d9d18ee83948a5781992334e6f44a364aa31",
+          "raw_envelope_sha256": "2ba702eae8d0a91ff0761eae73af632c672cc170418087fe3ce27471d87b214a",
+          "model_identity_evidence": {
+            "event_index": 13,
+            "event_type": "response.completed",
+            "model": "gpt-6-astra",
+            "requested_model": "gpt-6-astra",
+            "response_id": "resp_0498378de0c13f8a016ae12842fb3c819182a869a41d6d754f",
+            "source": "raw inference response.model"
+          },
+          "model_identity_event_verified": true,
+          "bridge": {
+            "inference_posts": 1,
+            "isolation": {
+              "agent_runtime": false,
+              "conversation_messages": 1,
+              "fresh_process": true,
+              "inherited_instructions": false,
+              "maximum_inference_posts": 1,
+              "service_tier": "default",
+              "tools": 0
+            },
+            "payload_isolation_checked": true,
+            "requested_model": "gpt-6-astra",
+            "route": "Sign in with ChatGPT",
+            "runtime": "bun 1.3.14",
+            "sdk": "@oh-my-pi/pi-ai",
+            "sdk_version": "18.12.3"
+          },
+          "isolation_verified": true,
+          "validated_result_matches_raw_content": true,
+          "started_utc": "2026-10-27T22:39:59.427489+00:00",
+          "ended_utc": "2026-10-27T22:40:01.124462+00:00",
+          "observed_start_utc": "2026-10-27T22:39:59.463Z",
+          "observed_end_utc": "2026-10-27T22:40:01.107Z",
+          "reason": null,
+          "cached_on_live_dispatch": false,
+          "raw_artifact": {
+            "database": ".data\\r6-judge\\stores\\en-accurate-paraphrase/quality.sqlite",
+            "table": "calls",
+            "id": 2
+          },
+          "job_artifact": {
+            "database": ".data\\r6-judge\\stores\\en-accurate-paraphrase/quality.sqlite",
+            "table": "settings",
+            "key": "r4_job:9408bd1500696ae4d928f22e74eb7da5d54eadc83ac2160ff8404c6ff6cf71ad"
+          }
+        }
+      ]
+    },
+    {
+      "label": "en-minor-error",
+      "case_id": "en-minor-error",
+      "independent_repeat": false,
+      "data": {
+        "source_language": "en",
+        "target_language": "zh",
+        "source": "Maya gave Leo the red notebook yesterday. Keep it in the locked drawer until Friday.",
+        "output": "昨天玛雅把红色笔记本交给了利奥。周五之前请一直把它放在上锁的抽屉里里。",
+        "context": []
+      },
+      "score_evidence_origin": "own error result",
+      "score_evidence": {
+        "errors": [
+          {
+            "category": "fluency/spelling",
+            "severity": "minor",
+            "quote": {
+              "side": "output",
+              "text": "里里",
+              "occurrence": 1
+            },
+            "explanation": "The character “里” is accidentally duplicated; “抽屉里” is correct. The meaning remains clear."
+          }
+        ]
+      },
+      "stages": [
+        {
+          "id": 1,
+          "stage": "errors",
+          "state": "completed",
+          "actual_model": "gpt-6-astra",
+          "input_hash": "4937303cca7fc876937022341c0a7fe122c1d8e88a3f39596b1c7b1ed84ea1ec",
+          "prompt_hash": "4b17f0c9e222b60a91188eb17816d4b1b4aa40207926424471e12b45bf6d2277",
+          "request_sha256": "7b229a9cc03ecf0a83135b0c2aff42928691c7c631a5290999ad158145f9d079",
+          "result": {
+            "errors": [
+              {
+                "category": "fluency/spelling",
+                "explanation": "The character “里” is accidentally duplicated; “抽屉里” is correct. The meaning remains clear.",
+                "quote": {
+                  "occurrence": 1,
+                  "side": "output",
+                  "text": "里里"
+                },
+                "severity": "minor"
+              }
+            ]
+          },
+          "response_content": "{\"errors\":[{\"category\":\"fluency/spelling\",\"severity\":\"minor\",\"quote\":{\"side\":\"output\",\"text\":\"里里\",\"occurrence\":1},\"explanation\":\"The character “里” is accidentally duplicated; “抽屉里” is correct. The meaning remains clear.\"}]}",
+          "result_sha256": "5ef3807f52fc9433c3c18805e93ebd731dc95402bf82151e88abac82494327f1",
+          "raw_envelope_sha256": "d2509875ee45ec600bda8ab7bff0981590451604f46c8f064e3e45de09802f37",
+          "model_identity_evidence": {
+            "event_index": 66,
+            "event_type": "response.completed",
+            "model": "gpt-6-astra",
+            "requested_model": "gpt-6-astra",
+            "response_id": "resp_00400c269ff8d99c016ae1284873b481918deccc6b1b4825ed",
+            "source": "raw inference response.model"
+          },
+          "model_identity_event_verified": true,
+          "bridge": {
+            "inference_posts": 1,
+            "isolation": {
+              "agent_runtime": false,
+              "conversation_messages": 1,
+              "fresh_process": true,
+              "inherited_instructions": false,
+              "maximum_inference_posts": 1,
+              "service_tier": "default",
+              "tools": 0
+            },
+            "payload_isolation_checked": true,
+            "requested_model": "gpt-6-astra",
+            "route": "Sign in with ChatGPT",
+            "runtime": "bun 1.3.14",
+            "sdk": "@oh-my-pi/pi-ai",
+            "sdk_version": "18.12.3"
+          },
+          "isolation_verified": true,
+          "validated_result_matches_raw_content": true,
+          "started_utc": "2026-10-27T22:40:01.137493+00:00",
+          "ended_utc": "2026-10-27T22:40:11.102797+00:00",
+          "observed_start_utc": "2026-10-27T22:40:01.172Z",
+          "observed_end_utc": "2026-10-27T22:40:11.086Z",
+          "reason": null,
+          "cached_on_live_dispatch": false,
+          "raw_artifact": {
+            "database": ".data\\r6-judge\\stores\\en-minor-error/quality.sqlite",
+            "table": "calls",
+            "id": 1
+          },
+          "job_artifact": {
+            "database": ".data\\r6-judge\\stores\\en-minor-error/quality.sqlite",
+            "table": "settings",
+            "key": "r4_job:4b17f0c9e222b60a91188eb17816d4b1b4aa40207926424471e12b45bf6d2277"
+          }
+        },
+        {
+          "id": 2,
+          "stage": "score",
+          "state": "completed",
+          "actual_model": "gpt-6-astra",
+          "input_hash": "28bddf63cb8be6bbd9c52db2405f73ffa4f4854e69e5c69df1f878aed83ab557",
+          "prompt_hash": "7393476685c9d60112bd2f95b8fd447f49cbffce6c21cb7475a1ea774b522360",
+          "request_sha256": "85cfb2ba53b2d3b9daeae80f747d2dfde827d0a6773e31a4201ca7c7fc755d6a",
+          "result": {
+            "score": 97
+          },
+          "response_content": "{\"score\":97}",
+          "result_sha256": "9492419fd10048a4b945d505060790a010c6e17b6e0ff7a29a2912bd7288d6c5",
+          "raw_envelope_sha256": "e3dca7fa73b98dfd5f75c6f6cb2d1892e3255c1ad3046219bc7a80a1a69a1641",
+          "model_identity_evidence": {
+            "event_index": 13,
+            "event_type": "response.completed",
+            "model": "gpt-6-astra",
+            "requested_model": "gpt-6-astra",
+            "response_id": "resp_06a3e01c86229f74016ae1284ea848819186808fc96258f33a",
+            "source": "raw inference response.model"
+          },
+          "model_identity_event_verified": true,
+          "bridge": {
+            "inference_posts": 1,
+            "isolation": {
+              "agent_runtime": false,
+              "conversation_messages": 1,
+              "fresh_process": true,
+              "inherited_instructions": false,
+              "maximum_inference_posts": 1,
+              "service_tier": "default",
+              "tools": 0
+            },
+            "payload_isolation_checked": true,
+            "requested_model": "gpt-6-astra",
+            "route": "Sign in with ChatGPT",
+            "runtime": "bun 1.3.14",
+            "sdk": "@oh-my-pi/pi-ai",
+            "sdk_version": "18.12.3"
+          },
+          "isolation_verified": true,
+          "validated_result_matches_raw_content": true,
+          "started_utc": "2026-10-27T22:40:11.106472+00:00",
+          "ended_utc": "2026-10-27T22:40:13.661929+00:00",
+          "observed_start_utc": "2026-10-27T22:40:11.139Z",
+          "observed_end_utc": "2026-10-27T22:40:13.646Z",
+          "reason": null,
+          "cached_on_live_dispatch": false,
+          "raw_artifact": {
+            "database": ".data\\r6-judge\\stores\\en-minor-error/quality.sqlite",
+            "table": "calls",
+            "id": 2
+          },
+          "job_artifact": {
+            "database": ".data\\r6-judge\\stores\\en-minor-error/quality.sqlite",
+            "table": "settings",
+            "key": "r4_job:7393476685c9d60112bd2f95b8fd447f49cbffce6c21cb7475a1ea774b522360"
+          }
+        }
+      ]
+    },
+    {
+      "label": "en-important-omission",
+      "case_id": "en-important-omission",
+      "independent_repeat": false,
+      "data": {
+        "source_language": "en",
+        "target_language": "zh",
+        "source": "Maya gave Leo the red notebook yesterday. Keep it in the locked drawer until Friday.",
+        "output": "昨天玛雅把红色笔记本交给了利奥。",
+        "context": []
+      },
+      "score_evidence_origin": "own error result",
+      "score_evidence": {
+        "errors": [
+          {
+            "category": "accuracy/omission",
+            "severity": "major",
+            "quote": {
+              "side": "source",
+              "text": "Keep it in the locked drawer until Friday.",
+              "occurrence": 1
+            },
+            "explanation": "The entire instruction to keep the notebook in the locked drawer until Friday is omitted."
+          }
+        ]
+      },
+      "stages": [
+        {
+          "id": 1,
+          "stage": "errors",
+          "state": "completed",
+          "actual_model": "gpt-6-astra",
+          "input_hash": "b38bee62afaacf4c4117223a6df20f48fde94240e4979668e80110004eea5d83",
+          "prompt_hash": "ff0432a80acbd9184804c6736839f3bfb2eb77a9a4845de8b7914bd0940882b3",
+          "request_sha256": "ac028e3b7086501d11288a77b60fcb230e41a2d6f64dfb493bebd3282efa1a00",
+          "result": {
+            "errors": [
+              {
+                "category": "accuracy/omission",
+                "explanation": "The entire instruction to keep the notebook in the locked drawer until Friday is omitted.",
+                "quote": {
+                  "occurrence": 1,
+                  "side": "source",
+                  "text": "Keep it in the locked drawer until Friday."
+                },
+                "severity": "major"
+              }
+            ]
+          },
+          "response_content": "{\"errors\":[{\"category\":\"accuracy/omission\",\"severity\":\"major\",\"quote\":{\"side\":\"source\",\"text\":\"Keep it in the locked drawer until Friday.\",\"occurrence\":1},\"explanation\":\"The entire instruction to keep the notebook in the locked drawer until Friday is omitted.\"}]}",
+          "result_sha256": "8ef75da5c5a720ea18940a731a1a085e5421973843025386845a036cfa847357",
+          "raw_envelope_sha256": "6266c8890f60677b3fb9e12a529166f76dd52a440d27e18882380640a2ae007e",
+          "model_identity_evidence": {
+            "event_index": 66,
+            "event_type": "response.completed",
+            "model": "gpt-6-astra",
+            "requested_model": "gpt-6-astra",
+            "response_id": "resp_03857c4eb4cf112d016ae12851709c81919ba5559dc6d91aa7",
+            "source": "raw inference response.model"
+          },
+          "model_identity_event_verified": true,
+          "bridge": {
+            "inference_posts": 1,
+            "isolation": {
+              "agent_runtime": false,
+              "conversation_messages": 1,
+              "fresh_process": true,
+              "inherited_instructions": false,
+              "maximum_inference_posts": 1,
+              "service_tier": "default",
+              "tools": 0
+            },
+            "payload_isolation_checked": true,
+            "requested_model": "gpt-6-astra",
+            "route": "Sign in with ChatGPT",
+            "runtime": "bun 1.3.14",
+            "sdk": "@oh-my-pi/pi-ai",
+            "sdk_version": "18.12.3"
+          },
+          "isolation_verified": true,
+          "validated_result_matches_raw_content": true,
+          "started_utc": "2026-10-27T22:40:13.675042+00:00",
+          "ended_utc": "2026-10-27T22:40:16.499471+00:00",
+          "observed_start_utc": "2026-10-27T22:40:13.709Z",
+          "observed_end_utc": "2026-10-27T22:40:16.484Z",
+          "reason": null,
+          "cached_on_live_dispatch": false,
+          "raw_artifact": {
+            "database": ".data\\r6-judge\\stores\\en-important-omission/quality.sqlite",
+            "table": "calls",
+            "id": 1
+          },
+          "job_artifact": {
+            "database": ".data\\r6-judge\\stores\\en-important-omission/quality.sqlite",
+            "table": "settings",
+            "key": "r4_job:ff0432a80acbd9184804c6736839f3bfb2eb77a9a4845de8b7914bd0940882b3"
+          }
+        },
+        {
+          "id": 2,
+          "stage": "score",
+          "state": "completed",
+          "actual_model": "gpt-6-astra",
+          "input_hash": "2266d44f4c6b1529e8d98861e57d10dc5e8847f5a7c79a8a83aec1918220b536",
+          "prompt_hash": "a2c6c9eed1ebc2c81295ac849d2af508e5ceb60c33357710662627dfd6b99156",
+          "request_sha256": "b8adecf3563408caa631e38e279afdede7331c1438b180a6dc8edcd4c7b59b25",
+          "result": {
+            "score": 55
+          },
+          "response_content": "{\"score\":55}",
+          "result_sha256": "c4547f6f301c30eeaf1609ecd3bc0d07c3cb6a94a4505ae6f79c095749b300e5",
+          "raw_envelope_sha256": "a127d0e15a9561a3c32c1a03de5e786abbc420dd6a4938efaedcb587402da304",
+          "model_identity_evidence": {
+            "event_index": 13,
+            "event_type": "response.completed",
+            "model": "gpt-6-astra",
+            "requested_model": "gpt-6-astra",
+            "response_id": "resp_03badffd3ca49654016ae1285414bc8191b7d7b9b042ff77f8",
+            "source": "raw inference response.model"
+          },
+          "model_identity_event_verified": true,
+          "bridge": {
+            "inference_posts": 1,
+            "isolation": {
+              "agent_runtime": false,
+              "conversation_messages": 1,
+              "fresh_process": true,
+              "inherited_instructions": false,
+              "maximum_inference_posts": 1,
+              "service_tier": "default",
+              "tools": 0
+            },
+            "payload_isolation_checked": true,
+            "requested_model": "gpt-6-astra",
+            "route": "Sign in with ChatGPT",
+            "runtime": "bun 1.3.14",
+            "sdk": "@oh-my-pi/pi-ai",
+            "sdk_version": "18.12.3"
+          },
+          "isolation_verified": true,
+          "validated_result_matches_raw_content": true,
+          "started_utc": "2026-10-27T22:40:16.502973+00:00",
+          "ended_utc": "2026-10-27T22:40:18.674040+00:00",
+          "observed_start_utc": "2026-10-27T22:40:16.539Z",
+          "observed_end_utc": "2026-10-27T22:40:18.657Z",
+          "reason": null,
+          "cached_on_live_dispatch": false,
+          "raw_artifact": {
+            "database": ".data\\r6-judge\\stores\\en-important-omission/quality.sqlite",
+            "table": "calls",
+            "id": 2
+          },
+          "job_artifact": {
+            "database": ".data\\r6-judge\\stores\\en-important-omission/quality.sqlite",
+            "table": "settings",
+            "key": "r4_job:a2c6c9eed1ebc2c81295ac849d2af508e5ceb60c33357710662627dfd6b99156"
+          }
+        }
+      ]
+    },
+    {
+      "label": "en-actor-reversal",
+      "case_id": "en-actor-reversal",
+      "independent_repeat": false,
+      "data": {
+        "source_language": "en",
+        "target_language": "zh",
+        "source": "Maya gave Leo the red notebook yesterday. Keep it in the locked drawer until Friday.",
+        "output": "昨天利奥把红色笔记本交给了玛雅。周五之前请一直把它放在上锁的抽屉里。",
+        "context": []
+      },
+      "score_evidence_origin": "own error result",
+      "score_evidence": {
+        "errors": [
+          {
+            "category": "accuracy/mistranslation",
+            "severity": "major",
+            "quote": {
+              "side": "output",
+              "text": "昨天利奥把红色笔记本交给了玛雅。",
+              "occurrence": 1
+            },
+            "explanation": "The giver and recipient are reversed: the source says Maya gave the notebook to Leo, but the translation says Leo gave it to Maya."
+          }
+        ]
+      },
+      "stages": [
+        {
+          "id": 1,
+          "stage": "errors",
+          "state": "completed",
+          "actual_model": "gpt-6-astra",
+          "input_hash": "b0ca2a7c634d41fc39e130437f4e7f95613a8727f42b978268925c4c1eb12a30",
+          "prompt_hash": "ad623607eb26caebd3f8d80a81baaa10c87d8a8ac2dd59a88f6ab889084bc161",
+          "request_sha256": "536212545b96d54d42a5246d0ba0273f4ab0dd3494236761f0421459f26c83c3",
+          "result": {
+            "errors": [
+              {
+                "category": "accuracy/mistranslation",
+                "explanation": "The giver and recipient are reversed: the source says Maya gave the notebook to Leo, but the translation says Leo gave it to Maya.",
+                "quote": {
+                  "occurrence": 1,
+                  "side": "output",
+                  "text": "昨天利奥把红色笔记本交给了玛雅。"
+                },
+                "severity": "major"
+              }
+            ]
+          },
+          "response_content": "{\"errors\":[{\"category\":\"accuracy/mistranslation\",\"severity\":\"major\",\"quote\":{\"side\":\"output\",\"text\":\"昨天利奥把红色笔记本交给了玛雅。\",\"occurrence\":1},\"explanation\":\"The giver and recipient are reversed: the source says Maya gave the notebook to Leo, but the translation says Leo gave it to Maya.\"}]}",
+          "result_sha256": "24ea321a851c47ec8ed71af6498920c6c15a0dd2220fca384098fc2942d2dc48",
+          "raw_envelope_sha256": "e473f3fa904f92f19963a82384b58da2e55402c28f20f6d0c41bc4452f3a2bdb",
+          "model_identity_evidence": {
+            "event_index": 85,
+            "event_type": "response.completed",
+            "model": "gpt-6-astra",
+            "requested_model": "gpt-6-astra",
+            "response_id": "resp_08447adc46b6d67c016ae128564f308191b11c107c7dc22d66",
+            "source": "raw inference response.model"
+          },
+          "model_identity_event_verified": true,
+          "bridge": {
+            "inference_posts": 1,
+            "isolation": {
+              "agent_runtime": false,
+              "conversation_messages": 1,
+              "fresh_process": true,
+              "inherited_instructions": false,
+              "maximum_inference_posts": 1,
+              "service_tier": "default",
+              "tools": 0
+            },
+            "payload_isolation_checked": true,
+            "requested_model": "gpt-6-astra",
+            "route": "Sign in with ChatGPT",
+            "runtime": "bun 1.3.14",
+            "sdk": "@oh-my-pi/pi-ai",
+            "sdk_version": "18.12.3"
+          },
+          "isolation_verified": true,
+          "validated_result_matches_raw_content": true,
+          "started_utc": "2026-10-27T22:40:18.686709+00:00",
+          "ended_utc": "2026-10-27T22:40:21.393352+00:00",
+          "observed_start_utc": "2026-10-27T22:40:18.721Z",
+          "observed_end_utc": "2026-10-27T22:40:21.376Z",
+          "reason": null,
+          "cached_on_live_dispatch": false,
+          "raw_artifact": {
+            "database": ".data\\r6-judge\\stores\\en-actor-reversal/quality.sqlite",
+            "table": "calls",
+            "id": 1
+          },
+          "job_artifact": {
+            "database": ".data\\r6-judge\\stores\\en-actor-reversal/quality.sqlite",
+            "table": "settings",
+            "key": "r4_job:ad623607eb26caebd3f8d80a81baaa10c87d8a8ac2dd59a88f6ab889084bc161"
+          }
+        },
+        {
+          "id": 2,
+          "stage": "score",
+          "state": "completed",
+          "actual_model": "gpt-6-astra",
+          "input_hash": "66759f9598ffeafb7188daec68192f6b22f5da4309f2002630810c9b3f02db0b",
+          "prompt_hash": "4dcf7a4ef18a061ac222e03df6847360b56ae3135615607899f81c04726f4f85",
+          "request_sha256": "04bce3c13964b884828aba76837f0db66e350cd0023205c4b9515ef7d1ebd466",
+          "result": {
+            "score": 74
+          },
+          "response_content": "{\"score\":74}",
+          "result_sha256": "666374e2c8c893db2057e3a232497b193a694ddf980a63d5214f91bdf4877558",
+          "raw_envelope_sha256": "f1c39549558429cd4ad6000b539026355e4cf7f628327fb2dbd11ed8ac5e3cc7",
+          "model_identity_evidence": {
+            "event_index": 13,
+            "event_type": "response.completed",
+            "model": "gpt-6-astra",
+            "requested_model": "gpt-6-astra",
+            "response_id": "resp_09c1dbbd95ca7892016ae1285917e4819193624584dc562ed1",
+            "source": "raw inference response.model"
+          },
+          "model_identity_event_verified": true,
+          "bridge": {
+            "inference_posts": 1,
+            "isolation": {
+              "agent_runtime": false,
+              "conversation_messages": 1,
+              "fresh_process": true,
+              "inherited_instructions": false,
+              "maximum_inference_posts": 1,
+              "service_tier": "default",
+              "tools": 0
+            },
+            "payload_isolation_checked": true,
+            "requested_model": "gpt-6-astra",
+            "route": "Sign in with ChatGPT",
+            "runtime": "bun 1.3.14",
+            "sdk": "@oh-my-pi/pi-ai",
+            "sdk_version": "18.12.3"
+          },
+          "isolation_verified": true,
+          "validated_result_matches_raw_content": true,
+          "started_utc": "2026-10-27T22:40:21.396358+00:00",
+          "ended_utc": "2026-10-27T22:40:24.968301+00:00",
+          "observed_start_utc": "2026-10-27T22:40:21.432Z",
+          "observed_end_utc": "2026-10-27T22:40:24.952Z",
+          "reason": null,
+          "cached_on_live_dispatch": false,
+          "raw_artifact": {
+            "database": ".data\\r6-judge\\stores\\en-actor-reversal/quality.sqlite",
+            "table": "calls",
+            "id": 2
+          },
+          "job_artifact": {
+            "database": ".data\\r6-judge\\stores\\en-actor-reversal/quality.sqlite",
+            "table": "settings",
+            "key": "r4_job:4dcf7a4ef18a061ac222e03df6847360b56ae3135615607899f81c04726f4f85"
+          }
+        }
+      ]
+    },
+    {
+      "label": "en-wrong-language",
+      "case_id": "en-wrong-language",
+      "independent_repeat": false,
+      "data": {
+        "source_language": "en",
+        "target_language": "zh",
+        "source": "Maya gave Leo the red notebook yesterday. Keep it in the locked drawer until Friday.",
+        "output": "Yesterday, Maya handed Leo the red notebook. Keep it in the locked drawer until Friday.",
+        "context": []
+      },
+      "score_evidence_origin": "own error result",
+      "score_evidence": {
+        "errors": [
+          {
+            "category": "non-translation",
+            "severity": "major",
+            "quote": {
+              "side": "output",
+              "text": "Yesterday, Maya handed Leo the red notebook. Keep it in the locked drawer until Friday.",
+              "occurrence": 1
+            },
+            "explanation": "The entire output is in English rather than the requested Chinese; it paraphrases the source without translating it into the target language."
+          }
+        ]
+      },
+      "stages": [
+        {
+          "id": 1,
+          "stage": "errors",
+          "state": "completed",
+          "actual_model": "gpt-6-astra",
+          "input_hash": "2e413a1b55ce24daa0a34ebd9326ba74fdfaff4d5254c28b21e7533ab9fa0b1d",
+          "prompt_hash": "fbab7366e10937c5655b4bad2729ffc2d431829fbf96dcef7f2a6432a1349a0e",
+          "request_sha256": "a79173deec7b19bdd922af3d0b1831c48d7ad00af203add932b80e0694d37ce8",
+          "result": {
+            "errors": [
+              {
+                "category": "non-translation",
+                "explanation": "The entire output is in English rather than the requested Chinese; it paraphrases the source without translating it into the target language.",
+                "quote": {
+                  "occurrence": 1,
+                  "side": "output",
+                  "text": "Yesterday, Maya handed Leo the red notebook. Keep it in the locked drawer until Friday."
+                },
+                "severity": "major"
+              }
+            ]
+          },
+          "response_content": "{\"errors\":[{\"category\":\"non-translation\",\"severity\":\"major\",\"quote\":{\"side\":\"output\",\"text\":\"Yesterday, Maya handed Leo the red notebook. Keep it in the locked drawer until Friday.\",\"occurrence\":1},\"explanation\":\"The entire output is in English rather than the requested Chinese; it paraphrases the source without translating it into the target language.\"}]}",
+          "result_sha256": "e3e3d0eae3a4dbbc4d7e47e4ac95984065ec2ca930a1a76cfed5aa470f05be38",
+          "raw_envelope_sha256": "57b49dd3f1e093a5959fafa4cbf50c32990b5b63f2c0c2a232dfe955660671b7",
+          "model_identity_evidence": {
+            "event_index": 83,
+            "event_type": "response.completed",
+            "model": "gpt-6-astra",
+            "requested_model": "gpt-6-astra",
+            "response_id": "resp_09d32c7d67149e88016ae1285c9af88191b81f1320c1897bb2",
+            "source": "raw inference response.model"
+          },
+          "model_identity_event_verified": true,
+          "bridge": {
+            "inference_posts": 1,
+            "isolation": {
+              "agent_runtime": false,
+              "conversation_messages": 1,
+              "fresh_process": true,
+              "inherited_instructions": false,
+              "maximum_inference_posts": 1,
+              "service_tier": "default",
+              "tools": 0
+            },
+            "payload_isolation_checked": true,
+            "requested_model": "gpt-6-astra",
+            "route": "Sign in with ChatGPT",
+            "runtime": "bun 1.3.14",
+            "sdk": "@oh-my-pi/pi-ai",
+            "sdk_version": "18.12.3"
+          },
+          "isolation_verified": true,
+          "validated_result_matches_raw_content": true,
+          "started_utc": "2026-10-27T22:40:24.983130+00:00",
+          "ended_utc": "2026-10-27T22:40:28.025038+00:00",
+          "observed_start_utc": "2026-10-27T22:40:25.020Z",
+          "observed_end_utc": "2026-10-27T22:40:28.009Z",
+          "reason": null,
+          "cached_on_live_dispatch": false,
+          "raw_artifact": {
+            "database": ".data\\r6-judge\\stores\\en-wrong-language/quality.sqlite",
+            "table": "calls",
+            "id": 1
+          },
+          "job_artifact": {
+            "database": ".data\\r6-judge\\stores\\en-wrong-language/quality.sqlite",
+            "table": "settings",
+            "key": "r4_job:fbab7366e10937c5655b4bad2729ffc2d431829fbf96dcef7f2a6432a1349a0e"
+          }
+        },
+        {
+          "id": 2,
+          "stage": "score",
+          "state": "completed",
+          "actual_model": "gpt-6-astra",
+          "input_hash": "5748e9eb18d5bc94b9dc5d9818ab6af2c65b46e065e6f7c9dace5609e6b7ffdd",
+          "prompt_hash": "b4d207a60a2226e6d914a17c46a9754bcc09cdfa8bbb2673e83a1f1ef82c87ab",
+          "request_sha256": "16d8305aefa267a753391595a9e0c0f9b6aa0ee888b918c9617d99c1ac311ecc",
+          "result": {
+            "score": 0
+          },
+          "response_content": "{\"score\":0}",
+          "result_sha256": "628cb4ead38e34e34a34f78fa4481f2a0ccf8e9139acfae69d79dc997e90e36b",
+          "raw_envelope_sha256": "3327c413cd0243273b26492e2bece4adda755b6e1432920ed994e973a2f986ab",
+          "model_identity_evidence": {
+            "event_index": 15,
+            "event_type": "response.completed",
+            "model": "gpt-6-astra",
+            "requested_model": "gpt-6-astra",
+            "response_id": "resp_00acbc33a8f82317016ae1286048448191ad1e97ce39700834",
+            "source": "raw inference response.model"
+          },
+          "model_identity_event_verified": true,
+          "bridge": {
+            "inference_posts": 1,
+            "isolation": {
+              "agent_runtime": false,
+              "conversation_messages": 1,
+              "fresh_process": true,
+              "inherited_instructions": false,
+              "maximum_inference_posts": 1,
+              "service_tier": "default",
+              "tools": 0
+            },
+            "payload_isolation_checked": true,
+            "requested_model": "gpt-6-astra",
+            "route": "Sign in with ChatGPT",
+            "runtime": "bun 1.3.14",
+            "sdk": "@oh-my-pi/pi-ai",
+            "sdk_version": "18.12.3"
+          },
+          "isolation_verified": true,
+          "validated_result_matches_raw_content": true,
+          "started_utc": "2026-10-27T22:40:28.028073+00:00",
+          "ended_utc": "2026-10-27T22:40:31.168406+00:00",
+          "observed_start_utc": "2026-10-27T22:40:28.062Z",
+          "observed_end_utc": "2026-10-27T22:40:31.152Z",
+          "reason": null,
+          "cached_on_live_dispatch": false,
+          "raw_artifact": {
+            "database": ".data\\r6-judge\\stores\\en-wrong-language/quality.sqlite",
+            "table": "calls",
+            "id": 2
+          },
+          "job_artifact": {
+            "database": ".data\\r6-judge\\stores\\en-wrong-language/quality.sqlite",
+            "table": "settings",
+            "key": "r4_job:b4d207a60a2226e6d914a17c46a9754bcc09cdfa8bbb2673e83a1f1ef82c87ab"
+          }
+        }
+      ]
+    },
+    {
+      "label": "en-unrelated-output",
+      "case_id": "en-unrelated-output",
+      "independent_repeat": false,
+      "data": {
+        "source_language": "en",
+        "target_language": "zh",
+        "source": "Maya gave Leo the red notebook yesterday. Keep it in the locked drawer until Friday.",
+        "output": "今天的天气很好，我们去海边散步吧。",
+        "context": []
+      },
+      "score_evidence_origin": "own error result",
+      "score_evidence": {
+        "errors": [
+          {
+            "category": "non-translation",
+            "severity": "major",
+            "quote": {
+              "side": "output",
+              "text": "今天的天气很好，我们去海边散步吧。",
+              "occurrence": 1
+            },
+            "explanation": "The output says the weather is nice today and suggests taking a walk by the sea. It is entirely unrelated to the source, which describes Maya giving Leo a red notebook yesterday and instructs that it be kept in a locked drawer until Friday."
+          }
+        ]
+      },
+      "stages": [
+        {
+          "id": 1,
+          "stage": "errors",
+          "state": "completed",
+          "actual_model": "gpt-6-astra",
+          "input_hash": "e799dbbc202edb5f7c74c8131001c3c85a3c6fab3ca7bb5e1946f512a0d95c67",
+          "prompt_hash": "476b24ff9123eca2d1ac0eecb2953489af1763d58e316ae14de6dda3442a198a",
+          "request_sha256": "00da9d8771369350161b12ee3f5e28e08429f9034cbd125f1880c3ca11ad9574",
+          "result": {
+            "errors": [
+              {
+                "category": "non-translation",
+                "explanation": "The output says the weather is nice today and suggests taking a walk by the sea. It is entirely unrelated to the source, which describes Maya giving Leo a red notebook yesterday and instructs that it be kept in a locked drawer until Friday.",
+                "quote": {
+                  "occurrence": 1,
+                  "side": "output",
+                  "text": "今天的天气很好，我们去海边散步吧。"
+                },
+                "severity": "major"
+              }
+            ]
+          },
+          "response_content": "{\"errors\":[{\"category\":\"non-translation\",\"severity\":\"major\",\"quote\":{\"side\":\"output\",\"text\":\"今天的天气很好，我们去海边散步吧。\",\"occurrence\":1},\"explanation\":\"The output says the weather is nice today and suggests taking a walk by the sea. It is entirely unrelated to the source, which describes Maya giving Leo a red notebook yesterday and instructs that it be kept in a locked drawer until Friday.\"}]}",
+          "result_sha256": "7d8d8dddf21a70dc53f9ccc07a0492e03dc18f4ef5d7b98166d416ee413710c9",
+          "raw_envelope_sha256": "6e7d9b4dd4fcd6f9b6417e108a5a0756dbb211fe938bebd4a7466642ef5ccecf",
+          "model_identity_evidence": {
+            "event_index": 101,
+            "event_type": "response.completed",
+            "model": "gpt-6-astra",
+            "requested_model": "gpt-6-astra",
+            "response_id": "resp_06eac1a0d924c55d016ae12862bf2881918ed43c89b17982a8",
+            "source": "raw inference response.model"
+          },
+          "model_identity_event_verified": true,
+          "bridge": {
+            "inference_posts": 1,
+            "isolation": {
+              "agent_runtime": false,
+              "conversation_messages": 1,
+              "fresh_process": true,
+              "inherited_instructions": false,
+              "maximum_inference_posts": 1,
+              "service_tier": "default",
+              "tools": 0
+            },
+            "payload_isolation_checked": true,
+            "requested_model": "gpt-6-astra",
+            "route": "Sign in with ChatGPT",
+            "runtime": "bun 1.3.14",
+            "sdk": "@oh-my-pi/pi-ai",
+            "sdk_version": "18.12.3"
+          },
+          "isolation_verified": true,
+          "validated_result_matches_raw_content": true,
+          "started_utc": "2026-10-27T22:40:31.181491+00:00",
+          "ended_utc": "2026-10-27T22:40:34.502174+00:00",
+          "observed_start_utc": "2026-10-27T22:40:31.216Z",
+          "observed_end_utc": "2026-10-27T22:40:34.486Z",
+          "reason": null,
+          "cached_on_live_dispatch": false,
+          "raw_artifact": {
+            "database": ".data\\r6-judge\\stores\\en-unrelated-output/quality.sqlite",
+            "table": "calls",
+            "id": 1
+          },
+          "job_artifact": {
+            "database": ".data\\r6-judge\\stores\\en-unrelated-output/quality.sqlite",
+            "table": "settings",
+            "key": "r4_job:476b24ff9123eca2d1ac0eecb2953489af1763d58e316ae14de6dda3442a198a"
+          }
+        },
+        {
+          "id": 2,
+          "stage": "score",
+          "state": "completed",
+          "actual_model": "gpt-6-astra",
+          "input_hash": "7a706aabfef437b388189b0cbbe3335ddf8ecbab863ddbdcf7a5d54d1e076867",
+          "prompt_hash": "8179a03ab83a41c35bd947164aae01dd4ae14798602170af4c00fa330fcc8d19",
+          "request_sha256": "e1a7bc96f88d8d7903c69364734bd7fbf93fbdcd974edebf627fb1028c8830c3",
+          "result": {
+            "score": 0
+          },
+          "response_content": "{\"score\":0}",
+          "result_sha256": "628cb4ead38e34e34a34f78fa4481f2a0ccf8e9139acfae69d79dc997e90e36b",
+          "raw_envelope_sha256": "2dc151a5ee89629caef2a4f0ffcb5cd3b9b2c7a7eb06faa039d65d200e3cd3dc",
+          "model_identity_evidence": {
+            "event_index": 13,
+            "event_type": "response.completed",
+            "model": "gpt-6-astra",
+            "requested_model": "gpt-6-astra",
+            "response_id": "resp_07954ed705e53e14016ae1286628cc81918e317f3b88269939",
+            "source": "raw inference response.model"
+          },
+          "model_identity_event_verified": true,
+          "bridge": {
+            "inference_posts": 1,
+            "isolation": {
+              "agent_runtime": false,
+              "conversation_messages": 1,
+              "fresh_process": true,
+              "inherited_instructions": false,
+              "maximum_inference_posts": 1,
+              "service_tier": "default",
+              "tools": 0
+            },
+            "payload_isolation_checked": true,
+            "requested_model": "gpt-6-astra",
+            "route": "Sign in with ChatGPT",
+            "runtime": "bun 1.3.14",
+            "sdk": "@oh-my-pi/pi-ai",
+            "sdk_version": "18.12.3"
+          },
+          "isolation_verified": true,
+          "validated_result_matches_raw_content": true,
+          "started_utc": "2026-10-27T22:40:34.506681+00:00",
+          "ended_utc": "2026-10-27T22:40:36.324612+00:00",
+          "observed_start_utc": "2026-10-27T22:40:34.541Z",
+          "observed_end_utc": "2026-10-27T22:40:36.310Z",
+          "reason": null,
+          "cached_on_live_dispatch": false,
+          "raw_artifact": {
+            "database": ".data\\r6-judge\\stores\\en-unrelated-output/quality.sqlite",
+            "table": "calls",
+            "id": 2
+          },
+          "job_artifact": {
+            "database": ".data\\r6-judge\\stores\\en-unrelated-output/quality.sqlite",
+            "table": "settings",
+            "key": "r4_job:8179a03ab83a41c35bd947164aae01dd4ae14798602170af4c00fa330fcc8d19"
+          }
+        }
+      ]
+    },
+    {
+      "label": "ja-accurate-paraphrase",
+      "case_id": "ja-accurate-paraphrase",
+      "independent_repeat": false,
+      "data": {
+        "source_language": "ja",
+        "target_language": "ko",
+        "source": "明日の会議は午後三時に始まります。入口でユナさんに青い封筒を渡してください。",
+        "output": "내일 회의는 오후 세 시에 시작합니다. 입구에서 유나 씨에게 파란 봉투를 건네주세요.",
+        "context": []
+      },
+      "score_evidence_origin": "own error result",
+      "score_evidence": {
+        "errors": []
+      },
+      "stages": [
+        {
+          "id": 1,
+          "stage": "errors",
+          "state": "completed",
+          "actual_model": "gpt-6-astra",
+          "input_hash": "9396176e1ea55d5b1ec6037c96642f16be6d057519a98616742e7f91a18cd76c",
+          "prompt_hash": "1eb8190e3b792d4b83819987b5845c5d6b64fc6d8b7f51ae6f93f664ceea692b",
+          "request_sha256": "3cc8e06de395373a92f1a705b5b228ebdcbae7fb2761d85e7cafbf009f9aa3a1",
+          "result": {
+            "errors": []
+          },
+          "response_content": "{\"errors\":[]}",
+          "result_sha256": "debf84af8d66827e1cbc6791aa686504e3116d8cb20f4697fef23108333061f8",
+          "raw_envelope_sha256": "8642cf25e70c7a10182ba5b15f41569d1ab0426c85467c909620b90776d1e47f",
+          "model_identity_evidence": {
+            "event_index": 12,
+            "event_type": "response.completed",
+            "model": "gpt-6-astra",
+            "requested_model": "gpt-6-astra",
+            "response_id": "resp_0c27a4fdf49697af016ae12867f3448191861441b3f6a8be51",
+            "source": "raw inference response.model"
+          },
+          "model_identity_event_verified": true,
+          "bridge": {
+            "inference_posts": 1,
+            "isolation": {
+              "agent_runtime": false,
+              "conversation_messages": 1,
+              "fresh_process": true,
+              "inherited_instructions": false,
+              "maximum_inference_posts": 1,
+              "service_tier": "default",
+              "tools": 0
+            },
+            "payload_isolation_checked": true,
+            "requested_model": "gpt-6-astra",
+            "route": "Sign in with ChatGPT",
+            "runtime": "bun 1.3.14",
+            "sdk": "@oh-my-pi/pi-ai",
+            "sdk_version": "18.12.3"
+          },
+          "isolation_verified": true,
+          "validated_result_matches_raw_content": true,
+          "started_utc": "2026-10-27T22:40:36.339218+00:00",
+          "ended_utc": "2026-10-27T22:40:38.363675+00:00",
+          "observed_start_utc": "2026-10-27T22:40:36.372Z",
+          "observed_end_utc": "2026-10-27T22:40:38.347Z",
+          "reason": null,
+          "cached_on_live_dispatch": false,
+          "raw_artifact": {
+            "database": ".data\\r6-judge\\stores\\ja-accurate-paraphrase/quality.sqlite",
+            "table": "calls",
+            "id": 1
+          },
+          "job_artifact": {
+            "database": ".data\\r6-judge\\stores\\ja-accurate-paraphrase/quality.sqlite",
+            "table": "settings",
+            "key": "r4_job:1eb8190e3b792d4b83819987b5845c5d6b64fc6d8b7f51ae6f93f664ceea692b"
+          }
+        },
+        {
+          "id": 2,
+          "stage": "score",
+          "state": "completed",
+          "actual_model": "gpt-6-astra",
+          "input_hash": "17618a8a6de39be166088273a50e7df61e8589a95c8cc0af542e9a588ac17288",
+          "prompt_hash": "bd09f64a6aadabdafdfe9c80431f8b42c51e79a24b1430100335590804bdcf3d",
+          "request_sha256": "4e0844a94960f12ba0dae7bb1e4cd0eb4a3893bf32f88855b14d5c9cf34c7d49",
+          "result": {
+            "score": 100
+          },
+          "response_content": "{\"score\":100}",
+          "result_sha256": "c4febd88d4c9e76761f047034a97d9d18ee83948a5781992334e6f44a364aa31",
+          "raw_envelope_sha256": "a1382cfa0a795945db226ad3bdbe313aca461469712158b8336400808f7df539",
+          "model_identity_evidence": {
+            "event_index": 13,
+            "event_type": "response.completed",
+            "model": "gpt-6-astra",
+            "requested_model": "gpt-6-astra",
+            "response_id": "resp_0bc28f94d97e0cf7016ae1286a0db4819189da66c2b13274b4",
+            "source": "raw inference response.model"
+          },
+          "model_identity_event_verified": true,
+          "bridge": {
+            "inference_posts": 1,
+            "isolation": {
+              "agent_runtime": false,
+              "conversation_messages": 1,
+              "fresh_process": true,
+              "inherited_instructions": false,
+              "maximum_inference_posts": 1,
+              "service_tier": "default",
+              "tools": 0
+            },
+            "payload_isolation_checked": true,
+            "requested_model": "gpt-6-astra",
+            "route": "Sign in with ChatGPT",
+            "runtime": "bun 1.3.14",
+            "sdk": "@oh-my-pi/pi-ai",
+            "sdk_version": "18.12.3"
+          },
+          "isolation_verified": true,
+          "validated_result_matches_raw_content": true,
+          "started_utc": "2026-10-27T22:40:38.366740+00:00",
+          "ended_utc": "2026-10-27T22:40:41.366313+00:00",
+          "observed_start_utc": "2026-10-27T22:40:38.403Z",
+          "observed_end_utc": "2026-10-27T22:40:41.350Z",
+          "reason": null,
+          "cached_on_live_dispatch": false,
+          "raw_artifact": {
+            "database": ".data\\r6-judge\\stores\\ja-accurate-paraphrase/quality.sqlite",
+            "table": "calls",
+            "id": 2
+          },
+          "job_artifact": {
+            "database": ".data\\r6-judge\\stores\\ja-accurate-paraphrase/quality.sqlite",
+            "table": "settings",
+            "key": "r4_job:bd09f64a6aadabdafdfe9c80431f8b42c51e79a24b1430100335590804bdcf3d"
+          }
+        }
+      ]
+    },
+    {
+      "label": "ja-important-omission",
+      "case_id": "ja-important-omission",
+      "independent_repeat": false,
+      "data": {
+        "source_language": "ja",
+        "target_language": "ko",
+        "source": "明日の会議は午後三時に始まります。入口でユナさんに青い封筒を渡してください。",
+        "output": "내일 회의는 오후 세 시에 시작합니다.",
+        "context": []
+      },
+      "score_evidence_origin": "own error result",
+      "score_evidence": {
+        "errors": [
+          {
+            "category": "accuracy/omission",
+            "severity": "major",
+            "quote": {
+              "side": "source",
+              "text": "入口でユナさんに青い封筒を渡してください。",
+              "occurrence": 1
+            },
+            "explanation": "The entire instruction to give Yuna the blue envelope at the entrance is omitted."
+          }
+        ]
+      },
+      "stages": [
+        {
+          "id": 1,
+          "stage": "errors",
+          "state": "completed",
+          "actual_model": "gpt-6-astra",
+          "input_hash": "75559e28b4c2a226bf33d2296aa44c3109f2027395977b5c644d738fa99482e5",
+          "prompt_hash": "da586d28b3e9d71d7ace70fcd47cef07698ca07c8b6696436744deefb41aa1ff",
+          "request_sha256": "0316efc4576b8369507158a8675db1429648b9a0aea0c059dc399d8973492962",
+          "result": {
+            "errors": [
+              {
+                "category": "accuracy/omission",
+                "explanation": "The entire instruction to give Yuna the blue envelope at the entrance is omitted.",
+                "quote": {
+                  "occurrence": 1,
+                  "side": "source",
+                  "text": "入口でユナさんに青い封筒を渡してください。"
+                },
+                "severity": "major"
+              }
+            ]
+          },
+          "response_content": "{\"errors\":[{\"category\":\"accuracy/omission\",\"severity\":\"major\",\"quote\":{\"side\":\"source\",\"text\":\"入口でユナさんに青い封筒を渡してください。\",\"occurrence\":1},\"explanation\":\"The entire instruction to give Yuna the blue envelope at the entrance is omitted.\"}]}",
+          "result_sha256": "934eb4a7696f74e726b4cf4a6a80d49698ef6ea451bb08dd96409ec2bde99060",
+          "raw_envelope_sha256": "061be38f8db070a3239e5c8579b44010e4e1cfd044fd73587587b8a9db2360f7",
+          "model_identity_evidence": {
+            "event_index": 72,
+            "event_type": "response.completed",
+            "model": "gpt-6-astra",
+            "requested_model": "gpt-6-astra",
+            "response_id": "resp_03be1d6c0db23b09016ae1286d2f6c8191bfaea1d61c2ea422",
+            "source": "raw inference response.model"
+          },
+          "model_identity_event_verified": true,
+          "bridge": {
+            "inference_posts": 1,
+            "isolation": {
+              "agent_runtime": false,
+              "conversation_messages": 1,
+              "fresh_process": true,
+              "inherited_instructions": false,
+              "maximum_inference_posts": 1,
+              "service_tier": "default",
+              "tools": 0
+            },
+            "payload_isolation_checked": true,
+            "requested_model": "gpt-6-astra",
+            "route": "Sign in with ChatGPT",
+            "runtime": "bun 1.3.14",
+            "sdk": "@oh-my-pi/pi-ai",
+            "sdk_version": "18.12.3"
+          },
+          "isolation_verified": true,
+          "validated_result_matches_raw_content": true,
+          "started_utc": "2026-10-27T22:40:41.381286+00:00",
+          "ended_utc": "2026-10-27T22:40:44.659558+00:00",
+          "observed_start_utc": "2026-10-27T22:40:41.418Z",
+          "observed_end_utc": "2026-10-27T22:40:44.641Z",
+          "reason": null,
+          "cached_on_live_dispatch": false,
+          "raw_artifact": {
+            "database": ".data\\r6-judge\\stores\\ja-important-omission/quality.sqlite",
+            "table": "calls",
+            "id": 1
+          },
+          "job_artifact": {
+            "database": ".data\\r6-judge\\stores\\ja-important-omission/quality.sqlite",
+            "table": "settings",
+            "key": "r4_job:da586d28b3e9d71d7ace70fcd47cef07698ca07c8b6696436744deefb41aa1ff"
+          }
+        },
+        {
+          "id": 2,
+          "stage": "score",
+          "state": "completed",
+          "actual_model": "gpt-6-astra",
+          "input_hash": "5c97b08d3837aa280f563328e06f9995d7ba05e9eaf2ff28e11656d8bcc4f441",
+          "prompt_hash": "4c810882d27c6e35a1115d18979e0b825d707a3ccacbd6106aaf4f1d7f45c424",
+          "request_sha256": "94b4449efe9984c83d8fbf22dcad7664b851890a219dc4fc1c222eeb175a87ea",
+          "result": {
+            "score": 48
+          },
+          "response_content": "{\"score\":48}",
+          "result_sha256": "4fce3f4b8f17ac1a26037f06c0000c8119bc5c7c6e400d62b4aae7fd0a40615a",
+          "raw_envelope_sha256": "573d2d1e47e8c5dc8ba6f236c7e0237c8ea040d8ce011a3855c40dd47de3448b",
+          "model_identity_evidence": {
+            "event_index": 13,
+            "event_type": "response.completed",
+            "model": "gpt-6-astra",
+            "requested_model": "gpt-6-astra",
+            "response_id": "resp_08c86ee564abddc4016ae1287061208191be78cc3128374be0",
+            "source": "raw inference response.model"
+          },
+          "model_identity_event_verified": true,
+          "bridge": {
+            "inference_posts": 1,
+            "isolation": {
+              "agent_runtime": false,
+              "conversation_messages": 1,
+              "fresh_process": true,
+              "inherited_instructions": false,
+              "maximum_inference_posts": 1,
+              "service_tier": "default",
+              "tools": 0
+            },
+            "payload_isolation_checked": true,
+            "requested_model": "gpt-6-astra",
+            "route": "Sign in with ChatGPT",
+            "runtime": "bun 1.3.14",
+            "sdk": "@oh-my-pi/pi-ai",
+            "sdk_version": "18.12.3"
+          },
+          "isolation_verified": true,
+          "validated_result_matches_raw_content": true,
+          "started_utc": "2026-10-27T22:40:44.669582+00:00",
+          "ended_utc": "2026-10-27T22:40:46.561969+00:00",
+          "observed_start_utc": "2026-10-27T22:40:44.704Z",
+          "observed_end_utc": "2026-10-27T22:40:46.547Z",
+          "reason": null,
+          "cached_on_live_dispatch": false,
+          "raw_artifact": {
+            "database": ".data\\r6-judge\\stores\\ja-important-omission/quality.sqlite",
+            "table": "calls",
+            "id": 2
+          },
+          "job_artifact": {
+            "database": ".data\\r6-judge\\stores\\ja-important-omission/quality.sqlite",
+            "table": "settings",
+            "key": "r4_job:4c810882d27c6e35a1115d18979e0b825d707a3ccacbd6106aaf4f1d7f45c424"
+          }
+        }
+      ]
+    },
+    {
+      "label": "repeat-en-minor-error",
+      "case_id": "en-minor-error",
+      "independent_repeat": true,
+      "data": {
+        "source_language": "en",
+        "target_language": "zh",
+        "source": "Maya gave Leo the red notebook yesterday. Keep it in the locked drawer until Friday.",
+        "output": "昨天玛雅把红色笔记本交给了利奥。周五之前请一直把它放在上锁的抽屉里里。",
+        "context": []
+      },
+      "score_evidence_origin": "original selected error result",
+      "score_evidence": {
+        "errors": [
+          {
+            "category": "fluency/spelling",
+            "severity": "minor",
+            "quote": {
+              "side": "output",
+              "text": "里里",
+              "occurrence": 1
+            },
+            "explanation": "The character “里” is accidentally duplicated; “抽屉里” is correct. The meaning remains clear."
+          }
+        ]
+      },
+      "stages": [
+        {
+          "id": 1,
+          "stage": "errors",
+          "state": "completed",
+          "actual_model": "gpt-6-astra",
+          "input_hash": "4937303cca7fc876937022341c0a7fe122c1d8e88a3f39596b1c7b1ed84ea1ec",
+          "prompt_hash": "4b17f0c9e222b60a91188eb17816d4b1b4aa40207926424471e12b45bf6d2277",
+          "request_sha256": "7b229a9cc03ecf0a83135b0c2aff42928691c7c631a5290999ad158145f9d079",
+          "result": {
+            "errors": [
+              {
+                "category": "fluency/spelling",
+                "explanation": "The character “里” is accidentally duplicated; “抽屉里” is correct. The meaning remains understandable.",
+                "quote": {
+                  "occurrence": 1,
+                  "side": "output",
+                  "text": "里里"
+                },
+                "severity": "minor"
+              }
+            ]
+          },
+          "response_content": "{\"errors\":[{\"category\":\"fluency/spelling\",\"severity\":\"minor\",\"quote\":{\"side\":\"output\",\"text\":\"里里\",\"occurrence\":1},\"explanation\":\"The character “里” is accidentally duplicated; “抽屉里” is correct. The meaning remains understandable.\"}]}",
+          "result_sha256": "a682144fe3948c54a401bd098e34a8a54d5b7a7bacbbb1c1cb91a22e45d13975",
+          "raw_envelope_sha256": "4f1a6bb3988f268b74239eba43a6d68e65198b3634959ae05dfd46ef3a08688e",
+          "model_identity_evidence": {
+            "event_index": 66,
+            "event_type": "response.completed",
+            "model": "gpt-6-astra",
+            "requested_model": "gpt-6-astra",
+            "response_id": "resp_0445bd0e454f72a6016ae1287243108191b5cd0525fe6e8775",
+            "source": "raw inference response.model"
+          },
+          "model_identity_event_verified": true,
+          "bridge": {
+            "inference_posts": 1,
+            "isolation": {
+              "agent_runtime": false,
+              "conversation_messages": 1,
+              "fresh_process": true,
+              "inherited_instructions": false,
+              "maximum_inference_posts": 1,
+              "service_tier": "default",
+              "tools": 0
+            },
+            "payload_isolation_checked": true,
+            "requested_model": "gpt-6-astra",
+            "route": "Sign in with ChatGPT",
+            "runtime": "bun 1.3.14",
+            "sdk": "@oh-my-pi/pi-ai",
+            "sdk_version": "18.12.3"
+          },
+          "isolation_verified": true,
+          "validated_result_matches_raw_content": true,
+          "started_utc": "2026-10-27T22:40:46.579407+00:00",
+          "ended_utc": "2026-10-27T22:40:49.581347+00:00",
+          "observed_start_utc": "2026-10-27T22:40:46.614Z",
+          "observed_end_utc": "2026-10-27T22:40:49.564Z",
+          "reason": null,
+          "cached_on_live_dispatch": false,
+          "raw_artifact": {
+            "database": ".data\\r6-judge\\stores\\repeat-en-minor-error/quality.sqlite",
+            "table": "calls",
+            "id": 1
+          },
+          "job_artifact": {
+            "database": ".data\\r6-judge\\stores\\repeat-en-minor-error/quality.sqlite",
+            "table": "settings",
+            "key": "r4_job:4b17f0c9e222b60a91188eb17816d4b1b4aa40207926424471e12b45bf6d2277"
+          }
+        },
+        {
+          "id": 2,
+          "stage": "score",
+          "state": "completed",
+          "actual_model": "gpt-6-astra",
+          "input_hash": "28bddf63cb8be6bbd9c52db2405f73ffa4f4854e69e5c69df1f878aed83ab557",
+          "prompt_hash": "7393476685c9d60112bd2f95b8fd447f49cbffce6c21cb7475a1ea774b522360",
+          "request_sha256": "85cfb2ba53b2d3b9daeae80f747d2dfde827d0a6773e31a4201ca7c7fc755d6a",
+          "result": {
+            "score": 97
+          },
+          "response_content": "{\"score\":97}",
+          "result_sha256": "9492419fd10048a4b945d505060790a010c6e17b6e0ff7a29a2912bd7288d6c5",
+          "raw_envelope_sha256": "ee247fd365384a9c70e9a9883c06b1c7afe09197ed806b9a87074f1674266646",
+          "model_identity_evidence": {
+            "event_index": 13,
+            "event_type": "response.completed",
+            "model": "gpt-6-astra",
+            "requested_model": "gpt-6-astra",
+            "response_id": "resp_0a042cbed687c5b2016ae1287527ac8191a7da9bd806c3376e",
+            "source": "raw inference response.model"
+          },
+          "model_identity_event_verified": true,
+          "bridge": {
+            "inference_posts": 1,
+            "isolation": {
+              "agent_runtime": false,
+              "conversation_messages": 1,
+              "fresh_process": true,
+              "inherited_instructions": false,
+              "maximum_inference_posts": 1,
+              "service_tier": "default",
+              "tools": 0
+            },
+            "payload_isolation_checked": true,
+            "requested_model": "gpt-6-astra",
+            "route": "Sign in with ChatGPT",
+            "runtime": "bun 1.3.14",
+            "sdk": "@oh-my-pi/pi-ai",
+            "sdk_version": "18.12.3"
+          },
+          "isolation_verified": true,
+          "validated_result_matches_raw_content": true,
+          "started_utc": "2026-10-27T22:40:49.585854+00:00",
+          "ended_utc": "2026-10-27T22:40:51.444764+00:00",
+          "observed_start_utc": "2026-10-27T22:40:49.622Z",
+          "observed_end_utc": "2026-10-27T22:40:51.424Z",
+          "reason": null,
+          "cached_on_live_dispatch": false,
+          "raw_artifact": {
+            "database": ".data\\r6-judge\\stores\\repeat-en-minor-error/quality.sqlite",
+            "table": "calls",
+            "id": 2
+          },
+          "job_artifact": {
+            "database": ".data\\r6-judge\\stores\\repeat-en-minor-error/quality.sqlite",
+            "table": "settings",
+            "key": "r4_job:7393476685c9d60112bd2f95b8fd447f49cbffce6c21cb7475a1ea774b522360"
+          }
+        }
+      ]
+    },
+    {
+      "label": "repeat-ja-important-omission",
+      "case_id": "ja-important-omission",
+      "independent_repeat": true,
+      "data": {
+        "source_language": "ja",
+        "target_language": "ko",
+        "source": "明日の会議は午後三時に始まります。入口でユナさんに青い封筒を渡してください。",
+        "output": "내일 회의는 오후 세 시에 시작합니다.",
+        "context": []
+      },
+      "score_evidence_origin": "original selected error result",
+      "score_evidence": {
+        "errors": [
+          {
+            "category": "accuracy/omission",
+            "severity": "major",
+            "quote": {
+              "side": "source",
+              "text": "入口でユナさんに青い封筒を渡してください。",
+              "occurrence": 1
+            },
+            "explanation": "The entire instruction to give Yuna the blue envelope at the entrance is omitted."
+          }
+        ]
+      },
+      "stages": [
+        {
+          "id": 1,
+          "stage": "errors",
+          "state": "completed",
+          "actual_model": "gpt-6-astra",
+          "input_hash": "75559e28b4c2a226bf33d2296aa44c3109f2027395977b5c644d738fa99482e5",
+          "prompt_hash": "da586d28b3e9d71d7ace70fcd47cef07698ca07c8b6696436744deefb41aa1ff",
+          "request_sha256": "0316efc4576b8369507158a8675db1429648b9a0aea0c059dc399d8973492962",
+          "result": {
+            "errors": [
+              {
+                "category": "accuracy/omission",
+                "explanation": "The entire instruction to hand the blue envelope to Yuna at the entrance is omitted.",
+                "quote": {
+                  "occurrence": 1,
+                  "side": "source",
+                  "text": "入口でユナさんに青い封筒を渡してください。"
+                },
+                "severity": "major"
+              }
+            ]
+          },
+          "response_content": "{\"errors\":[{\"category\":\"accuracy/omission\",\"severity\":\"major\",\"quote\":{\"side\":\"source\",\"text\":\"入口でユナさんに青い封筒を渡してください。\",\"occurrence\":1},\"explanation\":\"The entire instruction to hand the blue envelope to Yuna at the entrance is omitted.\"}]}",
+          "result_sha256": "5ce86974636786b207542f91454a3784c97d5e1ac1e7b0dbe2239bb80e30c91f",
+          "raw_envelope_sha256": "8fb506fc155abf1e7df88f963eedf50c34866ec5a359569e7863ccfbe0ee76b7",
+          "model_identity_evidence": {
+            "event_index": 73,
+            "event_type": "response.completed",
+            "model": "gpt-6-astra",
+            "requested_model": "gpt-6-astra",
+            "response_id": "resp_0a5f3f1e04746023016ae128771dbc8191a806e96e9f68a7e4",
+            "source": "raw inference response.model"
+          },
+          "model_identity_event_verified": true,
+          "bridge": {
+            "inference_posts": 1,
+            "isolation": {
+              "agent_runtime": false,
+              "conversation_messages": 1,
+              "fresh_process": true,
+              "inherited_instructions": false,
+              "maximum_inference_posts": 1,
+              "service_tier": "default",
+              "tools": 0
+            },
+            "payload_isolation_checked": true,
+            "requested_model": "gpt-6-astra",
+            "route": "Sign in with ChatGPT",
+            "runtime": "bun 1.3.14",
+            "sdk": "@oh-my-pi/pi-ai",
+            "sdk_version": "18.12.3"
+          },
+          "isolation_verified": true,
+          "validated_result_matches_raw_content": true,
+          "started_utc": "2026-10-27T22:40:51.459126+00:00",
+          "ended_utc": "2026-10-27T22:40:54.028654+00:00",
+          "observed_start_utc": "2026-10-27T22:40:51.494Z",
+          "observed_end_utc": "2026-10-27T22:40:54.010Z",
+          "reason": null,
+          "cached_on_live_dispatch": false,
+          "raw_artifact": {
+            "database": ".data\\r6-judge\\stores\\repeat-ja-important-omission/quality.sqlite",
+            "table": "calls",
+            "id": 1
+          },
+          "job_artifact": {
+            "database": ".data\\r6-judge\\stores\\repeat-ja-important-omission/quality.sqlite",
+            "table": "settings",
+            "key": "r4_job:da586d28b3e9d71d7ace70fcd47cef07698ca07c8b6696436744deefb41aa1ff"
+          }
+        },
+        {
+          "id": 2,
+          "stage": "score",
+          "state": "completed",
+          "actual_model": "gpt-6-astra",
+          "input_hash": "5c97b08d3837aa280f563328e06f9995d7ba05e9eaf2ff28e11656d8bcc4f441",
+          "prompt_hash": "4c810882d27c6e35a1115d18979e0b825d707a3ccacbd6106aaf4f1d7f45c424",
+          "request_sha256": "94b4449efe9984c83d8fbf22dcad7664b851890a219dc4fc1c222eeb175a87ea",
+          "result": {
+            "score": 48
+          },
+          "response_content": "{\"score\":48}",
+          "result_sha256": "4fce3f4b8f17ac1a26037f06c0000c8119bc5c7c6e400d62b4aae7fd0a40615a",
+          "raw_envelope_sha256": "2b24a96ae2b079dc120975204226875889ab802cfbc2e65f34c325a0c5c56cc7",
+          "model_identity_evidence": {
+            "event_index": 13,
+            "event_type": "response.completed",
+            "model": "gpt-6-astra",
+            "requested_model": "gpt-6-astra",
+            "response_id": "resp_077cca36ea2d8557016ae12879e0588191903b26acd517b086",
+            "source": "raw inference response.model"
+          },
+          "model_identity_event_verified": true,
+          "bridge": {
+            "inference_posts": 1,
+            "isolation": {
+              "agent_runtime": false,
+              "conversation_messages": 1,
+              "fresh_process": true,
+              "inherited_instructions": false,
+              "maximum_inference_posts": 1,
+              "service_tier": "default",
+              "tools": 0
+            },
+            "payload_isolation_checked": true,
+            "requested_model": "gpt-6-astra",
+            "route": "Sign in with ChatGPT",
+            "runtime": "bun 1.3.14",
+            "sdk": "@oh-my-pi/pi-ai",
+            "sdk_version": "18.12.3"
+          },
+          "isolation_verified": true,
+          "validated_result_matches_raw_content": true,
+          "started_utc": "2026-10-27T22:40:54.032654+00:00",
+          "ended_utc": "2026-10-27T22:40:56.156181+00:00",
+          "observed_start_utc": "2026-10-27T22:40:54.067Z",
+          "observed_end_utc": "2026-10-27T22:40:56.140Z",
+          "reason": null,
+          "cached_on_live_dispatch": false,
+          "raw_artifact": {
+            "database": ".data\\r6-judge\\stores\\repeat-ja-important-omission/quality.sqlite",
+            "table": "calls",
+            "id": 2
+          },
+          "job_artifact": {
+            "database": ".data\\r6-judge\\stores\\repeat-ja-important-omission/quality.sqlite",
+            "table": "settings",
+            "key": "r4_job:4c810882d27c6e35a1115d18979e0b825d707a3ccacbd6106aaf4f1d7f45c424"
+          }
+        }
+      ]
+    }
+  ],
+  "reused_r4": {
+    "path": "profiles/evidence/r4/minimal-judge-final.json",
+    "sha256": "995871df858eabab10a7f6602be2f850674b5dfc68de22ce4675b0e70a40d6c3",
+    "stage_identity_applicability": [
+      {
+        "stage": "errors",
+        "input_hash_matches": true,
+        "prompt_hash_matches": true
+      },
+      {
+        "stage": "score",
+        "input_hash_matches": true,
+        "prompt_hash_matches": true
+      }
+    ],
+    "raw_store_status": "Not available in current checkout; tracked retained result reused as original evidence only. No raw envelope fabricated/imported; no recall.",
+    "application_measurement": false,
+    "input": {
+      "data": {
+        "source_language": "en",
+        "target_language": "zh",
+        "source": "Do not buy 12 tickets.",
+        "output": "买二十张票。",
+        "context": []
+      },
+      "bindings": {
+        "source_binding": "task-owned-small-text",
+        "native_endpoint": "task-owned-translation",
+        "endpoint_stage": "translation_output",
+        "native_semantics": "single complete output",
+        "scope": "R4 minimal judge protocol proof; not an application result"
+      }
+    },
+    "stages": [
+      {
+        "id": 1,
+        "input_hash": "5dda2a7a6124acbbc967b013b3475f8fa3b585693056c1eb1dc5e01fb3d83c09",
+        "prompt_hash": "3c7a90126dde90ec88630fc1fe0eb610b9d5482327ec24946fb8026048af7b4e",
+        "actual_model": "gpt-6-astra",
+        "state": "completed",
+        "stage": "errors",
+        "result": {
+          "errors": [
+            {
+              "category": "accuracy/omission",
+              "explanation": "The negation is omitted, reversing a prohibition against buying tickets into an instruction to buy them.",
+              "quote": {
+                "occurrence": 1,
+                "side": "source",
+                "text": "Do not"
+              },
+              "severity": "major"
+            },
+            {
+              "category": "accuracy/mistranslation",
+              "explanation": "The quantity 12 is mistranslated as twenty.",
+              "quote": {
+                "occurrence": 1,
+                "side": "output",
+                "text": "二十"
+              },
+              "severity": "major"
+            }
+          ]
+        },
+        "result_sha256": "7e4cd36e8733fb536288b003f9a4c16a1a41e3b23439eb41f737d01c18c4f0d0",
+        "raw_envelope_sha256": "aee81ea434a5defa227973ab4fc36e8ab6752f1fddb6697df24b1fe61e9c8985",
+        "model_identity_evidence": {
+          "event_index": 106,
+          "event_type": "response.completed",
+          "model": "gpt-6-astra",
+          "requested_model": "gpt-6-astra",
+          "response_id": "resp_0d5a100bcc24283d016ae0c4d497348191bf619e00f4ce0e4e",
+          "source": "raw inference response.model"
+        },
+        "bridge": {
+          "inference_posts": 1,
+          "isolation": {
+            "agent_runtime": false,
+            "conversation_messages": 1,
+            "fresh_process": true,
+            "inherited_instructions": false,
+            "maximum_inference_posts": 1,
+            "service_tier": "default",
+            "tools": 0
+          },
+          "payload_isolation_checked": true,
+          "requested_model": "gpt-6-astra",
+          "route": "Sign in with ChatGPT",
+          "runtime": "bun 1.3.14",
+          "sdk": "@oh-my-pi/pi-ai",
+          "sdk_version": "18.12.3"
+        },
+        "observed_start_utc": "2026-10-27T15:35:46.997Z",
+        "observed_end_utc": "2026-10-27T15:35:52.667Z"
+      },
+      {
+        "id": 2,
+        "input_hash": "c057a4c50ada61475d62efd7ab4deab23ef0e870138944e976f644b661f43abc",
+        "prompt_hash": "96f6bdda38a32811d7742e06b5309db6b8b2849cc875cecdc27474667a199345",
+        "actual_model": "gpt-6-astra",
+        "state": "completed",
+        "stage": "score",
+        "result": {
+          "score": 25
+        },
+        "result_sha256": "d6300eca0d4a7f7dfc3ad69c89f1ab14e61e18cc6c1892bddf6f6234e02f74ce",
+        "raw_envelope_sha256": "43f7e1705c20f997dd0d37cb70cab2ae873409f7cba654af2519e584cd7a823a",
+        "model_identity_evidence": {
+          "event_index": 13,
+          "event_type": "response.completed",
+          "model": "gpt-6-astra",
+          "requested_model": "gpt-6-astra",
+          "response_id": "resp_09cc57628d5a6180016ae0c4da16b881918c02c77561da8048",
+          "source": "raw inference response.model"
+        },
+        "bridge": {
+          "inference_posts": 1,
+          "isolation": {
+            "agent_runtime": false,
+            "conversation_messages": 1,
+            "fresh_process": true,
+            "inherited_instructions": false,
+            "maximum_inference_posts": 1,
+            "service_tier": "default",
+            "tools": 0
+          },
+          "payload_isolation_checked": true,
+          "requested_model": "gpt-6-astra",
+          "route": "Sign in with ChatGPT",
+          "runtime": "bun 1.3.14",
+          "sdk": "@oh-my-pi/pi-ai",
+          "sdk_version": "18.12.3"
+        },
+        "observed_start_utc": "2026-10-27T15:35:52.727Z",
+        "observed_end_utc": "2026-10-27T15:35:54.953Z"
+      }
+    ],
+    "fresh_process_reuse": {
+      "status": "complete",
+      "call_ids": [
+        1,
+        2
+      ],
+      "call_count_before": 2,
+      "call_count_after": 2,
+      "both_cached": true,
+      "transport_supplied": false
+    },
+    "reuse_label": "Original retained R4 result only, not new R6 dispatch or restored raw archive.",
+    "candidate": "6848f3b052a3895849a635e2197e58c723cd182f",
+    "original_source_module_sha256": {
+      "bench/quality.py": "e0666ecd457c035e183d9bccb795ddfdcf6387e56e12bb342167e283b15d0ddc",
+      "bench/quality_prompts.py": "e8cf504ead9be1655f94a6d4caa560b4cc1cd17914aea1885db223fcbd53db95",
+      "bench/quality_bridge.mjs": "f24678320eef1e3c338eff19400466e64413f4859b16f33c92e006aa036e60d4"
+    }
+  },
+  "reused_component_scope": [
+    {
+      "behavior": "Protocol no-output zero without judge; missing input/output and invalid scope remain incomplete; stage failure not success.",
+      "evidence": "docs/benchmark-implementation-plan.md R4 lines 153-173 and docs/quality.md lines 24-36.",
+      "label": "Retained documented component observations; not newly exercised judge calls."
+    },
+    {
+      "behavior": "Same-meaning reconstruction/revisions, prior emitted page citations, role context, early interruption and cache preservation.",
+      "evidence": "docs/benchmark-implementation-plan.md R4 repair/review observations lines 155-171.",
+      "label": "Applicable prior component evidence; assembled-path admission remains with Director."
+    }
+  ],
+  "fresh_process_offline_reuse": {
+    "status": "complete",
+    "different_process": true,
+    "transport_supplied": false,
+    "total_call_count_before": 20,
+    "total_call_count_after": 20,
+    "all_rows_unchanged": true,
+    "all_completed_stages_cached": true,
+    "checks": [
+      {
+        "label": "en-accurate-paraphrase",
+        "call_ids": [
+          1,
+          2
+        ],
+        "call_count_before": 2,
+        "call_count_after": 2,
+        "rows_unchanged": true,
+        "raw_rows_sha256_before": "e7ea21f342f8d0b83928c7d9799c2d0588ceb02294ceeb89c8074dedde28a1b6",
+        "raw_rows_sha256_after": "e7ea21f342f8d0b83928c7d9799c2d0588ceb02294ceeb89c8074dedde28a1b6",
+        "transport_supplied": false,
+        "all_completed_stages_cached": true
+      },
+      {
+        "label": "en-minor-error",
+        "call_ids": [
+          1,
+          2
+        ],
+        "call_count_before": 2,
+        "call_count_after": 2,
+        "rows_unchanged": true,
+        "raw_rows_sha256_before": "16aa5c651c8660dafd2b51180cafd16273eab7ee2540a5dce38421514115f35e",
+        "raw_rows_sha256_after": "16aa5c651c8660dafd2b51180cafd16273eab7ee2540a5dce38421514115f35e",
+        "transport_supplied": false,
+        "all_completed_stages_cached": true
+      },
+      {
+        "label": "en-important-omission",
+        "call_ids": [
+          1,
+          2
+        ],
+        "call_count_before": 2,
+        "call_count_after": 2,
+        "rows_unchanged": true,
+        "raw_rows_sha256_before": "83cf94410fdbb6be7326a9687f24092a2bdee6e5e594bfc7a0a731d6bb017757",
+        "raw_rows_sha256_after": "83cf94410fdbb6be7326a9687f24092a2bdee6e5e594bfc7a0a731d6bb017757",
+        "transport_supplied": false,
+        "all_completed_stages_cached": true
+      },
+      {
+        "label": "en-actor-reversal",
+        "call_ids": [
+          1,
+          2
+        ],
+        "call_count_before": 2,
+        "call_count_after": 2,
+        "rows_unchanged": true,
+        "raw_rows_sha256_before": "79705736c4eec2547fa6652c6946594f394a01c3c89a41dc2ab5f499ab396532",
+        "raw_rows_sha256_after": "79705736c4eec2547fa6652c6946594f394a01c3c89a41dc2ab5f499ab396532",
+        "transport_supplied": false,
+        "all_completed_stages_cached": true
+      },
+      {
+        "label": "en-wrong-language",
+        "call_ids": [
+          1,
+          2
+        ],
+        "call_count_before": 2,
+        "call_count_after": 2,
+        "rows_unchanged": true,
+        "raw_rows_sha256_before": "d4f9eda349f06a166a870c06585e073aeafe95a98e6bbdc399780dfd7a6ff687",
+        "raw_rows_sha256_after": "d4f9eda349f06a166a870c06585e073aeafe95a98e6bbdc399780dfd7a6ff687",
+        "transport_supplied": false,
+        "all_completed_stages_cached": true
+      },
+      {
+        "label": "en-unrelated-output",
+        "call_ids": [
+          1,
+          2
+        ],
+        "call_count_before": 2,
+        "call_count_after": 2,
+        "rows_unchanged": true,
+        "raw_rows_sha256_before": "dcb2e16abd1a1f546963390de50c4d6da00c18ecd18de749121236b57e6f03ac",
+        "raw_rows_sha256_after": "dcb2e16abd1a1f546963390de50c4d6da00c18ecd18de749121236b57e6f03ac",
+        "transport_supplied": false,
+        "all_completed_stages_cached": true
+      },
+      {
+        "label": "ja-accurate-paraphrase",
+        "call_ids": [
+          1,
+          2
+        ],
+        "call_count_before": 2,
+        "call_count_after": 2,
+        "rows_unchanged": true,
+        "raw_rows_sha256_before": "beb24425c28a4931558a14fd6d8cb05553b81aab8933680b52301c55da8202e9",
+        "raw_rows_sha256_after": "beb24425c28a4931558a14fd6d8cb05553b81aab8933680b52301c55da8202e9",
+        "transport_supplied": false,
+        "all_completed_stages_cached": true
+      },
+      {
+        "label": "ja-important-omission",
+        "call_ids": [
+          1,
+          2
+        ],
+        "call_count_before": 2,
+        "call_count_after": 2,
+        "rows_unchanged": true,
+        "raw_rows_sha256_before": "706c310b0e8c6705fbf45d4b08e27e8fb9630956e44f59bad26789822304e50f",
+        "raw_rows_sha256_after": "706c310b0e8c6705fbf45d4b08e27e8fb9630956e44f59bad26789822304e50f",
+        "transport_supplied": false,
+        "all_completed_stages_cached": true
+      },
+      {
+        "label": "repeat-en-minor-error",
+        "call_ids": [
+          1,
+          2
+        ],
+        "call_count_before": 2,
+        "call_count_after": 2,
+        "rows_unchanged": true,
+        "raw_rows_sha256_before": "a7e4dcccba5a7445fc1b58e2bed60f824ffed1bf90754af644f64598ee1c6bda",
+        "raw_rows_sha256_after": "a7e4dcccba5a7445fc1b58e2bed60f824ffed1bf90754af644f64598ee1c6bda",
+        "transport_supplied": false,
+        "all_completed_stages_cached": true
+      },
+      {
+        "label": "repeat-ja-important-omission",
+        "call_ids": [
+          1,
+          2
+        ],
+        "call_count_before": 2,
+        "call_count_after": 2,
+        "rows_unchanged": true,
+        "raw_rows_sha256_before": "a96b490dc49d67f2261cdd559e025ee3a16c4c202dddfb4821f105962743b9ed",
+        "raw_rows_sha256_after": "a96b490dc49d67f2261cdd559e025ee3a16c4c202dddfb4821f105962743b9ed",
+        "transport_supplied": false,
+        "all_completed_stages_cached": true
+      }
+    ]
+  },
+  "verification_attempts": [
+    {
+      "operation": "fresh-process offline reuse",
+      "attempt": 1,
+      "outcome": "task_local_driver_error",
+      "error": "TypeError: 'QualityStore' object does not support the context manager protocol",
+      "dispatch": "No StageJudge call or external inference in this failed offline process.",
+      "repair": "Task-local reader now uses contextlib.closing; product sources unchanged."
+    },
+    {
+      "operation": "fresh-process offline reuse",
+      "attempt": 2,
+      "outcome": "complete",
+      "dispatch": "No transport; all 20 stages cached and raw rows unchanged."
+    }
+  ],
+  "retention": {
+    "raw_calls": ".data/r6-judge/stores/<sample-label>/quality.sqlite calls rows and immutable r4_job settings.",
+    "live_results": ".data/r6-judge/live-results.json",
+    "offline_results": ".data/r6-judge/offline-cache-reuse.json",
+    "execution_report": ".data/r6-judge/execution-report.json (commands, retained driver failure, proposed docs)",
+    "hash_encoding": "SHA-256 of UTF-8 JSON, ensure_ascii=false, sorted keys, compact separators, nonfinite values forbidden.",
+    "raw_export_policy": "Full task-owned results/model evidence are public-safe; raw inference events and local transport/auth paths remain only in local stores. No fabricated R4 raw envelopes."
+  },
+  "limits": [
+    "Tiny task-owned texts, not application output or corpus samples; no all-profile or production-freeze admission.",
+    "Only EN→ZH six contrasts and JA→KO accurate/important-omission pair; not exhaustive language-pair taxonomy validation.",
+    "Two selected cases repeated once each. Observed variation is descriptive, not a variance estimate or general calibration.",
+    "Score repeats fix original accepted error evidence to preserve exact prompts; newly generated repeat error results remain separately retained and are not tuned into that score prompt.",
+    "No prompt changes, score deductions/caps, retries, human-validation claim, paid fallback, tone30/Korean100/MetricX restoration."
+  ]
+}

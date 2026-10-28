@@ -1,0 +1,180 @@
+{
+  "kind": "r6-execution-identity-repair-evidence",
+  "baseline": "459889f45332c8bd4932658a5f56245e28691ac8",
+  "findings": [
+    "R6-F1",
+    "R6-F2"
+  ],
+  "changed_surfaces": [
+    "bench/history.py",
+    "bench/quality.py",
+    "tests/test_history.py",
+    "tests/test_episode_quality.py"
+  ],
+  "result": "Selected or uniquely inferred execution identity requires actual membership; canonical condition validation ignores explicitly conflicting run/wave records while preserving selected wrong-route rejection.",
+  "verification": {
+    "focused_tests": {
+      "command": "python -m pytest tests/test_history.py tests/test_episode_quality.py -q -p no:cacheprovider --basetemp .data/r6-repair/pytest-final",
+      "exit_code": 0,
+      "outcome": "244 passed in 5.71s"
+    },
+    "cli": [
+      {
+        "field": "run",
+        "scenario": "unrelated_wrong_route",
+        "command": [
+          "python",
+          "-B",
+          "-m",
+          "bench.cli",
+          "quality",
+          "--spec",
+          ".data/r6-repair\\identity-cli-run-unrelated_wrong_route\\spec.json",
+          "--output",
+          ".data/r6-repair\\identity-cli-run-unrelated_wrong_route\\result.json"
+        ],
+        "exit_code": 2,
+        "stderr": "",
+        "sources_unchanged": true,
+        "quality_status": "not_judged",
+        "history_text": "不要买十二张票。",
+        "observed_text": "不要买十二张票。",
+        "reasons": [],
+        "calls": 0
+      },
+      {
+        "field": "run",
+        "scenario": "missing_identity",
+        "command": [
+          "python",
+          "-B",
+          "-m",
+          "bench.cli",
+          "quality",
+          "--spec",
+          ".data/r6-repair\\identity-cli-run-missing_identity\\spec.json",
+          "--output",
+          ".data/r6-repair\\identity-cli-run-missing_identity\\result.json"
+        ],
+        "exit_code": 2,
+        "stderr": "",
+        "sources_unchanged": true,
+        "quality_status": "unknown_output",
+        "history_text": null,
+        "observed_text": "不要买十二张票。",
+        "reasons": [
+          "missing_run"
+        ],
+        "calls": 0
+      },
+      {
+        "field": "run",
+        "scenario": "selected_wrong_route",
+        "command": [
+          "python",
+          "-B",
+          "-m",
+          "bench.cli",
+          "quality",
+          "--spec",
+          ".data/r6-repair\\identity-cli-run-selected_wrong_route\\spec.json",
+          "--output",
+          ".data/r6-repair\\identity-cli-run-selected_wrong_route\\result.json"
+        ],
+        "exit_code": 2,
+        "stderr": "bench: Native role/channel evidence contradicts the authoritative measurement condition\n",
+        "sources_unchanged": true,
+        "result_written": false
+      },
+      {
+        "field": "wave",
+        "scenario": "unrelated_wrong_route",
+        "command": [
+          "python",
+          "-B",
+          "-m",
+          "bench.cli",
+          "quality",
+          "--spec",
+          ".data/r6-repair\\identity-cli-wave-unrelated_wrong_route\\spec.json",
+          "--output",
+          ".data/r6-repair\\identity-cli-wave-unrelated_wrong_route\\result.json"
+        ],
+        "exit_code": 2,
+        "stderr": "",
+        "sources_unchanged": true,
+        "quality_status": "not_judged",
+        "history_text": "不要买十二张票。",
+        "observed_text": "不要买十二张票。",
+        "reasons": [],
+        "calls": 0
+      },
+      {
+        "field": "wave",
+        "scenario": "missing_identity",
+        "command": [
+          "python",
+          "-B",
+          "-m",
+          "bench.cli",
+          "quality",
+          "--spec",
+          ".data/r6-repair\\identity-cli-wave-missing_identity\\spec.json",
+          "--output",
+          ".data/r6-repair\\identity-cli-wave-missing_identity\\result.json"
+        ],
+        "exit_code": 2,
+        "stderr": "",
+        "sources_unchanged": true,
+        "quality_status": "unknown_output",
+        "history_text": null,
+        "observed_text": "不要买十二张票。",
+        "reasons": [
+          "missing_wave"
+        ],
+        "calls": 0
+      },
+      {
+        "field": "wave",
+        "scenario": "selected_wrong_route",
+        "command": [
+          "python",
+          "-B",
+          "-m",
+          "bench.cli",
+          "quality",
+          "--spec",
+          ".data/r6-repair\\identity-cli-wave-selected_wrong_route\\spec.json",
+          "--output",
+          ".data/r6-repair\\identity-cli-wave-selected_wrong_route\\result.json"
+        ],
+        "exit_code": 2,
+        "stderr": "bench: Native role/channel evidence contradicts the authoritative measurement condition\n",
+        "sources_unchanged": true,
+        "result_written": false
+      }
+    ]
+  },
+  "prior_attempts": [
+    {
+      "outcome": "69 passed, 175 fixture setup errors",
+      "cause": "pytest basetemp parent did not exist; created shared primary-checkout evidence root before retry",
+      "raw_tool_artifact": "artifact://120"
+    },
+    {
+      "outcome": "239 passed, 5 failed",
+      "cause": "Four new test expectations incorrectly demanded run/wave exclusion reason despite earlier channel mismatch; replaced with exact excluded-event identity plus existing channel reason. One existing positive fixture omitted output run while its selected diagnostic established run identity; repaired output fixture to carry actual controlled-run membership, preserving score assertion.",
+      "retained_file": ".data/r6-repair/identity-focused-tests-first-product-run.json"
+    }
+  ],
+  "evidence_limits": [
+    "Synthetic authored sources only; no provider, audio, live judge, Git mutation, or historical rejudgment.",
+    "Successful scope CLI intentionally has no transport and reaches not_judged rather than claiming a completed judgment.",
+    "Raw event/source/spec bytes remain unchanged across all six CLI cases; zero calls recorded.",
+    "Missing execution identity remains auditable raw evidence but cannot enter observed_text or final judge input.",
+    "No full-suite or type-check claim."
+  ],
+  "integration_owner": "Director",
+  "local_evidence": ".data/r6-repair/identity-cli-execution-local.json",
+  "path_base": "Local .data paths in this redacted record are under the primary main checkout, not the linked worktree; exact absolute commands remain in the private execution receipt."
+}

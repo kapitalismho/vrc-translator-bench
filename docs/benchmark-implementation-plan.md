@@ -194,6 +194,82 @@ Bounded repair review verified the original three counterexamples closed, then f
 
 PR #29's Codex review found a related whole-pass gap: when selected split pass B had no usable trace/window, population replay totals summed only surviving A. The bounded repair separates observed-window coverage from input/billing completeness, returning null totals for missing expected windows while retaining known per-window durations, charges and logical time. Five missing-window/selection cases failed before the fix; thirteen new negative/positive cases preserve complete split/simultaneous, known partial, missing-bill and preparation behavior. The five affected cost suites passed **196 tests in 4.64 seconds**, and `compileall` passed. Two fresh actual CLI invocations retained missing-B totals as null with A's $0.01 known subtotal, while the full split control remained $0.03/$1.80 per hour. The [public-safe execution record](../profiles/evidence/r5/missing-pass-repair.json) preserves fixture/assertion corrections and synthetic/runtime limits.
 
+### R6 integration progress and blocked production freeze
+
+R6 starts at `9fec31d6824f74cbb3fe9c3250472984db8e8fb7`. The
+[fourteen-profile inventory](../profiles/evidence/r6/admission.json) keeps
+quality and timing admission separate. Six retained ordinary EN→ZH feasibility
+checks do not admit other profiles, languages, T1 conditions or complete waves.
+No production freeze or main-run authorization is claimed.
+
+The accepted R2/R3 inputs were created and reviewed, but their ignored local
+handoff trees disappeared from their recorded locations. Original worktree-manager
+traces record successful removal of R2 at `2026-10-27T07:04:15.532Z` and R3 at
+`2026-10-27T14:25:28.749Z`, after their respective merges. The PRs retained code
+and status, not ignored audio/reference bodies. This establishes a later
+preservation failure, not missing original production/review; it does not identify
+the initiating actor or prove irreversible disk loss.
+
+The subsequent [final-main recovery](corpus.md#local-recovery-and-current-data-availability)
+restored original R2 media and identifiable metadata under the primary checkout's
+`.data/`. Unavailable reference bodies are explicit new recovery revisions, not
+falsely claimed original bytes. The owner separately authorized new TTS and narrowed
+it to nine final-main first takes only, excluding pilot/development, variability
+and retries. All nine completed; no additional production is authorized.
+Independent source/core review at `1b8ce661f17b211fbe940b036fb3009ab30b4b25`
+and full consumer-mapping review at `c1b19bb98b11af7972e00de4e4bd844cc056568d`
+support separate Director source/reference adoption receipts. The final index
+contains 60 main episodes plus two separate C1 controls, preserving original
+selection and weights. Actual unchanged-consumer ingestion covers 78 roles and
+121 checkpoints but has 78 missing attempts and zero judge calls. It establishes
+usable final inputs, not actual app quality/wait/cost or all-profile admission;
+the original development-input and native measurement obligations remain unmet.
+
+The [selected-route contrasts](../profiles/evidence/r6/judge-contrasts.json)
+retain eight preselected EN→ZH/JA→KO cases and two independent repeats, with
+20 completed error/score calls returning `gpt-6-astra`. All six preselected
+ordinal comparisons held; the two repeated scores were unchanged. Their
+score-stage repeats deliberately retain the original error evidence to keep
+the complete score prompt identical. This small check is not a general
+variance bound or human validation. A fresh process without transport reused
+all 20 stages without adding or changing calls. R4's unchanged final
+negation/number result remains prior evidence, not a new call.
+
+The retained-history integration exposed an actual CLI failure: standalone
+`run`/`wave` identity, required by cost attribution, was forwarded to a history
+API that rejected it. History now selects those identities instead of dropping
+them; conflicting executions are excluded and ambiguous unselected identities
+stay unknown. The same frozen retained-input specification subsequently
+produced an explicitly incomplete common report rather than a traceback.
+The subsequent execution-identity repair passed 244 focused tests and six actual
+offline CLI cases. Those checks do not replace actual development-input,
+device/app, split-pass and all-profile admission evidence.
+
+The [retained-input join](../profiles/evidence/r6/retained-integration.json)
+binds the exact earlier AMI 34–74-second input crop, nine manual dialogue acts
+with their original uncertainty, and ten PP4 native emissions to two real
+selected-route judge calls. Its observed-output detail score is 81, not a
+profile ranking: integrated quality remains null with 0.95 missing weight,
+both p50/p90 remain incomplete, and app cost remains pending/null. The cost
+revision retains one 40-second logical timeline without inventing billing or
+historical wall-clock windows. A separate fresh-process offline evaluation
+reused both calls. Controlled split-self examples separately preserve
+no-output zero versus invalid/null, and once-counted logical time; these are
+not real Kikitan/VRCLT admission evidence.
+
+All task-created persistent data now uses the primary checkout's `.data/`, with
+CLI defaults and explicit relative `.data` paths resolving there and linked-worktree
+outputs rejected before side effects. The [path repair record](../profiles/evidence/r6/main-data-root-repair.json)
+retains failing-before/passing-after checks and actual CLI/symlink smoke evidence.
+Primary-checkout code was not merged or reset during local recovery. Original bytes
+and hashes remain preserved, and a source-bearing private backup is not permission
+to publish those files. The owner subsequently requested publication, merge and
+issue closure after being informed that the original R6 criteria remained unmet.
+Record the completed recovery and the outstanding development/native integration,
+fourteen-profile admission and production-freeze requirements on issue #20 before
+closing it as not planned, not as a completed benchmark. This disposition does not
+authorize production measurement or deletion of local data, branches or worktrees.
+
 ### What “through issue #8” means
 
 - Before replacement, issues #2–#7 were closed on their respective amended preparation/implementation scopes, while #1, #8 and #9–#11 were open. No linked Project items or repository Actions workflows were returned. The publication record above supersedes their page-existence/status information, not the historical implementation facts.

@@ -31,7 +31,8 @@ import json
 _SCOPE = {"episode_id": ("episode_id",), "profile": ("profile",),
           "attempt": ("attempt", "attempt_id", "source_attempt"),
           "pass_id": ("pass_id",), "input_channel": ("input_channel",),
-          "clock_session": ("clock_session",), "target_language": ("target_language",)}
+          "clock_session": ("clock_session",), "target_language": ("target_language",),
+          "run": ("run",), "wave": ("wave",)}
 _NON_OUTPUT = {"transcript", "session_state_changed", "/chatbox/typing",
                "translation.started", "translation.failed", "chatbox.sent"}
 
@@ -133,7 +134,7 @@ def _text(event, interpretation):
 def reconstruct_history(events, *, role, cutoff_ns=None, clock_session=None,
                         episode=None, profile=None, attempt=None, pass_id=None,
                         channel=None, horizon_ns=None, target_language=None,
-                        interpretations=None):
+                        interpretations=None, run=None, wave=None):
     """Return JSON-serializable history without modifying native input.
 
     Unselected scope values are inferred only when unambiguous. Missing role,
@@ -173,7 +174,7 @@ def reconstruct_history(events, *, role, cutoff_ns=None, clock_session=None,
 
     scope = {"episode_id": episode, "profile": profile, "attempt": attempt,
              "pass_id": pass_id, "input_channel": channel, "clock_session": clock_session,
-             "target_language": target_language}
+             "target_language": target_language, "run": run, "wave": wave}
     selected, excluded, reasons = [], [], []
     for index, event in enumerate(rows):
         interpretation = by_index.get(index, {})
@@ -276,6 +277,8 @@ def reconstruct_history(events, *, role, cutoff_ns=None, clock_session=None,
         missing = conflicts + ["missing_" + name for name in
                                ("episode_id", "profile", "attempt", "pass_id", "input_channel", "target_language")
                                if actual[name] is None]
+        missing.extend("missing_" + name for name in ("run", "wave")
+                       if scope[name] is not None and actual[name] is None)
         if actual_role is None:
             missing.append("role_extraction_unknown")
         if actual["clock_session"] is None and cutoff_ns is not None and not interpretation.get("event_time_interval"):

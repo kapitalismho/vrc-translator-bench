@@ -18,6 +18,7 @@ import uuid
 from .adapter import OperationalError, ProductError
 from .kikitan_runtime import WindowsRuntime, protect, restore_config
 from .native_transports import KIKITAN_URL, kikitan_endpoint
+from .paths import DataPathError, DataPaths
 from .storage import RunLock, atomic_json, digest
 
 
@@ -493,6 +494,10 @@ def main(argv=None):
     parser.add_argument("--executable", type=Path, required=True)
     parser.add_argument("--profile", choices=("KIKI1", "KIKI2"), required=True)
     args = parser.parse_args(argv)
+    try:
+        args.directory = DataPaths().output(args.directory)
+    except DataPathError as error:
+        parser.error(str(error))
     controller = None
     code = 0
     try:

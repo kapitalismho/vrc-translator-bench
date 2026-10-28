@@ -11,6 +11,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from .storage import atomic_json, digest
+from .paths import DataPathError, DataPaths
 
 
 def process_alive(pid):
@@ -348,7 +349,7 @@ class GuiOperator:
         raise ValueError("Unsupported GUI operator method")
 
 
-def main():
+def main(argv=None):
     parser = argparse.ArgumentParser()
     parser.add_argument("--directory", required=True)
     parser.add_argument("--owned-pid", type=int, required=True)
@@ -356,7 +357,14 @@ def main():
     parser.add_argument("--session", required=True)
     parser.add_argument("--record-observation", type=Path)
     parser.add_argument("--ack-sequence", type=int)
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
+    paths = DataPaths()
+    try:
+        args.directory = paths.output(args.directory)
+        if args.record_observation is not None:
+            args.record_observation = paths.input(args.record_observation)
+    except DataPathError as error:
+        parser.error(str(error))
     operator = GuiOperator(args.directory, args.owned_pid, args.profile, args.session)
     if args.record_observation:
         operator.record(args.record_observation, args.ack_sequence)

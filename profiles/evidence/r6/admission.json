@@ -1,0 +1,990 @@
+{
+  "schema_version": 1,
+  "issue": "https://github.com/kapitalismho/vrc-translator-bench/issues/20",
+  "status": "blocked_not_production_frozen",
+  "baseline": "9fec31d6824f74cbb3fe9c3250472984db8e8fb7",
+  "scope": "R6 evidence inventory and current admission gaps; not final all-profile acceptance",
+  "protocol": {
+    "authority": "docs/benchmark-final-plan.md",
+    "sha256": "5351c51e4d89c475d23a8e4917533b8ff62e3f022f1394085a8c9aa66f399073",
+    "weights_changed": false,
+    "models_or_routes_changed": false,
+    "waves_changed": false,
+    "vrchat_excluded": true
+  },
+  "profiles": [
+    {
+      "profile": "PP1",
+      "models": {
+        "translation": "Gemma 4 mixed 26B/31B / OpenRouter",
+        "asr": "Gemini 3.5 Transcribe",
+        "access": "Paid"
+      },
+      "condition": {
+        "ordinary_input": "peer",
+        "ordinary_directions": [
+          "en->zh",
+          "ja->ko"
+        ],
+        "t1_mode": "simultaneous",
+        "roles": {
+          "A": "peer",
+          "B": "self"
+        },
+        "t1_directions": {
+          "A": [
+            "en->zh",
+            "ja->ko"
+          ],
+          "B": [
+            "zh->en",
+            "ko->ja"
+          ]
+        },
+        "vrchat": "excluded"
+      },
+      "native_endpoint": {
+        "transport": "cli",
+        "path": "events follow --topic translation --include-translations",
+        "channels": {
+          "peer": "peer",
+          "self": "self"
+        }
+      },
+      "reused_early_feasibility": {
+        "confirmed": [],
+        "blockers": [],
+        "unverified": [
+          "ordinary/en-zh",
+          "ordinary/ja-ko",
+          "t1/en-zh/A",
+          "t1/en-zh/B",
+          "t1/ja-ko/A",
+          "t1/ja-ko/B"
+        ]
+      },
+      "quality_admission": {
+        "status": "unverified",
+        "reason": "No complete R6 profile-specific development-path evidence is available."
+      },
+      "time_admission": {
+        "status": "unverified",
+        "reason": "No complete R6 profile-specific observation/clock/condition evidence is available."
+      },
+      "remaining_checks": [
+        "Peer terms accepted:true at installed CLI instance afb4d2c0-63d0-4c06-b0fd-f588e64eed72 revision 4; no acceptance action needed/performed. GUI 2.9.1 open observed, not a pilot.",
+        "Set peer_stt separately to Gemini; prove actual peer input device, fixed languages, mixed 26B/31B policy, current provider access, full translation event roles, instance/gaps and receive-clock interval under authorized bounded smoke."
+      ]
+    },
+    {
+      "profile": "PP2",
+      "models": {
+        "translation": "GPT 6 Luna / Sign in with ChatGPT",
+        "asr": "Gemini 3.5 Transcribe",
+        "access": "Subscription + ASR usage"
+      },
+      "condition": {
+        "ordinary_input": "peer",
+        "ordinary_directions": [
+          "en->zh",
+          "ja->ko"
+        ],
+        "t1_mode": "simultaneous",
+        "roles": {
+          "A": "peer",
+          "B": "self"
+        },
+        "t1_directions": {
+          "A": [
+            "en->zh",
+            "ja->ko"
+          ],
+          "B": [
+            "zh->en",
+            "ko->ja"
+          ]
+        },
+        "vrchat": "excluded"
+      },
+      "native_endpoint": {
+        "transport": "cli",
+        "path": "events follow --topic translation --include-translations",
+        "channels": {
+          "peer": "peer",
+          "self": "self"
+        }
+      },
+      "reused_early_feasibility": {
+        "confirmed": [],
+        "blockers": [],
+        "unverified": [
+          "ordinary/en-zh",
+          "ordinary/ja-ko",
+          "t1/en-zh/A",
+          "t1/en-zh/B",
+          "t1/ja-ko/A",
+          "t1/ja-ko/B"
+        ]
+      },
+      "quality_admission": {
+        "status": "unverified",
+        "reason": "No complete R6 profile-specific development-path evidence is available."
+      },
+      "time_admission": {
+        "status": "unverified",
+        "reason": "No complete R6 profile-specific observation/clock/condition evidence is available."
+      },
+      "remaining_checks": [
+        "Peer terms accepted:true at installed CLI instance afb4d2c0-63d0-4c06-b0fd-f588e64eed72 revision 4; no acceptance action needed/performed. GUI 2.9.1 open observed, not a pilot.",
+        "Set peer_stt separately to Gemini; verify original GPT 6 Luna connection, actual peer capture/languages and bidirectional event request attribution. Preserve instance, gaps and receive-clock limits."
+      ]
+    },
+    {
+      "profile": "PP3",
+      "models": {
+        "translation": "Index Translator",
+        "asr": "Gemini 3.5 Transcribe",
+        "access": "Free as planned; ASR tier unverified"
+      },
+      "condition": {
+        "ordinary_input": "peer",
+        "ordinary_directions": [
+          "en->zh",
+          "ja->ko"
+        ],
+        "t1_mode": "simultaneous",
+        "roles": {
+          "A": "peer",
+          "B": "self"
+        },
+        "t1_directions": {
+          "A": [
+            "en->zh",
+            "ja->ko"
+          ],
+          "B": [
+            "zh->en",
+            "ko->ja"
+          ]
+        },
+        "vrchat": "excluded"
+      },
+      "native_endpoint": {
+        "transport": "cli",
+        "path": "events follow --topic translation --include-translations",
+        "channels": {
+          "peer": "peer",
+          "self": "self"
+        }
+      },
+      "reused_early_feasibility": {
+        "confirmed": [],
+        "blockers": [],
+        "unverified": [
+          "ordinary/en-zh",
+          "ordinary/ja-ko",
+          "t1/en-zh/A",
+          "t1/en-zh/B",
+          "t1/ja-ko/A",
+          "t1/ja-ko/B"
+        ]
+      },
+      "quality_admission": {
+        "status": "unverified",
+        "reason": "No complete R6 profile-specific development-path evidence is available."
+      },
+      "time_admission": {
+        "status": "unverified",
+        "reason": "No complete R6 profile-specific observation/clock/condition evidence is available."
+      },
+      "remaining_checks": [
+        "Peer terms accepted:true at installed CLI instance afb4d2c0-63d0-4c06-b0fd-f588e64eed72 revision 4; no acceptance action needed/performed. GUI 2.9.1 open observed, not a pilot.",
+        "Set peer_stt separately to Gemini and prove difference from PP4; retain Index official route, actual languages/input, native event roles, instance/gaps and receive-clock interval."
+      ]
+    },
+    {
+      "profile": "PP4",
+      "models": {
+        "translation": "Index Translator",
+        "asr": "CPU-auto-selected local ASR",
+        "access": "Free"
+      },
+      "condition": {
+        "ordinary_input": "peer",
+        "ordinary_directions": [
+          "en->zh",
+          "ja->ko"
+        ],
+        "t1_mode": "simultaneous",
+        "roles": {
+          "A": "peer",
+          "B": "self"
+        },
+        "t1_directions": {
+          "A": [
+            "en->zh",
+            "ja->ko"
+          ],
+          "B": [
+            "zh->en",
+            "ko->ja"
+          ]
+        },
+        "vrchat": "excluded"
+      },
+      "native_endpoint": {
+        "transport": "cli",
+        "path": "events follow --topic translation --include-translations",
+        "channels": {
+          "peer": "peer",
+          "self": "self"
+        }
+      },
+      "reused_early_feasibility": {
+        "confirmed": [
+          {
+            "scope": "ordinary/en-zh",
+            "evidence": "evidence/r1/pp4-en-zh-confirmation.json"
+          }
+        ],
+        "blockers": [],
+        "unverified": [
+          "ordinary/ja-ko",
+          "t1/en-zh/A",
+          "t1/en-zh/B",
+          "t1/ja-ko/A",
+          "t1/ja-ko/B"
+        ]
+      },
+      "quality_admission": {
+        "status": "unverified",
+        "reason": "No complete R6 profile-specific development-path evidence is available."
+      },
+      "time_admission": {
+        "status": "unverified",
+        "reason": "No complete R6 profile-specific observation/clock/condition evidence is available."
+      },
+      "remaining_checks": [
+        "Ordinary EN->ZH peer feasibility is supported by ten actual CLI translation events, separately observed local_cpu_auto peer ASR running parakeet CPU, selected Index/public_api and explicit loopback. Actual source=unknown, absent source text/producer timestamp and filtered native sequence jumps remain unaltered; selected route is not returned upstream identity.",
+        "Other languages/T1 and final text/time admission remain unverified. Accidental concurrent Kikitan self activity precludes clean exclusive CPU/application, timing/performance or wave admission. Original follow shutdown needed owned-child cleanup; repaired lifecycle was exercised with zero audio only, without replay. Exact personal intent restoration and host preservation were point-in-time observations. Later Director observation found original host/overlay absent and capture-status CLI exit3; disappearance time/cause are unknown, with no collector/user-closure attribution or Director host termination. See linked lifecycle evidence."
+      ]
+    },
+    {
+      "profile": "VRCT1",
+      "models": {
+        "translation": "m2m100_418m",
+        "asr": "Google Web Speech",
+        "access": "Free"
+      },
+      "condition": {
+        "ordinary_input": "peer",
+        "ordinary_directions": [
+          "en->zh",
+          "ja->ko"
+        ],
+        "t1_mode": "simultaneous",
+        "roles": {
+          "A": "peer",
+          "B": "self"
+        },
+        "t1_directions": {
+          "A": [
+            "en->zh",
+            "ja->ko"
+          ],
+          "B": [
+            "zh->en",
+            "ko->ja"
+          ]
+        },
+        "vrchat": "excluded"
+      },
+      "native_endpoint": {
+        "transport": "websocket",
+        "host": "127.0.0.1",
+        "port": 2231,
+        "path": "/",
+        "channels": {
+          "peer": "RECEIVED",
+          "self": "SENT"
+        }
+      },
+      "reused_early_feasibility": {
+        "confirmed": [],
+        "blockers": [],
+        "unverified": [
+          "ordinary/en-zh",
+          "ordinary/ja-ko",
+          "t1/en-zh/A",
+          "t1/en-zh/B",
+          "t1/ja-ko/A",
+          "t1/ja-ko/B"
+        ]
+      },
+      "quality_admission": {
+        "status": "unverified",
+        "reason": "No complete R6 profile-specific development-path evidence is available."
+      },
+      "time_admission": {
+        "status": "unverified",
+        "reason": "No complete R6 profile-specific observation/clock/condition evidence is available."
+      },
+      "remaining_checks": [
+        "Authorized bounded smoke must verify speaker-render loopback and reverse YOUR/TARGET languages, authenticated actual WebSocket port and Google ASR/m2m100 CPU execution.",
+        "OCR disabled/absent proof is mandatory: WebSocket RECEIVED contains no source:ocr discriminator. Disable other external text inputs. Observe full translation arrays, roles, post-dispatch stage and receive-clock/gaps; no replay."
+      ]
+    },
+    {
+      "profile": "VRCT2",
+      "models": {
+        "translation": "Google Translate",
+        "asr": "Whisper base",
+        "access": "Free"
+      },
+      "condition": {
+        "ordinary_input": "peer",
+        "ordinary_directions": [
+          "en->zh",
+          "ja->ko"
+        ],
+        "t1_mode": "simultaneous",
+        "roles": {
+          "A": "peer",
+          "B": "self"
+        },
+        "t1_directions": {
+          "A": [
+            "en->zh",
+            "ja->ko"
+          ],
+          "B": [
+            "zh->en",
+            "ko->ja"
+          ]
+        },
+        "vrchat": "excluded"
+      },
+      "native_endpoint": {
+        "transport": "websocket",
+        "host": "127.0.0.1",
+        "port": 2231,
+        "path": "/",
+        "channels": {
+          "peer": "RECEIVED",
+          "self": "SENT"
+        }
+      },
+      "reused_early_feasibility": {
+        "confirmed": [
+          {
+            "scope": "ordinary/en-zh",
+            "evidence": "evidence/r1/vrct2-en-zh-confirmation.json"
+          }
+        ],
+        "blockers": [],
+        "unverified": [
+          "ordinary/ja-ko",
+          "t1/en-zh/A",
+          "t1/en-zh/B",
+          "t1/ja-ko/A",
+          "t1/ja-ko/B"
+        ]
+      },
+      "quality_admission": {
+        "status": "unverified",
+        "reason": "No complete R6 profile-specific development-path evidence is available."
+      },
+      "time_admission": {
+        "status": "unverified",
+        "reason": "No complete R6 profile-specific observation/clock/condition evidence is available."
+      },
+      "remaining_checks": [
+        "Ordinary EN->ZH peer feasibility is supported by seven actual RECEIVED translations under observed Whisper base CPU int8/Google settings and explicit CABLE Input loopback. Other language/T1 scopes, cumulative re-recognition/duplicate suppression and final completeness/time admission remain unverified.",
+        "Settled pre/post OCR OFF observations are bound to the independent pinned-source control chain, with no GUI/external-text activity during the controlled 40-second input plus 15.0075174-second tail. This is point-in-time exclusion plus controlled-session evidence, not continuous app/input health proof. NativeSink standalone is not Runner or wave admission; producer-event time remains unmapped. Original target/device/auto/WebSocket values were restored per the evidence."
+      ]
+    },
+    {
+      "profile": "VRCT3",
+      "models": {
+        "translation": "Gemma 4 26B / OpenRouter",
+        "asr": "Google Web Speech",
+        "access": "Paid"
+      },
+      "condition": {
+        "ordinary_input": "peer",
+        "ordinary_directions": [
+          "en->zh",
+          "ja->ko"
+        ],
+        "t1_mode": "simultaneous",
+        "roles": {
+          "A": "peer",
+          "B": "self"
+        },
+        "t1_directions": {
+          "A": [
+            "en->zh",
+            "ja->ko"
+          ],
+          "B": [
+            "zh->en",
+            "ko->ja"
+          ]
+        },
+        "vrchat": "excluded"
+      },
+      "native_endpoint": {
+        "transport": "websocket",
+        "host": "127.0.0.1",
+        "port": 2231,
+        "path": "/",
+        "channels": {
+          "peer": "RECEIVED",
+          "self": "SENT"
+        }
+      },
+      "reused_early_feasibility": {
+        "confirmed": [],
+        "blockers": [],
+        "unverified": [
+          "ordinary/en-zh",
+          "ordinary/ja-ko",
+          "t1/en-zh/A",
+          "t1/en-zh/B",
+          "t1/ja-ko/A",
+          "t1/ja-ko/B"
+        ]
+      },
+      "quality_admission": {
+        "status": "unverified",
+        "reason": "No complete R6 profile-specific development-path evidence is available."
+      },
+      "time_admission": {
+        "status": "unverified",
+        "reason": "No complete R6 profile-specific observation/clock/condition evidence is available."
+      },
+      "remaining_checks": [
+        "Authorized bounded smoke must verify Google speaker ASR, current requested Gemma 26B route/access, reverse YOUR/TARGET languages and authenticated actual WebSocket.",
+        "OCR disabled/absent proof is mandatory: WebSocket RECEIVED contains no source:ocr discriminator. Disable other external text inputs. Preserve full arrays, roles, post-dispatch stage, receive-clock intervals and gaps; no replay."
+      ]
+    },
+    {
+      "profile": "VRCS1",
+      "models": {
+        "translation": "Gemma 4 26B / OpenRouter",
+        "asr": "Qwen3-ASR 0.6B",
+        "access": "Paid"
+      },
+      "condition": {
+        "ordinary_input": "peer",
+        "ordinary_directions": [
+          "en->zh",
+          "ja->ko"
+        ],
+        "t1_mode": "simultaneous",
+        "roles": {
+          "A": "peer",
+          "B": "self"
+        },
+        "t1_directions": {
+          "A": [
+            "en->zh",
+            "ja->ko"
+          ],
+          "B": [
+            "zh->en",
+            "ko->ja"
+          ]
+        },
+        "vrchat": "excluded"
+      },
+      "native_endpoint": {
+        "transport": "websocket",
+        "host": "127.0.0.1",
+        "port": 8767,
+        "path": "/v1/events",
+        "channels": {
+          "peer": "speaker",
+          "self": "microphone"
+        },
+        "event": "translation.completed"
+      },
+      "reused_early_feasibility": {
+        "confirmed": [],
+        "blockers": [],
+        "unverified": [
+          "ordinary/en-zh",
+          "ordinary/ja-ko",
+          "t1/en-zh/A",
+          "t1/en-zh/B",
+          "t1/ja-ko/A",
+          "t1/ja-ko/B"
+        ]
+      },
+      "quality_admission": {
+        "status": "unverified",
+        "reason": "No complete R6 profile-specific development-path evidence is available."
+      },
+      "time_admission": {
+        "status": "unverified",
+        "reason": "No complete R6 profile-specific observation/clock/condition evidence is available."
+      },
+      "remaining_checks": [
+        "Authorized bounded smoke must verify current Gemma access/model, speaker targets, shared ASR language auto for T1, actual Qwen 0.6B CPU model/projector and approved process-only official runtime override if needed; no security/global environment changes.",
+        "Enable/authenticate supported External API on actual loopback port, subscribe before input, preserve completed/partial/live_updated/source_group roles and producer-clock mapping, lagged/close gaps; no replay."
+      ]
+    },
+    {
+      "profile": "VRCS2",
+      "models": {
+        "translation": "Gemma 4 26B / OpenRouter",
+        "asr": "Gemini 3.5 Transcribe",
+        "access": "Owner-accepted current paid OpenRouter translation route; Gemini project tier unverified"
+      },
+      "condition": {
+        "ordinary_input": "peer",
+        "ordinary_directions": [
+          "en->zh",
+          "ja->ko"
+        ],
+        "t1_mode": "simultaneous",
+        "roles": {
+          "A": "peer",
+          "B": "self"
+        },
+        "t1_directions": {
+          "A": [
+            "en->zh",
+            "ja->ko"
+          ],
+          "B": [
+            "zh->en",
+            "ko->ja"
+          ]
+        },
+        "vrchat": "excluded"
+      },
+      "native_endpoint": {
+        "transport": "websocket",
+        "host": "127.0.0.1",
+        "port": 8767,
+        "path": "/v1/events",
+        "channels": {
+          "peer": "speaker",
+          "self": "microphone"
+        },
+        "event": "translation.completed"
+      },
+      "reused_early_feasibility": {
+        "confirmed": [
+          {
+            "scope": "ordinary/en-zh",
+            "evidence": "evidence/r1/vrcs2-en-zh-confirmation.json"
+          }
+        ],
+        "blockers": [],
+        "unverified": [
+          "ordinary/ja-ko",
+          "t1/en-zh/A",
+          "t1/en-zh/B",
+          "t1/ja-ko/A",
+          "t1/ja-ko/B"
+        ]
+      },
+      "quality_admission": {
+        "status": "unverified",
+        "reason": "No complete R6 profile-specific development-path evidence is available."
+      },
+      "time_admission": {
+        "status": "unverified",
+        "reason": "No complete R6 profile-specific observation/clock/condition evidence is available."
+      },
+      "remaining_checks": [
+        "Ordinary EN->ZH peer feasibility is supported by three completed/four partial native translations with actual speaker source, en->zh-Hans and Gemma/OpenRouter payload metadata under observed Gemini Transcribe settings. Native timestamps/IDs remain unmapped to playback time. Only early output occurred within 7.204931 seconds; later silence cause is unknown, not complete coverage or continuous internal input health.",
+        "Other languages/T1/shared-ASR auto behavior, full history and final quality/time remain unverified. Standalone NativeSink smoke is not Runner or W2 admission. Active settings were restored and owned process exited per Director observation; inactive model cache entry and app-managed transient server.port changed, so exact-byte/full-intent restoration is not claimed."
+      ]
+    },
+    {
+      "profile": "VRCLS1",
+      "models": {
+        "translation": "Developer server",
+        "asr": "Developer server",
+        "access": "Free as planned; limits unverified"
+      },
+      "condition": {
+        "ordinary_input": "peer",
+        "ordinary_directions": [
+          "en->zh",
+          "ja->ko"
+        ],
+        "t1_mode": "simultaneous",
+        "roles": {
+          "A": "peer",
+          "B": "self"
+        },
+        "t1_directions": {
+          "A": [
+            "en->zh",
+            "ja->ko"
+          ],
+          "B": [
+            "zh->en",
+            "ko->ja"
+          ]
+        },
+        "vrchat": "excluded"
+      },
+      "native_endpoint": {
+        "transport": "file",
+        "path": "%APPDATA%/VRCLS/logs/vrcls-*.log",
+        "channels": {
+          "peer": "Desktop",
+          "self": "Mic"
+        }
+      },
+      "reused_early_feasibility": {
+        "confirmed": [
+          {
+            "scope": "ordinary/en-zh",
+            "evidence": "evidence/r1/vrcls1-en-zh-confirmation.json"
+          }
+        ],
+        "blockers": [],
+        "unverified": [
+          "ordinary/ja-ko",
+          "t1/en-zh/A",
+          "t1/en-zh/B",
+          "t1/ja-ko/A",
+          "t1/ja-ko/B"
+        ]
+      },
+      "quality_admission": {
+        "status": "unverified",
+        "reason": "No complete R6 profile-specific development-path evidence is available."
+      },
+      "time_admission": {
+        "status": "unverified",
+        "reason": "No complete R6 profile-specific observation/clock/condition evidence is available."
+      },
+      "remaining_checks": [
+        "Ordinary EN->ZH peer feasibility is supported by five translated result lines among 15 actual Desktop physical-line records under original installed 1015 Remote/Developer settings. Fresh startup diagnostics explicitly select exact CABLE Input WASAPI loopback at 48kHz/two channels; no default-fallback inference. Actual deployed server model/checkpoint remains unknown.",
+        "Other languages/T1, multiline/arrow boundaries, full text and final timing remain unverified. Local-wall producer clock remains unmapped; sampled process/collector state is not continuous provider/input health. Active settings were unchanged, both capture channels stopped and owned process exited. Automatic authentication refresh/expiry and lastUpdateCheckUtc changes preclude full-byte equality; secret values are omitted and obsolete credentials were not restored. Standalone NativeSink is not Runner or W4 admission."
+      ]
+    },
+    {
+      "profile": "KIKI1",
+      "models": {
+        "translation": "Google Translate",
+        "asr": "Microsoft Bing",
+        "access": "Free"
+      },
+      "condition": {
+        "ordinary_input": "self",
+        "ordinary_directions": [
+          "en->zh",
+          "ja->ko"
+        ],
+        "t1_mode": "split_self",
+        "roles": {
+          "A": "self",
+          "B": "self"
+        },
+        "t1_directions": {
+          "A": [
+            "en->zh",
+            "ja->ko"
+          ],
+          "B": [
+            "zh->en",
+            "ko->ja"
+          ]
+        },
+        "vrchat": "excluded"
+      },
+      "native_endpoint": {
+        "transport": "websocket",
+        "host": "127.0.0.1",
+        "port": 18378,
+        "path": "/",
+        "channels": {
+          "self": "microphone"
+        },
+        "event": "recognition"
+      },
+      "reused_early_feasibility": {
+        "confirmed": [],
+        "blockers": [],
+        "unverified": [
+          "ordinary/en-zh",
+          "ordinary/ja-ko",
+          "t1/en-zh/A",
+          "t1/en-zh/B",
+          "t1/ja-ko/A",
+          "t1/ja-ko/B"
+        ]
+      },
+      "quality_admission": {
+        "status": "unverified",
+        "reason": "No complete R6 profile-specific development-path evidence is available."
+      },
+      "time_admission": {
+        "status": "unverified",
+        "reason": "No complete R6 profile-specific observation/clock/condition evidence is available."
+      },
+      "remaining_checks": [
+        "Use owned installed --no-ui only, exclusive TCP18378/shared AppData settings and exact cable microphone; desktop_translation=false. Keep Bing/Google models and fixed self directions, fresh evidenced session per episode/pass, full original timeline/pass origins/common +15s tail.",
+        "Read-only recognition WebSocket must connect before provider ON. Preserve every double-JSON transcription/translation/final snapshot, including empty/source-only/unchanged/growing/revised content; no native IDs/timestamps or universal semantic finality are supplied. Unsafe nested state/config/error frames are excluded before raw persistence.",
+        "Historical KIKI1 native microphone crash remains a KIKI1-specific risk; KIKI2 success is not KIKI1 confirmation. Old UDP Unicode blocker is immutable historical evidence for the superseded transport, not an active WebSocket blocker. Stock startup still performs vendor logging/update/discovery/enumeration; controller settings ownership/restoration is not total side-effect isolation."
+      ]
+    },
+    {
+      "profile": "KIKI2",
+      "models": {
+        "translation": "Gemini Live Translate 3.5",
+        "asr": "All-in-one",
+        "access": "Free as planned; project quotas unverified"
+      },
+      "condition": {
+        "ordinary_input": "self",
+        "ordinary_directions": [
+          "en->zh",
+          "ja->ko"
+        ],
+        "t1_mode": "split_self",
+        "roles": {
+          "A": "self",
+          "B": "self"
+        },
+        "t1_directions": {
+          "A": [
+            "en->zh",
+            "ja->ko"
+          ],
+          "B": [
+            "zh->en",
+            "ko->ja"
+          ]
+        },
+        "vrchat": "excluded"
+      },
+      "native_endpoint": {
+        "transport": "websocket",
+        "host": "127.0.0.1",
+        "port": 18378,
+        "path": "/",
+        "channels": {
+          "self": "microphone"
+        },
+        "event": "recognition"
+      },
+      "reused_early_feasibility": {
+        "confirmed": [
+          {
+            "scope": "ordinary/en-zh",
+            "evidence": "evidence/r1/kiki2-websocket-en-zh-confirmation.json"
+          }
+        ],
+        "blockers": [],
+        "unverified": [
+          "ordinary/ja-ko",
+          "t1/en-zh/A",
+          "t1/en-zh/B",
+          "t1/ja-ko/A",
+          "t1/ja-ko/B"
+        ]
+      },
+      "quality_admission": {
+        "status": "unverified",
+        "reason": "No complete R6 profile-specific development-path evidence is available."
+      },
+      "time_admission": {
+        "status": "unverified",
+        "reason": "No complete R6 profile-specific observation/clock/condition evidence is available."
+      },
+      "remaining_checks": [
+        "Use owned installed --no-ui only, exclusive TCP18378/shared AppData settings, desktop_translation=false and exact cable microphone; retain Gemini Live Translate model. Accepted40s microphone/self EN->ZH WebSocket feasibility is bounded early confirmation, not R6 quality/time or sibling-profile admission.",
+        "Keep every transcription/translation/native-final snapshot without deduplication or invented IDs/finality/timestamps. State/config/error data contains nested credentials and must be excluded before raw persistence. Old UDP corruption/early-gap attempt remains immutable history, not an active blocker on the adopted endpoint.",
+        "Other language/T1 scopes remain unverified. Separate fixed A/B sessions need fresh evidenced process/conversation, original timeline, distinct pass origins and common +15s tail. Stock update/discovery/logging side effects and unknown continuous internal/provider ingestion remain explicit; source-language settings do not constrain Gemini auto-detection."
+      ]
+    },
+    {
+      "profile": "VRCLT1",
+      "models": {
+        "translation": "Gemini Live Translate 3.5",
+        "asr": "All-in-one with source transcription",
+        "access": "Free as planned; project quotas unverified"
+      },
+      "condition": {
+        "ordinary_input": "self",
+        "ordinary_directions": [
+          "en->zh",
+          "ja->ko"
+        ],
+        "t1_mode": "split_self",
+        "roles": {
+          "A": "self",
+          "B": "self"
+        },
+        "t1_directions": {
+          "A": [
+            "en->zh",
+            "ja->ko"
+          ],
+          "B": [
+            "zh->en",
+            "ko->ja"
+          ]
+        },
+        "vrchat": "excluded"
+      },
+      "native_endpoint": {
+        "transport": "osc",
+        "host": "127.0.0.1",
+        "port": 19131,
+        "path": "/chatbox/input",
+        "channels": {
+          "self": "self"
+        },
+        "cross_check": "%LOCALAPPDATA%/vrclt/logs/vrclt.log:FINAL"
+      },
+      "reused_early_feasibility": {
+        "confirmed": [],
+        "blockers": [],
+        "unverified": [
+          "ordinary/en-zh",
+          "ordinary/ja-ko",
+          "t1/en-zh/A",
+          "t1/en-zh/B",
+          "t1/ja-ko/A",
+          "t1/ja-ko/B"
+        ]
+      },
+      "quality_admission": {
+        "status": "unverified",
+        "reason": "No complete R6 profile-specific development-path evidence is available."
+      },
+      "time_admission": {
+        "status": "unverified",
+        "reason": "No complete R6 profile-specific observation/clock/condition evidence is available."
+      },
+      "remaining_checks": [
+        "Authorized bounded smoke must verify current Gemini access/model. Keep inbound OFF and safe independent raw-passthrough output, not injection cable. Freeze self fixed languages and start a distinct normal session for each T1 A/B pass; retain full original timeline, pass origins and +15s tail.",
+        "Capture partial/final self OSC history with source-display/rolling-tail/stream/chunk/throttle settings; compare full FINAL segments for truncation without backdating text. Verify receive-clock intervals and different postqueue endpoint stage."
+      ]
+    },
+    {
+      "profile": "VRCLT2",
+      "models": {
+        "translation": "Qwen 3.8 LiveTranslate",
+        "asr": "All-in-one",
+        "access": "Paid"
+      },
+      "condition": {
+        "ordinary_input": "self",
+        "ordinary_directions": [
+          "en->zh",
+          "ja->ko"
+        ],
+        "t1_mode": "split_self",
+        "roles": {
+          "A": "self",
+          "B": "self"
+        },
+        "t1_directions": {
+          "A": [
+            "en->zh",
+            "ja->ko"
+          ],
+          "B": [
+            "zh->en",
+            "ko->ja"
+          ]
+        },
+        "vrchat": "excluded"
+      },
+      "native_endpoint": {
+        "transport": "osc",
+        "host": "127.0.0.1",
+        "port": 19131,
+        "path": "/chatbox/input",
+        "channels": {
+          "self": "self"
+        },
+        "cross_check": "%LOCALAPPDATA%/vrclt/logs/vrclt.log:FINAL"
+      },
+      "reused_early_feasibility": {
+        "confirmed": [
+          {
+            "scope": "ordinary/en-zh",
+            "evidence": "evidence/r1/vrclt2-en-zh-confirmation.json"
+          }
+        ],
+        "blockers": [],
+        "unverified": [
+          "ordinary/ja-ko",
+          "t1/en-zh/A",
+          "t1/en-zh/B",
+          "t1/ja-ko/A",
+          "t1/ja-ko/B"
+        ]
+      },
+      "quality_admission": {
+        "status": "unverified",
+        "reason": "No complete R6 profile-specific development-path evidence is available."
+      },
+      "time_admission": {
+        "status": "unverified",
+        "reason": "No complete R6 profile-specific observation/clock/condition evidence is available."
+      },
+      "remaining_checks": [
+        "Ordinary EN->ZH self feasibility is supported by 12 actual mixed English/Chinese OSC display records and 10 separate FINAL cross-check records under existing Qwen3.8 Beijing settings, inbound OFF, text-only and safe independent Realtek passthrough. Configured source en is not enforced by Qwen3.8 auto-detect. Other languages/T1 and final completeness/time remain unverified.",
+        "OSC translated_text stays null; mixed display_text is not silently parsed into a certified translation field. FINAL physical-line text has its own unmapped local-wall clock and is not backdated into OSC. UDP continuous=null is listener-only, not lossless packet delivery. Parsed original settings equality was observed restored; Director independently observed both GUI child 13800 and launcher 55832 absent before launching VRCLS. No Runner, wave, performance or final admission."
+      ]
+    }
+  ],
+  "production_freeze": {
+    "published": false,
+    "blocking_inputs": [
+      "Final-main R2 media and consumer semantics have been recovered, with separately identified new ASCEND reference hashes; unrecreated development references remain outside the owner's final-only recovery scope.",
+      "Nine new R3 main first takes, their new semantic-span/endpoint mappings and the full final-main handoff have bounded independent review and Director adoption. Original development audio was not regenerated."
+    ],
+    "remaining_verification": [
+      "Actual planned development inputs through device/app/native history and common quality/wait/cost result package.",
+      "Both language pairs, five types, T1 roles and split-pass clocks under exact app/device/wave conditions.",
+      "Profile-specific text/history completeness and independent timing admission for all fourteen profiles.",
+      "Final exact runtime identities, observation opportunities, selected repeats/examples and reference-uncertainty ingestion."
+    ],
+    "not_blocked_by": "Actual billing amounts may remain pending; missing billing alone does not prohibit quality/time acceptance."
+  },
+  "evidence_reuse": {
+    "r1": "profiles/evidence/r1/",
+    "r2": "corpus/r2/status.json",
+    "r3": "corpus/r3/status.json",
+    "r4": "profiles/evidence/r4/minimal-judge-final.json",
+    "r5": "profiles/evidence/r5/",
+    "limits": [
+      "Six confirmed ordinary EN→ZH routes are early feasibility only, not final quality or timing admission.",
+      "No historical self/OSC results are promoted to peer/simultaneous evidence.",
+      "Accepted R2/R3 component review is retained; subsequent loss of access does not retroactively invalidate its historical execution."
+    ]
+  },
+  "asset_preservation_failure": {
+    "kind": "worktree_manager_removal_after_merge",
+    "r2": {
+      "removed_utc": "2026-10-27T07:04:15.532Z",
+      "root": ".worktrees/vrc-translator-bench/r2",
+      "manifest_sha256": "c52dcae7526906b7c9ac4cedf8138f7b3687cec6fac0b2096cee5c2e50013556"
+    },
+    "r3": {
+      "removed_utc": "2026-10-27T14:25:28.749Z",
+      "root": ".worktrees/vrc-translator-bench/r3",
+      "manifest_sha256": "ec824ea2a283546e514433bc09c7cfdd1fdb597c3979b53241fd4b9e893c8525"
+    },
+    "observed_operation": "Orca worktree.remove and worktree.remove.git_remove completed successfully for the exact original worktree paths.",
+    "evidence_boundary": "Private original manager traces retain operation times and paths. No initiating actor, automatic trigger, independent backup absence or irreversible disk destruction is established.",
+    "publication_boundary": "PRs #26/#27 contain source code and status, not the ignored local WAV/PCM/reference trees.",
+    "next_action": "Use the accepted final-main manifest with its separate Director adoption receipt. Original development/all-profile R6 obligations remain unmet; offline source consumption is not app admission. The nine new main POSTs are exhausted and no extra generation or retries are authorized.",
+    "recovery_checkpoint": "profiles/evidence/r6/recovery-generation.json",
+    "consumer_handoff_checkpoint": "profiles/evidence/r6/final-main-handoff.json"
+  }
+}

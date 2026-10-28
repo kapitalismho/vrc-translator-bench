@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "kind": "r6-primary-checkout-data-root",
+  "baseline": "0715d8ab10135e90d6d3069ad6f6d7b5aa372946",
+  "scope": "CLI data resolution and linked-checkout output rejection, not final corpus or profile admission",
+  "storage_contract": {
+    "default": "Primary checkout .data, shared by linked code worktrees",
+    "relative_data_arguments": "Resolve against the primary checkout discovered from Git metadata",
+    "absolute_linked_outputs": "Reject before side effects; include suggested primary destination",
+    "nested_linked_outputs": "Reject even when nested under primary .data",
+    "external_absolute_outputs": "Remain supported",
+    "historical_inputs": "Absolute inputs and embedded artifact-relative bindings retain original meaning",
+    "provider_authority": "Path relocation does not renew or retarget prior TTS approval"
+  },
+  "tests": [
+    {
+      "suite": "tests/test_data_paths.py",
+      "passed": 40,
+      "elapsed_seconds": 1.45,
+      "receipt": ".data/r6-data-paths/focused-reduced.xml",
+      "boundary": "Final behavioral suite. Earlier 53-case suite included argument-forwarding checks removed from permanent tests."
+    },
+    {
+      "suite": ["tests/test_prepare_ascend.py", "tests/test_prepare_ingcrowd.py", "tests/test_prepare_read_controls.py", "tests/test_prepare_tts.py", "tests/test_pilot_export.py", "tests/test_capture.py", "tests/test_episode_costs.py", "tests/test_kikitan_privacy.py"],
+      "passed": 279,
+      "elapsed_seconds": 13.75,
+      "receipt": ".data/r6-data-paths/affected.xml",
+      "boundary": "Executed on the product change; reused after test-only removal, not rerun."
+    }
+  ],
+  "actual_cli_smokes": [
+    {
+      "command": "python -B -m bench.cli costs --spec .data/r6-data-paths/smoke-inputs/cost-spec.json --output .data/r6-data-paths/smoke-cost.json",
+      "cwd": "Actual R6 linked checkout",
+      "exit_code": 0,
+      "observed": "Complete synthetic cost report at primary .data/r6-data-paths/smoke-cost.json; corresponding worktree data directory absent",
+      "per_input_hour": 1.8,
+      "boundary": "Synthetic fixture arithmetic, not measured provider billing"
+    },
+    {
+      "command": "python -B -m bench.cli costs --spec .data/r6-data-paths/smoke-inputs/cost-spec.json --output <absolute-linked-checkout>/.data/r6-data-paths-rejection/result.json",
+      "cwd": "Actual R6 linked checkout",
+      "exit_code": 2,
+      "observed": "Refusing output inside linked checkout; rejected parent absent"
+    }
+  ],
+  "relocated_retained_quality": {
+    "receipt": ".data/r6-recovery/r6-integration/relocation-result.json",
+    "receipt_sha256": "a8a5d7fd25f547c55aac376f6416229d423cef1500f47b71362ec7ae1b7d0e2c",
+    "execution": "One fresh offline quality CLI process with new relocated spec, copied original store and absolute primary-main data paths; no transport argument",
+    "exit_code": 2,
+    "detail_quality": 81,
+    "overall_status": "incomplete",
+    "p50": null,
+    "p90": null,
+    "cached_stages": ["errors", "score"],
+    "prompt_hashes_unchanged": true,
+    "raw_response_rows_before": 2,
+    "raw_response_rows_after": 2,
+    "new_raw_responses": 0,
+    "original_artifact_hashes_unchanged": true,
+    "worktree_data_dependencies": false,
+    "runtime_boundary": "Tracked profile catalogue remains adjacent to runtime code; code may still execute from a worktree",
+    "cost_boundary": "Original pending cost reports retain original source bindings; not rerun or relabelled"
+  },
+  "private_receipts": [
+    ".data/r6-data-paths/smoke-evidence.json",
+    ".data/r6-data-paths/test-reduction.json",
+    ".data/r6-data-paths/checks.json",
+    ".data/r6-recovery/r6-integration/quality-relocation-execution.json"
+  ],
+  "retained_failure": "Initial focused-test invocation lacked its basetemp parent: 53 setup errors and no test bodies; environment corrected before passing execution.",
+  "limits": [
+    "No new provider, TTS, ASR, audio or translation-app execution in this checkpoint.",
+    "Source/canonical-reference recovery remains separately inventoried.",
+    "Ignored primary data is not a Git backup and still needs lifecycle protection."
+  ]
+}

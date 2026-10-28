@@ -2,6 +2,18 @@
 
 The maintained [final plan](benchmark-final-plan.md), including the approved Kikitan headless WebSocket cutover, and [implementation sequence](benchmark-implementation-plan.md) govern this runner. The [published self/split amendment](https://github.com/kapitalismho/vrc-translator-bench/issues/14#issuecomment-6406954100) retains the input exception; its former UDP-primary requirement is superseded by the [published WebSocket amendment](https://github.com/kapitalismho/vrc-translator-bench/issues/15#issuecomment-6431325473). No translator is bundled. Schema-1 stage plans and old runs are not executable through a compatibility path; keep their original artifacts and use the pinned historical implementation for inspection.
 
+## Durable local data
+
+The primary checkout's `.data/` is the shared local data root; linked worktrees hold code, not persistent inputs or results. CLI defaults and explicit relative `.data/...` arguments resolve there even when invoked from a linked checkout or its subdirectory. Discovery uses Git checkout metadata, not the branch name, current directory depth or a hard-coded machine path.
+
+The capture/evaluation CLI, preparation/export tools and GUI/Kikitan adapter directory arguments reject outputs inside linked checkouts before creating files or starting audio, models, controllers or provider calls. This includes linked checkouts nested beneath the primary `.data/`. An explicit absolute worktree output is rejected with a suggested primary location, never silently redirected. Absolute primary or isolated external outputs remain supported.
+
+Absolute inputs and paths embedded in immutable plans, manifests, references, calibration evidence and approvals are not globally rewritten. Ordinary relative paths keep their existing meaning; `.data/...` model/cache inputs use the shared root, while credential-file and executable arguments retain their original semantics. Relocated historical records need a separate relocation record and, when necessary, a new runnable spec; do not rewrite their evidence hashes or reuse old TTS approval as new-call authority.
+
+Keep `.data/` private and preserve a verified copy before removing its owning checkout. Git ignores these assets: merging a PR does not back them up. A nonconventional or unidentified checkout fails explicitly for relative `.data` paths instead of falling back to disposable storage.
+
+The [initial cutover evidence](../profiles/evidence/r6/main-data-root.json) and [boundary-repair evidence](../profiles/evidence/r6/main-data-root-repair.json) record actual primary-root publication, installed-environment discovery, explicit linked-destination rejection and preflight of known atomic `.tmp` targets. Real filesystem-link cases preserve the linked target before report/store/device/provider work. These are CLI placement checks, not a universal filesystem sandbox for direct library callers.
+
 ## Install and operate
 
 Python 3.11+ is required. Real audio uses Windows WASAPI shared mode. WebSocket collectors require the native extra.

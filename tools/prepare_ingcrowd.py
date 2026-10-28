@@ -361,7 +361,7 @@ def review_asr(prepared, model, destination):
     return evidence
 
 
-def main():
+def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     subparsers = parser.add_subparsers(dest="command", required=True)
     prepare = subparsers.add_parser("prepare", help="Materialize pinned candidates, without provider calls")
@@ -372,7 +372,22 @@ def main():
     review.add_argument("--prepared", type=Path, required=True)
     review.add_argument("--model", type=Path, required=True)
     review.add_argument("--report", type=Path, required=True)
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
+    if __package__ in (None, ""):
+        sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+    from bench.paths import DataPathError, DataPaths
+    paths = DataPaths()
+    try:
+        if args.command == "prepare":
+            args.output = paths.output(args.output)
+            args.catalogue = paths.input(args.catalogue)
+            args.retained = paths.input(args.retained)
+        else:
+            args.report = paths.output(args.report)
+            args.prepared = paths.input(args.prepared)
+            args.model = paths.input(args.model)
+    except DataPathError as error:
+        parser.error(str(error))
     if args.command == "prepare":
         report = materialize(args.catalogue, args.retained, args.output)
         print(json.dumps({"status": report["status"], "episodes": len(report["episodes"]), "output": str(args.output)}))
