@@ -66,7 +66,18 @@
     "source_notice_groups_retained": 8,
     "prefix_proof": "Actual existing quality-reader prefix/blinded-prompt construction for all19 checkpoints/18 roles; seven future-content probes absent; zero judge calls",
     "immutable_original_artifacts_preserved": 470,
-    "acceptance_at_checkpoint": "New semantic-span/endpoint adapters and full handoff await their own independent review; core source/media adoption does not preapprove them"
+    "acceptance_at_checkpoint": "Initially pending at c1b19bb; subsequently adopted by the separate Director receipt after independent full review, within recorded source-uncertainty and operational-timing limits"
+  },
+  "final_source_adoption": {
+    "receipt": ".data/r6-recovery/director-final-adoption.json",
+    "receipt_sha256": "cf2165a5ac00461b450756e80891f46e84ba8767ff43e03734ff023a3f77873c",
+    "reviewed_candidate": "c1b19bb98b11af7972e00de4e4bd844cc056568d",
+    "review_record": ".data/r6-recovery/reviews/final-consumer.json",
+    "review_record_sha256": "8730a0b465eaf1412ea2f56a5aa4d5b1ac9f51e79a40b8cb9f0144b7a3e7f918",
+    "review_result": "no_material_findings",
+    "independent_coverage": "All19 semantic/native-clock mappings and actual PCM crops,56 units/46 complete turns,19 checkpoints/18 full-role views/95 cutoff prefixes,all R2 structural adapters,exact selection/weights,905 current file hashes and470 immutable production artifacts",
+    "decision": "Accepted final-only source/reference handoff; not issue20 completion or benchmark production freeze",
+    "immutable_candidate_states": "Earlier adopted=false/pending fields remain historical snapshots; the separate receipt records subsequent bounded adoption"
   },
   "actual_full_consumer": {
     "command": "python -B MAIN/.data/final-recovery-v1/finalize_handoff.py",

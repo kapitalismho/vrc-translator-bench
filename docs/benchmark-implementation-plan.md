@@ -203,16 +203,27 @@ checks do not admit other profiles, languages, T1 conditions or complete waves.
 No production freeze or main-run authorization is claimed.
 
 The accepted R2/R3 inputs were created and reviewed, but their ignored local
-handoff trees are no longer available at their recorded locations. Original
-worktree-manager traces record successful removal of the R2 worktree at
-`2026-10-27T07:04:15.532Z` and R3 at `2026-10-27T14:25:28.749Z`, after their
-respective merges. The PRs retained code and status, not the ignored audio and
-reference bodies. This establishes a later preservation failure, not that the
-original generation/review never occurred. It does not identify who initiated
-removal or prove irreversible disk loss. Recover the unchanged accepted trees
-before corpus-dependent admission. Surviving upstream source files are not a
-replacement for the reviewed frozen handoff, and exhausted TTS allowances do
-not authorize regeneration.
+handoff trees disappeared from their recorded locations. Original worktree-manager
+traces record successful removal of R2 at `2026-10-27T07:04:15.532Z` and R3 at
+`2026-10-27T14:25:28.749Z`, after their respective merges. The PRs retained code
+and status, not ignored audio/reference bodies. This establishes a later
+preservation failure, not missing original production/review; it does not identify
+the initiating actor or prove irreversible disk loss.
+
+The subsequent [final-main recovery](corpus.md#local-recovery-and-current-data-availability)
+restored original R2 media and identifiable metadata under the primary checkout's
+`.data/`. Unavailable reference bodies are explicit new recovery revisions, not
+falsely claimed original bytes. The owner separately authorized new TTS and narrowed
+it to nine final-main first takes only, excluding pilot/development, variability
+and retries. All nine completed; no additional production is authorized.
+Independent source/core review at `1b8ce661f17b211fbe940b036fb3009ab30b4b25`
+and full consumer-mapping review at `c1b19bb98b11af7972e00de4e4bd844cc056568d`
+support separate Director source/reference adoption receipts. The final index
+contains 60 main episodes plus two separate C1 controls, preserving original
+selection and weights. Actual unchanged-consumer ingestion covers 78 roles and
+121 checkpoints but has 78 missing attempts and zero judge calls. It establishes
+usable final inputs, not actual app quality/wait/cost or all-profile admission;
+the original development-input and native measurement obligations remain unmet.
 
 The [selected-route contrasts](../profiles/evidence/r6/judge-contrasts.json)
 retain eight preselected EN→ZH/JA→KO cases and two independent repeats, with
@@ -230,8 +241,8 @@ API that rejected it. History now selects those identities instead of dropping
 them; conflicting executions are excluded and ambiguous unselected identities
 stay unknown. The same frozen retained-input specification subsequently
 produced an explicitly incomplete common report rather than a traceback.
-The affected history/episode-quality suites passed 223 tests. Neither that
-repair nor the contrast checks substitutes for the missing actual corpus,
+The subsequent execution-identity repair passed 244 focused tests and six actual
+offline CLI cases. Those checks do not replace actual development-input,
 device/app, split-pass and all-profile admission evidence.
 
 The [retained-input join](../profiles/evidence/r6/retained-integration.json)
@@ -246,10 +257,14 @@ reused both calls. Controlled split-self examples separately preserve
 no-output zero versus invalid/null, and once-counted logical time; these are
 not real Kikitan/VRCLT admission evidence.
 
-Keep private raw stores, source/reference bindings and execution records in a
-durable shared location outside disposable worktrees before cleanup. Preserve
-original bytes and hashes; a source-bearing private backup is not permission to
-publish those files.
+All task-created persistent data now uses the primary checkout's `.data/`, with
+CLI defaults and explicit relative `.data` paths resolving there and linked-worktree
+outputs rejected before side effects. The [path repair record](../profiles/evidence/r6/main-data-root-repair.json)
+retains failing-before/passing-after checks and actual CLI/symlink smoke evidence.
+Code remains on the local R6 branch; primary-checkout code was not merged or reset.
+Original bytes and hashes remain preserved, and a source-bearing private backup
+is not permission to publish those files. No push, PR, merge or issue closure
+is authorized by this local recovery.
 
 ### What “through issue #8” means
 
