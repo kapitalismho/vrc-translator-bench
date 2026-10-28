@@ -1,5 +1,17 @@
 # Corpus preparation
 
+## Local recovery and current data availability
+
+Persistent data now belongs to the primary checkout's `.data/`, not disposable code worktrees. See [durable local data](cli.md#durable-local-data). The original R2/R3 worktrees were removed after their handoffs; their ignored local assets were not backed up by the merged PRs. Historical status files below retain their original evidence identities and do not imply that every original byte remains available.
+
+The [recovery-generation checkpoint](../profiles/evidence/r6/recovery-generation.json) distinguishes exact restoration from new recovery revisions. Surviving source caches, eight pinned IngCrowd downloads and deterministic materialization restored the R2 media. All 26 ASCEND T1 role-WAV/PCM pairs match their original parent identities. IngCrowd and FLEURS references were recovered exactly. The new `.data/r2/ascend/recovery-revision-final-main-v1/` supplies 27 main reference bodies with the original 49 checkpoint meanings, roles, source spans and operational endpoints. It omits 428 unavailable historical main-source ASR objects rather than fabricating them; its reference hashes are new, not the missing original curation/reference hashes.
+
+The owner narrowed new production to **nine final main JA/KO dialogues only**: no development/pilot or variability generation and no retries. Already restored historical records remain preserved. `.data/r3/final-main-recovery-v1/` contains nine new takes totaling 657.04 seconds, 46 complete turns and 18 role buffers/references. These are replacement-generation bytes, not restored historical audio. The original accepted pilot-method receipt is reused as historical method evidence, not a claim of new pilot listening or automatic acceptance of the new main audio.
+
+The initial new media/reference graph is an immutable candidate pending independent review and Director adoption. Literal uncertainties travel with the affected turns; intended scripts and recognizer outputs are not unquestionable gold. Seven one-time accounting lookups report $0.1397525; two returned HTTP404, so total generation cost remains unknown. Chromium verified all 73 review-page media players and nine equal-duration original/A/B triples with muted playback, not human listening.
+
+R6 ingestion remains a separate obligation. The initial full-60 offline consumer correctly rejected missing R3 semantic checkpoints. Its consumer-only follow-on must map all **19** accepted parent T1 checkpoints to actual JA/KO semantic spans and new-audio endpoints without copying old times, substituting convenient turn ends, dropping main05's additional A checkpoint, or weakening the reader. Final-main recovery does not establish the excluded development inputs, device/profile admission, or a benchmark production freeze.
+
 ## R2 source review and preparation
 
 [Issue #16](https://github.com/kapitalismho/vrc-translator-bench/issues/16) follows

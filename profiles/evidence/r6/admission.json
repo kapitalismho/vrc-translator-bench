@@ -945,8 +945,8 @@
   "production_freeze": {
     "published": false,
     "blocking_inputs": [
-      "Accepted R2 materialized audio, references, checkpoints and source mapping bytes are unavailable at retained handoff roots.",
-      "Accepted R3 original/role audio and uncertainty-bearing canonical references are unavailable at retained handoff roots."
+      "Final-main R2 media and consumer semantics have been recovered, with separately identified new ASCEND reference hashes; unrecreated development references remain outside the owner's final-only recovery scope.",
+      "Nine new R3 main takes are an immutable recovery candidate pending independent adoption and faithful consumer checkpoint mapping; original development audio was not regenerated."
     ],
     "remaining_verification": [
       "Actual planned development inputs through device/app/native history and common quality/wait/cost result package.",
@@ -983,6 +983,7 @@
     "observed_operation": "Orca worktree.remove and worktree.remove.git_remove completed successfully for the exact original worktree paths.",
     "evidence_boundary": "Private original manager traces retain operation times and paths. No initiating actor, automatic trigger, independent backup absence or irreversible disk destruction is established.",
     "publication_boundary": "PRs #26/#27 contain source code and status, not the ignored local WAV/PCM/reference trees.",
-    "next_action": "Recover unchanged accepted trees from a retained copy. If unavailable, owner must decide a separately identified recovery/regeneration scope; do not silently replace frozen inputs or repeat exhausted TTS allowances."
+    "next_action": "Review and explicitly adopt the separately identified final-main recovery graph, complete its actual-clock consumer mappings, and retain the excluded development/all-profile R6 obligations as unmet. The nine new main POSTs are exhausted; no extra generation or retries are authorized.",
+    "recovery_checkpoint": "profiles/evidence/r6/recovery-generation.json"
   }
 }
