@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "kind": "draft_bounded_post_measurement_D1_cleanup_evidence_registration_addendum",
+  "status": "draft_not_parent_authority",
+  "authority": "No approval is granted by this draft or its implementing worker. Main alone may authorize and execute the one registry append after independent review and actual verification.",
+  "scope": {
+    "plan_id": "W4-D1",
+    "run_id": "issue8-vrcls-exact-W4-D1-0ee287dee641",
+    "revision": "0ee287dee6418527f8473778bf94c0b82d978584",
+    "profile": "VRCLS1",
+    "owned_pid": 51156,
+    "session": "vrcls-main-D1-f387faff04b54551a96eab6bc2130934"
+  },
+  "recovery_helper": {
+    "path": ".data/issue8/protocol-planning/vrcls-exact-name-terminal-cleanup-recovery-v1/register.py",
+    "sha256": "d6a744229c2a0c74bb557f35ca54f4fc185721af43a4a4d2253a085dd14145ad"
+  },
+  "original_freeze": {
+    "path": ".data/issue8/vrcls-exact-name-continuation-v1/protocol-freeze.json",
+    "sha256": "d6109b43f662fac4605dae6b63793819daa907ed0617b5ba987af9361b133c0b"
+  },
+  "original_manifest": {
+    "path": ".data/issue8/vrcls-exact-name-continuation-v1/main/W4-D1/issue8-vrcls-exact-W4-D1-0ee287dee641/manifest.json",
+    "sha256": "5a83bd8b738fd92f8f11b24feab8ce056336d4daf3869410d2203656eaa4bedf"
+  },
+  "actual_terminal_collection_counts_not_quality_success": {
+    "pending": 0,
+    "running": 0,
+    "done": 32,
+    "product_failure": 0,
+    "invalid": 0
+  },
+  "original_stop_timeout": {
+    "request": {
+      "path": ".data/issue8/protocol-planning/vrcls-exact-name-continuation-v1/runtime/W4-D1/VRCLS1/bridge/request-0001.json",
+      "sha256": "f76b2ef7409ec141ee351cd14d0ca05ba74b07f5d59bfe840a7246ad0ee40195"
+    },
+    "request_sequence": 1,
+    "requested_at_utc": "2026-10-24T07:42:52.485004+00:00",
+    "timeout_seconds": 600,
+    "original_cleanup_failure_at_utc": "2026-10-24T07:52:52.485338+00:00",
+    "manifest_record": "cleanup_failure: profile VRCLS1, error Adapter stop timed out",
+    "interpretation": "The genuine original request expired without a response. Its pending/request bytes and initial running observation remain original; no final stopped observation or successful/late ACK is invented."
+  },
+  "separate_later_physical_cleanup": {
+    "evidence": {
+      "path": ".data/issue8/protocol-planning/vrcls-exact-name-continuation-v1/runtime/W4-D1/normal-close-evidence.json",
+      "sha256": "ea84dafa678afd704a684e76eab5597035adf0e043664dbdeec4f541f91ac3d1"
+    },
+    "normal_native_alt_f4_sent_at_utc": "2026-10-24T07:53:23.673454+00:00",
+    "first_recorded_independent_process_absence_at_utc": "2026-10-24T07:55:38.928826+00:00",
+    "interpretation": "Actual separate later normal exit of the same owned process, not completion of the expired stop request, not stop latency evidence and not a new measurement.",
+    "retired_bridge": {
+      "path": ".data/issue8/protocol-planning/vrcls-exact-name-continuation-v1/runtime/W4-D1/VRCLS1/bridge/invalidated.json",
+      "sha256": "d92d1f236f7d43ba1664afc007f4a357cd3576c2db42430e58653f7bdea96cb8"
+    },
+    "resource_release": {
+      "path": ".data/issue8/protocol-planning/vrcls-exact-name-continuation-v1/runtime/W4-D1/post-main-resource-release.json",
+      "sha256": "25744853bfd6cd5597141d7edd4e6208048600d584789231f33258542a5b4d11"
+    }
+  },
+  "unchanged_original_registration_rejection": {
+    "path": ".data/issue8/protocol-planning/vrcls-exact-name-continuation-v1/runtime/W4-D1/original-registration-rejection.json",
+    "sha256": "7aadeb946ac89a0d250cfac84e228520765c9c0023957c3c08dc93466d682835"
+  },
+  "bounded_registration_amendment": [
+    "Do not edit or re-freeze the original materializer, recipe, method amendment, overlay, admissions, extraction rules, plan, metrics specification, registry implementation or captured evidence.",
+    "The separate helper calls original materialize.context, require_freeze and require_slot_available and uses only the unchanged source_registry module returned by that context.",
+    "Require exact retained hashes, original freeze/run/revision, actual32 terminal stage work, native capture/spec/rule identity, matching initial PID/session observation, genuine request1 and actual600s timeout, preserved pending bytes, no response/late ACK or extra requests, retired bridge, and separate later actual normal process exit/resource release.",
+    "validate reads supplied evidence only and never opens apps, devices, audio, sockets, providers or process controls. Without parent authority it reports parent_authorized=false, not permission to register.",
+    "Main must author a separate local authority JSON containing exactly validate.required_parent_authority_binding plus approved=true and an actual timezone-qualified authorized_at_utc later than the resource-release observation. The approval binds the helper, this draft, all retained evidence, original freeze/recipe, unchanged registry implementation and exact registry-before hash. Main must pass the authority file SHA256 explicitly.",
+    "Only Main may invoke register with --parent-register and that matching authority. After all guards and an immediate recheck, the unchanged source_registry.register_capture performs the sole authorized mutation: append this original D1 source to R_sources. Existing registry entries and all original measurement evidence are retained; no source is replaced or relabelled.",
+    "The original D1 source row retains the original manifest, metrics spec and counts; no successful stop ACK or synthetic final observation is attached to it. This addendum plus the separate hash-bound parent authority records the post-measurement cleanup-evidence admission basis.",
+    "The existing D3 materialize prerequisite remains unmodified: it must find exactly this D1 run from the same original revision in R_sources. This recovery does not authorize D3 execution, waive any D3 admission/ownership/lifecycle guard, or change HEAD. Keep the original freeze checkout through D3 registration as directed by Main."
+  ],
+  "preservation_and_nonclaims": [
+    "No main or product-failed attempt replay; no forced termination, restart, fabricated ACK, replacement timeout or initial observation, or retroactive claim that the original stop succeeded.",
+    "All frozen inventory, plans, rules and admissions remain original. The registry is untouched by validate and by this draft; only a later explicitly parent-authorized source append is in scope.",
+    "No PuriPuly access, GUI operation, account/model/tier change, new measurement, quality/cost score, remote publication or issue closure.",
+    "The provider rate-limit notice and other original uncertainty/failure evidence remain untouched. Terminal collection status does not establish translation success or negate the provider notice.",
+    "The worker has not executed validate, register, builds, tests, linters or formatters. All actual smoke/negative checks, independent review, authority and registration remain Main's responsibility."
+  ],
+  "parent_powershell_commands": {
+    "setup": [
+      "$Py = '.data/check-venv/Scripts/python.exe'",
+      "$Helper = '.data/issue8/protocol-planning/vrcls-exact-name-terminal-cleanup-recovery-v1/register.py'",
+      "$Draft = 'profiles/evidence/issue8/vrcls-exact-name-continuation-v1/terminal-cleanup-recovery-addendum.draft.json'",
+      "$Authority = '.data/issue8/protocol-planning/vrcls-exact-name-terminal-cleanup-recovery-v1/parent-authority.json'"
+    ],
+    "read_only_smoke_before_parent_authority": "& $Py -B $Helper validate --root .",
+    "negative_missing_parent_consent_expect_exit2": "& $Py -B $Helper register --root .",
+    "negative_missing_authority_expect_exit2": "& $Py -B $Helper register --root . --parent-register",
+    "negative_draft_is_not_authority_expect_nonzero": [
+      "$DraftSha = (Get-FileHash -Algorithm SHA256 -LiteralPath $Draft).Hash.ToLowerInvariant()",
+      "& $Py -B $Helper validate --root . --authority $Draft --authority-sha256 $DraftSha"
+    ],
+    "negative_wrong_authority_hash_expect_nonzero": "& $Py -B $Helper validate --root . --authority $Draft --authority-sha256 ('0' * 64)",
+    "negative_other_plan_not_supported_expect_exit2": "& $Py -B $Helper validate --root . --plan-id W4-D3",
+    "only_after_Main_authors_actual_authority": [
+      "$AuthoritySha = (Get-FileHash -Algorithm SHA256 -LiteralPath $Authority).Hash.ToLowerInvariant()",
+      "& $Py -B $Helper validate --root . --authority $Authority --authority-sha256 $AuthoritySha"
+    ],
+    "parent_only_actual_registration_not_a_smoke_check": "& $Py -B $Helper register --root . --parent-register --authority $Authority --authority-sha256 $AuthoritySha",
+    "after_registration": "The helper intentionally rejects duplicate registration. Main should inspect the appended exact D1 source and run the original read-only audit; do not replay D1 or rewrite authority to bypass duplicate-slot rejection."
+  },
+  "missing_before_registration": [
+    "Independent pinned helper/addendum review and actual parent smoke/negative evidence.",
+    "Main's explicit post-measurement hash-bound parent-authority.json. This draft is not that authority."
+  ]
+}

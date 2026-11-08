@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "kind": "VRCLS_exact_name_D1_capture_and_carried_D3_quota_disposition",
+  "recorded_at_utc": "2026-10-24T08:27:24.282768+00:00",
+  "execution_freeze_revision": "0ee287dee6418527f8473778bf94c0b82d978584",
+  "scope": [
+    "D1 English to Japanese",
+    "D3 Chinese to Korean"
+  ],
+  "source_admissions": {
+    "path": "profiles/evidence/issue8/vrcls-exact-name-source-admissions.json",
+    "sha256": "1d63ba9d02bf53fe902fdd867d5f27c3661098d5d3a2d824962da9a2c15b0f4e"
+  },
+  "routing_repair": {
+    "actual_microphone": "CABLE Output(VB-Audio Virtual Cable)",
+    "safe_desktop_route": "CABLE Input(VB-Audio Virtual Cable)",
+    "desktop_recognition": false,
+    "fallback_warnings_at_actual_owned_startup": 0,
+    "original_installed_six_binary_hashes_unchanged": true
+  },
+  "D1": {
+    "run_id": "issue8-vrcls-exact-W4-D1-0ee287dee641",
+    "status": "terminal_collection_registered_with_retained_provider_limit_and_cleanup_timeout",
+    "counts": {
+      "done": 32,
+      "pending": 0,
+      "running": 0,
+      "invalid": 0,
+      "product_failure": 0
+    },
+    "counts_are_not_quality_success": true,
+    "maximum_attempt_number": 1,
+    "source_frames": 130227360,
+    "source_frame_and_attempt_basis": "Independent actual ledger/raw/playback audit; source coverage contiguous without replay",
+    "CLI_exit": 0,
+    "supervisor_exit": 0,
+    "supervisor_timed_out": false,
+    "original_stop": "Request1 timed out after600s; no response or late ACK",
+    "physical_cleanup": "Separate later normal native Alt+F4, independent process absence, retired bridge and released UDP19141",
+    "registered": true,
+    "registration": {
+      "path": ".data/issue8/protocol-planning/vrcls-exact-name-continuation-v1/runtime/W4-D1/terminal-registration-result.json",
+      "sha256": "9ee79f85d5faebe0d212b149bcaf82e4f1b00123f4fe279761dcb0504ab2ff50"
+    },
+    "normal_close": {
+      "path": ".data/issue8/protocol-planning/vrcls-exact-name-continuation-v1/runtime/W4-D1/normal-close-evidence.json",
+      "sha256": "ea84dafa678afd704a684e76eab5597035adf0e043664dbdeec4f541f91ac3d1"
+    },
+    "resource_release": {
+      "path": ".data/issue8/protocol-planning/vrcls-exact-name-continuation-v1/runtime/W4-D1/post-main-resource-release.json",
+      "sha256": "25744853bfd6cd5597141d7edd4e6208048600d584789231f33258542a5b4d11"
+    }
+  },
+  "actual_provider_limit": {
+    "service": "recognition",
+    "native_error": "Too many request",
+    "displayed_rule": "10/minute; 10 per 1 minute",
+    "precise_bucket_and_reset_guarantee": null,
+    "basis": {
+      "path": ".data/issue8/protocol-planning/vrcls-exact-name-continuation-v1/runtime/W4-D1/actual-provider-rate-limit-notice.json",
+      "sha256": "65566aa2e7edd1dfe3941389920fab5893fbfb89552d664a1a6f67d2ddcf919a"
+    },
+    "timestamped_matching_log_lines": 178,
+    "matching_lines_without_timestamp": 1,
+    "not_unique_request_counts": true,
+    "timing_attribution": "The independent audit inferred UTC using observed host+09:00 because source log timestamps have no zone; matches span first primary through final repeat. Raw private logs are not exported."
+  },
+  "D3": {
+    "status": "quota_stopped_remaining_work",
+    "main_started": false,
+    "main_source_frames": 0,
+    "source_preflight": "completed before D1 main; not D3 main completion",
+    "disposition": {
+      "path": ".data/issue8/protocol-planning/vrcls-exact-name-continuation-v1/D3-quota-stopped-disposition.json",
+      "sha256": "56668fd895938198313942579bd9dd2dbea0ad1e9cbb221231dcf64de9fa0404"
+    },
+    "reason": "Frozen quota policy carries affected-scope failures across directions/cohorts. No actual capacity recovery evidence; no fresh permission inferred from elapsed time."
+  },
+  "recovery_acceptance": {
+    "helper": {
+      "path": ".data/issue8/protocol-planning/vrcls-exact-name-terminal-cleanup-recovery-v1/register.py",
+      "sha256": "d6a744229c2a0c74bb557f35ca54f4fc185721af43a4a4d2253a085dd14145ad"
+    },
+    "historical_draft": {
+      "path": "profiles/evidence/issue8/vrcls-exact-name-continuation-v1/terminal-cleanup-recovery-addendum.draft.json",
+      "sha256": "803123ca1e28026bc33527ebd8a37124bb7b2e41ed7223381059bb882178376e"
+    },
+    "actual_parent_authority": {
+      "path": ".data/issue8/protocol-planning/vrcls-exact-name-terminal-cleanup-recovery-v1/parent-authority.json",
+      "sha256": "45bf7552fd86818a9a190cd750990d282ae425edeeb7d4f4922fa9ce56d3b8da"
+    },
+    "independent_review": {
+      "path": ".data/issue8/protocol-planning/vrcls-exact-name-continuation-v1/runtime/W4-D1/independent-terminal-recovery-review.txt",
+      "sha256": "add7b67fbd10c7b9e8118c00e98b9587c0e11bd43219870bacbdd16f4f878c87"
+    },
+    "parent_acceptance": {
+      "path": ".data/issue8/protocol-planning/vrcls-exact-name-continuation-v1/runtime/W4-D1/parent-terminal-recovery-acceptance.json",
+      "sha256": "ca9d21b4cece2cf8642353e539ebecf8344571b4ea3ec2b39381c8b25381ad73"
+    },
+    "actual_smoke": {
+      "path": ".data/issue8/protocol-planning/vrcls-exact-name-continuation-v1/runtime/W4-D1/terminal-cleanup-recovery-smoke.json",
+      "sha256": "3d4ac3921898b7c142a15c34ca01ebca260b8ad8e3f1763bd5766fa6aed119d6"
+    },
+    "authorized_validation": {
+      "path": ".data/issue8/protocol-planning/vrcls-exact-name-continuation-v1/runtime/W4-D1/parent-authority-validation.json",
+      "sha256": "9fd05ef67761f20df6f8e67dc050c6b520254005b9a27d023209bf6ff027aae9"
+    },
+    "original_guard_rejection_preserved": true,
+    "duplicate_registration_rejected": true
+  },
+  "batch_accounting": {
+    "registered_profile_direction_slots": 20,
+    "registered_non_PP_slots": 19,
+    "previous19_registered_slots_unchanged": true,
+    "VRCLS_D3_quota_stopped_slots": 1,
+    "PP_pair_slots_owner_reserved": 7,
+    "PP_current_state": "unobserved; no app/diagnostic/settings/journal/cleanup operation",
+    "other9_non_PP_profiles_have_both_D1_D3_registered": true,
+    "later_language_directions_main_not_measured": true
+  },
+  "nonclaims": {
+    "whole_issue_complete": false,
+    "all_main_measurements_complete": false,
+    "quality_scored": false,
+    "costs_measured": false,
+    "new_model_account_or_tier": false,
+    "main_replay": false,
+    "expired_ACK_fabricated": false,
+    "remote_publication": false,
+    "frozen_artifacts_rewritten": false
+  }
+}
